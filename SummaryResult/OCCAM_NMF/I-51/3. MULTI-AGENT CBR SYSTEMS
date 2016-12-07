@@ -1,0 +1,35 @@
+in this paper, we are going to use justifications as arguments, in order to allow learning agents to engage in argumentation processes. 
+in our work, we use lid [2], a cbr method capable of building symbolic justifications such as the one exemplified in figure 1. when an agent provides a justification for a prediction, the agent generates a justified prediction: definition 3.1. a justified prediction is a tuple j = a, p, s, d where agent a considers s the correct solution for problem p, and that prediction is justified a symbolic description d such that j.d j.p. justifications can have many uses for cbr systems [8, 9].
+in the rest of the paper, we will use to denote the subsumption relation.
+all the cases that are subsumed by the justification) belong to the predicted solution class.
+in general, the meaning of a justification is that all (or most of) the cases in the case base of an agent that satisfy the justification (i.e.
+notice that, since the only relevant feature to decide is traffic_light (the only one used to retrieve cases), it is the only one appearing in the justification.
+on autonomous agents and multi-agent systems (aamas 07) problem traffic_light: red cars_passing: no case 1 traffic_light: red cars_passing: no solution: wait case 3 traffic_light: red cars_passing: yes solution: wait case 4 traffic_light: green cars_passing: yes solution: wait case 2 traffic_light: green cars_passing: no solution: cross retrieved cases solution: wait justification traffic_light: red figure 1: an example of justification generation in a cbr system.
+joint conf.
+976 the sixth intl.
+the values of the rest of  attributes are irrelevant, since whatever their value the solution class would have been the same.
+thus, since only this attribute has been used, it is the only one appearing in the justification.
+in the figure, a problem has two  attributes (traffic_light, and cars_passing), the retrieval mechanism of the cbr system notices that by considering only the attribute traffic_light, it can retrieve two cases that predict the same  solution: wait.
+for example, figure 1 shows a justification build by a cbr  system for a toy problem (in the following sections we will show  justifications for real problems).
+it will contain the relevant information that p and c1, ..., cn have in common.
+thus, if a cbr method has retrieved a set of cases c1, ..., cn to solve a particular problem p the justification built will contain the relevant information from the problem p that made the cbr system retrieve that particular set of cases, i.e.
+a justification built by a cbr method after determining that the solution of a particular problem p was sk is a description that  contains the relevant information from the problem p that the cbr method has considered to predict sk as the solution of p. in  particular, cbr methods work by retrieving similar cases to the problem at hand, and then reusing their solutions for the current problem, expecting that since the problem and the cases are similar, the  solutions will also be similar.
+for that purpose, we will benefit from the ability of some machine learning methods to provide justifications.
+we are interested in justifications since they can be used as arguments.
+however, in our approach we use explanations (or justifications) as a tool for  improving communication and coordination among agents.
+most of the existing work on explanation generation focuses on generating explanations to be provided to the user.
+the line of reasoning of the system can then be examined by a human expert, thus increasing the reliability of the system.
+3.1 justified predictions both expert systems and cbr systems may have an explanation component [14] in charge of justifying why the system has  provided a specific answer to the user.
+the next section addresses this issue.
+generate an argument for its predicted solution that can be examined and  critiqued by the other agents).
+however, in order to do so, an agent has to be able to justify its prediction to the other agents (i.e.
+therefore, we say a group of agents perform joint deliberation, when they collaborate to find a joint solution by means of an  argumentation process.
+moreover, we will use the dot notation to refer to elements inside a tuple; e.g., to refer to the solution class of a case c, we will write c.s.
+therefore, a case c = p, s is a tuple containing a case description p and a solution class s ∈ s. in the following, we will use the terms problem and case  description indistinctly.
+in the following we will note the set of all the  solution classes by s = {s1, ..., sk }.
+tasks like classification, where the solution of a problem is achieved by selecting a solution class from an enumerated set of solution classes.
+in this framework, we will restrict ourselves to analytical tasks, i.e.
+agents in a mac system are able to individually solve problems, but they can also collaborate with other agents to solve problems.
+a case base ci = {c1, ..., cm} is a collection of cases.
+each individual agent ai in a mac is completely autonomous and each agent ai has  access only to its individual and private case base ci.
+a multi-agent case based reasoning system (mac) m = {(a1, c1), ..., (an, cn)} is a multi-agent system composed of a = {ai, ..., an}, a set of cbr agents, where each agent ai ∈ a possesses an individual case base ci.

@@ -1,0 +1,20 @@
+our work differs from the above discussed previous works by proposing a) a distributed proxy-based architecture to  decrease bandwidth requirements at the clients and the servers without requiring the proxies to keep state information about the whole game space, b) a dynamic authority assignment technique to reduce latency (by performing consistency checks locally at the client whenever possible) by splitting the  authority between the clients and servers on a per object basis, and c) proposing that cheat detection can be built into the proxies if they are provided more information about the  specific game instead of using them purely as communication proxies (although this idea has not been implemented yet and is part of our future work). 
+although these works propose an architecture where different portions of the simulation space are managed by different servers, they do not address the issue of decreasing the bandwidth required through the use of communication proxies.
+when an object moves from one portion to another, there is a handoff from one server to another.
+these works propose a distributed client-server  architecture for distributed interactive simulations where  different servers are responsible for different portions of the game space.
+fidelity based agent architectures have been proposed in [20, 21].
+this architecture still requires all proxies to be aware of the overall game state over the whole game space unlike our work where we require the proxies to maintain only partial state information about the game space.
+it is mentioned in this work that dividing the game space among multiple games servers such as the federated model presented in [19] is inefficient for a relatively fast game flow and that the proposed architecture alleviates this problem because users do not have to connect to a different server whenever they cross the server boundary.
+proxy servers are located at various different isps.
+the architecture uses interconnected proxy servers that each have a full view of the global game state.
+the further objective is to improve the responsiveness mmogs by  providing low latency communications between the client and the 5th workshop on network & system support for games 2006 - netgames 2006 7 server.
+the main goal of this work is to improve scalability of first-person shooter (fps) and rpg games.
+in [18], a proxy server-network architecture is presented that is aimed at improving scalability of  multiplayer games and lowering latency in server-client data  transmission.
+there is also previous work that has suggested that proxy based architectures be used to alleviate the latency  problem and in addition use proxies to provide congestion  control and cheat-proof mechanisms in distributed multi-player games [17].
+in essence, this paper advocates an authority architecture which is server based even for  peerto-peer games, but does not consider division of authority between a client and a server to minimize latency which could affect game playing experience even with the type of latency found in server based games (where all authority is with the server).
+the paper provides an implementation example of bzflag which is a peer-to-peer game which is modified to transfer all  authority to a central server.
+the paper proposes a hybrid architecture which is  peer-topeer in terms of message exchange (and thereby is scalable) where a central server is used for off-line consistency checks (thereby mitigating consistency check overhead).
+a peer-to-peer architecture, on the other hand, is scalable but there is a significant overhead for consistency checks as this is required at every player.
+it is pointed out that central server architectures are not  scalable because of bandwidth requirements at the server but the overhead for consistency checks are limited as they are performed at the server.
+in [16], different types of architectures are  studied with respect to bandwidth efficiencies and latency.
+it has been noted that in addition to latency, bandwidth requirements also dictate the type of gaming architecture to be used.

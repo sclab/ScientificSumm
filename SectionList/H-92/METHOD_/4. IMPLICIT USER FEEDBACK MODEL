@@ -1,0 +1,98 @@
+Our goal is to accurately interpret noisy user feedback obtained as
+by tracing user interactions with the search engine. Interpreting
+implicit feedback in real web search setting is not an easy task.
+We characterize this problem in detail in [1], where we motivate
+and evaluate a wide variety of models of implicit user activities.
+The general approach is to represent user actions for each search
+result as a vector of features, and then train a ranker on these
+features to discover feature values indicative of relevant (and 
+nonrelevant) search results. We first briefly summarize our features
+and model, and the learning approach (Section 4.2) in order to
+provide sufficient information to replicate our ranking methods
+and the subsequent experiments.
+4.1 Representing User Actions as Features
+We model observed web search behaviors as a combination of a
+``background"" component (i.e., query- and relevance-independent
+noise in user behavior, including positional biases with result
+interactions), and a ``relevance"" component (i.e., query-specific
+behavior indicative of relevance of a result to a query). We design
+our features to take advantage of aggregated user behavior. The
+feature set is comprised of directly observed features (computed
+directly from observations for each query), as well as 
+queryspecific derived features, computed as the deviation from the
+overall query-independent distribution of values for the
+corresponding directly observed feature values.
+The features used to represent user interactions with web search
+results are summarized in Table 4.1. This information was
+obtained via opt-in client-side instrumentation from users of a
+major web search engine.
+We include the traditional implicit feedback features such as
+clickthrough counts for the results, as well as our novel derived
+features such as the deviation of the observed clickthrough number
+for a given query-URL pair from the expected number of clicks on
+a result in the given position. We also model the browsing
+behavior after a result was clicked - e.g., the average page dwell
+time for a given query-URL pair, as well as its deviation from the
+expected (average) dwell time. Furthermore, the feature set was
+designed to provide essential information about the user
+experience to make feedback interpretation robust. For example,
+web search users can often determine whether a result is relevant
+by looking at the result title, URL, and summary - in many cases,
+looking at the original document is not necessary. To model this
+aspect of user experience we include features such as overlap in
+words in title and words in query (TitleOverlap) and the fraction
+of words shared by the query and the result summary.
+Clickthrough features
+Position Position of the URL in Current ranking
+ClickFrequency Number of clicks for this query, URL pair
+ClickProbability Probability of a click for this query and URL
+ClickDeviation Deviation from expected click probability
+IsNextClicked 1 if clicked on next position, 0 otherwise
+IsPreviousClicked 1 if clicked on previous position, 0 otherwise
+IsClickAbove 1 if there is a click above, 0 otherwise
+IsClickBelow 1 if there is click below, 0 otherwise
+Browsing features
+TimeOnPage Page dwell time
+CumulativeTimeOnPage
+Cumulative time for all subsequent pages after
+search
+TimeOnDomain Cumulative dwell time for this domain
+TimeOnShortUrl Cumulative time on URL prefix, no parameters
+IsFollowedLink 1 if followed link to result, 0 otherwise
+IsExactUrlMatch 0 if aggressive normalization used, 1 otherwise
+IsRedirected 1 if initial URL same as final URL, 0 otherwise
+IsPathFromSearch 1 if only followed links after query, 0 otherwise
+ClicksFromSearch Number of hops to reach page from query
+AverageDwellTime Average time on page for this query
+DwellTimeDeviation Deviation from average dwell time on page
+CumulativeDeviation Deviation from average cumulative dwell time
+DomainDeviation Deviation from average dwell time on domain
+Query-text features
+TitleOverlap Words shared between query and title
+SummaryOverlap Words shared between query and snippet
+QueryURLOverlap Words shared between query and URL
+QueryDomainOverlap Words shared between query and URL domain
+QueryLength Number of tokens in query
+QueryNextOverlap Fraction of words shared with next query
+Table 4.1: Some features used to represent post-search
+navigation history for a given query and search result URL.
+Having described our feature set, we briefly review our general
+method for deriving a user behavior model.
+4.2 Deriving a User Feedback Model
+To learn to interpret the observed user behavior, we correlate user
+actions (i.e., the features in Table 4.1 representing the actions)
+with the explicit user judgments for a set of training queries. We
+find all the instances in our session logs where these queries were
+submitted to the search engine, and aggregate the user behavior
+features for all search sessions involving these queries.
+Each observed query-URL pair is represented by the features in
+Table 4.1, with values averaged over all search sessions, and
+assigned one of six possible relevance labels, ranging from
+Perfect to Bad, as assigned by explicit relevance judgments.
+These labeled feature vectors are used as input to the RankNet
+training algorithm (Section 3.3) which produces a trained user
+behavior model. This approach is particularly attractive as it does
+not require heuristics beyond feature engineering. The resulting
+user behavior model is used to help rank web search 
+resultseither directly or in combination with other features, as described
+below.

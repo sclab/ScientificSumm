@@ -1,0 +1,34 @@
+In our experience, the performance of BM25 typically  benefits from tuning the b and k1 parameters to the  collection, whenever training queries are available for this  purpose.
+The  MultiText system performed respectably at INEX 2004, placing in the top ten under all of the quantization functions, and placing first when the quantization function emphasized  exhaustivity.
+Tag names were selected on the basis of their frequency in the collection, the average size of their  associated elements, and the relative number of positive relevance judgments they received.
+As a starting point we used the values b = 0.75 and k1 = 1.2, which perform well on TREC adhoc collections and are used as default values in our system.
+Given a term set Q, an element x is assigned the score   t∈Q w(1) qt (k1 + 1)xt K + xt (1) where w(1) = log ¡ D − Dt + 0.5 Dt + 0.5 ¢ D = number of documents in the corpus Dt = number of documents containing t qt = frequency that t occurs in the topic xt = frequency that t occurs in x K = k1((1 − b) + b · lx/lavg) lx = length of x lavg = average document length 0.07 0.08 0.09 0.10 0.11 0.12 0.13 0.14 0.15 0 2 4 6 8 10 12 14 16 MeanAveragePrecision(inex-2002) k1 strict generalized sog Figure 3: Impact of k1 on inex-2002 mean average precision with b = 0.75 (INEX 2003 CO topics).
+After tuning over a wide range of  values under several quantization functions, we selected values of k = 10.0 and b = 0.80 for our INEX 2004 experiments, and these values are used for the experiments reported in section 7.
+These statistics are used for ranking all element types.
+The score computed for an element is  essentially the score it would receive if it were added to the collection as a new document, ignoring the minor  adjustments needed to the document-level statistics.
+For example, keyword field of topic 166 +"tree edit distance" + XML -image became the four-term query "$tree" "$edit" "$distance" "$xml" where the $ operator within a quoted string stems the term that follows it.
+0.07 0.08 0.09 0.10 0.11 0.12 0.13 0.14 0.15 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 MeanAveragePrecision(inex-2002) b strict generalized sog Figure 4: Impact of b on inex-2002 mean average precision with k1 = 10 (INEX 2003 CO topics). 
+This retrieval method results from the adaptation and tuning of the Okapi BM25  measure [21] to the XML information retrieval task.
+For INEX 2004, the term vector Y was derived from the topic by splitting phrases into individual words, eliminating stopwords and negative terms (those starting with -), and applying a stemmer.
+For the purposes of computing document-level statistics (D, Dt and lavg) a document is defined to be an article.
+To support retrieval from XML and other structured  document types, the system provides generalized queries of the form: rank X by Y where X is a sub-query specifying a set of document elements to be ranked and Y is a vector of sub-queries specifying individual retrieval terms.
+In our experience, optimal  values for k1 are typically in the range 0.0 to 2.0.
+Prior to INEX 2004, the INEX 2003 topics and judgments were used to tune the b and k1 parameters, and the impact of this tuning is discussed later in this section.
+Similar improvements are seen  under the generalized and sog quantizations.
+This approach may be justified by  viewing the collection as a set of articles to be searched using standard document-oriented techniques, where only articles may be returned.
+In contrast, our default value of b = 0.75 works well under all quantization functions (figure 4).
+For our INEX 2004 runs, the sub-query X specified a list of retrievable elements as those with tag names as follows: abs app article bb bdy bm fig fm ip1 li p sec ss1 ss2 vt This list includes bibliographic entries (bb) and figure  captions (fig) as well as paragraphs, sections and subsections.
+Prior to INEX 2004, we trained the MultiText system using the INEX 2003 queries.
+[10], the retrieval  results are filtered to eliminate very short elements, those less than 25 words in length.
+Figure 3 shows the result of varying k1 with b = 0.75 on the MAP values under three quantization functions.
+Prior to INEX 2004, the INEX collection and the INEX 2003 relevance judgments were manually analyzed to select these tag names.
+The use of article statistics for all element types might be questioned.
+This section provides an overview of baseline XML  information retrieval method currently used in the MultiText IR system, developed by the Information Retrieval Group at the University of Waterloo [3].
+Our implementation of Okapi BM25 is derived from the formula of Robertson et al.
+The results were surprising.
+Between k1 = 1.0 and k1 = 6.0 MAP increases by over 15% under the strict quantization.
+In this case, large values are required for good performance.
+Nonetheless, we plan to examine this issue again in the future.
+Following the suggestion of Kamps et al.
+Automating this selection process is planned as future work.
+[21] by setting parameters k2 = 0 and k3 = ∞.

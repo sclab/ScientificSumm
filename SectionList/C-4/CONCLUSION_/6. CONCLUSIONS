@@ -1,0 +1,58 @@
+In this paper we have characterized the behaviour of a 
+samplebased codec (PCM) and a frame-based codec (G.729) in the
+presence of packet loss. We have then developed intraflow
+loss recovery and control mechanisms to increase the 
+perceptual quality. While we have tested other codecs only 
+informally, we think that our results reflect the fundamental 
+difference between codecs which either encode the speech 
+wave‘We also used the G.729 encoder for the redundant source
+coding.
+form directly or which are based on linear prediction. For
+PCM without loss concealment we have found that it 
+neither exhibits significant temporal sensitivity nor sensitivity
+to payload heterogeneity. With loss concealment, however,
+the speech quality is increased but the amount of increase
+exhibits strong temporal sensitivity. Frame-based codecs
+amplify on one hand the impact of loss by error 
+propagation, though on the other hand such coding schemes help to
+perform loss concealment by extrapolation of decoder state.
+Contrary to sample-based codecs we have shown that the
+concealment performance of the G.729 decoder may break
+at transitions within the speech signal however, thus 
+showing strong sensitivity to payload heterogeneity.
+We have briefly introduced a queue management algorithm
+which is able to control loss patterns without changing the
+amount of loss and characterized its performance for the
+loss control of a flow exhibiting temporal sensitivity. Then
+we developed a new packet marking scheme called Speech
+Property-Based Selective Differential Packet Marking for
+an efficient protection of frame-based codecs. The 
+SPBDIFFMARK scheme concentrates the higher priority 
+packets on the frames essential to the speech signal and relies on
+the decoder"s concealment for other frames. We have also
+evaluated the mapping of an end-to-end algorithm to 
+interflow protection. We have found that the selective marking
+scheme performs almost as good as the protection of the 
+entire flow at a significantly lower number of necessary 
+highpriority packets.
+Thus, combined intra-flow end-to-end / hopby-hop schemes
+seem to be well-suited for heavily-loaded networks with a 
+relatively large fraction of voice traffic. This is the case because
+they neither need the addition of redundancy nor feedback
+(which would incur additional data and delay overhead) and
+thus yield stable voice quality also for higher loss rates due
+to absence of FEC and feedback loss. Such schemes can 
+better accomodate codecs with fixed output bitrates, which are
+difficult to integrate into FEC schemes requiring adaptivity
+of both the codec and the redundancy generator. Also, it
+is useful for adaptive codecs running at the lowest possible
+bitrate. Avoiding redundancy and feedback is also 
+interesting in multicast conferencing scenarios where the end-to-end
+loss characteristics of the different paths leading to members
+of the session are largely different. Our work has clearly
+focused on linking simple end-to-end models which can be
+easily parametrized with the known characteristic of 
+hopby-hop loss control to user-level metrics. An analysis of a
+large scale deployment of non-adaptive or adaptive FEC as
+compared to a deployment of our combined scheme requires
+clearly further study.

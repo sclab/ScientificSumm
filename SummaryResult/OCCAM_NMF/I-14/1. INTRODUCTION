@@ -1,0 +1,24 @@
+section 5 discusses related studies and section 6 concludes the paper. 
+section 3 describes a reinforcement learning based approach to direct the routing process; section 4 details the experimental settings and analyze the results.
+the remainder of this paper is organized as follows:  section 2 reviews the hierarchical content sharing systems and the two-phase search algorithm based on such topology.
+to our best knowledge, this is one of the first reinforcement learning applications in addressing distributed content  sharing problems and it is indicative of some of the issues in applying reinforcement in a complex application.
+specifically, the contributions of this paper include: (1) a reinforcement learning based approach for agents to acquire satisfactory routing policies based on estimates of the potential contribution of their neighboring agents; (2) two strategies to speed up the learning process.
+the intention of the reinforcement learning is to adapt the agents" routing decisions to the dynamic network situations and learn from past search sessions.
+however, this organizational structure does not take into account the arrival patterns of queries, including their  frequency, types, and where they enter the system, nor the available communication bandwidth of the network and  processing capabilities of individual agents.
+in the past work, we have shown that this organization improves search performance significantly.
+another way of viewing this paper is that our basic  approach to distributed ir search is to construct a hierarchical overlay network(agent organization) based on the  contentsimilarity measure among agents" document collections in a bottom-up fashion.
+this contrasts with the content-similarity based approaches where similar operations are repeated for every incoming query and the processing time keeps largely constant over time.
+the goal of the learning algorithm, even though it consumes some network bandwidth, is to shorten the routing time so that more queries are processed per time unit while at the same time finding more relevant documents.
+this process is conducted in an iterative manner.
+thereafter, these agents route the queries based on the learned policies and update the estimates on the expected utility based on the new routing policies.
+based on the  updated expected utility information, the agents derive  corresponding routing policies.
+these estimates are  updated gradually by learning from the feedback information returned from previous search sessions.
+particularly, agents  maintain estimates, namely expected utility, on the downstream agents" capabilities of providing relevant documents for  specific types of incoming queries.
+agents can acquire better search strategies by collecting and analyzing feedback information from previous search sessions.
+in this paper, we develop a reinforcement learning based ir approach for improving the performance of distributed ir search algorithms.
+second, the similarity-based approaches do not take into account the run-time characteristics of the p2p ir systems, including environmental parameters, bandwidth usage, and the  historical information of the past search sessions, that provide valuable information for the query routing algorithms.
+first of all,  similaritybased metrics can be myopic since locally relevant nodes may not be connected to other relevant nodes.
+while the content similarity between queries and local nodes  appears to be a creditable indicator for the number of  relevant documents residing on each node, these approaches are limited by a number of factors.
+in the absence of global  information, the dominant strategies in addressing this problem are content-similarity based approaches [6, 13, 14, 15].
+in this line of research, one of the core  problems that concerns researchers is to efficiently route user queries in the network to agents that are in possession of appropriate documents.
+over the last few years there have been increasing  interests in studying how to control the search processes in peer-to-peer(p2p) based information retrieval(ir) systems [6, 13, 14, 15].

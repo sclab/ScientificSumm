@@ -1,0 +1,15 @@
+since m ≤ h and m ≤ n, the time complexity is also o(nh log n). 
+the down  routine does not report its argument, but instead recomputes its score and adds it back into s. a node cannot be an argument to down more than m +1 times, which in turn implies an overall time complexity of o((nm + mh) log n).
+the up routine returns immediately (line 2) if its argument has already been reported, since term frequencies have already been adjusted in its ancestors.
+the weight to be applied to the node by adjusting the value of xt in equation 1, as follows: xt = βx.j · (ft − α · gt) (3) where ft and gt are the components of x.f and x.g  corresponding to term t. a few additional changes are required to extend up and down.
+when computing the score of node, the value of x.j selects 1 up(x, y) ≡ 2 if not y.reported then 3 s.remove(y) 4 y.g ← y.g + x.f − x.g 5 recompute y.score 6 s.add(y) 8 if y is not a root node then 9 up (x, y.parent) 10 end if 11 end if 12 13 down(x) ≡ 14 if x.j < m then 15 x.j ← x.j + 1 16 if not x.reported then 17 s.remove(x) 18 recompute x.score 19 s.add(x) 20 end if 21 foreach y ∈ x.children do 22 down (y) 23 end do 24 end if figure 9: extended tree traversal routines.
+one extra field is required in each node, as follows: x.j - down count the value of x.j is initially set to zero in all nodes and is incremented each time down is called with x as its argument.
+figure 9 presents replacements for the up and down  routines of figure 6, incorporating this series of weights.
+however, in practice m is likely to be relatively small (perhaps 3 or 4).
+note that an upper bound on m is h, the maximum height of any xml tree in the collection.
+motivated by these observations, the re-ranking algorithm may be extended with a series of weights 1 = β0 ≥ β1 ≥ β2 ≥ ... ≥ βm ≥ 0. where βj is the weight applied to a node that has been a descendant of a reported node j times.
+since the user may now have seen this paragraph twice, its score should be further lowered by increasing the value of the weight.
+for example, a paragraph may form part of a reported section and then form part of a reported article.
+furthermore, the same weight is used regardless of the number of times an element is contained in a reported element.
+an obvious extension is to use different weights in these two cases.
+one limitation of the re-ranking algorithm is that a single weight α is used to adjust the scores of both the ancestors and descendants of reported elements.

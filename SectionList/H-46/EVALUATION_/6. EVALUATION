@@ -1,0 +1,55 @@
+Below, we evaluate Section 4"s models for expert finding and
+profiling onthe UvT Expert collection. We detail our research 
+questions and experimental setup, and then present our results.
+6.1 Research Questions
+We address the following research questions. Both expert finding
+and profiling rely on the estimations of p(q|ca). The question is
+how the models compare on the different tasks, and in the setting of
+the UvT Expert collection. In [4], Model 2 outperformed Model 1
+on the W3C collection. How do they compare on our data set? And
+how does Model 3 compare to Model 1? What about performance
+differences between the two languages in our test collection?
+6.2 Experimental Setup
+The output of our models was evaluated against the self-assigned
+topic labels, which were treated as relevance judgements. Results
+were evaluated separately for English and Dutch. For English we
+only used topics for which the Dutch translation was available; for
+Dutch all topics were considered. The results were averaged for
+the queries in the intersection of relevance judgements and results;
+missing queries do not contribute a value of 0 to the scores.
+We use standard information retrieval measures, such as Mean
+Average Precision (MAP) and Mean Reciprocal Rank (MRR). We
+also report the percentage of topics (%q) and candidates (%ca) 
+covered, for the expert finding and profiling tasks, respectively.
+6.3 Results
+Table 1 shows the performance of Model 1, 2, and 3 on the 
+expert finding and profiling tasks. The rows of the table correspond
+to the various document types (RD, CD, PUB, and HP) and to their
+combinations. RD+CD+PUB+HP is equivalent to the full 
+collection and will be referred as the BASELINE of our experiments.
+Looking at Table 1 we see that Model 2 performs the best across
+the board. However, when the data is clean and very focused (RD),
+Model 3 outperforms it in a number of cases. Model 1 has the
+best coverage of candidates (%ca) and topics (%q). The various
+document types differ in their characteristics and how they improve
+the finding and profiling tasks. Expert profiling benefits much from
+the clean data present in the RD and CD document types, while the
+publications contribute the most to the expert finding task. Adding
+the homepages does not prove to be particularly useful.
+When we compare the results across languages, we find that the
+coverage of English topics (%q) is higher than of the Dutch ones
+for expert finding. Apart from that, the scores fall in the same range
+for both languages. For the profiling task the coverage of the 
+candidates (%ca) is very similar for both languages. However, the 
+performance is substantially better for the English topics.
+While it is hard to compare scores across collections, we 
+conclude with a brief comparison of the absolute scores in Table 1 to
+those reported in [3, 4] on the W3C test set (2005 edition). For
+expert finding the MAP scores for Model 2 reported here are about
+50% higher than the corresponding figures in [4], while our MRR
+scores are slightly below those in [4]. For expert profiling, the 
+differences are far more dramatic: the MAP scores for Model 2 
+reported here are around 50% below the scores in [3], while the (best)
+MRR scores are about the same as those in [3]. The cause for the
+latter differences seems to reside in the number of knowledge areas
+considered here-approx. 30 times more than in the W3C setting.

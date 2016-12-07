@@ -1,0 +1,49 @@
+the up and down arrows represent ri and di,  respectively, while the length of the box equals li. 
+table 1: input used to recap td1 (version 2) [4].
+job ri di li vi 1 0.0 0.9 0.9 0.9 2 0.5 5.5 4.0 4.0 3 4.8 17.0 12.2 12.2 01 5 17 6 ?
+because this is not case at time 4.8 (since te −tb +p loss 4 = 17.0−0.9+4.0 4 > 4.0 = l2), the algorithm preempts job 2 for job 3, which then executes to completion.
+because in general this job could have  laxity, the oﬄine algorithm may be able to complete it outside of the range [tb , te ].1 if the algorithm completes the active job and this job"s length is at least te −tb +p loss 4 , then the algorithm is guaranteed to be 4-competitive for this  interval (note that k = 1 implies that all jobs have the same value density and thus that lengths can used to compute the competitive ratio).
+the other variable, p loss, is equal to the length of the first active job of the current interval.
+in this case, te = 17.0. the value te −tb represents the an upper bound on the amount of  possible execution time lost to the optimal oﬄine algorithm due to the completion of the active job.
+the former records the latest deadline of a job that would be abandoned if the active job executes to completion (or, if no such job exists, the time that the active job will finish if it is not preempted).
+in order to decide whether to preempt the active job, td1 (version 2) uses two more variables: te and p loss.
+before job 2 can finish, preemption is considered at time 4.8, when job 3 is released with zero laxity.
+no preemption is considered during this interval, because job 2 has laxity until time 1.5. then, a new interval starts at tb = 0.9 when job 2 becomes active.
+for example, when the input is the set of jobs listed in table 1, the first interval is the complete execution of job 1 over the range [0.0, 0.9].
+the first active job of an interval may have laxity; however, for the remainder of the interval, preemption of the active job is only considered when some other job has zero laxity.
+td1 (version 2) divides the schedule into intervals, each of which begins when the processor transitions from idle to busy (call this time tb ), and ends with the completion of a job.
+in this section we provide a high-level description of td1 (version 2) using an example.
+2.2 previous results in the non-strategic setting, [4] presents a 4-competitive algorithm called td1 (version 2) for the case of k = 1, while [15] presents a (1+ √ k)2 -competitive algorithm called dover for the general case of k ≥ 1. matching lower bounds for deterministic algorithms for both of these cases were shown 62 in [4].
+without such an assumption, it is not possible to achieve a finite competitive ratio [15].
+a period of time [ts , tf ] is overloaded if the sum of the lengths of the jobs whose release time and deadline both fall within the time period exceeds the  duration of the interval (formally, if tf −ts ≤ i|(ts≤ri,di≤tf ) li).
+an algorithm that is c-competitive is also said to achieve a competitive ratio of c. we assume that there does not exist an overload period of infinite duration.
+an online algorithm f(·) is (strictly) c-competitive if there does not exist an input θ such that c · w(f(θ), θ) < w∗ (θ).
+because the oﬄine algorithm knows the entire input θ at time 0 (but still cannot start each job i until time ri), it  always achieves w∗ (θ).
+let w∗ (θ) = maxo∈o w(o, θ) denote the maximum possible total value for the profile θ. in competitive analysis, an online algorithm is evaluated by comparing it against an optimal oﬄine algorithm.
+the objective function is the sum of the values of the jobs that are completed by their respective deadlines: w(o, θ) = i vi · µ(ei(θ, di) ≥ li) .
+formally, let θ(t) denote the subset of the tuples in θ that satisfy ri ≤ t. the constraint is then that θ(t) = θ (t) implies s(θ, t) = s(θ , t).
+for example, s(θ, t) is shorthand for the s(t) of the outcome f(θ), and it denotes the active job at time t when the input is θ. since a job cannot be executed before its release time, the space of possible outcomes is restricted in that s(θ, t) = i implies ri ≤ t. also, because the online algorithm must produce the schedule over time, without knowledge of future inputs, it must make the same decision at time t for inputs that are indistinguishable at this time.
+also, overload s(·) and ei(·) so that they can also take a vector θ as an argument.
+a job is abandoned if it cannot be completed by its deadline (formally, if di −t+ei(t) < li).
+a job"s laxity at time t is defined to be di − t − li + ei(t) , the amount of time that it can remain inactive and still be completed by its deadline.
+to denote the total elapsed time that a job has spent on the processor at time t, we will use the function ei(t) = t 0 µ(s(x) = i)dx, where µ(·) is an indicator function that returns 1 if the argument is true, and zero otherwise.
+, n}, which maps each point in time to the active job, or to 0 if the processor is idle.
+× θn → o that maps the vector of tuples (for any number n) to an outcome o. an outcome o ∈ o is simply a schedule of jobs on the processor, recorded by the function s : + → {0, 1, .
+for simplicity, we normalize the range of possible value densities so that ρmin = 1. an online algorithm is a function f : θ1 × .
+the algorithm is assumed to always know an upper bound k on the importance ratio.
+the importance ratio is then defined to be ρmax ρmin , the maximal ratio of value densities between two jobs.
+for an input θ, denote the maximum and minimum value densities as ρmin = mini ρi and ρmax = maxi ρi.
+define the value density ρi = vi li of job i to be the ratio of its value to its length.
+, θn ) denote the same vector without the tuple for job i. thus, (θi, θ−i) denotes a complete vector of tuples.
+, θi−1, θi+1, .
+, θn ) denote the vector of tuples for all jobs, and let θ−i = (θ1, .
+let θ = (θ1, .
+thus, job i is completed if and only if the total time it executes on the processor before di is at least li.
+preemption of jobs is  allowed, and it takes no time to switch between jobs.
+each deadline is firm (or, hard), which means that no value is obtained for a job that is completed after its deadline.
+nothing is known about the job before its arrival.
+each job is released at time ri, at which point its three other characteristics are known.
+the space θi of possible tuples is the same for each job and consists of all θi such that ri, di, li, vi ∈ + (thus, the model of time is continuous).
+each job i is characterized by a tuple θi = (ri, di, li, vi), which denotes the release time, deadline, length of  processing time required, and value, respectively.
+2.1 formulation there exists a single processor on which jobs can execute, and n jobs, although this number is not known beforehand.
+in this section, we formally define the original, non-strategic setting, and recap previous results.

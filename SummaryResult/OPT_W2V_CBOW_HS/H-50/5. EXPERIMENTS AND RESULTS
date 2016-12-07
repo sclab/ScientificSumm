@@ -1,0 +1,102 @@
+• for all the runs, considering documents even those  present in only one input ranking (A3) significantly  improves performance.
+Therefore, whether we consider all the documents which are present in half of the rankings (mcm24) or we consider all the documents which are ranked in the first 100 positions in one or more rankings (mcm25), increases performances.
+5.2.3 Impact of the Variation of the Number of Input Rankings To study performance evolution when different sets of  input rankings are considered, we carried three more runs where 2, 4, and 6 of the best performing sets of the  input rankings are considered.
+For the comparisons, we  considered a specific outranking relation S∗ = S(5%,50%,50%,30%) which results in good overall performances when tuning all the parameters.
+• considering the TD queries of the Web track of  TREC2002, performances of all the data fusion methods are lower than that of the best performing input ranking for which the MAP value equals 18.58%.
+• performances of the data fusion methods mcm and markov are significantly better than that of the best input ranking uogWebCAU150.
+The last row of Table 10, labeled A6, reports performance of the various methods considering the TD task of  TREC2002 instead of TREC-2004: we fused the results of input rankings of the 10 best official runs for each of the 50 TD queries [9] considering the set of assumptions A1 of the first row.
+5.2 Results We carried out several series of runs in order to i) study performance variations of the outranking approach when tuning the parameters and working assumptions, ii)  compare performances of the outranking approach vs standard rank aggregation strategies , and iii) check whether rank aggregation performs better than the best input rankings.
+In fact, runs with different veto thresholds (sv ∈ [50%; 100%]) had similar performances even though there is a slight  advantage for runs with high threshold values which means that it is better not to allow the input rankings to put their veto easily.
+The first row of Table 10 gives performances of the rank aggregation methods w.r.t.
+5.2.2 Impact of the Variation of the Parameters Table 7 shows performance variation of the outranking  approach when different preference thresholds are considered.
+This is because most of the fused input rankings have very low  performances compared to the best one, which brings more noise to the consensus ranking.
+a basic assumption set A1 = (H1 100, H2 5 , H4 new): we only consider the 100 first documents from each ranking, then retain documents present in 5 or more rankings and update ranks of successful documents.
+Table 9: Performance considering different best  performing sets of input rankings Run Id MAP S@1 S@5 S@10 mcm (10) 18.47% 41.33% 81.33% 86.67% mcm27 (6) 18.60% (+0.70%) 41.33% 80.00% 85.33% mcm28 (4) 19.02% (+2.98%) 40.00% 86.67% 88.00% mcm29 (2) 18.33% (-0.76%) 44.00% 76.00% 88.00% 5.2.4 Comparison of the Performance of Different Rank Aggregation Methods In this set of runs, we compare the outranking approach with some standard rank aggregation methods which were proven to have acceptable performance in previous studies: we considered two positional methods which are the  CombSUM and the CombMNZ strategies.
+considering the documents present in at least one ranking.
+We considered that each input ranking is a complete  order (sp = 0) and that an input ranking strongly refutes diσdi when the difference of both document positions is large enough (sv = 75%).
+In Table 4: Impact of the working assumptions Run Id MAP S@1 S@5 S@10 mcm 18.47% 41.33% 81.33% 86.67% mcm22 (H3 yes) 17.72% (-4.06%) 34.67% 81.33% 86.67% mcm23 (H4 init) 18.26% (-1.14%) 41.33% 81.33% 86.67% mcm24 (H1 all) 20.67% (+11.91%*) 38.66% 80.00% 86.66% mcm25 (H2 all) 21.68% (+17.38%*) 40.00% 78.66% 89.33% this table, we first show that run mcm22, in which missing documents are all put in the same last position of each input ranking, leads to performance drop w.r.t.
+Table 6: Performance considering different rank hits Run Id MAP S@1 S@5 S@10 mcm25 (1) 21.68% (+17.38%*) 40.00% 78.67% 89.33% mcm32 (3) 18.98% (+2.76%) 38.67% 80.00% 85.33% mcm (5) 18.47% 41.33% 81.33% 86.67% mcm33 (7) 15.83% (-14.29%*) 37.33% 78.67% 85.33% mcm34 (9) 10.96% (-40.66%*) 36.11% 66.67% 70.83% mcm35 (10) 7.42% (-59.83%*) 39.22% 62.75% 64.70% For both runs mcm24 and mcm25, the number of successful documents was about 1000 and therefore, the computation time per query increased and became around 5 seconds.
+Table 8: Impact of the variation of cmin Run Id MAP S@1 S@5 S@10 mcm11 (20%) 17.63% (-4.55%*) 41.33% 76.00% 85.33% mcm12 (40%) 18.37% (-0.54%) 42.67% 76.00% 86.67% mcm (50%) 18.47% 41.33% 81.33% 86.67% mcm13 (60%) 18.42% (-0.27%) 40.00% 78.67% 86.67% mcm14 (80%) 17.43% (-5.63%*) 40.00% 78.67% 86.67% mcm15 (100%) 16.12% (-12.72%*) 41.33% 70.67% 85.33% In the experiments, varying the veto threshold as well as the discordance threshold within reasonable intervals does not have significant impact on performance measures.
+We can conclude that in order to put document di before di in the consensus ranking, Table 7: Impact of the variation of the preference threshold from 0 to 12.5% Run Id MAP S@1 S@5 S@10 mcm (0%) 18.47% 41.33% 81.33% 86.67% mcm1 (1%) 18.57% (+0.54%) 41.33% 81.33% 86.67% mcm2 (2.5%) 18.63% (+0.87%) 42.67% 78.67% 86.67% mcm3 (5%) 18.69% (+1.19%) 46.67% 81.33% 86.67% mcm4 (7.5%) 18.24% (-1.25%) 46.67% 81.33% 86.67% mcm5 (10%) 17.93% (-2.92%) 40.00% 82.67% 86.67% mcm5b (12.5%) 17.51% (-5.20%*) 41.33% 80.00% 86.67% at least half of the input rankings of PRi ∩ PRi should be concordant.
+Table 5, where  values between brackets of the first column give the number of documents which are retained from each input ranking, shows that selecting more documents from each input  ranking leads to performance increase.
+Also, from Table 4, we found that the performances of runs mcm and mcm23 are similar.
+For mcm, combSUM and combMNZ, performance improvement is more important (MAP  increases by 20.27% on average) than for the markov run (MAP increases by 3.86%).
+Table 10: Performance (MAP) of different rank  aggregation methods under 3 different test collections mcm combSUM combMNZ markov A1 18.79% 17.54% (-6.65%*) 17.08% (-9.10%*) 18.63% (-0.85%) A2 21.36% 19.18% (-10.21%*) 18.61% (-12.87%*) 21.33% (-0.14%) A3 21.92% 21.38% (-2.46%) 20.88% (-4.74%) 19.35% (-11.72%*) A4 18.64% 17.58% (-5.69%*) 17.18% (-7.83%*) 18.63% (-0.05%) A5 55.39% 52.16% (-5.83%*) 49.70% (-10.27%*) 53.30% (-3.77%) A6 16.95% 15.65% (-7.67%*) 14.57% (-14.04%*) 16.39% (-3.30%) From the analysis of table 10 the following can be  established: • for all the runs, considering all the documents in each input ranking (A2) significantly improves performance (MAP increases by 11.62% on average).
+It is worth mentioning that selecting more than 600 documents from each input ranking does not improve performance.
+The fifth row of Table 10, labeled A5, gives performance when all the 225 queries of the Web track of TREC-2004 are considered.
+We retained the top 100 best documents from each input ranking (H1 100), only considered documents which are present in at least half of the input rankings (H2 5 ) and  assumed H3 no and H4 new.
+For instance, in the run mcm32, only documents which are present in 3 or more input rankings, were considered successful.
+In the  experiments, significance testing is mainly based on the t-student statistic which is computed on the basis of the MAP values of the compared runs.
+The performances of these runs are reported in table 3.
+Our approach effectiveness is compared against some high performing official results from TREC-2004 as well as against some standard rank aggregation algorithms.
+• considering all the queries of the Web track of  TREC2004 (A5) as well as the TD queries of the Web track of TREC-2002 (A6) does not alter the relative  performance of the different data fusion methods.
+In addition, to accept the assertion diσdi , we supposed that the majority of the  rankings must be concordant (cmin = 50%) and that every input ranking can impose its veto (dmax = 0).
+From the same Table 4, performance of the outranking approach increases significantly for runs mcm24 and mcm25.
+This shows that several relevant documents which were initially put at the first position of the consensus ranking in mcm, lose this first position but remain ranked in the top 5 documents since S@5 did not change.
+For positional methods, we place missing documents at the queue of the ranking (H3 yes) whereas for our method as well as for MC4, we retained hypothesis H3 no.
+Values between brackets of Table 10 are variations of  performance of each rank aggregation method w.r.t.
+Preference and veto thresholds are computed proportionally to the number of documents  retained in each input ranking.
+We found performance improvement up to threshold values of about 5%, then there is a decrease in the performance which becomes significant for threshold values greater than 10%.
+This result was predictable since in both cases we have more  detailed information on the relative importance of documents.
+For evaluation, we used the ‘trec eval" standard tool which is used by the TREC community to calculate the standard measures of system effectiveness which are Mean Average Precision (MAP) and Success@n (S@n) for n=1, 5 and 10.
+keeping the original ranks of successful documents.
+For each query, we retained the  rankings of the 10 best runs of the TD task which are provided by TREC-2004 participating teams.
+Table 5: Impact of the number of retained  documents Run Id MAP S@1 S@5 S@10 mcm (100) 18.47% 41.33% 81.33% 86.67% mcm24-1 (200) 19.32% (+4.60%) 42.67% 78.67% 88.00% mcm24-2 (400) 19.88% (+7.63%*) 37.33% 80.00% 88.00% mcm24-3 (600) 20.80% (+12.62%*) 40.00% 80.00% 88.00% mcm24-4 (800) 20.66% (+11.86%*) 40.00% 78.67% 86.67% mcm24 (1000) 20.67% (+11.91%*) 38.66% 80.00% 86.66% Table 6 reports runs corresponding to variations of H2 k .
+• preserving the initial positions of documents (A4) or recomputing them (A1) does not have a noticeable  influence on performance for both positional and  majoritarian methods.
+Obviously, performance level cannot be  compared with previous lines since the additional queries are different from the TD queries and correspond to other tasks (Home Page and Named Page tasks [10]) of TREC-2004 Web track.
+This set of runs aims to show whether relative performance of the various methods is task-dependent.
+We can thus conclude that the input rankings are semi orders rather than complete orders.
+For these runs we did not get any noticeable performance  variation, although for low discordance thresholds (dmax < 20%), performance slightly decreased.
+The three  following rows of Table 10 report performances when changing one element from the basic assumption set: the second row corresponds to the assumption set A2 = (H1 1000, H2 5 , H4 new), i.e.
+Values between brackets are rank hits.
+This  table shows that performance is significantly better when rare documents are considered, whereas it decreases significantly when these documents are discarded.
+We also examined the performance of one majoritarian method which is the Markov chain method (MC4).
+It is worth noting that we found similar distributions of the documents among the rankings as in [11].
+This shows that majoritarian methods are less sensitive to assumptions than positional methods.
+Values between brackets of the first column of each table, indicate the parameter value of the corresponding run.
+Nevertheless, this result shows that low performing rankings bring more noise than information to the establishment of the consensus ranking.
+They consequently may vary from one ranking to another.
+To test the run mcm, we had chosen the following  assumptions.
+The number of documents retrieved by all these runs ranges from 543 to 5769.
+5.1 Test Setting To facilitate empirical investigation of the proposed  methodology, we developed a prototype metasearch engine that implements a version of our outranking approach for rank aggregation.
+Also, tuning the discordance threshold was  carried out for values 50% and 75% of the veto threshold.
+It has also better performances than the Markov chain method, especially under assumption H2 all where  difference of performances becomes significant. 
+Consequently, when they are missing in some rankings, assigning worse ranks to these documents is harmful for performance.
+Thus, we hereafter begin by studying performance variation when different sets of assumptions are considered.
+Therefore, when they are considered, performance decreases.
+In these conditions, the number of successful documents was about 100 on average, and the computation time per query was less than one second.
+Concordance and discordance thresholds are computed for each tuple (di, di ) as the percentage of the input rankings of PRi ∩PRi .
+• outranking approach always performs significantly  better than positional methods combSUM and combMNZ.
+Performance drops significantly for very low and very high values of the concordance threshold.
+Therefore, the outranking approach is not sensitive to keeping the initial positions of candidate documents or recomputing them by discarding excluded ones.
+Finally, we compare our model performances w.r.t.
+Obviously, modifying the working assumptions should have deeper impact on the performances than tuning our model parameters.
+Therefore, we  conclude that many of the relevant documents are retrieved by a rather small set of IR models.
+Table 3: Performances of the 10 best runs of the TD task of TREC-2004 Run Id MAP P@10 S@1 S@5 S@10 uogWebCAU150 17.9% 24.9% 50.7% 77.3% 89.3% MSRAmixed1 17.8% 25.1% 38.7% 72.0% 88.0% MSRC04C12 16.5% 23.1% 38.7% 74.7% 80.0% humW04rdpl 16.3% 23.1% 37.3% 78.7% 90.7% THUIRmix042 14.7% 20.5% 21.3% 58.7% 74.7% UAmsT04MWScb 14.6% 20.9% 36.0% 66.7% 76.0% ICT04CIIS1AT 14.1% 20.8% 33.3% 64.0% 78.7% SJTUINCMIX5 12.9% 18.9% 29.3% 57.3% 72.0% MU04web1 11.5% 19.9% 33.3% 64.0% 76.0% MeijiHILw3 11.5% 15.3% 30.7% 54.7% 64.0% Average 14.7% 21.2% 34.9% 66.8% 78.94% For each query, each run provides a ranking of about 1000 documents.
+We also conclude that documents which have rather good positions in some input rankings are more likely to be relevant, even though they are missing in some other rankings.
+Moreover, S@1 improves from 41.33% to 46.67% when preference threshold changes from 0 to 5%.
+Table 8 shows the evolution of the performance measures w.r.t.
+This is  predictable since some initially unreported relevant  documents would receive better positions in the consensus ranking.
+changing the number of retained documents from 100 to 1000.
+performance of the outranking approach.
+Their average (median)  number is 3340 (3386).
+In the tables of the following section, statistically significant differences are marked with an  asterisk.
+We set our basic run mcm with the following parameters.
+the input  rankings as well as some standard data fusion algorithms.
+This remains true for runs combSUM and combMNZ only under assumptions H1 all or H2 all.
+In this task, there are 75 topics where only a short  description of each is given.
+Thus, our choice of parameters leads to the definition of the  outranking relation S(0,75%,50%,0).
+The fourth row corresponds to the assumption set A4 = (H1 100, H2 5 , H4 init), i.e.
+5.2.1 Impact of the Working Assumptions Table 4 summarizes the performance variation of the  outranking approach under different working hypotheses.
+Therefore, the outranking relation becomes either too weak or too strong respectively.
+the concordance threshold.
+In fact, for such values, the concordance condition is either fulfilled rather always by too many document pairs or not fulfilled at all, respectively.
+The third row corresponds to the assumption set A3 = (H1 100, H2 all, H4 new), i.e.
+Results reported in Table 9 are seemingly counter-intuitive and also do not support  previous findings regarding rank aggregation research [3].
+Tables 5 and 6 confirm this evidence.
+Afterwards, we study the impact of tuning parameters.
+This aims to show whether relative performance of the various methods changes from year to year.
+run mcm.
+This was validated by preliminary experiments.
+In this paper, we apply our approach to the Topic Distillation (TD) task of TREC-2004 Web track [10].
+Moreover, S@1 moves from 41.33% to 34.67% (-16.11%).

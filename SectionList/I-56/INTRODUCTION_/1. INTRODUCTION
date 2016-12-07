@@ -1,0 +1,105 @@
+At the core of many emerging distributed applications is the
+distributed constraint satisfaction problem (DCSP) - one which
+involves finding a consistent combination of actions (abstracted as
+domain values) to satisfy the constraints among multiple agents
+in a shared environment. Important application examples include
+distributed resource allocation [1] and distributed scheduling [2].
+Many important algorithms, such as distributed breakout (DBO)
+[3], asynchronous backtracking (ABT) [4], asynchronous partial
+overlay (APO) [5] and asynchronous weak-commitment (AWC)
+[4], have been developed to address the DCSP and provide the
+agent solution basis for its applications. Broadly speaking, these
+algorithms are based on two different approaches, either 
+extending from classical backtracking algorithms [6] or introducing 
+mediation among the agents.
+While there has been no lack of efforts in this promising 
+research field, especially in dealing with outstanding issues such as
+resource restrictions (e.g., limits on time and communication) [7]
+and privacy requirements [8], there is unfortunately no 
+conceptually clear treatment to prise open the model-theoretic workings of
+the various agent algorithms that have been developed. As a 
+result, for instance, a deeper intellectual understanding on why one
+algorithm is better than the other, beyond computational issues,
+is not possible.
+In this paper, we present a novel, unified distributed constraint
+satisfaction framework based on automated negotiation [9]. 
+Negotiation is viewed as a process of several agents searching for a
+solution called an agreement. The search can be realized via a
+negotiation mechanism (or algorithm) by which the agents follow
+a high level protocol prescribing the rules of interactions, using
+a set of strategies devised to select their own preferences at each
+negotiation step.
+Anchoring the DCSP search on automated negotiation, we
+show in this paper that several well-known DCSP algorithms
+[3] are actually mechanisms that share the same 
+Belief-DesireIntention (BDI) interaction protocol to reach agreements, but
+use different action or value selection strategies. The proposed
+framework provides not only a clearer understanding of existing
+DCSP algorithms from a unified BDI agent perspective, but also
+opens up the opportunities to extend and develop new strategies
+for DCSP. To this end, a new strategy called Unsolicited Mutual
+Advice (UMA) is proposed. Our performance evaluation shows
+that UMA can outperform ABT and AWC in terms of the average
+number of computational cycles for both the sparse and critical
+coloring problems [6].
+The rest of this paper is organized as follows. In Section 2,
+we provide a formal overview of DCSP. Section 3 presents a BDI
+negotiation model by which a DCSP agent reasons. Section 4
+presents the existing algorithms ABT, AWC and DBO as 
+different strategies formalized on a common protocol. A new strategy
+called Unsolicited Mutual Advice is proposed in Section 5; our
+empirical results and discussion attempt to highlight the merits
+of the new strategy over existing ones. Section 6 concludes the
+paper and points to some future work.
+2. DCSP: PROBLEM FORMALIZATION
+The DCSP [4] considers the following environment.
+• There are n agents with k variables x0, x1, · · · , xk−1, n ≤
+k, which have values in domains D1, D2, · · · , Dk, 
+respectively. We define a partial function B over the 
+productrange {0, 1, . . . , (n−1)}×{0, 1, . . . , (k −1)} such that, that
+variable xj belongs to agent i is denoted by B(i, j)!. The
+exclamation mark ‘!" means ‘is defined".
+• There are m constraints c0, c1, · · · cm−1 to be conjunctively
+satisfied. In a similar fashion as defined for B(i, j), we use
+E(l, j)!, (0 ≤ l < m, 0 ≤ j < k), to denote that xj is
+relevant to the constraint cl.
+The DCSP may be formally stated as follows.
+Problem Statement: ∀i, j (0 ≤ i < n)(0 ≤ j < k) where
+B(i, j)!, find the assignment xj = dj ∈ Dj such that ∀l (0 ≤ l <
+m) where E(l, j)!, cl is satisfied.
+A constraint may consist of different variables belonging to
+different agents. An agent cannot change or modify the 
+assignment values of other agents" variables. Therefore, in 
+cooperatively searching for a DCSP solution, the agents would need to
+communicate with one another, and adjust and re-adjust their
+own variable assignments in the process.
+2.1 DCSP Agent Model
+In general, all DCSP agents must cooperatively interact, and
+essentially perform the assignment and reassignment of domain
+values to variables to resolve all constraint violations. If the
+agents succeed in their resolution, a solution is found.
+In order to engage in cooperative behavior, a DCSP agent needs
+five fundamental parameters, namely, (i) a variable [4] or a 
+variable set [10], (ii) domains, (iii) priority, (iv) a neighbor list and
+(v) a constraint list.
+Each variable assumes a range of values called a domain. A
+domain value, which usually abstracts an action, is a possible 
+option that an agent may take. Each agent has an assigned priority.
+These priority values help decide the order in which they revise
+or modify their variable assignments. An agent"s priority may be
+fixed (static) or changing (dynamic) when searching for a 
+solution. If an agent has more than one variable, each variable can
+be assigned a different priority, to help determine which variable
+assignment the agent should modify first.
+An agent which shares the same constraint with another agent
+is called the latter"s neighbor. Each agent needs to refer to its list
+of neighbors during the search process. This list may also be kept
+unchanged or updated accordingly in runtime. Similarly, each
+agent maintains a constraint list. The agent needs to ensure that
+there is no violation of the constraints in this list. Constraints can
+be added or removed from an agent"s constraint list in runtime.
+As with an agent, a constraint can also be associated with a
+priority value. Constraints with a high priority are said to be
+more important than constraints with a lower priority. To 
+distinguish it from the priority of an agent, the priority of a constraint
+is called its weight.

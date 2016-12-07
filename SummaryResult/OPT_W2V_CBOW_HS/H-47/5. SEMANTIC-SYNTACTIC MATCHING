@@ -1,0 +1,72 @@
+To determine the rate of decline we consider the impact on the specificity of the match when we substitute a class with one of its ancestors.
+Next, each page and ad term is associated with a weight based on the tf-idf values.
+To calculate the keyword score we use the vector space model [1] where both the pages and ads are represented in n-dimensional space - one dimension for each distinct term.
+The tf value is determined based on the individual ad sections.
+In general we would like the match to be stronger when both the ad and the page are classified into the same node Figure 2: Two generalization paths and weaker when the distance between the nodes in the  taxonomy gets larger.
+On the ad side, it has been shown in previous work that the set of ads of one campaign provide good scope for the estimation of idf that leads to improved matching results [8].
+Generalization can help to place ads in cases when there is no ad that matches both the category and the keywords of the page.
+To combine the impact of the term"s section and its tf-idf score, the ad/page term weight is defined as: tWeight(kwsi ) = weightSection(Si) · tf idf(kw) where tWeight stands for term weight and weightSection(Si) is the weight assigned to a page or ad section.
+For example the node Hobby in our taxonomy has tens of children, each representing a different hobby, two examples being Sailing and Knitting.
+The inverse distance function idist(c1, c2) takes two nodes on the same path in the class taxonomy and returns a number in the interval [0, 1] depending on the distance of the two class nodes.
+Now we define the relevance score of an ad ai and page pi as a convex combination of the keyword (syntactic) and classification (semantic) score: Score(pi, ai) = α · TaxScore(Tax(pi), Tax(ai)) +(1 − α) · KeywordScore(pi, ai) The parameter α determines the relative weight of the  taxonomy score and the keyword score.
+However for simplicity, in this work we chose a  simple heuristic to determine the cost of generalization from a child to a parent.
+Based on this, let nc be the number of document classified into the subtree rooted at c. Then we define: idist(c, p) = nc np where c represents the child node and p is the parent node.
+To capture both the generalization and efficiency  requirements we define the TaxScore function as follows: TaxScore(PC, AC) = X pc∈P C X ac∈AC idist(LCA(pc, ac), ac)·cWeight(pc)·cWeight(ac) In this function we consider every combination of page class and ad class.
+This function indicates the topical match between a given ad and a page.
+as} we estimate the relative probability of click P(click|p, a) with a score that captures the quality of the match between the page and the ad.
+To find the best ads for a page we rank the ads in A and select the top few for display.
+Each assignment is associated with a weight given by the classifier.
+The keyword score is then defined as the cosine of the angle between the page and the ad vectors: KeywordScore(pi, ai) = P i∈|K| tWeight(pwi)· tWeight(awi) qP i∈|K|(tWeight(pwi))2 qP i∈|K|(tWeight(awi))2 where K is the set of all the keywords.
+In this example, in the absence of ski ads, a page about skiing  containing the word Atomic could be matched to the available snowboarding ad for the same brand.
+Besides the above requirement, this function should lend itself to an efficient search of the ad space.
+We estimate the broadening by the density of ads classified in the parent nodes vs the child node.
+For each combination we multiply the product of the class weights with the inverse distance function  between the least common ancestor of the two classes (LCA) and the ad class.
+The formula  assumes independence between the words in the pages and ads.
+A page is represented by the union of the terms in each section: pi = {pws1 1 , pws1 2 .
+Given a page we have to find the ad in a few milliseconds, as this impacts the presentation to a waiting user.
+Such detailed analysis on a case by case basis is prohibitively expensive due to the size of the taxonomy.
+The weights are normalized to sum to 1: X c∈T ax(xi) cWeight(c) = 1 where xi is either a page or an ad, and cWeights(c) is the class weight - normalized confidence assigned by the  classifier.
+The number of classes can vary between different pages and ads.
+As opposed to the keywords that are treated as independent dimensions, here the classes (topics) are  organized into a hierarchy.
+In this heuristic we look at the  broadening of the scope when moving from a child to a parent.
+However, in the Winter Sports example above, in the absence of better alternative, skiing ads could be put on snowboarding pages as they might promote the same venues, equipment vendors etc.
+This corresponds to the number of topics a page/ad can be associated with and is almost always in the range 1-4.
+Contextual advertising systems process the content of the page, extract features, and then search the ad space to find the best matching ads.
+ppc} to one or more ads in the set of ads.
+One of the goals in the design of the TaxScore function is to be able to generalize within the taxonomy, that is accept topically related ads.
+In turn, each section is an unordered bag of terms (keywords).
+However, in this work for simplicity we do not take into account campaigns.
+We experimented with the impact of phrases and proximity on the keyword score and did not see a substantial impact of these two factors.
+There are multiple ways to specify the distance between two taxonomy nodes.
+This fraction can be viewed as a probability of an ad  belonging to the parent topic being suitable for the child topic. 
+Each page is represented as a set of page sections pi = {pi,1, pi,2 .
+There are several choices for the value of idf, based on different scopes.
+The density is obtained by classifying a large set of ads in the taxonomy using the document classifier described above.
+Placing an ad about Knitting on a page about Sailing does not make lots of sense.
+Furthermore, it ignores the order and the proximity of the terms in the scoring.
+It returns 1 if the two nodes are the same, and declines toward 0 when LCA(pc, ac) or ac is the root of the taxonomy.
+Each ad and page is classified into the topical taxonomy.
+In this work, to produce the match score we use only the ad/page textual information, leaving user information and other data for  future work.
+One option is to use the confidences of the ancestor classes as given by the classifier.
+pwsi m} where pw stands for a page word and the superscript  indicates the section of each term.
+However we found these  numbers not suitable for this purpose as the magnitude of the confidences does not necessarily decrease when going up the tree.
+The magnitude of each dimension is determined by the tWeight() formula.
+The rate of decline determines the weight of the generalization versus the other terms in the scoring formula.
+The problem can be formally defined as matching every page in the set of all pages P = {p1, .
+awsj l } where aw is an ad word.
+Given a page p and a set of ads A = {a1 .
+In general the impact is topic dependent.
+Similarly, we represent each ad as a set of sections a = {a1, a2, .
+The ads in our experiments have 3 sections: title, body, and bid phrase.
+Another option is to use explore-exploit methods based on machine-learning from the click feedback as described in [10].
+A term can be a unigram or a phrase extracted by a phrase extractor [12].
+This weight is a fixed parameter determined by experimentation.
+acjv} where pc and ac are page and ad classes correspondingly.
+al}, each section in turn being an unordered set of terms: ai = {aws1 1 , aws1 2 .
+The sections of the page represent different structural parts, such as title, metadata, body, headings, etc.
+We now turn to the definition of the TaxScore.
+We define these two mappings: Tax(pi) = {pci1, .
+This will be further discussed in the next section.
+The example in Figure 2 illustrates this situation.
+pciu} Tax(aj) = {acj1 .
+pi,m}.

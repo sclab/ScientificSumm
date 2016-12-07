@@ -1,0 +1,118 @@
+Thus we will assume a  monotone Boolean function f : {0, 1}n → {0, 1} which denotes 21 whether the project succeeds as a function of the success of the n agents" tasks (and is not determined by any set of n−1 agents).
+We call the set of agents S∗ that the principal contracts with in a∗ (S∗ = {i|a∗ i = 1}) an optimal contract for the principal at value v. We sometimes abuse notation and denote t(S) instead of t(a), when S is exactly the set of agents that exert effort in a ∈ A.
+We say that the principal contracts with agent i if pi > 0 (and ai = 1 in the equilibrium a ∈ A).
+As we would like to focus on results that derived from properties of the success function, in most of the paper we will deal with the case where all agents have an identical cost c, that is ci = c for all i ∈ N. We denote a technology (t, c) with identical costs by (t, c).
+Given a technology (t, c), let S∗ (v) denote the optimal contract in the agency case and let S∗ ns(v) denote an optimal contract in the non-strategic case, when the principal"s value is v. The social welfare for value v when the set S of agents is contracted is t(S) · v − P i∈S ci (in both the agency and non-strategic cases).
+Formally, if we denote by a−i ∈ A−i the (n −  1)dimensional vector of the actions of all agents excluding agent i.
+The price of unaccountability POU(t, c) of a technology (t, c) is defined as the worst ratio (over v) between the total social welfare in the non-strategic case and the agency case: POU(t, c) = Supv>0 t(S∗ ns(v)) · v − P i∈S∗ ns(v) ci t(S∗(v)) · v − P i∈S∗(v) ci In cases where several sets are optimal in the agency case, we take the worst set (i.e., the set that yields the lowest social welfare).
+Given this setting, the agents have been put in a game, where the utility of agent i under the vector of actions a = (a1, .
+that the success function t is strictly  monotone.
+, an), then a  success function must satisfy: ∀i ∈ N, ∀a−i ∈ A−i t(1, a−i) > t(0, a−i) Additionally, we assume that t(a) > 0 for any a ∈ A (or equivalently, t(0, 0, .
+, an) denotes the probability of project success where players with ai = 0 do not exert effort and incur no cost, and players with ai = 1 do exert effort and incur a cost of ci.
+The best contracts (for the principal) that induce a ∈ A as an equilibrium are pi = 0 for agent i who exerts no effort (ai = 0), and pi = ci Δi(a−i) for agent i who exerts effort (ai = 1).
+2.1 The General Setting A principal employs a set of agents N of size n. Each agent i ∈ N has a possible set of actions Ai, and a cost (effort) ci(ai) ≥ 0 for each possible action ai ∈ Ai (ci : Ai → +).
+At this point the success function t becomes a function t : {0, 1}n → [0, 1], where t(a1, .
+, xn are chosen according to the  following distribution: if ai = 0 then xi = 1 with probability γ and xi = 0 with probability 1 − γ; otherwise, i.e.
+An especially natural sub-class of functions in the structured technologies setting would be functions that can be represented as a read-once network - a graph with a given source and sink, where every edge is labeled by a  different player.
+In a structured technology function, each individual  succeeds or fails in his own task independently.
+If mi agents on clause i exert effort, then t(m1, ..., mnc ) = Q i(1 − γmi (1 − γ)nc−mi ).
+The question of the representation of the technology  function is now reduced to that of representing the underlying monotone Boolean function f. In the most general case, the function f can be given by a general monotone Boolean circuit.
+for two players, the technology function t(a1a2) = ta1+a2 is given by t0 = t(00) = γ2 , t1 = t(01) = t(10) = γ(1 − γ), and t2 = t(11) = (1 − γ)2 .
+In the simplest case of equal-length clauses (denote by nl the number of clauses and by nc their length), f(x) = Vnl j=1( Wnc k=1 xj k).
+This subclass will first give us some natural examples of technology function, and will also provide a succinct and natural way to represent the technology functions.
+for four players, the technology function t(a1 1 a1 2, a2 1 a2 2) is given by t(00, 00) = (1 − (1 − γ)2 )2 , t(01, 00) = t(10, 00) = t(00, 01) = t(00, 10) = (1 − γ(1 − γ))(1 − (1 − γ)2 ), and so on.
+The contract to agent i is thus now given by a scalar value pi ≥ 0 that denotes the payment that i gets in case of project success.
+The principal"s expected utility is given by u(a, v) = (v−P)·t(a), where P is the total payment in case of success, given by P = P i|ai=1 ci Δi(a−i) .
+As we will only consider risk-neutral players in this paper5 , we will also treat v as a function on Δ(O), by taking simple expected value.
+In this case, the expected utility of agent i who exerts effort is ci ·  t(1,a−i) Δi(a−i) − 1  , and 0 for an agent who shirk.
+The best action, ai ∈ Ai, of agent i can now be easily determined as a function of what the others do, a−i ∈ A−i, and his contract pi.
+A technology is a pair, (t, c), of a success function, t, and cost functions, c = (c1, c2, .
+, an) is given by ui(a) = pi(t(a))−ci(ai).
+The project succeeds if the edges that belong to player"s whose task succeeded form a path between the source and the sink6 .
+Additionally there are constants 0 < γi < δi < 1, where γi denotes the probability of success for agent i if he does not exert effort, and δi (> γi) denotes the probability of success if he does exert effort.
+if ai = 1, then xi = 1 with probability 1 − γ and xi = 0 with probability γ.
+If mi agents on path i exert effort, then t(m1, ..., mnc ) = 1 − Q i(1 − γnl−mi (1 − γ)mi ).
+In the simplest case of equal-length clauses (denote by nc the number of clauses and by nl their length), f(x) = Wnc j=1( Vnl k=1 xj k).
+Given a profile of actions a−i, agent i"s best strategy is ai = 1 if pi ≥ ci Δi(a−i) , and is ai = 0 if pi ≤ ci Δi(a−i) .
+for two players, the technology function is given by t(00) = 1 − (1 − γ)2 , t(01) = t(10) = 1 − γ(1 − γ), and t(11) = 1 − γ2 .
+2.3 Structured Technology Functions In order to be more concrete, we will especially focus on technology functions whose structure can be described easily as being derived from independent agent tasks - we call these structured technology functions.
+The principal"s value for a successful project is given by a scalar v > 0 (where the value of project failure is 0).
+In this case the principal will simply choose the profile a ∈ A that optimizes the social welfare (global efficiency), t(a) · v − P i|ai=1 ci.
+for four  players, the technology function t(a1 1 a1 2, a2 1 a2 2) is given by t(00, 00) = 1 − (1 − γ2 )2 , t(01, 00) = t(10, 00) = t(00, 01) = t(00, 10) = 1 − (1 − γ(1 − γ))(1 − γ2 ), and so on.
+6 One may view this representation as directly corresponding to the project of delivering a message from the source to the sink in a real network of computers, with the edges being controlled by selfish agents.
+Under this structure, the technology function t is defined by t(a1, .
+We then restrict the outcome space to have only two states (binary-outcome): 0 (project failure) and 1 (project success).
+Note that the POU is at least 1 for any technology.
+Δi(a−i) = t(1, a−i) − t(0, a−i) Note that since t is monotone, Δi is a strictly positive function.
+The Majority technology: f(x) is 1 if a majority of the values xi are 1.
+If m agents exert effort ( P i ai = m), then t(a) = tm = γn−m (1 − γ)m .
+When the lowest cost action has zero cost (as we assume), this immediately implies that the participation constraint holds.
+The principal"s problem (which is our problem in this paper) is how to design the contracts pi as to  maximize his own expected utility u(a) = v(t(a)) − P i pi(t(a)), where the actions a1, .
+Choosing a ∈ A corresponds to choosing a set S of agents that exert effort (S = {i|ai = 1}).
+In this case the  technology function is given by t(000) = 3γ2 (1 − γ) + γ3 , t(001) = t(010) = t(100) = γ3 +2(1−γ)2 γ +γ2 (1−γ), etc. 
+As pi ≥ ci Δi(a−i) if and only if ui(1, a−i) = pi ·t(1, a−i)−ci ≥ pi ·t(0, a−i) = ui(0, a−i), i"s best strategy is to choose ai = 1 in this case.
+When the technology (t, c) is clear in the context we will use POU to denote the price of unaccountability for technology (t, c).
+, an) being the probability that f(x1, .
+Thus the contract for agent i is a function (payment) pi : O → ; again, we will also view pi as a function on Δ(O).
+Thus the project succeeds if at least one agent from each disjunctive-form-clause succeeds in his tasks.
+(In the case of equality the agent is indifferent  between the two alternatives.)
+The cost function of agent i is now just a scalar ci > 0 denoting the cost of exerting high effort (where the low effort has cost 0).
+The majority function, even on 3  inputs, can not be represented by a read-once network, but is easily represented by a monotone Boolean  formula maj(x, y, z) = xy+yz+xz.
+2.2 The Binary-Outcome Binary-Action Model We wish to concentrate on the complexities introduced by the combinatorial structure of the success function t, we restrict ourselves to a simpler setting that seems to focus more clearly on the structure of t. A similar model was used in [12].
+If m agents exert effort, then tm = 1 − γm (1 − γ)n−m .E.g.
+The principal has a certain value for each possible outcome, given by the function v : O → .
+The project"s success or failure depends, possibly in a complex way, on the set of successful sub-tasks.
+The marginal contribution of agent i,  denoted by Δi, is the difference between the probability of  success when i exerts effort and when he shirks.
+A natural yardstick by which to measure this decision is the non-strategic case, i.e.
+20 and we use the notation (t, c) to denote a technology in such a binary-outcome model.
+If the project fails, the agent gets 0.
+The actions of all players determine, in a probabilistic way, a contractible outcome o ∈ O, according to a success function t : A1×, .
+This allows us to specify the contracts that are the  principal"s optimal, for inducing a given equilibrium.
+Thus the project succeeds if at least one of the agents succeed in their tasks.
+We assume that the principal can pay the agents but not fine them (known as the limited liability constraint).
+to determine the profile of actions a∗ ∈ A, which gives the highest value of u(a, v) in equilibrium.
+Finally, the social welfare for a ∈ A is u(a) + P i∈N ui(a) = v(t(a)) − P i∈N ci(ai).
+= δn = 1 − γ thus leaving ourselves with a single parameter γ s.t.
+In the case of multiple Nash equilibria we let the principal choose the equilibrium, thus focusing on the best Nash  equilibrium.
+Thus the project succeeds if in at least one clause all agents succeed in their tasks.
+The AND technology: f(x1, .
+For the simplicity of the presentation, we sometimes use the term technology function to refer to the success function of the technology.
+Thus the project succeeds only if all agents succeed in their tasks.
+The worst ratio between the social welfare in this non-strategic case and the social welfare for the profile a ∈ A chosen by the principal in the agency case, may be termed the price of unaccountability.
+, an are at Nash-equilibrium.
+, xn) is the logical conjunction of xi (f(x) = V i∈N xi).
+We first restrict the action spaces to have only two states (binary-action): 0 (low effort) and 1 (high effort).
+The vector of costs is c = (c1, c2, .
+The principal"s goal is to maximize his utility given his value v, i.e.
+The OR technology: f(x1, .
+Thus the project succeeds if most players succeed.
+As we wish to concentrate on motivating agents, rather than on the coordination between agents, we assume that more effort by an agent always leads to a better probability of success, i.e.
+i.e., a−i = (a1, .
+× An → Δ(O) (where Δ(O) denotes the set of probability distributions on O).
+, xn) is the logical  disjunction of xi (f(x) = W i∈N xi).
+The agents will be assumed to reach Nash equilibrium, if such  equilibrium exists.
+Figure 1: Graphical representations of (a) AND and (b) OR technologies.
+Actions of the players are invisible, but the final outcome o is visible to him and to others (in particular the court), and he may design enforceable contracts based on the final outcome.
+when the agents need not be motivated but are rather controlled directly by the principal (who also bears their costs).
+At this point we can already make some simple observations.
+In order to reduce the  number of parameters, we will restrict our attention to the case where γ1 = .
+We denote x = (x1, .
+0 < γ < 1 2 .
+This is shown graphically as a read-once  network in Figure 1(b).
+A few simple examples should be in order here: 1.
+, cn), 5 The risk-averse case would obviously be a natural second step in the research of this model, as has been for  noncombinatorial scenarios.
+The And-of-Ors (AOO) technology: f(x) is the  logical conjunction of disjunctions.
+The Or-of-Ands (OOA) technology: f(x) is the  logical disjunction of conjunctions.
+Figure 2: Graphical representations of (a) OOA and (b) AOO technologies.
+This is shown graphically as a read-once network in  Figure 2(b).
+A variant, which is similar in spirit to strong  implementation in mechanism design would be to take the worst Nash equilibrium, or even, stronger yet, to require that only a single equilibrium exists.
+This is shown graphically as a read-once network in  Figure 1(a).
+Observation 1.
+= γn = γ and δ1 = .
+, xn) = 1 where the bits x1, .
+, ai−1, ai+1, .
+This is shown  graphically as a read-once network in Figure 2(a).
+, 0) > 0).
+Claim 1.
+Definition 1.
+Definition 2.

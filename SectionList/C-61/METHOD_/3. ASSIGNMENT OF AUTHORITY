@@ -1,0 +1,200 @@
+As a MMOG is played, the players and the game objects that
+are part of the game, continually change their state. For 
+example, consider a player who owns a tank in a battlefield
+game. Based on action of the player, the tank changes its
+position in the game space, the amount of ammunition the
+tank contains changes as it fires at other tanks, the tank 
+collects bonus firing power based on successful hits, etc. 
+Similarly objects in the battlefield, such as flags, buildings etc.
+change their state when a flag is picked up by a player (i.e.
+tank) or a building is destroyed by firing at it. That is,
+some decision has to be made on the state of each player
+and object as the game progresses. Note that the state of
+a player and/or object can contain several parameters (e.g.,
+position, amount of ammunition, fuel storage, points 
+collected, etc), and if any of the parameters changes, the state
+of the player/object changes.
+In a client-server based game, the server controls all the
+players and the objects. When a player at a client machine
+makes a move, the move is transmitted to the server over
+the network. The server then analyzes the move, and if
+the move is a valid one, changes the state of the player at
+the server and informs the client of the change. The client
+subsequently updates the state of the player and renders
+the player at the new location. In this case the authority to
+change the state of the player resides with the server entirely
+and the client simply follows what the server instructs it to
+do.
+Most of the current first person shooter (FPS) games and
+role playing games (RPG) fall under this category. In 
+current FPS games, much like in RPG games, the client is not
+trusted. All moves and actions that it makes are validated.
+If a client detects that it has hit another player with a bullet,
+it proceeds assuming that it is a hit. Meanwhile, an update
+is sent to the server and the server will send back a message
+either affirming or denying that the player was hit. If the
+remote player was not hit, then the client will know that it
+4 The 5th Workshop on Network & System Support for Games 2006 - NETGAMES 2006
+did not actually make the shot. If it did make the hit, an
+update will also be sent from the server to the other clients
+informing them that the other player was hit. A difference
+that occurs in some RPGs is that they use very dumb client
+programs. Some RPGs do not maintain state information
+at the client and therefore, cannot predict anything such as
+hits at the client. State information is not maintained 
+because the client is not trusted with it. In RPGs, a cheating
+player with a hacked game client can use state information
+stored at the client to gain an advantage and find things
+such as hidden treasure or monsters lurking around the 
+corner. This is a reason why most MMORPGs do not send a
+lot of state information to the client and causes the game
+to be less responsive and have lower interaction game-play
+than FPS games.
+In a peer-to-peer game, each peer controls the player and
+object that it owns. When a player makes a move, the
+peer machine analyzes the move and if it is a valid one,
+changes the state of the player and places the player in new
+position. Afterwards, the owner peer informs all other peers
+about the new state of the player and the rest of the peers
+update the state of the player. In this scenario, the authority
+to change the state of the player is given to the owning peer
+and all other peers simply follow the owner.
+For example, Battle Zone Flag (BzFlag) [12] is a 
+multiplayer client-server game where the client has all authority
+for making decisions. It was built primarily with LAN play
+in mind and cheating as an afterthought. Clients in BzFlag
+are completely authoritative and when they detect that they
+were hit by a bullet, they send an update to the server which
+simply forwards the message along to all other players. The
+server does no sort of validation.
+Each of the above two traditional approaches has its own set
+of advantages and disadvantages. The first approach, which
+we will refer to as server authoritative henceforth, uses a
+centralized method to assign authority. While a centralized
+approach can keep the state of the game (i.e., state of all the
+players and objects) consistent across any number of client
+machines, it suffers from delayed response in game-play as
+any move that a player at the client machine makes must go
+through one round-trip delay to the server before it can take
+effect on the client"s screen. In addition to the round-trip 
+delay, there is also queuing delay in processing the state change
+request at the server. This can result in additional 
+processing delay, and can also bring in severe scalability problems
+if there are large number of clients playing the game. One
+definite advantage of the server authoritative approach is
+that it can easily detect if a client is cheating and can take
+appropriate action to prevent cheating.
+The peer-to-peer approach, henceforth referred to as client
+authoritative, can make games very responsive. However,
+it can make the game state inconsistent for a few players
+and tie break (or roll back) has to be performed to bring the
+game back to a consistent state. Neither tie break nor roll
+back is a desirable feature of online gaming. For example,
+assume that for a game, the goal of each player is to collect
+as many flags as possible from the game space (e.g. BzFlag).
+When two players in proximity try to collect the same flag
+at the same time, depending on the algorithm used at the
+client-side, both clients may determine that it is the winner,
+although in reality only one player can pick the flag up. Both
+players will see on their screen that it is the winner. This
+makes the state of the game inconsistent. Ways to recover
+from this inconsistency are to give the flag to only one player
+(using some tie break rule) or roll the game back so that the
+players can try again. Neither of these two approaches is
+a pleasing experience for online gaming. Another problem
+with client authoritative approach is that of cheating by
+clients as there is no cross checking of the validation of the
+state changes authorized by the owner client.
+We propose to use a hybrid approach to assign the authority
+dynamically between the client and the server. That is, we
+assign the authority to the client to make the game 
+responsive, and use the server"s authority only when the client"s
+individual authoritative decisions can make the game state
+inconsistent. By moving the authority of time critical 
+updates to the client, we avoid the added delay caused by 
+requiring the server to validate these updates. For example,
+in the flag pickup game, the clients will be given the 
+authority to pickup flags only when other players are not within
+a range that they could imminently pickup a flag. Only
+when two or more players are close by so that more than
+one player may claim to have picked up a flag, the authority
+for movement and flag pickup would go to the central server
+so that the game state does not become inconsistent. We
+believe that in a large game-space where a player is often
+in a very wide open and sparsely populated area such as
+those often seen in the game Second Life [13], this hybrid
+architecture would be very beneficial because of the long 
+periods that the client would have authority to send movement
+updates for itself. This has two advantages over the 
+centralauthority approach, it distributes the processing load down
+to the clients for the majority of events and it allows for a
+more responsive game that does not need to wait on a server
+for validation.
+We believe that our notion of authority can be used to 
+develop a globally consistent state model of the evolution of
+a game. Fundamentally, the consistent state of the system
+is the one that is defined by the server. However, if local
+authority is delegated to the client, in this case, the client"s
+state is superimposed on the server"s state to determine the
+correct global state. For example, if the client is 
+authoritative with respect to movement of a player, then the 
+trajectory of the player is the true trajectory and must 
+replace the server"s view of the player"s trajectory. Note that
+this could be problematic and lead to temporal 
+inconsistency only if, for example, two or more entities are moving
+in the same region and can interact with each other. In
+this situation, the client authority must revert to the server
+and the sever would then make decisions. Thus, the client
+is only authoritative in situations where there is no 
+potential to imminently interact with other players. We believe
+that in complex MMOGs, when allowing more rapid 
+movement, it will still be the case that local authority is possible
+for significant spans of game time. Note that it might also
+be possible to minimize the occurrences of the Dead Man
+Shooting problem described in [14]. This could be done by
+allowing the client to be authoritative for more actions such
+as its player"s own death and disallowing other players from
+making preemptive decisions based on a remote player.
+The 5th Workshop on Network & System Support for Games 2006 - NETGAMES 2006 5
+One reason why the client-server based architecture has gained
+popularity is due to belief that the fastest route to the other
+clients is through the server. While this may be true, we aim
+to create a new architecture where decisions do not always
+have to be made at the game server and the fastest route to
+a client is actually through a communication proxy located
+close to the client. That is, the shortest distance in our 
+architecture is not through the game server but through the
+communication proxy. After a client makes an action such
+as movement, it will simultaneously distribute it directly to
+the clients and the game server by way of the 
+communications proxy. We note that our architecture however is not
+practical for a game where game players setup their own
+servers in an ad-hoc fashion and do not have access to 
+proxies at the various ISPs. This proxy and distributed authority
+architecture can be used to its full potential only when the
+proxies can be placed at strategic places within the main
+ISPs and evenly distributed geographically.
+Our game architecture does not assume that the client is
+not to be trusted. We are designing our architecture on the
+fact that there will be sufficient cheat deterring and 
+detection mechanisms present so that it will be both undesirable
+and very difficult to cheat [15]. In our proposed approach,
+we can make the games cheat resilient by using the 
+proxybased architecture when client authoritative decisions take
+place. In order to achieve this, the proxies have to be game
+cognizant so that decisions made by a client can be cross
+checked by a proxy that the client connects to. For 
+example, assume that in a game a plane controlled by a client
+moves in the game space. It is not possible for the plane to
+go through a building unharmed. In a client authoritative
+mode, it is possible for the client to cheat by maneuvering
+the plane through a building and claiming the plane to be
+unharmed. However, when such move is published by the
+client, the proxy, being aware of the game space that the
+plane is in, can quickly check that the client has misused
+the authority and then can block such move. This allows us
+to distribute authority to make decisions about the clients.
+In the following section we use a multiplayer game called
+RPGQuest to implement different authoritative schemes and
+discuss our experience with the implementation. Our 
+implementation shows the viability of our proposed solution.

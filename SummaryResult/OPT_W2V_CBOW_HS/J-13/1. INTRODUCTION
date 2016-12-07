@@ -1,0 +1,65 @@
+Currently, the most general class of tractable combinatorial auctions has been singled out by modelling interactions among bidders with the notion of item graph, which is a graph whose nodes are in one-to-one correspondence with items, and edges are such that for any 152 Figure 1: Example MaxWSP problem: (a) Hypergraph H I0,B0 , and a packing h for it; (b) Primal graph for H I0,B0 ; and, (c,d) Two item graphs for H I0,B0 .
+Let us note that the hypergraph representation H I,B of a combinatorial auction I, B is also useful to make the analogy between the winner  determination problem and the maximum weighted-set packing problem on hypergraphs clear (e.g., [17]).
+More formally, letting C(ig, k) denote the class of all the  hypergraphs having an item tree of treewidth bounded by k, we prove that deciding whether a hypergraph (associated with a combinatorial auction problem) belongs to C(ig, 3) is NP-complete.
+w, denoted by MaxWSP(H, w), is the problem of finding a  packing for H having the maximum weight over all the packings for H. To see that MaxWSP is just a different formulation for the winner determination problem, given a  combinatorial auction I, B , it is sufficient to define the weighting function w I,B (item(Bi)) = pay(Bi).
+The above mentioned tractability result on structured item graphs turns out to be useful in practice only when a structured item graph either is given or can be efficiently determined.
+However, exponentially many item graphs might be associated with a combinatorial auction, and it is not clear how to determine whether a structured item graph of a certain (constant) treewidth exists, and if so, how to compute such a structured item graph efficiently.
+Our investigations, this time, led to very good news which are summarized below: For a hypergraph H, its dual ¯H = (V, E) is such that nodes in V are in one-to-one correspondence with  hyperedges in H, and for each node x ∈ N(H), {h | x ∈ h ∧ h ∈ 153 E(H)} is in E. We show that MaxWSP is tractable on the class of those instances whose dual hypergraphs have  hypertree width[7] bounded by k (short: class C(hw, k) of  hypergraphs).
+w I,B coincides with the set of the solutions for the winner determination problem on I, B .
+Then, any item graph for H I,B can be viewed as a simplification of G(H I,B ) obtained by deleting some edges, yet preserving the connectivity condition on the nodes included in each hyperedge.
+Formally, a combinatorial auction is a pair I, B , where I = {I1, ..., Im} is the set of items the auctioneer has to sell, and B = {B1, ..., Bn} is the set of bids from the buyers interested in the items in I.
+An example packing for H I0,B0 is h = {h1}, which intuitively corresponds to an outcome for I0, B0 , where the auctioneer accepted the bid B1.
+This  problem, called winner determination problem (e.g., [11]), is known to be intractable, actually NP-hard [17], and even not approximable in polynomial time unless NP = ZPP [19].
+Letting w be a weighting function for H, i.e., a polynomially-time computable function from E(H) to rational numbers, the weight of a packing h is the  rational number w(h) = h∈h w(h), where w({}) = 0.
+Indeed, the winner determination problem was proven to be solvable in polynomial time if interactions among bidders can be represented by means of a structured item graph, i.e., a tree or, more generally, a graph having tree-like  structure [3]-formally bounded treewidth [16].
+Note that a key issue of the tractability is to consider the hypertree width of the dual hypergraph ¯H  instead of the auction hypergraph H. In fact, we can show that MaxWSP remains NP-hard even when H is acyclic (i.e., when it has hypertree width 1), even when each node is contained in 3 hyperedges at most.
+Then, the set of the solutions for the weighted set packing problem for H I,B w.r.t.
+To have some intuition on how item graphs can be built, we notice that bidder interaction in a combinatorial auction I, B can be represented by means of a hypergraph H I,B such that its set of nodes N(H I,B ) coincides with set of items I, and where its edges E(H I,B ) are precisely the bids of the buyers {item(Bi) | Bi ∈ B}.
+In fact, we show that strictly larger classes of instances are tractable according to our new approach than according to the structured item graphs approach.
+A special item graph for I, B is the primal graph of H I,B , denoted by G(H I,B ), which contains an edge between any pair of nodes in some hyperedge of H I,B .
+A crucial  problem for combinatorial auctions is to determine the outcome b∗ that maximizes the sum of the accepted bid prices (i.e., Bi∈b∗ pay(Bi)) over all the possible outcomes.
+Formally, a packing h for a hypergraph H is a set of  hyperedges of H such that for each pair h, h ∈ h with h = h , it holds that h ∩ h = ∅.
+Hence, it comes with no surprise that several efforts have been spent to design practically efficient algorithms for  general auctions (e.g., [20, 5, 2, 8, 23]) and to identify classes of instances where solving the winner determination problem is feasible in polynomial time (e.g., [15, 22, 12, 21]).
+[3]) whether it is tractable to check if for a combinatorial auction, an item graph of treewidth bounded by a fixed  natural number k exists and can be constructed in polynomial time, if so.
+Surprisingly, we show that nothing is lost in terms of generality when considering the hypertree decomposition of dual hypergraphs instead of the treewidth of item graphs.
+The result is very bad news: It is NP complete to check whether a combinatorial  auction has a structured item graph of treewidth 3.
+bid, the items occurring in it induce a connected subgraph.
+An outcome for I, B is a subset b of B such that item(Bi)∩item(Bj) = ∅, for each pair Bi and Bj of bids in b with i = j.
+Specifically, if the weighting functions can be computed in logarithmic space and weights are  polynomial (e.g., when all the hyperegdes have unitary weights and one is interested in finding the packing with the  maximum number of edges), we show that MaxWSP can be solved by a LOGCFL algorithm.
+This is desirable when a bidder"s valuation of a bundle of items is not equal to the sum of her valuations of the individual items.
+Section 3 presents the polynomial-time algorithm for solving MaxWSP on the class of those instances whose dual hypergraphs have bounded hypertree width, and discusses the cases where the algorithm is also highly parallelizable.
+¡ Contributions The primary aim of this paper is to identify large tractable classes for the winner determination problem, that are, moreover polynomially recognizable.
+For some relevant special classes of hypergraphs in C(hw, k), we design a higly-parallelizeable algorithm for MaxWSP.
+Polynomial time algorithms to find the best  simplification of the primal graph were so far only known for the cases where the item graph to be constructed is a line [10], a cycle [4], or a tree [3], but it was an important open problem (cf.
+Indeed, we show that structured item graphs are in one-to-one  correspondence with some special kinds of hypertree  decomposition of the dual hypergraph, which we call strict hypertree decompositions.
+Section 2  discusses the intractability of structured item graphs.
+Each bid Bi has the form item(Bi), pay(Bi) , where pay(Bi) is a rational number denoting the price a buyer offers for the items in item(Bi) ⊆ I.
+Towards this aim, we first study structured item graphs and solve the open  problem in [3].
+(a) is an encoding for a combinatorial auction I0, B0 , where I0 = {I1, ..., I5}, and item(Bi) = hi, for each 1 ≤ i ≤ 3.
+Then, the maximum-weighted set packing problem for H w.r.t.
+In the light of this result, it was crucial to assess whether there are some other kinds of structural requirement that can be checked in polynomial time and that can still be used to isolate tractable classes of the maximum  weightedset packing problem or, equivalently, the winner  determination problem.
+A game-characterization for the notion of strict hypertree width is also proposed, which specializes the Robber and Marshals game in [6] (proposed to  characterize the hypertree width), and which makes it clear the further requirements on hypertree decompositions.
+To the contrary, the proposed hypertree-based decomposition method is strictly more general than the method of structured item graphs.
+By  assuming that bids B1, B2, and B3 are such that pay(B1) = pay(B2) = pay(B3), the packing h is not a solution for the problem MaxWSP(H I0,B0 , w I0,B0 ).
+In fact, constraining bidder interaction was proven to be useful for identifying classes of tractable combinatorial auctions.
+Item graphs.
+¡ Open Problem: Computing structured item graphs efficiently.
+Recall, in fact, that LOGCFL is the class of decision problems that are logspace reducible to context free languages, and that LOGCFL ⊆ NC2 ⊆ P (see, e.g., [9]).
+The winner determination problem.
+Combinatorial auctions are well-known mechanisms for resource and task allocation where bidders are allowed to simultaneously bid on  combinations of items.
+(b), while two example item graphs are reported in Figure 1.
+The primal graph for H I0,B0 is reported in Figure 1.
+The proof of the above results give us some interesting  insight into the notion of structured item graph.
+Consider again the hypergraph H I0,B0  reported in Figure 1.(a).
+Intuitively, the NP-hardness of  recognizing bounded-width structured item graphs is thus not due to its great generality, but rather to some peculiarities in its definition.
+Weighted Set Packing.
+The comparison  between the classes C(ig, k) and C(hw, k) is discussed in  Section 4.
+(c) and (d), where edges required for maintaining the connectivity for h1 are depicted in bold.
+The hypergraph H I0,B0 reported in  Figure 1.
+Combinatorial auctions.
+Indeed, the packing h∗ = {h2, h3} is such that w I0,B0 (h∗ ) > w I0,B0 (h).
+The rest of the paper is organized as follows.
+This framework is currently used to regulate agents" interactions in several application domains (cf., e.g., [21]) such as, electricity markets [13], bandwidth auctions [14], and transportation exchanges [18].
+Example 2.
+Finally, in Section 5 we draw our conclusions by also outlining directions for further research. 
+Example 1.

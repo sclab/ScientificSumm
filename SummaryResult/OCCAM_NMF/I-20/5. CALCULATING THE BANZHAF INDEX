@@ -1,0 +1,48 @@
+on autonomous agents and multi-agent systems (aamas 07) 339 
+thus, this algorithm allows us to calculate the banzhaf index on an edge in the connectivity games on bounded layer graphs.
+joint conf.
+the sixth intl.
+the banzhaf index for e is p{t}(g)−p{t}(g ) 2|e|−1 .
+the difference p{t}(g) − p{t}(g ) is the number of subsets of edges that contain a path from s to t but no longer contain such a path when e is removed.
+we can calculate p{t} = p{t}(g) for g using the algorithm to count the number of subsets of edges that allow a path from s to t. we can then remove e from g to obtain the graph g =< v, e \ {e} >, and calculate p{t} = p{t}(g ).
+consider the connectivity game on a layer graph g, with a single source vertex s and target vertex t. the banzhaf index of the edge e is the number of subsets of edges that allow a path between s and t, but do not allow such a path when e is removed (divided by a constant).
+since c is a constant, this is a polynomial algorithm.
+if the graph contains k layers, the running time of the algorithm is bounded by k·2c ·2(c2 ) .
+there are also at most c2 edges between 2 consecutive layers, and thus at most 2(c2 ) edge subsets between two layers.
+algorithm 1 1: procedure connecting-exactly-subsets(g, v) 2: p{s} ← 1 initialization 3: for all other subsets of vertices s do initialization 4: ps ← 0 5: end for 6: for i ← 0 to n − 1 do iterate through layers 7: for all vertex subsets si in li do 8: for all edge subsets e between li, li+1 do 9: d ← dests(si, e) subset in li+1 10: pd ← pd + psi 11: end for 12: end for 13: end for 14: end procedure a c-bounded layer graph contains at most c vertices in each layer, so for each layer there are at most 2c different subsets of vertices in that layer.
+the algorithm considers every subset of possible vertices in the current layer, and every possible subset of expanding edges to the next layer, and updates the value of the appropriate subset in the next layer.
+it does so using the values calculated in the previous layer.
+for each layer li and every subset of edges in that layer si ⊂ vi, it calculates psi .
+it iterates through the layers, and updates the data for the next layer given the data for the current layer.
+algorithm 1 calculates pt.
+according to lemma 1, if we iterate over the different si"s in layer li, the psi "s count different subsets of edges, and thus every  expansion using the edges in e is also different.
+e ∪ e is a subset of edges in predvi+1 that connects exactly to dest(si, e).
+consider such a subset e counted in psi .
+psi counts the number of edge subsets in predvi that connect exactly the  vertices in si.
+let si ⊂ vi be a subset of vertices in li and e ⊂ ei be some subset of the edges between layer li and layer li+1.
+we denote by dests(si, e) the set of vertices in layer li+1 that are connected to some vertex in si by an edge in e: dests(si, e) = {v ∈ vi+1|there exists some w ∈ si and some e ∈ e that e = (w, v)}.
+let e ⊂ ei be some subset of these edges.
+let ei ⊂ e be the set of edges between the vertices in layer li and layer li+1.
+let si ⊂ vi be a subset of vertices in layer li.
+if e = e then both sets of edges allow the same paths from s, so vi(e ) = vi(e ).
+then e and e do not contain the same edges: e = e .
+let e , e ⊂ predvi be two sets of edge subsets, so that e connects exactly the vertices in s1 and e connects exactly the vertices in s2: vi(e ) = s1 and vi(e ) = s2.
+lemma 1. let s1, s2 ⊂ vi where s1 = s2 be two different subsets of vertices in the same layer.
+we define pv as the number of subsets e ⊂ predv that connect exactly the vertices in v : pv = |{e ⊂ predv |vi(e ) = v }|.
+let v ⊂ vi be a subset of the vertices in layer li.
+we say e ∈ predv connects exactly the vertices in si ⊂ vi if all the vertices in si are reachable from s using the edges in e but no other vertices in vi are reachable from s using e , so vi(e ) = si.
+let vi(e ) be the subset of vertices in vi that are reachable from s using only the edges in e : vi(e ) = {v ∈ vi|e contains a path from s to v}.
+consider a subset of these edges, e ⊂ predv .
+let predvi ⊂ e be the subset of edges that occur before vi (all the vertices in vi are in the same layer, so any edge that occurs before some v ∈ vi occurs before any other vertex w ∈ vi).
+we define pv as the number of subsets e ⊂ predv that contain a path from s to v. similarly, let vi ∈ v be the subset of all the vertices in the same layer li.
+e may contain a path from s to v, or it may not.
+we say an edge e occurs before v if it connects two vertices in v"s layer or a previous layer: e = (u, w) connects vertex u ∈ lj to vertex w ∈ lj+1 and j + 1 ≤ i. let predv ⊂ e be the subset of edges that occur before v. consider a subset of these edges, e ⊂ predv.
+let v be a vertex in layer li.
+bounded layer graphs may occur in networks when the nodes are located in several ordered segments, where nodes can be connected only between  consecutive segments.
+however, there is a constant factor to the running time, which is exponential in c. therefore, this method is only tractable for graphs where the bound c is small.
+the algorithm provided below is indeed polynomial in the number of vertices given that the network is a c-bounded layer graph.
+definition 4. a c-bounded layer graph is a layer graph where the number of vertices in each layer is bounded by some constant number c. although there is no limit on the number of layers in a bounded layer graph, the structure of such graphs makes it possible to  calculate the banzhaf index of edges in connectivity games on such graphs.
+the edges run only between consecutive layers.
+definition 3. a layer graph is a graph g =< v, e >, with source vertex s and target vertex t, where the vertices of the graph are partitioned into n + 1 layers, l0 = {s}, l1, ..., ln = {t}.
+this positive result indicates that for some restricted domains of network flow games, it is possible to calculate the banzhaf index in a reasonable amount of time.
+in bounded layer graph  connectivity games we here present a polynomial algorithm to calculate the banzhaf index of an edge in a connectivity game, where the network is a bounded layer graph.

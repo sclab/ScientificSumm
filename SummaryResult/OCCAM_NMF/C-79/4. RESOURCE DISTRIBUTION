@@ -1,0 +1,27 @@
+the resource division mechanism is also responsible for combining data from these  subresources together (e.g., merging pieces of a file) and delivering the final result to the application. 
+therefore, each of these sub-resources will be seen by the other mechanisms as one single resource which can be  independently discovered, replicated, and relocated.
+the resource division mechanism is responsible for  decomposing divisible resources into sub-resources, and then adds an extra keyword to distinguish each sub-resource from one  another.
+the hybrid resource distribution scheme incorporates a resource division mechanism that operates at a thin layer right above all the other mechanisms described earlier.
+4.3 resource division certain types of resources can be divided into smaller  subresources (e.g., a large file being broken into smaller files) and distributed to multiple locations to avoid overloading a single node, as depicted in figure 2(c).
+this type of pheromone, called request pheromone, is setup by query packets that are in their exploring phases (not returning ones) to guide a resource to a new location.
+specifically, by following the same pheromone maintenance concept, the hybrid resource  distribution scheme introduces another type of pheromone which  corresponds to user requests, instead of resources.
+the 3rd conference on mobile technology, applications and systems - mobility 2006 3 the hybrid resource distribution scheme incorporates resource relocation algorithms that are adaptive to user requests and aim to reduce communication overhead.
+hence network bandwidth is more efficiently  utilized.
+if the resource r is relocatable, it is preferred to be relocated to another area that is closer to those nodes, similar to the bottom of the same figure.
+let us consider a situation where a  majority of nodes requesting for a resource are located far away from a resource provider, as shown on the top of figure 2(b).
+in this case, the node can choose to create replicas of the file by the aforementioned resource replication mechanism and then delete its own copy.
+for example, a node may no longer want to possess a file due to the shortage of storage space, but it cannot simply delete the file since other nodes may still need it in the future.
+4.2 resource relocation in certain situations, a resource may be required to transfer from one node to another.
+the decision depends on conditions such as current workload and/or remaining energy of the node being visited, as well as popularity of the resource itself.
+when a resource replication packet finds itself in an area with sufficiently low pheromone, it makes a decision whether it should continue exploring or turn back.
+unlike a query packet which follows higher pheromone upstream toward a resource it is looking for, a  resource replication packet tends to be propelled away from similar resources by moving itself downstream toward weaker  pheromone.
+a resource replication packet of type r is deployed by a node that is providing the  resource r itself.
+to realize this feature, the hybrid resource distribution scheme employs a different type of control packet, called resource  replication packet, which is responsible for finding an appropriate place to create a replica of a resource.
+for  instance, to help nodes find a resource quickly, we could replicate the resource so that it becomes reachable by random walk for a specific number of hops from any node with some probability, as depicted in figure 2(a).
+in addition, replicable resources can also be proactively replicated at other nodes which are located in certain strategic areas.
+an example is when a node has obtained a data file from another node, the  requesting node and the intermediate nodes can cache the file and start sharing that file with other surrounding nodes right away.
+4.1 resource replication multiple replicas of a resource in the network help prevent a  single node, as well as nodes surrounding it, from being overloaded by a large number of requests and data transfers.
+hence, we describe a cross-layer, hybrid resource distribution scheme to achieve load balancing by incorporating the functionalities of resource  relocation, resource replication, and resource division.
+furthermore, in manets, we should consider not only the amount of load handled by a resource provider, but also the load on those intermediate nodes that are located on the communication paths between the provider and other nodes as well.
+in certain situations, it is also beneficial to make a resource readily available at multiple nodes when the  resource can be relocated and/or replicated, such as data files.
+in addition to resource discovery, a querying node usually  attempts to access and retrieve the contents of a resource after a successful discovery.

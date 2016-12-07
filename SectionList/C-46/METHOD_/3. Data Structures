@@ -1,0 +1,313 @@
+At the proxy tier, TSAR employs a novel index structure called
+the Interval Skip Graph, which is an ordered, distributed data 
+structure for finding all intervals that contain a particular point or range
+of values. Interval skip graphs combine Interval Trees [5], an
+interval-based binary search tree, with Skip Graphs [1], a ordered,
+distributed data structure for peer-to-peer systems [13]. The 
+resulting data structure has two properties that make it ideal for 
+sensor networks. First, it has O(log n) search complexity for 
+accessing the first interval that matches a particular value or range, and
+constant complexity for accessing each successive interval. 
+Second, indexing of intervals rather than individual values makes the
+data structure ideal for indexing summaries over time or value.
+Such summary-based indexing is a more natural fit for 
+energyconstrained sensor nodes, since transmitting summaries incurs less
+energy overhead than transmitting all sensor data.
+Definitions: We assume that there are Np proxies and Ns 
+sensors in a two-tier sensor network. Each proxy is responsible for
+multiple sensor nodes, and no assumption is made about the 
+number of sensors per proxy. Each sensor transmits interval summaries
+of data or events regularly to one or more proxies that it is 
+associated with, where interval i is represented as [lowi, highi]. These
+intervals can correspond to time or value ranges that are used for
+indexing sensor data. No assumption is made about the size of an
+interval or about the amount of overlap between intervals.
+Range queries on the intervals are posed by users to the network
+of proxies and sensors; each query q needs to determine all index
+values that overlap the interval [lowq, highq]. The goal of the 
+interval skip graph is to index all intervals such that the set that overlaps
+a query interval can be located efficiently. In the rest of this section,
+we describe the interval skip graph in greater detail.
+3.1 Skip Graph Overview
+In order to inform the description of the Interval Skip Graph, we
+first provide a brief overview of the Skip Graph data structure; for
+a more extensive description the reader is referred to [1]. Figure 2
+shows a skip graph which indexes 8 keys; the keys may be seen
+along the bottom, and above each key are the pointers associated
+with that key. Each data element, consisting of a key and its 
+associated pointers, may reside on a different node in the network,
+42
+7 9 13 17 21 25 311
+level 0
+level 1
+level 2
+key
+single skip graph element
+(each may be on different node)
+find(21)
+node-to-node messages
+Figure 2: Skip Graph of 8 Elements
+[6,14] [9,12] [14,16] [15,23] [18,19] [20,27] [21,30][2,5]
+5 14 14 16 23 23 27 30
+[low,high]
+max
+contains(13)
+match
+no
+match
+halt
+Figure 3: Interval Skip Graph
+[6,14]
+[9,12]
+[14,16]
+[15,23]
+[18,19]
+[20,27]
+[21,30]
+[2,5]
+Node 1
+Node 2
+Node 3
+level 2
+level 1
+level 0
+Figure 4: Distributed Interval Skip Graph
+and pointers therefore identify both a remote node as well as a data
+element on that node. In this figure we may see the following 
+properties of a skip graph:
+• Ordered index: The keys are members of an ordered data
+type, for instance integers. Lookups make use of ordered
+comparisons between the search key and existing index 
+entries. In addition, the pointers at the lowest level point 
+directly to the successor of each item in the index.
+• In-place indexing: Data elements remain on the nodes
+where they were inserted, and messages are sent between
+nodes to establish links between those elements and others
+in the index.
+• Log n height: There are log2 n pointers associated with each
+element, where n is the number of data elements indexed.
+Each pointer belongs to a level l in [0... log2 n − 1], and
+together with some other pointers at that level forms a chain
+of n/2l
+elements.
+• Probabilistic balance: Rather than relying on re-balancing
+operations which may be triggered at insert or delete, skip
+graphs implement a simple random balancing mechanism
+which maintains close to perfect balance on average, with
+an extremely low probability of significant imbalance.
+• Redundancy and resiliency: Each data element forms an
+independent search tree root, so searches may begin at any
+node in the network, eliminating hot spots at a single search
+root. In addition the index is resilient against node failure;
+data on the failed node will not be accessible, but remaining
+data elements will be accessible through search trees rooted
+on other nodes.
+In Figure 2 we see the process of searching for a particular value
+in a skip graph. The pointers reachable from a single data element
+form a binary tree: a pointer traversal at the highest level skips over
+n/2 elements, n/4 at the next level, and so on. Search consists
+of descending the tree from the highest level to level 0, at each
+level comparing the target key with the next element at that level
+and deciding whether or not to traverse. In the perfectly balanced
+case shown here there are log2 n levels of pointers, and search will
+traverse 0 or 1 pointers at each level. We assume that each data
+element resides on a different node, and measure search cost by the
+number messages sent (i.e. the number of pointers traversed); this
+will clearly be O(log n).
+Tree update proceeds from the bottom, as in a B-Tree, with the
+root(s) being promoted in level as the tree grows. In this way, for
+instance, the two chains at level 1 always contain n/2 entries each,
+and there is never a need to split chains as the structure grows. The
+update process then consists of choosing which of the 2l
+chains to
+insert an element into at each level l, and inserting it in the proper
+place in each chain.
+Maintaining a perfectly balanced skip graph as shown in 
+Figure 2 would be quite complex; instead, the probabilistic balancing
+method introduced in Skip Lists [23] is used, which trades off a
+small amount of overhead in the expected case in return for simple
+update and deletion. The basis for this method is the observation
+that any element which belongs to a particular chain at level l can
+only belong to one of two chains at level l+1. To insert an element
+we ascend levels starting at 0, randomly choosing one of the two
+possible chains at each level, an stopping when we reach an empty
+chain.
+One means of implementation (e.g. as described in [1]) is to
+assign each element an arbitrarily long random bit string. Each
+chain at level l is then constructed from those elements whose bit
+strings match in the first l bits, thus creating 2l
+possible chains
+at each level and ensuring that each chain splits into exactly two
+chains at the next level. Although the resulting structure is not
+perfectly balanced, following the analysis in [23] we can show that
+the probability of it being significantly out of balance is extremely
+small; in addition, since the structure is determined by the random
+number stream, input data patterns cannot cause the tree to become
+imbalanced.
+3.2 Interval Skip Graph
+A skip graph is designed to store single-valued entries. In this
+section, we introduce a novel data structure that extends skip graphs
+to store intervals [lowi, highi] and allows efficient searches for all
+intervals covering a value v, i.e. {i : lowi ≤ v ≤ highi}. Our data
+structure can be extended to range searches in a straightforward
+manner.
+The interval skip graph is constructed by applying the method of
+augmented search trees, as described by Cormen, Leiserson, and
+Rivest [5] and applied to binary search trees to create an Interval
+Tree. The method is based on the observation that a search structure
+based on comparison of ordered keys, such as a binary tree, may
+also be used to search on a secondary key which is non-decreasing
+in the first key.
+Given a set of intervals sorted by lower bound - lowi ≤
+lowi+1 - we define the secondary key as the cumulative maximum,
+maxi = maxk=0...i (highk). The set of intervals intersecting a
+value v may then be found by searching for the first interval (and
+thus the interval with least lowi) such that maxi ≥ v. We then
+43
+traverse intervals in increasing order lower bound, until we find the
+first interval with lowi > v, selecting those intervals which 
+intersect v.
+Using this approach we augment the skip graph data structure, as
+shown in Figure 3, so that each entry stores a range (lower bound
+and upper bound) and a secondary key (cumulative maximum of
+upper bound). To efficiently calculate the secondary key maxi for
+an entry i, we take the greatest of highi and the maximum values
+reported by each of i"s left-hand neighbors.
+To search for those intervals containing the value v, we first
+search for v on the secondary index, maxi, and locate the first entry
+with maxi ≥ v. (by the definition of maxi, for this data element
+maxi = highi.) If lowi > v, then this interval does not contain
+v, and no other intervals will, either, so we are done. Otherwise we
+traverse the index in increasing order of mini, returning matching
+intervals, until we reach an entry with mini > v and we are done.
+Searches for all intervals which overlap a query range, or which
+completely contain a query range, are straightforward extensions
+of this mechanism.
+Lookup Complexity: Lookup for the first interval that matches
+a given value is performed in a manner very similar to an interval
+tree. The complexity of search is O(log n). The number of 
+intervals that match a range query can vary depending on the amount of
+overlap in the intervals being indexed, as well as the range specified
+in the query.
+Insert Complexity: In an interval tree or interval skip list, the
+maximum value for an entry need only be calculated over the 
+subtree rooted at that entry, as this value will be examined only when
+searching within the subtree rooted at that entry. For a simple 
+interval skip graph, however, this maximum value for an entry must be
+computed over all entries preceding it in the index, as searches may
+begin anywhere in the data structure, rather than at a distinguished
+root element. It may be easily seen that in the worse case the 
+insertion of a single interval (one that covers all existing intervals in
+the index) will trigger the update of all entries in the index, for a
+worst-case insertion cost of O(n).
+3.3 Sparse Interval Skip Graph
+The final extensions we propose take advantage of the 
+difference between the number of items indexed in a skip graph and the
+number of systems on which these items are distributed. The cost
+in network messages of an operation may be reduced by 
+arranging the data structure so that most structure traversals occur locally
+on a single node, and thus incur zero network cost. In addition,
+since both congestion and failure occur on a per-node basis, we
+may eliminate links without adverse consequences if those links
+only contribute to load distribution and/or resiliency within a 
+single node. These two modifications allow us to achieve reductions
+in asymptotic complexity of both update and search.
+As may be in Section 3.2, insert and delete cost on an 
+interval skip graph has a worst case complexity of O(n), compared to
+O(log n) for an interval tree. The main reason for the difference
+is that skip graphs have a full search structure rooted at each 
+element, in order to distribute load and provide resilience to system
+failures in a distributed setting. However, in order to provide load
+distribution and failure resilience it is only necessary to provide a
+full search structure for each system. If as in TSAR the number
+of nodes (proxies) is much smaller than the number of data 
+elements (data summaries indexed), then this will result in significant
+savings.
+Implementation: To construct a sparse interval skip graph, we
+ensure that there is a single distinguished element on each system,
+the root element for that system; all searches will start at one of
+these root elements. When adding a new element, rather than 
+splitting lists at increasing levels l until the element is in a list with no
+others, we stop when we find that the element would be in a list 
+containing no root elements, thus ensuring that the element is reachable
+from all root elements. An example of applying this optimization
+may be seen in Figure 5. (In practice, rather than designating 
+existing data elements as roots, as shown, it may be preferable to insert
+null values at startup.)
+When using the technique of membership vectors as in [1], this
+may be done by broadcasting the membership vectors of each root
+element to all other systems, and stopping insertion of an element
+at level l when it does not share an l-bit prefix with any of the Np
+root elements. The expected number of roots sharing a log2Np-bit
+prefix is 1, giving an expected expected height for each element of
+log2Np +O(1). An alternate implementation, which distributes 
+information concerning root elements at pointer establishment time,
+is omitted due to space constraints; this method eliminates the need
+for additional messages.
+Performance: In a (non-interval) sparse skip graph, since the
+expected height of an inserted element is now log2 Np + O(1),
+expected insertion complexity is O(log Np), rather than O(log n),
+where Np is the number of root elements and thus the number of
+separate systems in the network. (In the degenerate case of a 
+single system we have a skip list; with splitting probability 0.5 the
+expected height of an individual element is 1.) Note that since
+searches are started at root elements of expected height log2 n,
+search complexity is not improved.
+For an interval sparse skip graph, update performance is 
+improved considerably compared to the O(n) worst case for the 
+nonsparse case. In an augmented search structure such as this, an 
+element only stores information for nodes which may be reached from
+that element-e.g. the subtree rooted at that element, in the case of
+a tree. Thus, when updating the maximum value in an interval tree,
+the update is only propagated towards the root. In a sparse interval
+skip graph, updates to a node only propagate towards the Np root
+elements, for a worst-case cost of Np log2 n.
+Shortcut search: When beginning a search for a value v, rather
+than beginning at the root on that proxy, we can find the element
+that is closest to v (e.g. using a secondary local index), and then
+begin the search at that element. The expected distance between
+this element and the search terminus is log2 Np, and the search
+will now take on average log2 Np + O(1) steps. To illustrate this
+optimization, in Figure 4 depending on the choice of search root, a
+search for [21, 30] beginning at node 2 may take 3 network hops,
+traversing to node 1, then back to node 2, and finally to node 3
+where the destination is located, for a cost of 3 messages. The
+shortcut search, however, locates the intermediate data element on
+node 2, and then proceeds directly to node 3 for a cost of 1 message.
+Performance: This technique may be applied to the primary key
+search which is the first of two insertion steps in an interval skip
+graph. By combining the short-cut optimization with sparse 
+interval skip graphs, the expected cost of insertion is now O(log Np),
+independent of the size of the index or the degree of overlap of the
+inserted intervals.
+3.4 Alternative Data Structures
+Thus far we have only compared the sparse interval skip graph
+with similar structures from which it is derived. A comparison with
+several other data structures which meet at least some of the 
+requirements for the TSAR index is shown in Table 2.
+44
+Table 2: Comparison of Distributed Index Structures
+Range Query Support Interval Representation Re-balancing Resilience Small Networks Large Networks
+DHT, GHT no no no yes good good
+Local index, flood query yes yes no yes good bad
+P-tree, RP* (distributed B-Trees) yes possible yes no good good
+DIMS yes no yes yes yes yes
+Interval Skipgraph yes yes no yes good good
+[6,14] [9,12] [14,16] [15,23] [18,19] [20,27] [21,30][2,5]
+Roots Node 1
+Node 2
+Figure 5: Sparse Interval Skip Graph
+The hash-based systems, DHT [25] and GHT [26], lack the 
+ability to perform range queries and are thus not well-suited to indexing
+spatio-temporal data. Indexing locally using an appropriate 
+singlenode structure and then flooding queries to all proxies is a 
+competitive alternative for small networks; for large networks the linear
+dependence on the number of proxies becomes an issue. Two 
+distributed B-Trees were examined - P-Trees [6] and RP* [19]. Each
+of these supports range queries, and in theory could be modified
+to support indexing of intervals; however, they both require 
+complex re-balancing, and do not provide the resilience characteristics
+of the other structures. DIMS [18] provides the ability to perform
+spatio-temporal range queries, and has the necessary resilience to
+failures; however, it cannot be used index intervals, which are used
+by TSAR"s data summarization algorithm.

@@ -1,0 +1,44 @@
+figure 4. title annotation tool. 
+figure 4 shows a snapshot of the tool.
+we have developed a tool for annotation of titles by human annotators.
+in figure 3, ‘building competitive advantages through an agile infrastructure" is the title of the powerpoint document.
+‘microsoft windows" on the top of this page is a picture and thus is ignored.
+in figure 2, ‘differences in win32 api implementations among windows operating systems" is the title of the word document.
+figures 2 and 3 show examples of office documents from which we conduct title extraction.
+(the specification covers all the cases we have encountered in data annotation.)
+the rules include a title is usually in consecutive lines in the same format, a document can have no title, titles in images are not considered, a title should not contain words like ‘draft", 147 ‘whitepaper", etc, if it is difficult to determine which is the title, select the one in the largest font size, and if it is still difficult to determine which is the title, select the first candidate.
+there are some rules defined in the specification that guide identification for such cases.
+however, there are many cases in which the identification is not easy.
+summary of the specification: the title of a document should be identified on the basis of common sense, if there is no difficulty in the identification.
+the annotated data will be used in training and testing of the title extraction methods.
+next, we define a ‘specification" for human judgments in title data annotation.
+figure 3. title extraction from powerpoint document.
+figure 2. title extraction from word document.
+as baselines for title extraction, we use that of always using the first lines as titles and that of always using the lines with largest font sizes as titles.
+we only consider extraction of the main title.
+a title sometimes consists of a main title and one or two subtitles.
+given a powerpoint document, we are to extract the title from the first slide.
+more specifically, given a word document, we are to extract the title from the top region of the first page.
+this is exactly the problem we address in this paper.
+if we can accurately extract the titles from the bodies of documents, then we can exploit reliable title information in document processing.
+actually, ‘true" titles usually exist at the beginnings of the bodies of documents.
+however, only 0.272 of them were correct.
+we found that nearly all the titles presented in the search results were from the file properties of the documents.
+we created 50 queries to search word and powerpoint documents and examined the top 15 results of each query returned by google.
+in another experiment, we found that google uses the titles in file properties of office documents in search and browsing, but the titles are not very accurate.
+for example, if one creates a new file by copying an old file, then the file property of the new file will also be copied from the old file.
+a number of reasons can be considered.
+we found that surprisingly the accuracy was only 0.265 (cf., section 6.3 for details).
+we collected 6,000 word and 6,000 powerpoint documents from an intranet and the internet and examined how many titles in the file properties are correct.
+that is to say, titles in file properties are usually inconsistent with the ‘true" titles in the file bodies that are created by the authors and are visible to readers.
+we found in an experiment, however, that users seldom use the feature and thus titles in file properties are usually very inaccurate.
+for office documents, users can define titles as file properties using a feature provided by office.
+figure 1. distributions of file formats in internet and intranet.
+in this paper, without loss of generality, we take office documents as an example.
+even on the internet, the documents in the formats are still not negligible, given its extremely large size.
+office and pdf are the main file formats on the intranet.
+figure 1 shows an estimate on distributions of file formats on intranet and internet [15].
+general documents are more widely available in digital libraries, intranets, and internet, and thus investigation on title extraction from them is sorely needed.
+the documents can be presentations, books, book chapters, technical papers, brochures, reports, memos, specifications, letters, announcements, or resumes.
+by general documents, we mean documents that belong to one of any number of specific genres.
+setting we consider the issue of automatically extracting titles from general documents.

@@ -1,0 +1,45 @@
+in previous work, the kullback-leibler divergence between the  normalized scores of the retrieval and the normalized scores of the combined retrieval provides the similarity [1]. 
+this is depicted in figure 2c.
+the similarity between the retrieval and the combined retrieval may be computed using some  correlation measure.
+if, on the other hand, the retrieval is very consistent with the m retrievals, then we might predict that the  retrieval is good.
+if we believe that the m retrievals provide a satisfactory approximation to relevance, then a very large difference in rank would suggest that our retrieval is  misranking a. if this difference is large on average over all n documents, then we might predict that the retrieval is bad.
+in this case, we might take a document a, compare its rank in the retrieval to its average rank in the m retrievals.
+finally, assume that we have, in addition to the retrieval we want to evaluate, m retrievals from a variety of  different systems.
+so,  although our method is similar to other perturbation methods in spirit, it can be applied in situations when the retrieval system is inaccessible or costly to access.
+our predictor does not require access to the original scoring function or additional retrievals.
+the nature of the perturbation process requires additional  scorings or retrievals.
+the upper grid represents the original retrieval, y, while the lower grid  represents the function after having been perturbed, ˜y.
+this is depicted in figure 2b.
+the similarity between the two retrievals can be measured using some correlation measure.
+this can be accomplished by either  perturbing the documents or queries.
+larity between the retrieval and a perturbed version of that retrieval [18, 19].
+here, we can consider the fusion of these retrieval as a surrogate for relevance.
+finally, in figure 2c, we depict prediction when given retrievals from several other systems on the same query.
+our approach uses a particular type of perturbation based on score diffusion.
+in figure 2b, we depict predictors which compare the original retrieval, y, to a perturbed version of the retrieval, ˜y.
+in figure 2a, we depict predictors which measure the divergence between the center of mass of a retrieval and the center of the embedding space.
+yoy (a) global divergence µ(y)˜y y (b) score perturbation µ(y) y (c) multirun averaging figure 2: representation of several performance predictors on a grid.
+the information introduced by the query, though, is retrieval-independent so that, if two  retrievals return the same set of documents, the approximate cox-lewis statistic will be the same regardless of the  retrieval scores.
+so, an alternative approach is to measure the  simi1 the authors have suggested coupling the query with the distance measure [18].
+if, on average over the n documents, the scores of a and ˜a tend to be very  different, we might suspect that the system is failing on this query.
+now, we can ask our system to score ˜a with respect to our query.
+take some document, a, from the  retrieved set and arbitrarily add or remove words at random to create a new document ˜a.
+this suggests a third method for  predicting performance.
+let"s assume that we have access to the system which  provided the original scores and that we can also request scores for new documents.
+in figure 2a, this is roughly equivalent to measuring the area of the set n. notice that we are throwing away information about the retrieval function y. therefore the cox-lewis statistic is highly dependent on selecting the top n documents.1 remember that we have n documents and a set of scores.
+one proposed method of quantifying this dispersion is to  measure the distance from a random document a to it"s nearest neighbor, b. a retrieval which is tightly clustered will, on average, have a low distance between a and b; a retrieval which is less tightly-closed will, on average have high  distances between a and b. this average corresponds to using the cox-lewis statistic to measure the randomness of the top n documents retrieved from a system [18].
+a poorly performing retrieval will return a loosely related set of documents covering many topics.
+we may hypothesize that a good retrieval will return a single, tight cluster.
+another way to quantify the dispersion of a set of documents is to look at how clustered they are.
+let"s again assume we have a set of n documents retrieved for our query.
+clarity reaches a minimum when a retrieval assigns every document the same score.
+in figure 2a, we present clarity as measuring the distance between the weighted center of mass of the retrieval (labeled y) and the unweighted center of mass of the collection (labeled o).
+here, the  distribution p(w|θc ) is our model of general text which can be computed using term frequencies in the corpus.
+the similarity between the multinomial p(w|θq) and a model of general text can be computed using the kullback-leibler divergence, dv kl(θq θc ).
+mathematically, we can compute a  representation of the language used in the initial retrieval as a weighted combination of document language models, p(w|θq) = nx i=1 p(w|θi) p(q|θi) z (6) where θi is the language model of the ith-ranked  document, p(q|θi) is the query likelihood score of the ith-ranked document and z = pn i=1 p(q|θi) is a normalization  constant.
+the conjecture is that a good retrieval will use language distinct from general text; the overlapping language in a bad retrieval will tend to be more similar to general text.
+specifically, clarity measures the similarity of the words most frequently used in retrieved documents to those most frequently used in the whole corpus.
+the clarity of a query attempts to quantify exactly this [7].
+in fact, we might believe that a bad  retrieval would include documents on many disparate topics, resulting in an overlap of terminological noise.
+if we computed the most frequent content words in this set, we would hope that they would be consistent with our topic.
+predictors one way to predict the effectiveness of a retrieval is to look at the shared vocabulary of the top n retrieved  documents.

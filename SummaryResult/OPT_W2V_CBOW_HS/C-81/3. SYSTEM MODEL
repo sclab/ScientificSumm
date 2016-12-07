@@ -1,0 +1,31 @@
+A more interesting case is when the harvested energy is used as the primary source of energy for the system with the objective of achieving indefinitely long system lifetime.
+The energy usage considerations in a harvesting system vary significantly from those in a battery powered system, as mentioned earlier.
+It may be noted that for low power systems with more advanced capabilities such as dynamic voltage scaling (DVS), multiple low power modes, and the capability to shut down system components selectively, the power consumption in each of the states and the resultant effect on application performance should be known to make power management decisions.
+Energy Generation Model: For wireless sensor nodes with limited storage and processing capabilities to be able to use the harvested energy data, models that represent the essential components of this information without using extensive storage are required.
+Harvesting-aware Power Management: The inputs provided by the previously mentioned blocks are used here to determine the suitable power management strategy for the system.
+Further, for energy sources that exhibit both long-term and short-term patterns (e.g., diurnal and climate variations vs. weather patterns for solar energy), the model must be able to capture both characteristics.
+Energy Consumption Model: It is also important to have detailed information about the energy usage characteristics of the system, at various performance levels.
+More sophisticated methods which track the flow of energy into and out of the battery are also available.
+In other words, the system should only use as much energy as harvested from the environment and attempt to maximize performance within this available energy budget. 
+This block also includes the system capability to measure the residual stored energy.
+We propose the model shown in Figure 1 for designing energy management methods in a harvesting system.
+Power management could be carried to meet different objectives in different applications.
+The purpose of this block is to provide a model for the energy available to the system in a form that may be used for making power management decisions.
+This is commonly based on measuring the battery voltage which is then mapped to the residual battery energy using the known charge to voltage relationship for the battery technology in use.
+We assume that the power consumption in the sleep and active modes is known.
+For instance, in some systems, the harvested energy may marginally supplement the battery supply and the objective may be to maximize the system lifetime.
+Collecting this information requires that the node hardware be equipped with the facility to measure the power generated from the environment, and the Heliomote platform [14] we used for evaluating the algorithms has this capability.
+The data measured by the energy tracking block is used here to predict future energy availability.
+For general applicability of our design, we will assume that only one sleep mode is available.
+Such information is useful for determining the energy availability profile and adapting system performance based on it.
+Since all the generated energy may not be used instantaneously, the harvesting system will usually have some energy storage technology.
+In such cases, the power management objective is to achieve energy neutral operation.
+These characteristics must be known to efficiently manage energy usage and storage.
+Such a model can also use information from external sources such as local weather forecast service to improve its accuracy.
+The precise methods used in our system to achieve these functions will be discussed in subsequent sections.
+Harvested Energy Tracking: This block represents the mechanisms used to measure the energy received from the harvesting device, such as the solar panel.
+Storage technologies (e.g., batteries and ultra-capacitors) are non-ideal, in that there is some energy loss while storing and retrieving energy from them.
+A good prediction model should have a low prediction error and provide predicted energy values for durations long enough to make meaningful performance scaling decisions.
+Most low power systems use batteries to store energy and provide residual battery status.
+Energy Storage Model: This block represents the model for the energy storage technology.
+The functions of the various blocks shown in the figure are discussed below.

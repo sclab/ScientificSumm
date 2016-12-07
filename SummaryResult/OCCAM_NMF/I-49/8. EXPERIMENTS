@@ -1,0 +1,45 @@
+this shows us that we are able to solve this multi-issue  multilateral negotiation problem in a simple and efficient way, with solutions close to the pareto solution. 
+we obtained solutions either equal or close to the maximin solution, the distance from the standard deviation being less than 0.0829, the evaluations not far from the ones obtained with p∗ and with less than seven proposals made.
+other examples have been tested with the same settings: issues in in, three negotiator agents and the same mediator agent, with no preference model but selecting randomly the proposal.
+note that the evaluation of p1 by h3 has decreased in comparison with p0, but not enough to be rejected and that this solution is the pareto one, p∗ .
+an agreement is reached with p1.
+h1, h2 and h3 answer back by sending the message accept_proposal(), p1 being evaluated with a high enough score to be acceptable, and also considered as a good proposal when using the  explanation function of myriad.
+the mediator sends propose(p1) the negotiator agents.
+the new proposal obtained is then p1 = [[h1,burn, 0], [h1, surgery, 8], [h1, orthopaedic, 1], [h2, surgery, 2], [h2, orthopaedic, 2], [h2, cardiology, 6], [h3, burn, 5], [h3, cardiology, 1]].
+just with the recommendations provided by agent h1, the mediator is able to make a new proposal by restricting the value of burn and surgery.
+each negotiator agent evaluates this proposal and answers back by accepting or rejecting p0: • agent h1 rejects this offer since its evaluation is very far from the threshold (0.29, a bad score) and gives a recommendation to improve burn and surgery by sending the message  reject_proposal([burn,surgery]); • agent h2 accepts this offer by sending the message accept_proposal(), the proposal evaluation being  good; • agent h3 accepts p0 by sending the message accept_ proposal(), the proposal evaluation being good.
+this proposal is the vector p0 = [[h1,burn, 3], [h1, surgery, 8], [h1, orthopaedic, 0], [h2, surgery, 2], [h2, orthopaedic, 3], [h2, cardiology, 6], [h3, burn, 2], [h3, cardiology, 1]] and the mediator sends propose(p0) to h1, h2 and h3 for approval.
+the mediator agent makes a proposal chosen randomly in admissible set obtained with these availabilities as  linear constraints.
+to start, the negotiator agents send their  availabilities.
+the hospitals threshold are fixed  approximatively to the level where an evaluation is considered as good.
+h1 11 4 8  10h2 25 - 3 4 10 h3 7 10 - - 3 we obtain a multiagent system with the mediator agent and three agents of type negotiator for the three hospital in the problem.
+available overall burn surg.
+the availabilities of the hospitals are as  presented in the following table.
+the problem to solve is then to dispatch to hospital h1, h2 and h3, the set of victims composed of 5 victims with the  pathology burn, 10 with surgery, 3 with orthopedic and 7 with cardiology.
+moreover, only the recommendations on how to improve a proposal are taken into account.
+the set of  admissibility is then obtained by solving this linear problem by the use of prolog.
+to solve this  problem, for this example, we decided to solve a linear problem with the availability constraints and the recommendations as linear constraints on the dispatch values.
+this subset have to satisfy as much as possible the recommendations made by the hospitals.
+in this simplified example, the physician have no  particular preferences on the dispatch and the mediator agent chooses a proposal randomly in a subset of the set of  admissibility.
+in addition to reflecting this kind of viewpoint, the aggregation function as defined in myriad introduces a veto on the criteria burn, surgery, orthopedic and ereceipt, where ereceipt is the criterion for the preferences about the capacity to receive a number of patients at the same time.
+therefore, the utility function of this criterion  represents a preference such that the more there are patients of this pathology in the hospital, the less the hospital may  satisfy them, and this with an initial capacity.
+3, represents the preferences of h1  according to the value of cburn which is the current capacity of burn.
+the pathology burn, the corresponding criterion, also named burn as shown in fig.
+on autonomous agents and multi-agent systems (aamas 07) figure 3: the h1 preference model in myriad.
+in the case of 948 the sixth intl.
+these criteria correspond to the preferences on the pathologies the hospital can treat.
+joint conf.
+3, is composed of five criteria.
+for hospital h1, the preference model, fig.
+all the  hospitals have similar decision criteria reflecting their preferences on the level of congestion they can face for the overall  hospital and the different services available, as briefly explained for hospital h1 hereafter.
+each hospital can receive victims having a particular pathology in such a way that h1 can receive patients with the pathology burn, surgery or orthopedic, h2 can receive patients with the pathology surgery, orthopedic or cardiology and h3 can receive  patients with the pathology burn or cardiology.
+in this example, we have three hospitals, h1, h2 and h3.
+first, to illustrate our protocol, we present a simple  example of our dispatch problem.
+in particular, all  conversion parts of the agents have to be specified according to the application since to convert a proposal into decision  criteria, we need to know, first, this model and the correlations between the proposals and this model.
+some functionalities depending on the application have to be implemented according to the  application by extending these classes.
+these classes extend jade classes and integrate myriad into the agents, reducing the amount of  communications in the system.
+we defined the two types of agents and their behaviours as introduced in section 6. the agents and their behaviours correspond to the main classes of our prototype, negotiatoragent and negotiatorbehaviour for the negotiator agents, and mediatoragent and mediatorbehaviour for the mediator agent.
+the experiments aim at verifying that our approach gives solutions as close as possible to the maximin solution and in a small number of rounds and hopefully in a short time since our context is highly cooperative.
+a general framework to specialise according to the application) and enable us to make some preliminary  experiments.
+this mas is designed to be as general as  possible (e.g.
+we developed a mas using the widely used jade agent platform [1].

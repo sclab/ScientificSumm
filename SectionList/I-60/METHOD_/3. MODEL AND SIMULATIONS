@@ -1,0 +1,86 @@
+We first describe the formal transportation network model,
+and then we describe the simulations designs.
+3.1 Formal Model
+Following Shavitt and Shay [15] and Parshani [13], the
+transportation network is represented by a directed graph
+G(V, E), where V is the set of vertices representing 
+junctions, and E is the set of edges, representing roads. An edge
+e ∈ E is associated with a weight w > 0, which specifies
+the time it takes to traverse the road associated with that
+edge. The roads" weights vary in time according to the 
+network (traffic) load. Each car, which is associated with an
+autonomous agent, is given a pair of origin and destination
+points (vertices). A journey is defined as the (not 
+necessarily simple) path taken by an agent between the origin vertex
+and the destination vertex. We assume that there is always
+a path between a source and a destination. A journey length
+is defined as the sum of all weights of the edges constituting
+this path. Every agent has to travel between its origin and
+destination points and aims to minimize its journey length.
+Initially, agents are ignorant about the state of the roads.
+Regular agents are only capable of gathering information
+about the roads as they traverse them. However, we assume
+that some agents have means of inter-vehicle 
+communication (e.g., IEEE 802.11) with a given communication range,
+which enables them to communicate with other agents with
+the same device. Those agents are referred to as gossip
+agents. Since the communication range is limited, the 
+exchange of information using gossiping is done in one of two
+ways: (a) between gossip agents passing one another, or (b)
+between gossip agents located at the same junction. We 
+assume that each agent stores the most recent information it
+has received or gathered around the edges in the network.
+A subset of the gossip agents are those agents who are 
+selfinterested and manipulate the devices for their own benefit.
+We will refer to these agents as self-interested agents. A
+detailed description of their behavior is given in Sections 4
+and 5.
+3.2 Simulation Design
+Building on [13], the network in our simulations replicates
+a central part of a large city, and consists of 50 junctions
+and 150 roads, which are approximately the number of main
+streets in the city. Each simulation consists of 6 iterations.
+The basic time unit of the iteration is a step, which 
+equivalents to about 30 seconds. Each iteration simulates six hours
+of movements. The average number of cars passing through
+the network during the iteration is about 70,000 and the 
+average number of cars in the network at a specific time unit
+is about 3,500 cars. In each iteration the same agents are
+used with the same origin and destination points, whereas
+the data collected in earlier iterations is preserved in the
+future iterations (referred to as the history of the agent).
+This allows us to simulate somewhat a daily routine in the
+transportation network (e.g., a working week).
+Each of the experiments that we describe below is run
+with 5 different traffic scenarios. Each such traffic scenario
+differs from one another by the initial load of the roads and
+the designated routes of the agents (cars) in the network.
+For each such scenario 5 simulations are run, creating a total
+of 25 simulations for each experiment.
+It has been shown by Parshani et al. [13, 14] that the 
+information propagation in the network is very efficient when
+the percentage of gossiping agents is 10% or more. Yet, due
+to congestion caused by too many cars rushing to what is
+reported as the less congested part of the network 20-30%
+of gossiping agents leads to the most efficient routing results
+in their experiments. Thus, in our simulation, we focus only
+on simulations in which the percentage of gossip agents is
+20%.
+The simulations were done with different percentages of
+self-interested agents. To gain statistical significance we ran
+each simulation with changes in the set of the gossip agents,
+and the set of the self-interested agents.
+In order to gain a similar ordinal scale, the results were
+normalized. The normalized values were calculated by 
+comparing each agent"s result to his results when the same 
+scenario was run with no self-interested agents. This was done
+for all of the iterations. Using the normalized values enabled
+us to see how worse (or better) each agent would perform
+compared to the basic setting. For example, if an average
+journey length of a certain agent in iteration 1 with no 
+selfinterested agent was 50, and the length was 60 in the same
+scenario and iteration in which self-interested agents were
+involved, then the normalized value for that agent would be
+60/50 = 1.2.
+More details regarding the simulations are described in
+Sections 4 and 5.

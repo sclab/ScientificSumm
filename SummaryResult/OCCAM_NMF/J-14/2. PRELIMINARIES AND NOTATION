@@ -1,0 +1,28 @@
+then the input consists of at most n2δ+1 numbers, each of which can be represented using log pmax bits. 
+let pmax be the greatest absolute value of any element of any payoff matrix.
+we assume that all elements of these matrices are integer.
+we have to select the values of pij so that p00 − p10 − p01 + p11 = a, −p00 + p10 = b, −p00 + p01 = c, p00 = d. it is easy to see that the unique solution is given by p00 = d, p01 = c + d, p10 = b + d, p11 = a + b + c + d. the input to all algorithms considered in this paper includes the payoff matrices for each player.
+for i, j = 0, 1, let pij be the payoff to v when u plays i, v plays 0 and w plays j. we have p0 (v ) = p00(1 − u)(1 − w) + p10u(1 − w) + p01(1 − u)w + p11uw.
+we will give the proof for p0 (v ); the proof for p1 (v ) is similar.
+moreover, if all a, b, c, d, a , b , c , d are integer, the payoffs to v are integer as well.
+claim 1. for a vertex v with a single child u and parent w , given any a, b, c, d ∈ q, a , b , c , d ∈ q, one can select the payoffs to v so that p0 (v ) = auw + bu + cw + d, p1 (v ) = a uw + b u + c w + d .
+in what follows, we will frequently use the following simple observation.
+both p0 (v ) and p1 (v ) are multilinear functions of the strategies of v "s neighbors.
+let p0 (v ) and p1 (v ) be the expected payoffs to v when it plays 0 and 1, respectively.
+the proof that the number of rectangles in b(vj+1, vj) is polynomial proceeds by first showing that the number of event points in b(vj+1, vj ) cannot exceed the number of event points in b(vj, vj−1) by more than 2, and using this fact to bound the number of rectangles in b(vj+1, vj ).
+in [9], it was shown that for such games, the best response policy has only polynomially-many rectangles.
+, (vn−1, vn)}.
+, vn} and e = {(v1, v2), .
+for many games considered in this paper, the underlying graph is an n-vertex path, i.e., a graph g = (v, e) with v = {v1, .
+for any set a ⊆ [0, 1]2 that is represented as a union of a finite number of rectangles, we say that a point u ∈ [0, 1] on the u-axis is a  uevent point of a if u = 0 or u = 1 or the representation of a contains a rectangle of the form iv × iu and u is an endpoint of iu ; v -event points are defined similarly.
+in order to perform computations on b(v, u), and to bound the number of rectangles, [9] used the notion of an event point, which is defined as follows.
+when a node v is instructed by its parent to adopt mixed strategy v, it does the  following for each child u - it finds a pair (v, u) ∈ b(v, u) (with the same v value that it was given by its parent) and instructs u to play u. the best response policy for a vertex u given its parent v can be represented as a union of rectangles, where a rectangle is defined by a pair of closed intervals (iv , iu ) and consists of all points in iv × iu ; it may be the case that one or both of the intervals iv and iu consists of a single point.
+it instructs each child v to play v. the  remainder of the downward pass is recursive.
+the root selects a mixed strategy w for the root w and a mixed strategy v ∈ b(w, v ) for each child v of w .
+with the above assumptions about the root, the downstream pass is straightforward.
+the upstream pass of the generic algorithm of [13] considers  every node v (other than the root) and computes the best response policy for v given its parent.
+we say that v is a potential best response to w (denoted by v ∈ pbrv (w)) if there is an equilibrium in the instance g(v,w ),w =w in which v has mixed strategy v. we define the best response policy for v , given w , as b(w, v ) = {(w, v) | v ∈ pbrv (w), w ∈ [0, 1]}.
+this can be achieved by first choosing an arbitrary root of the tree, and then adding a dummy parent of this root, giving the new parent a constant payoff function, e.g., 0. given an edge (v, w ) of the tree g, and a mixed strategy w for w , let g(v,w ),w =w be the instance obtained from g by (1) deleting all nodes z which are separated from v by w (i.e., all nodes z such that the path from z to v passes through w ), and (2) restricting the instance so that w is required to play mixed  strategy w. definition 1. suppose that (v, w ) is an edge of the tree, that v is a mixed strategy for v and that w is a mixed strategy for w .
+for convenience, we assume without loss of generality that the root has a single child, and that its payoff is independent of the action chosen by the child.
+each vertex has two actions, which are denoted by 0 and 1. a mixed strategy of a player v is represented as a single number v ∈ [0, 1], which denotes the probability that v selects action 1. for the purposes of the algorithm, the tree is rooted arbitrarily.
+we consider graphical games in which the underlying graph g is an n-vertex tree, in which each vertex has at most δ children.

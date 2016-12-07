@@ -1,0 +1,28 @@
+it follows that the x∗ i constitute a feasible solution to the lp. 
+equivalently, i rj i x∗ i ≤ sj.
+then, from the fact that the maximum payment must be extracted from each bidder bj, it follows that ( i |rj i |)h − sj ≤ i:r j i >0 rj i πc−xi + i:r j i <0 −rj i πc+xi = i:r j i >0 rj i (h − x∗ i ) + i:r j i <0 −rj i (h + x∗ i ) = ( i |rj i |)h − i rj i x∗ i .
+let x∗ i = πc+xi − h = h − πc−xi .
+because the maximum  extractable total payment is 2vh, it follows that for each i, πc+xi + πc−xi = 2h.
+from the fact that the maximum payment must be extracted from each bidder bxi , it follows that for each i, πc+xi + πc−xi ≥ 2h.
+then the maximum payment must be extracted from each bidder.
+now suppose there is a solution to the  donationclearing instance with a total amount donated of at least vh.
+this allows us to extract the maximum payment from the bids bxi -a total payment of 2vh − c. additionally, the utility of bidder bj is now i:r j i >0 rj i (h − x∗ i ) + i:r j i <0 −rj i (h + x∗ i ) = ( i |rj i |)h − i rj i x∗ i ≥ ( i |rj i |)h − sj (where the last  inequality stems from the fact that constraint j must be  satisfied in the lp solution), so it follows we can extract the maximum payment from all the bidders bj, for a total  payment of c. it follows that we can extract the required 2vh payment from the bidders, and there exists a solution to the donation-clearing instance with a total amount donated of at least 2vh.
+56 for every i, let πc+xi = h + x∗ i , and let πc−xi = h − x∗ i (for a total payment of 2h to these two charities).
+without loss of generality, we can suppose that |x∗ i | ≤ h for all i. then, in the donation-clearing instance, 4 these constraints must include bounds on the variables (including nonnegativity bounds), if any.
+, x∗ v) to the lp.
+suppose there is a feasible solution (x∗ 1, x∗ 2, .
+let the target total amount donated be 2vh.
+for every constraint i rj i xi ≤ sj in the linear program, let there be a bid bj = ({(c−xi , rj i )}i:r j i >0 ∪ {(c+xi , −rj i )}i:r j i <0 , ( i |rj i |)h − sj, 1).
+for every variable xi in the lp, let there be a bid bxi = ({(c+xi , 1), (c−xi , 1)}, 2h, 2h − c v ).
+let h be some number such that if there is a feasible solution to the lp, there is one in which every variable has absolute value at most h. in the following, we will represent bids as follows: ({(ck, ak)}, s, t) indicates that uk j (πck ) = akπck (this  function is 0 for ck not mentioned in the bid), and wj(uj) = t for uj ≥ s, wj(uj) = uj t s otherwise.
+for every variable xi in the lp, let there be two charities, c+xi and c−xi .
+the v bids corresponding to the variables mention only two  charities each; the c bids corresponding to the constraints mention only two times the number of variables in the corresponding constraint.
+in this model, each bid bj has only linear ui j functions, and is a partially acceptable  threshold bid (wj(u) = tj for u ≥ sj, otherwise wj(u) = utj sj ).
+theorem 3. the question of whether an lp (given by a set of linear constraints4 ) has a feasible solution can be  modeled as a donation-clearing instance with payment maximization as the objective, with 2v charities and v + c bids (where v is the number of variables in the lp, and c is the number of constraints).
+we first observe that for linear programming, a decision question about the objective can simply be phrased as  another constraint in the lp (forcing the objective to exceed the given value); then, the original decision question  coincides with asking whether the resulting linear program has a feasible solution.
+(and thus, if we are willing to call the algorithm a logarithmic number of times, we can solve the optimization version of the linear program.)
+thus, any special-purpose algorithm for solving the decision variant of this special case of the  donationclearing problem could be used to solve a decision  question about an arbitrary linear program just as fast.
+(the decision variant of an optimization  problem asks the binary question: can the objective value  exceed o?)
+we give a reduction from (the decision variant of) the  general linear programming problem to (the decision variant of) a special case of the donation-clearing problem (which can be solved in polynomial time using linear  programming).
+in this section, we show that this is not the case.
+better than linear programming one may wonder if, for the special cases of the  donationclearing problem that can be solved in polynomial time with linear programming, there exist special purpose  algorithms that are much faster than linear programming  algorithms.

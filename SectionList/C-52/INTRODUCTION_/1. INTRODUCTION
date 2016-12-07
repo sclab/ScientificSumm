@@ -1,0 +1,105 @@
+In a distributed multi-player game, players are normally 
+distributed across the Internet and have varying delays to each other
+or to a central game server. Usually, in such games, the players are
+part of the game and in addition they may control entities that make
+up the game. During the course of the game, the players and the
+entities move within the game space. A player sends information
+about her movement as well as the movement of the entities she
+controls to the other players using a Dead-Reckoning (DR) vector.
+A DR vector contains information about the current position of the
+player/entity in terms of x, y and z coordinates (at the time the DR
+vector was sent) as well as the trajectory of the entity in terms of
+the velocity component in each of the dimensions. Each of the 
+participating players receives such DR vectors from one another and
+renders the other players/entities on the local consoles until a new
+DR vector is received for that player/entity. In a peer-to-peer game,
+players send DR vectors directly to each other; in a client-server
+game, these DR vectors may be forwarded through a game server.
+The idea of DR is used because it is almost impossible for 
+players/entities to exchange their current positions at every time unit.
+DR vectors are quantization of the real trajectory (which we refer
+to as real path) at a player. Normally, a new DR vector is computed
+and sent whenever the real path deviates from the path extrapolated
+using the previous DR vector (say, in terms of distance in the x, y,
+z plane) by some amount specified by a threshold. We refer to the
+trajectory that can be computed using the sequence of DR vectors
+as the exported path. Therefore, at the sending player, there is a 
+deviation between the real path and the exported path. The error due
+to this deviation can be removed if each movement of player/entity
+is communicated to the other players at every time unit; that is a
+DR vector is generated at every time unit thereby making the real
+and exported paths the same. Given that it is not feasible to 
+satisfy this due to bandwidth limitations, this error is not of practical
+interest. Therefore, the receiving players can, at best, follow the
+exported path. Because of the network delay between the sending
+and receiving players, when a DR vector is received and rendered
+at a player, the original trajectory of the player/entity may have 
+already changed. Thus, in physical time, there is a deviation at the
+receiving player between the exported path and the rendered 
+trajectory (which we refer to as placed path). We refer to this error
+as the export error. Note that the export error, in turn, results in a
+deviation between the real and the placed paths.
+The export error manifests itself due to the deviation between the
+exported path at the sender and the placed path at the receiver (i)
+1
+before the DR vector is received at the receiver (referred to as the
+before export error, and (ii) after the DR vector is received at the 
+receiver (referred to as the after export error). In an earlier paper [1],
+we showed that by synchronizing the clocks at all the players and
+by using a technique based on time-stamping messages that carry
+the DR vectors, we can guarantee that the after export error is made
+zero. That is, the placed and the exported paths match after the DR
+vector is received. We also showed that the before export error can
+never be eliminated since there is always a non-zero network delay,
+but can be significantly reduced using our technique [1]. 
+Henceforth we assume that the players use such a technique which results
+in unavoidable but small overall export error.
+In this paper we consider the problem of different and varying
+network delays between each sender-receiver pair of a DR vector,
+and consequently, the different and varying export errors at the 
+receivers. Due to the difference in the export errors among the 
+receivers, the same entity is rendered at different physical time at
+different receivers. This brings in unfairness in game playing. For
+instance a player with a large delay would always see an entity
+late in physical time compared to the other players and, 
+therefore, her action on the entity would be delayed (in physical time)
+even if she reacted instantaneously after the entity was rendered.
+Our goal in this paper is to improve the fairness of these games in
+spite of the varying network delays by equalizing the export error
+at the players. We explore whether the time-average of the export
+errors (which is the cumulative export error over a period of time
+averaged over the time period) at all the players can be made the
+same by scheduling the sending of the DR vectors appropriately at
+the sender. We propose two algorithms to achieve this.
+Both the algorithms are based on delaying (or dropping) the
+sending of DR vectors to some players on a continuous basis to
+try and make the export error the same at all the players. At an
+abstract level, the algorithm delays sending DR vectors to players
+whose accumulated error so far in the game is smaller than others;
+this would mean that the export error due to this DR vector at these
+players will be larger than that of the other players, thereby making
+them the same. The goal is to make this error at least approximately
+equal at every DR vector with the deviation in the error becoming
+smaller as time progresses.
+The first algorithm (which we refer to as the scheduling 
+algorithm) is based on estimating the delay between players and 
+refining the sending of DR vectors by scheduling them to be sent
+to different players at different times at every DR generation point.
+Through an implementation of this algorithm using the open source
+game BZflag, we show that this algorithm makes the game very fair
+(we measure fairness in terms of the standard deviation of the 
+error). The drawback of this algorithm is that it tends to push the
+error of all the players towards that of the player with the worst
+error (which is the error at the farthest player, in terms of delay,
+from the sender of the DR). To alleviate this effect, we propose
+a budget based algorithm which budgets how the DRs are sent to
+different players. At a high level, the algorithm is based on the
+idea of sending more DRs to players who are farther away from
+the sender compared to those who are closer. Experimental results
+from BZflag illustrates that the budget based algorithm follows a
+more balanced approach. It improves the fairness of the game but
+at the same time does so without pushing up the mean error of the
+players thereby maintaining the accuracy of the game. In addition,
+the budget based algorithm is shown to achieve the same level of
+accuracy of game playing as the current implementation of BZflag
+using much less number of DR vectors.

@@ -1,0 +1,77 @@
+We introduce the event notation t is noisy and t occurs for making the difference between the noise probability P(t is noisy|c) in a collection and the occurrence probability P(t occurs|d) in a document more explicit, thereby keeping in mind that the noise  probability corresponds to the occurrence probability of a term in a collection.
+The total term noise probability for disjoint documents: Pdis (t is noisy|c) := d P(t occurs|d) · P(d|c) Now, we can formulate a theorem that makes assumptions explicit that explain the classical idf .
+We generalise this definition and introduce the constant λ where 0 ≤ λ ≤ N. The  containment of a document d depends on the collection c, this is reflected by the notation P(d|c) used for the containment 228 of a document.
+For a collection with infinite many documents, the upper bound of the noise probability for terms tN that occur in all documents becomes: lim N→∞ Pin (tN is noisy) = lim N→∞ 1 − 1 − λ N N = 1 − e−λ By applying an independence rather a disjointness  assumption, we obtain the probability e−1 that a term is not noisy even if the term does occur in all documents.
+Next, we define the frequency-based noise probability and the total noise probability for disjoint documents.
+The term noise probability for  independent documents: Pin (t is noisy|c) := d (1 − P(t occurs|d) · P(d|c)) With binary occurrence and a constant containment P(d|c) := λ/N, we obtain the term noise of a term t that occurs in n(t) documents: Pin (t is noisy|c) = 1 − 1 − λ N n(t) 229 For binary occurrence and disjoint documents, the  containment probability was 1/N.
+In the disjoint case, the noise probability is one for a term that occurs in all documents.
+and the noise probability for independent documents  (definition 3).
+We choose a document-dependent occurrence P(t|d) := 1/NT (d), i. e. the occurrence probability is equal to the inverse of NT (d), which is the total number of terms in document d. Next, we choose the containment P(d|c) := NT (d)/NT (c)·NT (c)/ND(c) where NT (d)/NT (c) is a document length normalisation (number of terms in document d divided by the number of terms in collection c), and NT (c)/ND(c) is a constant factor of the collection (number of terms in collection c divided by the number of documents in collection c).
+For the monotonous case we investigate here, the noise of a term with n(t) = 1 is equal to 1 − (1 − λ/N) = λ/N and the noise of a term with n(t) = N is close to 1− e−λ .
+Thus, the noise of a term t is large if t occurs in n(t) large documents and the noise is smaller if t occurs in small documents.
+The assumptions are: ∀d : (P(t occurs|d) = 1 ∨ P(t occurs|d) = 0) ∧ P(d|c) = λ N ∧ d P(d|c) = 1.0 We obtain: Pdis (t is noisy|c) = d|t∈d 1 N = n(t) N = Pfreq (t is noisy|c) The above result is not a surprise but it is a  mathematical formulation of assumptions that can be used to explain the classical idf .
+The containment probability corresponds to a document normalisation (document length  normalisation, pivoted document length) and is normally attached to the tf -component or the tf-idf -product.
+We obtain a generalised entropy: −(λ + ln P(t)) d(P(t)) = P(t) · (1 − λ − ln P(t)) The generalised entropy corresponds for λ = 1 to the  classical entropy.
+This could be explained by a leverage effect that justifies the binary occurrence and constant containment: The term occurrence for small  documents tends to be larger than for large documents, whereas the containment for small documents tends to be smaller than for large documents.
+IDF assumptions: If the occurrence  probability P(t|d) of term t over documents d is binary, and the containment probability P(d|c) of documents d is  constant, and document containments are disjoint events, then the noise probability for disjoint documents is equal to the frequency-based noise probability.
+The upper bound of being noisy: If the occurrence P(t|d) is binary, and the containment P(d|c) is constant, and document containments are independent events, then 1 − e−λ is the upper bound of the noise  probability.
+If we  assume P(d|c) := 1, then P(t|d) := λ/N can be interpreted as the average probability that t represents a document.
+The common assumption is that the average containment or  occurrence probability is proportional to n(t).
+This is a further explanation why we can estimate the idf with a simple P(t|d), since the combined tf-idf contains the  occurrence probability.
+Alternatively, we can assume a constant containment and a term-dependent occurrence.
+However, here is additional potential: The statistical laws (see [3] on Luhn and Zipf) indicate that the average probability could follow a normal distribution, i. e. small probabilities for small n(t) and large n(t), and larger probabilities for medium n(t).
+With x = −λ, we obtain: lim N→∞ 1 − λ N N = e−λ For the term noise, we have: Pin (t is noisy|c) = 1 − 1 − λ N n(t) Pin (t is noisy|c) is strictly monotonous: The noise of a term tn is less than the noise of a term tn+1, where tn occurs in n documents and tn+1 occurs in n + 1 documents.
+The assumptions make explicit that the different types of term occurrence in documents (frequency of a term, importance of a term, position of a term,  document part where the term occurs, etc.)
+Consider the definition of the entropy contribution H(t) of a signal t. H(t) := P(t) · − ln P(t) We form the first derivation for computing the optimum.
+This result does not depend on the base of the logarithm as we see next: ∂H(t) ∂P(t) = − logb P(t) + −1 P(t) · ln b · P(t) = − 1 ln b + logb P(t) = − 1 + ln P(t) ln b We summarise this result in the following theorem: Theorem 3.
+3.1 Binary occurrence, constant containment and disjointness of documents We show in this section, that the frequency-based noise probability n(t) N in the idf definition can be explained as a total probability with binary term occurrence, constant document containment and disjointness of document  containments.
+∧ ¬dN ) = 1 − d (1 − P(d)) The noise probability can be considered as the conjunction of the term occurrence and the document containment.
+We define and discuss in this section three probabilities: The frequency-based noise probability (definition 1), the  total noise probability for disjoint documents (definition 2).
+∨ dN )|c) For disjoint documents, this view of the noise probability led to definition 2.
+If we view P(d|c) := λ/N as the average containment, then λ is large for a term that occurs mostly in large  documents, and λ is small for a term that occurs mostly in small documents.
+P(d|c) is constant : ⇐⇒ ∀d : P(d|c) = λ N For disjoint documents that cover the whole event space, we set λ = 1 and obtain Èd P(d|c) = 1.0.
+The upper bound of the independent noise  probability follows from the limit limN→∞(1 + x N )N = ex (see any comprehensive math book, for example, [5], for the  convergence equation of the Euler function).
+In a tf-idf -retrieval function, the tf -component reflects the occurrence probability of a term in a document.
+The frequency-based term noise  probability: Pfreq (t is noisy|c) := n(t) N Definition 2.
+∂H(t) ∂P(t) = − ln P(t) + −1 P(t) · P(t) = −(1 + ln P(t)) For obtaining optima, we use: 0 = −(1 + ln P(t)) The entropy contribution H(t) is maximal for P(t) = e−1 .
+The disjointness assumption is typical for frequency-based probabilities.
+P(t|d) is binary : ⇐⇒ P(t|d) = 1.0 ∨ P(t|d) = 0.0 We refer to a probability function as constant if for all events the probability is equal.
+Therefore, a term with n = N has the largest noise probability.
+3.2 The upper bound of the noise probability for independent documents For independent documents, we compute the probability of a disjunction as usual, namely as the complement of the probability of the conjunction of the negated events: P(d1 ∨ .
+From that point of view, idf means that P(t ∧ d|c) is constant for all d in which t occurs, and P(t ∧ d|c) is zero otherwise.
+The probability and entropy follow from the  derivation above.
+The complement of the maximal noise probability is e−λ and we are looking now for a generalisation of the entropy definition such that e−λ is the probability of a maximal  informative signal.
+For a constant containment in a collection with N documents, 1 N is often assumed as the containment probability.
+From the assumptions, we can conclude that idf  (frequencybased noise, respectively) is a relatively simple but strict estimate.
+We can generalise the entropy definition by computing the integral of λ+ ln P(t), i. e. this derivation is zero for e−λ .
+Now, with independent  documents, we can use λ as a collection parameter that controls the average containment probability.
+The occurrence  probability P(t|d) is binary, if P(t|d) is equal to 1.0 if t ∈ d, and P(t|d) is equal to 0.0, otherwise.
+By moving from disjoint to independent  documents, we have established a link between the complement of the noise probability of a term that occurs in all  documents and information theory.
+The occurrence and  containment can be term specific.
+The document containment probability reflect the chance that a document occurs in a collection.
+For example, set P(t∧d|c) = 1/ND(c) if t occurs in d, where ND(c) is the number of  documents in collection c (we used before just N).
+We obtain P(t∧d|c) = 1/ND(c).
+From a probability theory point of view, we can consider documents as disjoint events, in order to achieve a sound theoretical model for explaining the classical idf .
+This containment probability is constant if we have no information about the document containment or we ignore that documents differ in containment.
+3.3 The probability of a maximal informative signal The probability e−1 is special in the sense that a signal with that probability is a signal with maximal information as derived from the entropy definition.
+of a document.
+Next, we link independent documents to probability theory. 
+We refer to a probability function as binary if for all events the probability is either 1.0 or 0.0.
+The probability of a maximal  informative signal: The probability Pmax = e−1 ≈ 0.37 is the  probability of a maximal informative signal.
+The entropy of a maximal informative signal is Hmax = e−1 .
+But does disjointness reflect the real world where the  containment of a document appears to be independent of the containment of another document?
+Pdis (t is noisy|c) = Pfreq (t is noisy|c) Proof.
+We show through the next theorem that the upper bound of the noise probability depends on λ. Theorem 2.
+are ignored, and document containments are considered as  disjoint events.
+In the next section, we replace the disjointness assumption by the independence  assumption.
+For independent documents, we use now the conjunction of negated events.
+P(t is noisy|c) := P(t occurs ∧ (d1 ∨ .
+In the next section, we relate the value e−λ to information theory.
+and the different types of document containment (size, quality, age, etc.)
+Containment could be derived, for example, from the size, quality, age, links, etc.
+∀t : Pin (t is noisy|c) < 1 − e−λ Proof.
+Still, idf works well.
+∨ dN ) = 1 − P(¬d1 ∧ .
+Definition 1.
+Theorem 1.
+Definition 3.

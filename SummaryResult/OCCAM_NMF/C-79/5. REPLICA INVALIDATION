@@ -1,0 +1,36 @@
+without relying on any manet routing protocols, the two primitives work  together to facilitate efficient search and adaptive maintenance. 
+although validation mesh provides a conceptual topology that (1) connects all replicas together, (2) coordinates concurrent updates, and (3) disseminates invalidation packets, the technical issue is how such a mesh topology could be effectively and efficiently maintained and evolved when (a) nodes request and cache a  resource, (b) when nodes update their respective replicas and  invalidate other replicas, and (c) when nodes move.
+for instance, in figure 3(f), node h does not reply to any query packet before it reattaches itself to the mesh.
+client and data node who keep hearing the keep-alive packets from the focal node act as if they are holding a valid replica, so that they can reply to query packets, like node b in figure 3(c) replying a request from node h. while a disconnected node  attempting to discover an attachment point to reattach itself to the mesh, the disconnected node can"t reply to a query packet.
+here, node f, although part of the  validation mesh, doesn"t hold data replica, and hence is termed  nondata node.
+via the resource discovery mechanism, node h relies on an intermediate node f to connect itself to the mesh.
+to illustrate the effect of node mobility, in figure 3(f), node h has moved to a location where it is not directly connected to the mesh.
+intermediate nodes who forward the search_reply packet will  become part of the validation mesh as well.
+once an attachment point is found, a search_reply packet is returned to the disconnected node who originated the search.
+if a node holding a valid/updated replica doesn"t hear a keep-alive packet for a certain time interval, it will deploy a search packet using the resource discovery mechanism described in section 3 to find another node (termed attachment point) currently on the validation mesh so that it can attach itself to.
+in addition, to accommodate newly  participating nodes and mobility of nodes, the focal node periodically floods the validation mesh with a keep-alive packet, so that nodes who can hear this packet are considered themselves to be part of the validation mesh.
+for instance, in figures 3(a), 3(b), and 3(c), node a is the focal node; in figures 3(d), 3(e), and 3(f), node g becomes the focal node.
+we also name nodes, such as g and h, who originate requests to replicate data as clients, and nodes b, d, and e who locally cache passing data as data nodes.
+as nodes update replicas, the node that last (or most recently) updates a 4 the 3rd international conference on mobile technology, applications and systems - mobility 2006 corresponding replica assumes the role of focal node.
+initially, the node that originally holds the data is the focal node.
+eventually, a new validation mesh is established over nodes g, b, d, e, and h. to maintain a validation mesh among the nodes holding valid replicas, one of them is designated to be the focal node.
+this time, its query packet follows the pheromone toward node g, where the updated file can be obtained.
+however, query forwarding pheromone, as denoted by the dotted arrows in figure 3(d), is setup at these nodes via the ‘reverse paths" in which the invalidation packets have traversed, so that future requests for this file will be forwarded to node g. in figure 3(e), node h makes a new request for the file again.
+consequently, all other nodes except g remove their replicas of the file from their storage and the validation mesh is torn down.
+now we assume node g updates its replica of the file and informs the other nodes by sending an  invalidation packet over the validation mesh.
+in figure 3(c), another node, h, has issued a query packet for the same file and obtained it from node b"s cache via node e. at this point, six nodes hold valid replicas and are connected through the validation mesh.
+as a result, a validation mesh is established among nodes a, b, d, and g, as depicted in figure 3(b).
+later on, node g issues a query packet for the file and eventually  obtains the file from a via nodes b and d. since intermediate nodes are allowed to cache forwarded data, nodes b, d, and g will now hold valid replicas of the file.
+figure 3: examples showing maintenance of validation mesh there are eight nodes in the sample network, and we start with only node a holding the valid file, as shown in figure 3(a).
+figure 3 depicts the idea of ‘validation mesh" which maintains connectivity among nodes holding valid replicas of a resource to avoid network-wide flooding when invalidating replicas.
+simulation results show that the proposed scheme effectively facilitates concurrent replica updates and efficiently perform replica  invalidation without incurring network-wide flooding.
+in addition, version number is used to distinguish new from old replicas when invalidating any stale replica.
+in particular, the scheme takes into account concurrent updates initiated by multiple nodes to ensure the consistency among replicas.
+to accommodate the dynamics, our scheme integrates the components of swarm intelligence to adaptively maintain the  validation mesh without relying on any underlying manet routing protocol.
+the structure (topology) of the validation mesh keeps evolving (1) when nodes request and cache a resource, (2) when nodes update their  respective replicas and invalidate other replicas, and (3) when nodes move.
+once a node has updated its replica, an invalidation packet will only be disseminated over the validation mesh to inform other replica-possessing nodes that their replicas become invalid and should be deleted.
+to coordinate concurrent updates and disseminate replica invalidations, a special infrastructure, called validation mesh or mesh for short, is adaptively maintained among nodes possessing ‘valid" replicas of a resource.
+we apply the same cross-layer paradigm to invalidating replicas in manets which allows concurrent updates performed by  multiple replicas.
+the lack of infrastructure supports and frequent topology changes in manets further challenge the issue.
+most  existing solutions to the replica invalidation problem either impose constrains that only the data source could perform update and invalidate other replicas, or resort to network-wide flooding which results in heavy network traffic and leads to scalability problem, or both.
+although replicas improve accessibility and balance load, replica invalidation becomes a critical issue when nodes caching  updatable resources may concurrently update their own replicas, which renders replicas held by other nodes obsolete.

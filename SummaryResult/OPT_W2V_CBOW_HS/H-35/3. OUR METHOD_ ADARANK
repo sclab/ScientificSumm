@@ -1,0 +1,116 @@
+The learning process turns out to be that of minimizing the loss function which represents the disagreement between the  permutation π(qi, di, f) and the list of ranks yi, for all of the queries.
+For example, a weak ranker can be created by using a subset of queries (together with their document list and label list) sampled according to the distribution Pt.
+In  AdaBoost, the distribution of weights on training instances is  calculated according to the current distribution and the performance of the current weak learner.
+In learning (training), a number of queries and their corresponding retrieved documents are given.
+3.3 Theoretical Analysis The existing learning algorithms for ranking attempt to minimize a loss function based on instance pairs (document pairs).
+The time complexity of AdaRank is of order O((k+T)·m·n log n), where k denotes the  number of features, T the number of rounds, m the number of queries in training data, and n is the maximum number of documents for queries in training data.
+Note that AdaBoost can also adopt the weight updating method used in AdaRank.
+Thus, the training set can be represented as S = {(qi, di, yi)}m i=1.
+qi yi = {yi1, yi2, · · · , yi,n(qi)} List of ranks for qi S = {(qi, di, yi)}m i=1 Training set xij = Ψ(qi, dij) ∈ X Feature vector for (qi, di j) f(xij) ∈ Ranking model π(qi, di, f) Permutation for qi, di, and f ht(xi j) ∈ tth weak ranker E(π(qi, di, f), yi) ∈ [−1, +1] Performance measure function In the paper, we define the rank model as a linear combination of weak rankers: f(x) = T t=1 αtht(x), where ht(x) is a weak ranker, αt is its weight, and T is the number of weak rankers.
+It can be proved that there exists a lower bound on the ranking accuracy for AdaRank on training data, as presented in Theorem 1.
+Each query qi is associated with a list of retrieved documents di = {di1, di2, · · · , di,n(qi)} and a list of labels yi = {yi1, yi2, · · · , yi,n(qi)}, where n(qi) denotes the sizes of lists di and yi, dij denotes the jth document in di, and yij ∈ Y denotes the rank of document di j.
+Given a query qi, the list of ranks yi, and a permutation πi on di, NDCG at position m for qi is defined as: Ni = ni · j:πi(j)≤m 2yi j − 1 log(1 + πi( j)) , (3) where yij takes on ranks as values and ni is a normalization  constant.
+For t = 1, · · · , T • Create weak ranker ht with weighted distribution Pt on  training data S .
+(7) The minimization in (6) then turns out to be min ht∈H,αt∈ + L(ht, αt) = m i=1 exp{−E(π(qi, di, ft−1 + αtht), yi)}, (8) where H is the set of possible weak rankers, αt is a positive weight, and ( ft−1 + αtht)(x) = ft−1(x) + αtht(x).
+Specifically, we create a permutation of integers π(qi, di, f) for query qi, the  corresponding list of documents di, and the ranking function f. Let di = {di1, di2, · · · , di,n(qi)} be identified by the list of integers {1, 2, · · · , n(qi)}, then permutation π(qi, di, f) is defined as a bijection from {1, 2, · · · , n(qi)} to itself.
+Given a query qi, the corresponding list of ranks yi, and a permutation πi on di, average precision for qi is defined as: AvgPi = n(qi) j=1 Pi( j) · yij n(qi) j=1 yij , (1) where yij takes on 1 and 0 as values, representing being relevant or irrelevant and Pi( j) is defined as precision at the position of dij: Pi( j) = k:πi(k)≤πi(j) yik πi(j) , (2) where πi( j) denotes the position of di j.
+A ranking model ft is created at each round by linearly  combining the weak rankers constructed so far h1, · · · , ht with weights α1, · · · , αt.
+Suppose that Y = {r1, r2, · · · , r } is a set of ranks, where denotes the number of ranks.
+The following bound holds on the ranking  accuracy of the AdaRank algorithm on training data: 1 m m i=1 E(π(qi, di, fT ), yi) ≥ 1 − T t=1 e−δt min 1 − ϕ(t)2, where ϕ(t) = m i=1 Pt(i)E(π(qi, di, ht), yi), δt min = mini=1,··· ,m δt i, and δt i = E(π(qi, di, ft−1 + αtht), yi) − E(π(qi, di, ft−1), yi) −αtE(π(qi, di, ht), yi), for all i = 1, 2, · · · , m and t = 1, 2, · · · , T. A proof of the theorem can be found in appendix.
+Notations Explanations qi ∈ Q ith query di = {di1, di2, · · · , di,n(qi)} List of documents for qi yi j ∈ {r1, r2, · · · , r } Rank of di j w.r.t.
+In training, a set of queries Q = {q1, q2, · · · , qm} is given.
+• Choose αt αt = 1 2 · ln m i=1 Pt(i){1 + E(π(qi, di, ht), yi)} m i=1 Pt(i){1 − E(π(qi, di, ht), yi)} .
+• Update Pt+1 Pt+1(i) = exp{−E(π(qi, di, ft), yi)} m j=1 exp{−E(π(qj, dj, ft), yj)} .
+As a result, the learning at the next round will be focused on the creation of a weak ranker that can work on the ranking of those ‘hard" queries.
+In addition AdaRank has several other advantages when compared with the existing learning to rank methods such as Ranking SVM, RankBoost, and RankNet.
+The objective of learning is to construct a ranking function which achieves the best results in ranking of the training data in the sense of minimization of a loss function.
+At each round, it increases the weights of those queries that are not ranked well by ft, the model created so far.
+Ideally we want to maximize the ranking accuracy in terms of a performance measure on the training data: max f∈F m i=1 E(π(qi, di, f), yi), (4) where F is the set of possible ranking functions.
+Initially, AdaRank sets equal weights to the queries.
+3.2 Algorithm Inspired by the AdaBoost algorithm for classification, we have devised a novel algorithm which can optimize a loss function based on the IR performance measures.
+We utilize a general function E(π(qi, di, f), yi) ∈ [−1, +1] to represent the performance  measures.
+at round t as Pt and the weight on the ith training query qi at round t as Pt(i).
+The objective of learning is to create a ranking function f : X → , such that for each query the elements in its corresponding  document list can be assigned relevance scores using the function and then be ranked according to the scores.
+Creating weak rankers in this way, the learning process turns out to be that of repeatedly selecting features and linearly combining the selected features.
+The second argument is the list of ranks yi given by humans.
+AdaRank takes a training set S = {(qi, di, yi)}m i=1 as input and takes the performance measure function E and the number of  iterations T as parameters.
+A feature  vector xij = Ψ(qi, di j) ∈ X is created from each query-document pair (qi, di j), i = 1, 2, · · · , m; j = 1, 2, · · · , n(qi).
+ft is then used for updating the distribution Pt+1.
+Second, the learning process of AdaRank is more efficient than those of the existing learning algorithms.
+There exists a total order between the ranks r r −1 · · · r1, where ‘ " denotes a preference relationship.
+We denote the distribution of weights Input: S = {(qi, di, yi)}m i=1, and parameters E and T Initialize P1(i) = 1/m.
+3.6 Construction of Weak Ranker We consider an efficient implementation for weak ranker  construction, which is also used in our experiments.
+Finally, it outputs a ranking model f by linearly combining the weak rankers.
+By query based measure, we mean a measure defined over a ranking list of documents with respect to a query.
+First, AdaRank can incorporate any performance measure,  provided that the measure is query based and in the range of [−1, +1].
+In the  implementation, as weak ranker we choose the feature that has the optimal weighted performance among all of the features: max k m i=1 Pt(i)E(π(qi, di, xk), yi).
+AdaRank runs T rounds and at each round it creates a weak ranker ht(t = 1, · · · , T).
+Several methods for weak ranker construction can be considered.
+In AdaRank, the performance measure is a generic measure, defined on the  document list and the rank list of a query.
+This is equivalent to minimizing the loss on the training data min f∈F m i=1 (1 − E(π(qi, di, f), yi)).
+In this paper, we use single features as weak rankers, as will be explained in Section 3.6.
+At each round, AdaRank maintains a distribution of weights over the queries in the training data.
+We consider the use of a linear combination of weak rankers as our ranking model: f(x) = T t=1 αtht(x).
+AdaRank does not have this drawback, because it treats queries rather than document pairs as basic units in learning.
+The goodness of a weak ranker is measured by the performance measure E weighted by Pt: m i=1 Pt(i)E(π(qi, di, ht), yi).
+AdaBoost makes use of feature vectors as instances.
+The relevance scores are calculated with a ranking function (model).
+3.1 General Framework We first describe the general framework of learning to rank for document retrieval.
+(c) In the existing methods, the numbers of  document pairs vary from query to query, resulting in creating models biased toward queries with more document pairs, as pointed out in [4].
+At each round, a weak ranker ht is constructed based on training data with weight distribution Pt.
+The labels in training data are simply +1 and −1.
+The existing methods cannot focus on the training on the tops, as indicated in [4].
+Third, AdaRank employs a more reasonable framework for  performing the ranking task than the existing methods.
+In retrieval (testing), given a query the system returns a ranking list of documents in descending order of the  relevance scores.
+We instead attempt to minimize an upper bound of the loss in (5) min f∈F m i=1 exp{−E(π(qi, di, f), yi)}, (6) because e−x ≥ 1 − x holds for any x ∈ .
+The first argument of E is the permutation π created using the ranking function f on di.
+Third, the ways of updating weights are also different.
+Once a weak ranker ht is built, AdaRank chooses a weight αt > 0 for the weak ranker.
+In contrast, AdaRank can naturally focus on training on the tops of document lists, because the  performance measures used favor rankings for which relevant documents are on the tops.
+As a result, AdaRank does not have the following shortcomings that plague the existing methods.
+Note that features which are not selected in the training phase will have a weight of zero. 
+In  contrast, AdaRank tries to optimize a loss function based on queries.
+Several ways of computing coefficients αt and weak rankers ht may be considered.
+In information retrieval, query-based performance measures are used to evaluate the ‘goodness" of a ranking function.
+More importantly, it is a method that can be justified from the theoretical viewpoint, as discussed above.
+In  contrast the existing methods only minimize loss functions that are loosely related to the IR measures [16].
+In AdaRank, in contrast, it is calculated according to the performance of the ranking model created so far, as shown in Figure 1.
+Specifically in AdaRank the instances correspond to queries, while in the existing methods the instances correspond to document pairs.
+Furthermore, the loss function in AdaRank is defined on the basis of general IR performance measures.
+(b) Ranking the most relevant documents on the tops of document lists is crucial for document  retrieval.
+(a) The existing methods have to make a strong assumption that the document pairs from the same query are  independently distributed.
+Next, as examples of performance measures, we present the  definitions of MAP and NDCG.
+(5) It is difficult to directly optimize the loss, because E is a  noncontinuous function and thus may be difficult to handle.
+AdaRank makes use of queries and their corresponding document lists as instances.
+Intuitively, αt measures the importance of ht.
+The  labels in training data are lists of ranks (relevance levels).
+3.5 Differences from AdaBoost AdaRank is a boosting algorithm.
+In AdaBoost the  corresponding performance measure is a specific measure for binary  classification, also referred to as ‘margin" [25].
+The relevance levels are represented as ranks (i.e., categories in a total order).
+The algorithm is referred to as ‘AdaRank" and is shown in Figure 1.
+Furthermore, the relevance levels of the documents with respect to the queries are also provided.
+We use π( j) to denote the position of item j (i.e., di j).
+In that sense, it is similar to AdaBoost, but it also has several striking differences from AdaBoost.
+E measures the agreement between π and yi.
+The theorem implies that the ranking accuracy in terms of the performance  measure can be continuously improved, as long as e−δt min 1 − ϕ(t)2 < 1 holds.
+Ideally the loss function is defined on the basis of the performance measure used in testing.
+These measures include MAP, NDCG, MRR (Mean Reciprocal Rank), WTA (Winners Take ALL), and Precision@n [1, 15].
+End For Output ranking model: f(x) = fT (x).
+Following the idea of AdaBoost, in AdaRank we take the approach of ‘forward stage-wise additive modeling" [12] and get the algorithm in Figure 1.
+Second, the performance measures are different.
+The measures can be MAP, NDCG, WTA, MRR, or any other measures whose range is within [−1, +1].
+First, the types of instances are different.
+In reality, this is clearly not the case and this problem does not exist for AdaRank.
+ni is chosen so that a perfect ranking π∗ i "s NDCG score at position m is 1.
+The time complexity of RankBoost, for example, is of order O(T · m · n2 ) [8].
+Table 1 gives a summary of notations described above.
+Figure 1: The AdaRank algorithm.
+We next explain why this is the case.
+Several methods for rectifying the problem have been proposed (e.g., [4]), however, they do not seem to  fundamentally solve the problem.
+• Create ft ft(x) = t k=1 αkhk(x).
+For AdaBoost they are  equivalent (cf., [12] page 305).
+Table 1: Notations and explanations.
+3.4 Advantages AdaRank is a simple yet powerful method.
+However, this is not true for AdaRank.
+Notice that the major IR measures meet this requirement.
+T 1.

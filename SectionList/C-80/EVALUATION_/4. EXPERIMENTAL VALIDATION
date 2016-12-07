@@ -1,0 +1,158 @@
+Three questions follow from the goals and design of Ganesh:
+• First, can performance can be improved significantly by 
+exploiting similarity across database results?
+Benchmark Dataset Details
+500,000 Users, 12,000 Stories
+BBOARD 2.0 GB 3,298,000 Comments
+AUCTION 1.3 GB 1,000,000 Users, 34,000 Items
+Table 1: Benchmark Dataset Details
+• Second, how important is Ganesh"s structural similarity 
+detection relative to Rabin fingerprinting"s similarity detection?
+• Third, is the overhead of the proxy-based design acceptable?
+Our evaluation answers these question through controlled 
+experiments with the Ganesh prototype. This section describes the 
+benchmarks used, our evaluation procedure, and the experimental setup.
+Results of the experiments are presented in Sections 5, 6, and 7.
+4.1 Benchmarks
+Our evaluation is based on two benchmarks [18] that have been
+widely used by other researchers to evaluate various aspects of
+multi-tier [27] and eBusiness architectures [9]. The first 
+benchmark, BBOARD, is modeled after Slashdot, a technology-oriented
+news site. The second benchmark, AUCTION, is modeled after
+eBay, an online auction site. In both benchmarks, most content is
+dynamically generated from information stored in a database. 
+Details of the datasets used can be found in Table 1.
+4.1.1 The BBOARD Benchmark
+The BBOARD benchmark, also known as RUBBoS [18], 
+models Slashdot, a popular technology-oriented web site. Slashdot 
+aggregates links to news stories and other topics of interest found
+elsewhere on the web. The site also serves as a bulletin board by
+allowing users to comment on the posted stories in a threaded 
+conversation form. It is not uncommon for a story to gather hundreds
+of comments in a matter of hours. The BBOARD benchmark is 
+similar to the site and models the activities of a user, including 
+readonly operations such as browsing the stories of the day, browsing
+story categories, and viewing comments as well as write operations
+such as new user registration, adding and moderating comments,
+and story submission.
+The benchmark consists of three different phases: a short 
+warmup phase, a runtime phase representing the main body of the 
+workload, and a short cool-down phase. In this paper we only report
+results from the runtime phase. The warm-up phase is important
+in establishing dynamic system state, but measurements from that
+phase are not significant for our evaluation. The cool-down phase
+is solely for allowing the benchmark to shut down.
+The warm-up, runtime, and cool-down phases are 2, 15, and 2
+minutes respectively. The number of simulated clients were 400,
+800, 1200, and 1600. The benchmark is available in a Java Servlets
+and PHP version and has different datasets; we evaluated Ganesh
+using the Java Servlets version and the Expanded dataset.
+The BBOARD benchmark defines two different workloads. The
+first, the Authoring mix, consists of 70% read-only operations and
+30% read-write operations. The second, the Browsing mix, 
+contains only read-only operations and does not update the database.
+4.1.2 The AUCTION Benchmark
+The AUCTION benchmark, also known as RUBiS [18], models
+eBay, the online auction site. The eBay web site is used to buy
+and sell items via an auction format. The main activities of a user
+include browsing, selling, or bidding for items. Modeling the 
+activities on this site, this benchmark includes read-only activities such
+as browsing items by category and by region, as well as read-write
+WWW 2007 / Track: Performance and Scalability Session: Scalable Systems for Dynamic Content
+314
+NetEm
+Router Ganesh
+Proxy
+Clients Web and
+Application Server
+Database
+Server
+Figure 5: Experimental Setup
+activities such as bidding for items, buying and selling items, and
+leaving feedback.
+As with BBOARD, the benchmark consists of three different phases.
+The warm-up, runtime, and cool-down phases for this experiment
+are 1.5, 15, and 1 minutes respectively. We tested Ganesh with
+four client configurations where the number of test clients was set
+to 400, 800, 1200, and 1600. The benchmark is available in a 
+Enterprise Java Bean (EJB), Java Servlets, and PHP version and has
+different datasets; we evaluated Ganesh with the Java Servlets 
+version and the Expanded dataset.
+The AUCTION benchmark defines two different workloads. The
+first, the Bidding mix, consists of 70% read-only operations and
+30% read-write operations. The second, the Browsing mix, 
+contains only read-only operations and does not update the database.
+4.2 Experimental Procedure
+Both benchmarks involve a synthetic workload of clients 
+accessing a web server. The number of clients emulated is an 
+experimental parameter. Each emulated client runs an instance of the
+benchmark in its own thread, using a matrix to transition between
+different benchmark states. The matrix defines a stochastic model
+with probabilities of transitioning between the different states that
+represent typical user actions. An example transition is a user 
+logging into the AUCTION system and then deciding on whether to
+post an item for sale or bid on active auctions. Each client also
+models user think time between requests. The think time is 
+modeled as an exponential distribution with a mean of 7 seconds.
+We evaluate Ganesh along two axes: number of clients and WAN
+bandwidth. Higher loads are especially useful in understanding
+Ganesh"s performance when the CPU or disk of the database server
+or proxy is the limiting factor. A previous study has shown that 
+approximately 50% of the wide-area Internet bottlenecks observed
+had an available bandwidth under 10 Mb/s [1]. Based on this work,
+we focus our evaluation on the WAN bandwidth of 5 Mb/s with
+66 ms of round-trip latency, representative of severely constrained
+network paths, and 20 Mb/s with 33 ms of round-trip latency, 
+representative of a moderately constrained network path. We also report
+Ganesh"s performance at 100 Mb/s with no added round-trip 
+latency. This bandwidth, representative of an unconstrained network,
+is especially useful in revealing any potential overhead of Ganesh
+in situations where WAN bandwidth is not the limiting factor. For
+each combination of number of clients and WAN bandwidth, we
+measured results from the two configurations listed below:
+• Native: This configuration corresponds to Figure 3(a). 
+Native avoids Ganesh"s overhead in using a proxy and 
+performing Java object serialization.
+• Ganesh: This configuration corresponds to Figure 3(b). For
+a given number of clients and WAN bandwidth, comparing
+these results to the corresponding Native results gives the
+performance benefit due to the Ganesh middleware system.
+The metric used to quantify the improvement in throughput is
+the number of client requests that can be serviced per second. The
+metric used to quantify Ganesh"s overhead is the average response
+time for a client request. For all of the experiments, the Ganesh
+driver used by the application server used a cache size of 100,000
+items1
+. The proxy was effective in tracking the Ganesh driver"s
+cache state; for all of our experiments the miss rate on the driver
+never exceeded 0.7%.
+4.3 Experimental Setup
+The experimental setup used for the benchmarks can be seen in
+Figure 5. All machines were 3.2 GHz Pentium 4s (with 
+HyperThreading enabled.) With the exception of the database server, all
+machines had 2 GB of SDRAM and ran the Fedora Core Linux
+distribution. The database server had 4 GB of SDRAM.
+We used Apache"s Tomcat as both the application server that
+hosted the Java Servlets and the web server. Both benchmarks
+used Java Servlets to generate the dynamic content. The database
+server used the open source MySQL database. For the native JDBC
+drivers, we used the Connector/J drivers provided by MySQL. The
+application server used Sun"s Java Virtual Machine as the runtime
+environment for the Java Servlets. The sysstat tool was used to
+monitor the CPU, network, disk, and memory utilization on all 
+machines.
+The machines were connected by a switched gigabit Ethernet
+network. As shown in Figure 5, the front-end web and 
+application server was separated from the proxy and database server by a
+NetEm router [16]. This router allowed us to control the bandwidth
+and latency settings on the network. The NetEm router is a 
+standard PC with two network cards running the Linux Traffic Control
+and Network Emulation software. The bandwidth and latency 
+constraints were only applied to the link between the application server
+and the database for the native case and between the application
+server and the proxy for the Ganesh case. There is no 
+communication between the application server and the database with Ganesh
+as all data flows through the proxy. As our focus was on the WAN
+link between the application server and the database, there were no
+constraints on the link between the simulated test clients and the
+web server.

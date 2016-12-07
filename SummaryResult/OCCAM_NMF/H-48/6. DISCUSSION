@@ -1,0 +1,25 @@
+indeed, this framework would also benefit from further testing on a larger collection. 
+in addition to looking at average performance of ir  systems, the results of individual queries could be examined and compared more closely, perhaps giving more insight into the classification and prediction of difficult queries, or perhaps showing which qe techniques improve (or degrade)  individual query performance under differing degrees of  querydocument term mismatch.
+to be sure, there is much future work that could be done using this framework.
+the results presented in this paper are not by any means meant to be exhaustive or entirely representative of the ways in which this evaluation could be applied.
+this paper presents a novel framework for ir system  evaluation, the applications of which are numerous.
+such robustness makes a system more user-friendly, especially to non-expert users.
+by  systematically introducing this mismatch, we can see that even if an ir system is not the best performer on the entire  collection, its performance may nonetheless be more robust to query-document term mismatch than other systems.
+in other evaluations, the performance of a system is measured only on the entire collection, in which the degree of query-term document mismatch is not known.
+this evaluation framework allows us to see how ir  systems perform in the presence of query-document term  mismatch.
+this could lead to insight as to when qe should and should not be applied.
+although not attempted in our experiments, another  application of this evaluation framework would be to remove query terms individually, rather than incrementally, to  analyze which terms (or possibly which types of terms) are being helped most by a qe technique on a particular test collection.
+as mentioned earlier, our choice of the term removal  strategy was motivated by (1) our desire to see the highest  impact on system performance as terms are removed and (2) because high idf terms, in our domain context, are more likely to be domain specific, which allows us to better  understand the performance of an ir system as experienced by expert and non-expert users.
+furthermore, the investigation of other term  removal strategies could provide insight into the behavior of different qe techniques and their overall impact on the user experience.
+however, given that okapi fb and tcs outperformed each other on two different collection sets,  further investigation into the degree of compatibility between qe expansion approach and target collection is probably warranted.
+the degree to which a qe technique is well-suited to a particular collection can be evaluated in terms of its ability to still find the relevant documents, even when they are  missing query terms, despite the bias of this approach against  relevant documents.
+still, we think this is a more realistic scenario than removing terms from all documents regardless of relevance.
+this is because non-relevant documents may also contain query terms, which can cause a retrieval system to rank such documents higher than it would have before terms were masked in relevant documents.
+since query terms are masked only the in relevant  documents, this evaluation framework is actually biased against retrieving relevant documents.
+for example, a non-expert in the medical domain might search for whooping cough, but relevant documents might instead contain the medical term pertussis.
+this distinction is especially relevant in the case that the test collection is domain-specific (i.e., medical or legal, as opposed to a more general domain, such as news), where the distinction between experts and non-experts may be more marked.
+the less a user knows about the domain of the document collection on which they are searching, the more prevalent query-document term mismatch is likely to be.
+a systematic evaluation of ir systems as outlined in this paper is useful not only with respect to measuring the  general success or failure of particular qe techniques in the presence of query-document term mismatch, but it also  provides insight into how a particular ir system will perform when used by expert versus non-expert users on a  particular collection.
+such an approach does tell us which systems perform better on a complete test collection, but it does not measure the ability of a particular qe technique to retrieve relevant  documents despite partial or complete term mismatch between queries and relevant documents.
+in general, it is easy to evaluate the overall performance of different techniques for qe in comparison to each other or against a non-qe variant on any complete test collection.
+the intuition behind this evaluation framework is to  measure the degree to which various qe techniques overcome term mismatch between queries and relevant documents.

@@ -1,0 +1,40 @@
+However, we obtained the best performance by using the third document classifier, based on the information in the source taxonomy queries only.
+It is an area of current investigation how to improve the classification using a noisy training set.
+For each taxonomy node we concatenated all the exemplary queries into a single  metadocument.
+For example, classifying all medical related pages into one node will not result into a good classification since both sore foot and flu pages will end up in the same node.
+As the score of the max class is normalized with regard to document length, the scores for different documents are comparable.
+Given the taxonomy of queries (or bid-phrases - we use these terms interchangeably) described in the previous  section, we tried three methods to build corresponding page and ad classifiers.
+Each centroid is defined as a sum of the tf-idf values of each term, normalized by the number of queries in the class cj = 1 |Cj| X q∈Cj q q where cj is the centroid for class Cj; q iterates over the queries in a particular class.
+Each node in our source taxonomy is represented as a  collection of exemplary bid phrases or queries that correspond to that node concept.
+To obtain sufficient resolution, we used a taxonomy of around 6000 nodes primarily built for classifying commercial interest queries, rather than pages or ads.
+Figure 1 provides some statistics about the taxonomy used in this work.
+For the first two methods we tried to find exemplary pages and ads for each concept as follows: Number of Categories By Level 0 200 400 600 800 1000 1200 1400 1600 1800 2000 1 2 3 4 5 6 7 8 9 Level NumberofCategories Number of Children per Nodes 0 50 100 150 200 250 300 350 400 0 2 4 6 8 10 12 14 16 18 20 22 24 29 31 33 35 52 Number of Children NumberofNodes Queries per Node 0 500 1000 1500 2000 2500 3000 1 50 80 120 160 200 240 280 320 360 400 440 480 Number Queries (up to 500+) NumberofNodes Figure 1: Taxonomy statistics: categories per level; fanout for non-leaf nodes; and queries per node We generated a page training set by running the queries in the taxonomy over a Web search index and using the top 10 results after some filtering as documents labeled with the query"s label.
+The classification is based on the cosine of the angle  between the document d and the centroid meta-documents: Cmax = arg max Cj ∈C cj cj · d d = arg max Cj ∈C P i∈|F | ci j· di qP i∈|F |(ci j)2 qP i∈|F |(di)2 where F is the set of features.
+The score is normalized by the document and class length to produce comparable score.
+Based on the test results we decided to use the Rocchio"s classifier on both the ad and the page side. 
+The  matching process requires that the taxonomy provides sufficient differentiation between the common commercial topics.
+Using this training sets we then trained a hierarchical SVM [2] (one against all between every group of siblings) and a log-regression [11] classifier.
+The terms ci and di represent the weight of the ith feature in the class centroid and the document respectively.
+4.1 Taxonomy Choice The semantic match of the pages and the ads is performed by classifying both into a common taxonomy.
+This filtering eliminates low content pages, pages deemed unsuitable for advertising, pages that lead to excessive class confusion, etc.)
+After  initial seeding with a few queries, using the provided tools a human editor can add several hundreds queries to a given node.
+This is  probably a result of the noise induced by using a search engine to machine generate training pages for the SVM and  logregression classifiers.
+The ads suitable for these two concepts are, however, very  different.
+We will explain below how we can use the same taxonomy to classify pages and ads as well.
+(The  second method differs from the first in the type of secondary filtering used.
+Thus we need to classify pages into the same taxonomy used to classify ads.
+A similar-in-spirit process for  building enterprise taxonomies via queries has been presented in [6].
+The tests showed that for both ads and pages the Rocchio classifier returned the best results, especially on the page side.
+These weights are based on the standard tf-idf formula.
+We then used the meta document as a centroid for a nearest-neighbor classifier based on Rocchio"s  framework [9] with only positive examples and no relevance  feedback.
+On the ad side we generated a training set for each class by selecting the ads that have a bid phrase  assigned to this class.
+However, the details and tools are completely different.
+In this section we overview the methods we used to build a page and an ad classifier pair.
+The detailed description and evaluation of this process is outside the scope of this paper.
+4.2 Classification Method As explained, the semantic phase of the matching relies on ads and pages being topically close.
+This taxonomy has been commercially built by Yahoo!
+Each node has on average around 100 queries.
+The taxonomy has been populated by human editors  using keyword suggestions tools similar to the ones used by ad networks to suggest keywords to advertisers.
+We conducted tests using professional editors to judge the quality of page and ad class assignments.
+The queries placed in the taxonomy are high  volume queries and queries of high interest to advertisers, as indicated by an unusually high cost-per-click (CPC) price.
+Nevertheless, it has been a significant effort to  develop this 6000-nodes taxonomy and it has required several person-years of work.

@@ -1,0 +1,340 @@
+We now present the results of predicting query performance by
+our models. Three state-of-the-art techniques are adopted as our
+baselines. We evaluate our techniques across a variety of Web
+retrieval settings. As mentioned before, we consider two types of
+queries, that is, content-based (CB) queries and Named-Page(NP)
+finding queries.
+First, suppose that the query types are known. We investigate the
+correlation between the predicted retrieval performance and the
+actual performance for both types of queries separately. Results
+show that our methods yield considerable improvements over the
+baselines.
+We then consider a more challenging scenario where no prior
+information on query types is available. Two sub-cases are
+considered. In the first one, there exists only one type of query but
+the actual type is unknown. We assume a mixture of the two
+query types in the second case. We demonstrate that our models
+achieve good accuracy under this demanding scenario, making
+prediction practical in a real-world Web search environment.
+4.1 Experimental Setup
+Our evaluation focuses on the GOV2 collection which contains
+about 25 million documents crawled from web sites in the .gov
+domain during 2004 [3]. We create two kinds of data set for CB
+queries and NP queries respectively. For the CB type, we use the
+ad-hoc topics of the Terabyte Tracks of 2004, 2005 and 2006 and
+name them TB04-adhoc, TB05-adhoc and TB06-adhoc
+respectively. In addition, we also use the ad-hoc topics of the
+2004 Robust Track (RT04) to test the adaptability of our
+techniques to a non-Web environment. For NP queries, we use the
+Named-Page finding topics of the Terabyte Tracks of 2005 and
+2006 and we name them TB05-NP and TB06-NP respectively. All
+queries used in our experiments are titles of TREC topics as we
+center on web retrieval. Table 3 summarizes the above data sets.
+Name Collection Topic Number Query Type
+TB04-adhoc GOV2 701-750 CB
+TB05-adhoc GOV2 751-800 CB
+TB06-adhoc GOV2 801-850 CB
+RT04 Disk 4+5
+(minus CR)
+
+301-450;601700
+CB
+TB05-NP GOV2 NP601-NP872 NP
+TB06-NP GOV2 NP901-NP1081 NP
+Table 3: Summary of test collections and topics
+Retrieval performance of individual content-based and NP queries
+is measured by the average precision and reciprocal rank of the
+first correct answer respectively. We make use of the Markov
+Random field model for both ad-hoc and Named-Page finding
+retrieval. We adopt the same setting of retrieval parameters used
+in [8,9]. The Indri search engine [12] is used for all of our
+experiments. Though not reported here, we also tried the query
+likelihood model for ad-hoc retrieval and found that the results
+change little because of the very high correlation between the
+query performances obtained by the two retrieval models (0.96
+measured by Pearson"s coefficient).
+4.2 Known Query Types
+Suppose that query types are known. We treat each type of query
+separately and measure the correlation with average precision (or
+the reciprocal rank in the case of NP queries). We adopt the
+Pearson"s correlation test which reflects the degree of linear
+relationship between the predicted and the actual retrieval
+performance.
+4.2.1 Content-based Queries
+Methods Clarity Robust JSD WIG QF WIG
++QF
+TB04+0
+5 adhoc
+0.333 0.317 0.362 0.574 0.480 0.637
+TB06
+adhoc
+0.076 0.294 N/A 0.464 0.422 0.511
+Table 4: Pearson"s correlation coefficients for correlation with
+average precision on the Terabyte Tracks (ad-hoc) for clarity
+score, robustness score, the JSD-based method(we directly
+cites the score reported in [2]), WIG, query feedback(QF) and
+a linear combination of WIG and QF. Bold cases mean the
+results are statistically significant at the 0.01 level.
+Table 4 shows the correlation with average precision on two data
+sets: one is a combination of TB04-adhoc and TB05-adhoc(100
+topics in total) and the other is TB06-adhoc (50 topics). The
+reason that we put TB04-adhoc and TB05-adhoc together is to
+make our results comparable to [2]. Our baselines are the clarity
+score (clarity) [6],the robustness score (robust)[1] and the 
+JSDbased method (JSD) [2]. For the clarity and robustness score, we
+have tried different parameter settings and report the highest
+correlation coefficients we have found. We directly cite the result
+of the JSD-based method reported in [2]. The table also shows the
+results for the Weighted Information Gain (WIG) method and the
+Query Feedback (QF) method for predicting content-based
+queries. As we described in the previous section, both WIG and
+QF have one free parameter to set, that is, the cutoff rank K. We
+train the parameter on one dataset and test on the other. When
+combining WIG and QF, a simple linear combination is used and
+the combination weight is learned from the training data set.
+From these results, we can see that our methods are considerably
+more accurate compared to the baselines. We also observe that
+further improvements are obtained from the combination of WIG
+and QF, suggesting that they measure different properties of the
+retrieval process that relate to performance.
+We discover that our methods generalize well on TB06-adhoc
+while the correlation for the clarity score with retrieval
+performance on this data set is considerably worse. Further
+investigation shows that the mean average precision of 
+TB06-adhoc is 0.342 and is about 10% better than that of the first data set.
+While the other three methods typically consider the top 100 or
+less documents given a ranked list, the clarity method usually
+needs the top 500 or more documents to adequately measure the
+coherence of a ranked list. Higher mean average precision makes
+ranked lists retrieved by different queries more similar in terms of
+coherence at the level of top 500 documents. We believe that this
+is the main reason for the low accuracy of the clarity score on the
+second data set.
+Though this paper focuses on a Web search environment, it is
+desirable that our techniques will work consistently well in other
+situations. To this end, we examine the effectiveness of our
+techniques on the Robust 2004 Track. For our methods, we
+evenly divide all of the test queries into five groups and perform
+five-fold cross validation. Each time we use one group for
+training and the remaining four groups for testing. We make use
+of all of the queries for our two baselines, that is, the clarity score
+and the robustness score. The parameters for our baselines are the
+same as those used in [1].The results shown in Table 5
+demonstrate that the prediction accuracy of our methods is on a
+par with that of the two strong baselines.
+Clarity Robust WIG QF
+0.464 0.539 0.468 0.464
+Table 5: Comparison of Pearson"s correlation coefficients on
+the 2004 Robust Track for clarity score, robustness score,
+WIG and query feedback (QF). Bold cases mean the results
+are statistically significant at the 0.01 level.
+Furthermore, we examine the prediction sensitivity of our
+methods to the cutoff rank K. With respect to WIG, it is quite
+robust to K on the Terabyte Tracks (2004-2006) while it prefers a
+small value of K like 5 on the 2004 Robust Track. In other words,
+a small value of K is a nearly-optimal choice for both kinds of
+tracks. Considering the fact that all other parameters involved in
+WIG are fixed and consequently the same for the two cases, this
+means WIG can achieve nearly-optimal prediction accuracy in
+two considerably different situations with exactly the same
+parameter setting. Regarding QF, it prefers a larger value of K
+such as 100 on the Terabyte Tracks and a smaller value of K such
+as 25 on the 2004 Robust Track.
+4.2.2 NP Queries
+We adopt WIG and first rank change (FRC) for predicting 
+NPquery performance. We also try a linear combination of the two as
+in the previous section. The combination weight is obtained from
+the other data set. We use the correlation with the reciprocal ranks
+measured by the Pearson"s correlation test to evaluate prediction
+quality. The results are presented in Table 6. Again, our baselines
+are the clarity score and the robustness score.
+To make a fair comparison, we tune the clarity score in different
+ways. We found that using the first ranked document to build the
+query model yields the best prediction accuracy. We also
+attempted to utilize document structure by using the mixture of
+language models mentioned in section 3.1. Little improvement
+was obtained. The correlation coefficients for the clarity score
+reported in Table 6 are the best we have found. As we can see,
+our methods considerably outperform the clarity score technique
+on both of the runs. This confirms our intuition that the use of a
+coherence-based measure like the clarity score is inappropriate for
+NP queries.
+Methods Clarity Robust. WIG FRC WIG+FRC
+TB05-NP 0.150 -0.370 0.458 0.440 0.525
+TB06-NP 0.112 -0.160 0.478 0.386 0.515
+Table 6: Pearson"s correlation coefficients for correlation with
+reciprocal ranks on the Terabyte Tracks (NP) for clarity
+score, robustness score, WIG, the first rank change (FRC)
+and a linear combination of WIG and FRC. Bold cases mean
+the results are statistically significant at the 0.01 level.
+Regarding the robustness score, we also tune the parameters and
+report the best we have found. We observe an interesting and
+surprising negative correlation with reciprocal ranks. We explain
+this finding briefly. A high robustness score means that a number
+of top ranked documents in the original ranked list are still highly
+ranked after perturbing the documents. The existence of such
+documents is a good sign of high performance for content-based
+queries as these queries usually contain a number of relevant
+documents [1]. However, with regard to NP queries, one
+fundamental difference is that there is only one relevant document
+for each query. The existence of such documents can confuse the
+ranking function and lead to low retrieval performance. Although
+the negative correlation with retrieval performance exists, the
+strength of the correlation is weaker and less consistent compared
+to our methods as shown in Table 6.
+Based on the above analysis, we can see that current prediction
+techniques like clarity score and robustness score that are mainly
+designed for content-based queries face significant challenges and
+are inadequate to deal with NP queries. Our two techniques
+proposed for NP queries consistently demonstrate good prediction
+accuracy, displaying initial success in solving the problem of
+predicting performance for NP queries. Another point we want to
+stress is that the WIG method works well for both types of
+queries, a desirable property that most prediction techniques lack.
+4.3 Unknown Query Types
+In this section, we run two kinds of experiments without access to
+query type labels. First, we assume that only one type of query
+exists but the type is unknown. Second, we experiment on a
+mixture of content-based and NP queries. The following two
+subsections will report results for the two conditions respectively.
+4.3.1 Only One Type exists
+We assume that all queries are of the same type, that is, they are
+either NP queries or content-based queries. We choose WIG to
+deal with this case because it shows good prediction accuracy for
+both types of queries in the previous section. We consider two
+cases: (1) CB: all 150 title queries from the ad-hoc task of the
+Terabyte Tracks 2004-2006 (2)NP: all 433 NP queries from the
+named page finding task of the Terabyte Tracks 2005 and 2006.
+We take a simple strategy by labeling all of the queries in each
+case as the same type (either NP or CB) regardless of their actual
+type. The computation of WIG will be based on the labeled query
+type instead of the actual type. There are four possibilities with
+respect to the relation between the actual type and the labeled
+type. The correlation with retrieval performance under the four
+possibilities is presented in Table 7. For example, the value 0.445
+at the intersection between the second row and the third column
+shows the Pearson"s correlation coefficient for correlation with
+average precision when the content-based queries are incorrectly
+labeled as the NP type.
+Based on these results, we recommend treating all queries as the
+NP type when only one query type exists and accurate query
+classification is not feasible, considering the risk that a large loss
+of accuracy will occur if NP queries are incorrectly labeled as
+content-based queries. These results also demonstrate the strong
+adaptability of WIG to different query types.
+CB (labeled) NP (labeled)
+CB (actual) 0.536 0.445
+NP (actual) 0.174 0.467
+Table 7: Comparison of Pearson"s correlation coefficients for
+correlation with retrieval performance under four possibilities
+on the Terabyte Tracks (NP). Bold cases mean the results are
+statistically significant at the 0.01 level.
+4.3.2 A mixture of contented-based and NP queries
+A mixture of the two types of queries is a more realistic situation
+that a Web search engine will meet. We evaluate prediction
+accuracy by how accurately poorly-performing queries can be
+identified by the prediction method assuming that actual query
+types are unknown (but we can predict query types). This is a
+challenging task because both the predicted and actual
+performance for one type of query can be incomparable to that for
+the other type.
+Next we discuss how to implement our evaluation. We create a
+query pool which consists of all of the 150 ad-hoc title queries
+from Terabyte Track 2004-2006 and all of the 433 NP queries
+from Terabyte Track 2005&2006. We divide the queries in the
+pool into classes: good (better than 50% of the queries of the
+same type in terms of retrieval performance) and bad
+(otherwise). According to these standards, a NP query with the
+reciprocal rank above 0.2 or a content-based query with the
+average precision above 0.315 will be considered as good.
+Then, each time we randomly select one query Q from the pool
+with probability p that Q is contented-based. The remaining
+queries are used as training data. We first decide the type of query
+Q according to a query classifier. Namely, the query classifier
+tells us whether query Q is NP or content-based. Based on the
+predicted query type and the score computed for query Q by a
+prediction technique, a binary decision is made about whether
+query Q is good or bad by comparing to the score threshold of the
+predicted query type obtained from the training data. Prediction
+accuracy is measured by the accuracy of the binary decision. In
+our implementation, we repeatedly take a test query from the
+query pool and prediction accuracy is computed as the
+percentage of correct decisions, that is, a good(bad) query is
+predicted to be good (bad). It is obvious that random guessing will
+lead to 50% accuracy.
+Let us take the WIG method for example to illustrate the process.
+Two WIG thresholds (one for NP queries and the other for
+content-based queries) are trained by maximizing the prediction
+accuracy on the training data. When a test query is labeled as the
+NP (CB) type by the query type classifier, it will be predicted to
+be good if and only if the WIG score for this query is above the
+NP (CB) threshold. Similar procedures will be taken for other
+prediction techniques.
+Now we briefly introduce the automatic query type classifier used
+in this paper. We find that the robustness score, though originally
+proposed for performance prediction, is a good indicator of query
+types. We find that on average content-based queries have a
+much higher robustness score than NP queries. For example,
+Figure 2 shows the distributions of robustness scores for NP and
+content-based queries. According to this finding, the robustness
+score classifier will attach a NP (CB) label to the query if the
+robustness score for the query is below (above) a threshold
+trained from the training data.
+0
+0.5
+1
+1.5
+2
+2.5
+-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1
+NP Content-based
+Figure 2: Distribution of robustness scores for NP and CB
+queries. The NP queries are the 252 NP topics from the 2005
+Terabyte Track. The content-based queries are the 150 ad-hoc
+title from the Terabyte Tracks 2004-2006. The probability
+distributions are estimated by the Kernel density estimation
+method.
+Strategies Robust WIG-1 WIG-2 WIG-3 Optimal
+p=0.6 0.565 0.624 0.665 0.684 0.701
+P=0.4 0.567 0.633 0.654 0.673 0.696
+Table 8: Comparison of prediction accuracy for five strategies
+in the mixed-query situation. Two ways to sample a query
+from the pool: (1) the sampled query is content-based with the
+probability p=0.6. (that is, the query is NP with probability
+0.4 ) (2) set the probability p=0.4.
+We consider five strategies in our experiments. In the first
+strategy (denoted by robust), we use the robustness score for
+query performance prediction with the help of a perfect query
+classifier that always correctly map a query into one of the two
+categories (that is, NP or CB). This strategy represents the level of
+prediction accuracy that current prediction techniques can achieve
+in an ideal condition that query types are known. In the next
+following three strategies, the WIG method is adopted for
+performance prediction. The difference among the three is that
+three different query classifiers are used for each strategy: (1) the
+classifier always classifies a query into the NP type. (2) the
+Robustness Score
+ProbabilityDensity
+classifier is the robust score classifier mentioned above. (3) the
+classifier is a perfect one. These three strategies are denoted by
+WIG-1, WIG-2 and WIG-3 respectively. The reason we are
+interested in WIG-1 is based on the results from section 4.3.1. In
+the last strategy (denoted by Optimal) which serves as an upper
+bound on how well we can do so far, we fully make use of our
+prediction techniques for each query type assuming a perfect
+query classifier is available. Specifically, we linearly combine
+WIG and QF for content-based queries and WIG and FRC for NP
+queries.
+The results for the five strategies are shown in Table 8. For each
+strategy, we try two ways to sample a query from the pool: (1) the
+sampled query is CB with probability p=0.6. (the query is NP
+with probability 0.4) (2) set the probability p=0.4. From Table 8
+We can see that in terms of prediction accuracy WIG-2 (the WIG
+method with the automatic query classifier) is not only better than
+the first two cases, but also is close to WIG-3 where a perfect
+classifier is assumed. Some further improvements over WIG-3 are
+observed when combined with other prediction techniques. The
+merit of WIG-2 is that it provides a practical solution to
+automatically identifying poorly performing queries in a Web
+search environment with mixed query types, which poses
+considerable obstacles to traditional prediction techniques.

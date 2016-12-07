@@ -1,0 +1,38 @@
+adarank is unique in that it employs an exponential loss function based on ir performance measures and a boosting technique. 
+adarank is also one that tries to directly optimize multivariate  performance measures, but is based on a different approach.
+[19] also propose a method of directly maximizing rank-based metrics for ranking on the basis of manifold learning.
+metzler et al.
+cossock & zhang [5] find a way to  approximately optimize the ranking performance measure dcg [15].
+for instance, joachims [17] presents an svm method to directly  optimize nonlinear multivariate performance measures like the f1  measure for classification.
+recently, a number of authors have proposed conducting direct optimization of multivariate performance measures in learning.
+our work in this paper can be viewed as a boosting method developed for ranking, particularly for ranking in ir.
+in fact, adaboost is an algorithm that ingeniously constructs a linear model by minimizing the ‘exponential loss function" with respect to the training data [26].
+extensions have been made to deal with the problems of multi-class classification [10, 26], regression [7], and ranking [8].
+later, schapire & singer have introduced a generalized version of adaboost in which weak learners can give confidence scores in their predictions rather than make 0-1  decisions [26].
+freund and schapire have proposed the first well-known boosting algorithm called adaboost (adaptive boosting) [9], which is designed for binary  classification (0-1 prediction).
+the basic idea of boosting is to  repeatedly construct ‘weak learners" by re-weighting training data and form an ensemble of weak learners such that the total  performance of the ensemble is ‘boosted".
+boosting is a general technique for improving the accuracies of machine learning algorithms.
+in that sense, the  existing methods of ranking svm, rankboost, and ranknet are only able to minimize loss functions that are loosely related to the ir performance measures.
+actually, it is known that reducing classification errors on instance pairs is equivalent to maximizing a lower bound of map [16].
+in the pair-wise approach to ranking, the learning task is  formalized as a problem of classifying instance pairs into two categories (correctly ranked and incorrectly ranked).
+for other  approaches to learning to rank, refer to [2, 11, 31].
+typical methods of the approach include  ranking svm [13], rankboost [8], and ranknet [3].
+this ‘pair-wise" approach fits well with information retrieval and thus is widely used in ir.
+one major approach to learning to rank is that of transforming it into binary classification on instance pairs.
+several approaches have been proposed to tackle the problem.
+learning to rank is to automatically create a ranking function that assigns scores to instances and then rank the instances by  using the scores.
+they are ‘learning to rank", boosting, and direct optimization of performance measures.
+2.2 machine learning there are three topics in machine learning which are related to our current work.
+the method is referred to as ‘ranknet".
+[3] employ relative entropy as a loss function and gradient descent as an algorithm to train a neural network model for ranking in document retrieval.
+burges et al.
+specifically, they introduce a hinge loss function that heavily penalizes errors on the tops of ranking lists and errors from queries with fewer retrieved  documents.
+[4] adapt ranking svm to document retrieval by modifying the hinge loss function to better meet the requirements of ir.
+cao et al.
+he utilizes click-through data to deduce  training data for the model creation.
+for example, joachims [16] applies ranking svm to document retrieval.
+recently methods of ‘learning to rank" have been applied to ranking model construction and some promising results have been obtained.
+as the ranking models become more sophisticated (more features are used) and more labeled data become available, how to tune or train ranking models turns out to be a challenging issue.
+for example, the  state-ofthe-art methods of bm25 [24] and lmir (language models for information retrieval) [18, 22] all have parameters to tune.
+it is a common practice in ir to tune the parameters of a ranking model using some labeled data and one performance measure [1].
+2.1 information retrieval the key problem for document retrieval is ranking, specifically, how to create the ranking model (function) that can sort documents based on their relevance to the given query.

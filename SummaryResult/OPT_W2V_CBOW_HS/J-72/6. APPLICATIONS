@@ -1,0 +1,102 @@
+The  majority valuation is a special case of the r-of-S valuation with r = m/2 and S = M. These valuations are appropriate for representing substitutabilities: once a required set of items has been obtained, no other items can add value.
+Note that such formulae can be represented as XOR bids where each atomic bid has value 1; thus XOR bids generalize monotone DNF formulae from Boolean to real-valued functions.
+We show that existing learning algorithms for  polynomials, monotone DNF formulae, and linear-threshold functions can be converted into preference elicitation algorithms for general valuations, valuations with free-disposal, and  valuations with substitutabilities, respectively.
+For these representations, an equivalence query can be simulated with a value query on the bundle containing all goods.
+To get an idea of the succinctness of polynomials as a bidding language, consider the additive and single-item  valuations presented by Nisan [11].
+Then, ˜v(T) = v(T) = v(S) = ˜v(S) (9) The second equality follows from the fact that the value remains constant when we derive T from S. The last  inequality holds because S is a counterexample to the  manifest valuation.
+The learning algorithm for polynomials makes at most mti +2 equivalence queries and at most (mti +1)(t2 i +3ti)/2 membership queries to an agent i, where ti is the sparcity of the polynomial representing vi [17].
+, An in parallel on their respective agents until each requires a response to an equivalence query, or has halted with the agent"s exact valuation.
+Thus (T, v(T)) is not currently in our hypothesis as an atomic bid, or we would correctly have ˜v(T) = v(T) by the induction hypothesis.
+Recall that an XOR bid is  characterized by a set of bundles B ⊆ 2M and a value function w : B → Ê+ defined on those bundles, which induces the  valuation function: v(B) = max {B ∈B | B ⊆B} w(B ) (7) XOR bids can represent valuations that satisfy free-disposal (and only such valuations), which again is the property that A ⊆ B ⇒ v(A) ≤ v(B).
+We can develop an  elicitation algorithm that is tailored to each agent"s valuation, with the underlying learning algorithms linked together at the demand query stages in an algorithm-independent way.
+"s negative results ([5],  Theorem 2) stating that monotone DNF (and hence XOR bids) cannot be efficiently elicited when the demand queries are restricted to linear and anonymous prices over the goods.
+Letting k = |S|, such valuations are succinctly represented by r-of-k threshold functions.
+We claim that (T, v(T)) is an atomic bid of the target XOR bid.
+Assume that every atomic bid (R, ˜v(R))  identified so far is indeed an atomic bid of v (meaning R is indeed listed in an atomic bid of v as having value v(R) = ˜v(R)).
+It is not hard to show that the single-item valuation requires polynomials of size 2m − 1, while polynomials of size m suffice for the additive valuation.
+Note that v(S) = v( ¯T) = v(T) because the value of the bundle S is maintained throughout the process of deleting items.
+Thus v(T) > v(T − {i}) for all items i in T. This implies that (T, v(T)) is an atomic bid of v. If this were not the case, T would take on the maximum value of its strict subsets, by the definition of an XOR bid, and we would have v(T) = max i∈T { max T ⊆T −{i} v(T )} = max i∈T {v(T − {i})} < v(T) which is a contradiction.
+185 1, [18] Theorem B) to a learning algorithm for XOR bids.7 Lemma 2.
+Thus, ˜v(S) = max {B∈ ˜B | B⊆S} ˜w(B) = max {B∈ ˜B | B⊆S} w(B) ≤ max {B∈B | B⊆S} w(B) = v(S) (8) Now assume v(T) = ˜v(T).
+In the additive valuation, the value of a bundle is the number of goods the bundle  contains.
+Initialize the manifest valuation ˜v to the bid that is identically zero on all bundles (this is an XOR bid containing 0 atomic bids).
+The elicitation algorithm that results from WINNOW 2 uses demand  queries only (value queries are not necessary here because the values of counterexamples are implied when there are only two possible values).
+Present the allocation and prices to the agents in the form of a demand query.
+The representation class of XOR bids can be efficiently elicited from value and demand queries.
+Thus we obtain an  algorithm that can elicit such functions with a polynomial number of queries and polynomial communication, in the parameters n and m alone.
+Otherwise we obtain a bundle S for which v(S) = ˜v(S).
+More  generally, consider the r-of-S family of valuations where bundles have value 1 if they contain at least r items from a specified set of items S ⊆ M, and value 0 otherwise.
+The XOR bidding language is slightly less expressive than polynomials, because polynomials can represent valuations that do not satisfy free-disposal.
+We now show that v(T) = ˜v(T), which will imply that (T, v(T)) is not an atomic bid of our manifest hypothesis by induction.
+We add (T, v(T)) to our hypothesis and repeat the process above,  performing additional equivalence queries until all atomic bids have been identified.
+The equivalence queries made by this algorithm are all proper.
+To see this, note that at some point when generating T, we had a ¯T such that T ⊆ ¯T ⊆ S and v( ¯T) > v( ¯T − {i}), so that i was kept in ¯T.
+Nisan [11] notes that XOR bids can represent the single-item valuation with m atomic bids, but 2m − 1 atomic bids are needed to  represent the additive valuation.
+We therefore obtain an algorithm that elicits general valuations with a polynomial number of queries and polynomial communication.6 6.2 XOR Representations The XOR bidding language is standard in the  combinatorial auctions literature.
+An XOR bid containing t atomic bids can be exactly learned with t + 1 equivalence queries and at most tm membership queries.
+The representation class, which in combinatorial auction terms defines a bidding language, must necessarily be expressive enough to represent all possible valuations of interest, and should also succinctly represent the simplest and most  common functions in the class.
+Create a  bundle T as follows.
+6.3 Linear-Threshold Representations Polynomials, XOR bids, and all languages based on the OR bidding language (such as XOR-of-OR, OR-of-XOR, and OR∗ ) fail to succinctly represent the majority  valuation [11].
+The algorithm will identify each atomic bid in the target XOR bid in turn.
+From equation (9) and free-disposal, we 7 The cited algorithm was also used as the basis for Zinkevich et al.
+Then v( ¯T) = v(T) = v(T − {i}) > v( ¯T − {i}) which contradicts free-disposal, since T − {i} ⊆ ¯T − {i}.
+Then again from equation (9) it  follows that v(S) < ˜v(S).
+First initialize T = S. For each item i in T, check via a membership query whether v(T) = v(T − {i}).
+In the single-item valuation, all bundles have value 1, except ∅ which has value 0 (i.e.
+Polynomials are expressive: every valuation function v : 2M → Ê+ can be uniquely written as a polynomial [17].
+We have shown that the preference  elicitation problem for valuation classes V1, .
+If the response is ‘YES", we are done.
+These insights allow us to generalize a classic learning algorithm for monotone DNF ([3] Theorem 6 Note that Theorem 1 applies even if valuations do not  satisfy free-disposal.
+To provide this guarantee, r must be known to the algorithm, but S (and k) are unknown.
+6.1 Polynomial Representations Schapire and Sellie [17] give a learning algorithm for sparse multivariate polynomials that can be used as the basis for a combinatorial auction protocol.
+After each equivalence query, an atomic bid is identified with at most m membership queries.
+This assumption holds vacuously when the manifest  valuation is initialized.
+Applying Theorem 2, we therefore obtain the following corollary: Theorem 3.
+Note that r-of-k threshold functions can always be  succinctly represented in O(m) space.
+This contradicts (8), so we in fact have v(T) = ˜v(T).
+In this valuation, bundles have value 1 if they contain at least m/2 items, and value 0 otherwise.
+[5] note that monotone DNF formulae are the analogs of XOR bids in the learning theory literature.
+, Sn) and corresponding Lindahl prices with respect to the manifest valuations ˜v1, .
+Specifically, their  algorithm learns the representation class of t-sparse  multivariate polynomials over the real numbers, where the variables may take on values either 0 or 1.
+This is significant because there already exist learning algorithms for a wealth of  function classes, and because it may often be simpler to solve each learning subproblem separately than to attack the  preference elicitation problem directly.
+Each counterexample leads to the discovery of a new atomic bid.
+Polynomials are thus appropriate for valuations that are mostly additive, with a few substitutabilities and complementarities that can be introduced by adjusting  coefficients.
+Present ˜v as an  equivalence query.
+have ˜v(T) < ˜v(S).
+to the problem of finding an efficient learning algorithm for each of these classes separately.
+If they all reply ‘YES", output the allocation and halt.
+For each item i in T, we have v(T) = v(T − {i}).
+, ik are the items in S. Littlestone"s WINNOW 2 algorithm can learn such functions using  equivalence queries only, using at most 8r2 + 5k + 14kr ln m + 1 queries [10].
+, An for valuations classes V1, .
+the agent is satisfied as soon as it has acquired a single item).
+Since the opposite holds for polynomials, these two languages are incomparable in  succinctness, and somewhat complementary for practical use.
+Using the notation from (7), let ( ˜B, ˜w) be our hypothesis, and (B, w) be the target function.
+Thus we make at most tm membership queries and exactly t + 1 equivalence queries.
+Otherwise there is some agent i that has replied with some preferred bundle Si.
+A t-sparse polynomial has at most t terms, where a term is a product of variables, e.g.
++ xik ≥ r where the function has value 1 if the inequality holds, and 0 otherwise.
+In interpreting the methods we emphasize the  expressiveness and succinctness of each representation class.
+Recall that Toolbox DNF are polynomials with non-negative  coefficients.
+The number of time steps required by this algorithm is essentially the same as the number of queries performed, so the algorithm is efficient.
+Perform value queries on Si and Si to find a counterexample to ˜vi, and provide it to Ai.
+In this section, we demonstrate the application of our methods to particular representation classes for  combinatorial valuations.
+, Vn can be reduced 184 Given: exact learning algorithms A1, .
+A polynomial over the real numbers has coefficients drawn from the real numbers.
+We have ˜B ⊆ B, and ˜w(B) = w(B) for B ∈ ˜B by assumption.
+However, XOR is as  expressive as required in most economic settings.
+We focus on representations that are polynomially interpretable, because the computational learning theory literature places a heavy emphasis on computational tractability [18].
+Compute an optimal allocation (S1, .
+Otherwise leave T as is and proceed to the next item.
+If so set T = T − {i}.
+Now assume v(T) = v(T − {i}).
+A monotone DNF formula is a disjunction of conjunctions in which the variables appear unnegated, for example x1x2 ∨ x3 ∨ x2x4x5.
+These functions take the form of linear inequalities: xi1 + .
+Loop until there is a signal to halt: 1.
+Figure 1: Converting learning algorithms to an elicitation algorithm.
+"s [19] elicitation algorithm for Toolbox DNF.
+, ˜vn determined so far.
+, Vn respectively.
+This contrasts with Blum et al.
+Run A1, .
+Blum et al.
+Here i1, .

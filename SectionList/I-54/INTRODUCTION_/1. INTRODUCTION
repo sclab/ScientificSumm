@@ -1,0 +1,101 @@
+Negotiation is a key form of interaction in multiagent systems. It
+is a process in which disputing agents decide how to divide the
+gains from cooperation. Since this decision is made jointly by the
+agents themselves [20, 19, 13, 15], each party can only obtain what
+the other is prepared to allow them. Now, the simplest form of
+negotiation involves two agents and a single issue. For example,
+consider a scenario in which a buyer and a seller negotiate on the
+price of a good. To begin, the two agents are likely to differ on the
+price at which they believe the trade should take place, but through
+a process of joint decision-making they either arrive at a price that
+is mutually acceptable or they fail to reach an agreement. Since
+agents are likely to begin with different prices, one or both of them
+must move toward the other, through a series of offers and counter
+offers, in order to obtain a mutually acceptable outcome. However,
+before the agents can actually perform such negotiations, they must
+decide the rules for making offers and counter offers. That is, they
+must set the negotiation protocol [20]. On the basis of this protocol,
+each agent chooses its strategy (i.e., what offers it should make
+during the course of negotiation). Given this context, this work
+focuses on competitive scenarios with self-interested agents. For
+such cases, each participant defines its strategy so as to maximise
+its individual utility.
+However, in most bilateral negotiations, the parties involved need
+to settle more than one issue. For this case, the issues may be 
+divisible or indivisible [4]. For the former, the problem for the agents
+is to decide how to split each issue between themselves [21]. For
+the latter, the individual issues cannot be divided. An issue, in its
+entirety, must be allocated to either of the two agents. Since the
+agents value different issues differently, they must come to terms
+about who will take which issue. To date, most of the existing
+work on multi-issue negotiation has focussed on the former case
+[7, 2, 5, 23, 11, 6]. However, in many real-world settings, the 
+issues are indivisible. Hence, our focus here is on negotiation for
+indivisible issues. Such negotiations are very common in 
+multiagent systems. For example, consider the case of task allocation
+between two agents. There is a set of tasks to be carried out and
+different agents have different preferences for the tasks. The tasks
+cannot be partitioned; a task must be carried out by one agent. The
+problem then is for the agents to negotiate about who will carry out
+which task.
+A key problem in the study of multi-issue negotiation is to 
+determine the equilibrium strategies. An equally important problem,
+especially in the context of software agents, is to find the time 
+complexity of computing the equilibrium offers. However, such 
+computational issues have so far received little attention. As we will
+show, this is mainly due to the fact that existing work (describe in
+Section 5) has mostly focused on negotiation for divisible issues
+951
+978-81-904262-7-5 (RPS) c 2007 IFAAMAS
+and finding the equilibrium for this case is computationally easier
+than that for the case of indivisible issues. Our primary objective is,
+therefore, to answer the computational questions for the latter case
+for the types of situations that are commonly faced by agents in
+real-world contexts. Thus, we consider negotiations in which there
+is incomplete information and time constraints. Incompleteness of
+information on the part of negotiators is a common feature of most
+practical negotiations. Also, agents typically have time constraints
+in the form of both deadlines and discount factors. Deadlines are an
+essential element since negotiation cannot go on indefinitely, rather
+it must end within a reasonable time limit. Likewise, discount 
+factors are essential since the goods may be perishable or their value
+may decline due to inflation. Moreover, the strategic behaviour of
+agents with deadlines and discount factors differs from those 
+without (see [21] for single issue bargaining without deadlines and [23,
+13] for bargaining with deadlines and discount factors in the 
+context of divisible issues).
+Given this, we consider indivisible issues and first analyze the
+strategic behaviour of agents to obtain the equilibrium strategies
+for the case where all the issues for negotiation are known a priori
+to both agents. For this case, we show that the problem of finding
+the equilibrium offers is NP-hard, even in a complete information
+setting. Then, in order to overcome the problem of time 
+complexity, we present strategies that are approximately optimal but 
+computationally efficient, and show that they form an equilibrium. We
+also analyze the relative error (i.e., the difference between the true
+optimum and the approximate). The time complexity of the 
+approximate equilibrium strategies is O(nm/ 2
+) where n is the 
+negotiation deadline and the relative error. Finally, we extend the
+analysis to online negotiation where different issues become 
+available at different time points and the agents are uncertain about their
+valuations for these issues. Specifically, we show that an 
+approximate equilibrium exists for online negotiation and show that the
+expected difference between the optimum and the approximate is
+O(
+√
+m) . These approximate strategies also have polynomial time
+complexity.
+In so doing, our contribution lies in analyzing the computational
+complexity of the above multi-issue negotiation problem, and 
+finding the approximate and online equilibria. No previous work has
+determined these equilibria. Since software agents have limited
+computational resources, our results are especially relevant to such
+resource bounded agents.
+The remainder of the paper is organised as follows. We begin by
+giving a brief overview of single-issue negotiation in Section 2. In
+Section 3, we obtain the equilibrium for multi-issue negotiation and
+show that finding equilibrium offers is an NP-hard problem. We
+then present an approximate equilibrium and evaluate its 
+approximation error. Section 4 analyzes online multi-issue negotiation.
+Section 5 discusses the related literature and Section 6 concludes.

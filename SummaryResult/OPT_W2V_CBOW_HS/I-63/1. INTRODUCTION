@@ -1,0 +1,19 @@
+In this paper, we extend the work on resource allocation under MDP-induced preferences to discrete-time scheduling problems, where agents are present in the system for finite time intervals and can only use resources within these  intervals.
+A way of accomplishing this is to model the processes by which an agent might utilize the resources and define the utility function as the payoff of these processes.
+In the rest of the paper, we first lay down the necessary groundwork in Section 2 and then introduce our model and formal problem statement in Section 3.
+We analyze and empirically compare two flavors of the scheduling problem: one, where agents have static resource assignments within their finite-horizon MDPs, and another, where resources can be dynamically reallocated between agents at every time step.
+An alternative is to directly model the mechanisms that define the agents" utility functions and perform resource allocation directly with these models [9].
+However, this existing work on resource allocation with preferences induced by resource-parameterized MDPs makes an assumption that the resources are only allocated once and are then utilized by the agents independently within their infinite-horizon MDPs.
+We address the problem of globally optimal resource scheduling, where the objective is to find an allocation of resources to the agents across time that maximizes the sum of the expected rewards that they obtain.
+In particular, when the value of a set of resources to an agent is not additive (as is often the case with resources that are substitutes or complements), the utility function might have to be defined on an exponentially large space of resource bundles, which very quickly becomes  computationally intractable.
+This representation can then be used to construct very efficient resource-allocation algorithms that lead to an exponential speedup over a straightforward  optimization problem with flat representations of combinatorial preferences [6, 7, 8].
+The tasks of optimal resource allocation and scheduling are ubiquitous in multiagent systems, but solving such  optimization problems can be computationally difficult, due to a number of factors.
+Following the discussion of our experimental results on a job-scheduling problem in  Section 5, we conclude in Section 6 with a discussion of possible extensions and generalizations of our method. 
+Such computational issues have recently spawned several threads of work in using compact models of agents"  preferences.
+In Section 4.2, we describe our main result, the optimization program for  globally optimal resource scheduling.
+In particular, if an agent uses resources to act in a stochastic environment, its utility function can be naturally modeled with a Markov decision process, whose action set is parameterized by the available resources.
+In this context, our main contribution is a  mixed-integerprogramming formulation of the scheduling problem that chooses globally optimal resource assignments, starting times, and execution horizons for all agents (within their  arrival1220 978-81-904262-7-5 (RPS) c 2007 IFAAMAS departure intervals).
+One idea is to use any structure present in utility functions to represent them compactly, via, for example,  logical formulas [15, 10, 4, 3].
+This assumption that no reallocation of resources is possible can be limiting in domains where agents arrive and depart dynamically.
+Further, even when each agent has a utility function that is nonzero only on a small subset of the possible resource bundles, obtaining optimal allocation is still computationally prohibitive, as the problem becomes NP-complete [14].
+In particular, agents arrive and depart at arbitrary (predefined) times and within these intervals use resources to execute tasks in finite-horizon MDPs.

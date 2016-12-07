@@ -1,0 +1,193 @@
+We conducted a comprehensive series of experiments on
+two real-world datasets to evaluate the techniques proposed
+in this paper.
+7.1 Setup and Datasets
+The techniques described in this paper were implemented
+in a prototype system using Java JDK 1.5. All 
+experiments described below were run on a single SUN V40z 
+machine having four AMD Opteron CPUs, 16GB RAM, a large
+network-attached RAID-5 disk array, and running Microsoft
+Windows Server 2003. All data and indexes are kept in an
+Oracle 10g database that runs on the same machine. For
+our experiments we used two different datasets.
+The English Wikipedia revision history (referred to as
+WIKI in the remainder) is available for free download as
+a single XML file. This large dataset, totaling 0.7 TBytes,
+contains the full editing history of the English Wikipedia
+from January 2001 to December 2005 (the time of our 
+download). We indexed all encyclopedia articles excluding 
+versions that were marked as the result of a minor edit (e.g.,
+the correction of spelling errors etc.). This yielded a total of
+892,255 documents with 13,976,915 versions having a mean
+(µ) of 15.67 versions per document at standard deviation (σ)
+of 59.18. We built a time-travel query workload using the
+query log temporarily made available recently by AOL 
+Research as follows - we first extracted the 300 most frequent
+keyword queries that yielded a result click on a Wikipedia 
+article (for e.g., french revolution, hurricane season 2005,
+da vinci code etc.). The thus extracted queries contained
+a total of 422 distinct terms. For each extracted query, we
+randomly picked a time point for each month covered by
+the dataset. This resulted in a total of 18, 000 (= 300 × 60)
+time-travel queries.
+The second dataset used in our experiments was based
+on a subset of the European Archive [13], containing weekly
+crawls of 11 .gov.uk websites throughout the years 2004 and
+2005 amounting close to 2 TBytes of raw data. We filtered
+out documents not belonging to MIME-types text/plain
+and text/html, to obtain a dataset that totals 0.4 TBytes
+and which we refer to as UKGOV in rest of the paper. This
+included a total of 502,617 documents with 8,687,108 
+versions (µ = 17.28 and σ = 13.79). We built a corresponding
+query workload as mentioned before, this time choosing 
+keyword queries that led to a site in the .gov.uk domain (e.g.,
+minimum wage, inheritance tax , citizenship ceremony
+dates etc.), and randomly sampling a time point for every
+month within the two year period spanned by the dataset.
+Thus, we obtained a total of 7,200 (= 300 × 24) time-travel
+queries for the UKGOV dataset. In total 522 terms appear
+in the extracted queries.
+The collection statistics (i.e., N and avdl) and term 
+statistics (i.e., DF) were computed at monthly granularity for
+both datasets.
+7.2 Impact of Temporal Coalescing
+Our first set of experiments is aimed at evaluating the 
+approximate temporal coalescing technique, described in 
+Section 5, in terms of index-size reduction and its effect on the
+result quality. For both the WIKI and UKGOV datasets, we
+compare temporally coalesced indexes for different values of
+the error threshold computed using Algorithm 1 with the
+non-coalesced index as a baseline.
+WIKI UKGOV
+# Postings Ratio # Postings Ratio
+- 8,647,996,223 100.00% 7,888,560,482 100.00%
+0.00 7,769,776,831 89.84% 2,926,731,708 37.10%
+0.01 1,616,014,825 18.69% 744,438,831 9.44%
+0.05 556,204,068 6.43% 259,947,199 3.30%
+0.10 379,962,802 4.39% 187,387,342 2.38%
+0.25 252,581,230 2.92% 158,107,198 2.00%
+0.50 203,269,464 2.35% 155,434,617 1.97%
+Table 1: Index sizes for non-coalesced index (-) and
+coalesced indexes for different values of
+Table 1 summarizes the index sizes measured as the total
+number of postings. As these results demonstrate, 
+approximate temporal coalescing is highly effective in reducing 
+index size. Even a small threshold value, e.g. = 0.01, has a
+considerable effect by reducing the index size almost by an
+order of magnitude. Note that on the UKGOV dataset, even
+accurate coalescing ( = 0) manages to reduce the index size
+to less than 38% of the original size. Index size continues to
+reduce on both datasets, as we increase the value of .
+How does the reduction in index size affect the query 
+results? In order to evaluate this aspect, we compared the
+top-k results computed using a coalesced index against the
+ground-truth result obtained from the original index, for 
+different cutoff levels k. Let Gk and Ck be the top-k documents
+from the ground-truth result and from the coalesced index
+respectively. We used the following two measures for 
+comparison: (i) Relative Recall at cutoff level k (RR@k), that
+measures the overlap between Gk and Ck, which ranges in
+[0, 1] and is defined as
+RR@k = |Gk ∩ Ck|/k .
+(ii) Kendall"s τ (see [7, 14] for a detailed definition) at 
+cutoff level k (KT@k), measuring the agreement between two
+results in the relative order of items in Gk ∩ Ck, with value
+1 (or -1) indicating total agreement (or disagreement).
+Figure 3 plots, for cutoff levels 10 and 100, the mean of
+RR@k and KT@k along with 5% and 95% percentiles, for
+different values of the threshold starting from 0.01. Note
+that for = 0, results coincide with those obtained by the
+original index, and hence are omitted from the graph.
+It is reassuring to see from these results that approximate
+temporal coalescing induces minimal disruption to the query
+results, since RR@k and KT@k are within reasonable limits.
+For = 0.01, the smallest value of in our experiments,
+RR@100 for WIKI is 0.98 indicating that the results are
+-1
+-0.5
+0
+0.5
+1
+ε
+0.01 0.05 0.10 0.25 0.50
+Relative Recall @ 10 (WIKI)
+Kendall's τ @ 10 (WIKI)
+Relative Recall @ 10 (UKGOV)
+Kendall's τ @ 10 (UKGOV)
+(a) @10
+-1
+-0.5
+0
+0.5
+1
+ε
+0.01 0.05 0.10 0.25 0.50
+Relative Recall @ 100 (WIKI)
+Kendall's τ @ 100 (WIKI)
+Relative Recall @ 100 (UKGOV)
+Kendall's τ @ 100 (UKGOV)
+(b) @100
+Figure 3: Relative recall and Kendall"s τ observed on coalesced indexes for different values of
+almost indistinguishable from those obtained through the
+original index. Even the relative order of these common
+results is quite high, as the mean KT@100 is close to 0.95.
+For the extreme value of = 0.5, which results in an index
+size of just 2.35% of the original, the RR@100 and KT@100
+are about 0.8 and 0.6 respectively. On the relatively less
+dynamic UKGOV dataset (as can be seen from the σ values
+above), results were even better, with high values of RR and
+KT seen throughout the spectrum of values for both cutoff
+values.
+7.3 Sublist Materialization
+We now turn our attention towards evaluating the 
+sublist materialization techniques introduced in Section 6. For
+both datasets, we started with the coalesced index produced
+by a moderate threshold setting of = 0.10. In order to
+reduce the computational effort, boundaries of elementary
+time intervals were rounded to day granularity before 
+computing the sublist materializations. However, note that the
+postings in the materialized sublists still retain their 
+original timestamps. For a comparative evaluation of the four
+approaches - Popt, Sopt, PG, and SB - we measure space
+and performance as follows. The required space S(M), as
+defined earlier, is equal to the total number of postings in
+the materialized sublists. To assess performance we 
+compute the expected processing cost (EPC) for all terms in
+the respective query workload assuming a uniform 
+probability distribution among query time-points. We report the
+mean EPC, as well as the 5%- and 95%-percentile. In other
+words, the mean EPC reflects the expected length of the 
+index list (in terms of index postings) that needs to be scanned
+for a random time point and a random term from the query
+workload.
+The Sopt and Popt approaches are, by their definition,
+parameter-free. For the PG approach, we varied its 
+parameter γ, which limits the maximal performance degradation,
+between 1.0 and 3.0. Analogously, for the SB approach
+the parameter κ, as an upper-bound on the allowed space
+blowup, was varied between 1.0 and 3.0. Solutions for the
+SB approach were obtained running simulated annealing for
+R = 50, 000 rounds.
+Table 2 lists the obtained space and performance figures.
+Note that EPC values are smaller on WIKI than on 
+UKGOV, since terms in the query workload employed for WIKI
+are relatively rarer in the corpus. Based on the depicted
+results, we make the following key observations. i) As 
+expected, Popt achieves optimal performance at the cost of an
+enormous space consumption. Sopt, to the contrary, while
+consuming an optimal amount of space, provides only poor
+expected processing cost. The PG and SB methods, for
+different values of their respective parameter, produce 
+solutions whose space and performance lie in between the 
+extremes that Popt and Sopt represent. ii) For the PG method
+we see that for an acceptable performance degradation of
+only 10% (i.e., γ = 1.10) the required space drops by more
+than one order of magnitude in comparison to Popt on both
+datasets. iii) The SB approach achieves close-to-optimal
+performance on both datasets, if allowed to consume at most
+three times the optimal amount of space (i.e., κ = 3.0),
+which on our datasets still corresponds to a space reduction
+over Popt by more than one order of magnitude.
+We also measured wall-clock times on a sample of the
+queries with results indicating improvements in execution
+time by up to a factor of 12.

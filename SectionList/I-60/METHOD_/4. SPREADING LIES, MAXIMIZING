@@ -1,0 +1,442 @@
+UTILITY
+In the first set of experiments we investigated the benefits
+achieved by the self-interested agents, whose aim was to 
+minimize their own journey length. The self-interested agents
+adopted a cheating approach, in which they sent false data
+to their peers.
+In this section we first describe the simulations with the
+self-interested agents. Then, we model the scenario as a
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 329
+game with two types of agents, and prove that the 
+equilibrium result can only be achieved when there is no efficient
+exchange of gossiping information in the network.
+4.1 Modeling the Self-Interested Agents" 
+Behavior
+While the gossip agents gather data and send it to other
+agents, the self-interested agents" behavior is modeled as
+follows:
+1. Calculate the shortest path from origin to destination.
+2. Communicate the following data to other agents:
+(a) If the road is not in the agent"s route - send the
+true data about it (e.g., data about roads it has
+received from other agents)
+(b) For all roads in the agent"s route, which the agent
+has not yet traversed, send a random high weight.
+Basically, the self-interested agent acts the same as the 
+gossip agent. It collects data regarding the weight of the roads
+(either by traversing the road or by getting the data from
+other agents) and sends the data it has collected to other
+agents. However, the self-interested agent acts differently
+when the road is in its route. Since the agent"s goal is to
+reach its destination as fast as possible, the agent will falsely
+report that all the roads in its route are heavily congested.
+This is in order to free the path for itself, by making other
+agents recalculate their paths, this time without including
+roads on the self-interested agent"s route. To this end, for
+all the roads in its route, which the agent has not yet passed,
+the agent generates a random weight, which is above the 
+average weight of the roads in the network. It then associates
+these new weights with the roads in its route and sends them
+to the other agents.
+While an agent can also divert cars from its route by
+falsely reporting congested roads in parallel to its route as
+free, this behavior is not very likely since other agents, 
+attempting to use the roads, will find the mistake within a
+short time and spread the true congestion on the road. On
+the other hand, if an agent manages to persuade other agents
+not to use a road, it will be harder for them to detect that
+the said roads are not congested.
+In addition, to avoid being influenced by its own lies and
+other lies spreading in the network, all self-interested agents
+will ignore data received about roads with heavy traffic (note
+that data about roads that are not heavily traffic will not
+be ignored)1
+.
+In the next subsection we describe the simulation results,
+involving the self-interested agents.
+4.2 Simulation Results
+To test the benefits of cheating by the self-interested agents
+we ran several experiments. In the first set of experiments,
+we created a scenario, in which a small group of self-interested
+agents spread lies on the same route, and tested its 
+effect on the journey length of all the agents in the network.
+1
+In other simulations we have run, in which there had been
+several real congestions in the network, we indeed saw that
+even when the roads are jammed, the self-interested agents
+were less affected if they ignored all reported heavy traffic,
+since by such they also discarded all lies roaming the network
+Table 1: Normalized journey length values, 
+selfinterested agents with the same route
+Iteration Self-Interested Gossip - Gossip - Regular
+Number Agents SR Others Agents
+1 1.38 1.27 1.06 1.06
+2 0.95 1.56 1.18 1.14
+3 1.00 1.86 1.28 1.17
+4 1.06 2.93 1.35 1.16
+5 1.13 2.00 1.40 1.17
+6 1.08 2.02 1.43 1.18
+Thus, several cars, which had the same origin and 
+destination points, were designated as self-interested agents. In this
+simulation, we selected only 6 agents to be part of the group
+of the self-interested agents, as we wanted to investigate the
+effect achieved by only a small number of agents.
+In each simulation in this experiment, 6 different agents
+were randomly chosen to be part of the group of self-interested
+agents, as described above. In addition, one road, on the
+route of these agents, was randomly selected to be partially
+blocked, letting only one car go through that road at each
+time step. About 8,000 agents were randomly selected as
+regular gossip agents, and the other 32,000 agents were 
+designated as regular agents.
+We analyzed the average journey length of the self-interested
+agents as opposed to the average journey length of other
+regular gossip agents traveling along the same route. Table
+1 summarizes the normalized results for the self-interested
+agents, the gossip agents (those having the same origin and
+destination points as the self-interested agents, denoted 
+Gossip - SR, and all other gossip agents, denoted Gossip - 
+Others) and the regular agents, as a function of the iteration
+number.
+We can see from the results that the first time the 
+selfinterested agents traveled the route while spreading the false
+data about the roads did not help them (using the paired
+t-test we show that those agents had significantly lower 
+journey lengths in the scenario in which they did not spread any
+lies, with p < 0.01). This is mainly due to the fact that
+the lies do not bypass the self-interested agent and reach
+other cars that are ahead of the self-interested car on the
+same route. Thus, spreading the lies in the first iteration
+does not help the self-interested agent to free the route he
+is about to travel, in the first iteration.
+Only when the self-interested agents had repeated their
+journey in the next iteration (iteration 2) did it help them
+significantly (p = 0.04). The reason for this is that other 
+gossip agents received this data and used it to recalculate their
+shortest path, thus avoiding entrance to the roads, for which
+the self-interested agents had spread false information about
+congestion. It is also interesting to note the large value
+attained by the self-interested agents in the first iteration.
+This is mainly due to several self-interested agents, who 
+entered the jammed road. This situation occurred since the
+self-interested agents ignored all heavy traffic data, and thus
+ignored the fact that the road was jammed. As they started
+spreading lies about this road, more cars shifted from this
+route, thus making the road free for the future iterations.
+However, we also recall that the self-interested agents 
+ignore all information about the heavy traffic roads. Thus,
+330 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+Table 2: Normalized journey length values, 
+spreading lies for a beneficiary agent
+Iteration Beneficiary Gossip - Gossip - Regular
+Number Agent SR Others Agents
+1 1.10 1.05 0.94 1.11
+2 1.09 1.14 0.99 1.14
+3 1.04 1.19 1.02 1.14
+4 1.03 1.26 1.03 1.14
+5 1.05 1.32 1.05 1.12
+6 0.92 1.40 1.06 1.11
+when the network becomes congested, more self-interested
+cars are affected, since they might enter jammed roads,
+which they would otherwise not have entered. This can be
+seen, for example, in iterations 4-6, in which the normalized
+value of the self-interested agents increased above 1.00. 
+Using the paired t-test to compare these values with the values
+achieved by these agents when no lies are used, we see that
+there is no significant difference between the two scenarios.
+As opposed to the gossip agents, we can see how little
+effect the self-interested agents have on the regular agents.
+As compared to the gossip agents on the same route that
+have traveled as much as 193% more, when self-interested
+agents are introduced, the average journey length for the
+regular agents has only increased by about 15%. This result
+is even lower than the effect on other gossip agents in the
+entire network.
+Since we noticed that cheating by the self-interested agents
+does not benefit them in the first iteration, we devised 
+another set of experiments. In the second set of experiments,
+the self-interested agents have the objective to help another
+agent, who is supposed to enter the network some time 
+after the self-interested agent entered. We refer to the latter
+agent as the beneficiary agent. Just like a self-interested
+agent, the beneficiary agent also ignores all data regarding
+heavy traffic. In real-life this can be modeled, for 
+example, by a husband, who would like to help his wife find a
+faster route to her destination. Table 2 summarizes the 
+normalized values for the different agents. As in the first set
+of experiments, 5 simulations were run for each scenario,
+with a total of 25 simulations. In each of these simulation
+one agent was randomly selected as a self-interested agent,
+and then another agent, with the same origin as the 
+selfinterested agent, was randomly selected as the beneficiary
+agent. The other 8,000 and 32,000 agents were designated
+as regular gossip agents and regular agents, respectively.
+We can see that as the number of iterations advances, the
+lower the normalized value for the beneficiary agent. In this
+scenario, just like the previous one, in the first iterations,
+not only does the beneficiary agent not avoid the jammed
+roads, since he ignores all heavy traffic, he also does not
+benefit from the lies spread by the self-interested agent. This
+is due to the fact that the lies are not yet incorporated by
+other gossip agents. Thus, if we compare the average journey
+length in the first iteration when lies are spread and when
+there are no lies, the average is significantly lower when there
+are no lies (p < 0.03). On the other hand, if we compare
+the average journey length in all of the iterations, there is
+no significant difference between the two settings. Still, in
+most of the iterations, the average journey length of the
+beneficiary agent is longer than in the case when no lies are
+spread.
+We can also see the impact on the other agents in the
+system. While the gossip agents, which are not on the
+route of the beneficiary agent, virtually are not affected by
+the self-interested agent, those on the route and the 
+regular agents are affected and have higher normalized values.
+That is, even with just one self-interested car, we can see
+that both the gossip agents that follow the same route as
+the lies spread by the self-interested agents, and other 
+regular agents, increase their journey length by more than 14%.
+In our third set of experiments we examined a setting in
+which there was an increasing number of agents, and the
+agents did not necessarily have the same origin and 
+destination points. To model this we randomly selected 
+selfinterested agents, whose objective was to minimize their
+average journey length, assuming the cars were repeating
+their journeys (that is, more than one iteration was made).
+As opposed to the first set of experiments, in this set the
+self-interested agents were selected randomly, and we did
+not enforce the constraint that they will all have the same
+origin and destination points.
+As in the previous sets of experiments we ran 5 
+different simulations per scenario. In each simulation 11 runs
+were made, each run with different numbers of self-interested
+agents: 0 (no self-interested agents), 1, 2, 4, 8, and 16. Each
+agent adopted the behavior modeled in Section 4.1. Figure
+1 shows the normalized value achieved by the self-interested
+agents as a function of their number. The figure shows these
+values for iterations 2-6. The first iteration is not shown 
+intentionally, as we assume repeated journeys. Also, we have
+seen in the previous set of experiments and we have 
+provided explanations as to why the self-interested agents do
+not gain much from their behavior in the first iteration.
+0.955
+0.96
+0.965
+0.97
+0.975
+0.98
+0.985
+0.99
+0.995
+1
+1.005
+1.01
+1.015
+1.02
+1.025
+1.03
+0 1 2 3 4 5 6 7 8 9 10111213141516
+Self-Interested Agents Number
+NormalizedValue
+Iteration 2 Iteration 3 Iteration 4
+Iteration 5 Iteration 6
+Figure 1: Self-interested agents normalized values as
+a function of the number of self-interested agents.
+Using these simulations we examined what the threshold
+could be for the number of randomly selected self-interested
+agents in order to allow themselves to benefit from their
+selfish behavior. We can see that up to 8 self-interested
+agents, the average normalized value is below 1. That is,
+they benefit from their malicious behavior. In the case of
+one self-interested agent there is a significant difference 
+between the average journey length of when the agent spread
+lies and when no lies are spread (p < 0.001), while when
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 331
+there are 2, 4, 8 and 16 self-interested agents there is no
+significance difference. Yet, as the number of self-interested
+agents increases, the normalized value also increases. In
+such cases, the normalized value is larger than 1, and the
+self-interested agents journey length becomes significantly
+higher than their journey length, in cases where there are
+no self-interested agents in the system.
+In the next subsection we analyze the scenario as a game
+and show that when in equilibrium the exchange of gossiping
+between the agents becomes inefficient.
+4.3 When Gossiping is Inefficient
+We continued and modeled our scenario as a game, in 
+order to find the equilibrium. There are two possible types for
+the agents: (a) regular gossip agents, and (b) self-interested
+agents. Each of these agents is a representative of its group,
+and thus all agents in the same group have similar behavior.
+We note that the advantage of using gossiping in 
+transportation networks is to allow the agents to detect anomalies
+in the network (e.g., traffic jams) and to quickly adapt to
+them by recalculating their routes [14]. We also assume that
+the objective of the self-interested agents is to minimize their
+own journey length, thus they spread lies on their routes, as
+described in Section 4.1. We also assume that sophisticated
+methods for identifying the self-interested agents or 
+managing reputation are not used. This is mainly due to the 
+complexity of incorporating and maintaining such mechanisms,
+as well as due to the dynamics of the network, in which 
+interactions between different agents are frequent, agents may
+leave the network, and data about the road might change as
+time progresses (e.g., a road might be reported by a regular
+gossip agent as free at a given time, yet it may currently be
+jammed due to heavy traffic on the road).
+Let Tavg be the average time it takes to traverse an edge
+in the transportation network (that is, the average load of
+an edge). Let Tmax be the maximum time it takes to 
+traverse an edge. We will investigate the game, in which the
+self-interested and the regular gossip agents can choose the
+following actions. The self-interested agents can choose how
+much to lie, that is, they can choose to spread how long (not
+necessarily the true duration) it takes to traverse certain
+roads. Since the objective of the self-interested agents is to
+spread messages as though some roads are jammed, the 
+traversal time they report is obviously larger than the average
+time. We denote the time the self-interested agents spread
+as Ts, such that Tavg ≤ Ts ≤ Tmax. Motivated by the 
+results of the simulations we have described above, we saw that
+the agents are less affected if they discard the heavy traffic
+values. Thus, the regular gossip cars, attempting to 
+mitigate the effect of the liars, can choose a strategy to ignore
+abnormal congestion values above a certain threshold, Tg.
+Obviously, Tavg ≤ Tg ≤ Tmax. In order to prevent the 
+gossip agents from detecting the lies and just discarding those
+values, the self-interested agents send lies in a given range,
+[Ts, Tmax], with an inverse geometric distribution, that is,
+the higher the T value, the higher its frequency.
+Now we construct the utility functions for each type of
+agents, which is defined by the values of Ts and Tg. If the
+self-interested agents spread traversal times higher than or
+equal to the regular gossip cars" threshold, they will not
+benefit from those lies. Thus, the utility value of the 
+selfinterested agents in this case is 0. On the other hand, if the
+self-interested agents spread traversal time which is lower
+than the threshold, they will gain a positive utility value.
+From the regular gossip agents point-of-view, if they accept
+messages from the self-interested agents, then they 
+incorporate the lies in their calculation, thus they will lose utility
+points. On the other hand, if they discard the false values
+the self-interested agents send, that is, they do not 
+incorporate the lies, they will gain utility values. Formally, we use
+us
+to denote the utility of the self-interested agents and ug
+to denote the utility of the regular gossip agents. We also
+denote the strategy profile in the game as {Ts, Tg}. The
+utility functions are defined as:
+us
+=
+0 if Ts ≥ Tg
+Ts − Tavg + 1 if Ts < Tg
+(1)
+ug
+=
+Tg − Tavg if Ts ≥ Tg
+Ts − Tg if Ts < Tg
+(2)
+We are interested in finding the Nash equilibrium. We
+recall from [12], that the Nash equilibrium is a strategy 
+profile, where no player has anything to gain by deviating from
+his strategy, given that the other agent follows his strategy
+profile. Formally, let (S, u) denote the game, where S is
+the set of strategy profiles and u is the set of utility 
+functions. When each agent i ∈ {regular gossip, self-interested}
+chooses a strategy Ti resulting in a strategy profile T =
+(Ts, Tg) then agent i obtains a utility of ui
+(T). A strategy
+profile T∗
+∈ S is a Nash equilibrium if no deviation in the
+strategy by any single agent is profitable, that is, if for all i,
+ui
+(T∗
+) ≥ ui
+(Ti, T∗
+−i). That is, (Ts, Tg) is a Nash equilibrium
+if the self-interested agents have no other value Ts such that
+us
+(Ts, Tg) > us
+(Ts, Tg), and similarly for the gossip agents.
+We now have the following theorem.
+Theorem 4.1. (Tavg, Tavg) is the only Nash equilibrium.
+Proof. First we will show that (Tavg, Tavg) is a Nash 
+equilibrium. Assume, by contradiction, that the gossip agents
+choose another value Tg > Tavg. Thus, ug
+(Tavg, Tg ) =
+Tavg − Tg < 0. On the other hand, ug
+(Tavg, Tavg) = 0.
+Thus, the regular gossip agents have no incentive to 
+deviate from this strategy. The self-interested agents also have
+no incentive to deviate from this strategy. By 
+contradiction, again assume that the self-interested agents choose
+another value Ts > Tavg. Thus, us
+(Ts , Tavg) = 0, while
+us
+(Tavg, Tavg) = 0.
+We will now show that the above solution is unique. We
+will show that any other tuple (Ts, Tg), such that Tavg <
+Tg ≤ Tmax and Tavg < Ts ≤ Tmax is not a Nash equilibrium.
+We have three cases. In the first Tavg < Tg < Ts ≤ Tmax.
+Thus, us
+(Ts, Tg) = 0 and ug
+(Ts, Tg) = Tg − Tavg. In this
+case, the regular gossip agents have an incentive to deviate
+and choose another strategy Tg + 1, since by doing so they
+increase their own utility: ug
+(Ts, Tg + 1) = Tg + 1 − Tavg.
+In the second case we have Tavg < Ts < Tg ≤ Tmax. Thus,
+ug
+(Ts, Tg) = Ts − Tg < 0. Also, the regular gossip agents
+have an incentive to deviate and choose another strategy
+Tg −1, in which their utility value is higher: ug
+(Ts, Tg −1) =
+Ts − Tg + 1.
+In the last case we have Tavg < Ts = Tg ≤ Tmax. Thus,
+us
+(Ts, Tg) = Ts − Tg = 0. In this case, the self-interested
+agents have an incentive to deviate and choose another 
+strategy Tg − 1, in which their utility value is higher: us
+(Tg −
+1, Tg) = Tg − 1 − Tavg + 1 = Tg − Tavg > 0.
+332 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+Table 3: Normalized journey length values for the
+first iteration
+Self-Interested Self-Interested Gossip Regular
+Agents Number Agents Agents Agents
+1 0.98 1.01 1.05
+2 1.09 1.02 1.05
+4 1.07 1.02 1.05
+8 1.06 1.04 1.05
+16 1.03 1.08 1.06
+32 1.07 1.17 1.08
+50 1.12 1.28 1.1
+64 1.14 1.4 1.13
+80 1.15 1.5 1.14
+100 1.17 1.63 1.16
+Table 4: Normalized journey length values for all
+iterations
+Self-Interested Self-Interested Gossip Regular
+Agents Number Agents Agents Agents
+1 0.98 1.02 1.06
+2 1.0 1.04 1.07
+4 1.0 1.08 1.07
+8 1.01 1.33 1.11
+16 1.02 1.89 1.17
+32 1.06 2.46 1.25
+50 1.13 2.24 1.29
+64 1.21 2.2 1.32
+80 1.21 2.13 1.27
+100 1.26 2.11 1.27
+The above theorem proves that the equilibrium point is
+reached only when the self-interested agents send the time
+to traverse certain edges equals the average time, and on
+the other hand the regular gossip agents discard all data 
+regarding roads that are associated with an average time or
+higher. Thus, for this equilibrium point the exchange of 
+gossiping information between agents is inefficient, as the gossip
+agents are unable to detect any anomalies in the network.
+In the next section we describe another scenario for the
+self-interested agents, in which they are not concerned with
+their own utility, but rather interested in maximizing the
+average journey length of other gossip agents.

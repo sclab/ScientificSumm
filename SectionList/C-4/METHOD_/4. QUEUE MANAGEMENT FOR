@@ -1,0 +1,71 @@
+INTRAFLOW LOSS CONTROL
+While we have highlighted the sensitivity of VoIP traffic to
+the distribution of loss in the last sections, we now want
+to briefly introduce a queue management mechanism ([13])
+which is able to enforce the relative preferences of the ap
+plication with regard to loss.
+We consider flows with packets marked with +l and 
+‘I1 (as described in the introduction) BS foreground traffic
+(FT) and other (best effort) flows as backaound traffic
+(BT). Packet marking, in addition to keeping the desirable
+property of state aggregration within the network core as
+proposed by the IETF Differentiated Services architecture,
+is exploited here to convey the intrbflow requirements of a
+llow. As it should be avoided to introduce reordering of the
+packets of a flow in the network we consider mechanisms
+for the management of a single queue with different priority
+levels. One approach to realize inter-flow service 
+differentiation using a single queue is RIO (‘RED with IN and OUT",
+[3]). With RIO, two average queue sizes as congestion 
+indicators are computed: one just for the IN (high priority)
+packets and another for both IN and OUT (low priority)
+packets. Packets marked as OUT are dropped earlier (in
+terms of the average queue size) than IN packets. RIO has
+been designed to decrease the clip seen by particular Bows at
+the expense of other flows. In this work, however, we want
+to keep the ulp as given by other parameters while 
+modifying the loss distribution for the foreground traffic (FT).
+This amounts to trading the loss of a +l packet against a
+-1 packet of the same flow (in a statistical sense). Fig. 10
+shows the conventional RED drop probability curve (po as a
+function of the average queue size for all arrivals avg), which
+is applied to all unmarked (0) traffic (background traffic:
+BT).
+The necessary relationship between the drop probabilities
+for packets marked as -1 and +l can be derived 85 
+follows (note that this relationship is valid both at the 
+end-tend level and every individual hop): Let a = a0 + a+, +a-~
+be the overall number of emitted packets by an FT flow and
+a,, + E [-l,O, +l] be the number of packets belonging to a
+certain class (where the 0 class corresponds to (unmarked)
+best effort traflic). Then, with a+, = a-1 = a,~, and 
+considering that the resulting service has to be best effort in
+the long term, we have:
+aopo + a+lp+l + LIP-1 A ape
+Qlll@+l fP-1) = (a--oo)m
+P - l = zpo-p+1 (5)
+Due to this relationship between the drop probability for
++l and -1 packets, we designate this queue 
+management algorithm as Differential RED (DiERED). Figure 10
+shows the corresponding drop probability curves. Due to
+the condition of a+, = (I-L = all, in addition to the 
+conventional RED behaviour, the DiffRED implementation should
+also monitor the +l and -1 arrival processes. If the ratio of
++l to -1 packets at a gateway is not 1 (either due to 
+misbehaving flows or a significant number of flows which have
+already experienced loss at earlier hops) the -1 loss prob
+ability is decreased and the +l probability is increased at
+the same time thus degrading the service for all users. The
+shaded areas above and below the po(avg) curve (Fig. 10)
+show the operating area when this correction is added.
+In [13] it has been shown that using only the conventional
+RED average queue size avg for DSRED operation is not
+sufficient. This is due to the potentially missing 
+correlation of the computed aug value between consecutive +l and
+-1 arrivals, especially when the share of the FT traftic is
+low. As this might result in a unfair distribution of losses
+between the FT and BT fractions, a specific avgl value is
+computed by sampling the queue size only at FT arrival
+instants. Thus, a service differentiation for foreground 
+traffic is possible which does not differ from conventional RED
+behaviour in the long term average (i.e., in the ulp).

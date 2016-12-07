@@ -1,0 +1,22 @@
+The adaptation coordinator uses the Registry to discover the application processes, and the application processes use this service to discover each other.
+The  coordinator is implemented as a separate process.
+In the future, we are planning to integrate our adaptation component with GAT (3) which is becoming a  standard in the grid community and KOALA (15) a scheduler that  provides co-allocation on top of standard grid middleware, such as the Globus Toolkit (11). 
+With Satin, the programmer annotates the sequential code with divide-and-conquer primitives and compiles the annotated code with a special Satin compiler that generates the necessary communication and load balancing code.
+The Registry provides, among others, a membership service to the processors taking part in the computation.
+The resulting system therefore is highly portable (due to Java"s write once, run anywhere property) allowing the software to run unmodified on a heterogeneous grid.
+Zorilla provides locality-aware scheduling, which tries to allocate processors that are located close to each other in terms of communication latency.
+We instrumented the Satin runtime system to collect runtime statistics and send them to the adaptation coordinator.
+For requesting new nodes, the Zorilla (9) system is used - a peer-to-peer supercomputing middleware which allows  straightforward allocation of processors in multiple clusters and/or  supercomputers.
+Finally, the Registry provides the possibility to send signals to application processes.
+The coordinator uses this functionality to notify the processors that they need to leave the computation.
+The Registry also offers fault detection (additional to the fault detection provided by the  communication channels).
+Currently the Registry is implemented as a  centralized server.
+Satin uses a very  efficient, grid-aware load balancing algorithm - Cluster-aware  Random Work Stealing (CRS) (19), which hides wide-area latencies by overlapping local and remote stealing.
+Both coordinator and Satin are implemented entirely in Java on top of the Ibis  communication library (21).
+In the future, Zorilla will also support bandwidth-aware scheduling, which tries to maximize the total bandwidth in the system.
+Zorilla can be easily replaced with  another grid scheduler.
+We incorporated our adaptation mechanism into Satin - a Java framework for creating grid-enabled divide-and-conquer  applications.
+Ibis also provides the Ibis Registry.
+The core of Ibis is also implemented in Java.
+Satin also provides  transparent fault tolerance and malleability (23).
+With Satin, removing and adding processors from/to an ongoing computation incurs little overhead.

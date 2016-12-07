@@ -1,0 +1,313 @@
+VCG AUCTIONS
+In this section, we first describe the marginal-decreasing 
+piecewise bidding language that is used in our forward and reverse
+auctions. Continuing, we introduce the VCG mechanism for the
+problem and the ε-dominance results for approximations to VCG
+outcomes. We also discuss the economic properties of VCG
+mechanisms in these forward and reverse auction multi-unit 
+settings.
+2.1 Marginal-Decreasing Piecewise Bids
+We provide a piecewise-constant and marginal-decreasing 
+bidding language. This bidding language is expressive for a 
+natural class of valuation and cost functions: fixed unit prices over
+intervals of quantities. See Figure 1 for an example. In 
+addition, we slightly relax the marginal-decreasing requirement to
+allow: a bidder in the forward auction to state a minimal 
+purchase amount, such that she has zero value for quantities smaller
+than that amount; a seller in the reverse auction to state a capacity
+constraint, such that she has an effectively infinite cost to supply
+quantities in excess of a particular amount.
+Reverse Auction Bid
+7
+5 10 20 25
+10
+8
+Quantity
+Price
+7
+5 10 20 25
+10
+8
+Quantity
+Price
+Forward Auction Bid
+Figure 1: Marginal-decreasing, piecewise constant bids. In the
+forward auction bid, the bidder offers $10 per unit for quantity in
+the range [5, 10), $8 per unit in the range [10, 20), and $7 in the
+range [20, 25]. Her valuation is zero for quantities outside the range
+[10, 25]. In the reverse auction bid, the cost of the seller is ∞ outside
+the range [10, 25].
+In detail, in a forward auction, a bid from buyer i can be
+written as a list of (quantity-range, unit-price) tuples, ((u1
+i , p1
+i ),
+(u2
+i , p2
+i ), . . . , (umi−1
+i , pmi−1
+i )), with an upper bound umi
+i on the
+quantity. The interpretation is that the bidder"s valuation in the
+167
+(semi-open) quantity range [uj
+i , uj+1
+i ) is pj
+i for each unit. 
+Additionally, it is assumed that the valuation is 0 for quantities less
+than u1
+i as well as for quantities more than um
+i . This is 
+implemented by adding two dummy bid tuples, with zero prices in the
+range [0, u1
+i ) and (umi
+i , ∞). We interpret the bid list as 
+defining a price function, pbid,i(q) = qpj
+i , if uj
+i ≤ q < uj+1
+i , where
+j = 1, 2, . . . , mi −1. In order to resolve the boundary condition,
+we assume that the bid price for the upper bound quantity umi
+i is
+pbid,i(umi
+i ) = umi
+i pmi−1
+i .
+A seller"s bid is similarly defined in the reverse auction. The
+interpretation is that the bidder"s cost in the (semi-open) 
+quantity range [uj
+i , uj+1
+i ) is pj
+i for each unit. Additionally, it is 
+assumed that the cost is ∞ for quantities less than u1
+i as well as
+for quantities more than um
+i . Equivalently, the unit prices in the
+ranges [0, u1
+i ) and (um
+i , ∞) are infinity. We interpret the bid list
+as defining a price function, pask,i(q) = qpj
+i , if uj
+i ≤ q < uj+1
+i .
+2.2 VCG-Based Multi-Unit Auctions
+We construct the tractable and approximately-strategyproof 
+multiunit auctions around a VCG mechanism. We assume that all
+agents have quasilinear utility functions; that is, ui(q, p) = vi(q)−
+p, for a buyer i with valuation vi(q) for q units at price p, and
+ui(q, p) = p − ci(q) for a seller i with cost ci(q) at price p. This
+is a standard assumption in the auction literature, equivalent to
+assuming risk-neutral agents [13]. We will use the term payoff
+interchangeably for utility.
+In the forward auction, there is a seller with M units to sell.
+We assume that this seller has no intrinsic value for the items.
+Given a set of bids from I agents, let V (I) denote the maximal
+revenue to the seller, given that at most one point on the bid curve
+can be selected from each agent and no more than M units of the
+item can be sold. Let x∗
+= (x∗
+1, . . . , x∗
+N ) denote the solution
+to this winner- determination problem, where x∗
+i is the number
+of units sold to agent i. Similarly, let V (I \ i) denote the 
+maximal revenue to the seller without bids from agent i. The VCG
+mechanism is defined as follows:
+1. Receive piecewise-constant bid curves and capacity 
+constraints from all the buyers.
+2. Implement the outcome x∗
+that solves the winner-determination
+problem with all buyers.
+3. Collect payment pvcg,i = pbid,i(x∗
+i ) − [V (I) − V (I \ i)]
+from each buyer, and pass the payments to the seller.
+In this forward auction, the VCG mechanism is strategyproof
+for buyers, which means that truthful bidding is a dominant 
+strategy, i.e. utility maximizing whatever the bids of other buyers.
+In addition, the VCG mechanism is allocatively-efficient, and the
+payments from each buyer are always positive.3
+Moreover, each
+buyer pays less than its value, and receives payoff V (I)−V (I \
+i) in equilibrium; this is precisely the marginal-value that buyer
+i contributes to the economic efficiency of the system.
+In the reverse auction, there is a buyer with M units to buy,
+and n suppliers. We assume that the buyer has value V > 0
+to purchase all M units, but zero value otherwise. To simplify
+the mechanism design problem we assume that the buyer will
+truthfully announce this value to the mechanism.4
+The 
+winner3
+In fact, the VCG mechanism maximizes the expected payoff
+to the seller across all efficient mechanisms, even allowing for
+Bayesian-Nash implementations [14].
+4
+Without this assumption, the Myerson-Satterthwaite [17] 
+impossibility result would already imply that we should not expect
+an efficient trading mechanism in this setting.
+determination problem in the reverse auction is to determine the
+allocation, x∗
+, that minimizes the cost to the buyer, or forfeits
+trade if the minimal cost is greater than value, V .
+Let C(I) denote the minimal cost given bids from all sellers,
+and let C(I \i) denote the minimal cost without bids from seller
+i. We can assume, without loss of generality, that there is an
+efficient trade and V ≥ C(I). Otherwise, then the efficient 
+outcome is no trade, and the outcome of the VCG mechanism is no
+trade and no payments.
+The VCG mechanism implements the outcome x∗
+that 
+minimizes cost based on bids from all sellers, and then provides 
+payment pvcg,i = pask,i(x∗
+i )+[V −C(I)−max(0, V −C(I\i))] to
+each seller. The total payment is collected from the buyer. Again,
+in equilibrium each seller"s payoff is exactly the marginal-value
+that the seller contributes to the economic efficiency of the 
+system; in the simple case that V ≥ C(I \ i) for all sellers i, this is
+precisely C(I \ i) − C(I).
+Although the VCG mechanism remains strategyproof for 
+sellers in the reverse direction, its applicability is limited to cases in
+which the total payments to the sellers are less than the buyer"s
+value. Otherwise, there will be instances in which the buyer will
+not choose to voluntarily participate in the mechanism, based on
+its own value and its beliefs about the costs of sellers. This leads
+to a loss in efficiency when the buyer chooses not to participate,
+because efficient trades are missed. This problem with the size of
+the payments, does not occur in simple single-item reverse 
+auctions, or even in multi-unit reverse auctions with a buyer that has
+a constant marginal-valuation for each additional item that she
+procures.5
+Intuitively, the problem occurs in the reverse multi-unit 
+setting because the buyer demands a fixed number of items, and
+has zero value without them. This leads to the possibility of the
+trade being contingent on the presence of particular, so-called
+pivotal sellers. Define a seller i as pivotal, if C(I) ≤ V but
+C(I\i) > V . In words, there would be no efficient trade without
+the seller. Any time there is a pivotal seller, the VCG payments
+to that seller allow her to extract all of the surplus, and the 
+payments are too large to sustain with the buyer"s value unless this
+is the only winning seller.
+Concretely, we have this participation problem in the reverse
+auction when the total payoff to the sellers, in equilibrium, 
+exceeds the total payoff from the efficient allocation:
+V − C(I) ≥
+i
+[V − C(I) − max(0, V − C(I \ i))]
+As stated above, first notice that we require V > C(I \ i)
+for all sellers i. In other words, there must be no pivotal sellers.
+Given this, it is then necessary and sufficient that:
+V − C(I) ≥
+i
+(C(I \ i) − C(I)) (1)
+5
+To make the reverse auction symmetric with the forward 
+direction, we would need a buyer with a constant marginal-value to
+buy the first M units, and zero value for additional units. The
+payments to the sellers would never exceed the buyer"s value in
+this case. Conversely, to make the forward auction symmetric
+with the reverse auction, we would need a seller with a constant
+(and high) marginal-cost to sell anything less than the first M
+units, and then a low (or zero) marginal cost. The total payments
+received by the seller can be less than the seller"s cost for the
+outcome in this case.
+168
+In words, the surplus of the efficient allocation must be greater
+than the total marginal-surplus provided by each seller.6
+Consider an example with 3 agents {1, 2, 3}, and V = 150
+and C(123) = 50. Condition (1) holds when C(12) = C(23) =
+70 and C(13) = 100, but not when C(12) = C(23) = 80
+and C(13) = 100. In the first case, the agent payoffs π =
+(π0, π1, π2, π3), where 0 is the seller, is (10, 20, 50, 20). In the
+second case, the payoffs are π = (−10, 30, 50, 30).
+One thing we do know, because the VCG mechanism will
+maximize the payoff to the buyer across all efficient mechanisms
+[14], is that whenever Eq. 1 is not satisfied there can be no 
+efficient auction mechanism.7
+2.3 ε-Strategyproofness
+We now consider the same VCG mechanism, but with an 
+approximation scheme for the underlying allocation problem. We
+derive an ε-strategyproofness result, that bounds the maximal
+gain in payoff that an agent can expect to achieve through a 
+unilateral deviation from following a simple truth-revealing strategy.
+We describe the result for the forward auction direction, but it is
+quite a general observation.
+As before, let V (I) denote the value of the optimal solution
+to the allocation problem with truthful bids from all agents, and
+V (I \i) denote the value of the optimal solution computed 
+without bids from agent i. Let ˆV (I) and ˆV (I \ i) denote the value
+of the allocation computed with an approximation scheme, and
+assume that the approximation satisfies:
+(1 + ) ˆV (I) ≥ V (I)
+for some > 0. We provide such an approximation scheme
+for our setting later in the paper. Let ˆx denote the allocation
+implemented by the approximation scheme.
+The payoff to agent i, for announcing valuation ˆvi, is:
+vi(ˆxi) +
+j=i
+ˆvj (ˆxj) − ˆV (I \ i)
+The final term is independent of the agent"s announced value,
+and can be ignored in an incentive-analysis. However, agent i
+can try to improve its payoff through the effect of its announced
+value on the allocation ˆx implemented by the mechanism. In 
+particular, agent i wants the mechanism to select ˆx to maximize the
+sum of its true value, vi(ˆxi), and the reported value of the other
+agents,
+Èj=i ˆvj (ˆxj). If the mechanism"s allocation algorithm is
+optimal, then all the agent needs to do is truthfully state its value
+and the mechanism will do the rest. However, faced with an 
+approximate allocation algorithm, the agent can try to improve its
+payoff by announcing a value that corrects for the 
+approximation, and causes the approximation algorithm to implement the
+allocation that exactly maximizes the total reported value of the
+other agents together with its own actual value [18].
+6
+This condition is implied by the agents are substitutes 
+requirement [3], that has received some attention in the combinatorial
+auction literature because it characterizes the case in which VCG
+payments can be supported in a competitive equilibrium. Useful
+characterizations of conditions that satisfy agents are substitutes,
+in terms of the underlying valuations of agents have proved quite
+elusive.
+7
+Moreover, although there is a small literature on 
+maximallyefficient mechanisms subject to requirements of 
+voluntaryparticipation and budget-balance (i.e. with the mechanism 
+neither introducing or removing money), analytic results are only
+known for simple problems (e.g. [16, 4]).
+We can now analyze the best possible gain from 
+manipulation to an agent in our setting. We first assume that the other
+agents are truthful, and then relax this. In both cases, the 
+maximal benefit to agent i occurs when the initial approximation is
+worst-case. With truthful reports from other agents, this occurs
+when the value of choice ˆx is V (I)/(1 + ε). Then, an agent
+could hope to receive an improved payoff of:
+V (I) −
+V (I)
+1 + ε
+=
+ε
+1 + ε
+V (I)
+This is possible if the agent is able to select a reported type to
+correct the approximation algorithm, and make the algorithm 
+implement the allocation with value V (I). Thus, if other agents are
+truthful, and with a (1 + ε)-approximation scheme to the 
+allocation problem, then no agent can improve its payoff by more than
+a factor ε/(1 + ε) of the value of the optimal solution.
+The analysis is very similar when the other agents are not
+truthful. In this case, an individual agent can improve its 
+payoff by no more than a factor /(1 + ) of the value of the optimal
+solution given the values reported by the other agents.
+Let V in the following theorem define the total value of the
+efficient allocation, given the reported values of agents j = i,
+and the true value of agent i.
+THEOREM 1. A VCG-based mechanism with a (1 + 
+ε)allocation algorithm is (1+
+−V ) strategyproof for agent i, and
+agent i can gain at most this payoff through some non-truthful
+strategy.
+Notice that we did not need to bound the error on the allocation
+problems without each agent, because the -strategyproofness
+result follows from the accuracy of the first-term in the VCG
+payment and is independent of the accuracy of the second-term.
+However, the accuracy of the solution to the problem without
+each agent is important to implement a good approximation to
+the revenue properties of the VCG mechanism.

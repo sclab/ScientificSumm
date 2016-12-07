@@ -1,0 +1,79 @@
+Backtracking may then occur for one of two reasons: we cannot extend the assignment to satisfy the given constraints, or the current  partial assignment cannot be associated with a repair solution whose cost of repair is less than β should a break occur.
+An (a,b)-super solution is one in which if at most a variables lose their values, a repair solution can be found by changing at most b other variables [10].
+The Weighted Super Solution (WSS) framework [13] considers the cost of repair required, rather than simply the number of  assignments modified, to form an alternative solution.
+A repair solution is provided for every possible set of break  variables, A.
+Bids 1 and 3 cannot both succeed, since they both require item A, so a constraint is added precluding the assignment in which both variables take the value 1.
+The procedure reparable searches for partial repair solutions using  backtracking and attempts to extend the last repair found, just as in  (1,b)super solutions [9]; the differences being that a repair is provided for a set of breakage variables rather than a single variable and the cost of repair is considered.
+This fails because the repair for bid1 cannot assign bid2 to 0 because the cost of repairing such an assignment would be ∞, given that the auction rules do not permit the withdrawal of items from winning bids.
+Bid1 and bid2 are both assigned to 1 (branches 4.2 and 4.4) and the total cost of both these changes is still 0 because no  compensation needs to be paid for bids that change from losing to winning.
+As search progresses, the reparability of each previous  assignment is verified at each node by extending a partial repair  solution to the same depth as the current partial solution.
+This is a valid  solution but this variable is brittle because there is a 10% chance that this bid may be withdrawn (see Table 1).
+For winning bids this may reflect the necessary compensation penalty for the bid-taker to break the agreement (if such breaches are permitted), whereas for previously losing bids this is a free  operation.
+, Cm} of constraints, each restricting the assignments of some subset of the variables in X. Constraint satisfaction involves finding values for each of the problem variables such that all  constraints are satisfied.
+This value may not be known in advance and 185 Algorithm 1: WSS(int level, double α, double β):Boolean begin if level > number of variables then return true choose unassigned variable x foreach value v in the domain of x do assign x : v if problem is consistent then foreach combination of brittle assignments, A do if ¬reparable(A, β) then return false; if WSS(level+1) then return true unassign x return false end may depend upon the break.
+[9] describe how some variables may fail (such as machines in a job-shop problem) and others may not.
+Hence 0, 0, 1 is reparable and therefore a WSS.
+A classical super solution (SS) is a solution to a CSP in which, if a small number of variables lose their values, repair solutions are guaranteed with only a few changes, thus providing solution robustness [9, 10].
+When all variables are set to 0 (see Figure 1(a) branch 3), this is not a solution because the minimum revenue of 190 has not been met, so we try assigning bid3 to 1 (branch 4).
+It may be desirable to reassign items to different bidders in order to find a repair solution of satisfactory revenue.
+For each combination of brittle assignments in the break-set, a repair-set is required that comprises the set of variables whose  values must change to provide another solution.
+A fixed percentage of this revenue can be used as a threshold value for a robust solution and its repairs.
+The inability to withdraw items from winning bids implies that 1, 1, 0 is an irreparable solution when the minimum tolerable revenue is greater than 100.
+The bid-taker wishes to have a robust solution so that if a single winning bid is withdrawn, a repair solution can be formed without withdrawing items from any other winning bidder.
+Section 4 introduces an alternative auction model that will allow the bid-taker to receive compensation for breakages and in turn use this payment to compensate other bidders for withdrawal of items from winning bids.
+An initial bound can be determined by finding a solution that satisfies all constraints in C or by using some heuristic methods.
+The repair search sets bid1 to 0 in a separate search tree, (not shown), and control is returned to the search for a WSS.
+Robust solutions are  particularly desirable for applications where unreliability is a problem and potential breakages may incur severe penalties.
+It is a generalization of both fault tolerance in CP [31] and supermodels in propositional satisfiability (SAT) [7].
+In reality,  changing some variable assignments in a repair solution incurs a lower cost than others thereby motivating the use of a different metric for determining the legality of repair sets.
+Super solutions for combinatorial auctions minimize the number of bids whose status needs to be changed when forming a repair solution [12].
+There is a limit to how much these overall repair costs should be, and this is given by the value β.
+A repair solution with bid2 assigned to 1 does not produce sufficient revenue when bid1 is assigned to 0.
+Similarly, bids 2 and 3 cannot both win so another constraint is added between these two variables.
+In order to find a robust solution of optimal revenue we seek to maximize the sum of these amounts, max xi∈V aixi.
+Therefore, β may be viewed as the fund used to compensate winning bidders for the unilateral  withdrawal of their bids by the bid-taker.
+Therefore, in this example the set of CSP variables is V = {x1, x2, x3}, whose domains are all {0, 1}.
+A WSS generalizes this  approach so that there is a probability of failure associated with each assignment and sets of variables whose assignments have  probabilities of failure greater than or equal to a threshold value, α, require repair solutions.
+When bid1 is assigned to 1 (branch 6) we seek a partial repair for this variable breaking (branch 5 is not considered since it offers insufficient revenue).
+The bid-taker is willing to compromise on revenue, but only by 5%, say, of the optimal value.
+The search for a repair begins at the first node, see Figure 1(b).
+The WSS algorithm attempts to extend the current partial assignment by choosing a variable and assigning it a value.
+This example may be seen as searching for a (0.1,0)-weighted super solution, β is 0 because no funds are available to compensate the withdrawal of items from winning  bidders.
+The problem is initially solved using an ILP solver such as lp_solve [3] or CPLEX, and the optimal revenue is found to be 200.
+The cardinality of the repair set is used to measure the cost of repair.
+Its main advantages are its declarative nature and flexibility in tackling problems with arbitrary side constraints.
+In summary, an (α,β)-WSS allows any set of variables whose probability of breaking is greater than or equal to α be repaired with changes to the original robust solution with a cost of at most β.
+When bid1 is set to 0 (branch 4.1), the maximum revenue solution in the remaining subtree has revenue of only 100, therefore search is discontinued at that node of the tree.
+Compensation may have to be paid to bidders who lose items during the formation of a repair solution.
+Weighted  super solutions offer a means of expressing which variables are  easily re-assigned and those that incur a heavy cost [13].
+The depth-first search for a WSS (see pseudo-code description in Algorithm 1) maintains arc-consistency [24] at each node of the tree.
+A summation operator is used to  determine the overall cost of repair.
+In constraint programming [4] (CP), a constraint satisfaction  problem (CSP) is modeled as a set of n variables X = {x1, .
+A common technique for solving constraint optimization problems is to use branch-and-bound  techniques that avoid exploring sub-trees that are known not to contain a better solution than the best found so far.
+Bid2 is set to 0 (branch 7), but this solution would not produce sufficient revenue so bid2 is then set to 1 (branch 8).
+A repair for bid1 breaking is therefore not possible because items have already been awarded to bid2.
+Therefore we need to  determine if a repair can be formed should it break.
+The total amount of compensation payable to bidders may depend upon other factors, such as the cause of the break.
+We shall step through the example given in  Table 1 when searching for a WSS.
+For a more detailed description of the WSS search  algorithm, the reader is referred to [13], since a complete description of the algorithm is beyond the scope of this paper.
+Constraint optimization seeks to find a solution to a CSP that  optimizes some objective function.
+, D(xn)}, where D(xi) is the set of finite possible values for variable xi and a set C = {C1, .
+This will enable the reallocation of items and permit the establishment of 1, 1, 0 as a second WSS for this  example. 
+Notice that value 1 has been removed from bid3 because this search tree is simulating the withdrawal of this bid.
+For CAs this may be a measure of the compensation penalties paid to winning bidders to break existing agreements.
+Only a particular set of variables in the solution may be subject to change and these are said to be members of the  breakset.
+A WSS measures the cost of repairing, or reassigning, other  variables using inertia as a metric.
+The constraints are x1 + x3 ≤ 1, x2 + x3 ≤ 1 and xi∈V aixi ≥ 190, where ai reflects the  relevant bid-amounts for the respective bid variables.
+Inertia is a measure of a variable"s aversion to change and depends on its current assignment, future assignment and the breakage variable(s).
+We then attempt to extend the repair for bid1 (not shown).
+If a fixed bound upon the size of any potential break-set can be formed, the WSS algorithm is  NPcomplete.
+The inertia of a bid reflects the cost of changing its state.
+We continue our search in Figure 1(a) however, because we are seeking a robust solution of optimal revenue.
+Each bid is represented by a  single variable with domain values of 0 and 1, the former representing bid-failure and the latter bid-success.
+The probability of failure of the variables are 0.1 when they are assigned to 1 and 0.0  otherwise.
+This may be thought of as maintaining concurrent search trees for repairs.
+The italicized comments and dashed line in Figure 1(a) illustrate the search path for a WSS if both of these bids were deemed reparable.
+With bid3 now losing (branch 4.5), this gives a repair solution of 200.
+, xn}, a set of domains D = {D(x1), .
+Hebrard et al.
+EXAMPLE 1.

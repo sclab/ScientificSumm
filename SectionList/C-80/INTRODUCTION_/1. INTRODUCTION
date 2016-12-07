@@ -1,0 +1,44 @@
+An increasing fraction of web content is dynamically generated
+from back-end relational databases. Even when database content
+remains unchanged, temporal locality of access cannot be exploited
+because dynamic content is not cacheable by web browsers or by
+intermediate caching servers such as Akamai mirrors. In a 
+multitiered architecture, each web request can stress the WAN link 
+between the web server and the database. This causes user 
+experience to be highly variable because there is no caching to 
+insulate the client from bursty loads. Previous attempts in caching 
+dynamic database content have generally weakened transactional 
+semantics [3, 4] or required application modifications [15, 34].
+We report on a new solution that takes the form of a 
+databaseagnostic middleware layer called Ganesh. Ganesh makes no effort
+to semantically interpret the contents of queries or their results. 
+Instead, it relies exclusively on cryptographic hashing to detect 
+similarities with previous results. Hash-based similarity detection has
+seen increasing use in distributed file systems [26, 36, 37] for 
+improving performance on low-bandwidth networks. However, these
+techniques have not been used for relational databases. Unlike
+previous approaches that use generic methods to detect similarity,
+Ganesh exploits the structure of relational database results to yield
+superior performance improvement.
+One faces at least three challenges in applying hash-based 
+similarity detection to back-end databases. First, previous work in this
+space has traditionally viewed storage content as uninterpreted bags
+of bits with no internal structure. This allows hash-based 
+techniques to operate on long, contiguous runs of data for maximum
+effectiveness. In contrast, relational databases have rich internal
+structure that may not be as amenable to hash-based similarity 
+detection. Second, relational databases have very tight integrity and
+consistency constraints that must not be compromised by the use
+of hash-based techniques. Third, the source code of commercial
+databases is typically not available. This is in contrast to previous
+work which presumed availability of source code.
+Our experiments show that Ganesh, while conceptually simple,
+can improve performance significantly at bandwidths 
+representative of today"s commercial Internet. On benchmarks modeling 
+multitiered web applications, the throughput improvement was as high
+as tenfold for data-intensive workloads. For workloads that were
+not data-intensive, throughput improvements of up to twofold were
+observed. Even when bandwidth was not a constraint, Ganesh had
+low overhead and did not hurt performance. Our experiments also
+confirm that exploiting the structure present in database results is
+crucial to this performance improvement.

@@ -1,0 +1,3 @@
+This set of  conditions will cause the Goal construct in the first plan clause to fail, dropping execution of !WFR(r, v ).
+This rule and the fail rule together are used for failure handling: if the current program Pi from a plan clause for a task fails, rule fail is applied first, and then if possible, rule Select will choose another applicable alternative for the task if one exists.
+We shift the success and failure condition of the Goal construct into a parallel branch using the wait-until-condition construct , and modify the Goal to use the should abort now condition 

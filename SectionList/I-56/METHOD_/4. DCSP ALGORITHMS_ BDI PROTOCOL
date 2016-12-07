@@ -1,0 +1,243 @@
++ STRATEGIES
+In this section, we apply the proposed BDI negotiation model
+presented in Section 3 to expose the BDI protocol and the 
+different strategies used for three well-known algorithms, ABT, AWC
+and DBO. All these algorithms assume that there is only one
+variable per agent. Under our framework, we call the strategies
+applied the ABT, AWC and DBO strategies, respectively.
+To describe each strategy formally, the following mathematical
+notations are used:
+• n is the number of agents, m is the number of constraints;
+• xi denotes the variable held by agent i, (0 ≤ i < n);
+• Di denotes the domain of variable xi; Fi denotes the 
+neighbor list of agent i; Ci denotes its constraint list;
+• pi denotes the priority of agent i; and Pi = {(xj = vj, pj =
+k) | agent j ∈ Fi, vj ∈ Dj is the current value assigned
+to xj and the priority value k is a positive integer } is the
+perception of agent i;
+• wl denotes the weight of constraint l, (0 ≤ l < m);
+• Si(v) is the total weight of the violated constraints in Ci
+when its variable has the value v ∈ Di.
+4.1 Asynchronous Backtracking
+Figure 2 presents the BDI negotiation model incorporating the
+Asynchronous Backtracking (ABT) strategy. As mentioned in
+Section 3, for an asynchronous mechanism that ABT is, the 
+mediation step is needed only in a negotiation round when an agent
+receives a negotiation message.
+For agent i, beginning initially with (wl = 1, (0 ≤ l < m);
+pi = i, (0 ≤ i < n)) and Fi contains all the agents who share the
+constraints with agent i, its BDI-driven ABT strategy is described
+as follows.
+Step 1 - Percept: Update Pi upon receiving the info 
+messages from the neighbors (in Fi). Update Ci to be the list of
+526 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+constraints which only consists of agents in Fi that have equal or
+higher priority than this agent.
+Step 2 - Belief: The belief function GB (Pi,Ci) will return a
+value bi ∈ {0, 1, 2}, decided as follows:
+• bi = 0 when agent i can find an optimal option, i.e., if
+(Si(vi) = 0 or vi is in bad values list) and (∃a ∈ Di)(Si(a) =
+0) and a is not in a list of domain values called bad values
+list. Initially this list is empty and it will be cleared when a
+neighbor of higher priority changes its variable assignment.
+• bi = 1 when it cannot find an optimal option, i.e., if (∀a ∈
+Di)(Si(a) = 0) or a is in bad values list.
+• bi = 2 when its current variable assignment is an optimal
+option, i.e., if Si(vi) = 0 and vi is not in bad value list.
+Step 3 - Desire: The desire function GD (bi) will return a
+desire set denoted by DS, decided as follows:
+• If bi = 0, then DS = {a | (a = vi), (Si(a) = 0) and a is not
+in the bad value list }.
+• If bi = 1, then DS = ∅, the agent also finds agent k which
+is determined by {k | pk = min(pj) with agent j ∈ Fi and
+pk > pi }.
+• If bi = 2, then DS = ∅.
+Step 4 - Intention: The intention function GI (DS) will
+return an intention, decided as follows:
+• If DS = ∅, then select an arbitrary value (say, vi) from DS
+as the intention.
+• If DS = ∅, then assign nil as the intention (to denote its
+lack thereof).
+Step 5 - Execution:
+• If agent i has a domain value as its intention, the agent will
+update its variable assignment with this value.
+• If bi = 1, agent i will send a negotiation message to agent
+k, then remove k from Fi and begin its next negotiation
+round. The negotiation message will contain the list of
+variable assignments of those agents in its neighbor list Fi
+that have a higher priority than agent i in the current image
+Pi.
+Mediation: When agent i receives a negotiation message, 
+several sub-steps are carried out, as follows:
+• If the list of agents associated with the negotiation message
+contains agents which are not in Fi, it will add these agents
+to Fi, and request these agents to add itself to their 
+neighbor lists. The request is considered as a type of negotiation
+message.
+• Agent i will first check if the sender agent is updated with
+its current value vi. The agent will add vi to its bad values
+list if it is so, or otherwise send its current value to the
+sender agent.
+Following this step, agent i proceeds to the next negotiation
+round.
+4.2 Asynchronous Weak Commitment Search
+Figure 3 presents the BDI negotiation model incorporating the
+Asynchronous Weak Commitment (AWC) strategy. The model is
+similar to that of incorporating the ABT strategy (see Figure 2).
+This is not surprising; AWC and ABT are found to be 
+strategically similar, differing only in the details of some reasoning steps.
+The distinguishing point of AWC is that when the agent cannot
+find a suitable variable assignment, it will change its priority to
+the highest among its group members ({i} ∪ Fi).
+For agent i, beginning initially with (wl = 1, (0 ≤ l < m);
+pi = i, (0 ≤ i < n)) and Fi contains all the agents who share
+the constraints with agent i, its BDI-driven AWC strategy is 
+described as follows.
+Step 1 - Percept: This step is identical to the Percept step
+of ABT.
+Step 2 - Belief: The belief function GB (Pi,Ci) will return a
+value bi ∈ {0, 1, 2}, decided as follows:
+Percept
+Belief
+Desire
+Intention
+Mediation
+Execution
+P
+B
+D
+I
+Info Message
+Info Message
+Negotiation Message
+Negotiation Message
+Negotiation Message
+Figure 3: BDI protocol with Asynchronous 
+WeakCommitment strategy
+• bi = 0 when the agent can find an optimal option i.e., if
+(Si(vi) = 0 or the assignment xi = vi and the current 
+variables assignments of the neighbors in Fi who have higher
+priority form a nogood [4]) stored in a list called nogood list
+and ∃a ∈ Di, Si(a) = 0 (initially the list is empty).
+• bi = 1 when the agent cannot find any optimal option i.e.,
+if ∀a ∈ Di, Si(a) = 0.
+• bi = 2 when the current assignment is an optimal option
+i.e., if Si(vi) = 0 and the current state is not a nogood in
+nogood list.
+Step 3 - Desire: The desire function GD (bi) will return a
+desire set DS, decided as follows:
+• If bi = 0, then DS = {a | (a = vi), (Si(a) = 0) and the
+number of constraint violations with lower priority agents
+is minimized }.
+• If bi = 1, then DS = {a | a ∈ Di and the number of
+violations of all relevant constraints is minimized }.
+• If bi = 2, then DS = ∅.
+Following, if bi = 1, agent i will find a list Ki of higher priority
+neighbors, defined by Ki = {k | agent k ∈ Fi and pk > pi}.
+Step 4 - Intention: This step is similar to the Intention step
+of ABT. However, for this strategy, the negotiation message will
+contain the variable assignments (of the current image Pi) for
+all the agents in Ki. This list of assignment is considered as
+a nogood. If the same negotiation message had been sent out
+before, agent i will have nil intention. Otherwise, the agent will
+send the message and save the nogood in the nogood list.
+Step 5 - Execution:
+• If agent i has a domain value as its intention, the agent will
+update its variable assignment with this value.
+• If bi = 1, it will send the negotiation message to its 
+neighbors in Ki, and set pi = max{pj} + 1, with agent j ∈ Fi.
+Mediation: This step is identical to the Mediation step of
+ABT, except that agent i will now add the nogood contained in
+the negotiation message received to its own nogood list.
+4.3 Distributed Breakout
+Figure 4 presents the BDI negotiation model incorporating the
+Distributed Breakout (DBO) strategy. Essentially, by this 
+synchronous strategy, each agent will search iteratively for 
+improvement by reducing the total weight of the violated constraints.
+The iteration will continue until no agent can improve further,
+at which time if some constraints remain violated, the weights of
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 527
+Percept
+Belief
+Desire
+Intention
+Mediation
+Execution
+P
+B
+D
+I
+I
+A
+Info Message
+Info Message
+Negotiation Message
+Negotiation Message
+Figure 4: BDI protocol with Distributed Breakout
+strategy
+these constraints will be increased by 1 to help ‘breakout" from a
+local minimum.
+For agent i, beginning initially with (wl = 1, (0 ≤ l < m),
+pi = i, (0 ≤ i < n)) and Fi contains all the agents who share the
+constraints with agent i, its BDI-driven DBO strategy is described
+as follows.
+Step 1 - Percept: Update Pi upon receiving the info 
+messages from the neighbors (in Fi). Update Ci to be the list of its
+relevant constraints.
+Step 2 - Belief: The belief function GB (Pi,Ci) will return a
+value bi ∈ {0, 1, 2}, decided as follows:
+• bi = 0 when agent i can find an option to reduce the number
+violations of the constraints in Ci, i.e., if ∃a ∈ Di, Si(a) <
+Si(vi).
+• bi = 1 when it cannot find any option to improve situation,
+i.e., if ∀a ∈ Di, a = vi, Si(a) ≥ Si(vi).
+• bi = 2 when its current assignment is an optimal option,
+i.e., if Si(vi) = 0.
+Step 3 - Desire: The desire function GD (bi) will return a
+desire set DS, decided as follows:
+• If bi = 0, then DS = {a | a = vi, Si(a) < Si(vi) and
+(Si(vi)−Si(a)) is maximized }. (max{(Si(vi)−Si(a))} will
+be referenced by hmax
+i in subsequent steps, and it defines
+the maximal reduction in constraint violations).
+• Otherwise, DS = ∅.
+Step 4 - Intention: The intention function GI (DS) will
+return an intention, decided as follows:
+• If DS = ∅, then select an arbitrary value (say, vi) from DS
+as the intention.
+• If DS = ∅, then assign nil as the intention.
+Following, agent i will send its intention to all its neighbors.
+In return, it will receive intentions from these agents before 
+proceeding to Mediation step.
+Mediation: Agent i receives all the intentions from its 
+neighbors. If it finds that the intention received from a neighbor agent
+j is associated with hmax
+j > hmax
+i , the agent will automatically
+cancel its current intention.
+Step 5 - Execution:
+• If agent i did not cancel its intention, it will update its
+variable assignment with the intended value.
+Percept
+Belief
+Desire
+Intention
+Mediation
+Execution
+P
+B
+D
+I
+I
+A
+Info Message
+Info Message
+Negotiation Message
+Negotiation Message
+Negotiation Message
+Negotiation Message
+Figure 5: BDI protocol with Unsolicited Mutual 
+Advice strategy
+• If all intentions received and its own one are nil intention,
+the agent will increase the weight of each currently violated
+constraint by 1.

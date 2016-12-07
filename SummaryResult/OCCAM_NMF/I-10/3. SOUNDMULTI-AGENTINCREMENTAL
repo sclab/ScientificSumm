@@ -1,0 +1,31 @@
+it is clear that by minimizing the number of  hypothesis modifications, this synchronous and minimal  mechanism minimize the number of examples received by the learner from other agents, and therefore, the total number of examples stored in the system. 
+following proposition 1 this mechanism can be used to produce a strong mas-consistent mechanism: upon reception of a new example in the mas by an agent r, an update is possibly needed and, after a set of interactions between r and the other agents, results in a new hypothesis shared by all the agents and that restores the consistency of the mas, that is which is complete and coherent with the set es of all the examples present in the mas.
+the update of a hypothesis when a new example arrives is an a- consistent mechanism.
+if e is such that the current hypothesis h is not complete or coherent with ei ∪ {e}, e contradicts h: ri becomes a-inconsistent, and therefore the mas is not consistent anymore.
+the piece of information k received by agent ri is here simply an example e along with its tag.
+in such a case, ri is a-consistent.
+3.3 collective learning if h is the current hypothesis, ei the current example memory of agent ri and e the set of all the examples received by the system, the notation of section 2 becomes bi = bc = h, ki = ei and k = e. cons(h, ei) states that h is complete and coherent with ei.
+note that this mechanism tends to both make a minimal update of the current hypothesis and minimize the number of terms in the hypothesis, in particular by discarding terms less general than other ones after updating a hypothesis.
+• covered(h) gives the elements of uncoveredpos covered by h. // specialization of each h covering e− for each h of h covering e− do h = h − {h} uncoveredpos = coveredonlyby(h, e+ ) ar= atoms that are neither in e− nor in h while (uncoveredpos = ∅) do // seeking the best specialization of h hc=h best=⊥ // ⊥ covers no example for each a of ar do hc= h ∧ a best = bestcover(hc, best) endfor ar=ar−{best} hi=lgg(covered(best)) h = h ∪ {hi} uncoveredpos=uncoveredpos - covered(best) endwhile endfor terms of h that are less general than others are discarded.
+the following functions are used here: • coveredonlyby(h, e+) gives the subset of e+ covered by h and no other term of h. • bestcover(h1, h2) gives h1 if h1 covers more examples from uncoveredpos than h2, otherwise it gives h2.
+terms of the final hypothesis h that are less general than others are discarded from h. we will now describe the case where e = e− is a covered negative example.
+if no generalization is correct (meaning here coherent), h ∪ lgg(e) replaces h. • e is negative and h covers e: e is denoted as a  negative counterexample of h. each term h covering e is then discarded from h and replaced by a set of terms {h1, ...., hn} that is, as a whole, coherent with e− ∪ {e} and that covers the examples of e+  uncovered by h − {h}.
+• e is positive and h does not cover e: e is denoted as a positive counterexample of h. then we seek to generalize in turn the terms h of h. as soon as a correct generalization h = lgg(h, e) is found, h replaces h in h. if there is a term that is less general that h , it is discarded.
+the update mechanism depends of the ongoing hypothesis h, the ongoing examples e+ and e− , and the new example e. there are three possible cases: • e is positive and h covers e, or e is negative and h does not cover e. no update is needed, h is already complete and coherent with e ∪ {e}.
+in the typology proposed by [9], our  update mechanism is an incremental learner with full instance memory: learning is made by successive updates and all examples are stored.
+the lgg operator is defined by considering examples as terms, so we denote as lgg(e) the most specific term that covers e, and as lgg(h, e) the most specific term which is more general than h and that covers e. restricting the term to lgg is the basis of a lot of bottom-up learning algorithms (for instance [5]).
+h is coherent if all terms h are coherent, and h is complete if each element of e+ is covered by at least one term h of h. each term is by construction the lgg (least general  generalization) of a subset of positives instances {e1, ..., en}[5], that is the most specific term covering {e1, ..., en}.
+in the following, a hypothesis h for the target formula f is a list of terms h, each of them being a conjunction of atoms.
+we describe below our single agent update mechanism,  inspired from a previous work on incremental learning[7].
+after the update, the new hypothesis must be complete and coherent with the new memory state e ∪ {e}.
+on autonomous agents and multi-agent systems (aamas 07) coherent, meaning that it does not cover any negative  example of e− .
+166 the sixth intl.
+joint conf.
+before this update, the given hypothesis is complete, meaning that it covers all positive examples of e+ , and 2 when no confusion is possible, the word example will be used to refer to the pair (tag, description) as well as the description alone.
+a positive example of f, like {not − a, b, not − c}, represents a model for f. 3.2 incremental learning process the learning process is an update mechanism that, given a current hypothesis h, a memory e = e+ ∪ e− filled with the previously received examples, and a new positive or negative example e, produces a new updated  hypothesis.
+negative literals are here represented by  additional atoms, like not − a. the boolean formulae f =(a ∧ b) ∨ (b ∧ ¬c) will then be written (a ∧ b) ∨ (b ∧ not − c).
+this representation will be used below for learning boolean formulae.
+a hypothesis covers an example if one of its term covers it.
+each term is a conjunction of atoms from a set a. an example is represented by a tag + or − and a description 2 composed of a subset of atoms e ⊆ a. a term covers an example if its constituting atoms are included in the example.
+we consider here a hypothesis language in which a hypothesis is a  disjunction of terms.
+learning 3.1 the learning task we experiment the mechanism proposed above in the case of incremental mas concept learning.

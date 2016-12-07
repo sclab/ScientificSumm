@@ -1,0 +1,56 @@
+In a typical scenario, an AutoMata device presents a passenger with a list of data items1 , showing both the name of each data item and its availability latency.
+However, none of these  studies employ zebroids as data carriers to reduce the latency of the client"s requests.
+A method to improve the  availability latency is to employ data carriers which transport a replica of the requested data item from a server car containing it to a client that requested it.
+The availability latency for an item is a function of the current location of the client, its destination and travel path, the mobility model of the AutoMata equipped vehicles, the number of replicas constructed for the different data items, and the placement of data item replicas across the vehicles.
+In more practical scenarios, where the  dispatcher has inaccurate information about the car routes, zebroids continue to provide latency improvements.
+In this study, we quantify the following main factors that affect availability latency in the presence of zebroids: (i) data item  repository size, (ii) car density, (iii) storage capacity per car, (iv) client trip duration, (v) replacement scheme employed by the zebroids, and (vi) accuracy of the car route predictions.
+Several novel and important studies such as  ZebraNet [13], DakNet [14], Data Mules [16], Message Ferries [20], and Seek and Focus [17] have analyzed factors impacting  intermittently connected networks consisting of data carriers similar in spirit to zebroids.
+Selection of zebroids is facilitated by the two-tiered architecture.
+The control plane enables centralized information gathering at a dispatcher present at a base-station.2 Some examples of control  in1 Without loss of generality, the term data item might be either  traditional media such as text or continuous media such as an audio or video clip.
+To exchange data, we assume each AutoMata is configured with two types of networking cards: 1) a low-bandwidth networking card with a long radio-range in the  order of miles that enables an AutoMata device to communicate with a nearby cellular or WiMax station, 2) a high-bandwidth  networking card with a limited radio-range in the order of hundreds of feet.
+Here, z is the number of zebroids such that 0 ≤ z < N, where N is the total number of cars.
+For a significant  subset of these factors, we address some key questions pertaining to use of zebroids both via analysis and extensive simulations.
+This may be useful in scenarios where the  dispatcher has lower prediction accuracy in the information about the routes of the cars.
+Otherwise, the chosen relay team of z zebroids hand over the data item transitively to one another to arrive at the client, thereby reducing availability latency (see Section 3.1 for details).
+This is  labelled as the data plane and is employed to exchange data items between devices.
+Factors considered by each study are dictated by their assumed environment and target application.
+A novel  characteristic of our study is the impact on availability latency for a given database repository of items.
+For each client  request, the dispatcher may choose a set of z carriers that collaborate to transfer a data item from a server to a client (z-relay zebroids).
+A data item is available immediately when it resides in the local storage of the AutoMata device serving the  request.
+These schedules are transmitted to the participating vehicles using the control plane.
+To increase  robustness, the dispatcher may employ multiple relay teams of z-carriers for every request.
+Related Work: Replication in mobile ad-hoc networks has been a widely studied topic [11, 12, 15].
+Section 2  provides an overview of the terminology along with the factors that impact availability latency in the presence of zebroids.
+The  centralized servers, termed dispatchers, compute schedules of data  delivery along the data plane using the provided meta-data.
+These data carriers are termed ‘zebroids".
+The technical feasibility of such a two-tier  architecture is presented in [7], with preliminary results to demonstrate the bandwidth of the control plane is sufficient for exchange of control information needed for realizing such an application.
+In this case, availability latency is the time from when the user issues a request until when the AutoMata encounters another car containing the referenced data item.
+Section 3 describes how the zebroids may be employed.
+A surprising result is that changes in popularity of the data items do not impact the  latency gains obtained with a simple instantiation of z-relay zebroids called one-instantaneous zebroids (see Section 3.1).
+Finally, storage constraints may require a zebroid to evict existing data items from its local storage to accommodate the client requested item.
+75 formation are currently active requests, travel path of the clients and their destinations, and paths of the other cars.
+Technological advances in areas of storage and wireless  communications have now made it feasible to envision on-demand delivery of data items, for e.g., video and audio clips, in vehicular  peer-topeer networks.
+(The terms car and AutoMata are used interchangeably in this study.)
+With such a policy, substantial  improvements in latency can be obtained with zebroids at a minimal replacement overhead.
+2 There may be dispatchers deployed at a subset of the base-stations for fault-tolerance and robustness.
+The high bandwidth connection supports data rates in the  order of tens to hundreds of Megabits per second and represents the ad-hoc peer to peer network between the vehicles.
+A naive random replacement policy employed by the zebroids shows competitive performance in terms of availability latency.
+The low-bandwidth connection serves as the  control plane, enabling AutoMata devices to exchange meta-data with one or more centralized servers.
+Such repositories  constitute the focus of this study.
+Section 4 provides details of the analysis methodology employed to capture the  performance with zebroids.
+When z = 0 there are no carriers, requiring a server to deliver the data item directly to the client.
+This study suggests a number of interesting directions to be pursued to gain better understanding of design of carrier-based systems that  improve availability latency.
+Section 6 enlists the key questions examined in this study and answers them via analysis and simulations.
+The notable features of an AutoMata include a mass storage device  offering hundreds of gigabytes (GB) of storage, a fast processor, and several types of networking cards.
+Section 5 describes the details of the  simulation environment used for evaluation.
+This connection offers bandwidths in the order of tens to hundreds of Kilobits per second.
+Dispatchers between  basestations may communicate via the wired infrastructure.
+The latter, denoted as δ, is defined as the earliest time at which the client encounters a copy of its  requested data item.
+[10]  introduce the concept of vehicles equipped with a  Car-to-Car-Peer-toPeer device, termed AutoMata, for in-vehicle entertainment.
+Due to storage constraints, an AutoMata may not store the entire repository.
+A detailed description of  related works can be obtained in [9].
+Even with today"s 500 GB disk drives, a repository of diverse entertainment content may exceed the storage capacity of a single AutoMata.
+The rest of this paper is organized as follows.
+Our main findings are as follows.
+In prior work, Ghandeharizadeh et al.
+Finally, Section 7 presents brief conclusions and future research directions. 

@@ -1,0 +1,33 @@
+For sensor networks, we  assert that a centralized index for multi-dimensional range queries may not be feasible for energy-efficiency reasons (as well as the fact that the access bandwidth to this central index will be limited, particularly for queries emanating from within the network).
+Finally, we note that DIMs are applicable not just to sensor networks, but to other deeply distributed systems (embedded networks for home and factory  automation) as well. 
+Such range queries can be used in two distinct ways.
+For example, if in a habitat monitoring application, a bird alighting on its nest is indicated by a certain range of thermopile sensor readings, and a certain range of  microphone readings, a multi-dimensional range query on those attributes enables higher confidence detection of the arrival of a flock of birds, and can trigger a system of cameras.
+In detailed simulations, we show that in practice, the event insertion and querying costs of other alternatives are sometimes an order of magnitude the costs of DIMs, even for moderately sized network.
+For example, scientists analyzing the growth of marine  microorganisms might be interested in events that occurred within certain temperature and light conditions: List all events that have temperatures between 50◦ F and 60◦ F, and light levels between 10 and 20.
+The underlying mechanism in these systems allows nodes to consistently hash an event to some location within the network, which allows efficient  retrieval of events.
+In these systems, we argue, one natural way to query for events of interest will be to use multi-dimensional range queries on these attributes.
+Much work remains, including efficient support for skewed data distributions, existential queries, and node heterogeneity.
+In wireless sensor networks, data or events will be named by attributes [15] or represented as virtual relations in a distributed database [18, 3].
+Our analysis reveals that,  under reasonable assumptions about query distributions, DIMs scale quite well with network size (both insertion and query costs scale as O( √ N)).
+In this paper, we present just such a data structure, that we call a DIM1 .
+All such systems will likely be integrated to a sensor network database system such as TinyDB [17].
+We believe that DIMs will be an essential, but perhaps not necessarily the only, distributed data structure  supporting efficient queries in sensor networks.
+DIMs are inspired by classical database  indices, and are essentially embeddings of such indices within the sensor network.
+For instance, a fire tracking application would use DIM to detect the hotspots, and would then use mechanisms that enable  continuous queries [15, 18] to track the spatio-temporal progress of the hotspots.
+The query described above illustrates this, where the scientist is presumably interested in discovering, and perhaps mapping the combined effect of temperature and light on the growth of marine micro-organisms.
+In traditional database systems, such range queries are supported using pre-computed indices.
+More  importantly, they can be used by application software running within a sensor network for correlating events and triggering actions.
+Rather, we believe, there will be situations when it is more appropriate to build an  innetwork distributed data structure for efficiently answering multi-dimensional range queries.
+DIMs will be part of a suite of such systems that enable feature extraction [7], simple range querying [10], exact-match queries [23], or  continuous queries [15, 18].
+Building upon this, DIMs use a technique whereby events whose attribute values are close are likely to be stored at the same or nearby nodes.
+Application designers could then choose the appropriate method of information access.
+DIMs then use an underlying geographic routing algorithm (GPSR [16]) to route events and queries to their corresponding nodes in an entirely distributed fashion.
+DIMs leverage two key ideas: in-network 1 Distributed Index for Multi-dimensional data.
+We discuss the design of a DIM, presenting algorithms for event insertion and querying, for maintaining a DIM in the event of node failure, and for making DIMs robust to data or packet loss (Section 3).
+63 data centric storage, and a novel locality-preserving  geographic hash (Section 3).
+Indices trade-off some initial pre-computation cost to achieve a significantly more efficient querying capability.
+They can help users efficiently drill-down their search for events of interest.
+DIMs trace their lineage to  datacentric storage systems [23].
+Many of these attributes will have scalar values: e.g., temperature and light levels, soil moisture conditions, etc.
+Experiments on a small scale testbed validate the feasibility of DIMs (Section 6).
+We then extensively evaluate DIMs using analysis (Section 4), simulation (Section 5), and actual implementation (Section 6).

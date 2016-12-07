@@ -1,0 +1,70 @@
+It is possible for the marginal contribution of this player to be one if it joins a coalition in which the number of type 1 players is between zero and (q − 1)/w1.
+Let ϕl denote the Shapley value for the large player and ϕs that for each small player.
+In the same way, we obtain the Shapley value of the large party for the general case where ws > 1 as: ϕl = wl/ws /(m + 1) Now consider a small player.
+Thus, out of the total (m + 1) possible cases, its marginal contribution is one in wl cases.
+However, the marginal contribution of the large party is one if it joins a coalition as the ith member where (q − wl) ≤ i < q.
+Hence, the Shapley value of the large party is: ϕl = wl/(m + 1).
+We  characterise such games in terms of the number of players and their weights.
+In the same way, the Shapley value for a voting game with a single large party and multiple small parties can be determined in constant time.
+For a voting game with more than three player types, the time complexity of the above method is a  polynomial of degree four or more.
+Let C3 l (i, q) denote the number of all such coalitions that give a marginal contribution of one to the type 1 player where: C3 1 (i, q) = q−1 w1X i=0 q−iw1−1 w2X j=0 C2 1 (j, q − iw1) Therefore the Shapley value of the type 1 player is: ϕ1 = q−1 w1X i=0 C3 1 (i, q)/FACTORIAL(m1 + m2 + m3) The time complexity of finding this value is O(T q2 /w1w2) where: T = ( 3Y i=1 mi)(q − iwl − 1)( 3X i=1 mi)/(w2 + w3) Likewise, for the other two player types (2 and 3).
+The set of parties consists of m1 players of type 1 (each with weight w1), m2 players of type 2 (each with weight w2), and m3 players of type 3 (each with weight w3).
+We show the  computational tractability for this game by considering the following four possible scenarios: S1 q ≤ mlwl and q ≤ msws S2 q ≤ mlwl and q ≥ msws S3 q ≥ mlwl and q ≥ msws S4 q ≥ mlwl and q ≤ msws For the first scenario, consider a large player.
+For i = 1, we get: C2 l (1, q) = C(ml, 1) × C „ ms, q − wl − 1 ws « × FACTORIAL „ q − wl − 1 ws « × FACTORIAL „ ml + ms − q − wl − 1 ws − 1 « In general, for i > 1, we get: C2 l (i, q) = C(ml, i) × C „ ms, q − iwl − 1 ws « × FACTORIAL „ q − iwl − 1 ws « × FACTORIAL „ ml + ms − q − wl − 1 ws − 1 « Thus the large player"s Shapley value is: ϕl = q−1 wlX i=0 C2 l (i, q)/FACTORIAL(ml + ms) For a given i, the time to find C2 l (i, q) is O(T) where T = (mlms(q − iwl − 1)(ml + ms))/ws Hence, the time to find the Shapley value is O(T q/wl).
+To begin, consider the case i = 0: C2 l (0, q) = C „ ms, q − 1 ws « × FACTORIAL „ q − 1 ws « × FACTORIAL „ ml + ms − q − 1 ws − 1 « where C(y, x) denotes the number of possible combinations of x items from a set of y items.
+It is possible for the marginal contribution of this player to be one if it joins a coalition in which the number of large players is between zero and (q −1)/wl.
+On the other hand, if q = mj (m = |N| is the number of players), only the grand coalition is possible.
+The smallest  possible value for q is wl + 1.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 961 Consider a coalition such that when the large player joins in, there are i large players and (q − iwl − 1)/ws small players  already in it, and the remaining players join after the large player.
+3.2 A single large party Consider a game in which there are two types of players: large (with weight wl > ws) and small (with weight ws).
+Furthermore, the weight of the large party cannot be greater than q, since in that case, there would be no need for the large party to form a coalition.
+If q ≤ j, then there would be no need for the players to form a coalition.
+Also, since the small  parties have equal weights, their Shapley values are the same.
+TIME SOLUTIONS Here we describe those voting games for which the Shapley value can be determined in polynomial time.
+In order to determine the Shapley value for this player, we need to consider the number of all possible coalitions that give it a marginal contribution of one.
+For these games, the value of a coalition is one if the weight of the coalition is greater than or equal to q, otherwise it is zero.
+We know that the sum of the  Shapley values of all the m+1 players is one.
+This player can join a coalition as the ith member where 1 ≤ i ≤ m. However, the marginal contribution of the player is 1 only if it joins a coalition as the q/j th member.
+The weight of each large party is wl and that of each small one is ws, where ws < wl.
+The lower limit is 2 because the weight of the large party has to be greater than each small one.
+Hence, we get: ϕs = 1 − ϕl m Thus, both ϕl and ϕs can be computed in constant time.
+3.3 Multiple large and small parties We now consider a voting game that has two player types: large and small (as in Section 3.2), but now there are multiple large and multiple small parties.
+This is because, if q ≤ wl, then the large party can win the election on its own without the need for a coalition.
+3.1 All players have equal weight Consider the game q; j, .
+The value of a coalition is one if the weight of the coalition is greater than or equal to q, otherwise it is zero.
+In the same way, a small player"s Shapley value is: ϕs = q−1 wsX i=0 C2 s (i, q)/FACTORIAL(ml + ms) and can be found in time O(T q/ws).
+The quota for this game is q; i.e., we have a game of the form q; wl, ws, ws, .
+However, the computational  complexity of the above direct enumeration method increases with the number of player types.
+Consider a coalition such that when the type 1 player joins in, there are i type 1 players already in it.
+The total number of players is (m + 1).
+Let C2 l (i, q) denote the number of all such coalitions.
+Recall that for our voting game, a player"s marginal contribution to a coalition can only be zero or one.
+There is one large player and m small ones.
+To deal with such situations, therefore, the following section presents a faster randomised method for  finding the approximate Shapley value. 
+This party can join a coalition as the ith member where 1 ≤ i ≤ (m + 1).
+Likewise, the remaining three scenarios (S2 to S4) can be shown to have the same time  complexity.
+In all the remaining cases, its marginal contribution is zero.
+Thus, the quota for the game satisfies the constraint wl + 1 ≤ q ≤ m + wl − 1.
+This is achieved using the direct enumeration approach (i.e., listing all possible coalitions and finding a player"s marginal contribution to each of them).
+Thus, we have identified games for which the exact Shapley value can be easily determined.
+For this voting game, consider a player of type 1.
+The interesting games are those for which the quota (q) satisfies the constraint: (j + 1) ≤ q ≤ j(m − 1).
+In other words, there are (q − 1)/w1 + 1 such cases and we now consider each of them.
+Such a coalition gives the large player unit marginal contribution.
+This is because both require a constant number of basic operations  (addition, subtraction, multiplication, and division).
+The remaining players join after the type 1 player.
+Also, the lower and upper limits for wl are 2 and (q − 1) respectively.
+Consider any one player.
+In all other cases, its marginal contribution is zero.
+Since ϕ requires one division operation, it can be found in constant time (i.e., O(1)).
+Thus, the Shapley value for each player ϕ = 1/m.
+Let ϕ denote the Shapley value for a player.
+3.4 Three player types We now consider a voting game that has three player types: 1, 2, and 3.
+Each party has j votes.
+In other words, there are (q −1)/wl +1 such cases and we now consider each of them.
+The set of parties consists of ml large  parties and ms small parties.
+The Sixth Intl.
+Consider the large party.
+, j with m parties.
+We first consider ws = 1 and then ws > 1.
+Joint Conf.

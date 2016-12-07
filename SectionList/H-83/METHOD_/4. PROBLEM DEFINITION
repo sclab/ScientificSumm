@@ -1,0 +1,108 @@
+Given a local domain L, let G be an N × N adjacency
+matrix for the entire connected component of the web that
+contains L, such that Gji = 1 if page i links to page j
+and Gji = 0 otherwise. Without loss of generality, we will
+partition G as:
+G =
+L Gout
+Lout Gwithin
+, (2)
+where L is the n × n local subgraph corresponding to links
+inside the local domain, Lout is the subgraph that 
+corresponds to links from the local domain pointing out to the
+global domain, Gout is the subgraph containing links from
+the global domain into the local domain, and Gwithin 
+contains links within the global domain. We assume that when
+building a localized search engine, only pages inside the 
+local domain are crawled, and the links between these pages
+are represented by the subgraph L. The links in Lout are
+also known, as these point from crawled pages in the local
+domain to uncrawled pages in the global domain.
+As defined in equation (1), PG is the PageRank matrix
+formed from the global graph G, and we define the global
+PageRank vector of this graph to be g. Let the n-length
+vector p∗
+be the L1-normalized vector corresponding to the
+global PageRank of the pages in the local domain L:
+p∗
+=
+EL g
+ELg 1
+,
+where EL = [ I | 0 ] is the restriction matrix that selects
+the components from g corresponding to nodes in L. Let p
+denote the PageRank vector constructed from the local 
+domain subgraph L. In practice, the observed local PageRank
+p and the global PageRank p∗
+will be quite different. One
+would expect that as the size of local matrix L approaches
+the size of global matrix G, the global PageRank and the 
+observed local PageRank will become more similar. Thus, one
+approach to estimating the global PageRank is to crawl the
+entire global domain, compute its PageRank, and extract
+the PageRanks of the local domain.
+Typically, however, n N , i.e., the number of global
+pages is much larger than the number of local pages. 
+Therefore, crawling all global pages will quickly exhaust all local
+resources (computational, storage, and bandwidth) available
+to create the local search engine. We instead seek a 
+supergraph ˆF of our local subgraph L with size O(n). Our goal
+Algorithm 2: The FindGlobalPR algorithm.
+FindGlobalPR(L, Lout, T, k)
+Input: L: zero-one adjacency matrix for the local 
+domain, Lout: zero-one outlink matrix from L to global
+subgraph as in (2), T: number of iterations, k: number of
+pages to crawl per iteration.
+Output: ˆp: an improved estimate of the global 
+PageRank of L.
+F ← L
+Fout ← Lout
+f ← ComputePR(F )
+for (i = 1 to T)
+{Determine which pages to crawl next}
+pages ← SelectNodes(F , Fout, f, k)
+Crawl pages, augment F and modify Fout
+{Update PageRanks for new local domain}
+f ← ComputePR(F )
+end
+{Extract PageRanks of original local domain & normalize}
+ˆp ← ELf
+ELf 1
+is to find such a supergraph ˆF with PageRank ˆf, so that
+ˆf when restricted to L is close to p∗
+. Formally, we seek to
+minimize
+GlobalDiff( ˆf) =
+EL
+ˆf
+EL
+ˆf 1
+− p∗
+1
+. (3)
+We choose the L1 norm for measuring the error as it does
+not place excessive weight on outliers (as the L2 norm does,
+for example), and also because it is the most commonly used
+distance measure in the literature for comparing PageRank
+vectors, as well as for detecting convergence of the 
+algorithm [3].
+We propose a greedy framework, given in Algorithm 2,
+for constructing ˆF . Initially, F is set to the local subgraph
+L, and the PageRank f of this graph is computed. The 
+algorithm then proceeds as follows. First, the SelectNodes
+algorithm (which we discuss in the next section) is called
+and it returns a set of k nodes to crawl next from the set
+of nodes in the current crawl frontier, Fout. These selected
+nodes are then crawled to expand the local subgraph, F , and
+the PageRanks of this expanded graph are then recomputed.
+These steps are repeated for each of T iterations. Finally,
+the PageRank vector ˆp, which is restricted to pages within
+the original local domain, is returned. Given our 
+computation, bandwidth, and memory restrictions, we will assume
+that the algorithm will crawl at most O(n) pages. Since the
+PageRanks are computed in each iteration of the algorithm,
+which is an O(n) operation, we will also assume that the
+number of iterations T is a constant. Of course, the main
+challenge here is in selecting which set of k nodes to crawl
+next. In the next section, we formally define the problem
+and give efficient algorithms.

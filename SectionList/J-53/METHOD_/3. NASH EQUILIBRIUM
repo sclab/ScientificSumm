@@ -1,0 +1,264 @@
+In this section, we present some theoretical results 
+regarding the performance at Nash equilibrium under the infinite
+parallelism model. We assume that the game is strongly
+competitive to guarantee the existence of equilibria. For a
+meaningful discussion of efficiency and fairness, we assume
+that the users are symmetric by requiring that Xi = 1 andPn
+j=1 wij = 1 for all the 1 ≤ i ≤ m. Or informally, we
+require all the users have the same budget, and they have
+the same utility when they own all the resources. This 
+precludes the case when a user has an extremely high budget,
+resulting in very low efficiency or low fairness at equilibrium.
+We first provide a characterization of the equilibria. By
+definition, the bidding vectors x1, . . . , xm is a Nash 
+equilibrium if and only if each player"s strategy is the best 
+response to the group"s bids. Since Ui is a linear function
+and the domain of each users bids {(xi1, . . . , xin)|
+P
+j xij =
+Xi , and xij ≥ 0} is a convex set, the optimality condition is
+that there exists λi > 0 such that
+∂Ui
+∂xij
+= wij
+Yj − xij
+Y 2
+j
+
+= λi if xij > 0, and
+< λi if xij = 0.
+(1)
+Or intuitively, at an equilibrium, each user has the same
+marginal value on machines where they place positive bids
+and has lower marginal values on those machines where they
+do not bid.
+Under the infinite parallelism model, it is easy to compute
+the social optimum U∗
+as it is achieved when we allocate
+each machine wholly to the person who has the maximum
+weight on the machine, i.e. U∗
+=
+Pn
+j=1 max1≤i≤m wij.
+3.1 Two-player Games
+We first show that even in the simplest nontrivial case
+when there are two users and two machines, the game has
+interesting properties. We start with two special cases to
+provide some intuition about the game. The weight 
+matrices are shown in figure 1(a) and (b), which correspond
+respectively to the equal-weight and opposite-weight games.
+Let x and y denote the respective bids of users 1 and 2 on
+machine 1. Denote by s = x + y and δ = (2 − s)/s.
+Equal-weight game. In Figure 1, both users have equal
+valuations for the two machines. By the optimality 
+condition, for the bid vectors to be in equilibrium, they need to
+satisfy the following equations according to (1)
+α
+y
+(x + y)2
+= (1 − α)
+1 − y
+(2 − x − y)2
+α
+x
+(x + y)2
+= (1 − α)
+1 − x
+(2 − x − y)2
+By simplifying the above equations, we obtain that δ =
+1 − 1/α and x = y = α. Thus, there exists a unique Nash
+equilibrium of the game where the two users have the same
+bidding vector. At the equilibrium, the utility of each user
+is 1/2, and the social welfare is 1. On the other hand, the
+social optimum is clearly 1. Thus, the equal-weight game
+is ideal as the efficiency, utility uniformity, and the 
+envyfreeness are all 1.
+129
+m1 m2
+u1 α 1 − α
+u2 α 1 − α
+m1 m2
+u1 α 1 − α
+u2 1 − α α
+(a) equal weight game (b) opposite weight game
+Figure 1: Two special cases of two-player games.
+Opposite-weight game. The situation is different for
+the opposite game in which the two users put the exact
+opposite weights on the two machines. Assume that α ≥
+1/2. Similarly, for the bid vectors to be at the equilibrium,
+they need to satisfy
+α
+y
+(x + y)2
+= (1 − α)
+1 − y
+(2 − x − y)2
+(1 − α)
+x
+(x + y)2
+= α
+1 − x
+(2 − x − y)2
+By simplifying the above equations, we have that each
+Nash equilibrium corresponds to a nonnegative root of the
+cubic equation f(δ) = δ3
+− cδ2
++ cδ − 1 = 0, where c =
+1
+2α(1−α)
+− 1.
+Clearly, δ = 1 is a root of f(δ). When δ = 1, we have
+that x = α, y = 1 − α, which is the symmetric equilibrium
+that is consistent with our intuition - each user puts a
+bid proportional to his preference of the machine. At this
+equilibrium, U = 2 − 4α(1 − α), U∗
+= 2α, and U/U∗
+=
+(2α + 1
+α
+) − 2, which is minimized when α =
+√
+2
+2
+with the
+minimum value of 2
+√
+2 − 2 ≈ 0.828. However, when α is
+large enough, there exist two other roots, corresponding to
+less intuitive asymmetric equilibria.
+Intuitively, the asymmetric equilibrium arises when user 1
+values machine 1 a lot, but by placing even a relatively small
+bid on machine 1, he can get most of the machine because
+user 2 values machine 1 very little, and thus places an even
+smaller bid. In this case, user 1 gets most of machine 1 and
+almost half of machine 2.
+The threshold is at when f (1) = 0, i.e. when c = 1
+2α(1−α)
+=
+4. This solves to α0 = 2+
+√
+2
+4
+≈ 0.854. Those asymmetric
+equilibria at δ = 1 are bad as they yield lower efficiency
+than the symmetric equilibrium. Let δ0 be the minimum
+root. When α → 0, c → +∞, and δ0 = 1/c + o(1/c) → 0.
+Then, x, y → 1. Thus, U → 3/2, U∗
+→ 2, and U/U∗
+→ 0.75.
+From the above simple game, we already observe that the
+Nash equilibrium may not be unique, which is different from
+many congestion games in which the Nash equilibrium is
+unique.
+For the general two player game, we can show that 0.75
+is actually the worst efficiency bound with a proof in [5].
+Further, at the asymmetric equilibrium, the utility 
+uniformity approaches 1/2 when α → 1. This is the worst possible
+for two player games because as we show in Section 3.2, a
+user"s utility at any Nash equilibrium is at least 1/m in the
+m-player game.
+Another consequence is that the two player game is 
+always envy-free. Suppose that the two user"s shares are r1 =
+(r11, . . . , r1n) and r2 = (r21, . . . , r2n) respectively. Then
+U1(r1) + U1(r2) = U1(r1 + r2) = U1(1, . . . , 1) = 1 because
+ri1 + ri2 = 1 for all 1 ≤ i ≤ n. Again by that U1(r1) ≥ 1/2,
+we have that U1(r1) ≥ U1(r2), i.e. any equilibrium 
+allocation is envy-free.
+Theorem 2. For a two player game, π(Q) ≥ 3/4, τ(Q) ≥
+0.5, and ρ(Q) = 1. All the bounds are tight in the worst case.
+3.2 Multi-player Game
+For large numbers of players, the loss in social welfare
+can be unfortunately large. The following example shows
+the worst case bound. Consider a system with m = n2
++ n
+players and n machines. Of the players, there are n2
+who
+have the same weights on all the machines, i.e. 1/n on each
+machine. The other n players have weight 1, each on a 
+different machine and 0 (or a sufficiently small ) on all the
+other machines. Clearly, U∗
+= n. The following allocation
+is an equilibrium: the first n2
+players evenly distribute their
+money among all the machines, the other n player invest all
+of their money on their respective favorite machine. Hence,
+the total money on each machine is n + 1. At this 
+equilibrium, each of the first n2
+players receives 1
+n
+1/n
+n+1
+= 1
+n2(n+1)
+on
+each machine, resulting in a total utility of n3
+· 1
+n2(n+1)
+< 1.
+The other n players each receives 1
+n+1
+on their favorite 
+machine, resulting in a total utility of n · 1
+n+1
+< 1. Therefore,
+the total utility of the equilibrium is < 2, while the social
+optimum is n = Θ(
+√
+m). This bound is the worst possible.
+What about the utility uniformity of the multi-player 
+allocation game? We next show that the utility uniformity of
+the m-player allocation game cannot exceed m.
+Let (S1, . . . , Sn) be the current total bids on the n 
+machines, excluding user i. User i can ensure a utility of 1/m
+by distributing his budget proportionally to the current bids.
+That is, user i, by bidding sij = Xi/
+Pn
+i=1 Si on machine j,
+obtains a resource level of:
+rij =
+sij
+sij + Sj
+=
+Sj/
+Pn
+i=1 Si
+Sj/
+Pn
+i=1 Si + Sj
+=
+1
+1 +
+Pn
+i=1 Si
+,
+where
+Pn
+j=1 Sj =
+Pm
+j=1 Xj − Xi = m − 1.
+Therefore, rij = 1
+1+m−1
+= 1
+m
+. The total utility of user i
+is
+nX
+j=1
+rijwij = (1/m)
+nX
+j=1
+wij = 1/m .
+Since each user"s utility cannot exceed 1, the minimal 
+possible uniformity is 1/m.
+While the utility uniformity can be small, the envy-freeness,
+on the other hand, is bounded by a constant of 2
+√
+2 − 2 ≈
+0.828, as shown in [29]. To summarize, we have that
+Theorem 3. For the m-player game Q, π(Q) = Ω(1/
+√
+m),
+τ(Q) ≥ 1/m, and ρ(Q) ≥ 2
+√
+2 − 2. All of these bounds are
+tight in the worst case.

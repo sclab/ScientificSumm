@@ -1,0 +1,14 @@
+the details are beyond the scope of this paper. 
+the deduction  process is particularly complicated in the case of the task information as the monitoring agents do not have access to the private  schedules of the domain agents.
+for example, in order to deduce the organizational  knowledge, the monitoring agents need to keep a track of the spawn and compose messages sent by the agents in order to trigger the  spawning and composition operations respectively.
+this state information can only be deduced by monitoring and recording the messages being sent and received by the domain agents.
+the former consists of the information about the local and managerial roles of the agent while the latter is composed of the methods that are being  scheduled and executed and the tasks that have been delegated to other agents.
+this delegation of responsibilities is non-trivial as the  monitoring agents do not have access to the internal state of the domain agents, which is itself composed of two components - the  organizational knowledge and the task information.
+if an agent fails, it will not respond to such messages - the  monitoring agents can then create a new agent and delegate the  responsibilities of the dead agent to the new agent.
+to implement the citizen approach, we designed special  monitoring agents, that periodically poll the domain agents by sending them are you alive messages that the agents must respond to.
+in this paper, we present the citizen approach as it has been shown by [7], to have a better performance than the survivalist approach in the contract net protocol, and leave the presentation and evaluation of the survivalist approach to a future paper.
+rather a thorough empirical evaluation of both approaches would be required.
+both of these approaches can be applied to achieve robustness in our osd agents and it is not clear which approach would be better.
+the advantages of the citizen approach are that it requires fewer resources, little modification to the existing organizational structure and  coordination protocol and is simpler to implement.
+the advantage of the survivalist approach is that recovery is  relatively fast, since the replicas are pre-existing in the organization and can take over as soon as a failure is detected.
+there are two approaches commonly used to achieve robustness in multiagent systems: 1. the survivalist approach [12], which involves replicating  domain agents in order to allow the replicas to take over should the original agents fail; and 2. the citizen approach [7], which involves the use of special monitoring agents (called sentinel agents) in order to detect agent failure and dynamically startup new agents in lieu of the failed ones.

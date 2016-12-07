@@ -1,0 +1,41 @@
+Many real-life scenarios naturally have a stochastic target 
+dynamics specification, especially those domains where there exists
+no ultimate goal, but rather system behavior (with specific 
+properties) that has to be continually supported. For example, security
+guards perform persistent sweeps of an area to detect any sign of
+intrusion. Cunning thieves will attempt to track these sweeps, and
+time their operation to key points of the guards" motion. It is thus
+advisable to make the guards" motion dynamics appear irregular
+and random.
+Recent work by Paruchuri et al. [10] has addressed such 
+randomization in the context of single-agent and distributed POMDPs. The
+goal in that work was to generate policies that provide a measure of
+action-selection randomization, while maintaining rewards within
+some acceptable levels. Our focus differs from this work in that
+DBC does not optimize expected rewards-indeed we do not 
+consider rewards at all-but instead maintains desired dynamics 
+(including, but not limited to, randomization).
+The Game of Tag is another example of the applicability of the
+approach. It was introduced in the work by Pineau et al. [11]. There
+are two agents that can move about an area, which is divided into a
+grid. The grid may have blocked cells (holes) into which no agent
+can move. One agent (the hunter) seeks to move into a cell 
+occupied by the other (the quarry), such that they are co-located (this is
+a successful tag). The quarry seeks to avoid the hunter agent, and
+is always aware of the hunter"s position, but does not know how the
+hunter will behave, which opens up the possibility for a hunter to
+surprise the prey. The hunter knows the quarry"s probabilistic law
+of motion, but does not know its current location. Tag is an instance
+of a family of area-sweeping (pursuit-evasion) problems.
+In [11], the hunter modeled the problem using a POMDP. A 
+reward function was defined, to reflect the desire to tag the quarry,
+and an action policy was computed to optimize the reward 
+collected over time. Due to the intractable complexity of determining
+the optimal policy, the action policy computed in that paper was
+essentially an approximation.
+In this paper, instead of formulating a reward function, we use
+EMT to solve the problem, by directly specifying the target 
+dynamics. In fact, any search problem with randomized motion, the 
+socalled class of area sweeping problems, can be described through
+specification of such target system dynamics. Dynamics Based
+Control provides a natural approach to solving these problems.

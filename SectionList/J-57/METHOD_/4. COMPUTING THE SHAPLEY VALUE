@@ -1,0 +1,64 @@
+Given a MC-net, we have a simple algorithm to compute
+the Shapley value of the game. Considering each rule as a
+separate game, we start by computing the Shapley value of
+the agents for each rule. For each agent, we then sum up
+the Shapley values of that agent over all the rules. We first
+show that this final summing process correctly computes the
+Shapley value of the agents.
+Proposition 5. The Shapley value of an agent in a marginal
+contribution network is equal to the sum of the Shapley 
+values of that agent over each rule.
+Proof. For any group S, under the MC-nets 
+representation, v(S) is defined to be the sum over the values of all the
+rules that apply to S. Therefore, considering each rule as a
+game, by the (ADD) axiom discussed in section 2, the 
+Shapley value of the game created from aggregating all the rules
+is equal to the sum of the Shapley values over the rules.
+The remaining question is how to compute the Shapley
+values of the rules. We can separate the analysis into two
+cases, one for rules with only positive literals and one for
+rules with mixed literals.
+For rules that have only positive literals, the Shapley value
+of the agents is v/m, where v is the value of the rule and
+m is the number of agents in the rule. This is a direct
+consequence of the (SYM) axiom of the Shapley value, as
+the agents in a rule are indistinguishable from each other.
+For rules that have both positive and negative literals, we
+can consider the positive and the negative literals separately.
+For a given positive literal i, the rule will apply only if i
+occurs in a given permutation after the rest of the positive
+literals but before any of the negative literals. Formally, let
+φi denote the Shapley value of i, p denote the cardinality of
+the positive set, and n denote the cardinality of the negative
+set, then
+φi =
+(p − 1)!n!
+(p + n)!
+v =
+v
+p p+n
+n
+For a given negative literal j, j will be responsible for 
+cancelling the application of the rule if all positive literals come
+before the negative literals in the ordering, and j is the first
+among the negative literals. Therefore,
+φj =
+p!(n − 1)!
+(p + n)!
+(−v) =
+−v
+n p+n
+p
+By the (SYM) axiom, all positive literals will have the value
+of φi and all negative literals will have the value of φj.
+Note that the sum over all agents in rules with mixed
+literals is 0. This is to be expected as these rules contribute
+0 to the grand coalition. The fact that these rules have no
+effect on the grand coalition may appear odd at first. But
+this is because the presence of such rules is to define the
+values of coalitions smaller than the grand coalition.
+In terms of computational complexity, given that the 
+Shapley value of any agent in a given rule can be computed in
+time linear in the pattern of the rule, the total running time
+of the algorithm for computing the Shapley value of the
+game is linear in the size of the input.

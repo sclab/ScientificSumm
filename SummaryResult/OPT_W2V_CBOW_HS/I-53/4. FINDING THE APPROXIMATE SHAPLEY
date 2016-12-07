@@ -1,0 +1,45 @@
+In Step 2.1, we randomly select a sample SX of size X from the population P. Player i"s marginal contribution to the random coalition SX is found in Step 2.2.
+The average marginal contribution is found in Step 3 - and this is the Shapley value for player i. THEOREM 1.
+The marginal contribution of player i to this random sample is one if the total weight of the X players in the sample is greater than or equal to a = q −wi but less than b = q − (where is an inifinitesimally small quantity).
+The time complexity of the proposed randomized method is linear in the number of players.
+, wn is a random sample of size n drawn from any distribution with mean μ and variance ν, then the sample sum has an approximate Normal  distribution with mean nμ and variance ν n (the larger the n the better the approximation).
+In Step 2, we vary X between 1 and m and repeatedly do the following.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) R-SHAPLEYVALUE (P, μ, ν, q, wi) P: Population of players μ: Mean weight of the population P ν: Variance in the weights for poulation P q: Quota for the voting game wi: Player i"s weight 1.
+Hence we get: ΔX i = 1 p (2πν/X) Z b a e−X (x−Xμ)2 2ν dx (2) and the Shapley value is: ϕi = 1 m mX X=1 ΔX i (3) The above steps are described in Table 1.
+From this population of players we randomly draw samples and find the sum of the players" weights in the sample using the following rule from Sampling Theory (see [8] p425): If w1, w2, .
+Evaluate expected marginal contribution (ΔX i ) of player i to SX as: ΔX i ← 1√ (2πν/X) R b a e−X (x−Xμ)2 2ν dx 2.3.
+VALUE We first give a brief introduction to randomized algorithms and then present our randomized method for finding the approximate Shapley value.
+The players" weights in this population are defined by a probability distribution function.
+962 The Sixth Intl.
+Irrespective of the actual probability distribution function, let μ be the mean weight for the population of players and ν the variance in the players" weights.
+Evaluate Shapley value of player i as: ϕi ← Ti/m Table 1: Randomized algorithm to find the Shapley value for player i.
+We use this rule to determine the Shapley value as follows.
+A randomized algorithm is an algorithm that, during some of its steps, performs random choices [2].
+We know from Definition 1, that the Shapley value for a player is the expectation (E) of its marginal contribution to a coalition that is chosen randomly.
+Hence, the time complexity of computing a player"s Shapley value is O(m).
+The weights are specified in terms of a  probability distribution function.
+Let X denote the size of a random sample drawn from a population in which the individual player weights have any distribution.
+We first describe the general voting game and then present our randomized algorithm.
+Ti ← 0; a ← q − wi; b ← q − 2.
+For such a game, we want to find the approximate Shapley value.
+We let P denote a population of players.
+Thus, the expected marginal contribution of player i (denoted ΔX i ) to the sample coalition is the area under the curve defined by N(Xμ, ν X ) in the interval [a, b].
+The  random steps performed by the algorithm imply that by executing the algorithm several times with the same input we are not guaranteed to find the same solution.
+Select a random sample SX of size X from the population P 2.2.
+Against this background, we present a randomized method for finding the approximate Shapley value and empirically evaluate its error.
+For X from 1 to m repeatedly do the following 2.1.
+For player i with weight wi, let ϕi denote the Shapley value.
+Ti ← Ti + ΔX i 3.
+This is done in the for loop of Step 2 in Table 1.
+The approximation error refers to the difference between the  exact solution and its approximation.
+Let wi denote the weight of player i.
+As per Equation 3, ΔX i must be computed m times.
+Now, since such algorithms generate  approximate solutions, their performance is evaluated in terms of two criteria: their time complexity, and their error of approximation.
+The following section analyses the approximation error for the  proposed method. 
+In its general form, a voting game has more than two types of players.
+Thus, for m players and for quota q the game is of the form q; w1, w2, .
+In more detail, Step 1 does the initialization.
+This area is shown as the region B in Figure 1 (the dotted line in the figure is Xμ).
+Randomized algorithms are the most commonly used approach for finding approximate solutions to  computationally hard problems.
+Otherwise, its marginal contribution is zero.
+Joint Conf.

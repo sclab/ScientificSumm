@@ -1,0 +1,61 @@
+Since only features from HH, HL and LH are 
+meaningful and could potentially be representative to some events,
+we pruned all other feature classified as LL or SW. In this
+section, we describe how bursts can be identified from the
+remaining features. Unlike Kleinberg"s burst identification
+algorithm [12], we can identify both significant and trivial
+bursts without the need to set any parameters.
+5.1 Detecting Aperiodic Features" Bursts
+For each feature in HH and HL, we truncate its 
+trajectory by keeping only the bursty period, which is modeled
+with a Gaussian distribution. For example, Figure 8 shows
+the word feature Iraq with a burst circa 09/06/1996 
+being modeled as a Gaussian. Its bursty period is defined by
+[μf − σf , μf + σf ] as shown in Figure 8(b).
+5.2 Detecting Periodic Features" Bursts
+Since we have computed the DP for a periodic feature f,
+we can easily model its periodic feature trajectory yf using
+0
+0.2
+0.4
+0.6
+0.8
+8/20/96 12/8/96 3/28/97 7/16/97
+(a) original DFIDF:time
+0
+0.2
+0.4
+0.6
+0.8
+8/20/96 12/8/96 3/28/97 7/16/97
+burst= [μ-σ, μ+σ]
+(b) identifying burst
+Figure 8: Modeling Iraq"s time series as a truncated
+Gaussian with μ = 09/06/1996 and σ = 6.26.
+a mixture of K = T/Pf Gaussians:
+f(yf = yf (t)|θf ) =
+K
+k=1
+αk
+1
+2πσ2
+k
+e
+− 1
+2σ2
+k
+(yf (t)−µk)2
+,
+where the parameter set θf = {αk, μk, σk}K
+k=1 comprises:
+• αk is the probability of assigning yf into the kth
+
+Gaussian. αk > 0, ∀k ∈ [1, K] and K
+k=1 αk = 1;
+• μk/σk is mean/standard deviation of the kth
+Gaussian.
+The well known Expectation Maximization (EM) [8] 
+algorithm is used to compute the mixing proportions αk, as well
+as the individual Gaussian density parameters μk and σK .
+Each Gaussian represents one periodic event, and is modeled
+similarly as mentioned in Section 5.1.

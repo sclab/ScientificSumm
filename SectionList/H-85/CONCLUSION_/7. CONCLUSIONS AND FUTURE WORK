@@ -1,0 +1,58 @@
+Our paper is the first, to our knowledge, to interpret 
+postsearch user behavior to estimate user preferences in a real web
+search setting. We showed that our robust models result in higher
+prediction accuracy than previously published techniques.
+We introduced new, robust, probabilistic techniques for
+interpreting clickthrough evidence by aggregating across users
+and queries. Our methods result in clickthrough interpretation
+substantially more accurate than previously published results not
+specifically designed for web search scenarios. Our methods"
+predictions of relevance preferences are substantially more
+accurate than the current state-of-the-art search result ranking that
+does not consider user interactions. We also presented a general
+model for interpreting post-search user behavior that incorporates
+clickthrough, browsing, and query features. By considering the
+complete search experience after the initial query and click, we
+demonstrated prediction accuracy far exceeding that of
+interpreting only the limited clickthrough information.
+Furthermore, we showed that automatically learning to
+interpret user behavior results in substantially better performance
+than the human-designed ad-hoc clickthrough interpretation
+strategies. Another benefit of automatically learning to interpret
+user behavior is that such methods can adapt to changing
+conditions and changing user profiles. For example, the user
+behavior model on intranet search may be different from the web
+search behavior. Our general UserBehavior method would be able
+to adapt to these changes by automatically learning to map new
+behavior patterns to explicit relevance ratings.
+A natural application of our preference prediction models is to
+improve web search ranking [1]. In addition, our work has many
+potential applications including click spam detection, search
+abuse detection, personalization, and domain-specific ranking. For
+example, our automatically derived behavior models could be
+trained on examples of search abuse or click spam behavior
+instead of relevance labels. Alternatively, our models could be
+used directly to detect anomalies in user behavior - either due to
+abuse or to operational problems with the search engine.
+While our techniques perform well on average, our
+assumptions about clickthrough distributions (and learning the
+user behavior models) may not hold equally well for all queries.
+For example, queries with divergent access patterns (e.g., for
+ambiguous queries with multiple meanings) may result in
+behavior inconsistent with the model learned for all queries.
+Hence, clustering queries and learning different predictive models
+for each query type is a promising research direction. Query
+distributions also change over time, and it would be productive to
+investigate how that affects the predictive ability of these models.
+Furthermore, some predicted preferences may be more valuable
+than others, and we plan to investigate different metrics to capture
+the utility of the predicted preferences.
+As we showed in this paper, using the wisdom of crowds can
+give us accurate interpretation of user interactions even in the
+inherently noisy web search setting. Our techniques allow us to
+automatically predict relevance preferences for web search results
+with accuracy greater than the previously published methods. The
+predicted relevance preferences can be used for automatic
+relevance evaluation and tuning, for deploying search in new
+settings, and ultimately for improving the overall web search
+experience.

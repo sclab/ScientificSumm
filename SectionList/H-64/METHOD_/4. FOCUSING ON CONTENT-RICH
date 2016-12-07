@@ -1,0 +1,70 @@
+DOCUMENTS
+To derive empirically evidenced topics we initially turned
+to cluster analysis. Let A be the n×p data matrix with n 
+observations in p variables. Thus aij shows the measurement
+for the ith
+observation on the jth
+variable. As described
+in [12], the goal of cluster analysis is to assign each of the
+n observations to one of a small number k groups, each of
+which is characterized by high intra-cluster correlation and
+low inter-cluster correlation. Though the algorithms for 
+accomplishing such an arrangement are legion, our analysis
+focuses on k-means clustering5
+, during which, each 
+observation oi is assigned to the cluster Ck whose centroid is closest
+to it, in terms of Euclidean distance. Readers interested in
+the details of the algorithm are referred to [12] for a 
+thorough treatment of the subject.
+Clustering by k-means is well-studied in the statistical
+literature, and has shown good results for text analysis (cf.
+[8, 16]). However, k-means clustering requires that the 
+researcher specify k, the number of clusters to define. When
+applying k-means to our 15,000 document collection, 
+indicators such as the gap statistic [17] and an analysis of
+the mean-squared distance across values of k suggested that
+k ≈ 80 was optimal. This paramterization led to 
+semantically intelligible clusters. However, 80 clusters are far too
+many for application to an interface such as the relation
+5
+We have focused on k-means as opposed to other clustering
+algorithms for several reasons. Chief among these is the
+computational efficiency enjoyed by the k-means approach.
+Because we need only a flat clustering there is little to be
+gained by the more expensive hierarchical algorithms. In
+future work we will turn to model-based clustering [7] as a
+more principled method of selecting the number of clusters
+and of representing clusters.
+browser. Moreover, the granularity of these clusters was 
+unsuitably fine. For instance, the 80-cluster solution derived
+a cluster whose most highly associated words (in terms of
+log-odds ratio [1]) were drug, pharmacy, and chemist. These
+words are certainly related, but they are related at a level
+of specificity far below what we sought.
+To remedy the high dimensionality of the data, we 
+resolved to limit the algorithm to a subset of the collection.
+In consultation with employees of the BLS, we continued
+our analysis on documents that form a series titled From
+the Editor"s Desk6
+. These are brief articles, written by BLS
+employees. BLS agents suggested that we focus on the 
+Editor"s Desk because it is intended to span the intellectual
+domain of the agency. The column is published daily, and
+each entry describes an important current issue in the BLS
+domain. The Editor"s Desk column has been written daily
+(five times per week) since 1998. As such, we operated on a
+set of N = 1279 documents.
+Limiting attention to these 1279 documents not only 
+reduced the dimensionality of the problem. It also allowed
+the clustering process to learn on a relatively clean data set.
+While the entire BLS collection contains a great deal of 
+nonprose text (i.e. tables, lists, etc.), the Editor"s Desk 
+documents are all written in clear, journalistic prose. Each 
+document is highly topical, further aiding the discovery of 
+termtopic relations. Finally, the Editor"s Desk column provided
+an ideal learning environment because it is well-supplied
+with topical metadata. Each of the 1279 documents 
+contains a list of one or more keywords. Additionally, a subset
+of the documents (1112) contained a subject heading. This
+metadata informed our learning and evaluation, as described
+in Section 6.1.

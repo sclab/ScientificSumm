@@ -1,0 +1,22 @@
+in the future, we are planning to integrate our adaptation component with gat (3) which is becoming a  standard in the grid community and koala (15) a scheduler that  provides co-allocation on top of standard grid middleware, such as the globus toolkit (11). 
+zorilla can be easily replaced with  another grid scheduler.
+in the future, zorilla will also support bandwidth-aware scheduling, which tries to maximize the total bandwidth in the system.
+zorilla provides locality-aware scheduling, which tries to allocate processors that are located close to each other in terms of communication latency.
+for requesting new nodes, the zorilla (9) system is used - a peer-to-peer supercomputing middleware which allows  straightforward allocation of processors in multiple clusters and/or  supercomputers.
+currently the registry is implemented as a  centralized server.
+the coordinator uses this functionality to notify the processors that they need to leave the computation.
+finally, the registry provides the possibility to send signals to application processes.
+the registry also offers fault detection (additional to the fault detection provided by the  communication channels).
+the adaptation coordinator uses the registry to discover the application processes, and the application processes use this service to discover each other.
+the registry provides, among others, a membership service to the processors taking part in the computation.
+ibis also provides the ibis registry.
+the resulting system therefore is highly portable (due to java"s write once, run anywhere property) allowing the software to run unmodified on a heterogeneous grid.
+the core of ibis is also implemented in java.
+both coordinator and satin are implemented entirely in java on top of the ibis  communication library (21).
+the  coordinator is implemented as a separate process.
+we instrumented the satin runtime system to collect runtime statistics and send them to the adaptation coordinator.
+with satin, removing and adding processors from/to an ongoing computation incurs little overhead.
+satin also provides  transparent fault tolerance and malleability (23).
+satin uses a very  efficient, grid-aware load balancing algorithm - cluster-aware  random work stealing (crs) (19), which hides wide-area latencies by overlapping local and remote stealing.
+with satin, the programmer annotates the sequential code with divide-and-conquer primitives and compiles the annotated code with a special satin compiler that generates the necessary communication and load balancing code.
+we incorporated our adaptation mechanism into satin - a java framework for creating grid-enabled divide-and-conquer  applications.

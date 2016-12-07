@@ -1,0 +1,103 @@
+Because the propagation of single unlinkable user profile items is assumed to be uncritical, we extend the  information filtering protocol as follows: The relevant parts of the provider profile are retrieved based on single anonymous  interactions between the relay and the provider.
+Again, the most straightforward way to achieve this is to use additional relay agents deployed via the user agent which are used once for a single information filtering process.
+4.1 Controller Module As noted above, the ability to control the communication of agents is generally not a feature of existing MAS  architectures2 but at the same time a central requirement of our approach for privacy-preserving Information Filtering.
+The resulting model is stored by the provider agent and can be seen as an additional part of the provider  profile.
+It basically consists of two parts (Step 3.1 to 3.4, and Step 3.5 to Step 3.8), each of which provide a solution for a problem related to the  prisoners" problem [22], in which two participants (the prisoners) intend to exchange a message via a third, untrusted  participant (the warden) who may read the message but must not be able to alter it in an undetectable manner.
+Upon completion of the protocol, both user and provider have obtained a set of recommendations.
+According to [15], we classify the former case as honest-but-curious behavior (as an example, the TFE may propagate recommendations as specified, but may additionally attempt to propagate private information), and the latter case as malicious behavior (as an example, the filter may attempt to propagate private information instead of the recommendations).
+Consequently, all rules addressing communication capabilities have to be enforced across entire platforms, because  otherwise a controlled agent could just use a non-controlled agent 1 In the implementation, we have used the Advanced  Encryption Standard (AES) as the symmetric encryption scheme and SHA-1 as the cryptographic hash function.
+Our solution is based on a threat model in which no main abstract entity may safely assume any other abstract entity to act in an honest manner: Each entity has to assume that other entities may attempt to obtain private information, either while following the specified protocol or even by  deviating from the protocol.
+Therefore, we add additional  infrastructure providing the required functionality to the MAS architecture itself, resulting in an agent environment with extended functionality and responsibilities.
+To prevent the uncontrolled relay agents from propagating provider profile data, the respective data is  encrypted and the key is provided only after control has been established.
+In this case, the relay agent has to ensure that the provider does not obtain any information exceeding the information deducible via the recommendations themselves.
+Controlling the communication capabilities of an agent is realized by restricting via rules, in a manner similar to a firewall, but with the consent of the respective agent, its incoming and outgoing communication to specific platforms or agents on external platforms as well as other possible communication channels, such as the file system.
+These agents are not allowed to communicate directly, because the TFE agent cannot be assumed to act in an honest manner.
+As an alternative approach applicable when the user profile contains information in addition to provider profile items, we provide a cluster-based approach in which provider profile items are clustered in a preprocessing stage via an  agglomerative hierarchical clustering approach.
+Therefore, the final phase of the protocol described in Table 1 is replaced as described in Table 3.
+We denote a set of hash values for a data set X = {x1, .., xn} as H(X) = {h(x1), .., h(xn)}, whereas h(X) denotes a single hash value of a data set.
+Sender → Message or Action Step Receiver repeat 2.1 to 2.3 ∀ up ∈ UP: 2.1 F → R q(up) (a query based on up) 2.2 R anon → P q(up) (R remains anonymous) 2.3 P → R anon {PPq(up)}KP 2.4 P → R, F establish control 2.5 P → R KP 2.6 R → F PPq(UP ) Table 3: The updated final stage of the information filtering protocol with definitions as above.
+If the MAS architecture used for the implementation does not provide an infrastructure for anonymous agent communication, this feature has to be provided explicitly: The most  straightforward way is to use additional relay agents deployed via 322 The Sixth Intl.
+Two  issues have to be addressed in this module: The relevant parts of the provider profile have to be retrieved without  compromising the user"s privacy, and the recommendations have to be propagated in a privacy-preserving way.
+Learning-based approaches are not applicable because the TFE agent cannot propagate any  acquired data to the filter, which effectively means that the filter is incapable of learning.
+The interactions of Step 3.5 to Step 3.8 ensure, via the same mechanisms used in Step 3.1 to 3.4, that the provider is able to analyze the  recommendations before the user obtains them, but at the same time prevent the provider from altering the  recommendations.
+The  information deducible about the user profile does not exceed the information deducible via the recommendations themselves (because essentially only a chain of cluster centroids leading to the recommendations is retrieved), and therefore it is not regarded as privacy-critical.
+The first part of the final phase is carried out as follows: In order to prevent the relay from altering  recommendations, they are propagated by the filter together with an encrypted hash in Step 3.1.
+Regarding the issue of malicious hosts, we currently assume all providers of agent platforms to be trusted.
+There are  various solutions for protocols addressing the prisoners"  probTable 2: The updated second stage of the  information filtering protocol with definitions as above.
+Instead, these approaches are realized via the Matchmaker Module, which is outside the scope of this paper.
+Sender → Message or Action Step Receiver 1.1 R → F establish control 1.2 U → R UP 1.3 R → F UP 2.1 P → R, F establish control 2.2 P → R PP 2.3 R → F PP 3.1 F → R REC 3.2 R → P REC 3.3 P → U REC 3.4 R → F terminate F 3.5 P → R terminate R the main relay agent and used once for a single anonymous interaction.
+In order to minimize the risk of possible threats, we have decided to use a protocol that only requires a  symmetric encryption scheme.
+In the information filtering stage, the relevant items are retrieved by descending through the cluster hierarchy in the following manner: The cluster items of the highest level are retrieved independent of the user profile.
+Throughout this paper, {m}KX  denotes a message m encrypted via a non-specified symmetric encryption scheme with a secret key KX used for  encryption and decryption which is initially known only to  participant X.
+In the actual information filtering process, the k most similar items are retrieved for each single user profile item via queries on the model (as described in Section 4.2.1, this is possible in a privacy-preserving way via anonymous  communication).
+Therefore, the second phase of the protocol  described in Table 1 is replaced as described in Table 2.
+Additionally, the relay agent may allow other interactions as long as no user profile items are used within the queries.
+the relay agent has to verify the  recommendations before the provider obtains them, and so on.
+4.2.2 Recommendation Propagation The propagation of the recommendations is even more problematic mainly because more participants are involved: Recommendations have to be propagated from the TFE agent via the relay and provider agent to the user agent.
+The required functionality cannot be realized based on regular agent services or components, because an agent on a  platform is usually not allowed to interfere with the actions of other agents in any way.
+4.2.1 Retrieving the Provider Profile As outlined above, the relay agent relays data between the TFE agent and the provider agent.
+Our approach does not require controlling the communication between agents on the same platform, and therefore this aspect is not addressed.
+In Step 3.4, the key KR is revealed to the provider, allowing the provider to decrypt the data received in Step 3.2 and thus to obtain H(REC).
+JIAC IV stands out among MAS  architectures as the only security-certified architecture, since it has been certified by the German Federal Office for  Information Security according to the EAL3 of the Common Criteria for Information Technology Security standard [14].
+A cryptographic hash function is used at  various points of the protocol, i.e.
+While computationally rather complex, this approach is feasible because it has to be done only once, and it is carried out in a privacy-preserving way via interactions between the provider agent and a TFE agent.
+4.3 Exemplary Filtering Techniques The filtering technique applied by the TFE agent cannot be chosen freely: All collaboration-based approaches, such as collaborative filtering techniques based on the profiles of a set of users, are not applicable because the provider profile does not contain user profile data (unless this data has been collected externally).
+No participant should be able to alter the recommendations or use them for the propagation of private information.
+Obviously, unlinkability is only achieved if  multiple instances of the protocol are executed simultaneously between the provider and different users.
+The encryption scheme used for encrypting the hash has to be secure against known-plaintext attacks, because  otherwise the relay may be able to obtain KP F after Step 3.1 and subsequently alter the recommendations in an undetectable The Sixth Intl.
+Because agents on controlled platforms are unable to communicate  anonymously with the respective controlling agent, control has to be established after the anonymous interactions have been completed.
+The remaining protocol steps are interactions between  relay, provider and user agent.
+We assume that mechanisms for secure agent communication are available within the respective MAS architecture.
+While we have  chosen a specific architecture for the implementation, the  specification of the module is applicable to any FIPA-compliant MAS architecture.
+Each cluster is represented by a centroid item, and the cluster elements are either sub-clusters or, on the lowest level, the items  themselves.
+Throughout the process, user profile items are never propagated to the provider as such.
+If the user wants these recommendations to be unlinkable to himself, the user agent has to carry out the entire protocol anonymously.
+The relay, however, may suspect the data propagated as the encrypted hash to contain private information instead of the actual hash value.
+The participating entities are realized as agents, and the interactions as agent services.
+Filtering techniques that are actually applicable are feature-based approaches, such as content-based filtering (in which profile items are compared via their attributes) and knowledge-based filtering (in which domain-specific knowledge is applied in order to match user and provider profile items).
+We are additionally developing a solution that is actually based on a trusted computing infrastructure. 
+Thus, the supervisor agent is enabled to define custom security policies, thereby granting or denying other agents access to resources required for communication with other agents as well as communication in general, such as files or sockets for TCP/IP-based communication.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) Table 1: The basic information filtering protocol with participants U = user agent, P = provider agent, F = TFE agent, R = relay agent, based on the abstract protocol shown in Figure 1.
+Therefore, the relay agent has to analyze all queries on the provider profile, and reject potentially critical queries, such as queries containing a set of user profile items.
+The more obvious of these, however, such as protocols based on the use of digital signatures, introduce additional threats e.g.
+Therefore, every participant in this chain has to obtain and verify the recommendations in unencrypted form prior to the next agent in the chain, i.e.
+Various agent services provide functionality for adding and revoking control of  platforms, including functionality required in complex scenarios where controlled agents in turn control further platforms.
+via the possibility of additional subliminal  channels [22].
+We have implemented two generic content-based  filtering approaches that are applicable within our approach: A direct content-based filtering technique based on the class of item-based top-N recommendation algorithms [9] is used in cases where the user profile contains items that are also contained in the provider profile.
+In Step 3.3, the key KP F is revealed to the relay, allowing the relay to validate the encrypted hash.
+Thus, the relay is able to verify the recommendations before they are propagated further.
+on the same platform as a relay for communicating with agents residing on external platforms.
+prior to the actual information filtering processes, a model is generated containing the k most similar items for each provider profile item.
+JIAC IV offers several security features in the areas of access control for agent services, secure communication between agents, and low-level security based on Java security policies [21], and thus provides all security-related functionality required for our approach.
+In our  implementation, we have utilized methods provided via the Java  Security Manager as part of the Java security model.
+4.2 Recommender Module The Recommender Module is mainly responsible for  carrying out information filtering processes, according to the protocol described in Table 1.
+Additionally, the encryption scheme must not be  commutative for similar reasons.
+Retrieving only the relevant part of the provider profile, however, is problematic because it has to be done without leaking sensitive information about the user profile.
+Propagating the hash of the key KR prevents the relay from altering the  recommendations to REC after Step 3.3, which would be  undetectable otherwise because the relay could choose a key KR so that {{H(REC)}KPF }KR = {{H(REC )}KPF }KR .
+The implementation of the actual control mechanism  depends on the actual MAS architecture.
+Additionally, the recommendations are not processed at once, but rather one at a time, to prevent the provider from withholding all recommendations.
+Therefore, the encrypted hash is encrypted again and propagated together with a hash on the respective key in Step 3.2.
+In a preprocessing stage, i.e.
+By  comparing these items with the user profile data, the most relevant sub-clusters are determined and retrieved in a subsequent iteration.
+A module basically encompasses  ontologies, functionality provided by agents via agent services, and internal functionality.
+This process is repeated until the lowest level is reached, which contains the items themselves as  recommendations.
+Consent is required because otherwise the overall security would be compromised, as attackers could arbitrarily block various communication channels.
+The  clusterbased filtering technique described in Section 4.3 is an  example for a filtering technique operating in this manner.
+Unlike the user profile, which is usually rather small, the provider  profile is often too voluminous to be propagated as a whole efficiently.
+2 A recent survey on agent environments [24] concludes that aspects related to agent environments are often neglected, and does not indicate any existing work in this particular area.
+A key KXY is a key shared by participants X and Y .
+An overview of different classes and hybrid combinations of filtering techniques is given in [5].
+Recommendations are generated by selecting the n most frequent items from the result sets that are not already contained within the user profile.
+We have extended the JIAC IV architecture by adding the mechanisms for communication control described in Section 4.1.
+Additionally, JIAC IV offers components realizing management and security  functionality, and provides a methodology for Agent-Oriented  Software Engineering.
+PPq is the part of the provider profile PP returned as the result of the query q.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 323 way.
+JIAC IV integrates fundamental aspects of  autonomous agents regarding pro-activeness, intelligence,  communication capabilities and mobility by providing a scalable component-based architecture.
+4.4 Implementation We have implemented the approach for privacy-preserving IF based on JIAC IV [12], a FIPA-compliant MAS  architecture.
+A typical example is a user profile containing ratings of about 100 movies, while the provider profile  contains some 10,000 movies.
+IMPLEMENTATION In this section, we describe the main modules of our  approach, and outline the implementation.
+a function returning a hash value h(x) for given data x that is both preimage-resistant and collision-resistant1 .
+UP denotes the user profile with UP = {up1, .., upn}, PP denotes the provider profile, and REC denotes the set of  recommendations with REC = {rec1, .., recm}.
+Joint Conf.
+Joint Conf.
+Sender → Message or Action Step Receiver 3.1 F → R REC, {H(REC)}KPF 3.2 R → P h(KR), {{H(REC)}KPF }KR 3.3 P → R KP F 3.4 R → P KR repeat 3.5 ∀ rec ∈ REC: 3.5 R → P {rec}KURrec repeat 3.6 ∀ rec ∈ REC: 3.6 P → U h(KPrec ), {{rec}KURrec }KPrec repeat 3.7 to 3.8 ∀ rec ∈ REC: 3.7 U → P KURrec 3.8 P → U KPrec 3.9 U → F terminate F 3.10 P → U terminate U lem.

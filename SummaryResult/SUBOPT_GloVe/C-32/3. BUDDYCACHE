@@ -1,0 +1,4 @@
+The protocol requires clients to include extra information with the transaction read sets in the commit message, to indicate to the server the objects read by the transaction are up-to-date.
+The three types of client server interactions in a  transactional caching protocol are the commit of a transaction, the fetch of an object missing in a client cache, and the exchange of cache coherence information.
+BuddyCache avoids  interactions with the server when a missing object, or cache  coherence information needed by a client is available within the collaborating group.
+It avoids the latency penalty of invalidations by using the redirector 

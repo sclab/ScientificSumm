@@ -1,0 +1,53 @@
+We first measure the confidence that an agent has for another by observing, for each utterance, the difference between what is said (the utterance) and what 1034 The Sixth Intl.
+The previous measure requires that an ideal distribution, Pt I (ϕ |ϕ, e), has to be specified for each ϕ.
+Table 2 shows a sample measure for each of the ten categories, in it the dialogue commences at time s and terminates at time t. In that Table, U(·) is a suitable utility evaluation function, needs(β, χ) means agent β needs the need χ, cho(β, χ, γ) means agent β satisfies need χ by choosing to negotiate The Sixth Intl.
+It makes sense to aggregate these values over a class of statements, say over those ϕ that are in the ontological context o, that is ϕ ≤ o: C(α, β, o) = 1 − P ϕ:ϕ≤o Pt β(ϕ) [1 − C(α, β, ϕ)] P ϕ:ϕ≤o Pt β(ϕ) where Pt β(ϕ) is a probability distribution over the space of statements that the next statement β will make to α is ϕ.
+That is: C(α, β, ϕ) = 1 − X ϕ Pt I (ϕ |ϕ, e) log Pt I (ϕ |ϕ, e) Pt(ϕ |ϕ) (4) where the 1 is an arbitrarily chosen constant being the maximum value that this measure may have.
+The intimacy between agents α and β, I∗t αβ, is the pattern of the two 2 × 5 arrays V ∗t α and V ∗t β that are computed by an update function as each negotiation round terminates, I∗t αβ = ` V ∗t α , V ∗t β ´ .
+If ϕ ≤ o let: Φ+(ϕ, o, κ) =˘ ϕ | Pt (Prefer(ϕ , ϕ, o)) > κ ¯ for some constant κ, and: C(α, β, ϕ) = 1 + 1 B∗ · X ϕ ∈Φ+(ϕ,o,κ) Pt +(ϕ |ϕ) log Pt +(ϕ |ϕ) where Pt +(ϕ |ϕ) is the normalisation of Pt (ϕ |ϕ) for ϕ ∈ Φ+(ϕ, o, κ), B∗ = ( 1 if |Φ+(ϕ, o, κ)| = 1 log |Φ+(ϕ, o, κ)| otherwise As above we aggregate this measure for observations in a particular context o, and measure confidence as before.
+Finally we define the intimacy of a relationship as an  aggregation of the value of its component dialogues.
+If Ψt terminates at time t: V ∗t+1 x = ν × Vx(Ψt ) + (1 − ν) × V ∗t x (5) where ν is the learning rate, and x = α, β. Additionally, V ∗t x continually decays by: V ∗t+1 x = τ × V ∗t x + (1 − τ) × Dx, where x = α, β; τ is the decay rate, and Dx is a 2 × 5 array being the decay limit distribution for the value to agent x of the intimacy of the relationship in the absence of any interaction.
+4 may be approximated to: 1 − X ϕ :Sim(ϕ ,ϕ)≥η Pt η,I (ϕ |ϕ, e) log Pt η,I (ϕ |ϕ, e) Pt η(ϕ |ϕ) where Pt η,I (ϕ |ϕ, e) is the normalisation of Pt I (ϕ |ϕ, e) for Sim(ϕ , ϕ) ≥ η, and similarly for Pt η(ϕ |ϕ).
+Here we measure the extent to which the  observation ϕ is preferable to the original statement ϕ.
+Let Ψt = (Φt , Ms , e), then α estimates the value of this dialogue to itself in the context of Ms and e as a 2 × 5 array Vα(Ψt ) where: Vx(Ψt ) = „ IL x (Ψt ) IO x (Ψt ) IG x (Ψt ) II x(Ψt ) IC x (Ψt ) UL x (Ψt ) UO x (Ψt ) UG x (Ψt ) UI x(Ψt ) UC x (Ψt ) « where the I(·) and U(·) functions are information-based and utility-based measures respectively as we now describe.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1035 with agent γ, N is the set of needs chosen from the  ontology at some suitable level of abstraction, Tt is the set of offers on the table at time t, com(β, γ, b) means agent β has an outstanding commitment with agent γ to execute the commitment b where b is defined in the ontology at some suitable level of abstraction, B is the number of such commitments, and there are n + 1 agents in the system.
+In general terms, the information-based valuations  measure the reduction in uncertainty, or information gain, that the dialogue gives to each agent, they are expressed in terms of decrease in entropy that can always be calculated.
+Similarly, for an overall estimate of β"s confidence in α: C(α, β) = 1 − X ϕ Pt β(ϕ) [1 − C(α, β, ϕ)] Preferred observations.
+Given a predicate Prefer(c1, c2, e) meaning that α prefers c1 to c2 in environment e. Then if ϕ ≤ o: C(α, β, ϕ) = X ϕ Pt (Prefer(ϕ , ϕ, o))Pt (ϕ |ϕ) and: C(α, β, o) = P ϕ:ϕ≤o Pt β(ϕ)C(α, β, ϕ) P ϕ:ϕ≤o Pt β(ϕ) Certainty in observation.
+This  distribution will be a function of α"s context with β denoted by e, and is Pt I (ϕ |ϕ, e).
+α estimates the value of this dialogue to β as Vβ(Ψt ) by  assuming that β"s reasoning apparatus mirrors its own.
+Here we measure the relative  entropy between this ideal distribution, Pt I (ϕ |ϕ, e), and the distribution of expected observations, Pt (ϕ |ϕ).
+Consider a distribution of  observations that represent α"s ideal in the sense that it is the best that α could reasonably expect to observe.
+A dialogue, Ψt , between agents α and β is a sequence of inter-related utterances in context.
+For example, if α receives the utterance Today is Tuesday then this may be translated into a  constraint on a single distribution, and the resulting decrease in entropy is the information gain.
+Attaching a utilitarian measure to this utterance may not be so simple.
+This  negotiation dialogue is evaluated by α in the context of α"s world model at time s, Ms , and the environment e that includes utterances that may have been received from other agents in the system including the information sources {θi}.
+In particular, the intimacy determines values for the parameters g and h in Equation 1.
+The notion of balance may be applied to pairs of  utterances by treating them as degenerate dialogues.
+4 containsP ϕ that sums over all possible observations ϕ .
+Here we measure the  consistency in expected acceptable observations, or the lack of expected uncertainty in those possible observations that are better than the original statement.
+This equation measures confidence for a single statement ϕ.
+The utility-based valuations measure utility gain are expressed in terms of some suitable utility evaluation function U(·) that can be difficult to define.
+The extent of this calculation is controlled by the parameter η.
+We use the term 2 × 5 array loosely to describe Vα in that the elements of the array are lists of measures that will be determined by the agent"s requirements.
+The various measures given above involve extensive calculations.
+5.3 Intimacy and Balance The balance in a negotiation dialogue, Ψt , is defined as: Bαβ(Ψt ) = Vα(Ψt ) Vβ(Ψt ) for an element-by-element  difference operator that respects the structure of V (Ψt ).
+The relationship balance between agents α and β is: B∗t αβ = V ∗t α V ∗t β .
+As a simple example, if both IO α (Ψ∗t ) and IO β (Ψ∗t ) increase then g decreases, and as the remaining eight information-based LOGIC components increase, h increases.
+We obtain a more computationally friendly measure by appealing to the structure of the ontology described in Section 3.2, and the right-hand side of Eqn.
+, μn has been exchanged between agent α and agent β.
+5.2 Valuing negotiation dialogues Suppose that a negotiation commences at time s, and by time t a string of utterances, Φt = μ1, .
+Second we evaluate each dialogue as it progresses in terms of the LOGIC  framework - this evaluation employs the confidence measures.
+A relationship, Ψ∗t , is a sequence of dialogues.
+In Section 5.2 confidence measures are applied to valuing  fulfilment of promises in the Legitimacy category - we formerly called this honour [14], to the execution of commitments - we formerly called this trust [13], and to valuing  dialogues in the Goals category - we formerly called this reliability [14].
+In simple multi-issue bargaining the equitable information revelation strategy generalises the tit-for-tat strategy in single-issue bargaining, and extends to a tit-for-tat argumentation  strategy by applying the same principle across the LOGIC  framework. 
+5.1 Confidence Confidence measures generalise what are commonly called trust, reliability and reputation measures into a single  computational framework that spans the LOGIC categories.
+An even tighter restriction may be obtained with: Sim(ϕ , ϕ) ≥ η and ϕ ≤ ψ for some ψ.
+This is one reason why the  utilitarian approach has no natural extension to the management of argumentation that is achieved here by our  informationbased approach.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) subsequently occurs (the observation).
+For example, Eqn.
+Ideal observations.
+Joint Conf.
+Joint Conf.
+Dx is the reputation of agent x.
+Computational Note.

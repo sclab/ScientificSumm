@@ -1,0 +1,173 @@
+The  percentages are relative to the number of shots localized and not all shots, as the classification algorithm needs to know the trajectory and the range.
+Note that almost all of these shots were still accurately localized by the networked system, i.e.
+7.1 Single sensor performance As was shown previously, a single sensor alone is able to localize the shooter if it can determine both the muzzle blast and the shockwave AoA, that is, it needs to measure the ToA of both on at least three acoustic channels.
+We estimate that 10% of the sensors had obstructed view to the shooter on  average.
+Since all the sensors were in approximately a  horizontal plane and only a few shooter positions were out of the same plane and only by 2 m or so, the test was not sufficient to evaluate this aspect of the system.
+Interestingly, the largest error in range was a huge 90 m clearly due to some erroneous detection, yet the largest  bearing error was less than 12 degrees which is still a good  indication for the soldier where to look.
+Hence, we can claim that a given sensor had about 50% chance of localizing a shot within 130 m. (Since the sensor deployment area was 30 m deep, 100 m shots correspond to actual distances between 100 and 130 m.) Again, we  emphasize that localization needs at least three muzzle blast and three shockwave detections out of a possible four for each per sensor.
+Since the range should not affect trajectory estimation as long as the projectile passes over the network, we suspect that the slightly worse angle precision for 300 m is due to the hurried shots we witnessed the soldiers took near the end of the day.
+This is also supported by the observation that for the cases with the higher number of sensors (8 or 10), the localization rate is hardly affected by even large errors.
+These indicate an error which is about 1-2% of the range.
+While shockwave detection is independent of the range-unless the projectile becomes subsonic-, the likelihood of muzzle blast detection beyond 150 meters is not enough for consistently getting at least three per sensor node for AoA estimation.
+Figure 13 shows the histogram of the percentage of shots vs. the number of  individual sensors that localized it.
+This is primarily caused by geometry: for a successful localization, the bullet needs to pass over the sensor network, that is, at least one sensor should be on the side of the trajectory other than the rest of the nodes.
+As soldiers never work alone and the sensor node is relatively cheap to afford having  every soldier equipped with one, we also need to look at the overall detection rates for every shot.
+Note that the difference is small; there were 189 shots localized out of the total 196.
+As the ground truth was obtained by knowing the precise location of the shooter and the target, any inaccuracy in the actual trajectory directly adds to the perceived error of the system.
+This exactly replicates how the system would have performed during the test using the imprecisely known locations and orientations.
+The reason for missed shots is the trajectory ambiguity problem that occurs when the projectile passes on one side of all the sensors.
+These echoes reached the sensors before the real muzzle blast for long range shots only, since the projectile travels 2-3× faster than the speed of sound, so the time between the shockwave (and its possible echo from nearby objects) and the muzzle blast increases with increasing ranges.
+However, silencers do not effect the shockwave and the system would still detect the trajectory and caliber accurately.
+All shots were successfully  detected, so the detection rate is omitted.
+Note that the firing range was prepared to simulate an urban area to some extent: there were a few single- and two-storey wooden structures built both in and around the sensor  deployment area and the firing lines.
+The number of sensors were varied from 2 to 10 in increments of 2.
+At each run each node was randomly moved to a new location within a circle around its true position with a radius determined by a zero-mean Gaussian distribution.
+This is also indicated by another datapoint: the estimated trajectory distance from the  actual targets has an average error of 1.3 m for 300 m shots, 0.75 m for 200 m shots and 0.6 m for all but 300 m shots.
+Six different weapons were utilized: AK47 and M240  firing 7.62 mm projectiles, M16, M4 and M249 with 5.56mm ammunition and the .50 caliber M107.
+Several firing positions were located at each of the firing lines at 50, 100, 200 and 300 meters.
+0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100% 0 1 2 3 4 5 6 7 8 9 10 number of sensors percentageofshots Figure 13: Histogram showing what fraction of the 104 shots taken from 50 and 100 meters were  localized by at most how many individual sensors alone.
+Range ization Accu- Azimuth Distance Error of (m) Rate racy Error (deg) Error (m) (m) Shots 50 93% 100% 0.86 0.91 2.2 54 100 100% 100% 0.66 1.34 8.7 54 200 96% 100% 0.74 2.71 32.8 54 300 97% 97% 1.49 6.29 70.6 34 All 96% 99.5% 0.88 2.47 23.0 196 Table 1: Summary of results fusing all available  sensor observations.
+This also means that even if there are 0 2 4 6 0 2 4 6 0 1 2 3 4 5 6 azimutherror(degree) position error (m) orientation error (degree) 2 sensors 0 2 4 6 0 2 4 6 0 1 2 3 4 5 6 azimutherror(degree) position error (m) orientation error (degree) 4 sensors 0 2 4 6 0 2 4 6 0 1 2 3 4 5 6 azimutherror(degree) position error (m) orientation error (degree) 6 sensors 0 2 4 6 0 2 4 6 0 1 2 3 4 5 6 azimutherror(degree) position error (m) orientation error (degree) 8 sensors Figure 14: The effect of node localization and  orientation errors on azimuth accuracy with 2, 4, 6 and 8 nodes.
+Distance M16 AK47 M240 M107 M4 M249 M4-M249 50m 100% 100% 100% 100% 11% 25% 94% 100m 100% 100% 100% 100% 22% 33% 100% 200m 100% 100% 100% 100% 50% 22% 100% 300m 67% 100% 83% 100% 33% 0% 57% All 96% 100% 97% 100% 23% 23% 93% Table 2: Weapon classification results.
+Errors/Sensors 2 4 6 8 10 0 m, 0 deg 54% 87% 94% 95% 96% 2 m, 2 deg 53% 80% 91% 96% 96% 6 m, 0 deg 43% 79% 88% 94% 94% 0 m, 6 deg 44% 78% 90% 93% 94% 6 m, 6 deg 41% 73% 85% 89% 92% Table 4: Localization rate as a function of the  number of sensors used, the sensor node location and orientation errors.
+rate 44% 37% 53% 52% 19% 63% 51% 31% 23% 44% Bearing (deg) 0.80 1.25 0.60 0.85 1.02 0.92 0.73 0.71 1.28 1.44 Range (m) 3.2 6.1 4.4 4.7 4.6 4.6 4.1 5.2 4.8 8.2 Table 3: Single sensor accuracy for 108 shots fired from 50 and 100 meters.
+As the distance between the targets and the sensor network was fixed, this number should not show a 2× improvement just because the shooter is closer.
+Localization rate means the percentage of shots that the sensor fusion was able to estimate the trajectory of.
+There are several disadvantages of the single sensor case compared to the  networked system: there is no redundancy to compensate for other errors and to perform outlier rejection, the  localization rate is markedly lower, and a single sensor alone is not able to estimate the caliber or classify the weapon.
+One possible explanation is that we had only a limited number of test shots taken with these weapons right before the evaluation and used the wrong deceleration  approximation function.
+Node location errors in this range have a small effect on accuracy.
+That is, the system is able to differentiate between weapons of the same caliber.
+Note that as the location and orientation errors increase and the number of sensors decrease, the most significantly affected performance metric is the localization rate.
+13% of shots were not localized by any sensor alone, but 87% was localized by at least one sensor out of ten.
+The data indicates that the performance of the sensors varied significantly especially considering the localization rate.
+Since the angle of the trajectory itself does not  characterize the overall error-there can be a translation  alsoTable 1 also gives the distance of the shooter from the  estimated trajectory.
+Note that there was a single shot that was falsely classified by the caliber estimator.
+For four of the weapons (AK14, M16, M240 and M107), the classification rate is  almost 100%.
+Where it is  missing, the corresponding sensor did not have enough detections to measure the AoA of either the  muzzle blast, the shockwave or both.
+Their bearing accuracy is within a degree, while the range is off by less than 10% in the worst case.
+We believe that professional manufacturing and better  microphones could easily achieve better performance than the best sensor in our experiment (>60% localization rate and 3 m range error).
+If all the sensors and the trajectory are not coplanar, localization may be successful even if the projectile passes on one side of the network.
+Sensor id 1 2 3 5 7 8 9 10 11 12 Loc.
+Finally, the node orientations were perturbed using a  zeromean Gaussian distribution.
+Localization rate refers to the percentage of shots the given sensor alone was able to localize.
+Note that the AK47 and M240 have the same caliber (7.62 mm), just as the M16, M4 and M249 do (5.56 mm).
+Hence, we only evaluate the single sensor performance for the 104 shots that were taken from 50 and 100 m. Note that we use the same test data as in the previous section, but we evaluate individually for each sensor.
+Instead of using all ten sensors in the data fusion, we can pick any subset of the nodes to see how the accuracy degrades as we decrease the number of nodes.
+But instead of using the real sensor locations known very accurately and the measured and calibrated  almost perfect node orientations, we can add error terms to them and run the sensor fusion.
+As such, it includes the error caused by both the trajectory and that of the range estimation.
+6 out of 10 nodes were able to estimate the location alone.
+However, when the sensor fusion does provide a result, it is still accurate even with few available sensors and relatively large  individual errors.
+The overall localization rate over all single sensors was 42%, while for 50 m shots only, this jumped to 61%.
+There were no false positives for shockwaves, but there were a handful of false muzzle blast detections due to parallel tests of artillery at a nearby range.
+We call the estimation of the shooter"s position on the calculated trajectory range estimation due to the lack of a better term.
+Still the largest errors in this experiment of 3.5 degrees for 6 sensors and 5 degrees for 2 sensors are still very good.
+Either this or a similar mistake was made 122 since if we simply used the opposite of the system"s answer where one of these weapons were indicated, the accuracy would have improved 3x.
+The angle of the  estimated trajectory was better than 1 degree except for the 300 m range.
+If we consider these two weapons a single weapon class, then the classification accuracy for it becomes 93%.
+In this case, two significantly different trajectories can generate the same set of observations (see [8] and also Section 6.3).
+The caliber accuracy rate is relative to the shots localized and not all the shots because caliber estimation  requires the trajectory.
+This shot from the 100-meter line at target T-3 was localized almost perfectly by the sensor network.
+The detection rate for single sensors-corresponding to at least one shockwave detection per sensor-was  practically 100%.
+This means that there is little advantage of adding more nodes beyond 6 sensors as far as the accuracy is concerned.
+13% of the shots were missed by every single  sensor, i.e., none of them had both muzzle blast and shockwave AoA detections.
+Another aspect of the system performance that can be evaluated this way is the effect of the number of available sensors.
+We did not have a facility to test system before the evaluation for ranges  beyond 100 m. During the evaluation, we ran into the  problem of mistaking shockwave echoes for muzzle blasts.
+The sensor fusion, however, could incorporate wind speed into its  calculations.
+The x-axis shows the node location error, that is, the standard deviation of the corresponding  Gaussian distribution that was varied between 0 and 6 meters.
+Hence, errors in the time synchronization, node localization and node orientation all degrade the overall accuracy of the system.
+They characterize the accuracy of localization from the given sensor"s perspective.
+Since caliber estimation and weapon classification relies on the trajectory, non-localized shots are not classified either.
+In light of these factors, the overall  average bearing error of 0.9 degrees and range error of 5 m with a microphone spacing of less than 10 cm are excellent.
+The caliber and weapon estimation accuracy rates are based on the 189 shots that were successfully localized.
+One factor has to be the location of the given  sensor including how far it was from the firing lines and how obstructed its view was.
+The system detected all shots successfully.
+There were 7 shots out of 196 that were not localized.
+This resulted in  underestimating the range, since the system measured shorter times than the real ones.
+The range estimates are better than 5%  accurate from 50 m and 10% for 100 m. However, this goes to 20% or worse for longer distances.
+On the other hand, node location and orientation can have a direct effect on the overall system performance.
+Silencers reduce the muzzle blast energy and hence, the effective range the system can  detect it at.
+Note that the sensors remained static during the test.
+7.2 Error sources In this section, we analyze the most significant sources of error that affect the performance of the networked shooter localization and weapon classification system.
+Since this is now not a distributed system, the results are given relative to the position of the given  sensor, that is, a bearing and range estimate is provided.
+Successful localization goes down from almost 100% to 50% when we go from 10 sensors to 2 even without additional errors.
+The z-axis is the resulting trajectory azimuth error.
+For weapon classification to work accurately, the system would need to be calibrated with the typical ammunition used by the given adversary. 
+Each combination of  parameters were generated 100 times and utilized for all 196 shots.
+The current prototype considers it constant that is typically set before a test.
+Table 3 summarizes the results broken down by the ten sensors utilized.
+To put this into perspective, a  trajectory estimate for a 100 m shot will very likely go through or very near the window the shooter is located at.
+The y-axis shows the standard deviation of the node  orientation error that was varied between 0 and 6 degrees.
+Since a ballistic shockwave is a unique acoustic phenomenon, it makes the detection very robust.
+Again, we believe that the disproportionally larger errors at 300 m are due to human errors in aiming.
+The experiment was setup on a shooting range with mock-up wooden buildings and walls for  supporting elevated shooter positions and generating multipath effects.
+The bearing and range values are average errors.
+But if we break it down to the six different weapons tested, the picture changes  dramatically as shown in Table 2.
+The  sensor"s orientation is still important though.
+Note that the  traditional bearing and range measures are not good ones for a distributed system such as ours because of the lack of a single reference point.
+One of the most significant observations on Figure 14 and Table 4 is that there is hardly any difference in the data for 6, 8 and 10 sensors.
+The range and weapon type could not be  estimated without muzzle blast detections.
+The trajectory error is broken down to azimuth in degrees and the actual distance of the shooter from the trajectory.
+Hence, not all sensors had line-of-sight to all shooting positions.
+It would be misleading to interpret these results as the system missing half the shots.
+The localization rate characterizes the system"s ability to successfully estimate the trajectory of shots.
+As the  numbers of sensors decreased in the experiment by randomly selecting a subset, the probability of trajectories abiding by this rule decreased.
+The following experiment was carried out.
+the sensor fusion using all available observations in the sensor network.
+There were only two shots out of approximately 140 that were missed.
+The thick black line and large circle indicate the estimated  trajectory and the shooter position as estimated by fusing all available detections from the network.
+Utilizing some kind of remote  control platform would have been too involved for the limited time the range was available for the test.
+We are not aware of any system that classifies weapons this accurately.
+Since the evaluation we finetuned the muzzle blast detection algorithm to avoid this problem.
+It is better not to give an answer other than a shot alarm than misleading the soldier.
+It would be straightforward to employ a temperature sensor to update the value of the speed of sound periodically during operation.
+Notice that to analyze this, we do not have to resort to  simulation, instead we can utilize the real test data gathered at Aberdeen.
+The caliber and weapon were also identified correctly.
+The M4 and M249 proved to be too similar and they were mistaken for each other most of the time.
+A very few consistent observation lead to good accuracy as the inconsistent ones are discarded by the  algorithm.
+The distance  error shows the distance between the real shooter  position and the estimated shooter position.
+During the one day test, there were 196 shots fired.
+121 Figure 12: The user interface of the system  showing the experimental setup.
+The experiment, therefore, did not test the mobility aspect of the system.
+This effects the muzzle velocity of the weapon.
+soldiers), but all of them are right next to each other, the localization rate will suffer.
+The sensor"s absolute location is irrelevant (just as the relative location of multiple sensors).
+Note that the elevation angles showed somewhat larger errors than the azimuth.
+There were five fixed targets behind the sensor network.
+These positions were known to the evaluators, but not to the operators of the system.
+Node orientation errors, on the other hand, noticeably degrade the performance.
+The long white arrows point to the shooter  position estimated by each sensor.
+Figure 12 shows the user interface with an aerial photograph of the site.
+Also, the sensors were hand-built prototypes utilizing nowhere near production quality  packaging/mounting.
+Localization accuracy is broken down to trajectory  accuracy and range estimation precision.
+There is one 3D barchart for each of the experiment sets with the given fixed number of sensors.
+An independent evaluation of the system was carried out by a team from NIST at the US Army Aberdeen Test Center in April 2006 [19].
+As the sound travels about 3 cm in that time, time synchronization errors have a negligible effect on the system.
+In order to correlate the distributed observations of the acoustic events, the nodes need to have a common time and space reference.
+The speed of sound depends on the ambient temperature.
+Instead of estimating which one is more likely or displaying both possibilities, we decided not to provide a trajectory at all.
+The results are summarized in Figure 14.
+Subsonic weapons do not produce a shockwave.
+There are many interesting observation one can make by analyzing these charts.
+However, this is not of great significance, since they have shorter range, lower accuracy and much less lethality.
+Time synchronization is not applicable.
+Note that many of the common error sources of the networked system do not play a role here.
+Shooter Local- Caliber Trajectory Trajectory Distance No.
+The primary reason for this is that nobody is allowed downrange during live fire tests.
+(This is a simplification for illustrative  purposes.
+The 73% overall weapon classification  accuracy does not seem impressive.
+Note also that wind may adversely affect the accuracy of the system.
+124 many sensors (i.e.
+10 sensor nodes were deployed on surveyed points in an approximately 30×30 m area.
+Note that the chart for 10 nodes is almost identical for the 8-node case, hence, it is omitted.
+123 Our time synchronization approach yields errors  significantly less than 100 microseconds.
+The results are summarized in Table 1.
+Each run picked the sensors randomly using a uniform  distribution.
+Other practical issues also need to be looked at before a real world deployment.
+See Table 4 for a summary.
+The 10 sensor nodes are labeled by their ID and marked by dark circles.
+Another issue is the type of ammunition used.
+It would be more complicated than temperature compensation, but could be done.
+Irregular armies may use substandard, even hand manufactured  bullets.
+The targets are black squares marked T-1 through T-5.
+Hence, their use is not widespread and they pose less danger in any case.
+See Section 6.3.)

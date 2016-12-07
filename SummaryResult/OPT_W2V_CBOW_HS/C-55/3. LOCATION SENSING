@@ -1,0 +1,100 @@
+The corresponding location Sensor Abstraction-attributes collect these physical positions delivered by the sensors of all users, and perform a repository-lookup in order to get the associated symbolic location.
+Because of the fact that we do not use signal  strengthinformation in the current implementation, the accuracy is above 10 meters and therefore a single Bluetooth MAC address is associated with several symbolic locations, according to the physical locations such a Bluetooth module covers.
+Each time the fused symbolic location of a certain user changes, it checks whether he is at the same symbolic location like another user and again notifies the proximity sensor fusion about the proximity between these two users.
+A symbolic location may occur several times if it is referred to by more than one sensor or if a single sensor detects multiple tags, which again refer to several locations.
+3.3.1 Location Sensor Fusion Goal of the fusion of location information is to improve precision and accuracy by merging the set of symbolic locations supplied by various location sensors, in order to reduce the number of these locations to a minimum, ideally to a single symbolic location per user.
+91 Afterwards, the respective attribute Sensor Fusion is being triggered with this sensor-independent information of a certain user, detected by a particular sensor.
+a context representation for the  contextinformation location) is needed to represent the locations of users, in order to be able to facilitate location-related queries like given a location, return a list of all the objects there or given an object, return its current location.
+While the  clientattributes (Sensor Abstraction) are responsible for acquiring low-level sensor-data and transmitting it to the server, the corresponding Sensor Encapsulation-attributes transform them into a uniform and sensor-independent format, namely symbolic locations and IDs of users in spatial proximity, respectively.
+One physical position may have multiple symbolic locations at different accuracy-levels in the location hierarchy assigned to, for example if a sensor covers several rooms.
+This leads to the disadvantage that the range of each Bluetooth-tag has to be determined and mapped to symbolic locations within this range.
+These special events contain information about the identity of the two users concerned, if they are currently in spatial proximity or if proximity no longer persists, and by which proximity-sensor this has been detected.
+According to the two kinds of sensors described in chapter 3.2, we distinguish between fusion of location sensors on the one hand, and fusion of proximity sensors on the other hand.
+In general, there are two approaches [3,5]: symbolic models, which represent location as abstract symbols, and a geometric model, which represent location as coordinates.
+The Bluetooth-implementation goes along with the implementation of the Bluetooth-based location sensor.
+3.2 Sensors Our architecture supports two different kinds of sensors: location sensors, which acquire location information, and proximity sensors, which detect spatial proximities between users.
+Comparison of implemented sensors Sensor Accuracy Coverage Administration RFID < 10 cm poor easy WLAN 1-4 m very well very  timeconsuming Bluetooth ~ 10 m well time-consuming 3.2.2 Proximity Sensors Any sensor that is able to detect whether two users are in spatial proximity is referred to as proximity sensor.
+no history information is used for determining the current location of a certain user).
+A further reduction can be achieved by assigning priorities to sensors (based on accuracy and confidence) and cumulating these priorities for each symbolic location instead of just counting the number of occurrences.
+In the following chapter, we will introduce a location model, which is used for representing locations; afterwards, we will describe the integration of location- and proximity-sensors in 2 http://www.icq.com/ 3 http://sim-icq.sourceforge.net more detail.
+For example, if - in Figure 4 - room2 occurs two times and desk occurs a single time, the value 2 of room2 is added to the value 1 of desk, whereby desk finally gets the value 3.
+If the attribute Location Sensor Fusion receives such an event, it checks if the amount of symbolic locations of the user concerned has changed (compared with the last event).
+This requires certain tables for each sensor, which map physical positions to symbolic locations.
+If the sensor fusion-attribute is notified by a certain Proximity Sensor Abstraction-attribute about an existing spatial proximity, it first checks if these two users are already known to be in proximity (detected either by another user or by another proximity-sensor of the user, which caused the event).
+These events contain information about the identity of the user concerned, his current location and the sensor by which the location has been determined.
+We have chosen a symbolic location model, which refers to locations as abstract symbols like Room P111 or Physics Building, because we do not require geometric location data.
+For example, the symbolic locations at same level in the location hierarchy mostly do not cover the same geographic area.
+The fusion of symbolic locations as well as the fusion of spatial proximities operates on standardized information (cf.
+If this is the case, it notifies the GISS Core-attribute about all symbolic locations this user is currently associated with.
+To cope with this challenge, we implemented a fusion algorithm in order to reduce the number of symbolic locations to a minimum (ideally to a single location).
+The most accurate one is an RFID sensor, which is based on an active RFID-reader.
+Finally, we will have a closer look on the fusion of location- and proximity-information, acquired by various sensors.
+Similarly, if the attribute Proximity Fusion is notified about an ended proximity, it checks if the users are still known to be in proximity, and writes this change to the repository if not.
+We have implemented two types of proximity-sensors, which are based on Bluetooth on the one hand and on fused symbolic locations (see chapter 3.3.1) on the other hand.
+The algorithm collects all events thrown by the Sensor Abstraction-attributes, performs fusion and triggers the GISS Core-attribute if the symbolic location of a certain user or the spatial proximity between users changed.
+Finally, the most accurate, common location in the location hierarchy is calculated (i.e.
+if they differ from the fused locations the considered user is currently associated with), they are provided with the current timestamp, written to the database and the GISS-attribute is notified about where the user is probably located.
+Furthermore, this number is added to the previously calculated number of occurrences of each symbolic location, which is a child-location of the considered one in the location containment hierarchy.
+Symbolic Location Containment Hierarchy The hierarchy of symbolic locations as well as the type of each position is stored in the context repository.
+The administration is quite simple; once a new RFID tag is placed, its serial number simply has to be assigned to a single symbolic location.
+As described above, each sensor has a server- and in most cases a corresponding client-side-implementation, too.
+However, this information is not very useful on its own if a certain user is associated with several locations.
+3.3.2 Proximity Sensor Fusion Proximity sensor fusion is much simpler than the fusion of symbolic locations.
+If such a mapping could be found, an event is thrown in order to notify the attribute Location Sensor Fusion about the symbolic locations a certain sensor of a particular user determined.
+Moreover, a certain user may have several location sensors, which supply symbolic locations differing in accuracy (i.e.
+If the remaining fused locations have changed (i.e.
+As soon as the reader is plugged into the client, it scans for active RFID tags in range and transmits their serial numbers to the server, where they are mapped to symbolic locations.
+Furthermore, we use a symbolic location containment hierarchy similar to the one introduced in [11], which consists of top-level regions, which contain buildings, which contain floors, and the floors again contain rooms.
+Due to this high accuracy, RFID is used for locating users within rooms.
+In a first step, each symbolic location is associated with its number of occurrences.
+The already determined Bluetooth MAC addresses in range of a certain client are being compared with those of all other clients, and each time the attribute Bluetooth Sensor Abstraction detects congruence, it notifies the proximity sensor fusion about this.
+A currently unresolved issue is the incomparable granularity of different proximity sensors.
+The range can be restricted to any level of the location containment hierarchy, for example to room granularity.
+Finally, we have implemented a Bluetooth sensor, which detects Bluetooth tags (i.e.
+the least upper bound of these symbolic locations) in order to get a single symbolic location.
+We also take into account RSSI (Radio Signal Strength Information), which provides position accuracy of few centimetres and thus enables us to determine which RFID-tag is nearest.
+The reached position accuracy is in the range of few meters and thus is suitable for location sensing at the granularity of rooms.
+Similar to the location sensors, the Proximity Sensor Abstraction-attributes collect physical proximity information of all users and transform them to mappings of user-IDs.
+3.1 Location Model A location model (i.e.
+Bluetooth-modules with known position) in range and transmits them to the server that maps to symbolic locations.
+The second sensor is based on symbolic locations processed by Location Sensor Fusion, wherefore it does not need a client-side implementation.
+If not, this change in proximity is written to the context repository with current timestamp.
+In a final step, only those symbolic locations are left which are assigned with the highest number of occurrences.
+These  socalled semantic locations can appear at any level in the hierarchy and they can be nested, but they do not necessarily have a geographic representation.
+different levels in the location containment hierarchy).
+The Location Sensor Fusion-attribute is triggered by events, which are thrown by the Location Sensor  Abstractionattributes.
+This enables applications to visualize the movement of users for example.
+92 Fusion is performed for each user separately and takes into account the measurements at a single point in time only (i.e.
+3.2.1 Location Sensors In order to sense physical positions, the Sensor  Encapsulationattributes asynchronously transmit sensor-dependent position information to the server.
+Finally, if spatial proximity between the two users actually changed, an event is thrown to notify the GISS Core-attribute about this. 
+It merges data of various sensors, while coping with differences concerning accuracy, coverage and sample-rate.
+Such notifications are performed every time the sensor acquired new information.
+As described in chapter 3.2.1, a single location sensor may deliver multiple symbolic locations.
+The second one is an 802.11 WLAN sensor.
+Instead, abstract symbols are more convenient for human interaction at application level.
+The corresponding proximity sensor  fusionattribute is triggered by events, which are thrown by the Proximity Sensor Abstraction-attributes.
+We introduce a fifth type of location, which we refer to as semantic.
+if it has been unplugged by the user) or when position respectively proximity could not be determined any longer (e.g.
+We also distinguish four types, namely region (e.g.
+RFID reader cannot detect tags) and notify the corresponding sensor fusion about this.
+We have prototypically implemented three kinds of location sensors, which are based on WLAN (IEEE 802.11), Bluetooth and RFID (Radio Frequency Identification).
+a building or an outdoor section), level (e.g.
+Because most mobile computers are equipped with WLAN technology and the positioning-system is a software-only solution, nearly everyone is able to use this kind of sensor.
+Accordingly, Sensor Abstraction-attributes are responsible to detect when a certain sensor is no longer available on the client side (e.g.
+a certain floor in a building) and area (e.g.
+We have chosen these three completely different sensors because of their differences concerning accuracy, coverage and administrative effort, in order to evaluate the flexibility of our system (see Table 1).
+A big disadvantage is that a map of the whole area has to be calibrated with measuring points at a distance of 5 meters each.
+This has the advantage, that additional position- and  proximitysensors can be added easily or the fusion algorithms can be replaced by ones that are more sophisticated.
+Examples for such semantic locations are tagged objects within a room (e.g.
+An important feature is the persistent storage of location- and proximity-history in a database in order to allow future retrieval.
+a whole campus), section (e.g.
+3.3 Sensor Fusion Core of the location sensing subsystem is the sensor fusion.
+A drawback is the poor availability, which can be traced back to the fact that RFID readers are still very expensive.
+a desk and a printer on this desk) or the name of a department, which contains certain rooms.
+This is quite difficult, because different sensors may differ in accuracy and sample rate as well.
+a certain room).
+If it changes, the GISS Core-attribute is triggered again.
+Therefore, we integrated a purely software-based, commercial WLAN positioning system for tracking clients on the university  campuswide WLAN infrastructure.
+Table 1.
+Figure 3).
+Figure 4.

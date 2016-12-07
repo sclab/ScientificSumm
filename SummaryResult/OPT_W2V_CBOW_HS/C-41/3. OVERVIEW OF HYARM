@@ -1,0 +1,30 @@
+Three entities of Receiver UAV TAO Resource Utilization HyARM Central Controller A/V Streaming Service : Sender MPEG1 MPEG4 Real Video HyARM Resource Monitor A/V Streaming Service : Receiver Compressed Video Compressed Video Application HyARM Application Adapter Remote Object Call Control Inputs Resource Utilization Resource Utilization / Control Inputs Control Inputs Legend Figure 3: Developing the DRE Multimedia System with HyARM HyARM, namely the resource monitors, central controller, and application adapters are built as CORBA servants, so they can be distributed throughout a DRE system.
+Application adapter(s), that are collocated with the application, modify the input parameters to the  application - in our case video encoder - to modify the application resource utilization and QoS.
+The central controller maintains the system resource utilization below a desired bound by (1) processing periodic updates it receives from resource monitors and (2)  modifying the execution of applications accordingly, e.g., by  using different execution algorithms or operating the  application with increased/decreased QoS.
+Figure 3 shows the interaction of various parts of the DRE multimedia system developed with HyARM, TAO, and TAO"s A/V Streaming Service.
+TAO"s A/V Streaming Service is a QoS-enabled video distribution service that can transfer video in real-time to one or more receivers.
+3.1 HyARM Structure and Functionality Resource Utilization Legend Resource Allocation Application Parameters Figure 2: HyARM Architecture HyARM is composed of three types of entities shown in Figure 2 and described below: Resource monitors observe the overall resource  utilization for each type of resource and resource utilization per application.
+In the current  mplementation of HyARM, the application adapter modifies the input parameters to the application that affect application QoS and resource utilization - compression scheme, frame rate, and picture resolution.
+3 The interaction between the controller and the resource monitors uses the Observer pattern [5].
+When the controller receives resource utilization updates from monitors, it  computes the necessary modifications to application(s)  parameters and notifies application adapter(s) via a remote  operation call.
+We use the A/V Streaming Service to transmit the video from the UAVs to the end receivers via the base station.
+HyARM ensures efficient and predictable system performance by  providing adaptive resource management, including monitoring of system resources and enforcing bounds on application  resource utilization.
+In our multimedia system, the application adapter ensures that the video is encoded at the recommended frame rate and resolution using the specified compression scheme.
+In our multimedia system, there are resource monitors for CPU utilization and network bandwidth.
+Network bandwidth monitors  observe the network resource utilization of (1) wireless network link between UAVs and the base station and (2) wired  network link between the base station and end receivers.
+This adaptation  process ensures that system resources are utilized efficiently and end-to-end application QoS requirements are met.
+In our multimedia system, the HyARM controller determines the value of application parameters such as (1) video  compression schemes, such as Real Video and MPEG-4, and/or (2) frame rate, and (3) picture resolution.
+Application adapters are collocated with  applications since the two interact closely.
+Application adapters modify application execution  according to parameters recommended by the controller and ensures that the operation of the application is in accordance with the recommended parameters.
+From the perspective of hybrid control theoretic techniques [8], the different video compression schemes and frame rate form the discrete  variables of application execution and picture resolution forms the continuous variables.
+TAO"s A/V Streaming service is an implementation of the CORBA A/V  Streaming Service specification.
+3 The base station is not included in the figure since it only retransmits the video received from UAVs to end receivers.
+Resource monitors are remote CORBA objects that update the central controller periodically with the current resource utilization.
+As shown in Figure 3, UAVs compress the data using  various compression schemes, such as MPEG1, MPEG4, and Real Video, and uses TAO"s A/V streaming service to  transmit the video to end receivers.
+CPU monitors observe the CPU resource utilization of UAVs, base station, and end receivers.
+HyARM can be applied to ensure efficient, predictable and adaptive resource management of any DRE system where resource availability and requirements are subject to dynamic change.
+HyARM"s resource monitors continuously observe the system resource utilization and  notify the central controller with the current utilization.
+3.2 Applying HyARM to the Multimedia  System Case Study HyARM is built atop TAO [13], a widely used open-source implementation of Real-time CORBA [12].
+In our future implementations, we plan to use resource reservation mechanisms such as  Differentiated Service [7, 3] and Class-based Kernel Resource Management [4] to provision/reserve network and CPU  resources.
+This section describes the architecture of the Hybrid  Adaptive Resource-management Middleware (HyARM).
+Article 7 

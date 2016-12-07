@@ -1,0 +1,74 @@
+Due to the over-proportional sensitivity of the +l packets to loss as well as the dependence of the end-t* end loss recovery performance on the fl packets, the utility function is decreasing significantly in a non-linear way  (approximated in the figure by piece-wise linear functions) with an increasing loss rate.
+The adaptation of the sender"s bitrate to the current  network congestion state as an intraflow QoS scheme (loss avoidance, [IS]) is difficult to apply to voice.
+Let us now consider the case that 50% of packets of a flow are identified as more important (designated by +l) or less important (-1) due to any of the above sensitivity constraints.
+To describe this effect and provide a taxonomy for  different QoS enhancement approaches, we introduce a novel  terminology: we designate mechanisms which influence QoS parameters between Bows (thus decrease the loss rate of one flow at the expense of other flows) as inter-flow QoS.
+Considering that a real-time flow may experience some packet loss, the impact of loss may vary significantly dependent on which packets are lost within a flow.
+Schemes which, in the presence of loss, differentiate between pa&& within a flow as demonstrated in Figure 1 above, provide intra-flow QoS enhancement.
+Under the loss of 50% of the packets, the perceptual quality varies hugely between the case where the 50% of the frames with high perceptual importance are received and the tax where the 50% less important frames are received.
+1 5 3 9 0.8461 plications which are enhanced by end-to-end loss recovery mechanisms.
+5 8 0 2 0 .
+7 2 9 0 0 .
+While it has been proposed to switch between voice codeca ([2]), the MOS (subjective quality) values for the codecs employed do not differ much: e.g., theITU codecs G.723.1, G.729, G.728, G.726and G.711 cover a bitrate range from 5.3 kbitjs to 64 kbitjs while the subjective quality differs by less than 0.25 on a l-to-5 MOS scale ([4], 1: bad, 5: excellent quality).
+For voice, as a single packet contains typically several ADUs (voice frames) this effect is thus more significant than e.g.
+This results in a graceful degradation of the application"s utility.
+Network support for real-time multimedia flows can on one hand aim at offering a lossless service, which, however, to be implemented within a pa&et-switched network, will be costly for the network provider and thus for the user.
+[9] state 000 001 010 011 100 101 110 111 Probability of Probability Probability being in the state of I(s)=0 of l(s)=1 0.8721 0 .
+If the relative importance of the packets is not known by the transmission system, the loss rates for the +l and -1  packets are equal.
+Figure 1 a) shows a generic utility function describing the  applicationlevel Quality of Service (QoS) dependent on the percentage of packets lost.
+The decay of the utility function (for loss rates < 50%) is reduced, because the +l packets are protected and the  endto-end loss recovery can thus operate properly over a wider range of loss rates indicated by the shaded area.
+For loss recovery on an end-to-end basis, due to the  realtime delay constraints, open-loop schemes like Forward  Error Correction (FEC) have been proposed ([2]).
+So when the  availability of sutticient computing power is assumed, the lowest bitrate codec can be chosen permanently without actually decreasing the perceptual quality.
+We employ these metrics to describe the sensitivity of VoIP traffic to packet loss in section 3.
+Results for actual  perceived quality as utility for multimedia applications exhibit such a non-linear behavior*.
+1 a), the higher is the potential gain in utility when the protection for +l packets is enabled.
+Note that the higher the non-linearity of the utility contribution of the fl packets is (deviation from the dotted curve in Fig.
+In the following we distinguish two reasons for such a variable loss sensitivity: Temporal sensitivity: Loss of ADUs" which is  correlated in time may lead to disruptions in the service.
+In section 5, we present results documenting the performance of the proposed mechanisms at both the end-to-end and  hopby-hop level.
+441 Figure 1: Schematic utility functions dependent on the loss of more (+l) and less (-1) important packets more important with regard to user perception than others of the same flow.
+Let us consider a flow with two frame types of largely different perceptual  importance (we assume same size, frequency and no  interdependence between the frames).
+Note that the presented types of loss sensitivity also apply to  ap‘While we have obtained results which confirm the shape of the overall utility curve shown in Fig.
+1, clearly the utility functions of the +1/-l sub.flows and their relationship are more complex and only approximately additive.
+Figure 1 b) presents the CBS~ where all +l packets are protected at the expense of -1 pa&&.
+As QoS mechanisms have to be implemented within the network (hopby-hop) and/or in the end systems (end-to-end), we have another axis of classification.
+Hop-by-hop support schemes then allow trading the loss of one packet, which is considered more important, against another one of the same flow which is of lower  importance.
+9 2 7 8 0 .
+We employ actual codecs and measure their utility in the presence of packet loss using objective speech quality measurement.
+Therefore in this work we assume that the lowest possible  bitrate which provides the desired quality is chosen.
+Using  redundancy has also implications to the playout delay adaptation ([lo]) employed to de-jitter the packets at the receiver.
+Section 4 briefly introduces a queue management algorithm which can be used for intra-flow loss control.
+Neither feedback/adaptation nor redundancy is used, however, at the end-to-end level, identification/marking of packets  sensitive to loss (sender) as well as loss concealment (receiver) takes place.
+Considering that voice flows have a very low bitrate, the relative cost of transmitting the feedback information is high (when  compared e.g.
+0 7 2 2 0 .
+Note that this effect is further aggravated by some  interdependence between ADUs (i.e., that one ADU can only be decoded when a previous ADU before has  successfully been received and decoded).
+This adaptation is crucial especially when the fraction of traflic using  redundancy schemes is large (181).
+The major  di6culty, however, is the lack of a codec which is truly scalable in terms of its output bitrate and corresponding perceptual quality.
+It translates basically to isolated packet losses versus losses that occur in bursts.
+On the other hand, within a lossy service, the above sensitivity constraints must be taken into account.
+9 7 7 9 0.0221 0 .
+End-to-end mechanisms can reduce and shift such sensitivities but cannot come close to eliminate them.
+To reduce this cost the feedback interval would need to be increased, then leading to a higher probability of wrong adaptation decisions.
+442 Table 1: State and transition probabilities computed for an end-to-end Internet trace using a general Markov model (third order) by Yajnik et.
+For real-time multimedia traffic, such  utility should correspond to perceived video/voice quality.
+4 1 9 8 0 .
+Sensitivity due to ADU heterogeneity: Certain ADUs might contain parts of the encoded signal which are ‘Application Data Unit: the unit of data emitted by a source coder such as a video or voice frame.
+The amount of redundant information needs to be adaptive to avoid  taking bandwidth away from other flows.
+Currently standardized voice codecs ([17]) usually only have a 6xed output bitrate.
+Section 6 concludes the paper. 
+The paper is structured as follows: Section 2 introduces packet- and user-level metrics.
+0 0 3 6 0 .
+If the redundancy is a source coding itself, like it has often been proposed ([7]), the  comments from above on adaptation also apply.
+While such schemes are attractive because they can be used on the  Internet today, they also have several drawbacks.
+for video.
+to a video flow).
+3 8 8 8 0 .
+It is our strong belief that this needs to be done in a generic way, i.e., no application-specific knowledge (about particular coding schemes e.g.)
+should be necessary within the network and, vice versa, no knowledge about network specifics should be necessary within an application.
+6 1 1 2 0 .
+2 7 1 0 0 .
+8 8 1 9 0.1181 0 .
+0 1 4 2 0 .
+8 1 0 9 0.1891 0.0481 0 .
+0 2 0 8 0 .
+0 2 0 8 0 .
+0 1 0 2 0 .
+0 1 0 2 0 .

@@ -1,0 +1,53 @@
+At this stage a service active probing could be started, but this does not seem to be useful as this  correlation only deals with the Web Hosting Service and its resources and not with other services.
+Independent from the customer report the service  provider"s own service active probing tries to change the content of a test web site.
+In this case the event correlator asks the resource management to check the link and the WWW server.
+A wrong web site update procedure inside the  content caching server seems to be less likely as this would only explain the customer report and not the service active  probing result.
+A selection of possible customer problem reports for the Virtual WWW Server is given in the  following: • The hosted web site is not reachable.
+As there are no other events at the moment the resource event correlation 190 customer CSM service mgmt event correlator resource mgmt customer reports: "web site content not up−to−date" service active probing reports: "web site content change not possible" event: "retrieval of server content failed"event forward resource event correlation service event correlation aggregate event correlation link failure report event forward check WWW server check link result display link repair result display result forward customer report Figure 8: Example processing of a customer report cannot correlate this event to other events.
+From the correlation of these events it seems likely that either the WWW server itself or the link to the WWW server is the problem"s root cause.
+A subservice of the Virtual WWW Server is the  Storage Service which stores the static and dynamic web pages and uses caching techniques for a fast access.
+6.4 Event Correlation for Different Services If a provider like the LRZ offers several services the  serviceoriented event correlation can be used to reveal relationships that are not obvious in the first place.
+server serverserver server server server server server server outgoing connection hosting of LRZ"s own pages content caching server emergency server webmail server dynamic web pages static web pages DNS ProxyIP Storage Resources: Services: Virtual WWW Server five redundant servers AFS NFS DBload balancer Figure 7: Dependencies of the Virtual WWW Server • The transfer of new content to the LRZ does not  change the provided content.
+Meanwhile, a resource event has been reported to the event correlator, because an access of the content caching server to one of the WWW servers failed.
+• The web site looks strange (e.g., caused by problems with HTML version) This customer reports have to be mapped onto failures in resources.
+At this stage it would be possible that the event correlator asks the  resource management to perform an active probing of related resources.
+When a user accesses a hosted web site via one of the LRZ"s Virtual Private  Networks the VPN service is also used.
+The additional resource event makes it seem much more likely that the problems are caused by a broken link to the WWW server or by the WWW server itself and not by the content caching server.
+After the separate correlation of both resource and service events, which can be performed in parallel, the aggregate event correlator is used to correlate both types of events.
+Both services depend on the DNS which means that customer reports like I cannot retrieve new e-mail and The web site of my  research institute is not available can have a common cause, e.g., the DNS does not work properly. 
+If the LRZ E-Mail Service and its events are viewed in relationship with the events for the Virtual WWW Server, it is possible to identify failures in common subservices and resources.
+The service active probing could also include the testing of subservices, e.g., sending requests to the DNS.
+One of these services is the Virtual WWW Server, a web hosting offer for smaller research institutions.
+This report is transferred to the service management via the CSM interface.
+Both service events are now transferred to the service event correlator and are correlated.
+For, e.g., an unreachable web site different root causes are possible like a DNS problem, connectivity problem, wrong configuration of the load balancer.
+At first, a  customer who takes a look at his hosted web site reports that the content that he had changed is not displayed correctly.
+6.1 Customer Service Management and  Intelligent Assistant The Intelligent Assistant that is available at the Leibniz Supercomputing Center can currently be used for  connectivity or performance problems or problems with the LRZ E-Mail Service.
+The network connections are also part of the resources as well as the Apache web server application  running on the servers.
+This allows a mapping of the customer report onto the provider-internal resources.
+Later, the resource management finds out that a broken link is the failure"s root cause.
+Even though many details of this event correlation process could also be performed differently, the example showed an important advantage of the service-oriented event  correlation.
+For the service active probing of the Virtual WWW Server a virtual customer could be installed.
+The service management translates the customer report into a service event.
+Depending on the provider"s customer relationship  management the finding of the root cause and an expected repair time could be reported to the customers.
+It also runs the Munich Scientific Network and offers related services.
+This customer does typical HTTP requests of web sites and compares the answer with the known content.
+6.2 Active Probing In general, active probing can be used for services or  resources.
+The resources of the Virtual WWW Server include a load balancer and 5  redundant servers.
+The relationship between the service provisioning and the provider"s resources is explicitly modeled.
+Because this is not possible, a service event is issued.
+SERVICE-ORIENTED EVENT CORRELATION FOR A WEB HOSTING SCENARIO The Leibniz Supercomputing Center is the joint  computing center for the Munich universities and research  institutions.
+After the link has been repaired, it is possible to report this event via the CSM interface.
+Other  subservices are DNS and IP service.
+Examples are connectivity tests, requests to application  processes, and tests of available disk space.
+To check the up-to-dateness of a test web site, the content could contain a time stamp.
+It informs the event correlator about this and it can be determined that this explains all previous events.
+The resource active probing performs tests of the resources.
+An Intelligent Assistant could be used to structure the customer report.
+Therefore, the event correlation can be stopped at this point.
+• The web site contains outdated content.
+• The web site access is (too) slow.
+6.3 Event Correlation for the Virtual WWW Server Figure 8 shows the example processing.
+The decision between these two likely error causes can not be further automated here.
+Figure 7 shows the dependencies of the Virtual WWW Server.
+It currently has approximately 200 customers.

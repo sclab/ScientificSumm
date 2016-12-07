@@ -1,0 +1,226 @@
+PLAY
+Before we consider strategic play, we examine what 
+happens in the system if everyone just plays the same strategy
+Sk. Our overall goal is to show that there is some 
+distribution over money (i.e., the fraction of people with each
+amount of money) such that the system converges to this
+distribution in a sense to be made precise shortly.
+Suppose that everyone plays Sk. For simplicity, assume
+that everyone has at most k dollars. We can make this
+assumption with essentially no loss of generality, since if
+someone has more than k dollars, he will just spend money
+until he has at most k dollars. After this point he will never
+acquire more than k. Thus, eventually the system will be
+in such a state. If M ≥ kn, no agent will ever be willing to
+work. Thus, for the purposes of this section we assume that
+M < kn.
+From the perspective of a single agent, in (stochastic)
+equilibrium, the agent is undergoing a random walk. 
+However, the parameters of this random walk depend on the 
+random walks of the other agents and it is quite complicated
+to solve directly. Thus we consider an alternative analysis
+based on the evolution of the system as a whole.
+If everyone has at most k dollars, then the amount of
+money that an agent has is an element of {0, . . . , k}. If there
+are n agents, then the state of the game can be described
+by identifying how much money each agent has, so we can
+represent it by an element of Sk,n = {0, . . . , k}{1,...,n}
+. Since
+the total amount of money is constant, not all of these states
+can arise in the game. For example the state where each
+player has $0 is impossible to reach in any game with money
+in the system. Let mS(s) =
+P
+i∈{1...n} s(i) denote the total
+mount of money in the game at state s, where s(i) is the
+number of dollars that agent i has in state s. We want
+to consider only those states where the total money in the
+system is M, namely
+Sk,n,M = {s ∈ Sk,n | mS(s) = M}.
+Under the assumption that all agents use strategy Sk, the
+evolution of the system can be treated as a Markov chain
+Mk,n,M over the state space Sk,n,M . It is possible to move
+from one state to another in a single round if by choosing
+a particular agent to make a request and a particular agent
+to satisfy it, the amounts of money possesed by each agent
+become those in the second state. Therefore the 
+probability of a transition from a state s to t is 0 unless there exist
+two agents i and j such that s(i ) = t(i ) for all i /∈ {i, j},
+t(i) = s(i) + 1, and t(j) = s(j) − 1. In this case the 
+probability of transitioning from s to t is the probability of j
+being chosen to spend a dollar and has someone willing and
+able to satisfy his request ((1/n)(1 − (1 − β)|{i |s(i )=k}|−Ij
+)
+multiplied by the probability of i being chosen to satisfy his
+request (1/(|({i | s(i ) = k}| − Ij )). Ij is 0 if j has k dollars
+and 1 otherwise (it is just a correction for the fact that j
+cannot satisfy his own request.)
+Let ∆k
+denote the set of probability distributions on {0, . . . , k}.
+We can think of an element of ∆k
+as describing the fraction
+of people with each amount of money. This is a useful way
+of looking at the system, since we typically don"t care who
+has each amount of money, but just the fraction of people
+that have each amount. As before, not all elements of ∆k
+are possible, given our constraint that the total amount of
+143
+money is M. Rather than thinking in terms of the total
+amount of money in the system, it will prove more useful to
+think in terms of the average amount of money each player
+has. Of course, the total amount of money in a system
+with n agents is M iff the average amount that each player
+has is m = M/n. Let ∆k
+m denote all distributions d ∈ ∆k
+such that E(d) = m (i.e.,
+Pk
+j=0 d(j)j = m). Given a state
+s ∈ Sk,n,M , let ds
+∈ ∆k
+m denote the distribution of money
+in s. Our goal is to show that, if n is large, then there is
+a distribution d∗
+∈ ∆k
+m such that, with high probability,
+the Markov chain Mk,n,M will almost always be in a state
+s such that ds
+is close to d∗
+. Thus, agents can base their
+decisions about what strategy to use on the assumption that
+they will be in such a state.
+We can in fact completely characterize the distribution
+d∗
+. Given a distribution d ∈ ∆k
+, let
+H(d) = −
+X
+{j:d(j)=0}
+d(j) log(d(j))
+denote the entropy of d. If ∆ is a closed convex set of 
+distributions, then it is well known that there is a unique 
+distribution in ∆ at which the entropy function takes its maximum
+value in ∆. Since ∆k
+m is easily seen to be a closed convex set
+of distributions, it follows that there is a unique distribution
+in ∆k
+m that we denote d∗
+k,m whose entropy is greater than
+that of all other distributions in ∆k
+m. We now show that,
+for n sufficiently large, the Markov chain Mk,n,M is almost
+surely in a state s such that ds
+is close to d∗
+k,M/n. The
+statement is correct under a number of senses of close.
+For definiteness, we consider the Euclidean distance. Given
+> 0, let Sk,n,m, denote the set of states s in Sk,n,mn such
+that
+Pk
+j=0 |ds
+(j) − d∗
+k,m|2
+< .
+Given a Markov chain M over a state space S and S ⊆ S,
+let Xt,s,S be the random variable that denotes that M is in
+a state of S at time t, when started in state s.
+Theorem 3.1. For all > 0, all k, and all m, there exists
+n such that for all n > n and all states s ∈ Sk,n,mn, there
+exists a time t∗
+(which may depend on k, n, m, and ) such
+that for t > t∗
+, we have Pr(Xt,s,Sk,n,m, ) > 1 − .
+Proof. (Sketch) Suppose that at some time t, Pr(Xt,s,s )
+is uniform for all s . Then the probability of being in a set of
+states is just the size of the set divided by the total number of
+states. A standard technique from statistical mechanics is to
+show that there is a concentration phenomenon around the
+maximum entropy distribution [16]. More precisely, using
+a straightforward combinatorial argument, it can be shown
+that the fraction of states not in Sk,n,m, is bounded by
+p(n)/ecn
+, where p is a polynomial. This fraction clearly
+goes to 0 as n gets large. Thus, for sufficiently large n,
+Pr(Xt,s,Sk,n,m, ) > 1 − if Pr(Xt,s,s ) is uniform.
+It is relatively straightforward to show that our Markov
+Chain has a limit distribution π over Sk,n,mn, such that for
+all s, s ∈ Sk,n,mn, limt→∞ Pr(Xt,s,s ) = πs . Let Pij denote
+the probability of transitioning from state i to state j. It
+is easily verified by an explicit computation of the 
+transition probabilities that Pij = Pji for all states i and j. It
+immediatly follows from this symmetry that πs = πs , so
+π is uniform. After a sufficient amount of time, the 
+distribution will be close enough to π, that the probabilities are
+again bounded by constant, which is sufficient to complete
+the theorem.
+0 0.002 0.004 0.006 0.008 0.01
+Euclidean Distance
+2000
+2500
+3000
+3500
+4000
+NumberofSteps
+Figure 1: Distance from maximum-entropy 
+distribution with 1000 agents.
+5000 10000 15000 20000 25000
+Number of Agents
+0.001
+0.002
+0.003
+0.004
+0.005
+MaximumDistance
+Figure 2: Maximum distance from 
+maximumentropy distribution over 106
+timesteps.
+0 5000 10000 15000 20000 25000
+Number of Agents
+0
+20000
+40000
+60000
+TimetoDistance.001
+Figure 3: Average time to get within .001 of the
+maximum-entropy distribution.
+144
+We performed a number of experiments that show that
+the maximum entropy behavior described in Theorem 3.1
+arises quickly for quite practical values of n and t. The
+first experiment showed that, even if n = 1000, we reach
+the maximum-entropy distribution quickly. We averaged 10
+runs of the Markov chain for k = 5 where there is enough
+money for each agent to have $2 starting from a very extreme
+distribution (every agent has either $0 or $5) and considered
+the average time needed to come within various distances
+of the maximum entropy distribution. As Figure 1 shows,
+after 2,000 steps, on average, the Euclidean distance from
+the average distribution of money to the maximum-entropy
+distribution is .008; after 3,000 steps, the distance is down
+to .001. Note that this is really only 3 real time units since
+with 1000 players we have 1000 transactions per time unit.
+We then considered how close the distribution stays to
+the maximum entropy distribution once it has reached it.
+To simplify things, we started the system in a state whose
+distribution was very close to the maximum-entropy 
+distribution and ran it for 106
+steps, for various values of n.
+As Figure 2 shows, the system does not move far from the
+maximum-entropy distribution once it is there. For 
+example, if n = 5000, the system is never more than distance .001
+from the maximum-entropy distribution; if n = 25, 000, it is
+never more than .0002 from the maximum-entropy 
+distribution.
+Finally, we considered how more carefully how quickly
+the system converges to the maximum-entropy distribution
+for various values of n. There are approximately kn
+
+possible states, so the convergence time could in principle be
+quite large. However, we suspect that the Markov chain
+that arises here is rapidly mixing, which means that it will
+converge significantly faster (see [20] for more details about
+rapid mixing). We believe that the actually time needed is
+O(n). This behavior is illustrated in Figure 3, which shows
+that for our example chain (again averaged over 10 runs), 
+after 3n steps, the Euclidean distance between the actual 
+distribution of money in the system and the maximum-entropy
+distribution is less than .001.

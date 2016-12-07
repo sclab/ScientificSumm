@@ -1,0 +1,597 @@
+In this section we present the performance evaluation of
+a system implementation of the StarDust localization 
+framework. The three major research questions that our evaluation
+tries to answer are: the feasibility of the proposed framework
+(can sensor nodes be optically detected at large distances),
+the localization accuracy of one actual implementation of the
+StarDust framework, and whether or not atmospheric 
+conditions can affect the recognition of sensor nodes in an 
+image. The first two questions are investigated by evaluating
+the two main components of the StarDust framework: the
+Image Processing and the Node ID Matching. These 
+components have been evaluated separately mainly because of
+lack of adequate facilities. We wanted to evaluate the 
+performance of the Image Processing Algorithm in a long range,
+realistic, experimental set-up, while the Node ID Matching
+required a relatively large area, available for long periods of
+time (for connectivity data gathering). The third research
+question is investigated through a computer modeling of 
+atmospheric phenomena.
+For the evaluation of the Image Processing module, we
+performed experiments in a football stadium where we 
+deploy 6 sensor nodes in a 3×2 grid. The distance between the
+Central device and the sensor nodes is approximately 500 ft.
+The metrics of interest are the number of false positives and
+false negatives in the Image Processing Algorithm.
+For the evaluation of the Node ID Mapping component,
+we deploy 26 sensor nodes in an 120 × 60 ft2 flat area of
+a stadium. In order to investigate the influence the radio
+connectivity has on localization accuracy, we vary the height
+above ground of the deployed sensor nodes. Two set-ups are
+used: one in which the sensor nodes are on the ground, and
+the second one, in which the sensor nodes are raised 3 inches
+above ground. From here on, we will refer to these two
+experimental set-ups as the low connectivity and the high
+connectivity networks, respectively because when nodes are
+on the ground the communication range is low resulting in
+less neighbors than when the nodes are elevated and have a
+greater communication range. The metrics of interest are:
+the localization error (defined as the distance between the
+computed location and the true location - known from the
+manual placement), the percentage of nodes correctly 
+localized, the convergence of the label relaxation algorithm, the
+time to localize and the robustness of the node ID mapping
+to errors in the Image Processing module.
+The parameters that we vary experimentally are: the 
+angle under which images are taken, the focus of the camera,
+and the degree of connectivity. The parameters that we vary
+in simulations (subsequent to image acquisition and 
+connectivity collection) the number of colors, the number of 
+anchors, the number of false positives or negatives as input
+to the Node ID Matching component, the distance between
+the imaging device and sensor network (i.e., range), 
+atmospheric conditions (light attenuation coefficient) and CCR
+reflectance (indicative of its quality).
+5.1 Image Processing
+For the IPA evaluation, we deploy 6 sensor nodes in a
+3 × 2 grid. We take 13 sets of pictures using different 
+orientations of the camera and different zooming factors. All
+pictures were taken from the same location. Each set is 
+composed of a picture taken in the dark and of a picture taken
+with a light beam pointed at the nodes. We process the 
+pictures offline using a Matlab implementation of IPA. Since we
+are interested in the feasibility of identifying colored sensor
+nodes at large distance, the end result of our IPA is the 2D
+location of sensor nodes (position in the image). The 
+transformation to 3D coordinates can be done through standard
+computer graphics techniques [23].
+One set of pictures obtained as part of our experiment is
+shown in Figures 10 and 11. The execution of our IPA 
+algorithm results in Figure 12 which filters out the background,
+and Figure 13 which shows the output of the edge detection
+step of IPA. The experimental results are depicted in 
+Figure 14. For each set of pictures the graph shows the number
+of false positives (the IPA determines that there is a node
+65
+Figure 13. Retroreflectors detected in Figure 12
+0
+1
+2
+3
+1 2 3 4 5 6 7 8 9 10 11
+Experiment Number
+Count
+False Positives
+False Negatives
+Figure 14. False Positives and Negatives for the 6 nodes
+while there is none), and the number of false negatives (the
+IPA determines that there is no node while there is one). In
+about 45% of the cases, we obtained perfect results, i.e., no
+false positives and no false negatives. In the remaining cases,
+we obtained a number of false positives of at most one, and
+a number of false negatives of at most two.
+We exclude two pairs of pictures from Figure 14. In the
+first excluded pair, we obtain 42 false positives and in the
+second pair 10 false positives and 7 false negatives. By 
+carefully examining the pictures, we realized that the first pair
+was taken out of focus and that a car temporarily appeared
+in one of the pictures of the second pair. The anomaly in
+the second set was due to the fact that we waited too long to
+take the second picture. If the pictures had been taken a few
+milliseconds apart, the car would have been represented on
+either both or none of the pictures and the IPA would have
+filtered it out.
+5.2 Node ID Matching
+We evaluate the Node ID Matching component of our 
+system by collecting empirical data (connectivity information)
+from the outdoor deployment of 26 nodes in the 120×60 ft2
+area. We collect 20 sets of data for the high connectivity
+and low connectivity network deployments. Off-line we 
+investigate the influence of coloring on the metrics of interest,
+by randomly assigning colors to the sensor nodes. For one
+experimental data set we generate 50 random assignments
+of colors to sensor nodes. It is important to observe that, for
+the evaluation of the Node ID Matching algorithm (color and
+connectivity constrained), we simulate the color assignment
+to sensor nodes. As mentioned in Section 4 the size of the
+coloring space available to us was 5 (5 colors). Through 
+simulations of color assignment (not connectivity) we are able
+to investigate the influence that the size of the coloring space
+has on the accuracy of localization. The value of the 
+param0
+10
+20
+30
+40
+50
+60
+0 10 20 30 40 50 60 70 80 90
+Distance [feet]
+Count
+Connected
+Not Connected
+Figure 15. The number of existing and missing radio 
+connections in the sparse connectivity experiment
+0
+10
+20
+30
+40
+50
+60
+70
+0 10 20 30 40 50 60 70 80 90 10 11 12
+Distance [feet]
+Count
+Connected
+Not Connected
+Figure 16. The number of existing and missing radio 
+connections in the high connectivity experiment
+eter ε used in Algorithm 2 was 0.001. The results presented
+here represent averages over the randomly generated 
+colorings and over all experimental data sets.
+We first investigate the accuracy of our proposed Radio
+Model, and subsequently use the derived values for the radio
+range in the evaluation of the Node ID matching component.
+5.2.1 Radio Model
+From experiments, we obtain the average number of 
+observed beacons (k, defined in Section 3.3.2) for the low 
+connectivity network of 180 beacons and for the high 
+connectivity network of 420 beacons. From our Radio Model 
+(Equation 7, we obtain a radio range R = 25 ft for the low 
+connectivity network and R = 40 ft for the high connectivity 
+network.
+To estimate the accuracy of our simple model, we plot
+the number of radio links that exist in the networks, and the
+number of links that are missing, as functions of the distance
+between nodes. The results are shown in Figures 15 and 16.
+We define the average radio range R to be the distance over
+which less than 20% of potential radio links, are missing.
+As shown in Figure 15, the radio range is between 20 ft and
+25 ft. For the higher connectivity network, the radio range
+was between 30 ft and 40 ft.
+We choose two conservative estimates of the radio range:
+20 ft for the low connectivity case and 35 ft for the high 
+connectivity case, which are in good agreement with the values
+predicted by our Radio Model.
+5.2.2 Localization Error vs. Coloring Space Size
+In this experiment we investigate the effect of the number
+of colors on the localization accuracy. For this, we randomly
+assign colors from a pool of a given size, to the sensor nodes.
+66
+0
+5
+10
+15
+20
+25
+30
+35
+40
+45
+0 5 10 15 20
+Number of Colors
+LocalizationError[feet]
+R=15feet
+R=20feet
+R=25feet
+Figure 17. Localization error
+0
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+0 5 10 15 20
+Number of Colors
+%CorrectLocalized[x100]
+R=15feet
+R=20feet
+R=25feet
+Figure 18. Percentage of nodes correctly localized
+We then execute the localization algorithm, which uses the
+empirical data. The algorithm is run for three different radio
+ranges: 15, 20 and 25 ft, to investigate its influence on the
+localization error.
+The results are depicted in Figure 17 (localization error)
+and Figure 18 (percentage of nodes correctly localized). As
+shown, for an estimate of 20 ft for the radio range (as 
+predicted by our Radio Model) we obtain the smallest 
+localization errors, as small as 2 ft, when enough colors are used.
+Both Figures 17 and 18 confirm our intuition that a larger
+number of colors available significantly decrease the error in
+localization.
+The well known fact that relaxation algorithms do not 
+always converge, was observed during our experiments. The
+percentage of successful runs (when the algorithm 
+converged) is depicted in Figure 19. As shown, in several 
+situations, the algorithm failed to converge (the algorithm 
+execution was stopped after 100 iterations per node). If the 
+algorithm does not converge in a predetermined number of steps,
+it will terminate and the label with the highest probability
+will provide the identity of the node. It is very probable that
+the chosen label is incorrect, since the probabilities of some
+of labels are constantly changing (with each iteration).The
+convergence of relaxation based algorithms is a well known
+issue.
+5.2.3 Localization Error vs. Color Uniqueness
+As mentioned in the Section 3.3.1, a unique color gives a
+sensor node the statute of an anchor. A sensor node that is
+an anchor can unequivocally be identified through the Image
+Processing module. In this section we investigate the effect
+unique colors have on the localization accuracy. Specifically,
+we want to experimentally verify our intuition that assigning
+more nodes to a color can benefit the localization accuracy,
+by enforcing more constraints, as opposed to uniquely 
+assigning a color to a single node.
+90
+95
+100
+105
+0 5 10 15 20
+Number of Colors
+ConvergenceRate[x100]
+R=15feet
+R=20feet
+R=25feet
+Figure 19. Convergence error
+0
+2
+4
+6
+8
+10
+12
+14
+16
+4 6 8
+Number of Colors
+LocalizationError[feet]
+0 anchors
+2 anchors
+4 anchors
+6 anchors
+8 anchors
+Figure 20. Localization error vs. number of colors
+For this, we fix the number of available colors to either 4,
+6 or 8 and vary the number of nodes that are given unique
+colors, from 0, up to the maximum number of colors (4, 6 or
+8). Naturally, if we have a maximum number of colors of 4,
+we can assign at most 4 anchors. The experimental results
+are depicted in Figure 20 (localization error) and Figure 21
+(percentage of sensor node correctly localized). As expected,
+the localization accuracy increases with the increase in the
+number of colors available (larger coloring space). Also, for
+a given size of the coloring space (e.g., 6 colors available), if
+more colors are uniquely assigned to sensor nodes then the
+localization accuracy decreases. It is interesting to observe
+that by assigning colors uniquely to nodes, the benefit of 
+having additional colors is diminished. Specifically, if 8 colors
+are available and all are assigned uniquely, the system would
+be less accurately localized (error ≈ 7 ft), when compared
+to the case of 6 colors and no unique assignments of colors
+(≈ 5 ft localization error).
+The same trend, of a less accurate localization can be 
+observed in Figure 21, which shows the percentage of nodes
+correctly localized (i.e., 0 ft localization error). As shown, if
+we increase the number of colors that are uniquely assigned,
+the percentage of nodes correctly localized decreases.
+5.2.4 Localization Error vs. Connectivity
+We collected empirical data for two network deployments
+with different degrees of connectivity (high and low) in 
+order to assess the influence of connectivity on location 
+accuracy. The results obtained from running our localization
+algorithm are depicted in Figure 22 and Figure 23. We 
+varied the number of colors available and assigned no anchors
+(i.e., no unique assignments of colors).
+In both scenarios, as expected, localization error decrease
+with an increase in the number of colors. It is interesting
+to observe, however, that the low connectivity scenario 
+im67
+0
+20
+40
+60
+80
+100
+120
+140
+4 6 8
+Number of Colors
+%CorrectLocalized[x100]
+0 anchors
+2 anchors
+4 anchors
+6 anchors
+8 anchors
+Figure 21. Percentage of nodes correctly localized vs.
+number of colors
+0
+5
+10
+15
+20
+25
+30
+35
+40
+45
+0 2 4 6 8 10 12
+Number of Colors
+LocalizationError[feet]
+Low Connectivity
+High Connectivity
+Figure 22. Localization error vs. number of colors
+proves the localization accuracy quicker, from the additional
+number of colors available. When the number of colors 
+becomes relatively large (twelve for our 26 sensor node 
+network), both scenarios (low and high connectivity) have 
+comparable localization errors, of less that 2 ft. The same trend
+of more accurate location information is evidenced by 
+Figure 23 which shows that the percentage of nodes that are
+localized correctly grows quicker for the low connectivity
+deployment.
+5.3 Localization Error vs. Image Processing
+Errors
+So far we investigated the sources for error in 
+localization that are intrinsic to the Node ID Matching component.
+As previously presented, luminous objects can be 
+mistakenly detected to be sensor nodes during the location 
+detection phase of the Image Processing module. These false 
+positives can be eliminated by the color recognition procedure
+of the Image Processing module. More problematic are false
+negatives (when a sensor node does not reflect back enough
+light to be detected). They need to be handled by the 
+localization algorithm. In this case, the localization algorithm
+is presented with two sets of nodes of different sizes, that
+need to be matched: one coming from the Image Processing
+(which misses some nodes) and one coming from the 
+network, with the connectivity information (here we assume a
+fully connected network, so that all sensor nodes report their
+connectivity information). In this experiment we investigate
+how Image Processing errors (false negatives) influence the
+localization accuracy.
+For this evaluation, we ran our localization algorithm with
+empirical data, but dropped a percentage of nodes from the
+list of nodes detected by the Image Processing algorithm (we
+artificially introduced false negatives in the Image 
+Process0
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+0 2 4 6 8 10 12
+Number of Colors
+%CorrectLocalized[x100]
+Low Connectivity
+High Connectivity
+Figure 23. Percentage of nodes correctly localized
+0
+2
+4
+6
+8
+10
+12
+14
+0 4 8 12 16
+% False Negatives [x100]
+LocalizationError[feet]
+4 colors
+8 colors
+12 colors
+Figure 24. Impact of false negatives on the localization
+error
+ing). The effect of false negatives on localization accuracy is
+depicted in Figure 24. As seen in the figure if the number of
+false negatives is 15%, the error in position estimation 
+doubles when 4 colors are available. It is interesting to observe
+that the scenario when more colors are available (e.g., 12 
+colors) is being affected more drastically than the scenario with
+less colors (e.g., 4 colors). The benefit of having more colors
+available is still being maintained, at least for the range of
+colors we investigated (4 through 12 colors).
+5.4 Localization Time
+In this section we look more closely at the duration for
+each of the four proposed relaxation techniques and two
+combinations of them: color-connectivity and color-time.
+We assume that 50 unique color filters can be manufactured,
+that the sensor network is deployed from 2,400 ft 
+(necessary for the time-constrained relaxation) and that the time
+required for reporting connectivity grows linearly, with an
+initial reporting period of 160sec, as used in a real world
+tracking application [1]. The localization duration results, as
+presented in Table 1, are depicted in Figure 25.
+As shown, for all practical purposes the time required
+by the space constrained relaxation techniques is 0sec. The
+same applies to the color constrained relaxation, for which
+the localization time is 0sec (if the number of colors is 
+sufficient). Considering our assumptions, only for a network of
+size 50 the color constrained relaxation works. The 
+localization duration for all other network sizes (100, 150 and 200)
+is infinite (i.e., unique color assignments to sensor nodes
+can not be made, since only 50 colors are unique), when
+only color constrained relaxation is used. Both the 
+connectivity constrained and time constrained techniques increase
+linearly with the network size (for the time constrained, the
+Central device deploys sensor nodes one by one, recording
+an image after the time a sensor node is expected to reach the
+68
+0
+500
+1000
+1500
+2000
+2500
+3000
+Color Connectivity Time Space 
+ColorConenctivity
+Color-Time
+Localization technique
+Localizationtime[sec]
+50 nodes
+100 nodes
+150 nodes
+200 nodes
+Figure 25. Localization time for different 
+label relaxation schemes
+0 2000 4000 6000 8000
+0
+0.5
+1
+1.5
+2
+2.5
+3
+3.5
+4
+r [feet]
+C
+r
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1.0
+Figure 26. Apparent contrast in a
+clear atmosphere
+0 2000 4000 6000 8000
+0
+0.5
+1
+1.5
+2
+2.5
+3
+3.5
+4
+r [feet]
+C
+r
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1.0
+Figure 27. Apparent contrast in a
+hazing atmosphere
+ground).
+It is interesting to notice in Figure 25 the improvement in
+the localization time obtained by simply combining the color
+and the connectivity constrained techniques. The 
+localization duration in this case is identical with the connectivity
+constrained technique.
+The combination of color and time constrained 
+relaxations is even more interesting. For a reasonable 
+localization duration of 52seconds a perfect (i.e., 0 ft localization
+error) localization system can be built. In this scenario, the
+set of sensor nodes is split in batches, with each batch 
+having a set of unique colors. It would be very interesting to
+consider other scenarios, where the strength of the space
+constrained relaxation (0sec for any sensor network size) is
+used for improving the other proposed relaxation techniques.
+We leave the investigation and rigorous classification of such
+technique combination for future work.
+5.5 System Range
+In this section we evaluate the feasibility of the 
+StarDust localization framework when considering the realities
+of light propagation through the atmosphere.
+The main factor that determines the range of our system is
+light scattering, which redirects the luminance of the source
+into the medium (in essence equally affecting the luminosity
+of the target and of the background). Scattering limits the
+visibility range by reducing the apparent contrast between
+the target and its background (approaches zero, as the 
+distance increases). The apparent contrast Cr is quantitatively
+expressed by the formula:
+Cr = (Nt
+r −Nb
+r )/Nb
+r (10)
+where Nt
+r and Nb
+r are the apparent target radiance and 
+apparent background radiance at distance r from the light source,
+respectively. The apparent radiance Nt
+r of a target at a 
+distance r from the light source, is given by:
+Nt
+r = Na +
+Iρte−2σr
+πr2
+(11)
+where I is the intensity of the light source, ρt is the 
+target reflectance, σ is the spectral attenuation coefficient (≈
+0.12km−1 and ≈ 0.60km−1 for a clear and a hazy 
+atmosphere, respectively) and Na is the radiance of the 
+atmospheric backscatter, and it can be expressed as follows:
+Na =
+Gσ2I
+2π
+2σrZ
+0.02σr
+e−x
+x2
+dx (12)
+where G = 0.24 is a backscatter gain. The apparent 
+background radiance Nb
+r is given by formulas similar with 
+Equations 11 and 12, where only the target reflectance ρt is 
+substituted with the background reflectance ρb. It is important
+to remark that when Cr reaches its lower limit, no increase
+in the source luminance or receiver sensitivity will increase
+the range of the system. From Equations 11 and 12 it can be
+observed that the parameter which can be controlled and can
+influence the range of the system is ρt, the target reflectance.
+Figures 26 and 27 depict the apparent contrast Cr as a
+function of the distance r for a clear and for a hazy 
+atmosphere, respectively. The apparent contrast is investigated for
+reflectance coefficients ρt ranging from 0.3 to 1.0 (perfect 
+reflector). For a contrast C of at least 0.5, as it can be seen in
+Figure 26 a range of approximately 4,500 ft can be achieved
+if the atmosphere is clear. The performance dramatically 
+deteriorates, when the atmospheric conditions are problematic.
+As shown in Figure 27 a range of up to 1,500 ft is 
+achievable, when using highly reflective CCR components.
+While our light source (3 million candlepower) was 
+sufficient for a range of a few hundred feet, we remark that there
+exist commercially available light sources (20 million 
+candlepower) or military (150 million candlepower [27]), 
+powerful enough for ranges of a few thousand feet.

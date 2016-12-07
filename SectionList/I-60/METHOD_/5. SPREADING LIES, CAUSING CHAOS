@@ -1,0 +1,124 @@
+Another possible behavior that can be adopted by 
+selfinterested agents is characterized by their goal to cause 
+disorder in the network. This can be achieved, for example, by
+maximizing the average journey length of all agents, even at
+the cost of maximizing their own journey length.
+To understand the vulnerability of the gossip based 
+transportation support system, we ran 5 different simulations for
+each scenario. In each simulation different agents were 
+randomly chosen (using a uniform distribution) to act as 
+gossip agents, among them self-interested agents were chosen.
+Each self-interested agent behaved in the same manner as
+described in Section 4.1.
+Every simulation consisted of 11 runs with each run 
+comprising different numbers of self-interested agents: 0 (no 
+selfinterested agents), 1, 2, 4, 8, 16, 32, 50, 64, 80 and 100.
+Also, in each run the number of self-interested agents was
+increased incrementally. For example: the run with 50 
+selfinterested agents consisted of all the self-interested agents
+that were used in the run with 32 self-interested agents, but
+with an additional 18 self-interested agents.
+Tables 3 and 4 summarize the normalized journey length
+for the self-interested agents, the regular gossip agents and
+the regular (non-gossip) agents. Table 3 summarizes the
+data for the first iteration and Table 4 summarizes the data
+for the average of all iterations. Figure 2 demonstrates
+the changes in the normalized values for the regular gossip
+agents and the regular agents, as a function of the iteration
+number. Similar to the results in our first set of experiments,
+described in Section 4.2, we can see that randomly selected
+self-interested agents who follow different randomly selected
+routes do not benefit from their malicious behavior (that is,
+their average journey length does not decrease). However,
+when only one self-interested agent is involved, it does 
+benefit from the malicious behavior, even in the first iteration.
+The results also indicate that the regular gossip agents are
+more sensitive to malicious behavior than regular 
+agentsthe average journey length for the gossip agents increases
+significantly (e.g., with 32 self-interested agents the average
+journey length for the gossip agents was 146% higher than
+in the setting with no self-interested agents at all, as 
+opposed to an increase of only 25% for the regular agents). In
+contrast, these results also indicate that the self-interested
+agents do not succeed in causing a significant load in the
+network by their malicious behavior.
+1
+1.1
+1.2
+1.3
+1.4
+1.5
+1.6
+1.7
+1.8
+1.9
+2
+2.1
+2.2
+2.3
+2.4
+2.5
+2.6
+2.7
+2.8
+2.9
+1 2 3 4 5 6
+Iteration Number
+NormalizedValue
+32 self-interested agents, gossip agents normalized value
+100 self-interested agents, gossip agents normalized value
+32 self-interested agents, regular agents normalized value
+100 self-interested agents, regular agents normalized value
+Figure 2: Gossip and regular agents normalized 
+values, as a function of the iteration.
+Since the goal of the self-interested agents in this case is
+to cause disorder in the network rather than use the lies for
+their own benefits, the question arises as to why would the
+behavior of the self-interested agents be to send lies about
+their routes only. Furthermore, we hypothesize that if they
+all send lies about the same major roads the damage they
+might inflict on the entire network would be larger that had
+each of them sent lies about its own route. To examine this
+hypothesis, we designed another set of experiments. In this
+set of experiments, all the self-interested agents spread lies
+about the same 13 main roads in the network. However, the
+results show quite a smaller impact on other gossip and 
+reguThe Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 333
+Table 5: Normalized journey length values for all
+iterations. Network with congestions.
+Self-Interested Self-Interested Gossip Regular
+Agents Number Agents Agents Agents
+1 1.04 1.02 1.22
+2 1.06 1.04 1.22
+4 1.04 1.06 1.23
+8 1.07 1.15 1.26
+16 1.09 1.55 1.39
+32 1.12 2.25 1.56
+50 1.24 2.25 1.60
+64 1.28 2.47 1.63
+80 1.50 2.41 1.64
+100 1.69 2.61 1.75
+lar agents in the network. The average normalized value for
+the gossip agents in these simulations was only about 1.07,
+as opposed to 1.7 in the original scenario. When analyzing
+the results we saw that although the false data was spread,
+it did not cause other gossip cars to change their route. The
+main reason was that the lies were spread on roads that were
+not on the route of the self-interested agents. Thus, it took
+the data longer to reach agents on the main roads, and when
+the agents reached the relevant roads this data was too old
+to be incorporated in the other agents calculations.
+We also examined the impact of sending lies in order to
+cause chaos when there are already congestions in the 
+network. To this end, we simulated a network in which 13 main
+roads are jammed. The behavior of the self-interested agents
+is as described in Section 4.1, and the self-interested agents
+spread lies about their own route. The simulation results,
+detailed in Table 5, show that there is a greater incentive
+for the self-interested agents to cheat when the network is
+already congested, as their cheating causes more damage
+to the other agents in the network. For example, whereas
+the average journey length of the regular agents increased
+only by about 15% in the original scenario, in which the 
+network was not congested, in this scenario the average journey
+length of the agents had increased by about 60%.

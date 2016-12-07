@@ -1,0 +1,59 @@
+The need for a multi-dimensional trust model has been recognised
+by a number of researchers. Sabater and Sierra present a model of
+reputation, in which agents form contracts based on multiple 
+variables (such as delivery date and quality), and define impressions as
+subjective evaluations of the outcome of these contracts. They 
+provide heuristic approaches to combining these impressions to form
+a measure they call subjective reputation.
+Likewise, Griffiths decomposes overall trust into a number of
+different dimensions such as success, cost, timeliness and 
+quality [4]. In his case, each dimension is scored as a real number
+that represents a comparative value with no strong semantic 
+meaning. He develops an heuristic rule to update these values based
+on the direct experiences of the individual agent, and an heuristic
+function that takes the individual trust dimensions and generates a
+single scalar that is then used to select between suppliers. Whilst,
+he comments that the trust values could have some associated 
+confidence level, heuristics for updating these levels are not presented.
+Gujral et al. take a similar approach and present a trust model
+over multiple domain specific dimensions [5]. They define 
+multidimensional goal requirements, and evaluate an expected payoff
+based on a supplier"s estimated behaviour. These estimates are,
+however, simple aggregations over the direct experience of several
+agents, and there is no measure of the uncertainty. Nevertheless,
+they show that agents who select suppliers based on these multiple
+dimensions outperform those who consider just a single one.
+By contrast, a number of researchers have presented more 
+principled computational trust models based on probability theory, albeit
+limited to a single dimension. Jøsang and Ismail describe the Beta
+Reputation System whereby the reputation of an agent is compiled
+from the positive and negative reports from other agents who have
+interacted with it [6]. The beta distribution represents a natural
+choice for representing these binary outcomes, and it provides a
+principled means of representing uncertainty. Moreover, they 
+provide a number of extensions to this initial model including an 
+approach to exchanging reputation reports using the sufficient 
+statistics of the beta distribution, methods to discount the opinions of
+agents who themselves have low reputation ratings, and techniques
+to deal with reputations that may change over time.
+Likewise, Teacy et al. use the beta distribution to describe an
+agent"s belief in the probability that another agent will 
+successfully fulfill its commitments [11]. They present a formalism using
+a beta distribution that allows the agent to estimate this probability
+based upon its direct experience, and again they use the sufficient
+statistics of this distribution to communicate this estimate to other
+agents. They provide a number of extensions to this initial model,
+and, in particular, they consider that agents may not always 
+truthfully report their trust estimates. Thus, they present a principled
+approach to detecting and removing inconsistent reports.
+Our work builds upon these more principled approaches. 
+However, the starting point of our approach is to consider an agent that
+is attempting to estimate the expected utility of a contract. We show
+that estimating this expected utility requires that an agent must 
+estimate the probability with which the supplier will fulfill its contract.
+In the single-dimensional case, this naturally leads to a trust model
+using the beta distribution (as per Jøsang and Ismail and Teacy et
+al.). However, we then go on to extend this analysis to multiple
+dimensions, where we use the natural extension of the beta 
+distribution, namely the Dirichlet distribution, to represent the agent"s
+belief over multiple dimensions.

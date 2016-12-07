@@ -1,0 +1,169 @@
+However, false information about job 2 would cause TD1
+(version 2) to complete this job. For example, if job 2"s 
+deadline were declared as ˆd2 = 4.7, then it would have zero laxity
+at time 0.7. At this time, the algorithm would preempt job
+1 for job 2, because te
+−tb
++p loss
+4
+= 4.7−0.0+1.0
+4
+> 0.9 = l1.
+Job 2 would then complete before the arrival of job 3.2
+1
+While it would be easy to alter the algorithm to recognize
+that this is not possible for the jobs in Table 1, our example
+does not depend on the use of p loss.
+2
+While we will not describe the significantly more complex
+In order to address incentive issues such as this one, we
+need to formalize the setting as a mechanism design 
+problem. In this section we first present the mechanism design
+formulation, and then define our goals for the mechanism.
+3.1 Formulation
+There exists a center, who controls the processor, and
+N agents, where the value of N is unknown by the center
+beforehand. Each job i is owned by a separate agent i. The
+characteristics of the job define the agent"s type θi ∈ Θi.
+At time ri, agent i privately observes its type θi, and has
+no information about job i before ri. Thus, jobs are still
+released over time, but now each job is revealed only to the
+owning agent.
+Agents interact with the center through a direct 
+mechanism Γ = (Θ1, . . . , ΘN , g(·)), in which each agent declares a
+job, denoted by ˆθi = (ˆri, ˆdi, ˆli, ˆvi), and g : Θ1×. . .×ΘN → O
+maps the declared types to an outcome o ∈ O. An outcome
+o = (S(·), p1, . . . , pN ) consists of a schedule and a payment
+from each agent to the mechanism.
+In a standard mechanism design setting, the outcome is
+enforced at the end of the mechanism. However, since the
+end is not well-defined in this online setting, we choose to
+model returning the job if it is completed and collecting a
+payment from each agent i as occurring at ˆdi, which, 
+according to the agent"s declaration, is the latest relevant point of
+time for that agent. That is, even if job i is completed before
+ˆdi, the center does not return the job to agent i until that
+time. This modelling decision could instead be viewed as a
+decision by the mechanism designer from a larger space of
+possible mechanisms. Indeed, as we will discuss later, this
+decision of when to return a completed job is crucial to our
+mechanism.
+Each agent"s utility, ui(g(ˆθ), θi) = vi · µ(ei(ˆθ, di) ≥ li) ·
+µ( ˆdi ≤ di) − pi(ˆθ), is a quasi-linear function of its value for
+its job (if completed and returned by its true deadline) and
+the payment it makes to the center. We assume that each
+agent is a rational, expected utility maximizer.
+Agent declarations are restricted in that an agent cannot
+declare a length shorter than the true length, since the center
+would be able to detect such a lie if the job were completed.
+On the other hand, in the general formulation we will allow
+agents to declare longer lengths, since in some settings it
+may be possible add unnecessary work to a job. However,
+we will also consider a restricted formulation in which this
+type of lie is not possible. The declared release time ˆri
+is the time that the agent chooses to submit job i to the
+center, and it cannot precede the time ri at which the job
+is revealed to the agent. The agent can declare an arbitrary
+deadline or value. To summarize, agent i can declare any
+type ˆθi = (ˆri, ˆdi, ˆli, ˆvi) such that ˆli ≥ li and ˆri ≥ ri.
+While in the non-strategic setting it was sufficient for the
+algorithm to know the upper bound k on the ratio ρmax
+ρmin
+,
+in the mechanism design setting we will strengthen this 
+assumption so that the mechanism also knows ρmin (or, 
+equivalently, the range [ρmin, ρmax] of possible value densities).3
+Dover
+, we note that it is similar in its use of intervals and
+its preference for the active job. Also, we note that the
+lower bound we will show in Section 5 implies that false
+information can also benefit a job in Dover
+.
+3
+Note that we could then force agent declarations to satisfy
+ρmin ≤ ˆvi
+ˆli
+≤ ρmax. However, this restriction would not
+63
+While we feel that it is unlikely that a center would know k
+without knowing this range, we later present a mechanism
+that does not depend on this extra knowledge in a restricted
+setting.
+The restriction on the schedule is now that S(ˆθ, t) = i 
+implies ˆri ≤ t, to capture the fact that a job cannot be 
+scheduled on the processor before it is declared to the mechanism.
+As before, preemption of jobs is allowed, and job switching
+takes no time.
+The constraints due to the online mechanism"s lack of
+knowledge of the future are that ˆθ(t) = ˆθ (t) implies S(ˆθ, t) =
+S(ˆθ , t), and ˆθ( ˆdi) = ˆθ ( ˆdi) implies pi(ˆθ) = pi(ˆθ ) for each
+agent i. The setting can then be summarized as follows.
+1Overview of the Setting:
+for all t do
+The center instantiates S(ˆθ, t) ← i, for some i s.t. ˆri ≤ t
+if ∃i, (ri = t) then
+θi is revealed to agent i
+if ∃i, (t ≥ ri) and agent i has not declared a job then
+Agent i can declare any job ˆθi, s.t. ˆri = t and ˆli ≥ li
+if ∃i, ( ˆdi = t) ∧ (ei(ˆθ, t) ≥ li) then
+Completed job i is returned to agent i
+if ∃i, ( ˆdi = t) then
+Center sets and collects payment pi(ˆθ) from agent i
+3.2 Mechanism Goals
+Our aim as mechanism designer is to maximize the value
+of completed jobs, subject to the constraints of incentive
+compatibility and individual rationality.
+The condition for (dominant strategy) incentive 
+compatibility is that for each agent i, regardless of its true type
+and of the declared types of all other agents, agent i cannot
+increase its utility by unilaterally changing its declaration.
+Definition 1. A direct mechanism Γ satisfies incentive
+compatibility (IC) if ∀i, θi, θi, ˆθ−i :
+ui(g(θi, ˆθ−i), θi) ≥ ui(g(θi, ˆθ−i), θi)
+From an agent perspective, dominant strategies are 
+desirable because the agent does not have to reason about either
+the strategies of the other agents or the distribution from
+the which other agent"s types are drawn. From a 
+mechanism designer perspective, dominant strategies are 
+important because we can reasonably assume that an agent who
+has a dominant strategy will play according to it. For these
+reasons, in this paper we require dominant strategies, as 
+opposed to a weaker equilibrium concept such as Bayes-Nash,
+under which we could improve upon our positive results.4
+decrease the lower bound on the competitive ratio.
+4
+A possible argument against the need for incentive 
+compatibility is that an agent"s lie may actually improve the 
+schedule. In fact, this was the case in the example we showed
+for the false declaration ˆd2 = 4.7. However, if an agent lies
+due to incorrect beliefs over the future input, then the lie
+could instead make the schedule the worse (for example, if
+job 3 were never released, then job 1 would have been 
+unnecessarily abandoned). Furthermore, if we do not know the
+beliefs of the agents, and thus cannot predict how they will
+lie, then we can no longer provide a competitive guarantee
+for our mechanism.
+While restricting ourselves to incentive compatible direct
+mechanisms may seem limiting at first, the Revelation 
+Principle for Dominant Strategies (see, e.g., [17]) tells us that if
+our goal is dominant strategy implementation, then we can
+make this restriction without loss of generality.
+The second goal for our mechanism, individual rationality,
+requires that agents who truthfully reveal their type never
+have negative utility. The rationale behind this goal is that
+participation in the mechanism is assumed to be voluntary.
+Definition 2. A direct mechanism Γ satisfies individual
+rationality (IR) if ∀i, θi, ˆθ−i, ui(g(θi, ˆθ−i), θi) ≥ 0.
+Finally, the social welfare function that we aim to 
+maximize is the same as the objective function of the non-strategic
+setting: W(o, θ) = i vi · µ(ei(θ, di) ≥ li) . As in the 
+nonstrategic setting, we will evaluate an online mechanism using
+competitive analysis to compare it against an optimal oﬄine
+mechanism (which we will denote by Γoffline). An oﬄine
+mechanism knows all of the types at time 0, and thus can
+always achieve W∗
+(θ).5
+Definition 3. An online mechanism Γ is (strictly) 
+ccompetitive if it satisfies IC and IR, and if there does not 
+exist a profile of agent types θ such that c·W(g(θ), θ) < W∗
+(θ).

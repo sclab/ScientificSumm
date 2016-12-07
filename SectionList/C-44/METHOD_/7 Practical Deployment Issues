@@ -1,0 +1,233 @@
+For the sake of presentation, until now we have described
+MSP in an ideal case where a complete node sequence can be
+obtained with accurate time synchronization. In this section
+we describe how to make MSP work well under more realistic
+conditions.
+21
+7.1 Incomplete Node Sequence
+For diverse reasons, such as sensor malfunction or natural
+obstacles, the nodes in the network could fail to detect 
+localization events. In such cases, the node sequence will not be
+complete. This problem has two versions:
+• Anchor nodes are missing in the node sequence
+If some anchor nodes fail to respond to the localization
+events, then the system has fewer anchors. In this case,
+the solution is to generate more events to compensate for
+the loss of anchors so as to achieve the desired accuracy
+requirements.
+• Target nodes are missing in the node sequence
+There are two consequences when target nodes are 
+missing. First, if these nodes are still be useful to sensing 
+applications, they need to use other backup localization 
+approaches (e.g., Centroid) to localize themselves with help
+from their neighbors who have already learned their own
+locations from MSP. Secondly, since in advanced MSP
+each node in the sequence may contribute to the overall
+system accuracy, dropping of target nodes from sequences
+could also reduce the accuracy of the localization. Thus,
+proper compensation procedures such as adding more 
+localization events need to be launched.
+7.2 Localization without Time Synchronization
+In a sensor network without time synchronization support,
+nodes cannot be ordered into a sequence using timestamps. For
+such cases, we propose a listen-detect-assemble-report 
+protocol, which is able to function independently without time 
+synchronization.
+listen-detect-assemble-report requires that every node 
+listens to the channel for the node sequence transmitted from its
+neighbors. Then, when the node detects the localization event,
+it assembles itself into the newest node sequence it has heard
+and reports the updated sequence to other nodes. Figure 12
+(a) illustrates an example for the listen-detect-assemble-report
+protocol. For simplicity, in this figure we did not differentiate
+the target nodes from anchor nodes. A solid line between two
+nodes stands for a communication link. Suppose a straight line
+scans from left to right. Node 1 detects the event, and then it
+broadcasts the sequence (1) into the network. Node 2 and node
+3 receive this sequence. When node 2 detects the event, node
+2 adds itself into the sequence and broadcasts (1, 2). The 
+sequence propagates in the same direction with the scan as shown
+in Figure 12 (a). Finally, node 6 obtains a complete sequence
+(1,2,3,5,7,4,6).
+In the case of ultrasound propagation, because the event
+propagation speed is much slower than that of radio, the 
+listendetect-assemble-report protocol can work well in a situation
+where the node density is not very high. For instance, if the
+distance between two nodes along one direction is 10 meters,
+the 340m/s sound needs 29.4ms to propagate from one node
+to the other. While normally the communication data rate is
+250Kbps in the WSN (e.g., CC2420 [1]), it takes only about
+2 ∼ 3 ms to transmit an assembled packet for one hop.
+One problem that may occur using the 
+listen-detectassemble-report protocol is multiple partial sequences as
+shown in Figure 12 (b). Two separate paths in the network may
+result in two sequences that could not be further combined. In
+this case, since the two sequences can only be processed as 
+separate sequences, some order information is lost. Therefore the
+1,2,5,4
+1,3,7,4
+1,2,3,5 1,2,3,5,7,4
+1,2,3,5,7
+1,2,3,5
+1,3
+1,2
+1
+2
+3
+5
+7
+4
+6
+1
+1
+1,3 1,2,3,5,7,4,6
+1,2,5
+1,3,7
+1,3
+1,2
+1
+2
+3
+5
+7
+4
+6
+1
+1
+1,3,7,4,6
+1,2,5,4,6
+(a)
+(b)
+(c)
+1,3,2,5 1,3,2,5,7,4
+1,3,2,5,7
+1,3,2,5
+1,3
+1,2
+1
+2
+3
+5
+7
+4
+6
+1
+1
+1,3 1,3,2,5,7,4,6
+Event Propagation
+Event Propagation
+Event Propagation
+Figure 12. Node Sequence without Time Synchronization
+accuracy of the system would decrease.
+The other problem is the sequence flip problem. As shown
+in Figure 12 (c), because node 2 and node 3 are too close to
+each other along the scan direction, they detect the scan 
+almost simultaneously. Due to the uncertainty such as media
+access delay, two messages could be transmitted out of order.
+For example, if node 3 sends out its report first, then the order
+of node 2 and node 3 gets flipped in the final node sequence.
+The sequence flip problem would appear even in an accurately
+synchronized system due to random jitter in node detection if
+an event arrives at multiple nodes almost simultaneously. A
+method addressing the sequence flip is presented in the next
+section.
+7.3 Sequence Flip and Protection Band
+Sequence flip problems can be solved with and without
+time synchronization. We firstly start with a scenario 
+applying time synchronization. Existing solutions for time 
+synchronization [12, 6] can easily achieve sub-millisecond-level 
+accuracy. For example, FTSP [12] achieves 16.9µs (microsecond)
+average error for a two-node single-hop case. Therefore, we
+can comfortably assume that the network is synchronized with
+maximum error of 1000µs. However, when multiple nodes are
+located very near to each other along the event propagation 
+direction, even when time synchronization with less than 1ms
+error is achieved in the network, sequence flip may still occur.
+For example, in the sound wave propagation case, if two nodes
+are less than 0.34 meters apart, the difference between their
+detection timestamp would be smaller than 1 millisecond.
+We find that sequence flip could not only damage system 
+accuracy, but also might cause a fatal error in the MSP algorithm.
+Figure 13 illustrates both detrimental results. In the left side of
+Figure 13(a), suppose node 1 and node 2 are so close to each
+other that it takes less than 0.5ms for the localization event to
+propagate from node 1 to node 2. Now unfortunately, the node
+sequence is mistaken to be (2,1). So node 1 is expected to be
+located to the right of node 2, such as at the position of the
+dashed node 1. According to the elimination rule in 
+sequencebased MSP, the left part of node 1"s area is cut off as shown in
+the right part of Figure 13(a). This is a potentially fatal error,
+because node 1 is actually located in the dashed area which has
+been eliminated by mistake. During the subsequent 
+eliminations introduced by other events, node 1"s area might be cut off
+completely, thus node 1 could consequently be erased from the
+map! Even in cases where node 1 still survives, its area actually
+does not cover its real location.
+22
+1
+2
+12
+2
+Lower boundary of 1 Upper boundary of 1
+Flipped Sequence Fatal Elimination Error
+EventPropagation
+1 1
+Fatal Error
+1
+1
+2
+12
+2
+Lower boundary of 1 Upper boundary of 1
+Flipped Sequence Safe Elimination
+EventPropagation
+1 1
+New lower boundary of 1
+1
+B
+(a)
+(b)
+B: Protection band
+Figure 13. Sequence Flip and Protection Band
+Another problem is not fatal but lowers the localization 
+accuracy. If we get the right node sequence (1,2), node 1 has a
+new upper boundary which can narrow the area of node 1 as in
+Figure 3. Due to the sequence flip, node 1 loses this new upper
+boundary.
+In order to address the sequence flip problem, especially to
+prevent nodes from being erased from the map, we propose
+a protection band compensation approach. The basic idea of
+protection band is to extend the boundary of the location area
+a little bit so as to make sure that the node will never be erased
+from the map. This solution is based on the fact that nodes
+have a high probability of flipping in the sequence if they are
+near to each other along the event propagation direction. If
+two nodes are apart from each other more than some distance,
+say, B, they rarely flip unless the nodes are faulty. The width
+of a protection band B, is largely determined by the maximum
+error in system time synchronization and the localization event
+propagation speed.
+Figure 13(b) presents the application of the protection band.
+Instead of eliminating the dashed part in Figure 13(a) for node
+1, the new lower boundary of node 1 is set by shifting the 
+original lower boundary of node 2 to the left by distance B. In this
+case, the location area still covers node 1 and protects it from
+being erased. In a practical implementation, supposing that the
+ultrasound event is used, if the maximum error of system time
+synchronization is 1ms, two nodes might flip with high 
+probability if the timestamp difference between the two nodes is
+smaller than or equal to 1ms. Accordingly, we set the 
+protection band B as 0.34m (the distance sound can propagate within
+1 millisecond). By adding the protection band, we reduce the
+chances of fatal errors, although at the cost of localization 
+accuracy. Empirical results obtained from our physical test-bed
+verified this conclusion.
+In the case of using the listen-detect-assemble-report 
+protocol, the only change we need to make is to select the protection
+band according to the maximum delay uncertainty introduced
+by the MAC operation and the event propagation speed. To
+bound MAC delay at the node side, a node can drop its report
+message if it experiences excessive MAC delay. This converts
+the sequence flip problem to the incomplete sequence problem,
+which can be more easily addressed by the method proposed in
+Section 7.1.

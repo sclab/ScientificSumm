@@ -1,0 +1,30 @@
+Many systems-building upon both Plaxton"s bit-correcting strategy [32, 46] and upon other strategies [24, 29, 35]-have chosen to hide this power and export a simple and  general distributed hash table abstraction as a useful building block for a broad range of distributed applications.
+Ganglia [15, 23] uses a hierarchical system where the attributes are replicated within clusters using multicast and then cluster  aggregates are further aggregated along a single tree.
+SkipNet [18]  provides domain restricted routing where a key search is limited to the specified domain.
+Although object location is a predominant target application for DHTs, several other applications like multicast [8, 9, 33, 36] and DNS [11] are also built using DHTs.
+Although this strategy guarantees path convergence, it loses the  aggregation tree abstraction property of DHTs as the domain constrained routing might touch a node more than once (as it searches forward and then backward to stay within a domain). 
+This research is complementary to our work.
+"s [28] original paper  describes not a DHT, but a system for hierarchically aggregating and querying object location data in order to route requests to nearby copies of objects.
+Our goal is to develop and expose the internal reduction forest of DHTs as a similarly general and useful abstraction.
+Some of these systems internally make use of the reduction forest not only for routing but also for caching [32], but for simplicity, these systems do not  generally export this powerful functionality in their external interface.
+Sophia [42] is a distributed monitoring system designed with a declarative logic programming model where the location of query execution is both explicit in the language and can be calculated during evaluation.
+Several academic [15, 21, 42] and commercial [37] distributed monitoring systems have been designed to monitor the status of large networked systems.
+This interface can be used to ensure path  convergence by searching in the lowest domain and moving up to the next domain when the search reaches the root in the current domain.
+All these systems implicitly perform aggregation on some attribute, and each one of them must be designed to handle any reconfigurations in the underlying DHT.
+Some of them are centralized where all the monitoring data is collected and analyzed at a central host.
+Castro et al.
+With the aggregation abstraction provided by our system, designing and building of such applications becomes easier.
+TAG [21] collects information from a large number of sensors along a single tree.
+The aggregation abstraction we use in our work is heavily  influenced by the Astrolabe [38] project.
+Plaxton et al.
+Our approach provides a  flexible API for applications to set propagation rules according to their read-to-write ratios.
+Willow, DASIS and SOMO build a single tree for aggregation.
+[7] and Gummadi et al.
+Internal DHT trees typically do not satisfy domain locality  properties required in our system.
+The observation that DHTs internally provide a scalable forest of reduction trees is not new.
+While such aggressive replication is efficient for read-dominated attributes, it incurs high message cost for attributes with a small read-to-write ratio.
+[17] point out the importance of path convergence from the  perspective of achieving efficiency and investigate the performance of Pastry and other DHT algorithms, respectively.
+Other closely related projects include  Willow [39], Cone [4], DASIS [1], and SOMO [45].
+However, any gossiping scheme requires aggressive replication of the aggregates.
+Cone builds a tree per attribute and requires a total order on the attribute values.
+Astrolabe adopts a  PropagateAll and unstructured gossiping techniques to attain robustness [5].

@@ -1,0 +1,298 @@
+METHOD
+We first derive the formula for measuring the error in the 
+approximate Shapley value and then conduct experiments for evaluating
+this error in a wide range of settings. However, before doing so, we
+introduce the idea of error.
+The concept of error relates to a measurement made of a 
+quantity which has an accepted value [22, 4]. Obviously, it cannot be
+determined exactly how far off a measurement is from the accepted
+value; if this could be done, it would be possible to just give a more
+accurate, corrected value. Thus, error has to do with uncertainty in
+measurements that nothing can be done about. If a measurement is
+repeated, the values obtained will differ and none of the results can
+be preferred over the others. However, although it is not possible
+to do anything about such error, it can be characterized.
+As described in Section 4, we make measurements on samples
+that are drawn randomly from a given population (P) of players.
+Now, there are statistical errors associated with sampling which
+are unavoidable and must be lived with. Hence, if the result of a
+measurement is to have meaning it cannot consist of the measured
+value alone. An indication of how accurate the result is must be
+included also. Thus, the result of any physical measurement has
+two essential components:
+1. a numerical value giving the best estimate possible of the
+quantity measured, and
+2. the degree of uncertainty associated with this estimated value.
+For example, if the estimate of a quantity is x and the uncertainty
+is e(x) the quantity would lie in x ± e(x).
+For sampling experiments, the standard error is by far the most
+common way of characterising uncertainty [22]. Given this, the
+following section defines this error and uses it to evaluate the 
+performance of the proposed randomized method.
+5.1 Approximation error
+The accuracy of the above randomized method depends on its 
+sampling error which is defined as follows [22, 4]:
+DEFINITION 2. The sampling error (or standard error) is 
+defined as the standard deviation for a set of measurements divided
+by the square root of the number of measurements.
+To this end, let e(σX
+) be the sampling error in the sum of the
+weights for a sample of size X drawn from the distribution N(Xμ, ν
+X
+)
+where:
+e(σX
+) =
+p
+(ν/X)/
+p
+(X)
+=
+p
+(ν)/X (4)
+Let e(ΔX
+i ) denote the error in the marginal contribution for player
+i (given in Equation 2). This error is obtained by propagating the
+error in Equation 4 to Equation 2. In Equation 2, a and b are the
+lower and upper limits for the sum of the players" weights for a
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 963
+b
+C
+B
+a − e (σX )
+a
+A
+)X(σeb+ Sum of weights
+Z1 Z2
+Figure 1: A normal distribution for the sum of players" weights
+in a coalition of size X.
+40
+60
+80
+100
+0
+50
+100
+0
+5
+10
+15
+20
+25
+QuotaWeight
+PercentageerrorintheShapleyvalue
+Figure 2: Performance of the randomized method for m = 10
+players.
+coalition of size X. Since the error in this sum is e(σX
+), the actual
+values of a and b lie in the interval a ± e(σX
+) and b ± e(σX
+)
+respectively. Hence, the error in Equation 2 is either the probability
+that the sum lies between the limits a − e(σX
+) and a (i.e., the area
+under the curve defined by N(Xμ, ν
+X
+) between a − e(σX
+) and a,
+which is the shaded region A in Figure 1) or the probability that the
+sum of weights lies between the limits b and b+e(σX
+) (i.e., the area
+under the curve defined by N(Xμ, ν
+X
+) between b and b + e(σX
+),
+which is the shaded region C in Figure 1). More specifically, the
+error is the maximum of these two probabilities:
+e(ΔX
+i ) =
+1
+p
+(2πν/X)
+× MAX
+„Z a
+a−e(σX )
+e−X
+(x−Xμ)2
+2ν dx,
+Z b+e(σX
+)
+b
+e−X
+(x−Xμ)2
+2ν dx
+«
+On the basis of the above error, we find the error in the Shapley
+value by using the following standard error propagation rules [22]:
+R1 If x and y are two random variables with errors e(x) and e(y)
+respectively, then the error in the random variable z = x + y
+is given by:
+e(z) = e(x) + e(y)
+R2 If x is a random variable with error e(x) and z = kx where
+0
+100
+200
+300
+400
+500
+0
+100
+200
+300
+400
+500
+0
+5
+10
+15
+20
+25
+QuotaWeight
+PercentageerrorintheShapleyvalue
+Figure 3: Performance of the randomized method for m = 50
+players.
+the constant k has no error, then the error in z is:
+e(z) = |k|e(x)
+Using the above rules, the error in the Shapley value (given in
+Equation 3) is obtained by propagating the error in Equation 4 to
+all coalitions between the sizes X = 1 and X = m. Let e(ϕi)
+denote this error where:
+e(ϕi) =
+1
+m
+mX
+X=1
+e(ΔX
+i )
+We analyze the performance of our method in terms of the 
+percentage error PE in the approximate Shapley value which is defined
+as follows:
+PE = 100 × e(ϕi)/ϕi (5)
+5.2 Experimental Results
+We now compute the percentage error in the Shapley value using
+the above equation for PE. Since this error depends on the 
+parameters of the voting game, we evaluate it in a range of settings by
+systematically varying the parameters of the voting game.
+In particular, we conduct experiments in the following setting.
+For a player with weight w, the percentage error in a player"s 
+Shapley value depends on the following five parameters (see Equation 3):
+1. The number of parties (m).
+2. The mean weight (μ).
+3. The variance in the player"s weights (ν).
+4. The quota for the voting game (q).
+5. The given player"s weight (w).
+We fix μ = 10 and ν = 1. This is because, for the normal
+distribution, μ = 10 ensures that for almost all the players the
+weight is positive, and ν = 1 is used most commonly in statistical
+experiments (ν can be higher or lower but PE is increasing in 
+νsee Equations 4 and 5). We then vary m, q, and w as follows. We
+vary m between 5 and 100 (since beyond 100 we found that the
+error is close to zero), for each m we vary q between 4μ and mμ
+(we impose these limits because they ensure that the size of the
+964 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+0
+200
+400
+600
+800
+1000
+0
+200
+400
+600
+800
+1000
+0
+5
+10
+15
+20
+25
+QuotaWeight
+PercentageerrorintheShapleyvalue
+Figure 4: Performance of the randomized method for m = 100
+players.
+winning coalition is more than one and less than m - see Section 3
+for details), and for each q, we vary w between 1 and q−1 (because
+a winning coalition must contain at least two players). The results
+of these experiments are shown in Figures 2, 3, and 4. As seen in
+the figures, the maximum PE is around 20% and in most cases it is
+below 5%.
+We now analyse the effect of the three parameters: w, q, and m
+on the percentage error in more detail.
+- Effect of w. The PE depends on e(σX
+) because, in 
+Equation 5, the limits of integration depend on e(σX
+). The 
+interval over which the first integration in Equation 5 is done is
+a − a + e(σX
+) = e(σX
+), and the interval over which the
+second one is done is b + e(σX
+) − b = e(σX
+). Thus, the 
+interval is the same for both integrations and it is independent
+of wi. Note that each of the two functions that are integrated
+in Equation 5 are the same as the function that is integrated
+in Equation 2. Only the limits of the integration are different.
+Also, the interval over which the integration for the marginal
+contribution of Equation 2 is done is b − a = wi − (see
+Figure 1). The error in the marginal contribution is either the
+area of the shaded region A (between a − e(σX
+) and a) in
+Figure 1, or the shaded area C (between b and b + e(σX
+)).
+As per Equation 5, it is the maximum of these two areas.
+Since e(σX
+) is independent of wi, as wi increases, e(σX
+)
+remains unchanged. However, the area of the unshaded 
+region B increases. Hence, as wi increases, the error in the
+marginal contribution decreases and PE also decreases.
+- Effect of q. For a given q, the Shapley value for player i is
+as given in Equation 3. We know that, for a sample of size
+X, the sum of the players" weights is distributed normally
+with mean Xμ and variance ν/X. Since 99% of a normal
+distribution lies within two standard deviations of its mean
+[8], player i"s marginal contribution to a sample of size X is
+almost zero if:
+a < Xμ + 2
+p
+ν/X or b > Xμ − 2
+p
+ν/X
+This is because the three regions A, B, and C (in Figure 1)
+lie either to the right of Z2 or to the left of Z1. However,
+player i"s marginal contribution is greater than zero for those
+X for which the following constraint is satisfied:
+Xμ − 2
+p
+ν/X < a < b < Xμ + 2
+p
+ν/X
+For this constraint, the three regions A, B, and C lie 
+somewhere between Z1 and Z2. Since a = q −wi and b = q − ,
+Equation 6 can also be written as:
+Xμ − 2
+p
+ν/X < q − wi < q − < Xμ + 2
+p
+ν/X
+The smallest X that satisfies the constraint in Equation 6
+strictly increases with q. As X increases, the error in sum
+of weights in a sample (i.e., e(σX
+) =
+p
+(ν)/X) decreases.
+Consequently, the error in a player"s marginal contribution
+(see Equation 5) also decreases. This implies that as q 
+increases, the error in the marginal contribution (and 
+consequently the error in the Shapley value) decreases.
+- Effect of m. It is clear from Equation 4 that the error e(σX
+)
+is highest for X = 1 and it decreases with X. Hence, for
+small m, e(σ1
+) has a significant effect on PE. But as m 
+increases, the effect of e(σ1
+) on PE decreases and, as a result,
+PE decreases.

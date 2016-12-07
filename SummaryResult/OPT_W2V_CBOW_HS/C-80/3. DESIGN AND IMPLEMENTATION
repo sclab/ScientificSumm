@@ -1,0 +1,111 @@
+If the entire result is predicted to be present in the Ganesh driver"s cache, the RecipeResultSet is simply a single hash of the entire result.
+However, in cases where there is little overlap with previous results, the Ganesh driver will have to make many calls to the proxy during reconstruction to fetch missing  result fragments.
+This proxy, which can be shared by multiple front-end nodes, consists of two parts: code to detect similarity in result fragments and the original native JDBC driver that  communicates with the database.
+Each SHA-1 hash found in a RecipeResultSet is looked up in the local cache of result  fragments.
+Since both components are  under our control, it is relatively simple to do this without resorting to gray-box techniques or explicit communication for maintaining cache coherence.
+For  example, a query repeated after a certain interval may return a different result because of updates to the database; however, there may be significant commonality between the two results.
+Ganesh only needs a single pass for hash generation as the chunk boundaries are  provided by the data"s natural structure.
+However, it performs poorly in the presence of any reordering of data.
+WWW 2007 / Track: Performance and Scalability Session: Scalable Systems for Dynamic Content 313 Object Output Stream Convert ResultSet Object Input Stream Convert ResultSet All Data Recipe ResultSet All Data ResultSet Network Ganesh Proxy Ganesh JDBC Driver Result Set Recipe Result Set Yes Yes No No GaneshInputStream GaneshOutputStream Figure 4: Dataflow for Result Handling 3.4 Encoding and Decoding Results The Ganesh proxy receives database output as Java objects from the native JDBC driver.
+While this architecture does not decrease the load on a database, as mentioned earlier in Section 2.1, it is much easier to replicate databases for scalability in a LAN than in a WAN.
+The optimal way is, of course, the one that results in the smallest possible object for transmission for a given query"s results.
+Finding this optimal decomposition is a difficult problem because of the large space of possibilities and because the optimal choice depends on many factors such as the contents of the query"s result, the history of recent results, and the cache management algorithm.
+3.2 Transparency The key factor influencing our design was the need for Ganesh to be completely transparent to all components of a typical  eBusiness system: web servers, application servers, and database servers.
+It examines this output to see if a Java object of type ResultSet is present.
+The Ganesh JDBC driver shown in Figure 3(b) presents the  application with an interface identical to that provided by the native driver.
+WWW 2007 / Track: Performance and Scalability Session: Scalable Systems for Dynamic Content 312 Figure 2: Rabin Fingerprinting vs. Ganesh"s Chunking This, in turn, would decrease the savings obtained via its use.
+The RecipeResultSet objects are transformed back into  ResultSet objects by the Ganesh driver.
+When an object is opaque, the use of Rabin fingerprints [8, 30] to detect common data between two objects has been successfully shown in the past by systems such as LBFS [26] and CASPER [37].
+The Java Database Connectivity (JDBC) API [32] allows Java applications to access a wide variety of databases and even other tabular data repositories such as flat files.
+Given that previous work has already shown that Rabin fingerprinting  performs better than gzip [26], we do not compare Ganesh to  compression algorithms in this paper.
+Its main  funcClient Database Web and Application Server Native JDBC Driver WAN (a) Native Architecture Client Database Ganesh Proxy Native JDBC Driver WAN Web and Application Server Ganesh JDBC Driver (b) Ganesh"s Interposition-based Architecture Figure 3: Native vs. Ganesh Architecture tion is to mediate communication between the application and the remote database.
+Assuming that the hash function is uniformly distributed, a chunk boundary is defined whenever the lower order bits of the hash value equal some predetermined value.
+Instead, the proxy simulates the Ganesh driver"s cache management algorithm and uses this to maintain a list of hashes for which the Ganesh driver is likely to possess the result fragments.
+Ganesh exploits redundancy in the result stream to avoid  transmitting result fragments that are already present at the query site.
+Instead, the proxy is responsible for inspecting database output received from the native driver, detecting similar results, and generating hash-based encodings of these results whenever enough similarity is found.
+Instead, it transmits a much smaller digest of those  fragments and lets the query site reconstruct the result through hash lookup in a cache of previous results.
+The database is thus completely unaware of the existence of the proxy.
+It is important to note that using the tabular structure in results only involves shallow  interpretation of the data.
+It is therefore simple to check for similarity with previous results at two granularities: first the entire result, and then individual rows.
+Rabin fingerprinting also needs two computationally-expensive passes over the data: once to determine chunk boundaries and one again to generate cryptographic hashes for the chunks.
+The Ganesh proxy accesses the database via the native JDBC driver, which remains unchanged between Figures 3(a) and (b).
+Once the transformation is complete, the fully reconstructed ResultSet object is passed up to the application. 
+The algorithm  therefore deals well with in-place updates, insertions and deletions.
+The proxy also retains hashes for the new result  fragments as they will be present in the driver"s cache in the future.
+This cache is only used as a source of result  fragments in reconstructing results.
+One approach is to be optimistic, and to assume that all result  fragments are available.
+The proxy constructs a RecipeResultSet by checking for similarity at the entire result and then the row level.
+The lack of cache  consistency does not hurt correctness as a description of the results is always fetched from the proxy - at worst, there will be no  performance benefit from using Ganesh.
+The end of a row in a  result serves as a natural chunk boundary.
+We use the term recipe for this compact description of a database  result because of its similarity to a file recipe in the CASPER file system [37].
+As shown in Figure 3(b), the native JDBC driver is replaced with a Ganesh JDBC driver that presents the same  standardized interface.
+As another  example, a user who is refining a search may generate a sequence of queries with overlapping results.
+The conversion replaces each result fragment that is likely to be present in the Ganesh driver"s cache by a SHA-1 hash of that fragment.
+Also note that the proxy does not need to keep the result fragments themselves, only their hashes.
+As the JDBC interface is standardized, one can substitute one JDBC driver for another without application modifications.
+The information we exploit is that a query"s result reflects the structure of a relational database where all data is organized as tables and rows.
+As discussed in Section 3.1, the proxy uses the row boundaries defined in the ResultSet to partition it into fragments  consisting of single result rows.
+Stale data will simply be paged out of the cache over time.
+All ResultSet objects are converted into objects of a new type called RecipeResultSet.
+If a ResultSet object is found, it is shrunk as discussed below.
+To generate a hash-based encoding, the proxy must be aware of what result fragments are available in the Ganesh driver"s cache.
+3.3 Proxy-Based Caching The native JDBC driver shown in Figure 3(a) is a lightweight code component supplied by the database vendor.
+The Ganesh driver maintains an in-memory cache of result fragments from previous queries and performs  reassembly of results.
+It forwards queries, buffers entire results, and  responds to application requests to view parts of results.
+As the locations of boundaries found by using Rabin fingerprints is stochastically determined, they usually fail to align with any structural properties of the underlying data.
+When Ganesh detects  redundancy, it suppresses transmission of the corresponding result  fragments.
+Otherwise, it contains hashes for those rows predicted to be present in that cache; all other rows are retained verbatim.
+To perform this  reconstruction, the driver maintains an in-memory cache of  recentlyreceived results.
+In case of mistracking, there will be no loss of  correctness but there will be extra round-trip delays to fetch the missing fragments.
+Access to these data sources is provided by JDBC drivers that translate between the JDBC API and the database communication mechanism.
+The proxy does not examine any queries received from the Ganesh driver but passes them to the native driver.
+However, selecting a smaller average chunk size  increases the amount of metadata required to the describe the results.
+In the extreme case, Rabin fingerprinting might be unable to find any similar data due to the way it detects chunk boundaries.
+Next, we discuss how the Ganesh architecture is completely invisible to all components of a multi-tier system.
+It provides the ability to reconstruct results from compact hash-based descriptions sent by the proxy.
+Requiring modifications to any of the above components would raise the barrier for entry of Ganesh into an  existing system, and thus reduce its chances of adoption.
+This allows the proxy to remain scalable even when it is shared by many front-end nodes.
+These sub-divided chunks of the object become the unit of comparison for detecting similarity between different objects.
+If the client detects loss of synchronization with the proxy, it can ask the proxy to reset the state shared between them.
+Previously unseen result fragments are retained verbatim.
+All previously unseen result fragments that were retained verbatim by the proxy are hashed and added to the result cache.
+The use of a proxy at the database makes Ganesh database-agnostic and simplifies prototyping and experimentation.
+The JDBC interface uses this data type to store results of database queries.
+Fortunately, Ganesh can use domain specific knowledge for more precise boundary detection.
+Ganesh is thus able to work with a wide range of databases and applications, requiring no modifications to either.
+To avoid this situation, the proxy loosely tracks the state of the Ganesh driver"s cache.
+No attempt is made by the Ganesh driver or proxy to track database updates.
+This will result in the smallest possible initial transmission of a result.
+Figure 2 shows an example where two results, A and B,  consisting of three rows, have the same data but have different sort  attributes.
+The JDBC driver thus becomes the natural module to exploit for code interposition.
+Note that the proxy only caches hashes for result fragments and does not cache recipes.
+There should be very few misses if the proxy has accurately tracked the Ganesh driver"s cache state.
+3.1 Detecting Similarity One of the key design decisions in Ganesh is how similarity is detected.
+A future optimization would be to batch the fetch of missing fragments.
+On a miss, the driver contacts the Ganesh proxy to fetch the fragment.
+We then describe Ganesh"s proxy-based approach and the dataflow for detecting similarity.
+Rabin fingerprinting uses a sliding window over the data to  compute a rolling hash.
+On a hit, the hash is replaced by the corresponding  fragment.
+At the database, we add a new process called the Ganesh proxy.
+We first  explain our approach to detecting similarity in query results.
+If the proxy  estimates an overall space savings, it will transmit the  RecipeResultSet.
+In effect, Ganesh uses  computation at the edges to reduce Internet communication.
+Figure 3(a) shows how JDBC is typically used in an application.
+Preserving transparency is simplified by the fact that Ganesh is purely a  performance enhancement, not a functionality or usability enhancement.
+If the average chunk size is too large, chunks can span multiple result rows.
+Without this, Ganesh stands little chance of having a significant real-world impact.
+These conditions are easily met in our context because of the popularity of Java as the programming language for eBusiness  systems.
+All other Java objects are passed through unmodified.
+There are many potential ways to decompose a result into fragments.
+Tuning Rabin fingerprinting for a workload can also be difficult.
+This would be valuable when there are many small missing fragments in a high-latency WAN.
+Redundancy can arise naturally in many different ways.
+This approach relies on the existence of a compact programming interface that is already widely used by target  software.
+Otherwise the original ResultSet is transmitted.
+Ganesh does not perform any deeper semantic interpretation such as understanding data types, result schema, or integrity constraints.
+It also relies on a mechanism to easily add new code without disrupting existing module structure.
+We chose agent interposition as the architectural approach to  realizing our goal.
+The  number of lower order bits used defines the average chunk size.
+The performance comparison in Section 6 shows that Ganesh"s row-based algorithm outperforms Rabin fingerprinting.
+Our description of Ganesh focuses on four aspects.
+Figure 4 illustrates  ResultSet handling at both ends.

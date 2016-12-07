@@ -1,0 +1,48 @@
+In the Socratic game, a pure strategy for Player i consists of a query qi ∈ Qi and a response function mapping any  result of the query qi to a strategy ai ∈ Ai to play.
+After learning the results of the queries, the players select strategies a ∈ A and receive as payoffs u wreal i (a) − δi(qi).
+A Socratic game is a 7-tuple A, W, u, S, Q, p, δ , where, for i ∈ {i,ii}: • Ai is, as before, the set of pure strategies for Player i.
+Formally, we will consider a mixed-strategy-function profile f = fquery , fresp to have two parts: • a function fquery i : Qi → [0, 1], where fquery i (qi) is the probability that Player i makes query qi.
+Payoff functions are generalized as ui (α) = ui (αi, αii) := Ea∼α[ui (a)] = P a∈A α(a)ui (a), where the quantity α(a) = 151 αi(ai) · αii(aii) denotes the joint probability of the  independent events that each Player i chooses action ai from the distribution αi.
+A game is  constant sum if, for all a ∈ A, we have that ui(a) + uii(a) = c for some fixed c independent of a.
+Throughout the paper,  boldface variables will be used to denote a pair of variables (e.g., a = ai, aii ).
+For a strategy-function profile f for observable queries, the (expected) payoff to Player i is given by X q∈Q,w∈W,a∈A 2 6 6 4 fquery i (qi) · fquery ii (qii) · p(w) · Pr[ai ← fresp i (q, qi(w))] · Pr[aii ← fresp ii (q, qii(w))] · (uw i (a) − δi(qi)) 3 7 7 5 .
+Let Pr[x ← π] denote the probability that a particular value x is drawn from the distribution π, and let Ex∼π[g(x)] denote the expectation of g(x) when x is drawn from π.
+As in any game with perfect recall, one can  easily map a mixture of pure strategies to a behavioral strategy f = fquery , fresp that induces the same probability of  making a particular query qi or playing a particular action after making a query qi in a particular world.
+Formally, in a correlated equilibrium, for every a ∈ A we must have that ai is a best response to a randomly chosen ˆaii ∈ Aii drawn according to ψ(ai, ˆaii), and the analogous condition must hold for Player II.
+• Qi is a set of available queries for Player i.
+Player i chooses an  action ai ∈ Ai according to the probability distribution fresp i (q, qi(w)) for observable queries, and according to fresp i (qi, qi(w)) for unobservable queries.
+This generalization to mixed strategies is known as von Neumann/Morgenstern utility [70], in which players are indifferent between a guaranteed payoff x and an expected payoff of x.
+Formally, the strategy pair α is a Nash  equilibrium if and only if both ui(αi, αii) = maxαi∈Ai ui(αi, αii) and uii(αi, αii) = maxαii∈Aii uii(αi, αii); that is, the  strategies αi and αii are mutual best responses.
+• S is a set of signals.
+Player i can also play a mixed strategy αi ∈ Ai, where Ai denotes the space of probability measures over the set Ai.
+(With  unobservable queries, for example, the probability that Player I plays action ai conditioned on making query qi in world w is given by Pr[ai ← fresp i (qi, qi(w))].)
+A mixed strategy involves both randomly choosing a query qi ∈ Qi and randomly choosing an action ai ∈ Ai in response to the results of the query.
+The players make queries q ∈ Q, and Player i receives the signal qi(wreal).
+2.1 Background on Game Theory Consider two players, Player I and Player II, each of whom is attempting to maximize his or her utility (or payoff).
+A (two-player) game is a pair A, u , where, for i ∈ {i,ii}, • Ai is the set of pure strategies for Player i, and A = Ai, Aii ; and • ui : A → R is the utility function for Player i, and u = ui, uii .
+• a function fresp i that maps R or Ri to a  probability distribution over actions.
+We require that A and u be common knowledge.
+When Player i receives signal qi(wreal) in response to query qi, he or she can infer that wreal ∈ {w : qi(w) = qi(wreal)}, i.e., the set of possible worlds from which query qi cannot distinguish wreal.
+Mixed strategies are typically defined as probability  distributions over the pure strategies, but here we represent a mixed strategy by a pair fquery , fresp , which is commonly referred to as a behavioral strategy in the game-theory literature.
+That is, it is as if the players are playing the game A, uwreal but do not know wreal.
+• ui = {uw i : A → R | w ∈ W} is a set of payoff functions for Player i, one for each possible world.
+Initially, the world wreal is chosen according to the  probability distribution p, but the identity of wreal remains  unknown to the players.
+Thus it suffices to consider only this representation of mixed strategies.
+If each Player i chooses strategy ai ∈ Ai, then the payoffs to  Players I and II are ui(a) and uii(a), respectively.
+A player"s state of knowledge after a query is a point in R := Q × S or Ri := Qi × S for observable or unobservable queries,  respectively.
+A Nash equilibrium is a pair α of mixed strategies so that neither player has an incentive to change his or her strategy unilaterally.
+A correlated equilibrium is a distribution ψ over A that obeys the following: if a ∈ A is drawn randomly according to ψ and Player i learns ai, then no Player i has incentive to deviate unilaterally from playing ai.
+When queries are observable, each player learns which query was made by the other player, and the results of his or her own query-that is, each Player i learns qi, qii, and qi(wreal).
+We consider both observable queries and  unobservable queries.
+• W is a set of possible worlds, one of which is the real world wreal.
+Note that the number of pure strategies is  exponential, as there are exponentially many response  functions.
+• δi : Qi → R≥0 gives the query cost for each available query for Player i.
+For unobservable queries, Player i learns only qi and qi(wreal).
+Thus Player i"s response function maps R or Ri to Ai.
+(A Nash equilibrium is a correlated equilibrium in which ψ(a) = αi(ai) · αii(aii) is a product distribution.)
+When Player i makes query qi : W → S, he or she receives the signal qi(wreal).
+We present these  models in the context of two-player games, but the multiplayer case is a natural extension.
+• p : W → [0, 1] is a probability distribution over the possible worlds.
+The payoffs for unobservable queries are analogous, with fresp j (qj, qj(w)) in place of fresp j (q, qj(w)). 
+2.2 Socratic Games In this section, we formally define Socratic games.
+In this section, we review background on game theory and formally introduce Socratic games.

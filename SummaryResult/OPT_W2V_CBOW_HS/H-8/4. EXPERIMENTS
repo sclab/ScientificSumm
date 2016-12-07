@@ -1,0 +1,83 @@
+Finally, for our hypothesis that RTC is more accurate than MTC, we will look at Kendall"s τ correlation between a ranking of k systems by a small set of judgments and the true ranking using the full set of judgments.
+judgments to reach 95% confidence and (b) the accuracy of the predictions is higher than if we were to simply assume pi = 0.5 for all unjudged documents.
+The first, and most important, is that using our expert aggregation model to predict relevance produces test collections that are robust enough to be reusable; that is, we can trust the estimates of confidence when we evaluate systems that did not contribute any judgments to the pool.
+One way to evaluate robustness is to bin pairs by their  confidence, then calculate the accuracy over all the pairs in each bin.
+To put our method to the test, we selected c = 2: we will build a set of judgments from evaluating only two initial systems.
+As we stated above, we are more interested in the median number of judgments than the mean.
+As we touched on in the introduction, though, an accuracy measure like rank correlation is not a good evaluation of reusability.
+We will then generalize to a set of k = 10 (of which those two are a subset).
+For computational reasons, we truncate ranked lists at 100 documents.
+However, the cost of not being able to trust the confidence estimates is higher than the cost of extra relevance  judgments, so we will treat positive outcomes as good.
+Counterintuitively, the most desirable outcome is  breaking even: if we lose money, we cannot trust the confidence estimates, but if we win money, we have either  underestimated confidence or judged more documents than necessary.
+This is as it should be: the penalty should be great for missing the high probability predictions.
+4.1 Data We obtained full ad-hoc runs submitted to TRECs 3 through 8.
+1: pi ← 0.5 for all documents i 2: while P(ΔMAP < 0) < α do 3: calculate weight wi for all unjudged documents i (see Carterette et al.
+rel ad-hoc 94 50 40 97,319 9,805 ad-hoc 95 49 33 87,069 6,503 ad-hoc 96 50 61 133,681 5,524 ad-hoc 97 50 74 72,270 4,611 ad-hoc 98 50 103 80,345 4,674 ad-hoc 99 50 129 86,830 4,728 web 04 225 74 88,566 1,763 robust 05 50 74 37,798 6,561 terabyte 05 50 58 45,291 10,407 Table 1: Number of topics, number of runs, number of documents judged, and number found relevant for each of our data sets.
+The amount we win on each pairwise comparison i is: Wi = yi − (1 − yi) Pi 1 − Pi = yi − Pi 1 − Pi yi = 1 if ΔMAP < 0 and 0 otherwise, and Pi = P(ΔMAP < 0).
+4.4 Experimental Evaluation Recall that a set of judgments is robust if the accuracy of the predictions it makes is at least its estimated confidence.
+For our hypothesis that RTC requires fewer judgments than MTC, we are interested in the number of judgments needed to reach 95% confidence on the first pair of systems.
+We can also use a paired t-test to test for a difference in mean.
+Note that  after evaluating the first c systems, we make no additional relevance judgments.
+This algorithm takes a number k as input and presents the first k documents in rank order (without regard to topic) to be judged.
+The other two hypotheses relate to the improvement we see by using better estimates of relevance than we did in our previous work [8].
+We will call this RTC for robust test collection.
+We would like the accuracy to be no less than the lowest confidence score in the bin, but preferably higher.
+It ranges from −1 (perfectly anti-correlated) to 1 (rankings identical), with 0 meaning that half of the pairs are swapped.
+There is no reason that we could not go deeper, but calculating variance is O(n3 ) and thus very  timeconsuming.
+It is identical to Algorithm 1,  except that every 10th iteration we estimate pi for all unjudged documents i using the expert aggregation model of Section 3.
+4.3 Experimental Design First, we want to know whether we can augment a set of relevance judgments with a set of relevance probabilities in order to reuse the judgments to evaluate a new set of systems.
+Additionally, we obtained all runs from the Web track of TREC 13, the Robust2 track of TREC 14, and the Terabyte (ad-hoc) track of TREC 14.
+Documents are selected based on how interesting they are in determining whether a difference in mean average precision exists.
+A test for difference in median is the Wilcoxon sign rank test.
+We trained using the ad-hoc 95 set.
+For this approach pi = 0.5 for all i; there is no estimation of probabilities.
+[8] for details) 4: j ← argmaxiwi 5: xj ← 1 if document j is relevant, 0 otherwise 6: pj ← xj 7: end while the search to uniform priors with relatively high variance.
+The distribution is therefore highly skewed, and the mean strongly affected by those outliers.
+Using the model from Section 3, estimate the  probabilities of relevance for all documents retrieved by all k runs.
+We limited 2 Robust here means robust retrieval; this is different from our goal of robust evaluation.
+For rank correlation, we can use a paired t-test to test for a difference in τ. 
+The number of relevance judgments made and relevant  documents found for each track are listed in Table 1.
+If our confidence  estimates are perfectly accurate, we break even.
+The second algorithm is that presented in Carterette et al.
+If confidence is greater than accuracy, we lose money; we win if accuracy is greater than confidence.
+Using the same sets of systems allows the use of paired tests.
+From those k, pick an initial c < k to evaluate.
+Because of the reciprocal rank nature of AP, we do not lose much information by truncating at rank 100.
+Algorithm 1 (MTC) Given two ranked lists and confidence level α, predict the sign of ΔMAP.
+These are that (a) it takes fewer relevance track no.
+As we run more trials, we obtain the data we need to test all three of our hypotheses.
+Note that as Pi increases, we lose more for being wrong.
+It does not estimate the relevance of unjudged documents; it simply assumes any unjudged document is nonrelevant.
+Kendall"s τ, a nonparametric statistic based on pairwise swaps between two lists, is a standard evaluation for this type of study.
+We will call this MTC for minimal test collection.
+The third algorithm augments MTC with updated  estimates of probabilities of relevance.
+These are the tracks that have replaced the ad-hoc track since its end in 1999.
+Calculate EMAP for all k runs, and P(ΔMAP < 0) for all pairs of runs.
+Run RTC to 95% confidence on the initial c. 4.
+We set aside the TREC 4 (ad-hoc 95) set for training, TRECs 3 and 5-8 (ad-hoc 94 and 96-99) for primary testing, and the remaining sets for additional testing.
+The median is more interesting than the mean: most pairs require a few hundred judgments, but a few pairs require  several thousand.
+4.2 Algorithms We will compare three algorithms for acquiring relevance judgments.
+Pick a random subset of k runs.
+We include it for completeness.
+The baseline is a variation of TREC pooling that we will call incremental pooling (IP).
+4.4.1 Hypothesis Testing Running multiple trials allows the use of statistical  hypothesis testing to compare algorithms.
+However, since our losses grow without bound as predictions approach certainty, we cap −Wi at 100.
+Since summary statistics are useful, we devised the  following metric.
+RTC has smoothing (prior distribution) parameters that must be set.
+Each run ranks at most 1000 documents for 50 topics (49 topics for TREC 4).
+We do the same for MTC, but omit step 4.
+The summary statistic is W, the mean of Wi.
+We use RTC or MTC to set the odds O = P (ΔMAP <0) 1−P (ΔMAP <0) .
+Suppose we are a bookmaker taking bets on whether ΔMAP < 0.
+judged no.
+Three hypotheses are under consideration.
+If it turns out that ΔMAP < 0, we win the dollar.
+For expert aggregation, the prior parameters are α = β = 1.
+We use the qrels files assembled by NIST as truth.
+Statistics are shown in Table 1.
+runs no.
+Otherwise, we pay out O.
+For each experimental trial: 1.
+topics no.
+[8] (Algorithm 1).
+Suppose a bettor wagers $1 on ΔMAP ≥ 0.

@@ -1,0 +1,271 @@
+5.1 Experiment design
+Our major hypothesis is that using search context (i.e., query 
+history and clickthrough information) can help improve search 
+accuracy. In particular, the search context can provide extra information
+to help us estimate a better query model than using just the current
+query. So most of our experiments involve comparing the retrieval
+performance using the current query only (thus ignoring any 
+context) with that using the current query as well as the search context.
+Since we collected four versions of queries for each topic, we
+make such comparisons for each version of queries. We use two
+performance measures: (1) Mean Average Precision (MAP): This
+is the standard non-interpolated average precision and serves as a
+good measure of the overall ranking accuracy. (2) Precision at 20
+documents (pr@20docs): This measure does not average well, but
+it is more meaningful than MAP and reflects the utility for users
+who only read the top 20 documents. In all cases, the reported
+figure is the average over all of the 30 topics.
+We evaluate the four models for exploiting search context (i.e.,
+FixInt, BayesInt, OnlineUp, and BatchUp). Each model has 
+precisely two parameters (α and β for FixInt; µ and ν for others).
+Note that µ and ν may need to be interpreted differently for 
+different methods. We vary these parameters and identify the optimal
+performance for each method. We also vary the parameters to study
+the sensitivity of our algorithms to the setting of the parameters.
+5.2 Result analysis
+5.2.1 Overall effect of search context
+We compare the optimal performances of four models with those
+using the current query only in Table 1. A row labeled with qi is
+the baseline performance and a row labeled with qi + HQ + HC
+is the performance of using search context. We can make several
+observations from this table:
+1. Comparing the baseline performances indicates that on average
+reformulated queries are better than the previous queries with the
+performance of q4 being the best. Users generally formulate better
+and better queries.
+2. Using search context generally has positive effect, especially
+when the context is rich. This can be seen from the fact that the
+1
+http://sifaka.cs.uiuc.edu/ir/ucair/QCHistory.zip
+improvement for q4 and q3 is generally more substantial compared
+with q2. Actually, in many cases with q2, using the context may
+hurt the performance, probably because the history at that point is
+sparse. When the search context is rich, the performance 
+improvement can be quite substantial. For example, BatchUp achieves
+92.4% improvement in the mean average precision over q3 and
+77.2% improvement over q4. (The generally low precisions also
+make the relative improvement deceptively high, though.)
+3. Among the four models using search context, the performances
+of FixInt and OnlineUp are clearly worse than those of BayesInt
+and BatchUp. Since BayesInt performs better than FixInt and the
+main difference between BayesInt and FixInt is that the former uses
+an adaptive coefficient for interpolation, the results suggest that 
+using adaptive coefficient is quite beneficial and a Bayesian style 
+interpolation makes sense. The main difference between OnlineUp
+and BatchUp is that OnlineUp uses decaying coefficients to 
+combine the multiple clicked summaries, while BatchUp simply 
+concatenates all clicked summaries. Therefore the fact that BatchUp
+is consistently better than OnlineUp indicates that the weights for
+combining the clicked summaries indeed should not be decaying.
+While OnlineUp is theoretically appealing, its performance is 
+inferior to BayesInt and BatchUp, likely because of the decaying 
+coefficient. Overall, BatchUp appears to be the best method when we
+vary the parameter settings.
+We have two different kinds of search context - query history
+and clickthrough data. We now look into the contribution of each
+kind of context.
+5.2.2 Using query history only
+In each of four models, we can turn off the clickthrough 
+history data by setting parameters appropriately. This allows us to
+evaluate the effect of using query history alone. We use the same
+parameter setting for query history as in Table 1. The results are
+shown in Table 2. Here we see that in general, the benefit of using
+query history is very limited with mixed results. This is different
+from what is reported in a previous study [15], where using query
+history is consistently helpful. Another observation is that the 
+context runs perform poorly at q2, but generally perform (slightly) 
+better than the baselines for q3 and q4. This is again likely because
+at the beginning the initial query, which is the title in the original
+TREC topic description, may not be a good query; indeed, on 
+average, performances of these first-generation queries are clearly
+poorer than those of all other user-formulated queries in the later
+generations. Yet another observation is that when using query 
+history only, the BayesInt model appears to be better than other 
+models. Since the clickthrough data is ignored, OnlineUp and BatchUp
+FixInt BayesInt OnlineUp BatchUp
+Query (α = 0.1, β = 0) (µ = 0.2,ν = 0) (µ = 5.0,ν = +∞) (µ = 2.0, ν = +∞)
+MAP pr@20docs MAP pr@20docs MAP pr@20docs MAP pr@20docs
+q2 0.0312 0.1150 0.0312 0.1150 0.0312 0.1150 0.0312 0.1150
+q2 + HQ 0.0097 0.0317 0.0311 0.1200 0.0213 0.0783 0.0287 0.0967
+Improve. -68.9% -72.4% -0.3% 4.3% -31.7% -31.9% -8.0% -15.9%
+q3 0.0421 0.1483 0.0421 0.1483 0.0421 0.1483 0.0421 0.1483
+q3 + HQ 0.0261 0.0917 0.0451 0.1517 0.0444 0.1333 0.0455 0.1450
+Improve -38.2% -38.2% 7.1% 2.3% 5.5% -10.1% 8.1% -2.2%
+q4 0.0536 0.1933 0.0536 0.1933 0.0536 0.1933 0.0536 0.1933
+q4 + HQ 0.0428 0.1467 0.0537 0.1917 0.0550 0.1733 0.0552 0.1917
+Improve -20.1% -24.1% 0.2% -0.8% 3.0% -10.3% 3.0% -0.8%
+Table 2: Effect of using query history only for document ranking.
+µ 0 0.5 1 2 3 4 5 6 7 8 9
+q2 + HQ MAP 0.0312 0.0313 0.0308 0.0287 0.0257 0.0231 0.0213 0.0194 0.0183 0.0182 0.0164
+q3 + HQ MAP 0.0421 0.0442 0.0441 0.0455 0.0457 0.0458 0.0444 0.0439 0.0430 0.0390 0.0335
+q4 + HQ MAP 0.0536 0.0546 0.0547 0.0552 0.0544 0.0548 0.0550 0.0541 0.0534 0.0525 0.0513
+Table 3: Average Precision of BatchUp using query history only
+are essentially the same algorithm. The displayed results thus 
+reflect the variation caused by parameter µ. A smaller setting of 2.0
+is seen better than a larger value of 5.0. A more complete picture
+of the influence of the setting of µ can be seen from Table 3, where
+we show the performance figures for a wider range of values of µ.
+The value of µ can be interpreted as how many words we regard
+the query history is worth. A larger value thus puts more weight
+on the history and is seen to hurt the performance more when the
+history information is not rich. Thus while for q4 the best 
+performance tends to be achieved for µ ∈ [2, 5], only when µ = 0.5 we
+see some small benefit for q2. As we would expect, an excessively
+large µ would hurt the performance in general, but q2 is hurt most
+and q4 is barely hurt, indicating that as we accumulate more and
+more query history information, we can put more and more weight
+on the history information. This also suggests that a better strategy
+should probably dynamically adjust parameters according to how
+much history information we have.
+The mixed query history results suggest that the positive effect
+of using implicit feedback information may have largely come from
+the use of clickthrough history, which is indeed true as we discuss
+in the next subsection.
+5.2.3 Using clickthrough history only
+We now turn off the query history and only use the clicked 
+summaries plus the current query. The results are shown in Table 4. We
+see that the benefit of using clickthrough information is much more
+significant than that of using query history. We see an overall 
+positive effect, often with significant improvement over the baseline. It
+is also clear that the richer the context data is, the more 
+improvement using clicked summaries can achieve. Other than some 
+occasional degradation of precision at 20 documents, the improvement
+is fairly consistent and often quite substantial.
+These results show that the clicked summary text is in general
+quite useful for inferring a user"s information need. Intuitively, 
+using the summary text, rather than the actual content of the 
+document, makes more sense, as it is quite possible that the document
+behind a seemingly relevant summary is actually non-relevant.
+29 out of the 91 clicked documents are relevant. Updating the
+query model based on such summaries would bring up the ranks
+of these relevant documents, causing performance improvement.
+However, such improvement is really not beneficial for the user as
+the user has already seen these relevant documents. To see how
+much improvement we have achieved on improving the ranks of
+the unseen relevant documents, we exclude these 29 relevant 
+documents from our judgment file and recompute the performance of
+BayesInt and the baseline using the new judgment file. The results
+are shown in Table 5. Note that the performance of the baseline
+method is lower due to the removal of the 29 relevant documents,
+which would have been generally ranked high in the results. From
+Table 5, we see clearly that using clicked summaries also helps 
+improve the ranks of unseen relevant documents significantly.
+Query BayesInt(µ = 0, ν = 5.0)
+MAP pr@20docs
+q2 0.0263 0.100
+q2 + HC 0.0314 0.100
+Improve. 19.4% 0%
+q3 0.0331 0.125
+q3 + HC 0.0661 0.178
+Improve 99.7% 42.4%
+q4 0.0442 0.165
+q4 + HC 0.0739 0.188
+Improve 67.2% 13.9%
+Table 5: BayesInt evaluated on unseen relevant documents
+One remaining question is whether the clickthrough data is still
+helpful if none of the clicked documents is relevant. To answer
+this question, we took out the 29 relevant summaries from our
+clickthrough history data HC to obtain a smaller set of clicked
+summaries HC , and re-evaluated the performance of the BayesInt
+method using HC with the same setting of parameters as in 
+Table 4. The results are shown in Table 6. We see that although the
+improvement is not as substantial as in Table 4, the average 
+precision is improved across all generations of queries. These results
+should be interpreted as very encouraging as they are based on only
+62 non-relevant clickthroughs. In reality, a user would more likely
+click some relevant summaries, which would help bring up more
+relevant documents as we have seen in Table 4 and Table 5.
+FixInt BayesInt OnlineUp BatchUp
+Query (α = 0.1, β = 1) (µ = 0, ν = 5.0) (µk = 5.0, ν = 15, ∀i < k, µi = +∞) (µ = 0, ν = 15)
+MAP pr@20docs MAP pr@20docs MAP pr@20docs MAP pr@20docs
+q2 0.0312 0.1150 0.0312 0.1150 0.0312 0.1150 0.0312 0.1150
+q2 + HC 0.0324 0.1117 0.0338 0.1133 0.0358 0.1300 0.0344 0.1167
+Improve. 3.8% -2.9% 8.3% -1.5% 14.7% 13.0% 10.3% 1.5%
+q3 0.0421 0.1483 0.0421 0.1483 0.04210 0.1483 0.0420 0.1483
+q3 + HC 0.0726 0.1967 0.0766 0.2033 0.0622 0.1767 0.0513 0.1650
+Improve 72.4% 32.6% 81.9% 37.1% 47.7% 19.2% 21.9% 11.3%
+q4 0.0536 0.1930 0.0536 0.1930 0.0536 0.1930 0.0536 0.1930
+q4 + HC 0.0891 0.2233 0.0925 0.2283 0.0772 0.2217 0.0623 0.2050
+Improve 66.2% 15.5% 72.6% 18.1% 44.0% 14.7% 16.2% 6.1%
+Table 4: Effect of using clickthrough data only for document ranking.
+Query BayesInt(µ = 0, ν = 5.0)
+MAP pr@20docs
+q2 0.0312 0.1150
+q2 + HC 0.0313 0.0950
+Improve. 0.3% -17.4%
+q3 0.0421 0.1483
+q3 + HC 0.0521 0.1820
+Improve 23.8% 23.0%
+q4 0.0536 0.1930
+q4 + HC 0.0620 0.1850
+Improve 15.7% -4.1%
+Table 6: Effect of using only non-relevant clickthrough data
+5.2.4 Additive effect of context information
+By comparing the results across Table 1, Table 2 and Table 4,
+we can see that the benefit of the query history information and
+that of clickthrough information are mostly additive, i.e., 
+combining them can achieve better performance than using each alone,
+but most improvement has clearly come from the clickthrough 
+information. In Table 7, we show this effect for the BatchUp method.
+5.2.5 Parameter sensitivity
+All four models have two parameters to control the relative weights
+of HQ, HC , and Qk, though the parameterization is different from
+model to model. In this subsection, we study the parameter 
+sensitivity for BatchUp, which appears to perform relatively better than
+others. BatchUp has two parameters µ and ν.
+We first look at µ. When µ is set to 0, the query history is not
+used at all, and we essentially just use the clickthrough data 
+combined with the current query. If we increase µ, we will gradually
+incorporate more information from the previous queries. In Table 8,
+we show how the average precision of BatchUp changes as we vary
+µ with ν fixed to 15.0, where the best performance of BatchUp is
+achieved. We see that the performance is mostly insensitive to the
+change of µ for q3 and q4, but is decreasing as µ increases for q2.
+The pattern is also similar when we set ν to other values.
+In addition to the fact that q1 is generally worse than q2, q3, and
+q4, another possible reason why the sensitivity is lower for q3 and
+q4 may be that we generally have more clickthrough data 
+available for q3 and q4 than for q2, and the dominating influence of the
+clickthrough data has made the small differences caused by µ less
+visible for q3 and q4.
+The best performance is generally achieved when µ is around
+2.0, which means that the past query information is as useful as
+about 2 words in the current query. Except for q2, there is clearly
+some tradeoff between the current query and the previous queries
+Query MAP pr@20docs
+q2 0.0312 0.1150
+q2 + HQ 0.0287 0.0967
+Improve. -8.0% -15.9%
+q2 + HC 0.0344 0.1167
+Improve. 10.3% 1.5%
+q2 + HQ + HC 0.0342 0.1100
+Improve. 9.6% -4.3%
+q3 0.0421 0.1483
+q3 + HQ 0.0455 0.1450
+Improve 8.1% -2.2%
+q3 + HC 0.0513 0.1650
+Improve 21.9% 11.3%
+q3 + HQ + HC 0.0810 0.2067
+Improve 92.4% 39.4%
+q4 0.0536 0.1930
+q4 + HQ 0.0552 0.1917
+Improve 3.0% -0.8%
+q4 + HC 0.0623 0.2050
+Improve 16.2% 6.1%
+q4 + HQ + HC 0.0950 0.2250
+Improve 77.2% 16.4%
+Table 7: Additive benefit of context information
+and using a balanced combination of them achieves better 
+performance than using each of them alone.
+We now turn to the other parameter ν. When ν is set to 0, we
+only use the clickthrough data; When ν is set to +∞, we only use
+the query history and the current query. With µ set to 2.0, where
+the best performance of BatchUp is achieved, we vary ν and show
+the results in Table 9. We see that the performance is also not very
+sensitive when ν ≤ 30, with the best performance often achieved
+at ν = 15. This means that the combined information of query
+history and the current query is as useful as about 15 words in the
+clickthrough data, indicating that the clickthrough information is
+highly valuable.
+Overall, these sensitivity results show that BatchUp not only 
+performs better than other methods, but also is quite robust.

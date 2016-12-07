@@ -1,0 +1,120 @@
+The most common type of auction held on eBay is a 
+singleitem proxy auction. Auctions open at a given time and 
+remain open for a set period of time (usually one week). 
+Bidders bid for the item by giving a proxy a value ceiling. The
+proxy will bid on behalf of the bidder only as much as is 
+necessary to maintain a winning position in the auction, up to
+the ceiling received from the bidder. Bidders may 
+communicate with the proxy multiple times before an auction closes.
+In the event that a bidder"s proxy has been outbid, a bidder
+may give the proxy a higher ceiling to use in the auction.
+eBay"s proxy auction implements an incremental version of
+a Vickrey auction, with the item sold to the highest bidder
+for the second-highest bid plus a small increment.
+181
+10
+0
+10
+1
+10
+2
+10
+3
+10
+4
+10
+0
+10
+1
+10
+2
+10
+3
+10
+4
+Number of Auctions
+NumberofBidders
+Auctions Available
+Auctions in Which Bid
+Figure 1: Histogram of number of LCD auctions 
+available to each bidder and number of LCD auctions in which
+a bidder participates.
+The market analyzed in this paper is that of a specific
+model of an LCD monitor, a 19 Dell LCD model E193FP.
+This market was selected for a variety of reasons including:
+• The mean price of the monitor was $240 (with 
+standard deviation $32), so we believe it reasonable to 
+assume that bidders on the whole are only interested in
+acquiring one copy of the item on eBay.3
+• The volume transacted is fairly high, at approximately
+500 units sold per month.
+• The item is not usually bundled with other items.
+• The item is typically sold as new, and so suitable for
+the price-matching of the options-based scheme.
+Raw auction information was acquired via a PERL script.
+The script accesses the eBay search engine,4
+and returns all
+auctions containing the terms ‘Dell" and ‘LCD" that have
+closed within the past month.5
+Data was stored in a text
+file for post-processing. To isolate the auctions in the 
+domain of interest, queries were made against the titles of eBay
+auctions that closed between 27 May, 2005 through 1 
+October, 2005.6
+Figure 1 provides a general sense of how many LCD 
+auctions occur while a bidder is interested in pursuing a 
+monitor.7
+8,746 bidders (86%) had more than one auction 
+available between when they first placed a bid on eBay and the
+3
+For reference, Dell"s October 2005 mail order catalogue
+quotes the price of the monitor as being $379 without a
+desktop purchase, and $240 as part of a desktop purchase
+upgrade.
+4
+http://search.ebay.com
+5
+The search is not case-sensitive.
+6
+Specifically, the query found all auctions where the title
+contained all of the following strings: ‘Dell," ‘LCD" and
+‘E193FP," while excluding all auctions that contained any
+of the following strings: ‘Dimension," ‘GHZ," ‘desktop," ‘p4"
+and ‘GB." The exclusion terms were incorporated so that the
+only auctions analyzed would be those selling exclusively the
+LCD of interest. For example, the few bundled auctions 
+selling both a Dell Dimension desktop and the E193FP LCD
+are excluded.
+7
+As a reference, most auctions close on eBay between noon
+and midnight EDT, with almost two auctions for the Dell
+LCD monitor closing each hour on average during peak time
+periods. Bidders have an average observed patience of 3.9
+days (with a standard deviation of 11.4 days).
+latest closing time of an auction in which they bid (with an
+average of 78 auctions available). Figure 1 also illustrates
+the number of auctions in which each bidder participates.
+Only 32.3% of bidders who had more than one auction 
+available are observed to bid in more than one auction (bidding
+in 3.6 auctions on average). A simple regression analysis
+shows that bidders tend to submit maximal bids to an 
+auction that are $1.22 higher after spending twice as much time
+in the system, as well as bids that are $0.27 higher in each
+subsequent auction.
+Among the 508 bidders that won exactly one monitor and
+participated in multiple auctions, 201 (40%) paid more than
+$10 more than the closing price of another auction in which
+they bid, paying on average $35 more (standard deviation
+$21) than the closing price of the cheapest auction in which
+they bid but did not win. Furthermore, among the 2,216
+bidders that never won an item despite participating in 
+multiple auctions, 421 (19%) placed a losing bid in one auction
+that was more than $10 higher than the closing price of 
+another auction in which they bid, submitting a losing bid on
+average $34 more (standard deviation $23) than the 
+closing price of the cheapest auction in which they bid but did
+not win. Although these measures do not say a bidder that
+lost could have definitively won (because we only consider
+the final winning price and not the bid of the winner to her
+proxy), or a bidder that won could have secured a better
+price, this is at least indicative of some bidder mistakes.

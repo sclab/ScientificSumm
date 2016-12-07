@@ -1,0 +1,65 @@
+Table 1 summarizes the notation of the parameters used in the
+paper. Below we introduce some terminology used in the paper.
+Assume a network of N AutoMata-equipped cars, each with
+storage capacity of α bytes. The total storage capacity of the 
+system is ST =N ·α. There are T data items in the database, each with
+Database Parameters
+T Number of data items.
+Si Size of data item i
+fi Frequency of access to data item i.
+Replication Parameters
+Ri Normalized frequency of access to data item i
+ri Number of replicas for data item i
+n Characterizes a particular replication scheme.
+δi Average availability latency of data item i
+δagg Aggregate availability latency, δagg = T
+j=1 δj · fj
+AutoMata System Parameters
+G Number of cells in the map (2D-torus).
+N Number of AutoMata devices in the system.
+α Storage capacity per AutoMata.
+γ Trip duration of the client AutoMata.
+ST Total storage capacity of the AutoMata system, ST = N · α.
+Table 1: Terms and their definitions
+size Si. The frequency of access to data item i is denoted as fi,
+with T
+j=1 fj = 1. Let the trip duration of the client AutoMata
+under consideration be γ.
+We now define the normalized frequency of access to the data
+item i, denoted by Ri, as:
+Ri =
+(fi)n
+T
+j=1(fj)n
+; 0 ≤ n ≤ ∞ (1)
+The exponent n characterizes a particular replication technique.
+A square-root replication scheme is realized when n = 0.5 [5].
+This serves as the base-line for comparison with the case when 
+zebroids are deployed. Ri is normalized to a value between 0 and
+1. The number of replicas for data item i, denoted as ri, is: ri =
+min (N, max (1, Ri·N·α
+Si
+)). This captures the case when at least
+one copy of every data item must be present in the ad-hoc network
+at all times. In cases where a data item may be lost from the ad-hoc
+network, this equation becomes ri = min (N, max (0, Ri·N·α
+Si
+)).
+In this case, a request for the lost data item may need to be satisfied
+by fetching the item from a remote server.
+The availability latency for a data item i, denoted as δi, is defined
+as the earliest time at which a client AutoMata will find the first
+replica of the item accessible to it. If this condition is not satisfied,
+then we set δi to γ. This indicates that data item i was not available
+to the client during its journey. Note that since there is at least one
+replica in the system for every data item i, by setting γ to a large
+value we ensure that the client"s request for any data item i will be
+satisfied. However, in most practical circumstances γ may not be
+so large as to find every data item.
+We are interested in the availability latency observed across all
+data items. Hence, we augment the average availability latency
+for every data item i with its fi to obtain the following weighted
+availability latency (δagg) metric: δagg = T
+i=1 δi · fi
+Next, we present our solution approach describing how zebroids
+are selected.

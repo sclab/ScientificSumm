@@ -1,0 +1,40 @@
+this paper uses such a task and the std evaluation is a good summary of the performance of different approaches on the same test conditions. 
+an important issue to be considered when looking at the state-of-the-art in retrieval of spoken data, is the lack of a common test set and appropriate query terms.
+however, the phonetic transcript is obtained from a text to phonetic conversion of the 1-best path of the word transcript and is not based on a phonetic decoding of the speech data.
+in [5, 4] propose to merge a word approach with a phonetic approach in the context of video retrieval.
+amir et al.
+however, no strategy is proposed to deal with phrase queries containing both iv and oov terms.
+they propose three  different retrieval strategies: search both the word and the phonetic indices and unify the two different sets of results; search the word index for iv queries, search the phonetic  index for oov queries; search the word index and if no result is returned, search the phonetic index.
+saraclar and sproat in [22] show improvement in word spotting accuracy for both iv and oov queries, using  phonetic and word lattices, where a confidence measure of a word or a phone can be derived.
+consequently, phonetic approaches should be used only for oov search; for  searching queries containing also iv terms, this technique affects the performance of the retrieval in comparison to the word based approach.
+moreover, beside the improvement in the recall of the search, the precision is affected since  phonetic lattices are often inaccurate.
+however, phonetic lattices contain many edges that overlap in time with the same phonetic label, and are difficult to index.
+they are attractive as they accommodate high error rate conditions as well as allow for oov queries to be used [15, 3, 20, 23, 21, 27].
+to account for the high recognition error rates, some other systems use richer transcripts like phonetic lattices.
+the retrieval is based on searching the string of phones representing the query in the phonetic  transcript.
+the transcripts are indexed in the same manner as words in using classical text retrieval techniques; during query processing, the query is represented as a  sequence of phones.
+the classical approach consists of using  phonetic transcripts.
+popular approaches to deal with oov queries are based on sub-words transcripts, where the sub-words are typically phones, syllables or word fragments (sequences of phones) [11, 20, 23].
+however, in the above works, the  problem of queries containing oov terms is not addressed.
+[17] propose a model for spoken document retrieval using wcns in order to improve the recall and the map of the search.
+mamou et al.
+their ranking model is based on the term confidence level but does not take into consideration the rank of the term among the other  hypotheses.
+however, the evaluation  framework is carried out on lectures that are relatively planned, in contrast to conversational speech.
+the offset of the terms in the speech documents is also stored in the index.
+this data structure is similar to wcn and leads to a more  compact index.
+chelba and acero in [8, 9] propose a more compact word lattice, the position specific posterior lattice (pspl).
+the necessity to use a document expansion algorithm was justified by the fact that the word lattices they worked with, lack information about word probabilities.
+their approach consists in using word lattices in order to determine which words returned by a document expansion algorithm should be added to the original transcript.
+from an ir perspective, a classical way to bring new terms is document expansion using a similar corpus.
+[24, 25] propose to add some terms to the transcript in order to alleviate the retrieval failures due to asr errors.
+singhal et al.
+an alternative approach consists of using word lattices in order to improve the effectiveness of sdr.
+moreover, the  algorithms have been mostly tested over long queries stated in plain english and retrieval for such queries is more robust against speech recognition errors.
+this  stratindex word phonetic word and phonetic precision recall precision recall precision recall iv queries 0.8 0.96 0.11 0.77 0.8 0.96 oov queries 0 0 0.13 0.79 0.13 0.79 hybrid queries 0 0 0.15 0.71 0.89 0.83 table 6: comparison of word and phonetic approach on iv and oov queries egy works well for transcripts like broadcast news collections that have a low wer (in the range of 15%-30%) and are redundant by nature (the same piece of information is  spoken several times in different manners).
+[6] and james [14].
+a generic ir system over the text is used for word spotting and search as described by brown et al.
+the transcripts are indexed as clean text: for each occurrence, its document, its word offset and additional information are stored in the index.
+an lvcsr system is used to transcribe the speech into 1-best path word transcripts.
+[12].
+some of these works have been done in the context of the trec spoken document retrieval evaluations and are described by garofolo et al.
+in the past decade, the research efforts on spoken data retrieval have focused on extending classical ir techniques to spoken documents.

@@ -1,0 +1,92 @@
+An organization"s intranet provides a means for exchanging 
+information between employees and for facilitating employee 
+collaborations. To efficiently and effectively achieve this, it is necessary
+to provide search facilities that enable employees not only to access
+documents, but also to identify expert colleagues.
+At the TREC Enterprise Track [22] the need to study and 
+understand expertise retrieval has been recognized through the 
+introduction of Expert Finding tasks. The goal of expert finding is to
+identify a list of people who are knowledgeable about a given topic.
+This task is usually addressed by uncovering associations between
+people and topics [10]; commonly, a co-occurrence of the name
+of a person with topics in the same context is assumed to be 
+evidence of expertise. An alternative task, which using the same idea
+of people-topic associations, is expert profiling, where the task is to
+return a list of topics that a person is knowledgeable about [3].
+The launch of the Expert Finding task at TREC has generated a
+lot of interest in expertise retrieval, with rapid progress being made
+in terms of modeling, algorithms, and evaluation aspects. However,
+nearly all of the expert finding or profiling work performed has
+been validated experimentally using the W3C collection [24] from
+the Enterprise Track. While this collection is currently the only
+publicly available test collection for expertise retrieval tasks, it only
+represents one type of intranet. With only one test collection it is
+not possible to generalize conclusions to other realistic settings.
+In this paper we focus on expertise retrieval in a realistic setting
+that differs from the W3C setting-one in which relatively small
+amounts of clean, multilingual data are available, that cover a broad
+range of expertise areas, as can be found on the intranets of 
+universities and other knowledge-intensive organizations. Typically, this
+setting features several additional types of structure: topical 
+structure (e.g., topic hierarchies as employed by the organization), 
+organizational structure (faculty, department, ...), as well as multiple
+types of documents (research and course descriptions, publications,
+and academic homepages). This setting is quite different from the
+W3C setting in ways that might impact upon the performance of
+expertise retrieval tasks.
+We focus on a number of research questions in this paper: Does
+the relatively small amount of data available on an intranet affect
+the quality of the topic-person associations that lie at the heart of
+expertise retrieval algorithms? How do state-of-the-art algorithms
+developed on the W3C data set perform in the alternative scenario
+of the type described above? More generally, do the lessons from
+the Expert Finding task at TREC carry over to this setting? How
+does the inclusion or exclusion of different documents affect 
+expertise retrieval tasks? In addition to, how can the topical and 
+organizational structure be used for retrieval purposes?
+To answer our research questions, we first present a set of 
+baseline approaches, based on generative language modeling, aimed at
+finding associations between topics and people. This allows us to
+formulate the expert finding and expert profiling tasks in a uniform
+way, and has the added benefit of allowing us to understand the 
+relations between the two tasks. For our experimental evaluation, we
+introduce a new data set (the UvT Expert Collection) which is 
+representative of the type of intranet that we described above. Our 
+collection is based on publicly available data, crawled from the 
+website of Tilburg University (UvT). This type of data is particularly
+interesting, since (1) it is clean, heterogeneous, structured, and 
+focused, but comprises a limited number of documents; (2) contains
+information on the organizational hierarchy; (3) it is bilingual 
+(English and Dutch); and (4) the list of expertise areas of an individual
+are provided by the employees themselves. Using the UvT Expert
+collection, we conduct two sets of experiments. The first is aimed
+at determining the effectiveness of baseline expertise finding and
+profiling methods in this new setting. A second group of 
+experiments is aimed at extensions of the baseline methods that exploit
+characteristic features of the UvT Expert Collection; specifically,
+we propose and evaluate refined expert finding and profiling 
+methods that incorporate topicality and organizational structure.
+Apart from the research questions and data set that we contribute,
+our main contributions are as follows. The baseline models 
+developed for expertise finding perform well on the new data set. While
+on the W3C setting the expert finding task appears to be more 
+difficult than profiling, for the UvT data the opposite is the case. We
+find that profiling on the UvT data set is considerably more 
+difficult than on the W3C set, which we believe is due to the large
+(but realistic) number of topical areas that we used for profiling:
+about 1,500 for the UvT set, versus 50 in the W3C case. 
+Taking the similarity between topics into account can significantly 
+improve retrieval performance. The best performing similarity 
+measures are content-based, therefore they can be applied on the W3C
+(and other) settings as well. Finally, we demonstrate that the 
+organizational structure can be exploited in the form of a context model,
+improving MAP scores for certain models by up to 70%.
+The remainder of this paper is organized as follows. In the next
+section we review related work. Then, in Section 3 we provide 
+detailed descriptions of the expertise retrieval tasks that we address
+in this paper: expert finding and expert profiling. In Section 4 we
+present our baseline models, of which the performance is then 
+assessed in Section 6 using the UvT data set that we introduce in 
+Section 5. Advanced models exploiting specific features of our data are
+presented in Section 7 and evaluated in Section 8. We formulate our
+conclusions in Section 9.

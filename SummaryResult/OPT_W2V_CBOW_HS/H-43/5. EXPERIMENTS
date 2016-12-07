@@ -1,0 +1,71 @@
+• SVM on link-content We combine the features of the above two methods.
+The method of directed graph regularization does not perform as good as SVM on link-content, which confirms the importance of the article content in this task.
+We measure the results by the classification accuracy, i.e., the percentage of the number of correct classified documents in the entire data set.
+This indicates that the usefulness of supervised matrix factorization at lower number of factors. 
+The number of papers and the number of subfields in each area are shown in Table 2. area # of papers # of subfields Data structure (DS) 751 9 Hardware and architecture (HA) 400 7 Machine learning (ML) 1617 7 Programing language (PL) 1575 9 Table 2: Dataset of Cora 5.2 Methods The task of the experiments is to classify the data based on their content information and/or link structure.
+Though our method of link-content matrix  factorization perform slightly better than other methods, our method of  linkcontent supervised matrix factorization outperform significantly.
+To choose of the number of factors, we need to consider the trade-off between the accuracy and the computation time, which is quadratic to the number of factors.
+After we compute Z, we train a linear SVM using Z as the feature vectors, then apply SVM on testing portion of Z to obtain the final result, because of the multiclass output.
+This indicates both content and links are  infor45 50 55 60 65 70 75 80 PLMLHADS accuracy(%) dataset SVM on content SVM on link SVM on link-content Directed graph reg.
+We randomly split data into five folds and repeat the experiment for five times, for each time we use one fold for test, four other folds for training.
+MF 93.80 ± 0.70 97.07 ± 1.11 93.70 ± 0.60 93.00 ± 0.30 Table 3: Classification accuracy (mean ± std-err %) on WebKB data set • SVM on content We apply support vector machines (SVM) on the content of documents.
+The figures show that the accuracy 88 89 90 91 92 93 94 95 0 10 20 30 40 50 accuracy(%) number of factors link-content sup.
+MF method DS HA ML PL SVM on content 53.70 ± 0.50 67.50 ± 1.70 68.30 ± 1.60 56.40 ± 0.70 SVM on links 48.90 ± 1.70 65.80 ± 1.40 60.70 ± 1.10 58.20 ± 0.70 SVM on link-content 63.70 ± 1.50 70.50 ± 2.20 70.56 ± 0.80 62.35 ± 1.00 Directed graph regularization 46.07 ± 0.82 65.50 ± 2.30 59.37 ± 0.96 56.06 ± 0.84 PLSI+PHITS 53.60 ± 1.78 67.40 ± 1.48 67.51 ± 1.13 57.45 ± 0.68 link-content MF 61.00 ± 0.70 74.20 ± 1.20 77.50 ± 0.80 62.50 ± 0.80 link-content sup.
+MF method Cornell Texas Washington Wisconsin SVM on content 81.00 ± 0.90 77.00 ± 0.60 85.20 ± 0.90 84.30 ± 0.80 SVM on links 70.10 ± 0.80 75.80 ± 1.20 80.50 ± 0.30 74.90 ± 1.00 SVM on link-content 80.00 ± 0.80 78.30 ± 1.00 85.20 ± 0.70 84.00 ± 0.90 Directed graph regularization 89.47 ± 1.41 91.28 ± 0.75 91.08 ± 0.51 89.26 ± 0.45 PLSI+PHITS 80.74 ± 0.88 76.15 ± 1.29 85.12 ± 0.37 83.75 ± 0.87 link-content MF 93.50 ± 0.80 96.20 ± 0.50 93.60 ± 0.50 92.60 ± 0.60 link-content sup.
+Since our approach consider the link structure as well as the content information, our two methods give results a highest accuracies among these approaches.
+The difference between the method of matrix factorization and that of supervised one decreases as the number of factors increases.
+We use different weights for these two set of features.
+The classification accuracies for the Cora data set are shown in Table 4.
+After we compute Z, we train a linear SVM on the training portion of Z, then apply SVM on testing  portion of Z to obtain the final result, because of the multiclass output.
+5.4 The Number of Factors As we discussed in Section 3, the computational complexity of each iteration for solving the optimization problem is quadratic to the number of factors.
+We use the following methods: 65 70 75 80 85 90 95 100 WisconsinWashingtonTexasCornell accuracy(%) dataset SVM on content SVM on link SVM on link-content Directed graph reg.
+In this experiment, the accuracies of SVM on the  combination of links and content are higher than either SVM on content or SVM on links.
+We use  different numbers of factors for the Cornell data of WebKB data set and the machine learning (ML) data of Cora data set.
+However in the experiments below, we show the difference between them.
+We perform experiments to study how the number of factors affects the accuracy of predication.
+MF 69.38 ± 1.80 74.20 ± 0.70 78.70 ± 0.90 68.76 ± 1.32 Table 4: Classification accuracy (mean ± std-err %) on Cora data set mative for classifying the articles into subfields.
+MF This method is our approach of the supervised matrix factorization in Section 4.
+5.1 Data Description In this section, we perform classification on two datasets, to demonstrate the our approach.
+The combination of link and content using SVM achieves similar accuracy as that of SVM on content alone, which confirms individual links in a web page give little information.
+We have considered the regularization over the factors, which avoids the overfit problem for a large number of factors.
+For this task, the accuracies of SVM on links are worse than that of SVM on content.
+This implies that the link structure plays an  important role in the classification of this dataset, but individual links in a web page give little information.
+The results are shown as the average classification accuracies and it standard deviation over the five repeats.
+The difference  between the results of our two methods is not significant.
+MF link-content MF (a) Cornell data 62 64 66 68 70 72 74 76 78 80 0 10 20 30 40 50 accuracy(%) number of factors link-content sup.
+5.3 Results The average classification accuracies for the WebKB data set are shown in Table 3.
+MF link-content MF (b) ML data Figure 4: Accuracy vs number of factors increases as the number of factors increases.
+But the directed graph regularization, which is also based on link alone, achieves a much higher accuracy.
+The weights are also selected using  crossvalidation.
+The two datasets are the WebKB data set[1] and the Cora data set [15].
+This method ignores link structure in the data.
+The  regularization parameter of SVM is selected using the cross-validation method.
+The numbers of pages in each category are shown in Table 1.
+• Link-content MF This is our approach of matrix  factorization described in Section 3.
+We apply SVM on link features.
+• SVM on links We treat links as the features of each  document, i.e.
+The implementation of SVM used in the  experiments is libSVM[4].
+During the training process, we use the  crossvalidation to select all model parameters.
+The WebKB data set  consists of about 6000 web pages from computer science departments of four schools (Cornell, Texas, Washington, and Wisconsin).
+This method is solely based on link structure.
+We use part of them to categorize into one of subfields of data structure (DS), hardware and architecture (HA), machine learning (ML), and programing language (PL).
+• Directed graph regularization This method is described in [25] and [24].
+This method combines text content information and link structure for analysis.
+We use 50 latent factors for Z.
+We use 50 latent factors for Z.
+The web pages are classified into seven categories.
+It is a different  concept from choosing the optimal number of clusters in clustering application.
+This method uses link information, but not the link structure.
+the i-th feature is link-to-pagei.
+It models the  outgoing and in-coming structures separately.
+• PLSI+PHITS This method is described in [6].
+It is how much information to represent in the latent variables.
+The PHITS algorithm is in spirit similar to Eq.1, with an additional nonnegative constraint.
+The Cora data set consists of the abstracts and references of about 34,000 computer science research papers.
+The features are the  bag-ofwords and all word are stemmed.
+We remove those articles without reference to other articles in the set.
+The result shown in Figure 4(a) and 4(b).
+PLSI+PHITS link-content MF link-content sup.
+PLSI+PHITS link-content MF link-content sup.
+Linear SVM is used.
+• Link-content sup.

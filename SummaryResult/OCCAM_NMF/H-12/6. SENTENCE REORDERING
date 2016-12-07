@@ -1,0 +1,27 @@
+span (k) term count (c) sentence position (h + l) distinct terms (d) 40% 50% 60% 70% st qlt qlu st qlt qlu st qlt qlu st qlt qlu st qlt qlu relativedifferencetonaturalorder documents size used 90% 80% 70% 60% 50% 0% 10% 20% 30% figure 6: relative difference in the snippet score components compared to natural ordered  documents when the amount of documents processed is reduced, and the sentences in the document are  reordered using query logs (qlt, qlu) or significant terms (st). 
+depending how these various components are weighted to compute an overall snippet score, one can argue that there is little overall affect on scores when processing only half the document using the st method.
+the second most  affected component is the number of distinct query terms in a returned sentence, but if only the first 50% of the document is processed with the st method, there is a drop of only 8% in the number of distinct query terms found in snippets.
+the greatest change over all methods is in the sentence position (h + )  component of the score, which is to be expected as their is no guarantee that leading and heading sentences are processed at all after sentences are re-ordered.
+it is clear that sorting sentences using the significant terms (st) method leads to the smallest change in the sentence scoring components.
+figure 6 shows the differences in snippet scoring  components using each of the three methods over the natural order method.
+accordingly, we conducted  experiments comparing the methods, the first 80% of the excite query log was used to reorder sentences when required, and the final 20% for testing.
+by re-ordering sentences using schemes st, qlt or qlu, we aim to terminate snippet generation earlier than if  natural order is used, but still produce sentences with the same number of unique query terms (d in figure 2), total number of query terms (c), the same positional score (h+ ) and the same maximum span (k).
+4. query log based (qlu) this scheme is as for qlt, but repeated terms in the sentence are only counted once.
+to ensure that long sentences do not dominate over shorter qualitative sentences the score  assigned to each sentence is divided by the number of terms in that sentence giving each sentence a score between 0 and 1.
+in this scheme, the sentences are sorted by the number of sentence terms that occur in the query log.
+in order to take advantage of this bias, sentences that contain many past query terms should be promoted to the front of a document, while sentences that contain few query terms should be demoted.
+3. query log based (qlt) many web queries repeat, and a small number of queries make up a large volume of total searches [9].
+we then sort the sentences by this score.
+the a priori score for a sentence is computed as the maximum of all scores for the bracketed sections of the sentence.
+the score of a bracketed section is the square of the number of significant words falling in the section, divided by the total number of words in the entire sentence.
+let fd,t be the frequency of term t in document d, then term t is determined to be significant if fd,t ≥ 8 < : 7 − 0.1 × (25 − sd), if sd < 25 7, if 25 ≤ sd ≤ 40 7 + 0.1 × (sd − 40), otherwise, where sd is the number of sentences in document d. a  bracketed section is defined as a group of terms where the leftmost and rightmost terms are significant terms, and no significant terms in the bracketed section are divided by more than four non-significant terms.
+2. significant terms (st) luhn introduced the concept of a significant sentence as containing a cluster of  significant terms [12], a concept found to work well by tombros and sanderson [20].
+more importantly, perhaps, is that we are producing query-biased snippets, and there is no guarantee that query terms will appear in sentences towards the front of a document.
+unfortunately, however, web documents are often not well authored, with little editorial or professional writing skills brought to bear on the creation of a work of literary merit.
+thus simply processing a document in order should yield a quality snippet.
+1. natural order the first few sentences of a well authored document usually best describe the document content [12].
+we now introduce four sentence reordering approaches.
+note that we assume that the search engine is to provide cached copies of a document-that is, the exact text of the document as it was indexed-then this would be serviced by another sub-system in figure 1, and not from the altered copy we store in the snippet engine.
+further, to improve caching, only the head of each document can be stored in the cache, with the tail residing on disk.
+then, during query time, if k sentences with a score exceeding some threshold are found before the entire document is processed, the remainder of the document is ignored.
+sentences within each document can be re-ordered so that sentences that are very likely to appear in snippets are at the front of the document, hence processed first at query time, while less likely sentences are relegated to the rear of the document.

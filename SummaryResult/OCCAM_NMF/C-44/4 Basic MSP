@@ -1,0 +1,18 @@
+section 5 will introduce advanced msp, in which four novel optimizations are proposed to improve the performance of msp significantly.
+1: repeat 2: getoneunprocessedseqence(); 3: repeat 4: getonenodefromsequenceinorder(); 5: getboundaries(); 6: updatemap(); 7: until all the target nodes are updated; 8: until all the node sequences are processed; 9: repeat 10: getoneunestimatednode(); 11: centroidestimation(); 12: until all the target nodes are estimated; each sequence.
+actually, we can extract much more location information from 17 algorithm 1 basic msp process output: the estimated location of each node.
+basic msp only makes use of the order information  between a target node and the anchor nodes in each sequence.
+after processing all sequences, centroid estimation (line 11) set the center of gravity of the final  polygon as the estimated location of the target node.
+then in line 6 updatemap() shrinks the location area of this node according to the newly obtained boundaries.
+each node sequence is processed within line 1 to 8. for each node, getboundaries() in line 5 searches for the  predecessor and successor anchors in the sequence so as to  determine the boundaries of this node.
+algorithm 1 depicts the computing architecture of basic msp.
+we emphasize that accuracy is affected not only by the number of anchors m, but also by the number of events d. in other words, msp provides a tradeoff between the physical cost of anchors and the soft cost of events.
+when m and d are appropriately large, the polygon for each target node may become sufficiently small so that accurate  estimation can be achieved.
+according to the pie-cutting  theorem [22], the area can be divided into o(m2d2) parts.
+obviously, the number of parts is a function of the number of  anchors m, the number of scans d, the anchors" location as well as the slop k for each scan line.
+for vertical scan 1, the node sequence is (8,1,5,a,6,c,4,3,7,2,b,9), as shown outside the right boundary of the area in figure 2; for  horizontal scan 2, the node sequence is (3,1,c,5,9,2,a,4,6,b,7,8), as shown under the bottom boundary of the area in figure 2. since the locations of the anchor nodes are available, the anchor nodes in the two node sequences actually split the area vertically and horizontally into 16 parts, as shown in figure 2. to extend this process, suppose we have m anchor nodes and perform d scans from different angles, obtaining d node  sequences and dividing the area into many small parts.
+all the nodes react to the event sequentially generating two node sequences.
+basic msp uses two straight lines to scan the area from different directions, treating each scan as an event.
+in figure 2, we use numbered circles to denote target nodes and numbered hexagons to denote anchor nodes.
+because the exact locations of all the anchors in a node sequence are known, all the nodes in this sequence can be divided into o(m +1) parts in the area.
+let us consider a sensor network with n target nodes and m anchor nodes randomly deployed in an area of size s. the top-level idea for basic msp is to split the whole sensor  network area into small pieces by processing node sequences.

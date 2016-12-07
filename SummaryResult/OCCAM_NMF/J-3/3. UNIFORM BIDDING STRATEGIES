@@ -1,0 +1,42 @@
+44 b d a c clicks cost cpc a 2 $1 $0.50 b 5 $0.50 $0.10 c 3 $2 $0.67 d 4 $1 $0.25 cpc $0.67 $0.50 $0.25 $0.10 total clicks: 5 9 11 14 figure 2: four queries and their click-price curve. 
+py?answer=33227, for example.
+8 see https://adwords.google.com/support/bin/answer.
+cost(x) is as large as possible without exceeding u, or a convex  combination of zero and the point y, where cost(y) is as small as possible while larger than u.
+the optimal strategy for a budget u will either be the point x s.t.
+the best single-bid strategy can also be computed easily from the aggregate landscape.
+one could also use an ad scheduling tool offered by some search companies8 to implement this strategy.
+in this case, the advertiser would simply bid b∗ until her budget runs out, and the ad serving system would remove her from all subsequent auctions until the end of the day.
+for example, the search engines often allow advertisers to set a maximum daily budget.
+a single-bid strategy is even easier to implement in practice than a two-bid strategy.
+advertiser randomizes between bidding a certain amount b∗ on all  keywords, and not bidding at all.
+a single-bid strategy is a uniform strategy which puts  nonzero weight on at most one non-zero vector, i.e.
+4. output the strategy which is the appropriate convex combination of the uniform bid vectors corresponding to α and β. we will also consider a special case of two-bid strategies.
+3. compute the point on the convex hull for the given budget, which is the convex combination of two points α and β.
+2. find the convex hull of the points in the aggregate landscape.
+putting these ideas together, we get an o(n log n)-time algorithm for budget optimization, where n is the total number of landscape points (we later show that this is a (1 − 1 e )-approximation algorithm): 1. aggregate all the points from the individual query  landscapes into a single aggregate landscape.
+furthermore, this strategy will always be a two-bid strategy.
+we have shown lemma 2. given an instance of budget optimization in which there are a total of n points in all the landscapes, we can find the best uniform strategy in o(n log n) time.
+define a two-bid strategy to be a uniform strategy which puts non-zero weight on at most two bid vectors.
+the resulting strategy is the convex combination of two points on the aggregate landscape.
+the running time is dominated by the time to compute the convex hull, which is o(n log n)[12].
+therefore, all the definitions and results of section 2 about landscapes can be extended to aggregate landscapes, and we can apply lemma 1 to compute the best uniform strategy (using the convex hull of the points in this  aggregate landscape).
+for any possible bid b, if we use the aggregate landscape just as we would a regular landscape, we exactly represent the cost and clicks associated with making that bid  simultaneously on all queries associated with the aggregate  landscape.
+the ith point in our aggregate landscape v is found by summing, over the queries, the cost and clicks associated with bid bi, that is, v = ∪n i=1( p q∈q costq(bi), p q∈q clicksq(bi)).
+, bn in increasing order.
+we can index the points in i as b1, .
+, costq[p]/αq [p]}, let i = ∪q∈qiq, and let n = |i|.
+we define the set of interesting bids iq = {costq[1]/αq [1], .
+, (costq[p], αq[p])}.
+suppose we have a set of queries q, where the landscape vq for each query q is defined by the set of points vq = {(costq[1], αq[1]), .
+we now show that we can compute the best uniform  strategy efficiently.
+third, any algorithm that gives an approximation guarantee will then be valid for any interaction graph over those keywords and queries.
+second, uniform strategies are also independent of the priority rule being used.
+thus, they are effective in the face of limited or noisy information about the keyword interaction graph.
+first, they do not depend on the edges of the interaction graph, since all effective bids on queries are the same.
+uniform strategies have several advantages.
+, b) for some real-valued bid b. in other words, each vector in the distribution bids the same value on every keyword.
+we define a uniform bidding strategy to be a distribution a over bid vectors a ∈ r |k| + where each bid vector in the distribution is of the form (b, b, .
+with this motivation, we look at restricted classes of strategies that we can easily compute, explain and analyze.
+advertisers generally prefer strategies that are easy to  understand, evaluate and use within their larger goals.
+in  addition, it may be difficult to reason about strategies that involve arbitrary distributions over arbitrary bid vectors.
+as we will show in section 5, solving the budget  optimization problem in its full generality is difficult.

@@ -1,0 +1,162 @@
+Xgrid is Apple"s grid implementation. It was inspired by Zilla, a
+desktop clustering application developed by NeXT and acquired
+by Apple. In this report we describe the Xgrid Technology
+Preview 2, a free download that requires Mac OS X 10.2.8 or later
+and a minimum 128 MB RAM [5].
+Xgrid, leverages Apple"s traditional ease of use and configuration.
+If the grid members are on the same subnet, by default Xgrid
+automatically discovers available resources through Rendezvous
+[6]. Tasks are submitted to the grid through a GUI interface or by
+the command line. A System Preference Pane controls when each
+computer is available to the grid.
+It may be best to view Xgrid as a facilitator. The Xgrid
+architecture handles software and data distribution, job execution,
+and result aggregation. However, Xgrid does not perform the
+actual calculations.
+3.1 Xgrid Components
+Xgrid has three major components: the client, controller, and the
+agent. Each component is included in the default installation, and
+any computer can easily be configured to assume any role. In
+120
+fact, for testing purposes, a computer can simultaneously assume
+all roles in local mode. The more typical production use is
+called cluster mode.
+The client submits jobs to the controller through the Xgrid GUI or
+command line. The client defines how the job will be broken into
+tasks for the grid. If any files or executables must be sent as part
+of a job, they must reside on the client or at a location accessible
+to the client. When a job is complete, the client can retrieve the
+results from the controller. A client can only connect to a single
+controller at a time.
+The controller runs the GridServer process. It queues tasks
+received from clients, distributes those tasks to the agents, and
+handles failover if an agent cannot complete a task. In Xgrid
+Technology Preview 2, a controller can handle a maximum of
+10,000 agent connections. Only one controller can exist per
+logical grid.
+The agents run the GridAgent process. When the GridAgent
+process starts, it registers with a controller; an agent can only be
+connected to one controller at a time. Agents receive tasks from
+their controller, perform the specified computations, and then
+send the results back to the controller. An agent can be configured
+to always accept tasks, or to just accept them when the computer
+is not otherwise busy.
+3.2 Security and Authentication
+By default, Xgrid requires two passwords. First, a client needs a
+password to access a controller. Second, the controller needs a
+password to access an agent. Either password requirement can be
+disabled. Xgrid uses two-way-random mutual authentication
+protocol with MD5 hashes. At this time, data encryption is only
+used for passwords.
+As mentioned earlier, an agent registers with a controller when the
+GridAgent process starts. There is no native method for the
+controller to reject agents, and so it must accept any agent that
+registers. This means that any agent could submit a job that
+consumes excessive processor and disk space on the agents. Of
+course, since Mac OS X is a BSD-based operating system, the
+controller could employ Unix methods of restricting network
+connections from agents.
+The Xgrid daemons run as the user nobody, which means the
+daemons can read, write, or execute any file according to world
+permissions. Thus, Xgrid jobs can execute many commands and
+write to /tmp and /Volumes. In general, this is not a major security
+risk, but is does require a level of trust between all members of the
+grid.
+3.3 Using Xgrid
+3.3.1 Installation
+Basic Xgrid installation and configuration is described both in
+Apple documentation [5] and online at the University of Utah web
+site [8]. The installation is straightforward and offers no options
+for customization. This means that every computer on which
+Xgrid is installed has the potential to be a client, controller, or
+agent.
+3.3.2 Agent and Controller Configuration
+The agents and controllers can be configured through the Xgrid
+Preference Pane in the System Preferences or XML files in
+/Library/Preferences. Here the GridServer and GridAgent
+processes are started, passwords set, and the controller discovery
+method used by agents is selected. By default, agents use
+Rendezvous to find a controller, although the agents can also be
+configured to look for a specific host.
+The Xgrid Preference Pane also sets whether the Agents will
+always accept jobs, or only accept jobs when idle. In Xgrid terms,
+idle either means that the Xgrid screen saver has activated, or the
+mouse and keyboard have not been used for more than 15
+minutes. Even if the agent is configured to always accept tasks, if
+the computer is being used these tasks will run in the background
+at a low priority.
+However, if an agent only accepts jobs when idle, any unfinished
+task being performed when the computer ceases being idle are
+immediately stopped and any intermediary results lost. Then the
+controller assigns the task to another available member of the
+grid.
+Advertising the controller via Rendezvous can be disabled by
+editing /Library/Preferences/com.apple.xgrid.controller.plist. This,
+however, will not prevent an agent from connecting to the
+controller by hostname.
+3.3.3 Sending Jobs from an Xgrid Client
+The client sends jobs to the controller either through the Xgrid
+GUI or the command line. The Xgrid GUI submits jobs via small
+applications called plug-ins. Sample plug-ins are provided by
+Apple, but they are only useful as simple testing or as examples of
+how to create a custom plug-in. If we are to employ Xgrid for
+useful work, we will require a custom plug-in.
+James Reynolds details the creation of custom plug-ins on the
+University of Utah Mac OS web site [8]. Xgrid stores plug-ins in
+/Library/Xgrid/Plug-ins or ~/Library/Xgrid/Plug-ins, depending
+on whether the plug-in was installed with Xgrid or created by a
+user.
+The core plug-in parameter is the command, which includes the
+executable the agents will run. Another important parameter is the
+working directory. This directory contains necessary files that
+are not installed on the agents or available to them over a network.
+The working directory will always be copied to each agent, so it is
+best to keep this directory small. If the files are installed on the
+agents or available over a network, the working directory
+parameter is not needed.
+The command line allows the options available with the GUI
+plug-in, but it can be slightly more cumbersome. However, the
+command line probably will be the method of choice for serious
+work. The command arguments must be included in a script
+unless they are very basic. This can be a shell, perl, or python
+script, as long as the agent can interpret it.
+3.3.4 Running the Xgrid Job
+When the Xgrid job is started, the command tells the controller
+how to break the job into tasks for the agents. Then the command
+is tarred and gzipped and sent to each agent; if there is a working
+directory, this is also tarred and gzipped and sent to the agents.
+121
+The agents extract these files into /tmp and run the task. Recall
+that since the GridAgent process runs as the user nobody,
+everything associated with the command must be available to
+nobody.
+Executables called by the command should be installed on the
+agents unless they are very simple. If the executable depends on
+libraries or other files, it may not function properly if transferred,
+even if the dependent files are referenced in the working directory.
+When the task is complete, the results are available to the client.
+In principle, the results are sent to the client, but whether this
+actually happens depends on the command. If the results are not
+sent to the client, they will be in /tmp on each agent. When
+available, a better solution is to direct the results to a network
+volume accessible to the client.
+3.4 Limitations and Idiosyncrasies
+Since Xgrid is only in its second preview release, there are some
+rough edges and limitations. Apple acknowledges some
+limitations [7]. For example, the controller cannot determine
+whether an agent is trustworthy and the controller always copies
+the command and working directory to the agent without checking
+to see if these exist on the agent.
+Other limitations are likely just a by-product of an unfinished
+work. Neither the client nor controller can specify which agents
+will receive the tasks, which is particularly important if the agents
+contain a variety of processor types and speeds and the user wants
+to optimize the calculations. At this time, the best solution to this
+problem may be to divide the computers into multiple logical
+grids. There is also no standard way to monitor the progress of a
+running job on each agent. The Xgrid GUI and command line
+indicate which agents are working on tasks, but gives no
+indication of progress.
+Finally, at this time only Mac OS X clients can submit jobs to the
+grid. The framework exists to allow third parties to write plug-ins
+for other Unix flavors, but Apple has not created them.

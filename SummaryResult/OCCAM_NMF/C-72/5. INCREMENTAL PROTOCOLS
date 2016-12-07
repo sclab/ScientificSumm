@@ -1,0 +1,24 @@
+the allocation of walks to updates is discussed in more detail in [3], where the authors show that the number of walks has an almost negligible impact on network overhead. 
+the rest of the protocol proceeds in the same fashion as the standard random walk  protocol.
+• incremental random walk protocol (irwp): when an update (or updates) occur in the system,  instead of starting random walks at k random nodes in the network, all k random walks are initiated from the updated node(s).
+therefore, nodes receiving the  update become active and continue communicating with their neighbors until the update protocol terminates, after o(log(n)) time steps.
+other nodes only begin gossiping once they receive the update.
+update received or local update occurs recovered susceptible time-stamp expires initial state additional update received infectious clean up figure 3: state diagram each device passes through as updates proceed in the system • incremental gossip protocol (igp): when an  update occurs, the updated node initiates the gossiping procedure.
+5.2 incremental routing protocol we use the following incremental variants of the routing protocols presented in section 4.2 to support incremental updates to previously computed aggregates.
+next we discuss how these aggregates can be communicated between devices using incremental routing protocols.
+thus, delete vectors provide a low overhead alternative for applications whose data changes incrementally, such as signal level  measurements in a coordinated spectrum sensing environment.
+with the original implementation of fm, the aggregate would need to be discarded and a new one recomputed every time an update occurred.
+using delete vectors, we can now support updates to the measured signal level.
+• s < s: we increase the value of the delete vector by performing (s − s ) coin toss experiments and bitwise or the result with the current delete vector.
+• s > s: we simply perform (s − s) more coin toss  experiments and bitwise or the result with the original bit vector.
+the vectors are updated as follows.
+now suppose that the measured signal at a node changes from s to s .
+figure 2 illustrates the sequence by which the average signal energy is computed in a particular band using fm  aggregation.
+a sum aggregate is computed similar to count (explained in section 4.1), except that each node performs s coin toss experiments, where s is the locally measured signal level.
+to compute this, we  compute the sum of all signal level measurements and divide that by the count of the number of measurements.
+suppose we wish to compute the average signal level  detected in a particular frequency.
+agginc = (2a−1 /0.77351) − (2b−1 /0.77351) (1) here, a and b represent the bit positions of the least  significant zero in the original and delete bit vectors respectively.
+we maintain a  separate aggregate delete vector whose value is subtracted from the original aggregate vector"s value to obtain the resulting value as follows.
+we propose the use of delete vectors, an extension of fm to support updates.
+due to the probabilistic nature of fm, once bit vectors have been ored together, information cannot simply be removed from them as each node"s contribution has not been recorded.
+5.1 incremental fm aggregates one limitation of fm aggregation is that it does not  support updates.

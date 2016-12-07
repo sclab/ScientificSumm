@@ -1,0 +1,48 @@
+The design of the EMT solution for the Tag Game exposes the
+core difference in approach to planning and control between EMT
+or DBC, on the one hand, and the more familiar POMDP approach,
+on the other. POMDP defines a reward structure to optimize, and
+influences system dynamics indirectly through that optimization.
+EMT discards any reward scheme, and instead measures and 
+influences system dynamics directly.
+2
+Entropy was calculated using log base equal to the number of 
+possible locations within the domain; this properly scales entropy 
+expression into the range [0, 1] for all domains.
+Thus for the Tag Game, we did not search for a reward function
+that would encode and express our preference over the agent"s 
+behavior, but rather directly set three (heuristic) behavior preferences
+as the basis for target dynamics to be maintained. Experimental
+data shows that these targets need not be directly achievable via the
+agent"s actions. However, the ratio between EMT performance and
+achievability of target dynamics remains to be explored.
+The tag game experiment data also revealed the different 
+emphasis DBC and POMDPs place on the formulation of an environment
+state space. POMDPs rely entirely on the mechanism of reward
+accumulation maximization, i.e., formation of the action selection
+procedure to achieve necessary state sequencing. DBC, on the
+other hand, has two sources of sequencing specification: through
+the properties of an action selection procedure, and through direct
+specification within the target dynamics. The importance of the
+second source was underlined by the Tag Game experiment data,
+in which the greedy EMT algorithm, applied to a POMDP-type
+state space specification, failed, since target description over such a
+state space was incapable of encoding the necessary behavior 
+tendencies, e.g., tie-breaking and commitment to directed motion.
+The structural differences between DBC (and EMT in 
+particular), and POMDPs, prohibits direct performance comparison, and
+places them on complementary tracks, each within a suitable niche.
+For instance, POMDPs could be seen as a much more natural 
+formulation of economic sequential decision-making problems, while
+EMT is a better fit for continual demand for stochastic change, as
+happens in many robotic or embodied-agent problems.
+The complementary properties of POMDPs and EMT can be 
+further exploited. There is recent interest in using POMDPs in hybrid
+solutions [17], in which the POMDPs can be used together with
+other control approaches to provide results not easily achievable
+with either approach by itself. DBC can be an effective partner in
+such a hybrid solution. For instance, POMDPs have prohibitively
+large off-line time requirements for policy computation, but can
+be readily used in simpler settings to expose beneficial behavioral
+trends; this can serve as a form of target dynamics that are provided
+to EMT in a larger domain for on-line operation.

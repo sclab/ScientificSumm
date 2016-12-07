@@ -1,0 +1,20 @@
+Here we can see that our strategy of enhancing the query model by contextual factors is equivalent to document re-ranking, which is used in [5][15][30].
+Let us use 0 Qθ to denote the original query model, F Qθ for the feedback model created from feedback documents, Dom Qθ for a domain model and K Qθ for a knowledge model created by applying term relations.
+In this paper, we generalize this approach and integrate more models for the query.
+Then the document score in Equation (1) is extended as follows: ( ) ∑∑∑ ∈∈ ∈ == Xi ii Vt Xi D i Qi DQScoretPtPDQScore ),()|(log)|(, αθθα (4) where )|(log)|(),( D Vt i Qi tPtPDQScore θθ∑∈ = is the score according to each component model.
+In these cases, we construct two models for the query: the initial query model containing only the original terms, and a new model containing the added terms.
+In this paper, F Qθ is extracted using the 20 blind feedback documents.
+In the language modeling framework, a typical score function is defined in KL-divergence as follows: ( ) ( ) ( ) ( )DQ Vt DQ KLtPtPDQScore θθθθ |||log|, −∝= ∑∈ (1) where θD is a (unigram) language model created for a document D, θQ a language model for the query Q, and V the vocabulary.
+In the basic language modeling approaches, the query model is estimated by Maximum Likelihood Estimation (MLE) without any smoothing.
+Smoothing on document model is recognized to be crucial [35], and one of common smoothing methods is the Jelinek-Mercer interpolation smoothing: ( ) ( ) ( ) ( )CDD tPtPtP θλθλθ ||1'| +−= (2) where λ is an interpolation parameter and θC the collection model.
+In particular, all the related and presumed words should be included in the query model.
+Given these models, we create the following final query model by interpolation: ∑∈ = Xi i QiQ tPtP )|()|( θαθ (3) where X={0, Dom, K, F} is the set of all component models and iα (with 1=∑∈Xi iα ) are their mixture weights.
+They are then combined through interpolation.
+The remaining problem is to construct domain models and knowledge model and to combine all the models (parameter setting).
+In such a setting, the basic retrieval operation is still limited to keyword matching, according to a few words in the query.
+We describe this in the following sections. 
+We will describe the details to construct Dom Qθ and K Qθ in Section 4 and 5.
+A more complete query model by several methods have been proposed using feedback documents [16][35] or using term relations [1][10][34].
+To improve retrieval effectiveness, it is important to create a more complete query model that represents better the information need.
+F Qθ has been used in several previous studies [16][35].
+0 Qθ can be created by MLE.

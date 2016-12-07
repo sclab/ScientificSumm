@@ -1,0 +1,59 @@
+We can characterize a user"s recommender  neighborhood by aggregating the individual role values of the  ratings involved, weighted by the influence of individual ratings in determining his recommended list.
+A prediction of item i for a user u is computed as the weighted deviation from the item"s mean rating as shown in Equation (4).
+For each prediction pu,i, M(e) is attributed to all the paths that assisted the computation of pu,i, proportional to their influences.
+We expect that users with good scouts and good neighborhoods will be most satisfied with the system in the future.
+This section defines the methodology for computing the contribution of ratings by first defining the influence of a rating, and then instantiating the approach for predictive accuracy, and then rank accuracy.
+The credit assigned to a pair of items (i, j) in the recommendation list for user u is computed as c(i, j) = ( t T · 1 C+D if (i, j) are concordant − t T · 1 C+D if (i, j) are discordant (7) where t is the number of items in the user"s test set whose ratings could be predicted, T is the number of items rated by user u in the test set, C is the number of concordances and D is the number of discordances.
+This tribute, M(e)∗influence(u, j, v, i), is in turn inherited by each of the ratings in the path [ru,j, rv,j, rv,i], with the credit/blame accumulating to the respective roles of ru,j as a scout, rv,j as a connector, and rv,i as a  promoter.
+A user"s neighborhood is characterized by a triple that represents the weighted sum of the role values of individual ratings involved in making recommendations.
+We assume that we have a test set of the users" ratings of the items presented in the recommendation list.
+Anecdotal evidence suggests that users are unable to discern errors less than 1.0 (for a rating scale of 1 to 5) [4], and so an error less than 1.0 is considered  acceptable, but anything larger is not.
+The influence of each path (u, j, v, i) = [ru,j, rv,j, rv,i] in the prediction of pu,i is given by influence(u, j, v, i) = sim (i, j) P l∈Ni∩Iu sim (i, l) · impact(v, i, j) It follows that the sum of influences over all such paths, for a given set of endpoints, is 1.
+This is the change in the similarity between i and j when a"s rating is removed, and is defined as impact(a, i, j) = |sim (i, j) − sim¯a(i, j)| P w∈Cij |sim (i, j) − sim ¯w(i, j)| where Cij = {u ∈ U | ∃ ru,i, ru,j ∈ R(u)} is the set of coraters 253 of items i and j (users who rate both i and j), R(u) is the set of ratings provided by user u, and sim¯a(i, j) is the similarity of i and j when the ratings of user a are removed sim¯a(i, j) = P v∈U\{a} (ru,i − ¯ru)(ru,j − ¯ru) qP u∈U\{a}(ru,i − ¯ru)2 qP u∈U\{a}(ru,j − ¯ru)2 , and adjusted for the number of raters sim¯a(i, j) = max(|Ui ∩ Uj| − 1, γ) γ · sim(i, j).
+We say a pair (i, j) is concordant (with error ) whenever one of the following holds: • if (ru,i < ru,j) then (pu,i − pu,j < ); • if (ru,i > ru,j) then (pu,i − pu,j > ); or • if (ru,i = ru,j) then (|pu,i − pu,j| ≤ ).
+4.3 Role Values for Rank Accuracy We now define the computation of the contribution of  ratings to observed rank accuracy.
+Consider a user u and his ordered list of recommendations L. An item i 254 in the list is weighted inversely, as K(i), depending on its  position in the list.
+For instance, ratings reachable through highly rated items have a bigger say in the recommended items.
+4.4 Aggregating rating roles After calculating the role values for individual ratings, we can also use these values to study neighborhoods and the system.
+The user implicitly chooses this  neighborhood of ratings through the items he rates.
+The recommender neighborhood of a user u is  characterized by the triple, [SFN(u), CFN(u), PFN(u)] where SFN(u) = X i∈L P [ru,j ,rv,j ,rv,i] SF(ru,j)influence(u, j, v, i) K(i) !
+We first define impact(a, i, j), the impact a user a has in determining the similarity between two items i and j.
+Over a large  number of predictions, scouts that have repeatedly resulted in big error rates have a big negative scout value, and vice versa (similarly with the other roles).
+As we"ve seen, a rating may play different roles in different predictions and, in each prediction, contribute to the quality of a prediction in different ways.
+We also demonstrate how these contributions can be aggregated to study the  neighborhood of ratings involved in computing a user"s  recommendations.
+The credit c is then divided among all paths responsible for predicting pu,i and pu,j proportional to their influences.
+A user can have a good set of scouts, but may be exposed to a neighborhood with bad connectors and  promoters.
+Note that although our general formulation for rating influence is algorithm independent, due to space  considerations, we present the approach for only item-based  collaborative filtering.
+By tracking the role of each rating in a prediction, we can accumulate the credit for a rating in each of the three roles, and also track the evolution of the roles of rating over time in the system.
+We again add the role values obtained from all the experiments to form a triple [SF, CF, PF] for each rating.
+For every pair of items rated by a user in the test data, we check whether the predicted order is concordant with his preference.
+The collaborative filtering algorithm  traversed many paths in his neighborhood through his scouts and other connectors and promoters to make these  recommendations.
+In other words, the scout value SF(ru,j), the  connector value CF(rv,j) and the promoter value PF(rv,i) are all incremented by the tribute amount.
+We call these ratings the recommender  neighborhood of the user.
+This triple  estimates the quality of u"s recommendations based on the past track record of the ratings involved in their respective roles. 
+The definition for user-based algorithms is similar and will be presented in an expanded version of this paper.
+He can have a good neighborhood, but his bad scouts may ensure the neighborhood"s potential is rendered useless.
+The list of recommendations for a user is then the list of items sorted in descending order of their predicted values.
+Several paths of ratings [ru,j, rv,j, rv,i] are involved in  predicting pu,i which ultimately decides its position in L, each with influence(u, j, v, i).
+4.2 Role Values for Predictive Accuracy The value of a rating in each role is computed from the influence depending on the evaluation measure employed.
+Different sections of the user"s neighborhood wield varied influence on his  recommendation list.
+As described earlier,  similarity is defined by the adjusted cosine measure (Equations (2) and (3)).
+Our approach can use any numeric measure of a property of system health, and assigns credit (or blame) to each rating proportional to its influence in the prediction.
+For predictive accuracy, the error in prediction e = |pu,i − ru,i| is mapped to a comfort level using a mapping function M(e).
+Here we consider how we can use the role values to characterize the health of a neighborhood.
+All paths involved in the prediction of the two items in a concordant pair are credited, and the paths involved in a discordant pair are discredited.
+For this computation, we must know the user"s preference order for a set of items for which predictions can be computed.
+Here we illustrate the approach using predictive accuracy as the evaluation metric.
+In general, the goodness of a prediction decides whether the ratings involved must be credited or discredited for their role.
+4.1 Influence of Ratings Recall that an item-based approach to collaborative  filtering relies on building item neighborhoods using the  similarity of ratings by the same user.
+Consider the list of top recommendations presented to a user at a  specific point in time.
+Similarly, a pair (i, j) is discordant (with error ) if it is not concordant.
+Our aim is to study the system and classify users with respect to their positioning in a healthy or unhealthy  neighborhood.
+Apart from the collaborative filtering algorithm, the health of this  neighborhood completely influences a user"s satisfaction with the system.
+Our experiments described below use an error tolerance of = 0.1.
+If all coraters of i and j rate them identically, we define the impact as impact(a, i, j) = 1 |Cij| since P w∈Cij |sim (i, j) − sim ¯w(i, j)| = 0.
+A set of the top K neighbors is maintained for all items for space and computational efficiency.
+Every rating is thus summarized by its triple [SF, CF, PF].
+In our studies we use K(i) = p position(i).
+We hence define M(e) as (1 − e) binned to an appropriate value in [−1, −0.5, 0.5, 1].
+CFN(u) and PFN(u) are defined similarly.

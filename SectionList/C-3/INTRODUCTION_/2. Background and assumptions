@@ -1,0 +1,34 @@
+In this section, we describe our assumptions about the applications
+and their resources. We assume the following resource model. The
+applications are running on multiple sites at the same time, where
+sites are clusters or supercomputers. We also assume that the 
+processors of the sites are accessible using a grid scheduling system,
+such as Koala (15), Zorilla (9) or GRMS (3). Processors 
+belonging to one site are connected by a fast LAN with a low latency
+and high bandwidth. The different sites are connected by a WAN.
+Communication between sites suffers from high latencies. We 
+assume that the links connecting the sites with the Internet backbone
+might become bottlenecks causing the inter-site communication to
+suffer from low bandwidths.
+We studied the adaptation problem in the context of 
+divide-andconquer applications. However, we believe that our methodology
+can be used for other types of applications as well. In this section
+we summarize the assumptions about applications that are 
+important to our approach.
+The first assumption we make is that the application is 
+malleable, i.e., it is able to handle processors joining and leaving
+the on-going computation. In (23), we showed how 
+divide-andconquer applications can be made fault tolerant and malleable.
+Processors can be added or removed at any point in the 
+computation with little overhead. The second assumption is that the 
+application can efficiently run on processors with different speeds.
+This can be achieved by using a dynamic load balancing 
+strategy, such as work stealing used by divide-and-conquer 
+applications (19). Also, master-worker applications typically use dynamic
+load-balancing strategies (e.g., MW - a framework for writing 
+gridenabled master-worker applications (12)). We find it a reasonable
+assumption for a grid application, since applications for which the
+slowest processor becomes a bottleneck will not be able to 
+efficiently utilize grid resources. Finally, the application should be 
+insensitive to wide-area latencies, so it can run efficiently on a 
+widearea grid (16; 17).

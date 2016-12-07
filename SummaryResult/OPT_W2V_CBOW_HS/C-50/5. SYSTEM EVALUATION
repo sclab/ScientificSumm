@@ -1,0 +1,18 @@
+Notice that this  calculation is preliminary, because it assumes that hikers are active 24 hours of the day and a hiker encounter occurs every 90 seconds.
+Given that the capacity of an alkaline battery is 2500 mAh, a battery should last for 2500/15.75 = 159 hours of transmission and reception.
+Assuming that a node emits a beacon every 90 seconds and a hiker encounter occurs everytime a beacon is emitted (worst-case scenario), a single alkaline battery will last for (841764 ∗ 90)/(30 ∗ 24 ∗ 60 ∗ 60) = 29 days.
+In general, the amount of memory needed and power consumption depends on a variety of factors such as node density, number of hiker encounters, and the number of  access points.
+An encounter between two  hikers results in exchange of about 50 witness records that takes about 0.68 seconds as calculated above.
+Also, this time period will significantly increase when groups of hikers are moving together.
+The power consumption of MICA2 due to CPU processing,  transmission and reception are approximately 8.0 mA, 7.0 mA and 8.5 mA per hour respectively [18], and the capacity of an alkaline battery is 2500mAh.
+On encountering another hiker, a sensor node transmits 50 witness records and receives 50 new  witness records.
+Since the radio module of Mica2 is half-duplex and  assuming that the CPU is always active when a node is awake, power consumption due to transmission is 8 + 8.5 = 16.5 mA per hour and due to reception is 8 + 7 = 15mA per hour.
+A sensor is constrained in the amount of memory and power.
+First, we assume that each sensor node carries about 100 witness records.
+Since, each record is 16 bytes long, it will take 0.34 seconds to transmit 50 records and another 0.34  seconds to receive 50 records over a 19200 bps link.
+In a more realistic scenario, power is expected to last for a much longer time period.
+Thus, a single  alkaline battery can last for (159 ∗ 60 ∗ 60)/0.68 = 841764 hiker encounters.
+So, average power consumtion due to transmission and reception is (16.5 + 15)/2 = 15.75 mA per hour.
+Since, a Mica2 is equipped with two batteries, a Mica2 sensor can remain operation for about two months.
+In this Section, we provide an estimate of how long the power of a MICA2 mote will last under certain assumtions.
+Finally, the lifetime of a sensor running on two  batteries can definitely be increased significantly by using energy scavenging techniques and energy harvesting techniques [16, 14]. 

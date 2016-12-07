@@ -1,0 +1,158 @@
+We argue that incorporating location information in wireless data
+broadcast can significantly decrease the access latency. This
+property becomes highly useful for mobile unit which has limited
+storage and processing capability. There are a variety of
+applications to obtain information about traffic, restaurant and
+hotel booking, fast food, gas stations, post office, grocery stores,
+etc. If these applications are coupled with location information,
+then the search will be fast and highly cost effective. An important
+property of the locations is Containment which helps to determine
+the relative location of an object with respect to its parent that
+contains the object. Thus, Containment limits the range of
+availability of a data. We use this property in our indexing
+scheme. The database contains the broadcast contents which are
+converted into LDD [14] by associating them with respective
+locations so that it can be broadcasted in a clustered manner. The
+clustering of LDD helps the user to locate information efficiently
+and supports containment property. We present an example to
+justify our proposition.
+Example: Suppose a user issues query Starbucks Coffee in
+Plaza please. to access information about the Plaza branch of
+Starbucks Coffee in Kansas City. In the case of location
+independent set up the system will list all Starbucks coffee shops
+in Kansas City area. It is obvious that such responses will
+increase access latency and are not desirable. These can be
+managed efficiently if the server has location dependent data, i.e.,
+a mapping between a Starbucks coffee shop data and its physical
+location. Also, for a query including range of locations of
+Starbucks, a single query requesting locations for the entire
+region of Kansas City, as shown in Figure 2, will suffice. This
+will save enormous amount of bandwidth by decreasing the
+number of messages and at the same time will be helpful in
+preventing the scalability bottleneck in highly populated area.
+4.1 Mapping Function for LDD
+The example justifies the need for a mapping function to process
+location dependent queries. This will be especially important for
+pull based queries across the globe for which the reply could be
+composed for different parts of the world. The mapping function
+is necessary to construct the broadcast schedule.
+We define Global Property Set (GPS) [11], Information Content
+(IC) set, and Location Hierarchy (LH) set where IC ⊆ GPS and
+LH ⊆ GPS to develop a mapping function. LH = {l1, l2, l3…,lk}
+where li represent locations in the location tree and IC = {ic1, ic2,
+ic3,…,icn} where ici represent information type. For example, if
+we have traffic, weather, and stock information are in broadcast
+then IC = {ictraffic, icweather, and icstock}. The mapping scheme must
+be able to identify and select an IC member and a LH node for (a)
+correct association, (b) granularity match, (c) and termination
+condition. For example, weather ∈ IC could be associated with a
+country or a state or a city or a town of LH. The granularity match
+between the weather and a LH node is as per user requirement.
+Thus, with a coarse granularity weather information is associated
+with a country to get country"s weather and with town in a finer
+granularity. If a town is the finest granularity, then it defines the
+terminal condition for association between IC and LH for weather.
+This means that a user cannot get weather information about
+subdivision of a town. In reality weather of a subdivision does
+not make any sense.
+We develop a simple heuristic mapping approach scheme based
+on user requirement. Let IC = {m1, m2,m3 .,..., mk}, where mi
+represent its element and let LH = {n1, n2, n3, ..., nl}, where ni
+represents LH"s member. We define GPS for IC (GPSIC) ⊆ GPS
+and for LH (GPSLH) ⊆ GPS as GPSIC = {P1, P2,…, Pn}, where
+P1, P2, P3,…, Pn are properties of its members and GPSLH = {Q1,
+Q2,…, Qm} where Q1, Q2,…, Qm are properties of its members.
+The properties of a particular member of IC are a subset of
+GPSIC. It is generally true that (property set (mi∈ IC) ∪ property
+set (mj∈ IC)) ≠ ∅, however, there may be cases where the
+intersection is not null. For example, stock ∈ IC and movie ∈ IC
+rating do not have any property in common. We assume that any
+two or more members of IC have at least one common
+geographical property (i.e. location) because DAYS broadcasts
+information about those categories, which are closely tied with a
+location. For example, stock of a company is related to a country,
+weather is related to a city or state, etc.
+We define the property subset of mi∈ IC as PSm
+i
+∀ mi ∈ IC and
+PSm
+i
+= {P1, P2, ..., Pr} where r ≤ n. ∀ Pr {Pr ∈ PSm
+i
+→ Pr∈
+GPSIC} which implies that ∀ i, PSm
+i
+⊆ GPSIC. The geographical
+properties of this set are indicative of whether mi ∈ IC can be
+mapped to only a single granularity level (i.e. a single location) in
+LH or a multiple granularity levels (i.e. more than one nodes in
+19
+the hierarchy) in LH. How many and which granularity levels
+should a mi map to, depends upon the level at which the service
+provider wants to provide information about the mi in question.
+Similarly we define a property subset of LH members as PSn
+j
+∀ nj
+∈ LH which can be written as PSn
+j
+={Q1, Q2, Q3, …, Qs} where s ≤
+m. In addition, ∀ Qs {Qs∈ PSn
+j
+→ Qs∈ GPSLH} which implies that
+∀j, PSn
+j
+⊆ GPSLH.
+The process of mapping from IC to LH is then identifying for
+some mx∈ IC one or more ny∈ LH such that PSmx ∩ PSnv ≠ φ.
+This means that when mx maps to ny and all children of ny if mx
+can map to multiple granularity levels or mx maps only to ny if mx
+can map to a single granularity level.
+We assume that new members can join and old member can leave
+IC or LH any time. The deletion of members from the IC space is
+simple but addition of members to the IC space is more restrictive.
+If we want to add a new member to the IC space, then we first
+define a property set for the new member: PSmnew_m ={P1, P2, P3,
+…, Pt} and add it to the IC only if the condition:∀ Pw {Pw∈
+PSpnew_m → Pw∈ GPSIC} is satisfied. This scheme has an
+additional benefit of allowing the information service providers to
+have a control over what kind of information they wish to provide
+to the users. We present the following example to illustrate the
+mapping concept.
+IC = {Traffic, Stock, Restaurant, Weather, Important history
+dates, Road conditions}
+LH = {Country, State, City, Zip-code, Major-roads}
+GPSIC = {Surface-mobility, Roads, High, Low, Italian-food,
+StateName, Temp, CityName, Seat-availability, Zip, Traffic-jams,
+Stock-price, CountryName, MajorRoadName, Wars, Discoveries,
+World}
+GPSLH = {Country, CountrySize, StateName, CityName, Zip,
+MajorRoadName}
+Ps(ICStock) = {Stock-price, CountryName, High, Low}
+Ps(ICTraffic) = {Surface-mobility, Roads, High, Low, Traffic-jams,
+CityName}
+Ps(ICImportant dates in history) = {World, Wars, Discoveries}
+Ps(ICRoad conditions) = {Precipitation, StateName, CityName}
+Ps(ICRestaurant) = {Italian-food, Zip code}
+Ps(ICWeather) = {StateName, CityName, Precipitation,
+Temperature}
+PS(LHCountry) = {CountryName, CountrySize}
+PS(LHState = {StateName, State size},
+PS(LHCity) ={CityName, City size}
+PS(LHZipcode) = {ZipCodeNum }
+PS(LHMajor roads) = {MajorRoadName}
+Now, only PS(ICStock) ∩ PSCountry ≠φ. In addition, PS(ICStock)
+indicated that Stock can map to only a single location Country.
+When we consider the member Traffic of IC space, only
+PS(ICTraffic) ∩ PScity ≠ φ. As PS(ICTraffic) indicates that Traffic can
+map to only a single location, it maps only to City and none of its
+children. Now unlike Stock, mapping of Traffic with Major roads,
+which is a child of City, is meaningful. However service providers
+have right to control the granularity levels at which they want to
+provide information about a member of IC space.
+PS(ICRoad conditions) ∩ PSState ≠φ and PS(ICRoad conditions) ∩ PSCity≠φ.
+So Road conditions maps to State as well as City. As PS(ICRoad
+conditions) indicates that Road conditions can map to multiple
+granularity levels, Road conditions will also map to Zip Code and
+Major roads, which are the children of State and City. Similarly,
+Restaurant maps only to Zip code, and Weather maps to State,
+City and their children, Major Roads and Zip Code.

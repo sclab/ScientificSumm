@@ -1,0 +1,44 @@
+nodes share their link-state weights when they can communicate with each other, and messages are forwarded to the node that have the path with the lowest link-state weight.
+the exponentially aged inter-contact duration of node i and j is computed by wij = αwij + (1 − α)i, (4) where i is the new inter-contact duration and α is the aging factor.
+they use the median inter-contact duration or exponentially aged  intercontact duration as the weight on links.
+[22] use a link-state approach to estimate the weight of each path from the source of a message to the destination.
+2.5 link-state protocol su et al.
+when node i receives node j"s delivery  probabilities, node i may compute the transitive delivery probability through j to z with piz = piz + (1 − piz)pijpjzβ, (3) where β is a design parameter for the impact of transitivity; we used β = 0.25 as did lindgren [16].
+the prophet protocol exchanges index messages as well as  delivery probabilities.
+when node i does not meet j for some time, the delivery probability decreases by pij = αk pij, (2) where α is the aging factor (α < 1), and k is the number of time units since the last update.
+[16] chose 0.75, as did we in our  evaluation.
+lindgren et al.
+when node i meets node j, the delivery probability of node i for j is updated by pij = (1 − pij)p0 + pij, (1) where p0 is an initial probability, a design parameter for a given network.
+2.4 prophet protocol prophet [16] is a probabilistic routing protocol using history of past encounters and transitivity to estimate each node"s delivery probability for each other node.
+the message has some chance of  being transferred to a highly mobile node, and thus may have a better chance to reach its destination before the message expires.
+we use a simple replication strategy that allows only the source node to make replicas, and limits the replication to a specific number of copies.
+2.3 random routing an obvious approach between the above two extremes is to  select a transfer probability between 0 and 1 to forward messages at each contact.
+thus, by examining the index messages, a node only transfers  messages that are not yet contained on the other nodes.
+the  index messages contain ids of messages that a node currently holds.
+an optimization to reduce the communication cost is to  transfer index messages before transferring any data message.
+after a message expires, the message will not be transmitted and will be deleted from the storage of any node that holds the message.
+at a minimum, each node must expire messages after some amount of time or stop forwarding them after a certain number of hops.
+moreover, since each node keeps a copy of each message, storage is not used efficiently, and the capacity of the network is limited.
+this protocol is simple, but may use significant resources;  excessive communication may drain each node"s battery quickly.
+eventually, a copy of the message arrives at the destination of the message.
+the nodes that receive a copy of the message also send a copy of the message to every node that they meet.
+the source node sends a copy of the message to every node that it meets.
+2.2 epidemic routing protocol the epidemic routing protocol [23] floods messages into the  network.
+in mobile opportunistic networks, however, the probability for the sender to meet the destination may be low, or even zero.
+2.1 direct delivery protocol in this simple protocol, a message is transmitted only when the source node can directly communicate with the destination node of the message.
+node i has a contact history hi(j), for each other node j, which denotes the historical contacts between node i and node j. we record the start and end time for each contact; however, the last contacts in the node"s contact history may not have ended.
+the contact history of a node is a sequence of contacts with other nodes.
+a node may be in contact with several other nodes at the same time.
+although we are aware that wireless technologies differ, we assume that a node can reliably detect the beginning and end time of a contact with nearby nodes.
+a contact is defined as a period of time during which two nodes have the opportunity to communicate.
+then we describe five existing protocols before presenting our own  proposal.
+first, we define the notion of contact between two nodes.
+all other protocols are between the two extremes.
+both these protocols have their advantages and disadvantages.
+the latter uses transfer probability 1 for all nodes and unlimited replication.
+the former transfers with probability 1 when the node meets the destination, 0 for others, and no replication.
+two extremes are the direct-delivery protocol and the epidemic protocol.
+dtn routing protocols could be described in part by their  transfer probability and replication probability; that is, when one node meets another node, what is the probability that a message should be transfered and if so, whether the sender should retain its copy.
+in this paper, we consider only messages that are unicast (single destination).
+any node may  generate messages for any other node, and may carry messages destined for other nodes.
+a routing protocol is designed for forwarding messages from one node (source) to another node (destination).

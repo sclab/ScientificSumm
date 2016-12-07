@@ -1,0 +1,24 @@
+hence, we augment the average availability latency for every data item i with its fi to obtain the following weighted availability latency (δagg) metric: δagg = t i=1 δi · fi next, we present our solution approach describing how zebroids are selected. 
+we are interested in the availability latency observed across all data items.
+however, in most practical circumstances γ may not be so large as to find every data item.
+note that since there is at least one replica in the system for every data item i, by setting γ to a large value we ensure that the client"s request for any data item i will be satisfied.
+if this condition is not satisfied, then we set δi to γ. this indicates that data item i was not available to the client during its journey.
+the availability latency for a data item i, denoted as δi, is defined as the earliest time at which a client automata will find the first replica of the item accessible to it.
+in this case, a request for the lost data item may need to be satisfied by fetching the item from a remote server.
+in cases where a data item may be lost from the ad-hoc network, this equation becomes ri = min (n, max (0, ri·n·α si )).
+this captures the case when at least one copy of every data item must be present in the ad-hoc network at all times.
+ri is normalized to a value between 0 and 1. the number of replicas for data item i, denoted as ri, is: ri = min (n, max (1, ri·n·α si )).
+the frequency of access to data item i is denoted as fi, with t j=1 fj = 1. let the trip duration of the client automata under consideration be γ. we now define the normalized frequency of access to the data item i, denoted by ri, as: ri = (fi)n t j=1(fj)n ; 0 ≤ n ≤ ∞ (1) the exponent n characterizes a particular replication technique.
+a square-root replication scheme is realized when n = 0.5 [5].
+this serves as the base-line for comparison with the case when  zebroids are deployed.
+n number of automata devices in the system.
+st total storage capacity of the automata system, st = n · α. table 1: terms and their definitions size si.
+δi average availability latency of data item i δagg aggregate availability latency, δagg = t j=1 δj · fj automata system parameters g number of cells in the map (2d-torus).
+α storage capacity per automata.
+γ trip duration of the client automata.
+si size of data item i fi frequency of access to data item i. replication parameters ri normalized frequency of access to data item i ri number of replicas for data item i n characterizes a particular replication scheme.
+there are t data items in the database, each with database parameters t number of data items.
+the total storage capacity of the  system is st =n ·α.
+assume a network of n automata-equipped cars, each with storage capacity of α bytes.
+below we introduce some terminology used in the paper.
+table 1 summarizes the notation of the parameters used in the paper.

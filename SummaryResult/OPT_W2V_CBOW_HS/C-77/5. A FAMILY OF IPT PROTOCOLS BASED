@@ -1,0 +1,75 @@
+Differently, the matrix Mi does not belong to the problem specification, it is an auxiliary variable of the IPT protocol, which manages it so as to satisfy the following implication when Pi sends m to Pj : (Mi[j, k] = 1) ⇒ (pred(receive(m)).V Cj [k] ≥ send(m).V Ci[k]).
+ON EVALUABLE CONDITIONS It results from the previous theorem that, if Pi could evaluate K(m, k) when it sends m to Pj, this would  allow us improve the previous IPT protocol in the following way: in rule R2, the triple (k, V Ci[k], IPi[k]) is  transmitted with m only if ¬K(m, k).
+In fact, as explained Section 5.1, the  predicate c (locally implemented by the matrix M) was based on the existence of a message m sent by Pj to Pi, piggybacking the triple (k, m .V C[k], m .IP[k]), and m .V C[k] ≥ V Ci[k], i.e., on the existence of a direct transmission of information (by the message m ).
+RM2 When Pi sends a message m to Pj, it attaches to m the set of triples (each made up of a process id, an integer and a boolean): {(k, V Ci[k], IPi[k]) | (Mi[j, k] = 0 ∨ IPi[k] = 0) ∧ (V Ci[k] > 0)}.
+As V Cj[k] cannot decrease this means that, as long as V Ci[k] does not increase, for every message m sent by Pi to Pj we have the following: send(m).V Ci[k] = receive(m ).V Ci[k] = send(m ).V Cj[k] ≤ receive(m).V Cj [k], i.e., ci(j, k) must  remain true.
+RM3 When Pi receives a message m from Pj , it executes the following updates: ∀(k,m.V C[k], m.IP[k]) carried by m: case V Ci[k] < m.V C[k] then V Ci[k] := m.V C[k]; IPi[k] := m.IP[k]; ∀ = i, j, k : Mi[ , k] := 0; 4 Actually, the value of this column remains constant after its first update.
+RM3" When Pi receives a message m from Pj , it executes the following updates: ∀(k,m.V C[k], m.IP[k], m.M[1..n, k]) carried by m: case V Ci[k] < m.V C[k] then V Ci[k] := m.V C[k]; IPi[k] := m.IP[k]; ∀ = i : Mi[ , k] := m.M[ , k] V Ci[k] = m.V C[k] then IPi[k] := min(IPi[k], m.IP[k]); ∀ =i : Mi[ , k] := max(Mi[ , k], m.M[ , k]) V Ci[k] > m.V C[k] then skip endcase Similarly to the proofs described in [1], it is possible to prove that the previous protocol still satisfies the  property proved in Lemma 6, namely, ∀i, ∀m sent by Pi to Pj, ∀k we have (send(m).Mi[j, k] = 1) ⇒ (send(m).V Ci[k] ≤ pred(receive(m)).V Cj[k]).
+Moreover, K2(m, k) is then always false: it actually coincides with K1(k, m) (which  corresponds to the case where whole vectors have to be  transmitted with each message).
+It follows from the  previous discussion that this matrix is managed according to the following rules (note that its i-th line is not significant (case j = i), and that its diagonal is always equal to 1): M0 Initialization: ∀ (j, k) : Mi[j, k] is initialized to 1.
+The resulting IPT protocol (defined by the rules RM0, RM1, RM2" and RM3") uses the same condition K2(m, k) as the previous one.
+Case (ii): If pred(receive(m)) and send(m) are concurrent, Pi cannot know the value of pred(receive(m)).V Cj[k] and consequently cannot evaluate K(m, k).
+Informally, that means that, when ci(j, k) holds, the local context of Pi allows to deduce that the receipt of m by Pj will not lead to V Cj[k] update (Pj knows as much as Pi about Pk).
+But, as far as the value of pred(receive(m)).V Cj[k] is concerned, two cases are  possible.
+Now, let us consider the case where j = i and j = k (Figure 2).
+But, from easy boolean calculus, a∨((α∨β)∧b) =⇒ a∨α∨ (β ∧ b) ≡ K. This leads to condition K ≡ a ∨ (γ ∧ b), where γ = α ∨ β ≡ send(m).V Ci[k] ≤ pred(receive(m)).V Cj[k] , i.e., K ≡ (send(m).V Ci[k] ≤ pred(receive(m)).V Cj[k] ∧ send(m).IPi[k] = 1) ∨ send(m).V Ci[k] = 0.
+Let K (m, k) be an approximation of K(m, k), that can be evaluated by a process Pi when it sends a message m. To be correct, the condition K must ensure that, every time Pi should  transmit a triple (k, V Ci[k], IPi[k]) according to Theorem 2 (i.e., each time ¬K(m, k)), then Pi transmits this triple when it uses condition K .
+Similarly, once ci(j, k) is false, the only event that can set it to true is the receipt of a message m from Pj, piggybacking the triple (k, m .V C[k], m .IP[k]) with m .V C[k] ≥ V Ci[k].
+Some of them can be Pj send(m) Pi V Ci[k] = x IPi[k] = 1 V Cj[k] ≥ x receive(m) Figure 2: The Evaluable Condition K2 locally evaluated while the others cannot.
+RM2" When Pi sends a message m to Pj, it attaches to m the following set of 4-uples (each made up of a  process id, an integer, a boolean and a boolean vector): {(k, V Ci[k], IPi[k], Mi[∗, k]) | (Mi[j, k] = 0 ∨ IPi[k] = 0) ∧ V Ci[k] > 0}.
+To be correct, this  approximation has to be a locally evaluable predicate ci(j, k) such that, when Pi is about to send a message m to Pj, ci(j, k) ⇒ (send(m).V Ci[k] ≤ pred(receive(m)).V Cj[k]).
+So, Pi needs to approximate the predicate send(m).V Ci[k] ≤ pred(receive(m)).V Cj[k].
+In order to implement the local predicates ci(j, k), each process Pi is equipped with a boolean matrix Mi (as in [11]) such that M[j, k] = 1 ⇔ ci(j, k).
+In other words, once ci(j, k) is true, the only event of Pi that could reset it to false is either the receipt of a message that increases V Ci[k] or, if k = i, the  occurrence of a relevant event (that increases V Ci[i]).
+M3 When it receives a message m from Pj , Pi executes the following updates: ∀ k ∈ [1..n] : case V Ci[k] < m.V C[k] then ∀ = i, j, k : Mi[ , k] := 0; Mi[j, k] := 1 V Ci[k] = m.V C[k] then Mi[j, k] := 1 V Ci[k] > m.V C[k] then skip endcase The following lemma results from rules M0-M3.
+It shows an interesting tradeoff between the number of triples (k, V Ci[k], IPi[k]) whose transmission is saved and the number of boolean vectors that have to be additionally piggybacked.
+Let m be a message sent by Pi to Pj .
+More  precisely, K ≡ a ∨ α ∨ (β ∧ b), where a ≡ send(m).V Ci[k] = 0 and b ≡ send(m).IPi[k] = 1 are locally evaluable,  whereas α ≡ send(m).V Ci[k] < pred(receive(m)).V Cj[k] and β ≡ send(m).V Ci[k] = pred(receive(m)).V Cj[k] are not.
+The  theorem that follows shows that condition K2(m, k) is correct.
+Moreover, rule R3 is  appropriately modified to consider only triples carried by m. However, as previously mentioned, Pi cannot locally  evaluate K(m, k) when it is about to send m. More  precisely, when Pi sends m to Pj , Pi knows the exact values of send(m).V Ci[k] and send(m).IPi[k] (they are the current values of V Ci[k] and IPi[k]).
+Case (i): If pred(receive(m)) hb → send(m), then Pi can know the value of pred(receive(m)).V Cj[k] and  consequently can evaluate K(m, k).
+Second, in the case j = k, the relation send(m).V Ci[j] ≤ pred(receive(m)).V Cj [j] is always true, because the receipt of m by Pj cannot update V Cj[j].
+In fact, ∀j, Mi[j, i] can be set to 1 only upon the receipt of a message from Pj, carrying the value V Cj[i] (see R3).
+Suppose that there exists an event e = receive(m ) with e < send(m), m sent by Pj and piggybacking the triple (k, m .V C[k], m .IP[k]), and m .V C[k] ≥ V Ci[k] (hence m .V C[k] = receive(m ).V Ci[k]).
+Mi[j, k] := 1 V Ci[k] = m.V C[k] then IPi[k] := min(IPi[k], m.IP[k]); Mi[j, k] := 1 V Ci[k] > m.V C[k] then skip endcase 5.3 A Tradeoff The condition K2(m, k) shows that a triple has not to be transmitted when (Mi[j, k] = 1 ∧ IPi[k] = 1) ∨ (V Ci[k] > 0).
+RM1 Each time it produces a relevant event e: - Pi associates with e the timestamp e.TS defined as follows: e.TS = {(k, V Ci[k]) | IPi[k] = 1}, - Pi increments its vector clock entry V Ci[i]  (namely, it executes V Ci[i] := V Ci[i] + 1), - Pi resets IPi: ∀ = i : IPi[ ] := 0; IPi[i] := 1.
+Let us consider the constant condition (denoted K1), that is always false, i.e., ∀(m, k) : K1(m, k) = false.
+, 0], and ∀ (j, k) : Mi[j, k] is set to 1.
+First, the case j = i can be ignored, since it is assumed (Section 2.1) that a process never sends a  message to itself.
+5.1 A Boolean Matrix-Based Evaluable  Condition Condition K2 is based on the observation that condition K is composed of sub-conditions.
+A condition K , locally evaluable by a  process when it sends a message m to another process, is  correct if ∀(m, k) : ¬K(m, k) ⇒ ¬K (m, k) or, equivalently, ∀(m, k) : K (m, k) ⇒ K(m, k).
+So, it is possible to improve the protocol by executing this reset of the column Mi[∗, i] only when Pi produces its first relevant event.
+But, as Mj [i, i] = 1, Pj does not send V Cj[i] to Pi.
+5 Let us consider the previously described protocol (Section 5.2) where the value of each matrix entry Mi[j, k] is always equal to 0.
+We have: K2(m, k) ⇒ K(m, k).
+∀i, ∀m sent by Pi to Pj, ∀k, we have: send(m).Mi[j, k] = 1 ⇒ send(m).V Ci[k] ≤ pred(receive(m)).V Cj [k].
+The next section presents a better approximation of K (denoted K2).
+215 M1 Each time it produces a relevant event e: Pi resets4 the ith column of its matrix: ∀j = i : Mi[j, i] := 0.
+This definition means that a protocol evaluating K to  decide which triples must be attached to messages, does not miss triples whose transmission is required by Theorem 2.
+Moreover, when it sends m to Pj , whatever the case (i or ii) that actually occurs, Pi has no way to know which case does occur.
+Hence, the concrete condition K2 is the following: K2 ≡ send(m).V Ci[k] = 0 ∨ (ci(j, k) ∧ send(m).IPi[k] = 1).
+This trivially correct approximation of K actually corresponds to the particular IPT protocol described in Section 3 (in which each message carries a whole vector clock and a  whole boolean vector).
+Let us first observe that the management of IPi[k] is governed by the application program.
+The rules RM2 and  RM3 are replaced with the modified rules RM2" and RM3" (Mi[∗, k] denotes the kth column of Mi).
+Let K2(m, k) ≡ ((send(m).Mi[j, k] = 1) ∧ (send(m).IPi[k] = 1)∨(send(m).V Ci[k] = 0)).
+RM0 Initialization: - Both V Ci[1..n] and IPi[1..n] are set to [0, .
+- Pi resets the ith column of its boolean matrix: ∀j = i : Mi[j, i] := 0.
+This can make the condition K2(m, k) more often  satisfied5 and can consequently allow the protocol to transmit less triples.
+M2 When Pi sends a message: no update of Mi occurs.
+Let us now examine the design of such a predicate  (denoted ci).
+It is interesting to notice that the size of this additional information is bounded while each triple includes a non-bounded integer (namely a vector clock value). 
+Thus, ∀j = i : ci(j, j) must be true.
+More precisely, the relevant history of Pk known by Pj is transmitted to a process Pi via a causal sequence of messages from Pj to Pi.
+216 Intuitively, the fact that some columns of matrices M are attached to application messages allows a transitive  transmission of information.
+We show here that it is possible to transmit less triples at the price of transmitting a few additional boolean  vectors.
+The reader can easily verify that this setting  correctly implements the matrix.
+More precisely, the IPT protocol does not define which are the  relevant events, it has only to guarantee a correct  management of IPi[k].
+Hence the idea to define evaluable approximations of the general condition.
+The fact that the management of Mi is governed by the protocol and not by the application program leaves open the  possibility to design a protocol where more entries of Mi are equal to 1.
+The previous IPT matrix-based protocol (Section 5.2) is modified in the following way.
+(Both are proved in [1].)
+Hence, the definition of a correct  evaluable approximation: Definition 6.
+In contrast, the  protocol described in Section 5.2 used only a direct transmission of this information.
+5.2 Resulting IPT Protocol The complete text of the IPT protocol based on the  previous discussion follows.
+Lemma 6.
+Theorem 3.

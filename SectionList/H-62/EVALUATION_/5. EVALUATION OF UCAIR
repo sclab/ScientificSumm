@@ -1,0 +1,134 @@
+We now present some results on evaluating the two major UCAIR
+functions: selective query expansion and result reranking based on
+user clickthrough data.
+5.1 Sample results
+The query expansion strategy implemented in UCAIR is 
+intentionally conservative to avoid misinterpretation of implicit user 
+models. In practice, whenever it chooses to expand the query, the 
+expansion usually makes sense. In Table 1, we show how UCAIR can
+successfully distinguish two different search contexts for the query
+java map, corresponding to two different previous queries (i.e.,
+travel Indonesia vs. hashtable). Due to implicit user modeling,
+UCAIR intelligently figures out to add Indonesia and class,
+respectively, to the user"s query java map, which would 
+otherwise be ambiguous as shown in the original results from Google
+on March 21, 2005. UCAIR"s results are much more accurate than
+Google"s results and reflect personalization in search.
+The eager implicit feedback component is designed to 
+immediately respond to a user"s activity such as viewing a document. In
+Figure 2, we show how UCAIR can successfully disambiguate an
+ambiguous query jaguar by exploiting a viewed document 
+summary. In this case, the initial retrieval results using jaguar (shown
+on the left side) contain two results about the Jaguar cars followed
+by two results about the Jaguar software. However, after the user
+views the web page content of the second result (about Jaguar
+car) and returns to the search result page by clicking Back 
+button, UCAIR automatically nominates two new search results about
+Jaguar cars (shown on the right side), while the original two results
+about Jaguar software are pushed down on the list (unseen from the
+picture).
+5.2 Quantitative evaluation
+To further evaluate UCAIR quantitatively, we conduct a user
+study on the effectiveness of the eager implicit feedback 
+component. It is a challenge to quantitatively evaluate the potential 
+performance improvement of our proposed model and UCAIR over
+Google in an unbiased way [7]. Here, we design a user study,
+in which participants would do normal web search and judge a
+randomly and anonymously mixed set of results from Google and
+UCAIR at the end of the search session; participants do not know
+whether a result comes from Google or UCAIR.
+We recruited 6 graduate students for this user study, who have
+different backgrounds (3 computer science, 2 biology, and 1 
+chem<top>
+<num> Number: 716
+<title> Spammer arrest sue
+<desc> Description: Have any spammers
+been arrested or sued for sending unsolicited
+e-mail?
+<narr> Narrative: Instances of arrests,
+prosecutions, convictions, and punishments
+of spammers, and lawsuits against them are
+relevant. Documents which describe laws to
+limit spam without giving details of lawsuits
+or criminal trials are not relevant.
+</top>
+Figure 3: An example of TREC query topic, expressed in a
+form which might be given to a human assistant or librarian
+istry). We use query topics from TREC 2
+2004 Terabyte track [2]
+and TREC 2003 Web track [4] topic distillation task in the way to
+be described below.
+An example topic from TREC 2004 Terabyte track appears in
+Figure 3. The title is a short phrase and may be used as a query
+to the retrieval system. The description field provides a slightly
+longer statement of the topic requirement, usually expressed as a
+single complete sentence or question. Finally the narrative supplies
+additional information necessary to fully specify the requirement,
+expressed in the form of a short paragraph.
+Initially, each participant would browse 50 topics either from
+Terabyte track or Web track and pick 5 or 7 most interesting topics.
+For each picked topic, the participant would essentially do the 
+normal web search using UCAIR to find many relevant web pages by
+using the title of the query topic as the initial keyword query. 
+During this process, the participant may view the search results and
+possibly click on some interesting ones to view the web pages, just
+as in a normal web search. There is no requirement or restriction
+on how many queries the participant must submit or when the 
+participant should stop the search for one topic. When the participant
+plans to change the search topic, he/she will simply press a button
+2
+Text REtrieval Conference: http://trec.nist.gov/
+829
+Figure 2: Screen shots for result reranking
+to evaluate the search results before actually switching to the next
+topic.
+At the time of evaluation, 30 top ranked results from Google and
+UCAIR (some are overlapping) are randomly mixed together so
+that the participant would not know whether a result comes from
+Google or UCAIR. The participant would then judge the relevance
+of these results. We measure precision at top n (n = 5, 10, 20, 30)
+documents of Google and UCAIR. We also evaluate precisions at
+different recall levels.
+Altogether, 368 documents judged as relevant from Google search
+results and 429 documents judged as relevant from UCAIR by 
+participants. Scatter plots of precision at top 10 and top 20 documents
+are shown in Figure 4 and Figure 5 respectively (The scatter plot
+of precision at top 30 documents is very similar to precision at top
+20 documents). Each point of the scatter plots represents the 
+precisions of Google and UCAIR on one query topic.
+Table 2 shows the average precision at top n documents among
+32 topics. From Figure 4, Figure 5 and Table 2, we see that the
+search results from UCAIR are consistently better than those from
+Google by all the measures. Moreover, the performance 
+improvement is more dramatic for precision at top 20 documents than that
+at precision at top 10 documents. One explanation for this is that
+the more interaction the user has with the system, the more 
+clickthrough data UCAIR can be expected to collect. Thus the retrieval
+system can build more precise implicit user models, which lead to
+better retrieval accuracy.
+Ranking Method prec@5 prec@10 prec@20 prec@30
+Google 0.538 0.472 0.377 0.308
+UCAIR 0.581 0.556 0.453 0.375
+Improvement 8.0% 17.8% 20.2% 21.8%
+Table 2: Table of average precision at top n documents for 32
+query topics
+The plot in Figure 6 shows the precision-recall curves for UCAIR
+and Google, where it is clearly seen that the performance of UCAIR
+0 0.2 0.4 0.6 0.8 1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+UCAIR prec@10
+Googleprec@10
+Scatterplot of Precision at Top 10 Documents
+Figure 4: Precision at top 10 documents of UCAIR and Google
+is consistently and considerably better than that of Google at all
+levels of recall.

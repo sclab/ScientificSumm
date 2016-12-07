@@ -1,0 +1,38 @@
+on autonomous agents and multi-agent systems (aamas 07) 
+joint conf.
+we write k |= ϕ if k, s0 |= ϕ for all s0 ∈ s0 , and |= ϕ if k |= ϕ for all k. 882 the sixth intl.
+the remaining ctl temporal operators are defined: a♦ϕ ≡ a( u ϕ) e♦ϕ ≡ e( u ϕ) a ϕ ≡ ¬e♦¬ϕ e ϕ ≡ ¬a♦¬ϕ we say ϕ is satisfiable if k, s |= ϕ for some kripke structure k and state s in k; ϕ is valid if k, s |= ϕ for all kripke structures k and states s in k. the problem of checking whether k, s |= ϕ for given k, s, ϕ (model checking) can be done in deterministic polynomial time, while checking whether a given ϕ is satisfiable or whether ϕ is valid is exptime-complete [8].
+k, π[u] |= ψ and ∀v, (0 ≤ v < u) : k, π[v] |= ϕ the remaining classical logic connectives (∧, →, ↔) are assumed to be defined as abbreviations in terms of ¬, ∨, in the conventional manner.
+k, π[u] |= ψ and ∀v, (0 ≤ v < u) : k, π[v] |= ϕ k, s |= e(ϕ u ψ) iff ∃π ∈ π(s), ∃u ∈ n, s.t.
+the satisfaction relation is defined as follows: k, s |= ; k, s |= p iff p ∈ v (s) (where p ∈ φ); k, s |= ¬ϕ iff not k, s |= ϕ; k, s |= ϕ ∨ ψ iff k, s |= ϕ or k, s |= ψ; k, s |= a fϕ iff ∀π ∈ π(s) : k, π[1] |= ϕ; k, s |= e fϕ iff ∃π ∈ π(s) : k, π[1] |= ϕ; k, s |= a(ϕ u ψ) iff ∀π ∈ π(s), ∃u ∈ n, s.t.
+the semantics of ctl are given with respect to the satisfaction relation |=, which holds between pairs of the form k, s, (where k is a kripke structure and s is a state in k), and formulae of the language.
+the syntax of ctl is defined by the following grammar: ϕ ::= | p | ¬ϕ | ϕ ∨ ϕ | e fϕ | e(ϕ u ϕ) | a fϕ | a(ϕ u ϕ) where p ∈ φ. we denote the set of ctl formula over φ by lφ; since φ is understood, we usually omit reference to it.
+we will use ctl to express agents" goals.
+note that since ctl is well known and widely  documented in the literature, our presentation, though complete, will be somewhat terse.
+2.1 ctl we now define computation tree logic (ctl), a branching time temporal logic intended for representing the properties of kripke structures [8].
+let us say that our set of initial states s0 equals {s, t}, i.e., we don"t make any assumptions about who initially has control over the resource.
+obviously there are infinitely many different s-paths and t-paths.
+each agent has two possible actions, when in possession of the resource: either give it away, or keep it.
+think of pi as meaning agent i has currently control over the resource.
+2p t p 2 2 1 s 1 1 figure 1: the resource control running example.
+mutually exclusive.
+for example, one might consider the agent totality requirement, that in every state, every agent has at least one possible transition  available: ∀s∀i ∈ a∃s : (s, s ) ∈ r and α(s, s ) = i.
+it is also worth noting that for some domains, other constraints may be more appropriate than simple totality.
+consider the kripke structure depicted in figure 1. we have two states, s and t, and two corresponding boolean variables p1 and p2, which are 1 in the branching time temporal logic literature, a relation r ⊆ s × s is said to be total iff ∀s ∃s : (s, s ) ∈ r. note that the term total relation is sometimes used to refer to relations r ⊆ s × s such that for every pair of elements s, s ∈ s we have either (s, s ) ∈ r or (s , s) ∈ r; we are not using the term in this way here.
+we will sometimes refer to and think of an s-path as a possible  computation, or system evolution, from s. example 1. our running example is of a system with a single non-sharable resource, which is desired by two agents.
+let πr(s) denote the set of s-paths over r; since it will usually be clear from  context, we often omit reference to r, and simply write π(s).
+a path π such that π[0] = s is an s-path.
+which must satisfy the property that ∀u ∈ n: (su , su+1) ∈ r. if u ∈ n, then we denote by π[u] the component indexed by u in π (thus π[0] denotes the first element, π[1] the second, and so on).
+a path over a transition relation r is an infinite sequence of states π = s0, s1, .
+in the interests of brevity, we shall hereafter refer to an  agentlabelled kripke structure simply as a kripke structure.
+, n} is a set of agents; • α : r → a labels each transition in r with an agent; and • v : s → 2φ labels each state with the set of propositional variables true in that state.
+collecting these components together, an agent-labelled kripke structure (over φ) is a 6-tuple: k = s, s0 , r, a, α, v , where: • s is a finite, non-empty set of states, • s0 ⊆ s (s0 = ∅) is the set of initial states; • r ⊆ s × s is a total binary relation on s, which we refer to as the transition relation1 ; • a = {1, .
+of boolean variables to express the properties of individual states s: we use a function v : s → 2φ to label each state with the boolean variables true (or satisfied) in that state.
+we therefore assume a set a of agents, and we label each transition in r with the agent that causes the transition via a function α : r → a.  finally, we use a vocabulary φ = {p, q, .
+however, we find it convenient to include within our model the agents that cause transitions.
+this  assumption is not in fact essential for our analysis, but it greatly  simplifies the presentation.
+it is important to note that, in contrast to such models as [2, 15], we are therefore here not modelling synchronous action.
+our model is intended to correspond to the well-known interleaved concurrency model from the reactive systems literature: thus an arc corresponds to the execution of an atomic action by one of the processes in the system, which we call agents.
+we let s0 denote the set of possible initial states of the system.
+a kripke structure is essentially a directed graph, with the vertex set s corresponding to possible states of the system being modelled, and the relation r ⊆ s × s capturing the 881 978-81-904262-7-5 (rps) c 2007 ifaamas possible transitions of the system; intuitively, these transitions are caused by agents in the system performing actions, although we do not include such actions in our semantic model (see, e.g., [13, 2, 15] for related models which include actions as first class citizens).
+we use kripke structures as our basic semantic model for  multiagent systems [8].

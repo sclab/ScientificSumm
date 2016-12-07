@@ -1,0 +1,50 @@
+notice that the performance was only measured on the document level for the ad-hoc task of trec genomics 2005. 
+the overall performance in terms of map is 35.50%, which is about 22.92% above the best reported result [9].
+table 4.2.1 basic conceptual ir model vs. term-based model run passage aspect document map imprvd qs # (%) map imprvd qs # (%) map imprvd qs # (%) okapi 0.064 n/a 0.175 n/a 0.285 n/a basic conceptual ir model 0.084* (+31.3%) 17 (65.4%) 0.233* (+33.1%) 12 (46.2%) 0.359* (+26.0%) 15 (57.7%) table 4.2.2 contribution of different types of domain-specific knowledge run passage aspect document map imprvd qs # (%) map imprvd qs # (%) map imprvd qs # (%) baseline = basic conceptual ir model 0.084 n/a 0.233 n/a 0.359 n/a baseline+synonyms 0.105 (+25%) 11 (42.3%) 0.246 (+5.6%) 9 (34.6%) 0.420 (+17%) 13 (50%) baseline+hypernyms 0.088 (+4.8%) 11 (42.3%) 0.225 (-3.4%) 9 (34.6%) 0.390 (+8.6%) 16 (61.5%) baseline+hyponyms 0.087 (+3.6%) 10 (38.5%) 0.217 (-6.9%) 7 (26.9%) 0.389 (+8.4%) 10 (38.5%) baseline+variants 0.150* (+78.6%) 16 (61.5%) 0.348* (+49.4%) 13 (50%) 0.495* (+37.9%) 10 (38.5%) baseline+related 0.086 (+2.4%) 9 (34.6%) 0.220 (-5.6%) 9 (34.6%) 0.387 (+7.8%) 13 (50%) baseline+all 0.174* (107%) 25 (96.2%) 0.380* (+63.1%) 19 (73.1%) 0.537* (+49.6%) 14 (53.8%) table 4.2.3 contribution of abbreviation correction and pseudo-feedback run passage aspect document map imprvd qs # (%) map imprvd qs # (%) map imprvd qs # (%) baseline+all 0.174 n/a 0.380 n/a 0.537 n/a baseline+all+abbr 0.175 (+0.6%) 5 (19.2%) 0.375 (-1.3%) 4 (15.4%) 0.535 (-0.4%) 4 (15.4%) baseline+all+abbr+pf 0.182 (+4.6%) 10 (38.5%) 0.381 (+0.3%) 6 (23.1%) 0.539 (+0.4%) 9 (34.6%) a separate experiment has been done using a second testbed, the ad-hoc task of trec genomics 2005, to evaluate our knowledge-intensive conceptual ir model for document retrieval of biomedical literature.
+our result is from a single run on passage retrieval in which it is better than the best reported result by 22.68% in passage retrieval and at the same time, 9.14% better in aspect retrieval, and 1.33% better in document retrieval (since the average precision of each individual query was not reported, we can not apply the wilcoxon signed-rank test to calculate the significance of difference between our performance and the best reported result.).
+passage map aspect map document map best reported results 0.1486 0.3492 0.5320 our results 0.1823 0.3811 0.5391 improvement 22.68% 9.14% 1.33% the best reported results in the first row of table 4.2.4 on three levels (passage, aspect, and document) are from different systems.
+table 4.2.4 performance compared with best-reported results.
+we do not include the results of such systems here).
+as a consequence, excellent retrieval results were obtained on document and aspect levels at the expense of performance on the passage level.
+the performance of our system relative to the best reported results is shown in table 4.2.4 (in trec 2006, some systems returned the whole paragraphs as passages.
+4.2.4 performance compared with best-reported results we compared our result with the results reported in the genomics track of trec 2006 [8] on the conditions that 1) systems are automatic systems and 2) passages are extracted from paragraphs.
+the pseudo-feedback contributed about 4.6% improvement in passage retrieval.
+4.2.3 pseudo-feedback and abbreviation correction using the baseline+all in table 4.2.2 as a new baseline, the contribution of abbreviation correction and pseudo-feedback is given in table 4.2.3. there is little improvement by avoiding incorrect matching of abbreviations.
+as a consequence, the accumulative improvement is very significant.
+but for those affected queries, their improvement is significant.
+more specifically, each of these types (with the exception of the lexical variants which affects a large number of queries) affects only a few queries.
+although it is not explicitly shown in table 4.2.3, different types of domain-specific knowledge affect different subsets of queries.
+it is clearly shown that the performance is significantly improved (107% on passage level, 63.1% on aspect level, and 49.6% on document level) when the domain-specific knowledge is appropriately incorporated.
+the overall performance is an accumulative result of adding different types of domain-specific knowledge and it is better than any individual addition.
+hypernyms, hyponyms, and implicitly related concepts provided similar degrees of improvement.
+synonyms provided the second biggest improvement.
+it also suggests that the biomedical ir systems can benefit from the domain-specific knowledge extracted from the literature by text mining systems.
+this result also indicates that biologists are likely to use different variants of the same concept according to their own writing preferences and these variants might not be collected in the existing biomedical thesauruses.
+the biggest improvement comes from the lexical variants, which is consistent with the result reported in [3].
+results of these experiments are shown in table 4.2.2. we found that any available type of domain-specific knowledge improved the performance in passage retrieval.
+we also conducted a run by adding all types of domain-specific knowledge.
+then five runs were conducted by adding each individual type of domain-specific knowledge.
+a new baseline was established using the basic conceptual ir model without incorporating any type of  domainspecific knowledge.
+4.2.2 contribution of different types of knowledge a series of experiments were performed to examine how each type of domain-specific knowledge contributes to the retrieval performance.
+the experimental result is shown in table 4.2.1. our basic conceptual ir model significantly outperforms the okapi on all three levels, which suggests that, although it requires additional efforts to identify concepts, retrieval on the concept level can achieve substantial improvements over purely term-based retrieval model.
+another run based on our basic conceptual ir model was performed without using query expansion, pseudo-feedback, or abbreviation correction.
+4.2.1 conceptual ir model vs. term-based model the initial baseline was established using word similarity only computed by the okapi (formula 4).
+in the tables of the following sections, statistically significant improvements (at the 5% level) are marked with an asterisk.
+4.2 results the wilcoxon signed-rank test was employed to determine the statistical significance of the results.
+the performances on the three levels are then calculated based on the ranking of the passages.
+the output of the system is a list of passages ranked according to their similarities with the query.
+for a set of queries, the mean of the average precision for all queries is the map of that ir system.
+the precision is measured at every point where a relevant document is obtained and then averaged over all relevant documents to obtain the average precision for a given query.
+document map: this is the standard ir measure.
+this measure indicates how comprehensive the question is answered.
+could be answered from aspects like diagnosis, neurologic manifestations, or prions/genetics.
+for example, the question what is the role of gene prnp in the mad cow disease?
+aspect map: a question could be addressed from different aspects.
+then the mean of these average precisions over all topics will be calculated to compute the mean average passage precision.
+similar to regular map, relevant passages that were not retrieved will be added into the calculation as well, with precision set to 0 for relevant passages not retrieved.
+passage map: as described in [8], this is a character-based precision calculated as follows: at each relevant retrieved passage, precision will be computed as the fraction of characters overlapping with the gold standard passages divided by the total number of characters included in all nominated passages from this system for the topic up until that point.
+the performance is measured on three different levels (passage, aspect, and document) to provide better insight on how the question is answered from different perspectives.
+the set of queries consists of 28 queries collected from real biologists.
+4.1 data sets and evaluation metrics our experiments were performed on the platform of the genomics track of trec 2006. the document collection contains 162,259 full-text documents from 49 highwire biomedical journals.
+we first describe the datasets and evaluation metrics used in our experiments and then present the results.
+the evaluation of our techniques and the experimental results are given in this section.

@@ -1,0 +1,34 @@
+thus, for now, we assume that the cost is set as a function of the number of agents in the system (and that there is no possibility for agents to satisfy a request for less than the official cost or for requesters to offer to pay more than it). 
+however, we have not yet explored the changes required to implement this change.
+we ultimately hope to modify the mechanism so that the price of a job can be set endogenously within the system (as in real-world economies), with agents bidding for jobs rather than there being a fixed cost set externally.
+(related  issues are discussed in [10].)
+there may be an advantage in delaying a request, but it is far more costly, in terms of waiting costs than in  providing service, since we assume the need for a service is often subject to real waiting costs, while the need to supply the service is merely to augment a money supply.
+however, if the number of agents in the system is always increasing, then the cost always decreases, so there is never any advantage in waiting.
+for example, if an agent expects the cost to increase, then he may want to defer volunteering to fulfill a request.
+note that, in principle, the realization that the cost of fulfilling a request can change can affect an agent"s  strategy.
+approaches that rely on adjusting the amount of money may require expensive system-wide computations (see [26] for an example), and must be carefully tuned to avoid creating incentives for agents to manipulate the  system by which this is done.
+(alternatively, the number of agents in the system can be posted in a  public place.)
+this method has the nice feature that it can be implemented in a distributed fashion; if all nodes in the system have a good estimate of n then they can all adjust prices automatically.
+we then change the price of fulfilling a request so that the optimal ratio is maintained.
+this gives existing agents no incentive to leave and rejoin as  newcomers.
+our system can handle newcomers relatively  easily: simply allow them to join with no money.
+theorem 5.1 also tells us how to deal with a dynamic pool of agents.
+with a fixed amount of money m, there is an optimal product nc of the number of agents and the cost c of fulfilling a request.
+similarly, halving the the cost of  fulfilling a request is equivalent to doubling the amount of money that everyone has.
+for example, changing the cost of fulfilling a request from $1 to $2 is equivalent to halving the amount of money that each agent has.
+this produces the same  effect.
+0.9 0.91 0.92 0.93 0.94 0.95 discount rate ∆ 5 5.5 6 6.5 7 optimalratioofmn figure 5: optimal average amount of money to the nearest .25 for β = 1 we remark that, in practice, it may be easier for the  designer to vary the price of fulfilling a request rather than 4 if there are multiple equilibria, we take sγ(m,n) to be the nash equilibrium that has highest efficiency for fixed m and n. 146 injecting money in the system.
+additionally, it appears to be relatively smooth, which suggests that it may have a nice analytic solution.
+as our very preliminary results for β = 1 show in figure 5, the ratio appears to be monotone increasing in δ, which matches the intuition that we should provide more patient agents with the opportunity to save more money.
+we are currently exploring exactly what the optimal ratio is.
+in light of theorem 5.1, the system designer should ensure that there is enough money m in the system so that the ratio between m/n is optimal.
+the best response br(δ, k) depends only on the distribution dk,r, not m or n. thus, the nash equilibrium depends only on the ratio r. that is, for all choices of m and n such that n is sufficiently large (so that theorem 3.1 applies) and m/n = r, the equilibrium strategies are the same.
+thus, given r, for each choice of k, there is a unique maximum entropy  distribution dk,r.
+fix m/n = r. theorem 3.1 shows that the maximum-entropy distribution depends only on k and the ratio m/n, not on m and n separately.
+4 we first observe that the most efficient equilibrium  depends only on the ratio of m to n, not on the actual values of m and n. theorem 5.1. there exists n∗ such that for all games g(n1, δ) and g(n2, δ) where n1, n2 > n∗ , if m1/n1 = m2/n2, then sγ(m1,n1) = sγ(m2,n2).
+that is, we want to know the amount of money m that maximizes efficiency, i.e., the total expected utility if all the agents use sγ(m,n).
+thus, our goal is to understand what the optimal amount of money should be in the system, given the number of agents.
+it is not hard to show that as the fraction of agents with $0 increases in the maximum entropy distribution, the fraction of agents with the maximum amount of money decreases.
+there is a tension between these objectives.
+from the point of view of the system designer, not all  equilibria are equally good; we want an equilibrium where as few as possible agents have $0 when they get a chance to make a request (so that they can pay for the request) and relatively few agents have more than the threshold amount of money (so that there are always plenty of agents to fulfill the  request).
+our theorems show that for each value of m and n, for sufficiently large δ, there is a nontrivial nash equilibrium where all the agents use some threshold strategy sγ(m,n).

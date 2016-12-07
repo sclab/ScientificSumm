@@ -1,0 +1,37 @@
+To make this check efficiently we keep a sorted list of all the class paths and, at scoring time, we search the paths bottom up for a meta-term appearing in the ad.
+To be able to search the ads on a combination of keywords and classes we have mapped the classification match to term match and adapted the scoring function to be suitable for fast  evaluation over inverted indexes.
+The scoring function is adapted to the two part  scoreone for the class meta-terms and another for the text term.
+The first meta-term is used for scoring, the rest are ignored.
+However this method does not allow for generalization, since only the ads matching an exact label of the page would be selected.
+Given these  properties, we use an adaptation of the WAND algorithm where we change the calculation of the scoring function and the  upper bound score calculation to reflect our scoring function.
+For example, if an ad belongs to the Skiing class and is  annotated with both Skiing and its parent Winter Sports, the index will contain the special class meta-terms for both Skiing and Winter Sports (and all their ancestors) with the weights according to the product of the classifier  confidence and the idist function.
+On the query side, given the keywords and the class of a page, we compose a keyword only query by inserting one class term for each ancestor of the classes assigned to the page.
+In the special case when we add a cursor representing an ancestor of a class term already factored in the score, the score simply does not change (we add 0).
+This is a document-at-a-time  algorithm [1] that uses a branch-and-bound approach to derive efficient moves for the cursors associated to the postings lists.
+When matching with a page classified into Skiing, the query will contain terms for class Skiing and for each of its ancestors.
+It finds the next cursor to be moved based on an  upper bound of the score for the documents at which the  cursors are currently positioned.
+The ads are parsed into terms and each term is associated with a weight based on the section in which it appears.
+The next challenge is how to index the ads so that the class information is preserved in the index?
+A simple method is to create unique meta-terms for the classes and annotate each ad with one meta-term for each assigned class.
+To find the upper bound for a document, the algorithm assumes that all cursors that are before it will hit this document (i.e.
+In the previous section we discussed the choice of scoring function to estimate the match between an ad and a page.
+The process of score calculation and ad selection is to be done in real time and therefore must be very efficient.
+Therefore we annotated each ad with one meta-term for each ancestor of the assigned class.
+Documents with an upper bound smaller than the current minimum score among the  candidate documents can be eliminated from further  considerations, and thus the cursors can skip over them.
+During the class score calculation, for each class path we use only the lowest class meta-term, ignoring the others.
+However when scoring an ad classified into Skiing we will use the weight for the Skiing class meta-term.
+It has been shown that WAND can be used with any function that is monotonic with respect to the number of matching terms in the document.
+We used a standard inverted index framework where there is one posting list for each distinct term.
+The weights of meta-terms are assigned according to the value of the idist() function defined in the previous section.
+As the ad collections are in the range of hundreds of millions of entries, there is a need for indexed access to the ads.
+At runtime, we evaluate the query using a variant of the WAND algorithm [3].
+Weights from distinct occurrences of a term in an ad are added together, so that the posting lists contain one entry per term/ad combination.
+Ads classified into  Snowboarding will be scored using the weight of the Winter Sports meta-term.
+The algorithm keeps a heap of current best candidates.
+the  document contains all those terms represented by cursors before or at that document).
+The rest of the algorithm remains unchanged. 
+Our scoring function is monotonic since the score can never decrease when more terms are found in the document.
+The top-k ads with the highest score are offered by the  system for placement on the publisher"s page.
+However, these have been traditionally used to search based on keywords.
+In this section we overview the ad indexing and the ranking function of our prototype ad search system for matching ads and pages.
+Inverted indexes provide scalable and low latency  solutions for searching documents.

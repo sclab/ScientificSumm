@@ -1,0 +1,57 @@
+Rosenberg has done a similar experiment ([9]), showing that the difference between the original and the concealed signal with increasing loss burstiness in terms of a mean-squared error is significant, however.
+We can see from Figure 9 that the position of a frame loss has a signilicant inlluence cm the resulting signal degradation", while the degradation is not that sensitive to the length of the frame loss burst k. The loss of unvoiced frames seems to have a rather small impact on the signal degradation and the decoder recovers the state information fast  thereafter.
+Interestingly the loss correlation (dp parameter) has some impact on the speech quality,  however, the effect is weak pointing to a certain robustness of the G.729 codec with regard to the resiliency to consecutive packet losses due to the internal loss concealment.
+On the other hand it shows, that a large number of different Figure 5: Utility curve for PCM without loss  conc e a l m e n t (EMBSD) Figure 6: Utility curve for PCM with loss  concealment (EMBSD) Figure 7: Variability of the perceptual distortion with 10s~ concealment (EMBSD) 445 Figure 8: Utility curve for the G.729 codec  (EMBSD) loss patterns is necessary for a certain speech sample when using objective speech quality measurement to assess the impact of loss corwlation on user perception.
+The resulting speech quality is insensitive to the loss distribution  parameter (elp).
+The loss of voiced frames causes a larger degradation of the speech signal and the decoder needs more time to resyncbronize with the sender.
+While using a simple end-to-end loss  characterization, we generate a large number of loss patterns by using different seeds for the pseudcerandom number generator (for the results presented here we used 300 patterns for each  simulated condition for a single speech sample).
+Figure 9 shows the resynchronization time (expressed in the number of frames needed until the  threshold is exceeded) plotted against the position of the loss (i.e., the index of the first lost frame) for d&rent values of k. The speech sample is produced by a male speaker where an unvoiced/voiced (au) transition occurs in the eighth frame.
+However, due to the  periodic property of voiced sounds, the decoder can conceal ‘While on one hand we see that SNR n~easu~es often do not correlate well with subjective speech quality, on the other hand the large differences in the SNR-threshold-based resynchronization time clearly point to a significant impact on subjective speech quality.
+Together with the parameters of the network model (section 2.1) and the  perceptual model we obtain a measurement setup which allows us to map a specific PCM signal input to a speech quality measure.
+Thus,  considering a given ulp, a worst case loss pattern of alternating losses (I(s mod 2) = l,l([s + l] mod 2) = 0) would enable a considerable performance improvement (with ok = OVk > 1: p~,cond = 0, Eq.
+This procedure takes thus into account that the impact of loss on an input signal may not be homogenous (i.e., a loss burst within one segment of that signal can have a different perceptual impact than a loss burst of the same size within another segment).
+Figure 8 shows that for similar network conditions the output quality of the G.729* is worse than PCM with loss concealment, demonstrating the compression versus quality tradeoff under packet loss.
+446 Figure 10: Differential RED drop probabilities as a function of average queue sizes the loss of voiced frames well once it has obtained suflicient information on them.
+Figure 5 shows the case without loss concealment enabled where Gilbert model parameters are varied.
+As we found by visual inspection that the distributions of the perceptual distortion values for one loss condition seem to approximately follow a normal distribution we employ mean and standard deviation to describe the statistical variability of the measured values.
+The decoder fails to conceal the loss of voiced frames at an unvoiced/voiced transition because it attempts to conceal the loss of voiced frames using the filter coefficients and the excitation for an unvoiced sound.
+In addition to the impact of the missing codewords, distortion is increased by the missing update of the predictor filter memories for the line speo tral pairs and the linear prediction synthesis filter memo ries.
+By averaging the result of the objective quality measure for several loss patterns, we have a reliable indication for the performance of the codec operating under a certain network loss condition.
+When a frame is lost or corrupted, the G.729 decoder uses the parameters of the previous frame to interpolate those of the lost frame.
+3.1 Temporal sensitivity 3.1.1 Pa4 We first analyze the behaviour for ~-law PCM flows (64 kbit/s) with and without loss concealment, where the loss concealment repairs isolated losses only (speech stationarity can only be assumed for small time intervals).
+lsking into account the wed coding scheme, the above phenomenon could be explained as follows: Because voiced sounds have a higher energy than unvoiced sounds, the loss of voiced frames causes a larger signal degradation than the loss of unvoiced frames.
+Moreover, because the G.729 encoder uses a moving average filter to predict the values of the line spectral pairs and only transmits the difference between the real and predicted  vaues, it takes a lot of time for the decoder to resynchronize with the encoder once it has failed to build the appropriate linear prediction filter. 
+The results are even slightly decressing for an increasing clp, pointing to a significant variability of  theresuits.
+This demonstrates the importance of perceptual metrics which are able to include concealment ‘LSPs are another representation of the linear prediction coefficients.
+The line spectral pair coefficients (LSP3) of the last good frame are repeated and the gain coefficients are taken from the previous frame but they are damped to gradually reduce their impact.
+Thus, errors are not only introduced  during the time period represented by the current frame but also in the following ones.
+For each frame, the"G.7i9 encoder analyzes the input data and extracts the parameters of the Code Excited Linear Prediction (CELP) model such as linear prediction filter coefficients and excitation vectors.
+However, the loss of voiced frames at an unvoiced/voiced transition leads to a significant degradation of the signal.
+The G.729 decoder is said to have resynchronized with the encoder when the  energy of the error signal falls below one percent of the energy of the decoded signal without frame loss (this is equivalent to a signal-t-noise ratio (SNR) threshold of 2OdB).
+The relative improvement increases with increasing loss (pulp).
+Figure 7 presents the perceptual distortion as in the previous figure but also give the standard deviation as error bars for the respective loss condition.
+Figure 9: Resynchronization time (in frames) of the G.729 decoder after the loss of k consecutive frames (k E [1,4]) as a function of frame position.
+In Figure 6 the results with loss concealment are  depicted.
+On one hand this points to some, though weak, sensitivity with regard to heterogeneity (i.e., it matters which area of the speech signal (voiced/unvoiced) experiences a burst loss).
+When a frame loss occurs, the decoder cannot update its state, resulting in a divergence of encoder and decoder state.
+Figure 4 shows the components of the measurement setup which we will use to evaluate our approach to combined end-t-end and hopby-hop loss recovery and control.
+Figures 5 and 6 respectively also  contain a curve showing the performance under the assumption of random losses (Bernouilli model, ulp = elp).
+The experiment we carry out is to meawre the resynchronization time of the d* coder after k consecutive frames are lost.
+Similar results were obtained with other concealment algorithms.
+It shows the increasing variability of the results with increasing loss correlation (clp), while the variability does not seem to change much with an increasing amount of loss (alp).
+When the loss correlation (dp) is low, loss  concealment provides a significant performance improvement.
+The error signal energy (and thus the SNR) is computed on a per-frame basis.
+‘Two G.729 frames are contained in a packet.
+For higher clp values the cases with and without  concealment become increasingly similar and show the same  performance at clp x 0.3.
+We have repeated the experiment for different male and female speakers and obtained similar results.
+Results are shown for the AP/C concealment algorithm ([ll]).
+The 444 shaded boxes show the components in the data path where mechanisms of loss recovery are located.
+3) as the network model for the simulations, as we have found that here higher order models do not provide much additional information.
+(and not only reconstruction) operations in the quality  assessment.
+Thus, in this  section we concentrate on the G.729 coda.
+In G.729.
+3.2 Sensitivity due to ADU heterogeneity PCM is a memoryless encoding.
+3.1.2 G.729 G.729 ([17]) uses the Conjugate Structure Algebraic Code Excited Linear Prediction (CS-ACELP) coding scheme and ooerates at 8 kbit/s.
+Therefore the ADU content is only weakly heterogeneous (Figure 7).
+We employed a Gilbert model (Fig.
+a speech fmme is 10 ms in d&ion.

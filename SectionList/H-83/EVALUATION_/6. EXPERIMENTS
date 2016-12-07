@@ -1,0 +1,276 @@
+In this section, we provide experimental evidence to 
+verify the effectiveness of our algorithms. We first outline our
+experimental methodology and then provide results across
+a variety of local domains.
+6.1 Methodology
+Given the limited resources available at an academic 
+institution, crawling a section of the web that is of the same
+magnitude as that indexed by Google or Yahoo! is clearly
+infeasible. Thus, for a given local domain, we approximate
+the global graph by crawling a local neighborhood around
+the domain that is several orders of magnitude larger than
+the local subgraph. Even though such a graph is still orders
+of magnitude smaller than the ‘true" global graph, we 
+contend that, even if there exist some highly influential pages
+that are very far away from our local domain, it is 
+unrealistic for any local node selection algorithm to find them. Such
+pages also tend to be highly unrelated to pages within the
+local domain.
+When explaining our node selection strategies in section
+5, we made the simplifying assumption that our local graph
+contained no dangling nodes. This assumption was only
+made to ease our analysis. Our implementation efficiently
+handles dangling links by replacing each zero column of our
+adjacency matrix with the uniform vector. We evaluate the
+algorithm using the two node selection strategies given in
+Section 5.2, and also against the following baseline methods:
+• Random: Nodes are chosen uniformly at random among
+the known global nodes.
+• OutlinkCount: Global nodes with the highest 
+number of outlinks from the local domain are chosen.
+At each iteration of the FindGlobalPR algorithm, we 
+evaluate performance by computing the difference between the
+current PageRank estimate of the local domain, ELf
+ELf 1
+, and
+the global PageRank of the local domain ELg
+ELg 1
+. All 
+PageRank calculations were performed using the uniform 
+random surfer vector. Across all experiments, we set the 
+random surfer parameter α, to be .85, and used a convergence
+threshold of 10−6
+. We evaluate the difference between the
+local and global PageRank vectors using three different 
+metrics: the L1 and L∞ norms, and Kendall"s tau. The L1 norm
+measures the sum of the absolute value of the differences 
+between the two vectors, and the L∞ norm measures the 
+absolute value of the largest difference. Kendall"s tau metric is
+a popular rank correlation measure used to compare 
+PageRanks [2, 11]. This metric can be computed by counting
+the number of pairs of pairs that agree in ranking, and 
+subtracting from that the number of pairs of pairs that disagree
+in ranking. The final value is then normalized by the total
+number of n
+2
+such pairs, resulting in a [−1, 1] range, where
+a negative score signifies anti-correlation among rankings,
+and values near one correspond to strong rank correlation.
+6.2 Results
+Our experiments are based on two large web crawls and
+were downloaded using the web crawler that is part of the
+Nutch open source search engine project [18]. All crawls
+were restricted to only ‘http" pages, and to limit the 
+number of dynamically generated pages that we crawl, we 
+ignored all pages with urls containing any of the characters
+‘?", ‘*", ‘@", or ‘=". The first crawl, which we will refer to
+as the ‘edu" dataset, was seeded by homepages of the top
+100 graduate computer science departments in the USA, as
+rated by the US News and World Report [16], and also by
+the home pages of their respective institutions. A crawl of
+depth 5 was performed, restricted to pages within the ‘.edu"
+domain, resulting in a graph with approximately 4.7 million
+pages and 22.9 million links. The second crawl was seeded
+by the set of pages under the ‘politics" hierarchy in the dmoz
+open directory project[17]. We crawled all pages up to four
+links away, which yielded a graph with 4.4 million pages and
+17.3 million links.
+Within the ‘edu" crawl, we identified the five site-specific
+domains corresponding to the websites of the top five 
+graduate computer science departments, as ranked by the US
+News and World Report. This yielded local domains of 
+various sizes, from 10,626 (UIUC) to 59,895 (Berkeley). For each
+of these site-specific domains with size n, we performed 50
+iterations of the FindGlobalPR algorithm to crawl a total
+of 2n additional nodes. Figure 2(a) gives the (L1) difference
+from the PageRank estimate at each iteration to the global
+PageRank, for the Berkeley local domain.
+The performance of this dataset was representative of the
+typical performance across the five computer science 
+sitespecific local domains. Initially, the L1 difference between
+the global and local PageRanks ranged from .0469 
+(Stanford) to .149 (MIT). For the first several iterations, the
+122
+Research Track Paper
+0 5 10 15 20 25 30 35 40 45 50
+0.015
+0.02
+0.025
+0.03
+0.035
+0.04
+0.045
+0.05
+0.055
+Number of Iterations
+GlobalandLocalPageRankDifference(L1)
+Stochastic Complement
+PageRank Flow
+Outlink Count
+Random
+0 10 20 30 40 50
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+Number of Iterations
+GlobalandLocalPageRankDifference(L1)
+Stochastic Complement
+PageRank Flow
+Outlink Count
+Random
+0 5 10 15 20 25
+0.16
+0.18
+0.2
+0.22
+0.24
+0.26
+0.28
+0.3
+0.32
+0.34
+Number of Iterations
+GlobalandLocalPageRankDifference(L1)
+Stochastic Complement
+PageRank Flow
+Outlink Count
+Random
+(a) www.cs.berkeley.edu (b) www.enterstageright.com (c) Politics
+Figure 2: L1 difference between the estimated and true global PageRanks for (a) Berkeley"s computer science
+website, (b) the site-specific domain, www.enterstageright.com, and (c) the ‘politics" topic-specific domain. The
+stochastic complement method outperforms all other methods across various domains.
+three link-based methods all outperform the random 
+selection heuristic. After these initial iterations, the random
+heuristic tended to be more competitive with (or even 
+outperform, as in the Berkeley local domain) the outlink count
+and PageRank flow heuristics. In all tests, the stochastic
+complementation method either outperformed, or was 
+competitive with, the other methods. Table 1 gives the average
+difference between the final estimated global PageRanks and
+the true global PageRanks for various distance measures.
+Algorithm L1 L∞ Kendall
+Stoch. Comp. .0384 .00154 .9257
+PR Flow .0470 .00272 .8946
+Outlink .0419 .00196 .9053
+Random .0407 .00204 .9086
+Table 1: Average final performance of various node
+selection strategies for the five site-specific 
+computer science local domains. Note that Kendall"s
+Tau measures similarity, while the other metrics are
+dissimilarity measures. Stochastic 
+Complementation clearly outperforms the other methods in all
+metrics.
+Within the ‘politics" dataset, we also performed two 
+sitespecific tests for the largest websites in the crawl: 
+www.adamsmith.org, the website for the London based Adam Smith
+Institute, and www.enterstageright.com, an online 
+conservative journal. As with the ‘edu" local domains, we ran our
+algorithm for 50 iterations, crawling a total of 2n nodes. 
+Figure 2 (b) plots the results for the www.enterstageright.com
+domain. In contrast to the ‘edu" local domains, the Random
+and OutlinkCount methods were not competitive with 
+either the SC-Select or the PF-Select methods. Among all
+datasets and all node selection methods, the stochastic 
+complementation method was most impressive in this dataset,
+realizing a final estimate that differed only .0279 from the
+global PageRank, a ten-fold improvement over the initial 
+local PageRank difference of .299. For the Adam Smith local
+domain, the initial difference between the local and global
+PageRanks was .148, and the final estimates given by the
+SC-Select, PF-Select, OutlinkCount, and Random
+methods were .0208, .0193, .0222, and .0356, respectively.
+Within the ‘politics" dataset, we constructed four 
+topicspecific local domains. The first domain consisted of all
+pages in the dmoz politics category, and also all pages within
+each of these sites up to two links away. This yielded a local
+domain of 90,811 pages, and the results are given in figure 2
+(c). Because of the larger size of the topic-specific domains,
+we ran our algorithm for only 25 iterations to crawl a total
+of n nodes.
+We also created topic-specific domains from three 
+political sub-topics: liberalism, conservatism, and socialism. The
+pages in these domains were identified by their 
+corresponding dmoz categories. For each sub-topic, we set the local
+domain to be all pages within three links from the 
+corresponding dmoz category pages. Table 2 summarizes the
+performance of these three topic-specific domains, and also
+the larger political domain.
+To quantify a global page j"s effect on the global 
+PageRank values of pages in the local domain, we define page
+j"s impact to be its PageRank value, g[j], normalized by the
+fraction of its outlinks pointing to the local domain:
+impact(j) =
+oL[j]
+o[j]
+· g[j],
+where, oL[j] is the number of outlinks from page j to pages
+in the local domain L, and o[j] is the total number of j"s
+outlinks. In terms of the random surfer model, the impact
+of page j is the probability that the random surfer (1) is
+currently at global page j in her random walk and (2) takes
+an outlink to a local page, given that she has already decided
+not to jump to a random page.
+For the politics local domain, we found that many of the
+pages with high impact were in fact political pages that
+should have been included in the dmoz politics topic, but
+were not. For example, the two most influential global pages
+were the political search engine www.askhenry.com, and the
+home page of the online political magazine, 
+www.policyreview.com. Among non-political pages, the home page of
+the journal Education Next was most influential. The
+journal is freely available online and contains articles 
+regarding various aspect of K-12 education in America. To provide
+some anecdotal evidence for the effectiveness of our page 
+selection methods, we note that the SC-Select method chose
+11 pages within the www.educationnext.org domain, the
+PF-Select method discovered 7 such pages, while the 
+OutlinkCount and Random methods found only 6 pages each.
+For the conservative political local domain, the socialist
+website www.ornery.org had a very high impact score. This
+123
+Research Track Paper
+All Politics:
+Algorithm L1 L2 Kendall
+Stoch. Comp. .1253 .000700 .8671
+PR Flow .1446 .000710 .8518
+Outlink .1470 .00225 .8642
+Random .2055 .00203 .8271
+Conservativism:
+Algorithm L1 L2 Kendall
+Stoch. Comp. .0496 .000990 .9158
+PR Flow .0554 .000939 .9028
+Outlink .0602 .00527 .9144
+Random .1197 .00102 .8843
+Liberalism:
+Algorithm L1 L2 Kendall
+Stoch. Comp. .0622 .001360 .8848
+PR Flow .0799 .001378 .8669
+Outlink .0763 .001379 .8844
+Random .1127 .001899 .8372
+Socialism:
+Algorithm L1 L∞ Kendall
+Stoch. Comp. .04318 .00439 .9604
+PR Flow .0450 .004251 .9559
+Outlink .04282 .00344 .9591
+Random .0631 .005123 .9350
+Table 2: Final performance among node selection
+strategies for the four political topic-specific crawls.
+Note that Kendall"s Tau measures similarity, while
+the other metrics are dissimilarity measures.
+was largely due to a link from the front page of this site
+to an article regarding global warming published by the
+National Center for Public Policy Research, a conservative
+research group in Washington, DC. Not surprisingly, the
+global PageRank of this article (which happens to be on the
+home page of the NCCPR, www.nationalresearch.com),
+was approximately .002, whereas the local PageRank of this
+page was only .00158. The SC-Select method yielded a
+global PageRank estimate of approximately .00182, the 
+PFSelect method estimated a value of .00167, and the 
+Random and OutlinkCount methods yielded values of .01522
+and .00171, respectively.

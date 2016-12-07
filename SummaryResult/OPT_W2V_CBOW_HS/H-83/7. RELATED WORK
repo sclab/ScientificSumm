@@ -1,0 +1,19 @@
+Whereas our framework seeks to minimize the difference between the global and local PageRank, the  objective used in [6] is to crawl the most highly (globally) ranked pages first.
+However, their experiments differ from our work in that our node selection algorithms do not use (or have access to) global PageRank values.
+The node selection framework we have proposed is similar to the url ordering for crawling problem proposed by Cho et al.
+This is in contrast to our method, which  approximates the global PageRank and scales linearly with the size of the local domain.
+also experiment within a similar crawling framework in [2], but quantify their results by comparing Kendall"s rank  correlation between the PageRanks of the current set of crawled pages and those of the entire global graph.
+Using their algorithm for our problem would require that either the entire global domain first be downloaded or a connectivity server be used, both of which would lead to very large web graphs. 
+They found this method to be most effective in optimizing their objective, as did a recent survey of these methods by Baeza-Yates et al.
+Wang and Dewitt [22] propose a system where the set of web servers that comprise the global domain communicate with each other to compute their respective global  PageRanks.
+Gan, Chen, and Suel propose a method for estimating the PageRank of a single page [5] which uses only constant  bandwidth, computation, and space.
+They found that node selection strategies that crawled pages with the  highest global PageRank first actually performed worse (with respect to Kendall"s Tau correlation between the local and global PageRanks) than basic depth first or breadth first strategies.
+Many algorithmic improvements for computing exact  PageRank values have been proposed [9, 10, 14].
+They propose several node selection algorithms, including the outlink count heuristic, as well as a variant of our PF-Select algorithm which they refer to as the  ‘PageRank ordering metric".
+Their approach relies on the availability of a remote connectivity server that can supply the set of inlinks to a given page, an assumption not used in our framework.
+If such  algorithms are used to compute the global PageRanks of our local domain, they would all require O(N) computation, storage, and bandwidth, where N is the size of the global domain.
+For a given web server hosting n pages, the  computational, bandwidth, and storage requirements are also linear in n. One drawback of this system is that the  number of distinct web servers that comprise the global domain can be very large.
+They experimentally show that a reasonable estimate of the node"s PageRank can be obtained by visiting at most a few hundred nodes.
+Boldi et al.
+For example, our ‘edu" dataset contains websites from over 3,200 different universities; coordinating such a system among a large number of sites can be very difficult.
+in [6].

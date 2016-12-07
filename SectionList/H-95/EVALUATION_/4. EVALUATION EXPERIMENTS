@@ -1,0 +1,110 @@
+We used three different ontologies in evaluation experiments,
+namely the Getty thesaurus of geographic names (TGN) [6] and
+two specific resources developed at our group, here referred to as
+the PT and ML ontologies [2]. TGN and ML include global 
+geographical information in multiple languages (although TGN is 
+considerably larger), while the PT ontology focuses on the Portuguese
+territory with a high detail. Place types are also different across
+ontologies, as for instance PT includes street names and postal 
+addresses, whereas ML only goes to the level of cities. The reader
+should refer to [2, 6] for a complete description of these resources.
+Our initial experiments used Portuguese and English topics from
+the GeoCLEF 2005 and 2006 evaluation campaigns. Topics in 
+GeoCLEF correspond to query strings that can be used as input to a GIR
+system [4]. ImageCLEF 2006 also included topics specifying place
+references, and participants were encouraged to run their GIR 
+systems on them. Our experiments also considered this dataset. For
+each topic, we measured if Algorithm 2 was able to find the 
+corresponding < what,relation,where > triple. The ontologies used
+in this experiment were the TGN and ML, as topics were given in
+multiple languages and covered the whole globe.
+Dataset Number of Correct Triples Time per Query
+Queries ML TGN ML TGN
+GeoCLEF05 EN 25 19 20
+GeoCLEF05 PT 25 20 18 288.1 334.5
+GeoCLEF06 EN 32 28 19 msec msec
+GeoCLEF06 PT 25 23 11
+ImgCLEF06 EN 24 16 18
+Table 2: Summary of results over CLEF topics.
+Table 1 illustrates some of the topics, and Table 2 summarizes
+the obtained results. The tables show that the proposed technique
+adequately handles most of these queries. A manual inspection of
+the ontology concepts that were returned for each case also revealed
+that the where term was being correctly disambiguated. Note that
+the TGN ontology indeed added some ambiguity, as for instance
+names like Madrid can correspond to many different places around
+the globe. It should also be noted that some of the considered 
+topics are very hard for an automated system to handle. Some of them
+were ambiguous (e.g. in Japanese rice imports, the query can
+be said to refer either rice imports in Japan or imports of Japanese
+rice), and others contained no direct geographical references (e.g.
+cities near active volcanoes). Besides these very hard cases, we
+also missed some topics due to their usage of place adjectives and
+specific regions that are not defined at the ontologies (e.g. 
+environmental concerns around the Scottish Trossachs).
+In a second experiment, we used a sample of around 100,000
+real search engine queries. The objective was to see if a 
+significant number of these queries were geographical in nature, also
+checking if the algorithm did not produce many mistakes by 
+classifying a query as geographical when that was not the case. The
+Portuguese ontology was used in this experiment, and queries were
+taken from the logs of a Portuguese Web search engine available
+at www.tumba.pt. Table 3 summarizes the obtained results. Many
+queries were indeed geographical (around 3.4%, although 
+previous studies reported values above 14% [8]). A manual inspection
+showed that the algorithm did not produce many false positives,
+and the geographical queries were indeed correctly split into correct
+< what,relation,where > triple. The few mistakes we encountered
+were related to place names that were more frequently used in other
+contexts (e.g. in Teófilo Braga we have the problem that Braga
+is a Portuguese district, and Teófilo Braga was a well known 
+Portuguese writer and politician). The addition of more names to the
+exception list can provide a workaround for most of these cases.
+Value
+Num. Queries 110,916
+Num. Queries without Geographical References 107,159 (96.6%)
+Num. Queries with Geographical References 3,757 (3.4%)
+Table 3: Results from an experiment with search engine logs.
+We also tested the procedure for detecting queries that are 
+implicitly geographical with a small sample of queries from the logs.
+For instance, for the query Estádio do Dragão (e.g. home stadium
+for a soccer team from Porto), the correct geographical context can
+be discovered from the analysis of the results (more than 75% of
+the top 20 results are assigned with the scope Porto). For future
+work, we plan on using a larger collection of queries to evaluate
+this aspect. Besides queries from the search engine logs, we also
+plan on using the names of well-known buildings, monuments and
+other landmarks, as they have a strong geographical connotation.
+Finally, we also made a comparative experiment with 2 popular
+geocoders, Maporama and Microsoft"s Mappoint. The objective
+was to compare Algorithm 1 with other approaches, in terms of 
+being able to correctly disambiguate a string with a place reference.
+Civil Parishes from Lisbon Maporama Mappoint Ours
+Coded refs. (out of 53) 9 (16.9%) 30 (56,6%) 15 (28.3%)
+Avg. Time per ref. (msec) 506.23 1235.87 143.43
+Civil Parishes from Porto Maporama Mappoint Ours
+Coded refs. (out of 15) 0 (0%) 2 (13,3%) 5 (33.3%)
+Avg. Time per ref. (msec) 514.45 991.88 132.14
+Table 4: Results from a comparison with geocoding services.
+The Portuguese ontology was used in this experiment, taking as 
+input the names of civil parishes from the Portuguese municipalities
+of Lisbon and Porto, and checking if the systems were able to 
+disambiguate the full name (e.g. Campo Grande, Lisboa or Foz
+do Douro, Porto) into the correct geocode. We specifically 
+measured whether our approach was better at unambiguously returning
+geocodes given the place reference (i.e. return the single correct
+code), and providing results rapidly. Table 4 shows the obtained
+results, and the accuracy of our method seems comparable to the
+commercial geocoders. Note that for Maporama and Mappoint, the
+times given at Table 4 include fetching results from the Web, but we
+have no direct way of accessing the geocoding algorithms (in both
+cases, fetching static content from the Web servers takes around
+125 milliseconds). Although our approach cannot unambiguously
+return the correct geocode in most cases (only 20 out of a total of
+68 cases), it nonetheless returns results that a human user can 
+disambiguate (e.g. for Madalena, Lisboa we return both a street and
+a civil parish), as opposed to the other systems that often did not
+produce results. Moreover, if we consider the top geocode 
+according to the ranking procedure described in Section 3.1, or if we use
+a type qualifier in the name (e.g. civil parish of Campo Grande,
+Lisboa), our algorithm always returns the correct geocode.

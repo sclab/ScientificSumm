@@ -1,0 +1,348 @@
+The Market Scoring Rule (MSR) was introduced by 
+Hanson [6]. It is based on the concept of a proper scoring rule, a
+technique which rewards forecasters to give their best 
+prediction. Hanson"s innovation was to turn the scoring rules into
+instruments that can be traded, thereby providing traders
+who have new information an incentive to trade. One 
+positive effect of this design is that a single trader would still
+have incentive to trade, which is equivalent to updating the
+scoring rule report to reflect her information, thereby 
+eliminating the problem of thin markets and illiquidity. In this
+section, we show that, when the scoring rule used is the
+spherical scoring rule [4], there is a strong strategic 
+equivalence between the projection game and the market scoring
+rule.
+Proper scoring rules are tools used to reward forecasters
+who predict the probability distribution of an event. We
+describe this in the simple setting of two exhaustive, 
+mutually exclusive events A and B. In the simple setting of
+two exhaustive, mutually exclusive events A and B, proper
+scoring rules are defined as follows. Suppose the forecaster
+predicts that the probabilities of the events are r = (rA, rB),
+with rA + rB = 1. The scoring rule is specified by functions
+sA(rA, rB) and sB(rA, rB), which are applied as follows: If
+the event A occurs, the forecaster is paid sA(rA, rB), and if
+the event B occurs, the forecaster is paid sB(rA, rB). The
+key property that a proper scoring rule satisfies is that the
+expected payment is maximized when the report is identical
+to the true probability distribution.
+4.1 Equivalence with Spherical Scoring Rule
+In this section, we focus on one specific scoring rule: the
+spherical scoring rule [4].
+Definition 1. The spherical scoring rule [4] is defined
+by
+si(r)
+def
+= ri/||r||. For two events, this can be written as:
+sA(rA, rB) =
+rA
+p
+r2
+A + r2
+B
+; sB(rA, rB) =
+rB
+p
+r2
+A + r2
+B
+The spherical scoring rule is known to be a proper scoring
+rule. The definition generalizes naturally to higher 
+dimensions.
+We now demonstrate a close connection between the 
+projection game restricted to a circular arc and a market scoring
+rule that uses the spherical scoring rule. At this point, it is
+321
+convenient to use vector notation. Let x = (x, y) denote a
+position in the projection game. We consider the projection
+game restricted to the circle |x| = 1.
+Restricted projection game Consider a move in this
+restricted projection game from x to x . Recall that q =
+( p
+√
+p2+(1−p)2
+, 1−p
+√
+p2+(1−p)2
+), where p is the true probability
+of the event. Then, the projection game profit of a move
+[x, x ] is q · [x − x] (noting that |x| = |x |).
+We can extend this to an arbitrary collection3
+of (not
+necessarily contiguous) moves
+X = {[x1, x1], [x2, x2], · · · , [xl, xl]}.
+SEG-PROFITp(X ) =
+X
+[x,x ]∈X
+q · [x − x]
+= q ·
+2
+4
+X
+[x,x ]∈X
+[x − x]
+3
+5
+Spherical scoring rule profit We now turn our 
+attention to the MSR with the spherical scoring rule (SSR). 
+Consider a player who changes the report from r to r . Then, if
+the true probability of A is p, her expected profit is
+SSR-PROFIT([r, r ]) = p(sA(r )−sA(r))+(1−p)(sB(r )−sB(r))
+Now, let us represent the initial and final position in terms
+of circular coordinates. For r = (rA, rB), define the 
+corresponding coordinates x = ( rA√
+r2
+A+r2
+B
+, rB√
+r2
+A+r2
+B
+). Note that
+the coordinates satisfy |x| = 1, and thus correspond to valid
+coordinates for the restricted projection game.
+Now, let p denote the vector [p, 1 − p]. Then, 
+expanding the spherical scoring functions sA, sB, the player"s profit
+for a move from r to r can be rewritten in terms of the
+corresponding coordinates x, x as:
+SSR-PROFIT([x, x ]) = p · (x − x)
+For any collection X of moves, the total payoff in the SSR
+market is given by:
+SSR-PROFITp(X ) =
+X
+[x,x ]∈X
+p · [x − x]
+= p ·
+2
+4
+X
+[x,x ]∈X
+[x − x]
+3
+5
+Finally, we note that p and q are related by q = μpp,
+where μp = 1/
+p
+p2 + (1 − p)2 is a scalar that depends only
+on p. This immediately gives us the following strong 
+strategic equivalence for the restricted projection game and the
+SSR market:
+Theorem 7. Any collection of moves X yields a 
+positive (negative) payoff in the restricted projection game iff X
+yields a positive (negative) payoff in the Spherical Scoring
+Rule market.
+Proof. As derived above,
+SEG-PROFITp(X ) = μpSSR-PROFITp(X ).
+For all p, 1 ≤ μp ≤
+√
+2, (or more generally for an 
+ndimensional probability vector p, 1 ≤ μp = 1
+|p|
+≤
+√
+n, by
+the arithmetic mean-root mean square inequality), and the
+result follows immediately.
+3
+We allow the collection to contain repeated moves, i.e., it
+is a multiset.
+Although theorem 7 is stated in terms of the sign of the
+payoff, it extends to relative payoffs of two collections of
+moves:
+Corollary 8. Consider any two collections of moves X ,
+X . Then, X yields a greater payoff than X in the projection
+game iff X yields a greater payment than X in the SSR
+market.
+Proof. Every move [x, x ] has a corresponding inverse
+move [x , x]. In both the projection game and the SSR, the
+inverse move profit is simply the negative profit of the move
+(the moves are reversible). We can define a collection of
+moves X = X − X by adding the inverse of X to X . Note
+that
+SEG-PROFITp(X ) = SEG-PROFITp(X )−SEG-PROFITp(X )
+and
+SSR-PROFITp(X ) = SSR-PROFITp(X )−SSR-PROFITp(X );
+applying theorem 7 completes the proof.
+It follows that the ex post optimality of a move (or set of
+moves) is the same in both the projection game and the SSR
+market. On its own, this strong ex post equivalence is not
+completely satisfying, because in any non-trivial game there
+is uncertainty about the value of p, and the different scaling
+ratios for different p could lead to different ex ante optimal
+behavior. We can extend the correspondence to settings
+with uncertain p, as follows:
+Theorem 9. Consider the restricted projection game with
+some prior probability distribution F over possible values of
+p. Then, there is a probability distribution G with the same
+support as F, and a strictly positive constant c that depends
+only on F such that:
+• (i) For any collection X of moves, the expected profits
+are related by:
+EF (SEG-PROFIT(X )) = cEG(SSR-PROFIT(X ))
+• (ii) For any collection X , and any measurable 
+information set I ⊆ [0, 1], the expected profits conditioned
+on knowing that p ∈ I satisfy
+EF (SEG-PROFIT(X )|p ∈ I) = cEG(SSR-PROFIT(X )|p ∈ I)
+The converse also holds: For any probability distribution G,
+there is a distribution F such that both these statements are
+true.
+Proof. For simplicity, assume that F has a density 
+function f. (The result holds even for non-continuous 
+distributions). Then, let c =
+R 1
+0
+μpf(p)dp. Define the density
+function g of distribution G by
+g(p) =
+μpf(p)
+c
+Now, for a collection of moves X ,
+EF (SEG-PROFIT(X )) =
+Z
+SEG-PROFITp(X )f(p)dp
+=
+Z
+SSR-PROFITp(X )μpf(p)dp
+=
+Z
+SSR-PROFITp(X )cg(p)dp
+= cEG(SSR-PROFIT(X ))
+322
+−1 −0.5 0 0.5 1 1.5 2 2.5
+−1
+−0.5
+0
+0.5
+1
+1.5
+2
+2.5
+x
+y
+log scoring rule
+quadratic scoring rule
+Figure 3: Sample score curves for the log scoring
+rule si(r) = ai + b log ri and the quadratic scoring rule
+si(r) = ai + b(2ri −
+P
+k r2
+k).
+To prove part (ii), we simply restrict the integral to values
+in I. The converse follows similarly by constructing F from
+G.
+Analysis of MSR strategies Theorem 9 provides the
+foundation for analysis of strategies in scoring rule markets.
+To the extent that strategies in these markets are 
+independent of the specific scoring rule used, we can use the 
+spherical scoring rule as the market instrument. Then, analysis
+of strategies in the projection game with a slightly distorted
+distribution over p can be used to understand the strategic
+properties of the original market situation.
+Implementation in expectation Another important
+consequence of Theorem 9 is that the restricted projection
+game can be implemented with a small distortion in the
+probability distribution over values of p, by using a Spherical
+Scoring Rule to implement the payoffs. This makes the 
+projection game valuable as a design tool; for example, we can
+analyze new constraints and rules in the projection game,
+and then implement them via the SSR. Unfortunately, the
+result does not extend to unrestricted projection games, 
+because the relative profit of moving along the circle versus
+changing radius is not preserved through this 
+transformation. However, it is possible to extend the transformation
+to projection games in which the radius ri after the ith move
+is a fixed function of i (not necessarily constant), so that it
+is not within the strategic control of the player making the
+move; such games can also be strategically implemented via
+the spherical scoring rule (with distortion of priors).
+4.2 Connection to other scoring rules
+In this section, we show a weaker similarity between the
+projection game and the MSR with other scoring rules. We
+prove an infinitesimal similarity between the restricted 
+projection game and the MSR with log scoring rule; the result
+generalizes to all proper scoring rules that have a unique
+local and global maximum.
+A geometric visualization of some common scoring rules in
+two dimensions is depicted in Figure 3. The score curves in
+the figure are defined by {(s1(r), s2(r)) | r = (r, 1 − r), r ∈
+[0, 1]}. Similarly to the projection game, define the profit
+potential of a probability r in MSR to be the change in
+profit for moving from r to the optimum p, φMSR(s(r), p) =
+profitMSR[s(r), s(p)]. We will show that the profit 
+potentials in the two games have analogous roles for analyzing
+the optimal strategies, in particular both potential functions
+have a global minimum 0 at r = p.
+Theorem 10. Consider the projection game restricted to
+the non-negative unit circle where strategies x have the 
+natural one-to-one correspondence to probability distributions
+r = (r, 1 − r) given by x = ( r
+|r|
+, 1−r
+|r|
+). Trade in a log market
+scoring rule is strategically similar to trade in the projection
+game on the quarter-circle, in that
+d
+dr
+φ(s(r), p) < 0 for r < p
+d
+dr
+φ(s(r), p) > 0 for r > p,
+both for the projection game and MSR potentials φ(.).
+Proof. (sketch) The derivative of the MSR potential is
+d
+dr
+φ(s(r), p) = −p ·
+d
+dr
+s(r) = −
+X
+i
+pisi(r).
+For the log scoring rule si(r) = ai + b log ri with b > 0,
+d
+dr
+φMSR(s(r), p) = −p ·
+b
+r
+, −
+b
+1 − r
+
+= −b
+p
+r
+−
+1 − p
+1 − r
+
+= b
+r − p
+r(1 − r)
+.
+Since r = (r, 1 − r) is a probability distribution, this 
+expression is positive for r > p and negative for r < p as desired.
+Now, consider the projection game on the non-negative
+unit circle. The potential for any x = ( r
+|r|
+, 1−r
+|r|
+) is given by
+φ(x(r), p) = |x| − q · x(r),
+It is easy to show that d
+dr
+φ(x(r), p) < 0 for r < p and the
+derivative is positive for r > p, so the potential function
+along the circle is decreasing and then increasing with r
+similarly to an energy function, with a global minimum at
+r = p, as desired.
+Theorem 10 establishes that the market log-scoring rule
+is strategically similar to the projection game played on a
+circle, in the sense that the optimal direction of movement at
+the current state is the same in both games. For example,
+if the current state is r < p, it is profitable to move to
+r+dr since the effective profit of that move is profit(r, r ) =
+φ(s(r), p) − φ(s(r + dr), p) > 0. Although stated for 
+logscoring rules, the theorem holds for any scoring rules that
+induce a potential with a unique local and global minimum
+at p, such as the quadratic scoring rule and others.

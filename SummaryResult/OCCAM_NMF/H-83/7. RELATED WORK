@@ -1,0 +1,20 @@
+using their algorithm for our problem would require that either the entire global domain first be downloaded or a connectivity server be used, both of which would lead to very large web graphs. 
+they experimentally show that a reasonable estimate of the node"s pagerank can be obtained by visiting at most a few hundred nodes.
+their approach relies on the availability of a remote connectivity server that can supply the set of inlinks to a given page, an assumption not used in our framework.
+gan, chen, and suel propose a method for estimating the pagerank of a single page [5] which uses only constant  bandwidth, computation, and space.
+for example, our ‘edu" dataset contains websites from over 3,200 different universities; coordinating such a system among a large number of sites can be very difficult.
+for a given web server hosting n pages, the  computational, bandwidth, and storage requirements are also linear in n. one drawback of this system is that the  number of distinct web servers that comprise the global domain can be very large.
+wang and dewitt [22] propose a system where the set of web servers that comprise the global domain communicate with each other to compute their respective global  pageranks.
+this is in contrast to our method, which  approximates the global pagerank and scales linearly with the size of the local domain.
+if such  algorithms are used to compute the global pageranks of our local domain, they would all require o(n) computation, storage, and bandwidth, where n is the size of the global domain.
+many algorithmic improvements for computing exact  pagerank values have been proposed [9, 10, 14].
+however, their experiments differ from our work in that our node selection algorithms do not use (or have access to) global pagerank values.
+they found that node selection strategies that crawled pages with the  highest global pagerank first actually performed worse (with respect to kendall"s tau correlation between the local and global pageranks) than basic depth first or breadth first strategies.
+also experiment within a similar crawling framework in [2], but quantify their results by comparing kendall"s rank  correlation between the pageranks of the current set of crawled pages and those of the entire global graph.
+boldi et al.
+[1].
+they found this method to be most effective in optimizing their objective, as did a recent survey of these methods by baeza-yates et al.
+they propose several node selection algorithms, including the outlink count heuristic, as well as a variant of our pf-select algorithm which they refer to as the  ‘pagerank ordering metric".
+whereas our framework seeks to minimize the difference between the global and local pagerank, the  objective used in [6] is to crawl the most highly (globally) ranked pages first.
+in [6].
+the node selection framework we have proposed is similar to the url ordering for crawling problem proposed by cho et al.

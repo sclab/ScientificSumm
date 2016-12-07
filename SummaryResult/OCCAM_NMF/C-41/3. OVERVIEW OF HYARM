@@ -1,0 +1,29 @@
+3 the base station is not included in the figure since it only retransmits the video received from uavs to end receivers.
+application adapter(s), that are collocated with the application, modify the input parameters to the  application - in our case video encoder - to modify the application resource utilization and qos.
+when the controller receives resource utilization updates from monitors, it  computes the necessary modifications to application(s)  parameters and notifies application adapter(s) via a remote  operation call.
+3 the interaction between the controller and the resource monitors uses the observer pattern [5].
+hyarm"s resource monitors continuously observe the system resource utilization and  notify the central controller with the current utilization.
+as shown in figure 3, uavs compress the data using  various compression schemes, such as mpeg1, mpeg4, and real video, and uses tao"s a/v streaming service to  transmit the video to end receivers.
+application adapters are collocated with  applications since the two interact closely.
+resource monitors are remote corba objects that update the central controller periodically with the current resource utilization.
+three entities of receiver uav tao resource utilization hyarm central controller a/v streaming service : sender mpeg1 mpeg4 real video hyarm resource monitor a/v streaming service : receiver compressed video compressed video application hyarm application adapter remote object call control inputs resource utilization resource utilization / control inputs control inputs legend figure 3: developing the dre multimedia system with hyarm hyarm, namely the resource monitors, central controller, and application adapters are built as corba servants, so they can be distributed throughout a dre system.
+we use the a/v streaming service to transmit the video from the uavs to the end receivers via the base station.
+tao"s a/v streaming service is a qos-enabled video distribution service that can transfer video in real-time to one or more receivers.
+tao"s a/v streaming service is an implementation of the corba a/v  streaming service specification.
+figure 3 shows the interaction of various parts of the dre multimedia system developed with hyarm, tao, and tao"s a/v streaming service.
+hyarm can be applied to ensure efficient, predictable and adaptive resource management of any dre system where resource availability and requirements are subject to dynamic change.
+3.2 applying hyarm to the multimedia  system case study hyarm is built atop tao [13], a widely used open-source implementation of real-time corba [12].
+in our multimedia system, the application adapter ensures that the video is encoded at the recommended frame rate and resolution using the specified compression scheme.
+in our future implementations, we plan to use resource reservation mechanisms such as  differentiated service [7, 3] and class-based kernel resource management [4] to provision/reserve network and cpu  resources.
+in the current  mplementation of hyarm, the application adapter modifies the input parameters to the application that affect application qos and resource utilization - compression scheme, frame rate, and picture resolution.
+application adapters modify application execution  according to parameters recommended by the controller and ensures that the operation of the application is in accordance with the recommended parameters.
+from the perspective of hybrid control theoretic techniques [8], the different video compression schemes and frame rate form the discrete  variables of application execution and picture resolution forms the continuous variables.
+in our multimedia system, the hyarm controller determines the value of application parameters such as (1) video  compression schemes, such as real video and mpeg-4, and/or (2) frame rate, and (3) picture resolution.
+this adaptation  process ensures that system resources are utilized efficiently and end-to-end application qos requirements are met.
+the central controller maintains the system resource utilization below a desired bound by (1) processing periodic updates it receives from resource monitors and (2)  modifying the execution of applications accordingly, e.g., by  using different execution algorithms or operating the  application with increased/decreased qos.
+network bandwidth monitors  observe the network resource utilization of (1) wireless network link between uavs and the base station and (2) wired  network link between the base station and end receivers.
+cpu monitors observe the cpu resource utilization of uavs, base station, and end receivers.
+in our multimedia system, there are resource monitors for cpu utilization and network bandwidth.
+3.1 hyarm structure and functionality resource utilization legend resource allocation application parameters figure 2: hyarm architecture hyarm is composed of three types of entities shown in figure 2 and described below: resource monitors observe the overall resource  utilization for each type of resource and resource utilization per application.
+hyarm ensures efficient and predictable system performance by  providing adaptive resource management, including monitoring of system resources and enforcing bounds on application  resource utilization.
+this section describes the architecture of the hybrid  adaptive resource-management middleware (hyarm).

@@ -1,0 +1,22 @@
+also, evaluation of the utility of the learned topics for users will be undertaken. 
+in future work we will adopt a more rigorous method of deriving  documenttopic weight thresholds.
+to use these weights in the relation browser we currently assign to each document the two topics on which it scored highest.
+these scores may then be used to populate a relation browser interface, or they may be added to a  traditional information retrieval system.
+the output of this process is a score for every  document in the collection on each of the automatically  discovered topics.
+deriving topic scores via naive bayes for the entire  15,000document collection required less than two hours of cpu time.
+that is, for each document di we derive a k-dimensional vector,  quantifying the association between di and each class c1 .
+having clustered the documents and trained a suitable classifier, the remaining 14,000 documents in the collection are labeled by means of automatic classification.
+they define a  decision boundary by finding the maximally separating  hyperplane in a high-dimensional vector space in which document classes become linearly separable.
+finally, support vector machines were thoroughly explicated by vapnik [18], and applied specifically to text in [10].
+it is described in detail in [15].
+like prind, naive bayes attempts to classify documents into the most  probable class.
+interested readers are referred to joachims" article for 6 http://www.bls.gov/opub/ted 154 further details of the classification method.
+prind is a probabilistic version of the rocchio classification algorithm [9].
+all were implemented using mccallum"s bow text classification library [14].
+we tested three statistical classification  techniques: probabilistic rocchio (prind), naive bayes, and  support vector machines (svms).
+once the editor"s desk documents were assigned to  clusters, we constructed a k-way classifier that estimates the strength of evidence that a new document di is a member of class ck.
+at the end of the process,  documentcluster affinity is measured by a real-valued number.
+however, these clusters mark only the first step in a two-phase process of topic identification.
+constructing mutually exclusive clusters violates our assumption that documents may belong to multiple classes.
+specifically, using k-means, we clustered each of the 1279  documents into one of k clusters, with the number of clusters chosen by analyzing the within-cluster mean squared  distance at different values of k (see section 6.1).
+unsupervised learning fortopic discovery to derive suitably general topics for the application of a dynamic interface to the bls collection, we combined  document clustering with text classification techniques.

@@ -1,0 +1,118 @@
+AMD WITHOUT PAYMENTS IS HARD
+In this section we demonstrate that it is NP-complete to
+design a deterministic mechanism that maximizes the 
+expectation of the designer"s objective when payments are not
+possible. We show that this problem is hard even in the
+single-agent setting, thereby immediately showing it hard
+for both IR concepts, for both solution concepts.
+Theorem 2. Without payments, deterministic AMD for
+a self-interested designer is NP-complete, even for a single
+agent, even with a uniform distribution over types.
+Proof. It is easy to show that the problem is in NP.
+To show NP-hardness, we reduce an arbitrary MINSAT 
+instance to the following single-agent self-interested 
+deterministic AMD without payments instance. Let the agent"s type
+set be Θ = {θc : c ∈ C} ∪ {θv : v ∈ V }, where C is the
+set of clauses in the MINSAT instance, and V is the set of
+variables. Let the probability distribution over these types
+be uniform. Let the outcome set be O = {o0} ∪ {oc : c ∈
+C}∪{ol : l ∈ L}∪{o∗
+}, where L is the set of literals, that is,
+L = {+v : v ∈ V } ∪ {−v : v ∈ V }. Let the notation v(l) = v
+denote that v is the variable corresponding to the literal l,
+that is, l ∈ {+v, −v}. Let l ∈ c denote that the literal l
+occurs in clause c. Then, let the agent"s utility function be
+given by u(θc, ol) = 2 for all l ∈ L with l ∈ c; u(θc, ol) = −1
+for all l ∈ L with l /∈ c; u(θc, oc) = 2; u(θc, oc ) = −1 for
+all c ∈ C with c = c ; u(θc, o∗
+) = 1; u(θv, ol) = 1 for all
+l ∈ L with v(l) = v; u(θv, ol) = −1 for all l ∈ L with
+v(l) = v; u(θv, oc) = −1 for all c ∈ C; u(θv, o∗
+) = −1. Let
+the designer"s objective function be given by g(o∗
+) = |Θ|+1;
+g(ol) = |Θ| for all l ∈ L; g(oc) = |Θ| for all c ∈ C. The goal
+of the AMD instance is G = |Θ| + |C|−K
+|Θ|
+, where K is the
+goal of the MINSAT instance. We show the instances are
+equivalent. First, suppose there is a solution to the MINSAT
+instance. Let the assignment of truth values to the variables
+in this solution be given by the function f : V → L (where
+v(f(v)) = v for all v ∈ V ). Then, for every v ∈ V , let
+o(θv) = of(v). For every c ∈ C that is satisfied in the 
+MINSAT solution, let o(θc) = oc; for every unsatisfied c ∈ C,
+let o(θc) = o∗
+. It is straightforward to check that the IR
+constraint is satisfied. We now check that the agent has no
+incentive to misreport. If the agent"s type is some θv, it is
+getting the maximum utility for that type, so it has no 
+incentive to misreport. If the agent"s type is some θc where c
+is a satisfied clause, again, it is getting the maximum utility
+for that type, so it has no incentive to misreport. The final
+case to check is where the agent"s type is some θc where c is
+an unsatisfied clause. In this case, we observe that for none
+of the types, reporting it leads to an outcome ol for a literal
+l ∈ c, precisely because the clause is not satisfied in the 
+MINSAT instance. Because also, no type leads to the outcome
+oc, there is no outcome that the mechanism ever selects that
+would give the agent utility greater than 1 for type θc, and
+hence the agent has no incentive to report falsely. This 
+establishes that the agent never has an incentive to misreport.
+Finally, we show that the goal is reached. If s is the number
+of satisfied clauses in the MINSAT solution (so that s ≤ K),
+then the expected value of the designer"s objective function
+is |V ||Θ|+s|Θ|+(|C|−s)(|Θ|+1)
+|Θ|
+≥ |V ||Θ|+K|Θ|+(|C|−K)(|Θ|+1)
+|Θ|
+=
+|Θ| + |C|−K
+|Θ|
+= G. So there is a solution to the AMD 
+instance.
+Now suppose there is a solution to the AMD instance,
+given by an outcome function o. First, suppose there is
+some v ∈ V such that o(θv) /∈ {o+v, o−v}. The only other
+outcome that the mechanism is allowed to choose under the
+IR constraint is o0. This has an objective value of 0, and
+because the highest value the objective function ever takes
+is |Θ| + 1, it follows that the maximum expected value of
+the objective function that could be obtained is at most
+(|Θ|−1)(|Θ|+1)
+|Θ|
+< |Θ| < G, contradicting that this is a 
+solution to the AMD instance. It follows that in the solution
+to the AMD instance, for every v ∈ V , o(θv) ∈ {o+v, o−v}.
+We can interpret this as an assignment of truth values to
+the variables: v is set to true if o(θv) = o+v, and to false
+if o(θv) = o−v. We claim this assignment is a solution to
+the MINSAT instance. By the above, for any type θv, the
+value of the objective function in this mechanism will be
+|Θ|. For any clause c satisfied by the given assignment,
+the value of the objective function in the case where the
+agent reports type θc will be at most |Θ|. (This is because
+we cannot choose the outcome o∗
+for such a type, as in
+this case the agent would have an incentive to report θv
+instead, where v is the variable satisfying c in the 
+assignment (so that o(θv) = ol where l occurs in c).) Finally,
+for any unsatisfied clause c, the maximum value the 
+objective function can take in the case where the agent 
+reports type θc is |Θ| + 1, simply because this is the largest
+value the function ever takes. It follows that the expected
+value of the objective function for our mechanism is at most
+V |Θ|+s|Θ|+(|C|−s)(|Θ|+1)
+Θ
+, where s is the number of satisfied
+137
+clauses. Because our mechanism achieves the goal, it follows
+that V |Θ|+s|Θ|+(|C|−s)(|Θ|+1)
+Θ
+≥ G, which by simple algebraic
+manipulations is equivalent to s ≤ K. So there is a solution
+to the MINSAT instance.
+Both of our hardness results relied on the constraint that
+the mechanism should be deterministic. In the next section,
+we show that the hardness of design disappears when we
+allow for randomization in the mechanism.

@@ -1,0 +1,173 @@
+Recently, a control algorithm was introduced called EMT-based
+Control [13], which instantiates the DBC framework. Although it
+provides an approximate greedy solution in the DBC sense, initial
+experiments using EMT-based control have been encouraging [14,
+15]. EMT-based control is based on the Markovian environment
+definition, as in the case with POMDPs, but its User and Agent
+Levels are of the Markovian DBC type of optimality.
+• User Level of EMT-based control defines a limited-case 
+target system dynamics independent of action:
+qEMT : S → Π(S).
+It then utilizes the Kullback-Leibler divergence measure to
+compose a momentary system dynamics estimator-the 
+Extended Markov Tracking (EMT) algorithm. The algorithm
+keeps a system dynamics estimate τt
+EMT that is capable of
+explaining recent change in an auxiliary Bayesian system
+state estimator from pt−1 to pt, and updates it conservatively
+using Kullback-Leibler divergence. Since τt
+EMT and pt−1,t
+are respectively the conditional and marginal probabilities
+over the system"s state space, explanation simply means
+that
+pt(s ) =
+s
+τt
+EMT (s |s)pt−1(s),
+and the dynamics estimate update is performed by solving a
+792 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+Table 1: Structure of POMDP vs. Dynamics-Based Control in Markovian Environment
+Level
+Approach
+MDP Markovian DBC
+Environment
+< S, A, T, O, Ω >,where
+S - set of states
+A - set of actions
+Design
+T : S × A → Π(S) - transition
+O - observation set
+Ω : S × A × S → Π(O)
+User
+r : S × A × S → R q : S × A → Π(S)
+F(π∗
+) → r L(o1, ..., ot) → τ
+r - reward function q - ideal dynamics
+F - reward remodeling L - dynamics estimator
+θ - threshold
+Agent π∗
+= arg max
+π
+E[ γt
+rt] π∗
+= arg min
+π
+Prob(d(τ q) > θ)
+minimization problem:
+τt
+EMT = H[pt, pt−1, τt−1
+EMT ]
+= arg min
+τ
+DKL(τ × pt−1 τt−1
+EMT × pt−1)
+s.t.
+pt(s ) =
+s
+(τ × pt−1)(s , s)
+pt−1(s) =
+s
+(τ × pt−1)(s , s)
+• Agent Level in EMT-based control is suboptimal with 
+respect to DBC (though it remains within the DBC 
+framework), performing greedy action selection based on 
+prediction of EMT"s reaction. The prediction is based on the 
+environment model provided by the Environment Design level,
+so that if we denote by Ta the environment"s transition 
+function limited to action a, and pt−1 is the auxiliary Bayesian
+system state estimator, then the EMT-based control choice is
+described by
+a∗
+= arg min
+a∈A
+DKL(H[Ta × pt, pt, τt
+EMT ] qEMT × pt−1)
+Note that this follows the Markovian DBC framework precisely:
+the rewarding optimality of POMDPs is discarded, and in its place
+a dynamics estimator (EMT in this case) is manipulated via action
+effects on the environment to produce an estimate close to the 
+specified target system dynamics. Yet as we mentioned, naive 
+EMTbased control is suboptimal in the DBC sense, and has several 
+additional limitations that do not exist in the general DBC framework
+(discussed in Section 4.2).
+4.1 Multi-Target EMT
+At times, there may exist several behavioral preferences. For
+example, in the case of museum guards, some art items are more
+heavily guarded, requiring that the guards stay more often in their
+close vicinity. On the other hand, no corner of the museum is to
+be left unchecked, which demands constant motion. Successful
+museum security would demand that the guards adhere to, and 
+balance, both of these behaviors. For EMT-based control, this would
+mean facing several tactical targets {qk}K
+k=1, and the question 
+becomes how to merge and balance them. A balancing mechanism
+can be applied to resolve this issue.
+Note that EMT-based control, while selecting an action, creates
+a preference vector over the set of actions based on their predicted
+performance with respect to a given target. If these preference 
+vectors are normalized, they can be combined into a single unified 
+preference. This requires replacement of standard EMT-based action
+selection by the algorithm below [15]:
+• Given:
+- a set of target dynamics {qk}K
+k=1,
+- vector of weights w(k)
+• Select action as follows
+- For each action a ∈ A predict the future state 
+distribution ¯pa
+t+1 = Ta ∗ pt;
+- For each action, compute
+Da = H(¯pa
+t+1, pt, PDt)
+- For each a ∈ A and qk tactical target, denote
+V (a, k) = DKL (Da qk) pt
+.
+Let Vk(a) = 1
+Zk
+V (a, k), where Zk =
+a∈A
+V (a, k) is
+a normalization factor.
+- Select a∗
+= arg min
+a
+k
+k=1 w(k)Vk(a)
+The weights vector w = (w1, ..., wK ) allows the additional
+tuning of importance among target dynamics without the need
+to redesign the targets themselves. This balancing method is also
+seamlessly integrated into the EMT-based control flow of 
+operation.
+4.2 EMT-based Control Limitations
+EMT-based control is a sub-optimal (in the DBC sense) 
+representative of the DBC structure. It limits the User by forcing EMT to
+be its dynamic tracking algorithm, and replaces Agent optimization
+by greedy action selection. This kind of combination, however, is
+common for on-line algorithms. Although further development of
+EMT-based controllers is necessary, evidence so far suggests that
+even the simplest form of the algorithm possesses a great deal of
+power, and displays trends that are optimal in the DBC sense of the
+word.
+There are two further, EMT-specific, limitations to EMT-based
+control that are evident at this point. Both already have partial 
+solutions and are subjects of ongoing research.
+The first limitation is the problem of negative preference. In the
+POMDP framework for example, this is captured simply, through
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 793
+the appearance of values with different signs within the reward
+structure. For EMT-based control, however, negative preference
+means that one would like to avoid a certain distribution over 
+system development sequences; EMT-based control, however, 
+concentrates on getting as close as possible to a distribution. Avoidance is
+thus unnatural in native EMT-based control.
+The second limitation comes from the fact that standard 
+environment modeling can create pure sensory actions-actions that do
+not change the state of the world, and differ only in the way 
+observations are received and the quality of observations received. Since
+the world state does not change, EMT-based control would not be
+able to differentiate between different sensory actions.
+Notice that both of these limitations of EMT-based control are
+absent from the general DBC framework, since it may have a 
+tracking algorithm capable of considering pure sensory actions and, 
+unlike Kullback-Leibler divergence, a distribution deviation measure
+that is capable of dealing with negative preference.

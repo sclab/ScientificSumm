@@ -1,0 +1,19 @@
+Parametric models generally use assumptions that the data  conform to the model to trade-off flexibility with the ability to estimate the model parameters accurately with little training data.
+However, in all of these tasks, the quality of the probability estimates is crucial.
+Effective active learning can be key in many information  retrieval tasks where obtaining labeled data can be costly - severely reducing the amount of labeled data needed to reach the same  performance as when new labels are requested randomly [17].
+After this, we  describe two specific asymmetric models and, using two standard text classifiers, na¨ıve Bayes and SVMs, demonstrate how they can be efficiently used to recalibrate poor probability estimates or produce high quality probability estimates from raw scores.
+Additionally, probability estimates are often used as the basis of deciding which document"s label to request next during active learning [17, 23].
+However, most of the existing  parametric methods that have been applied to this task have an  assumption we find undesirable.
+Additionally, these models can be interpreted as assuming the scores produced by the text classifier have three basic types of empirical behavior - one corresponding to each of the extremely irrelevant, hard to discriminate, and obviously relevant items.
+We introduce several asymmetric  parametric models that allow us to relax this assumption without  significantly increasing the number of parameters and demonstrate how we can efficiently fit the models.
+We first review related work on improving probability estimates and score modeling in information retrieval.
+For example, rather than choosing one set decision  threshold, they can be used in a Bayesian risk model [8] to issue a  runtime decision which minimizes the expected cost of a user-specified cost function dynamically chosen at prediction time.
+Finally, they are also amenable to making other types of cost-sensitive  decisions [26] and for combining decisions [3].
+This can be used to minimize a linear utility cost function for filtering tasks where pre-specified costs of relevant/irrelevant are not available during training but are specified at prediction time.
+While some of these methods allow the distributions of the documents relevant and irrelevant to the topic to have different variances, they typically enforce the unnecessary constraint that the documents are symmetrically distributed around their respective modes.
+Since many text classification tasks often have very little training data, we focus on parametric methods.
+Text classifiers that give probability estimates are more flexible in practice than those that give only a simple classification or even a ranking.
+We then review experiments using previously proposed methods and the  asymmetric methods over several text classification corpora to demonstrate the strengths and weaknesses of the various methods.
+Then, we discuss in further detail the need for asymmetric models.
+Furthermore, the costs can be changed without retraining the model.
+Finally, we summarize our contributions and discuss future directions. 

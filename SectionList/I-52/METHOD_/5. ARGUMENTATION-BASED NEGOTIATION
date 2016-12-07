@@ -1,0 +1,311 @@
+In this section, we define formally a protocol that 
+generates argumentation-based negotiation dialogues between
+two negotiating agents P and C. The two agents 
+negotiate about an object whose possible values belong to a set
+O. This set O is supposed to be known and the same for
+both agents. For simplicity reasons, we assume that this
+set does not change during the dialogue. The agents are
+equipped with theories denoted respectively AP
+, FP
+, P
+,
+RP
+, DefP
+, and AC
+, FC
+, C
+, RC
+, DefC
+. Note that the
+two theories may be different in the sense that the agents
+may have different sets of arguments, and different 
+preference relations. Worst yet, they may have different 
+arguments in favor of the same offers. Moreover, these theories
+may evolve during the dialogue.
+5.1 Evolution of the theories
+Before defining formally the evolution of an agent"s theory,
+let us first introduce the notion of dialogue moves, or moves
+for short.
+Definition 10 (Move). A move is a tuple mi = pi,
+ai, oi, ti such that:
+• pi ∈ {P, C}
+• ai ∈ Args(L) ∪ θ1
+1
+In what follows θ denotes the fact that no argument, or no
+offer is given
+970 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+• oi ∈ O ∪ θ
+• ti ∈ N∗
+is the target of the move, such that ti < i
+The function Player (resp. Argument, Offer, Target) 
+returns the player of the move (i.e. pi) (resp. the argument
+of a move, i.e ai, the offer oi, and the target of the move,
+ti). Let M denote the set of all the moves that can be built
+from {P, C}, Arg(L), O .
+Note that the set M is finite since Arg(L) and O are 
+assumed to be finite. Let us now see how an agent"s theory
+evolves and why. The idea is that if an agent receives an
+argument from another agent, it will add the new argument
+to its theory. Moreover, since an argument may bring new
+information for the agent, thus new arguments can emerge.
+Let us take the following example:
+Example 6. Suppose that an agent P has the following
+propositional knowledge base: ΣP = {x, y → z}. From this
+base one cannot deduce z. Let"s assume that this agent 
+receives the following argument {a, a → y} that justifies y.
+It is clear that now P can build an argument, say {a, a →
+y, y → z} in favor of z.
+In a similar way, if a received argument is in conflict with the
+arguments of the agent i, then those conflicts are also added
+to its relation Ri
+. Note that new conflicts may arise between
+the original arguments of the agent and the ones that emerge
+after adding the received arguments to its theory. Those new
+conflicts should also be considered. As a direct consequence
+of the evolution of the sets Ai
+and Ri
+, the defeat relation
+Defi
+is also updated.
+The initial theory of an agent i, (i.e. its theory before the
+dialogue starts), is denoted by Ai
+0, Fi
+0, i
+0, Ri
+0, Defi
+0 , with
+i ∈ {P, C}. Besides, in this paper, we suppose that the
+preference relation i
+of an agent does not change during
+the dialogue.
+Definition 11 (Theory evolution). Let m1, . . ., mt,
+. . ., mj be a sequence of moves. The theory of an agent i at
+a step t > 0 is: Ai
+t, Fi
+t , i
+t, Ri
+t, Defi
+t such that:
+• Ai
+t = Ai
+0 ∪ {ai, i = 1, . . . , t, ai = Argument(mi)} ∪
+A with A ⊆ Args(L)
+• Fi
+t = O → 2Ai
+t
+• i
+t = i
+0
+• Ri
+t = Ri
+0 ∪ {(ai, aj) | ai = Argument(mi),
+aj = Argument(mj), i, j ≤ t, and ai RL aj} ∪ R with
+R ⊆ RL
+• Defi
+t ⊆ Ai
+t × Ai
+t
+The above definition captures the monotonic aspect of an
+argument. Indeed, an argument cannot be removed. 
+However, its status may change. An argument that is accepted
+at step t of the dialogue by an agent may become rejected
+at step t + i. Consequently, the status of offers also change.
+Thus, the sets Oa, Or, On, and Ons may change from one
+step of the dialogue to another. That means for example
+that some offers could move from the set Oa to the set Or
+and vice-versa. Note that in the definition of Rt, the 
+relation RL is used to denote a conflict between exchanged
+arguments. The reason is that, such a conflict may not be
+in the set Ri
+of the agent i. Thus, in order to recognize
+such conflicts, we have supposed that the set RL is known
+to the agents. This allows us to capture the situation where
+an agent is able to prove an argument that it was unable
+to prove before, by incorporating in its beliefs some 
+information conveyed through the exchange of arguments with
+another agent. This, unknown at the beginning of the 
+dialogue argument, could give to this agent the possibility to
+defeat an argument that it could not by using its initial 
+arguments. This could even lead to a change of the status of
+these initial arguments and this change would lead to the
+one of the associated offers" status.
+In what follows, Oi
+t,x denotes the set of offers of type x,
+where x ∈ {a, n, r, ns}, of the agent i at step t of the 
+dialogue. In some places, we can use for short the notation Oi
+t
+to denote the partition of the set O at step t for agent i.
+Note that we have: not(Oi
+t,x ⊆ Oi
+t+1,x).
+5.2 The notion of agreement
+As said in the introduction, negotiation is a process aiming
+at finding an agreement about some matters. By agreement,
+one means a solution that satisfies to the largest possible 
+extent the preferences of both agents. In case there is no such
+solution, we say that the negotiation fails. In what follows,
+we will discuss the different kinds of solutions that may be
+reached in a negotiation. The first one is the optimal 
+solution. An optimal solution is the best offer for both agents.
+Formally:
+Definition 12 (Optimal solution). Let O be a set
+of offers, and o ∈ O. The offer o is an optimal solution at
+a step t ≥ 0 iff o ∈ OP
+t,a ∩ OC
+t,a
+Such a solution does not always exist since agents may have
+conflicting preferences. Thus, agents make concessions by
+proposing/accepting less preferred offers.
+Definition 13 (Concession). Let o ∈ O be an offer.
+The offer o is a concession for an agent i iff o ∈ Oi
+x such
+that ∃Oi
+y = ∅, and Oi
+y Oi
+x.
+During a negotiation dialogue, agents exchange first their
+most preferred offers, and if these last are rejected, they
+make concessions. In this case, we say that their best offers
+are no longer defendable. In an argumentation setting, this
+means that the agent has already presented all its arguments
+supporting its best offers, and it has no counter argument
+against the ones presented by the other agent. Formally:
+Definition 14 (Defendable offer). Let Ai
+t, Fi
+t , i
+t,
+Ri
+t, Defi
+t be the theory of agent i at a step t > 0 of the 
+dialogue. Let o ∈ O such that ∃j ≤ t with Player(mj) = i and
+offer(mj) = o. The offer o is defendable by the agent i iff:
+• ∃a ∈ Fi
+t (o), and k ≤ t s.t. Argument(mk) = a, or
+• ∃a ∈ At
+\Fi
+t (o) s.t. a Defi
+t b with
+- Argument(mk) = b, k ≤ t, and Player(mk) = i
+- l ≤ t, Argument(ml) = a
+The offer o is said non-defendable otherwise and NDi
+t is the
+set of non-defendable offers of agent i at a step t.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 971
+5.3 Negotiation dialogue
+Now that we have shown how the theories of the agents
+evolve during a dialogue, we are ready to define formally
+an argumentation-based negotiation dialogue. For that 
+purpose, we need to define first the notion of a legal 
+continuation.
+Definition 15 (Legal move). A move m is a legal
+continuation of a sequence of moves m1, . . . , ml iff j, k < l,
+such that:
+• Offer(mj) = Offer(mk), and
+• Player(mj) = Player(mk)
+The idea here is that if the two agents present the same
+offer, then the dialogue should terminate, and there is no
+longer possible continuation of the dialogue.
+Definition 16 (Argumentation-based negotiation).
+An argumentation-based negotiation dialogue d between two
+agents P and C is a non-empty sequence of moves m1, . . . , ml
+such that:
+• pi = P iff i is even, and pi = C iff i is odd
+• Player(m1) = P, Argument(m1) = θ, Offer(m1) = θ,
+and Target(m1) = 02
+• ∀ mi, if Offer(mi) = θ, then Offer(mi) oj, ∀ oj ∈
+O\(O
+Player(mi)
+i,r ∪ ND
+Player(mi)
+i )
+• ∀i = 1, . . . , l, mi is a legal continuation of m1, . . . , mi−1
+• Target(mi) = mj such that j < i and Player(mi) =
+Player(mj)
+• If Argument(mi) = θ, then:
+- if Offer(mi) = θ then Argument(mi) ∈ F(Offer(mi))
+- if Offer(mi) = θ then Argument(mi) Def
+Player(mi)
+i
+Argument(Target(mi))
+• i, j ≤ l such that mi = mj
+• m ∈ M such that m is a legal continuation of m1, . . . , ml
+Let D be the set of all possible dialogues.
+The first condition says that the two agents take turn. The
+second condition says that agent P starts the negotiation
+dialogue by presenting an offer. Note that, in the first turn,
+we suppose that the agent does not present an argument.
+This assumption is made for strategical purposes. Indeed,
+arguments are exchanged as soon as a conflict appears. The
+third condition ensures that agents exchange their best 
+offers, but never the rejected ones. This condition takes also
+into account the concessions that an agent will have to make
+if it was established that a concession is the only option for
+it at the current state of the dialogue. Of course, as we
+have shown in a previous section, an agent may have several
+good or acceptable offers. In this case, the agent chooses
+one of them randomly. The fourth condition ensures that
+the moves are legal. This condition allows to terminate the
+dialogue as soon as an offer is presented by both agents.
+The fifth condition allows agents to backtrack. The sixth
+2
+The first move has no target.
+condition says that an agent may send arguments in favor
+of offers, and in this case the offer should be stated in the
+same move. An agent can also send arguments in order to
+defeat arguments of the other agent. The next condition
+prevents repeating the same move. This is useful for 
+avoiding loops. The last condition ensures that all the possible
+legal moves have been presented.
+The outcome of a negotiation dialogue is computed as
+follows:
+Definition 17 (Dialogue outcome). Let d = m1, . . .,
+ml be a argumentation-based negotiation dialogue. The 
+outcome of this dialogue, denoted Outcome, is Outcome(d) =
+Offer(ml) iff ∃j < l s.t. Offer(ml) = Offer(mj), and
+Player(ml) = Player(mj). Otherwise, Outcome(d) = θ.
+Note that when Outcome(d) = θ, the negotiation fails, and
+no agreement is reached by the two agents. However, if
+Outcome(d) = θ, the negotiation succeeds, and a solution
+that is either optimal or a compromise is found.
+Theorem 8. ∀di ∈ D, the argumentation-based 
+negotiation di terminates.
+The above result is of great importance, since it shows that
+the proposed protocol avoids loops, and dialogues terminate.
+Another important result shows that the proposed protocol
+ensures to reach an optimal solution if it exists. Formally:
+Theorem 9 (Completeness). Let d = m1, . . . , ml be
+a argumentation-based negotiation dialogue. If ∃t ≤ l such
+that OP
+t,a ∩ OC
+t,a = ∅, then Outcome(d) ∈ OP
+t,a ∩ OC
+t,a.
+We show also that the proposed dialogue protocol is sound
+in the sense that, if a dialogue returns a solution, then that
+solution is for sure a compromise. In other words, that 
+solution is a common agreement at a given step of the 
+dialogue. We show also that if the negotiation fails, then there
+is no possible solution.
+Theorem 10 (Soundness). Let d = m1, . . . , ml be a
+argumentation-based negotiation dialogue.
+1. If Outcome(d) = o, (o = θ), then ∃t ≤ l such that o ∈
+OP
+t,x ∩ OC
+t,y, with x, y ∈ {a, n, ns}.
+2. If Outcome(d) = θ, then ∀t ≤ l, OP
+t,x ∩ OC
+t,y = ∅, ∀
+x, y ∈ {a, n, ns}.
+A direct consequence of the above theorem is the following:
+Property 4. Let d = m1, . . . , ml be a 
+argumentationbased negotiation dialogue. If Outcome(d) = θ, then ∀t ≤ l,
+• OP
+t,r = OC
+t,a ∪ OC
+t,n ∪ OC
+t,ns, and
+• OC
+t,r = OP
+t,a ∪ OP
+t,n ∪ OP
+t,ns.

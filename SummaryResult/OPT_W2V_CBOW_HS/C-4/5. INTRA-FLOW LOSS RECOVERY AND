@@ -1,0 +1,70 @@
+The results for the FULL MARK scheme also show that, while the loss of some of the +l packets has some  measurable impact, the impact on perceptual quality can still be considered to be very low. 
+A larger number of Ic would help to reduce the relative overhead of the protocol header but also increases the packetization delay and makes sender classification and receiver concealment in case of packet loss (due to a larger loss gap) more difficult.
+This also shows that by protecting the entire flow only a minor improvement in the perceptual quality is obtained.
+The SPB-FEC curve is convex with increasing po, as due to the increasing loss correlation an increasing number of consecutive packets carrying redundancy are lost leading to unrecoverable losses.
+In this paragraph we assume that a flow expressed its temporal  se*sitivity by marking its flow with an alternating pattern of ,c+l,>,‘c~l,,, 447 Figure 11: Comparison of actual and estimated Figure 12: Comparison of actual and estimated burst loss length rates as a function of burst length burst, loss length rates as a function of burst length k: three state run-length-based model k: two state run-length-based model (Gilbert.)
+For comparison we again use a scheme where  packets are alternatingly marked as being either 0 or +l (ALT-MARK).
+Thus, considering voice with temporal loss  sensitivity as the foreground traffic of interest, with DifFRED a large number of short annoying bursts can be traded against a larger number of isolated losses and few long loss bursts (which occur when the queue is under temporary overload, i.e., awg > maxth, Fig.
+also allow a reasonable evaluation of how losses in the fl class affect the performance of the SPB-algorithms.
+This can be explained as follows: if the burst loss length probabilities are in fact close to a geometrical  distribution, the estimate is more robust if all data is included (note that the run-length based approximation of the  conditional loss probability P(X = mlX = m) only includes loss run-length occurences larger or equal to m: Eq.
+2)  reflects the two areas of the DifFRED operation (the sharp drop of the burst loss length rate for k = 2 and the decrease along a geometrically decreasing asymptote for k > 2).
+CONTROL 5.1 Temporal sensitivity Considering a flow with temporal loss sensitivity, paragraph 3.1.1 has shown that a simple, periodic loss pattern enhances the performance of the end-to-end loss recovery.
+This should ‘The appropriateness of the simple end-to-end modeling used has been investigated in [12] with discrete event  simulation using a multi-hop topology and detailed modeling of foreground and background traffic sources.
+In the simulations presented below, we choose Ic = 2, a typical 448 protect = 0 fcm?ach (k frames) classify = analysis(k frames)] if (protect > 0) if (classify == unvoiced) protect = 0 if (compensation > 0) compensation = compensation-k send(k frames, -1) else send(k frames, 0) endif else send(k frames, +l) protect = protect-k compensation = compensation+k endif else if (classify == uvfransition) send(k frames, +l) protect = N - k compensation = compensation+k else if (compensation > 0) compensation = compensation-k send(k frames, -1) else send(k frames, 0) endif endif endif endfor Figure 13: SPB-DIFFMARK Pseudo Code value for interactive speech transmissions over the Internet (20ms of audio data per packet).
+Marking Scheme Network Model N O M A R K lolo/ 0~0~0~ 01 F U L L M A R K +I +I +I +I +l +I SPB MARK 1 0 1+I j +I I 0 I 0 / 0 ALT MARK o/+11 Ol+ll o/+1 +I Pcl 330 po S P B D I F F M A R K 1 IJ / +l I +l I -1 j-1 / 0 I ALT DIFFMARK I-1 / +I 1-1 1+I /-I 1+I 1 Figure 14: Marking schemes and corresponding  network models.
+449 Figure 15: Perceptual Distortion (EMBSD) for the marking schemes and SPB-FEC which uses redundancy9 piggybacked on the main payload packets (RFC 2198, [7]) to protect a subset of the packets, enables a very good output speech quality for low loss rates.
+5.2.1 En.d-to-end simulation description Due to the non-periodic loss pattern, we need to explicitly associate a drop probability with a single packet within an end-to-end model.
+As the core algorithm gives only a binary marking decision (protect the packet or not), we employ a simple algorithm to send the necessary -1 packets for compensation (Eq.
+For the SPB marking schemes the percentage of +l- and -l-marked packets respectively is 40.4% for the speech material used.
+The pattern is not tied to particular packets, therefore a per-flow  characterization with the introduced metrics is applicable.
+With Drop Tail an approximately geometrically decreasing burst loss probability with increasing burst length (Eq.
+However, the auditory distance and the perceptual distortion of the SPB-MARK scheme (with 40.4% of all packets marked) is significantly lower and very close to the quality of the  decoded signal when all packets are marked (FULL MARK).
+Thus, seen over time intervals which are long compared to the +1/-l burst times, the mean loss for the flow will be equal to the best effort case (Eq.
+For a direct comparison with SPB-DIFFMARK, we evaluate a scheme where packets are alternatingly marked as being either -1 or +l (ALT-DIFFMARK, Figure 14).
+The inter-flow QoS ALT-MARK scheme (50% of the  packets are marked) enhances the perceptual quality.
+9) have shown that the range from 10 to 20 are appropriate values for N (depending on the network loss condition).
+4) which thus overestimates the burst loss length rate for Ic = 2 and then hugely underestimates it for k > 2.
+These results validate the strategy of our SPB marking schemes that do not equally mark all packets with a higher priority but rather protect a subset of frames that are essential to the speech quality.
+Thus, a mechanism at (or near) the sender is necessary which derives that pattern from the voice data.
+The  unprotected case (NO MARK) has the highest perceptual  distortion and thus the worst speech quality*.
+State about the necessary number of to-be-sent -1 packets is kept in the event that the SPB algorithm triggers the next +l burst before all -1 packets necessary for compensation are sent.
+We can observe that DiffRED shapes the burst probability curve in the desired way.
+Figures 11 and 12 show the rates for the actual and the  estimated burst loss lengths for a three-state (m = 2) and a two=state (m = 1, Gilbert) model respectively6.
+Most of the probability mass is  concentrated at, isolated losses (the ideal behaviour would be the occurence of only isolated losses (Ic = 1) which can be  expressed with clp = 0 in terms of Gilbert model parameters).
+The ALT marking schemes mark exactly 50% of their packets as being fl.
+The  DIFFMARK scheme concentrates the higher priority packets on the frames essential to the speech signal and relies on the decoder"s concealment for other frames.
+14) are dropped with the probability pc, whereas packets marked with +l and -1 are dropped with probabilities of p+i and p-1 respectively.
+Therefore we use a separate one-state Markov model (Bernouilli model) to describe the network behaviour as seen by each class of packets.
+Figure 13 shows the simple algorithm written in a  pseudocode that is used to detect an unvoiced/voiced (uw)  transition and protect the voiced frames at, the beginning of a voiced signal.
+Finally, packets of pure best effort flows are dropped with the probability po (NO MARK case in Fig.
+The SPB-MARK scheme  operates similarly to SPB-DIFFMARK, but no -1 packets are sent for compensation (those packets are also marked as 0).
+Furthermore, an explicit cooperation between end-to-end and hop by-hop mechanisms is necessary (Fig.
+5.2.2 Results Figure 15 shows the perceptual distortion for the marking schemes dependent on the drop probability pc.
+sWe only discuss the results qualitatively here to give an example how an intra-flow loss control algorithm performs and to show how loss models can capture this performance.
+send0 is used to send a block of Ic frames as a single packet with the appropriate priority (either fl, 0 or -1).
+However, it should be noted that the amount of data sent over the network is increased by 40.4%.
+The first scheme uses full protection (FULL MARK, all packets are marked as +l).
+Interestingly, for Drop Tail, while both models capture the shape of the  actual curve, the lower order model is more accurate in the estimation.
+5): after a burst of +l packets has been sent, a corresponding number of -1 packets is sent immediately.
+Note that the ALT-DIFFMARK marking strategy does not  differ from the best effort case (which confirms the result of paragraph 3.1.2).
+We obtained similar marking  percentages for other speech samples.
+N is a pre-defined value and defines how many frames at the beginning of a voiced signal are to be protected.
+We use the result of paragraph 3.2 to develop a new packet marking scheme called Speech Property-Based Selective  Differential Packet Marking (SPB-DIFFMARK).
+4) is obtainable, where the clp parameter is relatively large though.
+5.2 Sensitivity due to ADU heterogeneity In paragraph 3.1.2 we have seen that sensitivity to ADU heterogeneity results in a certain non-periodic loss pattern.
+11 and 12) achieves a fair amount of decorrelation of +l and -1 packet losses.
+Nevertheless to include some correlation between the classes we have set p+i = 10m3 pc for the subsequent simulations.
+The differential marking scheme (SPB-DIFFMARK) offers a significantly better speech quality even when only using a network  service which amounts to best effort in the long term.
+This assumption is only valid if a small fraction of trafhc is voice ([S]).
+The procedure analysis0 is used to classify a block of Ic frames as voiced, unvoiced, or uv transition.
+This is a reasonable assumption" with regard to the  interdependence of the different classes in fact, as it has been shown that DiffRED (Figs.
+We  furthermore include related inter-flow loss protection schemes.
+SPB-DIFFMARK is also even better than the inter-flow QoS ALT-MARK scheme, especially for higher values of pe.
+The SPB-FEC scheme ([12]), *We have also perfo rmed informal listening tests which  confirmed the results using the objective metrics.
+This effect cannot be captured by the two state model (Eq.
+Best effort packets (designated by 0 in Fig.
+The curve for SPB-DIFFMARK is concave, however, yielding better performance for pe & 0.22.
+Note that the  simulation presumes that this additionally consumed bandwidth itself does not contribute significantly to congestion.
+Details on the simulation scenario and parameters can be found in [12].
+We can see that the three-state model estimation (Eq.
+Our simulations (Fig.

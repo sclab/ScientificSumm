@@ -1,0 +1,29 @@
+that is, the  complexity is no worse than for ctlk itself. 
+theorem 19. model checking ctlkp against ctlk models is ptime-complete, and can be done in time o(ml), where m is the number of transitions in the model, and l is the length of the formula to be checked.
+for other cases, standard ctlk model checking can be used.
+other cases: the above cases cover all possible formulas that begin with a path quantifier.
+on autonomous agents and multi-agent systems (aamas 07) case m, q |= e(p1u p2 ∧ p3u p4): note that this is  equivalent to checking e(p1 ∧ p3)u (p2 ∧ ep3u p4) ∨ e(p1 ∧ p3)u (p4 ∧ ep1u p2), which is a ctl formula.
+joint conf.
+588 the sixth intl.
+[17].
+9 for the semantics of ctl+, and discussion of model checking complexity, cf.
+then, check eγ in m , q .
+case m, q |= e( fp ∧ γ): create m by adding a copy q of state q, in which only the transitions to states  satisfying p are kept (i.e., m, q |= r iff m, q |= r; and q rq iff qrq and m, q |= p).
+otherwise, remove from m all the states that do not satisfy p (yielding a sparser model m ), and check the ctl formula eγ in m , q with any ctl model-checker.
+now, it is enough to define checking m, q |= ϕ for ϕ in which all (state) subformulae are propositions, with the following cases: case m, q |= e(2 p ∧ γ): if m, q |= p, then return no.
+first, subformulae are evaluated recursively: for every subformula ψ of ϕ, the set of states in m that satisfy ψ is computed and labeled with a new proposition pψ.
+however, in our case, the boolean  combinations of path subformulae are always conjunctions of at most two non-negated elements, which allows us to propose the following model checking algorithm.
+in general, model checking ctl+ (and also ctlk+) is δp 2 -complete.
+proposition 18. for any ctlkp formula ϕ without ba, we have that m, q |=ctlkp ϕ iff m, q |=ctlk+ tr(ϕ).
+the following proposition justifies the translation.
+note that the resulting sentences belong to the logic of ctlk+, that is ctl+ (where each path quantifier can be followed by a boolean combination of vanilla path  formulae)9 with epistemic modalities.
+we translate the resulting ctlkp formulae to ones without plausibility via function tr(ϕ) = tr−→γ0,0(ϕ), defined as  follows: tr−→γ ,i(p) = p, tr−→γ ,i(ϕ1 ∧ ϕ2) = tr−→γ ,i(ϕ1) ∧ tr−→γ ,i(ϕ2), tr−→γ ,i(¬ϕ) = ¬tr−→γ ,i(ϕ), tr−→γ ,i(kaϕ) = ka tr−→γ ,0(ϕ), tr−→γ ,i(pla ϕ) = tr−→γ ,a(ϕ), tr−→γ ,i((set-pla γ )ϕ) = tr−→γ [γ /a],i(ϕ), tr−→γ ,i(ph ϕ) = tr−→γ ,0(ϕ), tr−→γ ,i( fϕ) = ftr−→γ ,i(ϕ), tr−→γ ,i(2 ϕ) = 2 tr−→γ ,i(ϕ), tr−→γ ,i(ϕ1u ϕ2) = tr−→γ ,i(ϕ1)u tr−→γ ,i(ϕ2), tr−→γ ,i(eγ ) = e(−→γ [i] ∧ tr−→γ ,i(γ )).
+additionally, we define −→γ [0] = .
+now, let −→γ = γ1, ..., γk be a vector of vanilla path formulae (one per agent), with the initial vector −→γ0 = , ..., , and −→γ [γ /a] denoting vector −→γ , in which −→γ [a] is replaced with γ .
+first of all, we get rid of the belief operators (due to  theorem 15), replacing every occurrence of baϕ with kapl a(e f → ϕ).
+this means that we have extended ctlk to a more expressive language with no computational price to pay.
+below we sketch an algorithm that model-checks ctlkp formulae in time linear wrt the size of the model and the length of the  formula.
+we follow this idea here, studying the complexity of model checking ctlkp formulae against ctlk models (which can be seen as a compact representation of ctlkp  models in which all the paths are assumed plausible), with the underlying idea that plausibility sets, when needed, must be defined explicitly in the object language.
+one such representation has been discussed in section 3.3: plausibility sets can be defined by path formulae and the update operator (set-pla γ).
+clearly, verifying ctlkp properties directly against models with plausibility does not make much sense, since these models are inherently infinite; what we need is a finite representation of plausibility sets.
+time and beliefs in this section we report preliminary results on model checking ctlkp formulae.

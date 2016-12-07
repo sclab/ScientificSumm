@@ -1,0 +1,120 @@
+There are n jobs that need to be served by one server
+which can process only one job at a time. The set of jobs
+are denoted as N = {1, . . . , n}. σ : N → N is an ordering of
+jobs in N and σi denotes the position of job i in the ordering
+σ. Given an ordering σ, define Fi(σ) = {j ∈ N : σi < σj}
+and Pi(σ) = {j ∈ N : σi > σj}.
+Every job i is identified by two parameters: (pi, θi). pi
+is the processing time and θi is the cost per unit waiting
+time of job i. Thus, a queueing problem is defined by a list
+q = (N, p, θ) ∈ Q, where Q is the set of all possible lists. We
+will denote γi = θi
+pi
+. Given an ordering of jobs σ, the cost
+incurred by job i is given by
+ci(σ) = piθi + θi
+ 
+j∈Pi(σ)
+pj.
+The total cost incurred by all jobs due to an ordering σ
+can be written in two ways: (i) by summing the cost incurred
+by every job and (ii) by summing the costs inflicted by a job
+on other jobs with their own processing cost.
+C(N, σ) =
+ 
+i∈N
+ci(σ) =
+ 
+i∈N
+piθi +
+ 
+i∈N
+¡θi
+ 
+j∈Pi(σ)
+pj¢.
+=
+ 
+i∈N
+piθi +
+ 
+i∈N
+¡pi
+ 
+j∈Fi(σ)
+θj¢.
+An efficient ordering σ∗
+is the one which minimizes the 
+total cost incurred by all jobs. So, C(N, σ∗
+) ≤ C(N, σ) ∀ σ ∈
+Σ. To achieve notational simplicity, we will write the total
+cost in an efficient ordering of jobs from N as C(N) 
+whenever it is not confusing. Sometimes, we will deal with only
+a subset of jobs S ⊆ N. The ordering σ will then be 
+defined on jobs in S only and we will write the total cost from
+an efficient ordering of jobs in S as C(S). The following
+lemma shows that jobs are ordered in decreasing γ in an 
+efficient ordering. This is also known as the weighted shortest
+processing time rule, first introduced by Smith [26].
+Lemma 1. For any S ⊆ N, let σ∗
+be an efficient ordering
+of jobs in S. For every i = j, i, j ∈ S, if σ∗
+i > σ∗
+j , then
+γi ≤ γj.
+Proof. Assume for contradiction that the statment of
+the lemma is not true. This means, we can find two 
+consecutive jobs i, j ∈ S (σ∗
+i = σ∗
+j + 1) such that γi > γj.
+Define a new ordering σ by interchanging i and j in σ∗
+.
+The costs to jobs in S \ {i, j} is not changed from σ∗
+to σ.
+The difference between total costs in σ∗
+and σ is given by,
+C(S, σ) − C(S, σ∗
+) = θjpi − θipj. From efficiency we get
+θjpi − θipj ≥ 0. This gives us γj ≥ γi, which is a 
+contradiction.
+An allocation for q = (N, p, θ) ∈ Q has two components:
+an ordering σ and a transfer ti for every job i ∈ N. ti
+denotes the payment received by job i. Given a transfer ti
+and an ordering σ, the cost share of job i is defined as,
+πi = ci(σ) − ti = θi
+ 
+j∈N:σj ≤σi
+pj − ti.
+233
+An allocation (σ, t) is efficient for q = (N, p, θ) whenever
+σ is an efficient ordering and £i∈N ti = 0. The set of 
+efficient orderings of q is denoted as Σ∗
+(q) and σ∗
+(q) will be
+used to refer to a typical element of the set. The following
+straightforward lemma says that for two different efficient
+orderings, the cost share in one efficient allocation is 
+possible to achieve in the other by appropriately modifying the
+transfers.
+Lemma 2. Let (σ, t) be an efficient allocation and π be the
+vector of cost shares of jobs from this allocation. If σ∗
+= σ
+be an efficient ordering and t∗
+i = ci(σ∗
+) − πi ∀ i ∈ N, then
+(σ∗
+, t∗
+) is also an efficient allocation.
+Proof. Since (σ, t) is efficient, £i∈N ti = 0. This gives
+£i∈N πi = C(N). Since σ∗
+is an efficient ordering, £i∈N ci(σ∗
+) =
+C(N). This means, £i∈N t∗
+i = £i∈N [ci(σ∗
+) − πi] = 0. So,
+(σ∗
+, t∗
+) is an efficient allocation.
+Depending on the transfers, the cost shares in different 
+efficient allocations may differ. An allocation rule ψ associates
+with every q ∈ Q a non-empty subset ψ(q) of allocations.

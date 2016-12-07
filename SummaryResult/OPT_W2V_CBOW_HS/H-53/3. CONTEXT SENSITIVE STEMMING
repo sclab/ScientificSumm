@@ -1,0 +1,86 @@
+In addition, for a query with multiple words that can be transformed, or a word with multiple variants, not all of the expansions are useful.
+The rationale of using distributional word similarity is that true variants tend to be used in similar contexts.
+To test whether an expansion is useful, we have to know whether the expanded query is likely to get more relevant documents from the Web, which can be quantified by the probability of the query occurring as a string on the Web.
+These words might serve as candidates for general query expansion, a topic we will investigate in the future.
+Although one could attempt to use simple n-gram models to capture long range  dependencies in language, attempting to do so directly immediately creates sparse data problems: Using grams of length up to n entails estimating the probability of Wn events, where W is the size of the word vocabulary.
+In the distributional word similarity calculation, each word is represented with a vector of features derived from the context of the word.
+However, not every occurrence of comparison in the document is of interest.
+For the query hotel price  comparisons, we decided that word comparisons is expanded to include comparison.
+The goal of language modeling is to predict the probability of  naturally occurring word sequences, s = w1w2...wN ; or more simply, to put high probability on word sequences that  actually occur (and low probability on word sequences that never occur).
+Component 4: context sensitive document matching Input Query: and head word detection Component 2: segment Component 1: candidate generation comparisons −> comparison Component 3: selective word expansion decision: comparisons −> comparison example: hotel price comparisons output: "hotel" "comparisons" hotel −> hotels Figure 1: System Components 3.2 Expansion candidate generation One of the ways to generate candidates is using the Porter stemmer [18].
+Entropy = − 1 N log2 Pr(w1w2...wN ) (6) Now getting back to the example of the query hotel price comparisons, there are four variants of this query, and the entropy of these four candidates are shown in Table 3.
+By the chain rule of probability one can write the probability of any word sequence as Pr(w1w2...wN ) = NY i=1 Pr(wi|w1...wi−1) (1) An n-gram model approximates this probability by  assuming that the only words relevant to predicting Pr(wi|w1...wi−1) are the previous n − 1 words; i.e.
+Query variations Entropy hotel price comparison 6.177 hotel price comparisons 6.597 hotels price comparison 6.937 hotels price comparisons 7.360 Table 3: Variations of query hotel price  comparison ranked by entropy score, with the original query in bold face.
+After applying these rules, for the word develop, the stemming candidates are developing, developed,  develops, development, developement, developer,  developmental.
+Pr(wi|w1...wi−1) = Pr(wi|wi−n+1...wi−1) A straightforward maximum likelihood estimate of n-gram probabilities from a corpus is given by the observed  frequency of each of the patterns Pr(wi|wi−n+1...wi−1) = #(wi−n+1...wi) #(wi−n+1...wi−1) (2) where #(.)
+rank candidate score rank candidate score 0 develop 1 10 berts 0.119 1 developing 0.339 11 wads 0.116 2 developed 0.176 12 developer 0.107 3 incubator 0.160 13 promoting 0.100 4 develops 0.150 14 developmental 0.091 5 development 0.148 15 reengineering 0.090 6 tutoring 0.138 16 build 0.083 7 analyzing 0.128 17 construct 0.081 8 developement 0.128 18 educational 0.081 9 automation 0.126 19 institute 0.077 Table 1: Top 20 most similar candidates to word develop.
+Pr(wi|wi−n+1...wi−1) = 8 >>< >>: ˆPr(wi|wi−n+1...wi−1), if #(wi−n+1...wi) > 0 β(wi−n+1...wi−1) × Pr(wi|wi−n+2...wi−1), otherwise (3) where ˆPr(wi|wi−n+1...wi−1) = discount #(wi−n+1...wi) #(wi−n+1...wi−1) (4) is the discounted probability and β(wi−n+1...wi−1) is a  normalization constant β(wi−n+1...wi−1) = 1 − X x∈(wi−n+1...wi−1x) ˆPr(x|wi−n+1...wi−1) 1 − X x∈(wi−n+1...wi−1x) ˆPr(x|wi−n+2...wi−1) (5) The discounted probability (4) can be computed with  different smoothing techniques, including absolute smoothing, Good-Turing smoothing, linear smoothing, and Witten-Bell smoothing [5].
+We then use statistical language modeling to decide whether a particular variant is useful (component 3), and finally for the expanded variants, we perform context sensitive document matching (component 4).
+3.3 Segmentation and headword identification For long queries, it is quite important to detect the  concepts in the query and the most important words for those concepts.
+For every incoming query, we compute the mutual information of two adjacent words; if it passes a predefined threshold, we do not split the query between those two words and move on to next word.
+To break a query into segments, we have to define a  criteria to measure the strength of the relation between words.
+Taking the same query as an example, the context of comparisons is price.
+Zipf"s law) one is likely to encounter novel n-grams that were never witnessed during training in any test corpus, and therefore some mechanism for assigning non-zero probability to novel n-grams is a  central and unavoidable issue in statistical language modeling.
+One effective method is to use mutual information as an  indicator on whether or not to split two words [19].
+Since the likelihood of a string, Pr(w1w2...wN ), is a very small number and hard to interpret, we use entropy as  defined below to score the string.
+A page which is about comparing customer service can contain all of the words hotel price comparisons comparison.
+3.5 Context sensitive document matching Even after we know which word variants are likely to be useful, we have to be conservative in document matching for the expanded variants.
+The expanded word comparison is only valid if it is in the same context of comparisons, which is after the word price.
+To address this problem, we have a proximity constraint that considers the context around the expanded variant in the document.
+For each of the noun phrases, we then detect the most  important word which we call the head word.
+In such cases, the head word is typically the last nonstop word of XYZ.
+Applying a parser trained on sentences from  documents to queries will have poor performance.
+Head words hotel and comparison can be expanded to hotels and comparisons.
+3.4 Context sensitive word expansion After detecting which words are the most important words to expand, we have to decide whether the expansions will be useful.
+The ideal way of finding the head word of a concept is to do syntactic parsing to determine the dependency structure of the query.
+Considering the fact that queries and documents may not represent the intent in exactly the same way, we relax this proximity constraint to allow variant occurrences within a window of some fixed size.
+The more likely a query to occur on the Web, the more relevant documents this query is able to return.
+Now the whole problem becomes how to calculate the probability of query to occur on the Web.
+The top 20 similar words to develop is shown in the following table.
+Taking query hotel price comparison as an  example, we decide that hotel and price comparison are two concepts.
+A variant match is considered valid only if the variant occurs in the same context as the original word does.
+We use the bigrams to the left and right of the word as its  context features, by mining a huge Web corpus.
+We use a window size of 4, which typically captures contexts that include the containing and adjacent noun phrases. 
+It is therefore not useful to make an expansion for this query.
+We can see that all alternatives are less likely than the input query.
+If the expanded word comparison occurs within the context of price within a window, it is considered valid.
+3.1 Overview Our system has four components as illustrated in  Figure 1: candidate generation, query segmentation and head word detection, context sensitive query stemming and  context sensitive document matching.
+For an input query, we first  segment query into concepts and detect the head word for each concept (component 2).
+One thing we note from observing the distributionally similar words is that they are closely related semantically.
+If we accept matches of every occurrence of comparison, it will hurt retrieval precision and this is one of the main reasons why most stemming approaches do not work well for information retrieval.
+Query parsing is more difficult than sentence [running shoe] [best] [new york] [medical schools] [pictures] [of] [white house] [cookies] [in] [san francisco] [hotel] [price comparison] Table 2: Query segmentation: a segment is  bracketed.
+The context is the left or the right non-stop segments 1 of the original word.
+Thus, we should only match those occurrences of comparison in the document if they occur after the word price.
+For an English noun phrase, the head word is typically the last nonstop word, unless the phrase is of a particular pattern, like XYZ of/in/at/from UVW.
+To determine the stemming candidates, we apply a few Porter stemmer [18] morphological rules to the similarity list.
+On the other hand, if the input query is hotel price comparisons which is the second alternative in the table, then there is a better alternative than the input query, and it should therefore be expanded.
+Thus, it is extremely important to identify which queries should not be stemmed for the purpose of maximizing relevance improvement and minimizing stemming cost.
+denotes the number of occurrences of a specified gram in the training corpus.
+We first break a query into segments, each  segment representing a concept which normally is a noun phrase.
+We use a log of 25M queries and collect the bigram and unigram frequencies from it.
+To tolerate the variations in probability estimation, we relax the selection criterion to those query alternatives if their scores are within a certain distance (10% in our experiments) to the best score.
+The simplest and most successful approach to language modeling is still based on the n-gram model.
+We continue this process until the mutual information between two words is below the threshold, then create a concept boundary here.
+parsing since many queries are not grammatical and are very short.
+The corpus analysis we do is based on word distributional similarity [15].
+Candidate generation (component 1) is performed oﬄine and generated candidates are stored in a dictionary.
+One standard approach to smoothing probability estimates to cope with sparse data problems (and to cope with  potentially missing n-grams) is to use some sort of back-off estimator.
+Among this half, about 25% of the queries improve relevance when transformed, the majority (about 50%) do not change their top 5 results, and the remaining 25% perform worse.
+The similarity between two words is the cosine similarity between the two corresponding feature vectors.
+It has no  knowledge of the semantic meaning of the words and sometimes makes serious mistakes, such as executive to execution, news to new, and paste to past.
+Calculating the probability of string occurring in a  corpus is a well known language modeling problem.
+Segmentation is also used in document sensitive matching (section 3.5) to enforce proximity.
+This page is not a good page for the query.
+Our statistics show that about half of the queries can be transformed by pluralization via naive stemming.
+For the pluralization handling purpose, only the  candidate develops is retained.
+A more  conservative way is based on using corpus analysis to improve the Porter stemmer results [26].
+Column score is the similarity score.
+The Porter stemmer simply uses  morphological rules to convert a word to its base form.
+Table 2 shows some examples of query segmentation.
+Also, because of the heavy tailed nature of language (i.e.
+Are both  transformations useful?
+The smaller the window size is, the more restrictive the matching.
+In our  solution, we just use simple heuristics rules, and it works very well in practice for English.
+We used absolute smoothing in our  experiments.
+Below we discuss each of the components in more detail.
+This quickly overwhelms modern computational and data resources for even modest choices of n (beyond 3 to 6).

@@ -1,0 +1,30 @@
+for instance, with h1(q), a threshold  between documents 1 and 2 gives 4 errors (documents 6-9  incorrectly classified as non-relevant), yielding an accuracy of 0.64. similarly, with h2(q), a threshold between documents 5 and 6 gives 3 errors (documents 10-11 incorrectly  classified as relevant, and document 1 as non-relevant), yielding an accuracy of 0.73. a learning method which optimizes for accuracy would choose h2 since that results in a higher accuracy score, but this yields a suboptimal map score. 
+the best accuracy refers to the highest  achievable accuracy on that ranking when considering all  possible thresholds.
+h1(q) 0.70 0.64 h2(q) 0.64 0.73 table 4: performance of toy models table 4 shows the map and best accuracy scores of h1(q) and h2(q).
+table 3 shows the predictions of the two hypotheses on a single query x. hypothesis map best acc.
+doc id 1 2 3 4 5 6 7 8 9 10 11 p 1 0 0 0 0 1 1 1 1 0 0 rank(h1(x)) 11 10 9 8 7 6 5 4 3 2 1 rank(h2(x)) 1 2 3 4 5 6 7 8 9 10 11 table 3: toy example and models we consider again a hypothesis space with two  hypotheses.
+instead, they learn a threshold such that documents scoring higher than the threshold can be classified as relevant and documents scoring lower as  nonrelevant.
+models which optimize for accuracy are not directly  concerned with the ranking.
+2.2 map vs accuracy using a very similar example, we now demonstrate how optimizing for accuracy might result in suboptimal map.
+here, a learning method which optimizes for  rocarea would choose h2 since that results in a higher  rocarea score, but this yields a suboptimal map score.
+hypothesis map rocarea h1(x) 0.59 0.47 h2(x) 0.51 0.53 table 2: performance of toy models table 2 shows the map and rocarea scores of h1 and h2.
+using our notation, rocarea can be defined as roc(p, ˆp) = 1 rel · (|c| − rel) x i:pi=1 x j:pj =0 1[ˆpi>ˆpj ], where p is the true (weak) ranking, ˆp is the predicted  ranking, and 1[b] is the indicator function conditioned on b. doc id 1 2 3 4 5 6 7 8 p 1 0 0 0 0 1 1 0 rank(h1(x)) 8 7 6 5 4 3 2 1 rank(h2(x)) 1 2 3 4 5 6 7 8 table 1: toy example and models suppose we have a hypothesis space with only two  hypothesis functions, h1 and h2, as shown in table 1. these two hypotheses predict a ranking for query x over a corpus of eight documents.
+in contrast, map assigns greater penalties to misorderings higher up in the predicted ranking.
+rocarea assigns equal penalty to each misordering of a relevant/non-relevant pair.
+while optimizing for these measures might achieve good map performance, we use two simple examples to show it can also be suboptimal in terms of map.
+2.1 map vs rocarea most learning algorithms optimize for accuracy or  rocarea.
+map is the mean of the average precision scores of a group of queries.
+the average precision score is defined as map(p, ˆp) = 1 rel x j:pj =1 prec@j, where rel = |{i : pi = 1}| is the number of relevant  documents, and prec@j is the percentage of relevant documents in the top j documents in predicted ranking ˆy.
+let p = rank(y) and ˆp = rank(ˆy).
+we assume true rankings have two rank values, where relevant documents have rank value 1 and non-relevant  documents rank value 0. we further assume that all predicted rankings are complete rankings (no ties).
+we can define average precision loss as ∆map(y, ˆy) = 1 − map(rank(y), rank(ˆy)), where rank(y) is a vector of the rank values of each  document in c. for example, for a corpus of two documents, {d1, d2}, with d1 having higher rank than d2, rank(y ) = (1, 0).
+,d|c|}.
+in the case of learning a ranked retrieval function, x  denotes a space of queries, and y the space of (possibly weak) rankings over some corpus of documents c = {d1, .
+, n}, the performance of h on s can be measured by the empirical risk, r∆ s (h) = 1 n nx i=1 ∆(yi, h(xi)).
+but given a finite set of training pairs, s = {(xi, yi) ∈ x × y : i = 1, .
+of course, p(x, y) is unknown.
+the goal is to find a function h such that the risk (i.e., expected loss), r∆ p (h) = z x×y ∆(y, h(x))dp(x, y), is minimized.
+we restrict ourselves to the supervised learning scenario, where input/output pairs (x, y) are  available for training and are assumed to come from some fixed distribution p(x, y).
+∆(y, ˆy) quantifies the penalty for making prediction ˆy if the correct output is y. the loss function allows us to  incorporate specific performance measures, which we will exploit 1 http://svmrank.yisongyue.com for optimizing map.
+in order to quantify the quality of a prediction, ˆy = h(x), we will consider a loss function ∆ : y × y → .
+following the standard machine learning setup, our goal is to learn a function h : x → y between an input space x (all possible queries) and output space y (rankings over a corpus).

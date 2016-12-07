@@ -1,0 +1,43 @@
+Note that a protocol module Ti, that has an interceptor bound to a service interface, is able to modify requests, replies and notifications.
+In Figure 3, module Q1 contains an executer bound to service interface t and a listener bound to service interface u. Module Q1 can generate replies and notifications to service interface t and requests to service interface u.
+A reply issued to a service interface is handled by one single listener.
+The interceptor is bound to service interface t. The left part of the figure shows that an interceptor can be seen as an executer plus a listener.
+Similarly, a dashed white arrow going from module Pi to service  interface si represents the fact that Pi can generate a reply or a notification to si.
+In our service-based framework,  protocol modules in the same stack communicate through objects called service interfaces.
+Upon replies and notifications, the order is  reversed. 
+P1 Q1 P1 Q1 T1T1 t t t Figure 4: Execution of protocol interactions with interceptors An interceptor plays a special rˆole.
+A notification issued to a service interface si is handled by all listeners bound to si in the local stack.
+Upon requests, if several interceptors are bound to the same service interface, they are executed in the order of binding.
+The fact that a module Pi can generate a request to a service interface si is represented by a dashed black arrow going from Pi to si.
+Note that the service interface nt allows to access the network.
+In the right part of the figure, the interceptor of the protocol module T1 is represented by a rounded box.
+Stack 1 P1 Q1 R1 S1 Network t u nt Figure 3: Example of a service-based protocol stack In Figure 3, we show an example of a service-based stack.
+They are activated each time a request, a reply or a notification is issued to the service interface they are bound to.
+If the request and the reply occur respectively, in stack i and in stack j, the service interface si on i communicates to the service interface si on j the listener that must handle the reply.
+We denote a service interface by a small letter (e.g.
+A protocol module is a set of executers, listeners and interceptors.
+To ensure that one single listener handles a reply, a module Pi has to identify, each time it issues a request, the listener to handle the possible reply.
+FRAMEWORK In this section, we describe our new approach for  implementing and composing protocols that is based on services.
+We represent executers with white boxes inside protocol modules and listeners with white boxes with a gray border.
+Executers handle requests.
+A request issued to a service interface si leads to the  execution of the executer bound to si.
+A listener can be dynamically bound and unbound to/from a service  interface si.
+Service Interface.
+When module Q1 issues a reply or a notification, a similar mechanism is used, except that this time the listener-interceptor of T1 is executed.
+692 We show in Section 5 the advantages of service-based  protocol frameworks over event-based protocol frameworks.
+Protocol Modules.
+Similarly to executers, interceptors can be dynamically bound or unbound to a  service interface.
+Requests, replies and notifications are all issued to service interfaces.
+Then, module T1 may forward a request req to the service interface t, where we can have req = req 1 .
+An executer can be  dynamically bound to a service interface.
+A connecting line between a service interface si and an executer e (resp.
+It can be later unbound.
+When P1 issues a request req to the service interface t, the executer-interceptor of T1 is executed.
+Listeners handle replies and notifications.
+If the listener that must handle the reply does not exist, the reply is delayed until the listener is created.
+Contrary to events, at most one executer at any time can be bound to a service interface on every machine.
+a listener l) shows that e (resp.
+If no executer is bound to si, the request is delayed until some executer is bound to si.
+l) is bound to si.
+t, u and nt) in a hexagonal box.
+This is illustrated in Figure 4.

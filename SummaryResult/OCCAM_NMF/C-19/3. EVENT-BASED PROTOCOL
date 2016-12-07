@@ -1,0 +1,39 @@
+when a protocol module triggers an event e  specifying channel c, all handlers bound to e that are part of a protocol that subscribes to c are executed (in the order  prescribed by the definition of channel c). 
+all events are triggered by specifying a channel they belong to.
+each protocol module has to subscribe to one or many  channels.
+channels allow to build routes of events in protocol stacks.
+appia [1, 16] and eva [3] introduce the notion of channels.
+a handler h is also able to cancel the execution of an event trigger: all handlers that should be executed after h according to the priority are not executed.
+when an event is triggered, all handlers are executed following the order of priority.
+in cactus [5, 2], the programmer can give a priority  number to a handler upon binding it to an event.
+below, we present the features that influence  composition and implementation of protocol modules.
+some protocol frameworks have unique features.
+specific features.
+note that the network is represented as a special protocol module that handles the send event (to send a message to another machine) and triggers the deliver event (upon receipt of a message from another machine).
+2).
+for example, the protocol module p1 triggers event e and handles event f (see fig.
+to mark that some handler is bound to event e, we use an arrow pointing to the handler (the label on the arrow represents the event e).
+a white trapezoid inside a module box represents a handler defined by the protocol module.
+e, f, ... the fact that a protocol module can trigger an event is represented by an arrow starting from the module.
+events are represented by small letters, e.g.
+stack 1 p1 q1 r1 s1 network f e gg deliver send h figure 2: example of an event-based protocol stack in figure 2, we show an example of an event-based stack.
+if no handler is bound, the  behavior is usually unspecified.
+upon triggering some event e, all handlers bound to e are executed.
+handlers can also be unbound dynamically.
+handlers can be  dynamically bound to events.
+handlers of the same protocol module may share data.
+each handler is dedicated to handling of a specific event.
+in event-based protocol frameworks, a protocol module consists of a set of handlers.
+protocol modules.
+in the former case, the thread that triggers an event e is blocked until all protocol modules that handle e have terminated handling of event e. in the latter case, the thread that triggers the event is not blocked.
+triggering an event can be done either synchronously or asynchronously.
+events  enable one-to-many communication within a protocol stack.
+a protocol module that triggers an event is not aware of the module(s) that handle the event.
+with events, the communication is  indirect, i.e.
+a network message or some other data.
+events may transport some information, e.g.
+an event is a special object for indirect  communication between protocol modules in the same stack.
+we also explain how protocol modules are structured in event-based frameworks.
+in this section, we define the notion of an event in  protocol frameworks.
+examples are cactus [5, 2], appia [1, 16] and ensemble [12, 17].
+framework design most existing protocol frameworks are event-based.

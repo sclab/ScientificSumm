@@ -1,0 +1,74 @@
+Thus, we obtain the  following algorithm to compute the best response of a user: 1.
+The remaining question is how to determine k. It is the largest value such that x∗ k > 0.
+Intuitively, by the local search heuristic, we test if we can swap a machine in A for one not in A to improve the best  response utility.
+For a subset of machines A, denote by x(A) the best  response on A without parallelism bound and by U(A) the utility obtained by the best response algorithm.
+This strategy aims to adjust the bids so that the marginal values at each  machine being bid on are the same.
+The social optimum is the same as the  maximum weight matching of G. Thus, we can use the maximum weight matching  algorithm to compute the social optimum.
+130 4.1 Infinite Parallelism Model As we mentioned before, it is easy to compute the social optimum under the infinite parallelism model - we simply assign each machine to the user who likes it the most.
+Again, by the optimality  condition, there exists λ such that wi yi (x∗ i +yi)2 = λ for 1 ≤ i ≤ k, and x∗ i = 0 for i > k. Equivalently, we have that: x∗ i = r wiyi λ − yi , for 1 ≤ i ≤ k, and x∗ i = 0 for i > k. Replacing them in the equation Pn i=1 x∗ i = X, we can solve for λ = ( Pk i=1 √ wiyi)2 (X+ Pk i=1 yi)2 .
+, yn, and the budget X, the best response is to solve the following optimization problem maximize U = Pn j=1 wj xj xj +yj subject to Pn j=1 xj = X, and xj ≥ 0.
+A matching of G is a set of edges with disjoint nodes, and the weight of a matching is the total weights of the edges in the matching.
+We show that if x∗ i = 0, then for any j > i, x∗ j = 0 too.
+Then ∂U ∂xj (x∗ ) = wj yj (x∗ j + yj)2 < wj yj y2 j = wj yj ≤ wi yi = ∂U ∂xi (x∗ ) .
+Consider the weighted complete bipartite graph G = U × V , where U = {ui |1 ≤ i ≤ m , and 1 ≤ ≤ ki}, V = {1, 2, .
+Compute the largest k such that √ wkyk Pk i=1 √ wiyi (X + kX i=1 yi) − yk ≥ 0.
+Let the user"s budget be X and the parallelism bound be k. Our goal is to compute an  allocation of X to up to k machines to maximize the user"s utility.
+In particular, we would like to know if the intuitive strategy of each player constantly re-adjusting his bids  according to the best response algorithm leads to the  equilibrium.
+To compute the best response, we first sort wj yj in  decreasing order.
+Set A to be the k machines with the highest wi/yi.
+A user finds the two machines that provide him with the highest and lowest marginal utility.
+Of course, the infinite parallelism model is just a special case of finite parallelism model in which ki = n for all the i"s. In the finite parallelism model, computing the social optimum is no longer trivial due to bounded parallelism.
+For each i ∈ A and each j /∈ A, repeat 4.
+We suspect that the local maxima that this algorithm finds is also the global maximum (with  respect to an individual user) and that this process stop after a few number of iterations, but we are unable to establish it.
+It can instead be computed by using the maximum matching algorithm.
+Set xj = 0 for j > k, and for 1 ≤ j ≤ k, set: xj = √ wjyj Pk i=1 √ wiyi (X + kX i=1 yi) − yj.
+This condition guarantees the allocation is the optimum when the utility function is concave.
+Sort the machines according to wi yi in decreasing order.
+4.2 Finite Parallelism Model Recall that in the finite parallelism model, each user i only places bids on at most ki machines.
+We do assume that the user still has a way to measure his utility, which is the minimum assumption necessary for any market-based resource allocation mechanism.
+Otherwise, we have reached a local maxima and output that value.
+He then moves a fixed small amount of money from the machine with low marginal  utility to the machine with the higher one.
+Suppose that k = max{i|x∗ i > 0}.
+We now present the algorithm for computing the best response.
+However, the more interesting questions in practice are how the  equilibrium can be reached and what is the performance at the Nash equilibrium for the typical distribution of utility  functions.
+Thus it contradicts with the optimality condition (1).
+Note that hosts only reveal to users the sum of the bids on them.
+However, we do not know an efficient algorithm to  compute the best response under the finite parallelism model.
+In this section, we present the algorithms that we use to compute or approximate the best response and the social optimum in our experiments.
+Thus, x∗ i = √ wiyi Pk i=1 √ wiyi (X + kX i=1 yi) − yi .
+The best response algorithm must send and receive O(n) messages because each user must obtain the total bids from each host.
+Suppose we again have n machines with weights w1, .
+, n} with edge weight wij assigned to the edge (ui , vj).
+131 4.3 Local Greedy Adjustment The above best response algorithms only work for the linear utility functions described earlier.
+There may exist a more efficient algorithm for computing the  maximum matching by exploiting the special structure of G. This remains an interesting open question.
+, x∗ n) is the optimum solution.
+Let B = A − {i} + {j}, compute U(B).
+In these situations, users can use a more general strategy, the local greedy adjustment method, which works as follows.
+In practice,  utility functions may have more a complicated form, or even worse, a user may not have a formulation of his utility  function.
+As a result, hosts do not reveal the  private preferences and even the individual bids of one user to another.
+If yes, we swap the machines and repeat the process.
+The tradeoff for local greedy adjustment is that it takes longer to stabilize than best-response. 
+The computational complexity of this algorithm is O(n log n), dominated by the sorting.
+The local search works as follows: 1.
+We choose to implement the Hungarian algorithm [14, 19] because of its simplicity.
+If(U(B) > U(A)), let A ← B, and goto 2.
+As a result, the following lemma holds.
+Compute U(A) by the infinite parallelism best response algorithm (Sec 4.1) on A.
+Instead, we provide the following local search heuristic.
+In the previous section, we present the performance bounds of the game under the infinite parallelism model.
+However, in our simulations, this algorithm quickly  converges to a high (≥ .7) efficiency.
+Suppose this were not true.
+The maximum weight matching is a classical network problem and can be solved in polynomial time [8, 9, 14].
+Output x(A).
+In practice, the best response can be computed infrequently (e.g.
+In practice, this is more significant than the  computational cost.
+Suppose that x∗ = (x∗ 1, .
+, wn and total bids y1, .
+We consider both the infinite parallelism and finite parallelism model.
+, wn, total bids y1, .
+once a minute), so for a  typically powerful modern host, this cost is negligible.
+Recall that for weights w1, .
+Without loss of generality, suppose that w1 y1 ≥ w2 y2 ≥ .
+To answer these questions, we resort to simulations.
+wn yn .
+Lemma 1.

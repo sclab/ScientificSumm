@@ -1,0 +1,112 @@
+This share is determined by the Shapley value of the simple game of that attribute.
+Once this is satisfied, as long as the Shapley value of the game of attributes can be efficiently determined, the Shapley value of the entire game can be efficiently computed.
+Computing the Shapley value of a MACG N, M, A, a, w , when w can be an arbitrary polynomial of the aggregates a, is #P-hard, even when the Shapley value of each aggregator can be efficiently computed.
+Figure 1(b) explores the effect of the number of attributes and the number of players when the maximum degree of the polynomial is fixed (at three).
+For a coalition S, the first aggregator evaluates to 1 if agent 1 ∈ S, and the second aggregator evaluates to 1 if both agents are in S. While agent 2 is not a dummy with respect to the second attribute, it is a dummy with respect to the product of the attributes.
+5.1 Problem Setup We start by noting that computing the Shapley value for simple aggregators can be hard in general.
+The total variation between the estimated Shapley value and the true Shapley value, for K-degree bounded polynomial aggregate value function, is K−1 K .
+We note that the term can be treated as a game among attributes, as it assigns a value to each coalition S ⊆ N. Without loss of generality, renumber attributes j(1) through j(kj ) as 1 through kj.
+First, we note that Shapley value satisfies an  additivity axiom [11].
+Given a game N, v represented as a MACG N, M, A, a, w , suppose w can be expressed as a  polynomial function of its attributes (cf Equation (2)).
+Let the first (n−1) agents be a member of the first (K − 1) attributes, and that the corresponding aggregator returns 1 if any one of the first (K − 1) agents is present.
+The Shapley value satisfies additivity, namely, φi(a + b) = φi(a) + φi(b), where N, a + b is a game defined to be (a + b)(S) = a(S) + b(S) for all S ⊆ N. It is also clear that Shapley value satisfies scaling, namely φi(αv) = αφi(v) where (αv)(S) = αv(S) for all S ⊆ N. Since the aggregate value function can be expressed as a weighted sum of games of attributes, φi(v) = φi(w(a)) = φi( m j=1 cjaj ) = m j=1 cjφi(aj ) Many positive results regarding efficient computation of Shapley value in the literature depends on some form of  linearity.
+This is probably due to the precise construct required for the worst-case bound, and so as more attributes are available, we have more diverse terms in the polynomial, and the diversity pushes away from the worst-case bound. 
+We  consider the following three natural criteria: • Maximum underestimate: maxi φi/ˆφi • Maximum overestimate: maxi ˆφi/φi • Total variation: 1 2 È i |φi − ˆφi|, or alternatively maxS | È i∈S φi − È i∈S ˆφi| The total variation criterion is more meaningful when we normalize the game to having a value of 1 for the grand coalition, i.e., v(N) = 1.
+Given a game N, v represented as a MACG N, M, A, a, w , if the aggregate value function can be  written as a linear function of its attributes, i.e., w(a(A, S)) = m j=1 cj aj (A, S) The Shapley value of agent i in N, v is given by φi(v) = m j=1 cj φi(aj ) (1) Proof.
+The Shapley value for the edge-spanning game of [5], games in multi-issue representation [3], and games in marginal contribution nets [7], can be computed in polynomial time.
+All agents in some set B ⊆ N possess the first attribute, and all agents in some set C ⊆ N possess the second, and B and C are disjoint.
+Suppose the aggregate function can be written as a polynomial with p terms w(a(A, S)) = p j=1 cj aj(1) (A, S)aj(2) (A, S) · · · aj(kj ) (A, S) (2) For term j, the coefficient of the term is cj , its degree kj , and the attributes involved in the term are j(1), .
+Let the cardinality of the sets B and C be b and c. We can verify that the Shapley value of an agent i in B equals φi = 1 b b −1 i=0  b i ¡  c c −1 ¡   b+c c +i−1 ¡ c − c + 1 b + c − c − i + 1 The equation corresponds to a weighted sum of probability values of hypergeometric random variables.
+φi(tj) ≤ cj kj j=1 S⊆N\{i} B(N, S)∆i(aj , S) = kj kj j=1 cj kj φi(aj ) = kj ˆφi(T) Summing over the terms, we see that the worst case  underestimate is by the maximum degree.
+and for a game a, contribution of agent i to group S : i /∈ S, ∆i(a, S) = a(S ∪ {i}) − a(S) The true Shapley value of the game tj is φi(tj) = cj S⊆N\{i} B(N, S)∆i(tj, S) For each coalition S, i /∈ S, ∆i(tj , S) = 1 if and only if for at least one attribute, say l∗ , ∆i(al∗ , S) = 1.
+We control three  parameters of the experiment: the number of players (6 − 10), 175 0 0.025 0.05 0.075 0.1 0.125 0.15 0.175 0.2 6 7 8 9 10 No.
+We then show that when attributes are linearly separable, the Shapley value can be efficiently computed.
+Without loss of generality, since the bound is  multiplicative, we can normalize the game to having v(N) = 1.
+We will also assume that the aggregators are simple.
+5.2 Linearly Separable Attributes When the aggregate value function can be written as a linear function of the attributes, the Shapley value of the game can be efficiently computed.
+As a corollary, because we cannot overestimate any set by more than K times, we obtain a bound on the total variation: Corollary 2.
+In addition, as the number of attributes involved increases, we move to multi-variate hypergeometric random variables, and the number of summands grow exponentially in the number of attributes.
+We compute an estimate ˆφ to the Shapley value as ˆφi = p j=1 kj l=1 cj kj φi(aj(l) ) (3) The idea behind the estimate is that for each term, we divide the value of the term equally among all its attributes.
+As far as we know, there is no close-form formula to evaluate the sum above.
+Consider a game with 2 players and 2  attributes, and let the first agent be a member of both  attributes, and the other agent a member of the second  attribute.
+Examples include the edge-spanning game on graphs by Deng and Papadimitriou [5], the multi-issue  representation of [3], and the marginal contribution nets of [7].
+The estimated Shapley will assign a value of K−1 K 1 n−1 to the first (n − 1) agents and 1 K to the n-th agent.
+For a coalition S ⊆ N, the aggregator for the first evaluates to 1 if and only if |S ∩ B| ≥ b , and similarly, the aggregator for the second evaluates to 1 if and only if |S ∩ C| ≥ c .
+174 We will assume for now that the aggregate value  function is a polynomial over the attributes with non-negative coefficients.
+As noted in [6], finding the Shapley value of a weighted majority game is #P-hard.
+Figure 1(a) explores the effect of the maximum degree and the number of players when the number of attributes is fixed (at six).
+5.3 Polynomial Combination of Attributes When the aggregate value function cannot be expressed as a linear function of its attributes, computing the Shapley value exactly is difficult.
+Let K = maxjkj, i.e., the maximum degree of the polynomial.
+Let tj be the j-th term of the polynomial.
+In this section, we focus on computational issues of  finding the Shapley value of a player in MACG.
+Therefore, discussion of complexity of Shapley value for MACG with unrestricted aggregators is moot.
+For each aggregator aj in a MACG, there is an associated oracle that answers the Shapley value of the game of attribute j.
+We then randomly generate a polynomial of the desired maximum degree with a random number (3 − 12) of terms, each with a random positive weight.
+Even if we restrict ourselves to monotonic games, and non-negative coefficients for the polynomial aggregate value function, computing the exact Shapley value can still be hard.
+We normalize each game to have v(N) = 1.
+We will evaluate a specific heuristic that is  analogous to Equation (1).
+However, the true Shapley value of the n-th agent tends to 1 as n → ∞, and the total variation approaches K−1 K .
+In particular, we can define aggregators to compute weighted majority over its input set of agents.
+When the simple aggregators are represented as such, it is possible to check, in polynomial time, for agents turning dummies after attributes are multiplied together.
+tj (S) = cj kj l=1 al (A, S) To make the equations less cluttered, let B(N, S) = |S|!
+Therefore, the above assumption is reasonable for many settings.
+The key to determine if the Shapley value can be efficiently  computed depends on the linear separability of attributes.
+5.3.2 Theoretical analysis of heuristic We can derive a simple and tight bound for the maximum (multiplicative) underestimate of the heuristic estimate.
+Therefore, if we sum over all the attributes, we would have included l∗ for sure.
+As the number of attributes increases, the total variation decreases.
+of Players TotalVariationDistance 4 5 6 (b) Effect of Number of Attributes Figure 1: Experimental results the number of attributes (3 − 8), and the maximum degree of the polynomial (2 − 5).
+The problem is that ˆφi may be non-zero for agent i even though may have no influence over the outcome of a game when attributes are multiplied together, as illustrated by the following example.
+Then for for each attribute of an agent, we assign the player a share of value from the attribute.
+We first note that these three lines are quite tightly clustered together, suggesting that the number of attributes has relatively little effect on the error of the estimate.
+We can show that this bound is tight.
+The error is nowhere near the theoretical  worstcase bound of 1 2 to 4 5 for polynomials of degrees 2 to 5.
+The y-axis of the graphs shows the total variation, and the x-axis the number of players.
+Here, we will focus on aggregate value function that can be expressed as some polynomial of its attributes.
+This include operations such as sum, and symmetric  functions when the attributes are restricted to {0, 1}.
+For the non-linearly separable case, we consider a natural heuristic for estimating the Shapley value, and study the heuristic theoretically and empirically.
+If we do not place a limit on the degree of the polynomial, and the game N, v is not necessarily monotonic, the problem is #P-hard.
+Agent 2 will be assigned a value of 1 4 by the estimate.
+On the other hand, there is only a very small increase in error as the number of players increases.
+5.3.1 Approximation First, we need a criteria for evaluating how well an  estimate, ˆφ, approximates the true Shapley value, φ.
+Also, when only few agents have an effect on the aggregator, brute-force computation for Shapley value is feasible.
+of Players TotalVariationDistance 2 3 4 5 (a) Effect of Max Degree 0 0.025 0.05 0.075 0.1 0.125 0.15 0.175 0.2 6 7 8 9 10 No.
+We can also define additive  analogues of the under- and overestimates, especially when the games are normalized.
+For example, suppose there are two attributes.
+As expected, the total variation increases as the maximum degree increases.
+In general, we cannot bound how much ˆφ may  overestimate the true Shapley value.
+Instead of placing explicit restriction on the aggregator, we assume that the Shapley value of the aggregator can be 173 answered by an oracle.
+Consider a game with n players and K  attributes.
+We bound the maximum underestimate  term-byterm.
+We first set up the problem with the use of oracles to avoid  complexities arising from the aggregators.
+Therefore, we can improve the heuristic estimate in this special case.
+This is represented by the factor cj kj .
+Each datapoint is an average of approximately 700 random samples.
+The  correspondence with hypergeometric distribution is due to sampling without replacement nature of Shapley value.
+Our experiment is set up as follows.
+As mentioned, for simple monotonic games, a game is fully described by its set of minimal winning coalitions.
+For many aggregators that perform basic operations over its input, polynomial time oracle for Shapley value exists.
+The proof is via reduction from three-dimensional matching, and details can be found in the Appendix.
+Therefore, we look for approximation.
+Therefore, it is highly unlikely that the exact Shapley value can be determined efficiently.
+In any case, such abstraction allows us to focus on the aggregate value function.
+5.3.3 Empirical evaluation Due to a lack of benchmark problems for coalitional games, we have tested the heuristic on random instances.
+This generalizes the proofs of related results in the literature.
+For each attribute, we randomly sample one to three minimal winning coalitions.
+We make the following assumption: Assumption 1.
+Let ˆφ denote the estimated Shapley value using Equation (3), and φ denote the true Shapley value.
+We  believe more meaningful results can be obtained when we have real instances to test this heuristic on.
+Let the n-th agent be the sole member of the K-th attribute.
+The results of the experiments are shown in  Figure 1.
+Without considering the details of the simple games, this constitutes a fair (but blind) rule of sharing.
+For notation, let φi(u) denote the Shapley value for some game u.
+In other words, φi(aj ) is known.
+For all i ∈ N, φi ≥ K ˆφi.
+We think this is an interesting phenomenon.
+Example 2.
+Theorem 2.
+Corollary 1.
+Example 1.
+Theorem 1.
+Theorem 3.
+, j(kj ).
+(|N| − |S| − 1)!

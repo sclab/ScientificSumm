@@ -1,0 +1,156 @@
+REASONING MODELS
+In this section we define formally the negotiating agents,
+i.e. their theories, as well as the reasoning model used by
+those agents in a negotiation dialogue.
+3.1 Negotiating agents theories
+Agents involved in a negotiation dialogue, called 
+negotiating agents, are supposed to have theories. In this paper, the
+theory of an agent will not refer, as usual, to its mental states
+(i.e. its beliefs, desires and intentions). However, it will be
+encoded in a more abstract way in terms of the arguments
+owned by the agent, a conflict relation among those 
+arguments, a preference relation between the arguments, and a
+function that specifies which arguments support offers of the
+set O. We assume that an agent is aware of all the 
+arguments of the set Args(L). The agent is even able to express
+a preference between any pair of arguments. This does not
+mean that the agent will use all the arguments of Args(L),
+but it encodes the fact that when an agent receives an 
+argument from another agent, it can interpret it correctly, and it
+can also compare it with its own arguments. Similarly, each
+agent is supposed to be aware of the conflicts between 
+arguments. This also allows us to encode the fact that an agent
+can recognize whether the received argument is in conflict
+or not with its arguments. However, in its theory, only the
+conflicts between its own arguments are considered.
+Definition 2 (Negotiating agent theory). Let O
+be a set of n offers. A negotiating agent theory is a tuple
+A, F, , R, Def such that:
+• A ⊆ Args(L).
+968 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+• F: O → 2A
+s.t ∀i, j with i = j, F(oi) ∩ F(oj) = ∅.
+Let AO = ∪F(oi) with i = 1, . . . , n.
+• ⊆ Args(L) × Args(L) is a partial preorder denoting
+a preference relation between arguments.
+• R ⊆ RL such that R ⊆ A × A
+• Def ⊆ A × A such that ∀ a, b ∈ A, a defeats b, denoted
+a Def b iff:
+- a R b, and
+- not (b a)
+The function F returns the arguments supporting offers in
+O. In [4], it has been argued that any decision may have
+arguments supporting it, called arguments PRO, and 
+arguments against it, called arguments CONS. Moreover, these
+two types of arguments are not necessarily conflicting. For
+simplicity reasons, in this paper we consider only arguments
+PRO. Moreover, we assume that an argument cannot 
+support two distinct offers. However, it may be the case that an
+offer is not supported at all by arguments, thus F(oi) may
+be empty.
+Example 1. Let O = {o1, o2, o3} be a set of offers. The
+following theory is the theory of agent i:
+• A = {a1, a2, a3, a4}
+• F(o1) = {a1}, F(o2) = {a2}, F(o3) = ∅. Thus, Ao =
+{a1, a2}
+• = {(a1, a2), (a2, a1), (a3, a2), (a4, a3)}
+• R = {a1, a2), (a2, a1), (a3, a2), (a4, a3)}
+• Def = {(a4, a3), (a3, a2)}
+From the above definition of agent theory, the following hold:
+Property 1.
+• Def ⊆ R
+• ∀a, a ∈ F(oi), a R a
+3.2 The reasoning model
+From the theory of an agent, one can define the 
+argumentation system used by that agent for reasoning about the
+offers and the arguments, i.e. for computing the status of
+the different offers and arguments.
+Definition 3 (Argumentation system). Let A, F,
+, R, Def be the theory of an agent. The argumentation
+system of that agent is the pair A, Def .
+In [5], different acceptability semantics have been introduced
+for computing the status of arguments. These are based
+on two basic concepts, defence and conflict-free, defined as
+follows:
+Definition 4 (Defence/conflict-free). Let S ⊆ A.
+• S defends an argument a iff each argument that defeats
+a is defeated by some argument in S.
+• S is conflict-free iff there exist no a, a in S such that
+a Def a .
+Definition 5 (Acceptability semantics). Let S be
+a conflict-free set of arguments, and let T : 2A
+→ 2A
+be a
+function such that T (S) = {a | a is defended by S}.
+• S is a complete extension iff S = T (S).
+• S is a preferred extension iff S is a maximal (w.r.t set
+⊆) complete extension.
+• S is a grounded extension iff it is the smallest (w.r.t
+set ⊆) complete extension.
+Let E1, . . . , Ex denote the different extensions under a given
+semantics.
+Note that there is only one grounded extension. It 
+contains all the arguments that are not defeated, and those
+arguments that are defended directly or indirectly by 
+nondefeated arguments.
+Theorem 1. Let A, Def the argumentation system 
+defined as shown above.
+1. It may have x ≥ 1 preferred extensions.
+2. The grounded extensions is S = i≥1
+T (∅).
+Note that when the grounded extension (or the preferred
+extension) is empty, this means that there is no acceptable
+offer for the negotiating agent.
+Example 2. In example 1, there is one preferred 
+extension, E = {a1, a2, a4}.
+Now that the acceptability semantics is defined, we are ready
+to define the status of any argument.
+Definition 6 (Argument status). Let A, Def be an
+argumentation system, and E1, . . . , Ex its extensions under a
+given semantics. Let a ∈ A.
+1. a is accepted iff a ∈ Ei, ∀Ei with i = 1, . . . , x.
+2. a is rejected iff Ei such that a ∈ Ei.
+3. a is undecided iff a is neither accepted nor rejected.
+This means that a is in some extensions and not in
+others.
+Note that A = {a|a is accepted} ∪ {a|a is rejected} ∪ {a|a
+is undecided}.
+Example 3. In example 1, the arguments a1, a2 and a4
+are accepted, whereas the argument a3 is rejected.
+As said before, agents use argumentation systems for 
+reasoning about offers. In a negotiation dialogue, agents propose
+and accept offers that are acceptable for them, and reject
+bad ones. In what follows, we will define the status of an
+offer. According to the status of arguments, one can define
+four statuses of the offers as follows:
+Definition 7 (Offers status). Let o ∈ O.
+• The offer o is acceptable for the negotiating agent iff
+∃ a ∈ F(o) such that a is accepted. Oa = {oi ∈ O,
+such that oi is acceptable}.
+• The offer o is rejected for the negotiating agent iff ∀
+a ∈ F(o), a is rejected. Or = {oi ∈ O, such that oi is
+rejected}.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 969
+• The offer o is negotiable iff ∀ a ∈ F(o), a is undecided.
+On = {oi ∈ O, such that oi is negotiable}.
+• The offer o is non-supported iff it is neither 
+acceptable, nor rejected or negotiable. Ons = {oi ∈ O, such
+that oi is non-supported offers}.
+Example 4. In example 1, the two offers o1 and o2 are
+acceptable since they are supported by accepted arguments,
+whereas the offer o3 is non-supported since it has no 
+argument in its favor.
+From the above definitions, the following results hold:
+Property 2. Let o ∈ O.
+• O = Oa ∪ Or ∪ On ∪ Ons.
+• The set Oa may contain more than one offer.
+From the above partition of the set O of offers, a preference
+relation between offers is defined. Let Ox and Oy be two
+subsets of O. Ox Oy means that any offer in Ox is 
+preferred to any offer in the set Oy. We can write also for two
+offers oi, oj, oi oj iff oi ∈ Ox, oj ∈ Oy and Ox Oy.
+Definition 8 (Preference between offers). Let O
+be a set of offers, and Oa, Or, On, Ons its partition. Oa
+On Ons Or.
+Example 5. In example 1, we have o1 o3, and o2 o3.
+However, o1 and o2 are indifferent.

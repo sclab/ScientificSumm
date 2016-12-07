@@ -1,0 +1,136 @@
+In the results presented below the first indicator from Subsection
+4.2 was used to evaluate distance measures. In a first step
+parameter p had to be set in a way that all measures are equally
+discriminant. Distance measurement is fair if the following
+condition holds true for any predicate-based measure dP and any
+continuous measure dC:
+( ) ( )CP dcppdcp ≈,
+Then, it is guaranteed that predicate-based measures do not create
+larger clusters (with a higher number of similar objects) for the
+price of higher cluster pollution. In more than 1000 test queries
+the optimum value was found to be p=1.
+Results are organised as follows: Subsection 5.1 summarises the
+Figure 1. Test datasets. Left: Brodatz dataset, middle: Corel dataset, right: coats-of-arms dataset.
+135
+best distance measures per descriptor, Section 5.2 shows the best
+overall distance measures and Section 5.3 points out other
+interesting results (for example, distance measures that work
+particularly good on specific ground truth groups).
+5.1 Best measure per descriptor
+Figure 2 shows the evaluation results for the first indicator. For
+each descriptor the best measure and the performance of the
+MPEG-7 recommendation are shown. The results are aggregated
+over the tested datasets.
+On first sight, it becomes clear that the MPEG-7
+recommendations are mostly relatively good but never the best.
+For Color Layout the difference between MP7 and the best
+measure, the Meehl index (Q8), is just 4% and the MPEG-7
+measure has a smaller standard deviation. The reason why the
+Meehl index is better may be that this descriptors generates
+descriptions with elements that have very similar variance.
+Statistical analysis confirmed that (see [6]).
+For Color Structure, Edge Histogram, Homogeneous Texture,
+Region-based Shape and Scalable Color by far the best measure is
+pattern difference (P6). Psychological research on human visual
+perception has revealed that in many situation differences between
+the query object and a candidate weigh much stronger than
+common properties. The pattern difference measure implements
+this insight in the most consequent way. In the author's opinion,
+the reason why pattern difference performs so extremely well on
+many descriptors is due to this fact. Additional advantages of
+pattern difference are that it usually has a very low variance 
+andbecause it is a predicate-based measure - its discriminance (and
+cluster structure) can be tuned with parameter p.
+The best measure for Dominant Color turned out to be Clark's
+Divergence coefficient (Q4). This is a similar measure to pattern
+difference on the continuous domain. The Texture Browsing
+descriptor is a special problem. In the MPEG-7 standard it is
+recommended to use it exclusively for browsing. After testing it
+for retrieval on various distance measures the author supports this
+opinion. It is very difficult to find a good distance measure for
+Texture Browsing. The proposed Manhattan metric, for example,
+performs very bad. The best measure is predicate-based (P7). It
+works on common properties (a, d) but produces clusters with
+very high cluster pollution. For this descriptor the second
+indicator is up to eight times higher than for predicate-based
+measures on other descriptors.
+5.2 Best overall measures
+Figure 3 summarises the results over all descriptors and media
+collections. The diagram should give an indication on the general
+potential of the investigated distance measures for visual
+information retrieval.
+It can be seen that the best overall measure is a predicate-based
+one. The top performance of pattern difference (P6) proves that
+the quantisation model is a reasonable method to extend
+predicate-based distance measures on the continuous domain. The
+second best group of measures are the MPEG-7
+recommendations, which have a slightly higher mean but a lower
+standard deviation than pattern difference. The third best measure
+is the Meehl index (Q8), a measure developed for psychological
+applications but because of its characteristic properties 
+tailormade for certain (homogeneous) descriptors.
+Minkowski metrics are also among the best measures: the average
+mean and variance of the Manhattan metric (Q1) and the
+Euclidean metric (Q2) are in the range of Q8. Of course, these
+measures do not perform particularly well for any of the
+descriptors. Remarkably for a predicate-based measure, Tversky's
+Feature Contrast Model (P1) is also in the group of very good
+measures (even though it is not among the best) that ends with
+Q5, the correlation coefficient. The other measures either have a
+significantly higher mean or a very large standard deviation.
+5.3 Other interesting results
+Distance measures that perform in average worse than others may
+in certain situations (e.g. on specific content) still perform better.
+For Color Layout, for example, Q7 is a very good measure on
+colour photos. It performs as good as Q8 and has a lower standard
+deviation. For artificial images the pattern difference and the
+Hamming distance produce comparable results as well.
+If colour information is available in media objects, pattern
+difference performs well on Dominant Color (just 20% worse Q4)
+and in case of difficult ground truth (group 5, 7, 10) the Meehl
+index is as strong as P6.
+0,000
+0,001
+0,002
+0,003
+0,004
+0,005
+0,006
+0,007
+0,008
+Q8
+MP7
+P6
+MP7
+Q4
+MP7
+P6
+MP7
+P6
+MP7
+P6
+MP7
+P6
+MP7
+P7
+Q2
+Color
+Layout
+Color
+Structure
+Dominant
+Color
+Edge
+Histogram
+Homog.
+Texture
+Region
+Shape
+Scalable
+Color
+Texture
+Browsing
+Figure 2. Results per measure and descriptor. The horizontal axis shows the best measure and the performance of the MPEG-7
+recommendation for each descriptor. The vertical axis shows the values for the first indicator (smaller value = better cluster structure).
+Shades have the following meaning: black=µ-σ (good cases), black + dark grey=µ (average) and black + dark grey + light grey=µ+σ (bad).
+136

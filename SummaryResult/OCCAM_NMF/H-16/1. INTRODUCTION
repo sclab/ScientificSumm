@@ -1,0 +1,31 @@
+section 7 discusses the impact of changes in the query distribution on static caching, and section 8 provides concluding remarks. 
+sections 5 and 6 introduce algorithms for caching posting lists, and a theoretical framework for the analysis of static caching, respectively.
+section 4 discusses the limitations of  dynamic caching.
+sections 2 and 3 summarize related work and characterize the data sets we use.
+the remainder of this paper is organized as follows.
+we provide algorithms based on the knapsack problem for  selecting the posting lists to put in a static cache, and we show improvements over previous work, achieving a hit ratio over 90%; • changes of the query distribution over time have little impact on static caching.
+we provide a framework for the analysis of the trade-off between static caching of query answers and posting lists; • static caching of terms can be more effective than  dynamic caching with, for example, lru.
+more concretely, our main conclusions are that: • caching query answers results in lower hit ratios  compared to caching of posting lists for query terms, but it is faster because there is no need for query  evaluation.
+in general, we assume that each level of caching in a distributed search architecture is similar to that shown in figure 1. we use a query log spanning a whole year to explore the limitations of dynamically caching query answers or posting lists for query terms.
+in this paper we explore the trade-offs in the design of each cache level, showing that the problem is the same and only a few parameters change.
+broker static caching posting lists dynamic/static cached answers local query processor disk next caching level local network access remote network access figure 1: one caching level in a distributed search architecture.
+finally, before deciding to adopt a static caching policy the query stream should be analyzed to verify that its  characteristics do not change rapidly over time.
+static caching of posting lists poses even more challenges: when deciding which terms to cache one faces the trade-off between frequently queried terms and terms with small posting lists that are space efficient.
+as posting lists have variable size, caching them dynamically is not very efficient, due to the complexity in terms of  efficiency and space, and the skewed distribution of the query stream, as shown later.
+caching of posting lists has additional challenges.
+on the other hand, previously unseen queries occur more often than previously unseen terms,  implying a higher miss rate for cached answers.
+returning an answer to a query that already exists in the cache is more efficient than computing the answer using cached posting lists.
+often the whole set of  posting lists does not fit in memory, and consequently, the engine has to select a small set to keep in memory and speed up query processing.
+caching terms: as the engine evaluates a particular query, it may decide to store in memory the posting lists of the involved query terms.
+for a search engine, there are two possible ways to use a cache memory: caching answers: as the engine returns answers to a  particular query, it may decide to store these answers to resolve future queries.
+such online decisions are based on a cache policy, and several different policies have been studied in the past.
+when a new request arrives, the cache system decides whether to evict some entry from the cache in the case of a cache miss.
+a dynamic cache replaces entries according to the sequence of requests.
+a static cache is based on historical information and is periodically updated.
+the decision of what to cache is either off-line (static) or online (dynamic).
+for example, the different levels may correspond to the main memory, the disk, or resources in a local or a wide area network.
+caching can be applied at different levels with increasing response latencies or processing requirements.
+the primary use of a cache memory is to speedup  computation by exploiting frequently or recently used data,  although reducing the workload to back-end servers is also a major goal.
+in such a setting, to achieve a fast response time and to increase the query throughput, using a cache is crucial.
+as the searchable web becomes larger and larger, with more than 20 billion pages to index,  evaluating a single query requires processing large amounts of data.
+millions of queries are submitted daily to web search  engines, and users have high expectations of the quality and speed of the answers.

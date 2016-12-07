@@ -1,0 +1,91 @@
+We consider a principal-agent model, where the principal is a
+pair of communication endpoints who wish to communicate over
+a multi-hop network, and the agents are the intermediate nodes
+capable of forwarding packets between the endpoints. The 
+principal (who in practice can be either the sender, the receiver, or
+117
+both) makes individual take-it-or-leave-it offers (contracts) to the
+agents. If the contracts are accepted, the agents choose their 
+actions sequentially to maximize their expected payoffs based on the
+payment schedule of the contract. When necessary, agents can in
+turn make subsequent take-it-or-leave-it offers to their downstream
+agents.
+We assume that all participants are risk neutral and that standard
+assumptions about the global observability of the final outcome and
+the enforceability of payments by guaranteeing parties hold.
+For simplicity, we assume that each agent has only two possible
+actions; one involving significant effort and one involving little 
+effort. We denote the action choice of agent i by ai ∈ {0, 1}, where
+ai = 0 and ai = 1 stand for the low-effort and high-effort actions,
+respectively. Each action is associated with a cost (to the agent)
+C(ai), and we assume:
+C(ai = 1) > C(ai = 0)
+At this stage, we assume that all nodes have the same C(ai) for
+presentation clarity, but we relax this assumption later. Without loss
+of generality we normalize the C(ai = 0) to be zero, and denote
+the high-effort cost by c, so C(ai = 0) = 0 and C(ai = 1) = c.
+The utility of agent i, denoted by ui, is a function of the payment
+it receives from the principal (si), the action it takes (ai), and the
+cost it incurs (ci), as follows:
+ui(si, ci, ai) = si − aici
+The outcome is denoted by x ∈ {xG
+, xB
+}, where xG
+stands
+for the Good outcome in which the packet reaches the 
+destination, and xB
+stands for the Bad outcome in which the packet
+is dropped before it reaches the destination. The outcome is a
+function of the vector of actions taken by the agents on the path,
+a = (a1, ..., an) ∈ {0, 1}n
+, and the loss rate on the channels, k.
+The benefit of the sender from the outcome is denoted by w(x),
+where:
+w(xG
+) = wG
+; and w(xB
+) = wB
+= 0
+The utility of the sender is consequently:
+u(x, S) = w(x) − S
+where: S =
+Pn
+i=1 si
+A sender who wishes to induce an equilibrium in which all nodes
+engage in the high-effort action needs to satisfy two constraints for
+each agent i:
+(IR) Individual rationality (participation constraint)1
+: the 
+expected utility from participation should (weakly) exceed its
+reservation utility (which we normalize to 0).
+(IC) Incentive compatibility: the expected utility from exerting
+high-effort should (weakly) exceed its expected utility from
+exerting low-effort.
+In some network scenarios, the topology and costs are common
+knowledge. That is, the sender knows in advance the path that its
+packet will take and the costs on that path. In other routing 
+scenarios, the sender does not have this a priori information. We show
+that our model can be applied to both scenarios with known and 
+unknown topologies and costs, and highlight the implications of each
+scenario in the context of contracts. We also distinguish between
+direct contracts, where the principal signs an individual contract
+1We use the notion of ex ante individual rationality, in which the agents
+choose to participate before they know the state of the system.
+S Dn1
+Source Destination
+n intermediate nodes
+Figure 1: Multi-hop path from sender to destination.
+Figure 2: Structure of the multihop routing game under known 
+topology and transit costs.
+with each node, and recursive contracts, where each node enters a
+contractual relationship with its downstream node.
+The remainder of this paper is organized as follows. In Section 3
+we consider agents who decide whether to drop or forward 
+packets with and without monitoring when the transit costs are common
+knowledge. In Section 4, we extend the model to scenarios with 
+unknown transit costs. In Section 5, we distinguish between recursive
+and direct contracts and discuss their relationship. In Section 6, we
+show that the model applies to scenarios in which agents choose
+between different levels of quality of service. We consider Internet
+routing as a case study in Section 7. In Section 8 we present related
+work, and Section 9 concludes the paper.

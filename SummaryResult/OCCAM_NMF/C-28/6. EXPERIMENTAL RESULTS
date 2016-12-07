@@ -1,0 +1,33 @@
+on the other hand, in scenario 2, τ=1,ω=1 presents better results than τ=5, ω=4, because it changes weights faster. 
+for τ=5 and ω=4, pss takes longer to notice modification and short-lived tasks have low impact.
+in scenario 1, when a very recent history is considered (τ=1 and ω=1), pss tries to adapt to a situation that will shortly disappear.
+figure 4: percentual gain obtained by pss varying τ and ω parameters.
+figure 4 presents the gains.
+the goal was to evaluate long-lived local tasks.
+in the second case, local workload was introduced at the same time of the previous case, but continued until the end.
+the goal was to evaluate the impact of short-lived local tasks in pss.
+in the first experiment, a local  workload (formatdb) was introduced when the last task of the first tss allocation starts and was stopped immediately  after the processing of one segment.
+in both cases, we used a four-node (nb, l01, p01, l04) grid.
+we  varied these parameters in order to evaluate the pss behavior in two scenarios.
+pss uses two parameters: τ and ω (section 5.2).
+tss also obtained a reduction of 5.56% in its execution time.
+this is due to the fact that a slow node can easily become a bottleneck in these strategies.
+gain is the comparison of without pss with pss 2x strategy with pss pss 2x without pss gain fixed 316 184 393 113.59% ss 186 177 179 1.13% tss 160 162 171 5.56% gss 149 159 339 113.21% fac2 156 165 153 -7.27% as expected, the allocation strategies that assign a large amount of work to the nodes (fixed and gss) obtained great benefit from using pss.
+table 5: pss evaluation with local workload.
+three scenarios were simulated (table 5): 1) with pss strategy, but without workload; 2) with pss strategy and workload (pss 2x), to use grid environment knowledge obtained in the preceeding iteration; and 3) execution without pss and with workload.
+the load was started simultaneously 30  seconds after the beginning of blast and consisted of the 159 execution of formatdb on the nr database.
+to evaluate pss, we executed packageblast with 16 grid nodes, introducing local workload in nodes l01, l02, p01 and p02.
+this variation justifies the allocation framework provided.
+in table 3, it can also be noticed that there is no allocation strategy that always reaches the best execution time.
+considering the worst (l04), average (p01) and best (nb) node in the grid, the speedups obtained were superlinear, close to linear and sublinear, respectively.
+node seqtime 2 nodes 4 nodes 8 nodes 16 nodes nb 1432 1.29 2.79 5.82 11.28 l01 1585 1.43 3.08 6.44 12.48 p01 1853 1.67 3.61 7.53 14.59 p11 2004 1.80 3.90 8.15 15.78 l04 3810 3.43 7.41 15.49 30.00 packageblast achieved very good speedups.
+table 4: sequential execution times and speedups.
+to  calculate the absolute speedups, the blast sequential version was executed with the nr unsegmented database.
+strategy 2 nodes 4 nodes 8 nodes 16 nodes fixed 2037 999 491 252 ss 1112 514 246 134 tss 1296 570 259 143 gss 1115 535 250 127 fac2 1187 514 266 142 table 4 presents execution times in a single machine and absolute speedups for 2, 4, 8 and 16 nodes, considering the best execution time for a given number of nodes.
+execution times for all allocation strategies are presented in table 3. table 3: execution times for blastx.
+fixed, ss, tss, gss and fac2 allocation strategies were employed in the tests.
+each blast search compared a 10kbp real dna sequence against the 1.2gb nr genetic database segmented in 167 parts of 5mb each.
+node names cpu main memory hd nb 3200 mhz 512 mb 80 gb l01-l03 1700 mhz 256 mb 30 gb l04 350 mhz 160 mb 6 gb p01-p10 1000 mhz 256 mb 20 gb p11 900 mhz 128 mb 20 gb to investigate the performance gains of packageblast, we executed blastx in 2, 4, 8 and 16 grid nodes.
+all grid nodes used linux with globus 3.2.1, ncbi blast 2.2.10 and java vm 1.4.2. table 2: characteristics of the grid testbed.
+eleven desktops (p01-11) and a notebook (nb) were used in labpos and four desktops (l01-04) were used in laico (table 2).
+packageblast was evaluated in a 16-node grid testbed, composed by two laboratories, interconnected by a  localarea network.

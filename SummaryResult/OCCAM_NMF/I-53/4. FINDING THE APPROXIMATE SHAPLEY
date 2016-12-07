@@ -1,0 +1,34 @@
+the following section analyses the approximation error for the  proposed method. 
+this is done in the for loop of step 2 in table 1. hence, the time complexity of computing a player"s shapley value is o(m).
+as per equation 3, δx i must be computed m times.
+in step 2.1, we randomly select a sample sx of size x from the population p. player i"s marginal contribution to the random coalition sx is found in step 2.2. the average marginal contribution is found in step 3 - and this is the shapley value for player i. theorem 1. the time complexity of the proposed randomized method is linear in the number of players.
+in step 2, we vary x between 1 and m and repeatedly do the following.
+hence we get: δx i = 1 p (2πν/x) z b a e−x (x−xμ)2 2ν dx (2) and the shapley value is: ϕi = 1 m mx x=1 δx i (3) the above steps are described in table 1. in more detail, step 1 does the initialization.
+this area is shown as the region b in figure 1 (the dotted line in the figure is xμ).
+thus, the expected marginal contribution of player i (denoted δx i ) to the sample coalition is the area under the curve defined by n(xμ, ν x ) in the interval [a, b].
+otherwise, its marginal contribution is zero.
+the marginal contribution of player i to this random sample is one if the total weight of the x players in the sample is greater than or equal to a = q −wi but less than b = q − (where is an inifinitesimally small quantity).
+let x denote the size of a random sample drawn from a population in which the individual player weights have any distribution.
+for player i with weight wi, let ϕi denote the shapley value.
+we use this rule to determine the shapley value as follows.
+on autonomous agents and multi-agent systems (aamas 07) r-shapleyvalue (p, μ, ν, q, wi) p: population of players μ: mean weight of the population p ν: variance in the weights for poulation p q: quota for the voting game wi: player i"s weight 1. ti ← 0; a ← q − wi; b ← q − 2. for x from 1 to m repeatedly do the following 2.1. select a random sample sx of size x from the population p 2.2. evaluate expected marginal contribution (δx i ) of player i to sx as: δx i ← 1√ (2πν/x) r b a e−x (x−xμ)2 2ν dx 2.3. ti ← ti + δx i 3. evaluate shapley value of player i as: ϕi ← ti/m table 1: randomized algorithm to find the shapley value for player i. we know from definition 1, that the shapley value for a player is the expectation (e) of its marginal contribution to a coalition that is chosen randomly.
+joint conf.
+962 the sixth intl.
+, wn is a random sample of size n drawn from any distribution with mean μ and variance ν, then the sample sum has an approximate normal  distribution with mean nμ and variance ν n (the larger the n the better the approximation).
+from this population of players we randomly draw samples and find the sum of the players" weights in the sample using the following rule from sampling theory (see [8] p425): if w1, w2, .
+irrespective of the actual probability distribution function, let μ be the mean weight for the population of players and ν the variance in the players" weights.
+the players" weights in this population are defined by a probability distribution function.
+we let p denote a population of players.
+for such a game, we want to find the approximate shapley value.
+the weights are specified in terms of a  probability distribution function.
+let wi denote the weight of player i. thus, for m players and for quota q the game is of the form q; w1, w2, .
+, wm .
+in its general form, a voting game has more than two types of players.
+we first describe the general voting game and then present our randomized algorithm.
+against this background, we present a randomized method for finding the approximate shapley value and empirically evaluate its error.
+the approximation error refers to the difference between the  exact solution and its approximation.
+now, since such algorithms generate  approximate solutions, their performance is evaluated in terms of two criteria: their time complexity, and their error of approximation.
+the  random steps performed by the algorithm imply that by executing the algorithm several times with the same input we are not guaranteed to find the same solution.
+a randomized algorithm is an algorithm that, during some of its steps, performs random choices [2].
+randomized algorithms are the most commonly used approach for finding approximate solutions to  computationally hard problems.
+value we first give a brief introduction to randomized algorithms and then present our randomized method for finding the approximate shapley value.

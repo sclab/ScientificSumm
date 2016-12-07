@@ -1,0 +1,61 @@
+Given a trade λi to bidder i, the interval-choose operators and trades on leaves define which nodes can be satisfied.
+For instance, in Example 2 we can consider the efficient trade, and observe that in this trade all nodes in the trees of buyers 1 and 3 (and also the seller), but none of the nodes in the trees of buyers 2 and 4, can be on.
+The nodes have zero values where no value is indicated.
+Finally, we need downwards-propagation: any time an internal node is satisfied then the appropriate  number of children must also be satisfied (Eq.
+In VCG, the payment paid by agent i is pvcg,i = ˆv(λ∗ i ) − (V ∗ − V−i) (7) where λ∗ is the efficient trade, V ∗ is the reported value of this trade, and V−i is the reported value of the efficient trade that would be implemented without bidder i.
+Budget-balance requires that the total payments to the exchange are equal to the total payments made by the exchange.
+4.1 Tree-Based Bidding Language The bidding language is designed to be expressive and concise, entirely symmetric with respect to buyers and  sellers, and to extend to capture bids from mixed buyers and sellers, ranging from simple swaps to highly complex trades.
+(1), (2), satiβ ∈ {0, 1}, λij ∈   sati ∈ valid(Ti, λi), ∀i Some goods may go unassigned because free disposal is allowed within the clearing rules of winner determination.
+Solution sati is valid given tree Ti and trade λi, written sati ∈ valid(Ti, λi), if and only if: ¢ β∈Leaf (i) qiβj · satiβ ≤ λij , ∀i, ∀j (4) ICx i (β)satiβ ≤ ¢ β ∈Child(β) satiβ ≤ ICy i (β)satiβ, ∀β /∈ Leaf (i) (5) In words, a set of leaves can only be considered satisfied given trade λi if the total increase in quantity summed across all such leaves is covered by the trade, for all goods (Eq.
+Similarly, the XOR/OR bidding languages can be directly expressed as a bid tree in our language.2 4.2 Winner Determination This section defines the winner determination problem, which is formulated as a MIP and solved in our  implementation with a commercial solver.3 The solver uses  branchand-bound search with dynamic cut generation and  branching heuristics to solve large MIPs in economically feasible run times.
+In Example 2, the VCG discounts are (9, 2, 0, 1, 0) to the seller and four buyers respectively, VCG  payments are (−9, 4, 0, 2, 0) and the exchange runs at a deficit of -3.
+The total value of trade λi, given bid-tree Ti, is defined as: vi(Ti, λi) = max sat∈valid(Ti,λi) ¢ β∈T vβ · satβ (6) The tree-based language generalizes existing languages.
+This works for sellers as well as buyers: for sellers a trade is negative and this requires that the total number of items indicated sold in the tree is at least the total number sold as defined in the trade.
+Each leaf β is labeled with a trade, qiβ ∈   m (i.e., leaves can define a bundled trade on more than one type of item.)
+For instance: IC(2, 2) on a node with 2 children is equivalent to an AND operator; IC(1, 3) on a node with 3 children is equivalent to an OR operator; and IC(1, 1) on a node with 2 children is equivalent to an XOR operator.
+The Threshold payment rule [24] determines  budgetbalanced payments to minimize the maximal error across all agents to the VCG outcome.
+The Threshold payment scheme implements the efficient trade λ∗ given bids, and sets payments pthresh,i = ˆvi(λ∗ i ) − ∆i, where ∆ = (∆1, .
+Consider bid tree Ti from bidder i.
+Given a trade there is often a number of ways to choose the set of satisfied nodes.
+On the other hand, in 251 the trade in which A goes to buyer 2 and D to buyer 4, then the root and appropriate leaf nodes can be on for buyers 2 and 4, but no nodes can be on for buyers 1 and 3.
+For instance, in Example 1 pvcg,seller = −10 − (+10 − 0) = −20 and pvcg,buyer = +20 − (+10 − 0) = 10, and the exchange would run at a budget deficit of −20 + 10 = −10.
+This defines nodes β ∈ Ti, of which some are leaves, Leaf (i) ⊆ Ti.
+Every node is also labeled with a value, viβ ∈ ¡ .
+4.3 Computing Threshold Payments The Threshold payment rule is based on the payments in the Vickrey-Clarke-Groves (VCG) mechanism [15], which itself is truthful and efficient but does not satisfy budget balance.
+Finally, leaves in which the bidder is buying items can only be on if the items are provided in the trade.
+Let Child(β) ⊆ Ti denote the children of a node β (that is not itself a leaf).
+The semantics of the language require that the nodes that maximize the summed value across satisfied nodes be activated.
+, Tn) and initial allocation x0 , the mixed-integer formulation for WD is: WD(T, x0 ) : max λ,sat ¢ i ¢ β∈Ti viβ · satiβ s.t.
+for column generation in pricing and for checking  revealed preference.
+This minimizes the worst-case error to VCG discounts across all budget-balanced payment schemes.
+Given a trade, the semantics of the language define which nodes in the tree can be satisfied, or switched-on.
+We also need upwards-propagation: any time a node other than the root is satisfied then its  parent must be satisfied (by   β ∈Child(β) satiβ ≤ ICy i (β)satiβ in Eq.
+, ∆n) is set to minimize maxi(∆vcg,i − ∆i) subject to ∆i ≤ ∆vcg,i and   i ∆i ≤ V ∗ (this gives budget-balance).
+Bids are expressed as annotated bid trees, and define a  bidder"s value for all possible trades.
+Second, if a parent node is on, then the number of children that are on must be within the IC range on the parent node.
+Let satiβ ∈ {0, 1} denote whether node β is satisfied.
+The language defines changes in values on trades, with leaves annotated with traded items and nodes annotated with changes in values (either positive or negative).
+First, if a child is on then its parent must be on.
+Threshold payments are designed to minimize the  maximal ex post incentive to manipulate.
+OR* is known to be  expressive and concise.
+3 CPLEX, www.ilog.com In defining the MIP representation we are careful to avoid an XOR-based enumeration of all bundles.
+The main feature is that it has a general interval-choose  logical operator on internal nodes, and that it defines careful semantics for propagating values within the tree.
+The language has a tree structure, with trades on items defined on leaves and values annotated on nodes and leaves.
+All nodes except leaves are labeled with the interval-choose operator [IC x i (β), ICy i (β)].
+There will often be a choice.
+These items can be allocated back to agents that sold the items, i.e.
+2 The OR* language is the OR language with dummy items to provide additional structure.
+Ties are broken to maximize value.
+Given bid trees T = (T1, .
+We call ∆vcg,i = V ∗ − V−i the VCG discount.
+The description of ICE is broken down into two sections: one-shot (sealed-bid) and iterative.
+In this section we  abstract away the iterative aspect and introduce a  specialization of the tree-based language that supports only exact values on nodes.
+Internal nodes are also labeled with interval-choose (IC) ranges.
+for which λij < 0.
+However, it is not known whether OR* dominates XOR/OR in terms of conciseness [23].
+Krych [16] confirmed that Threshold promotes allocative efficiency in restricted and approximate Bayes-Nash equilibrium. 
+We  illustrate the language on each of Examples 1-3 in Figure 2.
+In Threshold, the discounts are (8, 1, 0, 0, 0) and the payments are (−8, 5, 0, 3, 0).
+A variation on the WD problem is reused many times within the exchange, e.g.
+Definition 2.
+Example 4.

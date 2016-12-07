@@ -1,0 +1,79 @@
+In order to provide an Ω that reflects all these conflicts for a specific prohibition, we have to form ΣMAX c containing all conflict sets σc for a given  prohibition ω.
+In the first stage (first for each loop), we remove all conflicting prohibitions ω = (Fa:r ¯ϕ) Σc, td, ta, te with ground agent/role pairs a : r and ground formulae ¯ϕ: the only way to resolve  conflicts arising from such prohibitions is to remove them altogether, as we cannot curtail a fully ground norm.
+|te − te| ≤ |ta − ta| That is, a prohibition and a permission conflict (condition 1) if, and only if, the agents and roles they apply to and their actions, respectively, unify under σ (condition 2) and their activation  periods overlap (condition 3).
+We define below how we obtain the set of conflicting norms of a normative state Ω: DEF.
+We, therefore, have to find the maximal set of conflicting pairs of permissions and prohibitions in Ω, by performing a pairwise inspection.
+In the second stage  (second for each loop), the remaining prohibitions in Ω are examined: the set CFLS(Ω ) contains all conflicts between permissions and the remaining prohibitions in Ω represented as tuples ω, ω , σc , with σc representing the conflict set.
+The final Ω is thus: 8 < : (FA:Rp(X, Y )) j {A/a, R/b, X/c, Y/d} {A/e, R/f, X/g, Y/h} ff , 2, 2, 9 , Pa:rp(a, b), 3, 4, 8 , Pa:rp(d, e), 3, 4, 9 , 9 = ; The annotated set of conflict sets should be understood as a record of past unifications, which informs how prohibitions should be used in the future in order to avoid any conflicts with permissions.
+The removal of obligations follows a similar process.
+, τn), σ) which holds iff τi · σ = τi · σ, 0 ≤ i ≤ n. The unify relationship checks if a substitution σ is indeed a unifier for τ, τ but it can also be used to find such σ.
+ω = (Fτ1:τ2 ϕ) Σc, td, ta, te do ΣMAX c := [ ω,ω ,σc ∈CFLS(Ω ) {σc} Ω := (Ω − {ω}) ∪ { (Fτ1:τ2 ϕ) (Σc ∪ ΣMAX c ), td, ta, te } end for end Figure 3: Algorithm to Resolve Conflicts in a Set of Norms ing norms onto a new set Ω in which the conflicts (if any) are resolved.
+A conflict arises between two tuples ω, ω ∈ Ω under a substitution σ, denoted as cflct(ω, ω , σ), iff the following  conditions hold: 1. ω = (Fτ1:τ2 ϕ) Σc, td, ta, te , ω = Pτ1:τ2 ϕ , td, ta, te 2. unify(τ1, τ1, σ), unify(τ2, τ2, σ), and unify(ϕ, ϕ , σ) 3.
+(Xτ1:τ2 ϕ) · σ = X(τ1·σ):(τ2·σ)(ϕ · σ) 5. ν, td, ta, te · σ = (ν · σ), td, ta, te Where X generically refers to any of the deontic modalities O, P, F. Unification between two terms τ, τ consists of finding a  substitution σ (also called, in this context, the unifier of τ and τ ) such that τ · σ = τ · σ.
+It maps an existing set Ω possibly with  conflictalgorithm conflictResolution(Ω, Ω ) input Ω output Ω begin Ω := Ω for each ω ∈ Ω s.t.
+Let there be the following global normative state Ω: j (FA:Rp(X, Y )) {}, 2, 2, 9 , Pa:rp(a, b), 3, 4, 8 , (Fa:rp(a, b)) {}, 2, 4, 12 Pa:rp(d, e), 3, 4, 9 , ff The first loop removes the ground prohibition, thus obtaining the following Ω : j (FA:Rp(X, Y )) {}, 2, 2, 9 , Pa:bp(c, d), 3, 4, 8 , Pe:f p(g, h), 3, 4, 9 ff We then have the following set of conflicting norms CFLS(Ω ): 8 < : * (FA:Rp(X, Y )) {}, 2, 2, 9 , Pa:bp(c, d), 3, 4, 8 , {A/a, R/b, X/c, Y/d} + , * (FA:Rp(X, Y )) {}, 2, 2, 9 , Pe:f p(g, h), 3, 4, 9 , {A/e, R/f, X/g, Y/h} +9 = ; For each prohibition ω ∈ Ω we retrieve all elements from w, w , σ ∈ CFLS(Ω ) and collect their σ"s in ΣMAX c .
+The illustration shows the space of possible values for p(X, Y ) and p(X, Y ) PA:Rp(c, X) Fa:bp(Y, Z) p(X, Y ) Fa:bp(Y, Z) PA:Rp(c, X) Figure 2: Overlap of Influence (Left) and Curtailment (Right) two portions of this space defining the scope of influence of norms PA:Rp(c, X) and Fa:bp(Y, Z).
+The algorithm forms Ω as a set that is  conflict-freethis means that prohibitions are annotated with a conflict set that indicates which bindings for variables have to be avoided.
+Our algorithm is correct in that it provides, for a given Ω, a new Ω in which i) all ground prohibitions which conflict with  permissions have been removed; and ii) all remaining annotated  prohibitions (Fτ:τ ¯ϕ) Σc, td, ta, te will not unify with any of the permissions in Ω , provided the unifier does not appear in Σc.
+It is important to explain the need for updating the conflict set of prohibitions.
+Substitution σ, the conflict set,  unifies the agents, roles and atomic formulae of a permission and a prohibition.
+The maximal set is used to update the annotation of the prohibition.
+The finite, possibly empty set of conflicting norms of a normative state Ω, denoted as CFLS(Ω), is defined as CFLS(Ω) = { ω, ω , σ |ω, ω ∈ Ω, cflct(ω, ω , σ)} 3.2 Conflict Resolution A fine-grained way of resolving conflict can be done via  unification.
+Initially, this annotation is empty.
+Relationship unify(τ, τ , σ) holds iff there is a  possibly empty σ such that τ · σ = τ · σ.
+We thus propose to annotate the prohibitions in Ω with unifiers, called here conflict sets, and use these annotations to determine what the variables of the prohibition cannot be in future unifications in order to avoid a conflict.
+A prohibition can be in conflict with various permissions in Ω.
+ω = (Fa:r ¯ϕ) Σc, td, ta, te do if ω, ω , σ ∈ CFLS(Ω) then Ω := Ω − {ω} end for for each ω ∈ Ω s.t.
+We illustrate with Venn diagrams in Figure 2 the overlap of norm influences (left) which characterises a conflict and the curtailment necessary to resolve the conflict (right).
+A substitution σ is a finite and possibly empty set of pairs x/τ, where x is a variable and τ is a term.
+The removal of norms from the set Ω is dealt with efficiently: each permission to be  removed must be checked first for conflicts with any existing  prohibition (re-processing can be avoided if we record the conflict, instead of detecting it again).
+Initially, Ω is set to be Ω.
+This  requires identifying the substitution between two pairs of norms that characterises a conflict.
+Normative states change as a result of agents"  actions [11]: existing permissions, prohibitions and obligations are revoked and/or new ones are put in place as a result of agents"  interactions with the environment and other agents.
+The second requirement is addressed by the second for each loop: each prohibition has its annotation Σc added with ΣMAX c , thus accommodating the unifiers from all permissions that unify with the prohibition.
+The set CFLS(Ω) is computed in a finite number of steps as are the set operations performed within each loop.
+3.1 Conflict Detection A norm conflict arises when an atomic formula labelling an edge in the VO, i.e.
+Initially we define substitutions: DEF.
+As a prohibition may have conflicts with various permissions, the set CFLS(Ω ) may contain more than one tuple for each prohibition.
+We make use of the concept of unification [1, 8] of first-order terms τ, i.e., constants, variables or (nested) functions with terms as parameters.
+We now define means to detect and resolve norm conflicts and inconsistencies.
+We define the application of a substitution as: 1. c · σ = c for a constant c 2. x · σ = τ · σ if x/τ ∈ σ; otherwise x · σ = x 3. pn (τ0, .
+The first requirement is addressed by the first for each loop, which does precisely this: it removes all ground prohibitions which unify with an obligation.
+It is easy to see that the algorithm  always terminates: each of its two loops go through a finite set,  processing one element at a time.
+In this case, both norms are in conflict with regard to their agents, roles and parameters (terms) of specific actions.
+If there is a conflict, then the conflict set will have been recorded in the prohibition"s annotation; this conflict set is thus removed from the prohibition"s annotation.
+The algorithm shown in Figure 3 depicts how we obtain a  conflictfree set of norms.
+If there were multiple overlaps among one prohibition and various permissions, which is likely to happen, then the prohibition will be multiply curtailed to move the scope of the norm to avoid all intersections.
+If, however, the  variables in Fa:bp(Y, Z) do not get the values in σ then there will be no conflicts.
+We propose to curtail the influence of prohibitions, thus giving agents more choices in the actions they may perform.
+We shall make use of the following definition: DEF.
+We propose to use unification to detect when a prohibition and a  permission overlap and to employ the unifier to resolve the conflict.
+Prohibitions are removed without the need to consider their relationships with other norms.
+The scope of these norms overlap, illustrated by the intersection of boxes on the left, in actions with values, for instance, a, b, p(c, 2) , .
+Whenever new norms are added we must check for new conflicts and  inconsistencies.
+The annotation Σc does not play any role when  detecting conflicts, but, as we show below, we have to update the annotation to reflect new curtailments to solve conflicts.
+We show in Section 5.1 how annotations are used by norm-aware agents. 
+The  curtailment of the prohibition eliminates the intersection: it moves the scope of the norm influence to outside the influence of the  permission.
+We also define the unification of atomic formulae as unify(pn (τ0, .
+We detect the overlapping of the norms" influences, i.e.
+If we only apply our algorithm to a pair consisting of an old and a new norm, then some re-processing of pairs of old norms (which were dealt with before) can be saved.
+This is formally captured by the following definition: DEF.
+an action, is simultaneously permitted and  prohibited [13].
+A similar approach could be taken whereby permissions are curtailed, thus limiting the available agents" actions.
+We assume that unify is a suitable implementation of a unification algorithm which i) always terminates (possibly failing, if a unifier cannot be found); ii) is correct; and iii) has a linear computational complexity.
+Each of these policies is  possible: we do not legislate over any of them nor do we give  preference over any.
+The algorithm operates in two stages.
+The algorithm has, however, exponential complexity3 , as the computation of CFLS(Ω) requires a pairwise comparison of all elements in Ω.
+In this paper we are interested in formalising such policies within a simple mathematical framework.
+Each prohibition is henceforth regarded as having such an annotation, denoted as (Fτ1:τ2 ϕ) Σc, td, ta, te .
+For instance, PA:Rp(c, X) and Fa:bp(Y, Z) are in conflict as they unify under σ = {A/a, R/b, Y/c, X/d}).
+We illustrate our algorithm with the following example.
+how they affect the behaviours of agents in the VO, and we curtail the 646 The Sixth Intl.
+Many algorithms have been proposed to solve the unification problem, a fundamental issue in automated theorem proving [8], and more recent work provides very efficient ways to obtain unifiers.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) influence of the prohibition.
+, τn · σ).
+, τn) · σ = pn (τ0 · σ, .
+For  instance, cflct( (Fa:bp(Y, d)) ∅, 1, 3, 5 , PA:Rp(c, X), 2, 3, 4 , {A/a, R/b, Y/c, Z/X}) holds.
+Joint Conf.
+, a, b, p(c, n) .
+, τn), pn (τ0, .

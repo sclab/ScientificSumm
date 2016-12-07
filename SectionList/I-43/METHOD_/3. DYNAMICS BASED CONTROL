@@ -1,0 +1,179 @@
+The specification of Dynamics Based Control (DBC) can be 
+broken into three interacting levels: Environment Design Level, User
+Level, and Agent Level.
+• Environment Design Level is concerned with the formal
+specification and modeling of the environment. For 
+example, this level would specify the laws of physics within the
+system, and set its parameters, such as the gravitation 
+constant.
+• User Level in turn relies on the environment model produced
+by Environment Design to specify the target system 
+dynamics it wishes to observe. The User Level also specifies the 
+estimation or learning procedure for system dynamics, and the
+measure of deviation. In the museum guard scenario above,
+these would correspond to a stochastic sweep schedule, and a
+measure of relative surprise between the specified and actual
+sweeping.
+• Agent Level in turn combines the environment model from
+the Environment Design level, the dynamics estimation 
+procedure, the deviation measure and the target dynamics 
+specification from User Level, to produce a sequence of actions
+that create system dynamics as close as possible to the 
+targeted specification.
+As we are interested in the continual development of a stochastic
+system, such as happens in classical control theory [16] and 
+continual planning [4], as well as in our example of museum sweeps,
+the question becomes how the Agent Level is to treat the 
+deviation measurements over time. To this end, we use a probability
+threshold-that is, we would like the Agent Level to maximize the
+probability that the deviation measure will remain below a certain
+threshold.
+Specific action selection then depends on system formalization.
+One possibility would be to create a mixture of available system
+trends, much like that which happens in Behavior-Based Robotic
+architectures [1]. The other alternative would be to rely on the 
+estimation procedure provided by the User Level-to utilize the 
+Environment Design Level model of the environment to choose actions,
+so as to manipulate the dynamics estimator into believing that a 
+certain dynamics has been achieved. Notice that this manipulation is
+not direct, but via the environment. Thus, for strong enough 
+estimator algorithms, successful manipulation would mean a successful
+simulation of the specified target dynamics (i.e., beyond discerning
+via the available sensory input).
+DBC levels can also have a back-flow of information (see 
+Figure 1). For instance, the Agent Level could provide data about
+target dynamics feasibility, allowing the User Level to modify the
+requirement, perhaps focusing on attainable features of system 
+behavior. Data would also be available about the system response to
+different actions performed; combined with a dynamics estimator
+defined by the User Level, this can provide an important tool for the
+environment model calibration at the Environment Design Level.
+UserEnv. Design Agent
+Model
+Ideal Dynamics
+Estimator
+Estimator
+Dynamics Feasibility
+System Response Data
+Figure 1: Data flow of the DBC framework
+Extending upon the idea of Actor-Critic algorithms [5], DBC
+data flow can provide a good basis for the design of a learning 
+algorithm. For example, the User Level can operate as an exploratory
+device for a learning algorithm, inferring an ideal dynamics target
+from the environment model at hand that would expose and verify
+most critical features of system behavior. In this case, feasibility
+and system response data from the Agent Level would provide key
+information for an environment model update. In fact, the 
+combination of feasibility and response data can provide a basis for the
+application of strong learning algorithms such as EM [2, 9].
+3.1 DBC for Markovian Environments
+For a Partially Observable Markovian Environment, DBC can
+be specified in a more rigorous manner. Notice how DBC discards
+rewards, and replaces it by another optimality criterion (structural
+differences are summarized in Table 1):
+• Environment Design level is to specify a tuple
+< S, A, T, O, Ω, s0 >, where:
+- S is the set of all possible environment states;
+- s0 is the initial state of the environment (which can also
+be viewed as a probability distribution over S);
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 791
+- A is the set of all possible actions applicable in the 
+environment;
+- T is the environment"s probabilistic transition function:
+T : S ×A → Π(S). That is, T(s |a, s) is the 
+probability that the environment will move from state s to state
+s under action a;
+- O is the set of all possible observations. This is what
+the sensor input would look like for an outside observer;
+- Ω is the observation probability function:
+Ω : S × A × S → Π(O).
+That is, Ω(o|s , a, s) is the probability that one will
+observe o given that the environment has moved from
+state s to state s under action a.
+• User Level, in the case of Markovian environment, operates
+on the set of system dynamics described by a family of 
+conditional probabilities F = {τ : S × A → Π(S)}. Thus
+specification of target dynamics can be expressed by q ∈ F,
+and the learning or tracking algorithm can be represented as
+a function L : O×(A×O)∗
+→ F; that is, it maps sequences
+of observations and actions performed so far into an estimate
+τ ∈ F of system dynamics.
+There are many possible variations available at the User Level
+to define divergence between system dynamics; several of
+them are:
+- Trace distance or L1 distance between two 
+distributions p and q defined by
+D(p(·), q(·)) =
+1
+2 x
+|p(x) − q(x)|
+- Fidelity measure of distance
+F(p(·), q(·)) =
+x
+p(x)q(x)
+- Kullback-Leibler divergence
+DKL(p(·) q(·)) =
+x
+p(x) log
+p(x)
+q(x)
+Notice that the latter two are not actually metrics over the
+space of possible distributions, but nevertheless have 
+meaningful and important interpretations. For instance, 
+KullbackLeibler divergence is an important tool of information 
+theory [3] that allows one to measure the price of encoding an
+information source governed by q, while assuming that it is
+governed by p.
+The User Level also defines the threshold of dynamics 
+deviation probability θ.
+• Agent Level is then faced with a problem of selecting a 
+control signal function a∗
+to satisfy a minimization problem as
+follows:
+a∗
+= arg min
+a
+Pr(d(τa, q) > θ)
+where d(τa, q) is a random variable describing deviation of
+the dynamics estimate τa, created by L under control signal
+a, from the ideal dynamics q. Implicit in this minimization
+problem is that L is manipulated via the environment, based
+on the environment model produced by the Environment 
+Design Level.
+3.2 DBC View of the State Space
+It is important to note the complementary view that DBC and
+POMDPs take on the state space of the environment. POMDPs
+regard state as a stationary snap-shot of the environment; 
+whatever attributes of state sequencing one seeks are reached through
+properties of the control process, in this case reward accumulation.
+This can be viewed as if the sequencing of states and the attributes
+of that sequencing are only introduced by and for the controlling
+mechanism-the POMDP policy.
+DBC concentrates on the underlying principle of state 
+sequencing, the system dynamics. DBC"s target dynamics specification can
+use the environment"s state space as a means to describe, discern,
+and preserve changes that occur within the system. As a result,
+DBC has a greater ability to express state sequencing properties,
+which are grounded in the environment model and its state space
+definition.
+For example, consider the task of moving through rough terrain
+towards a goal and reaching it as fast as possible. POMDPs would
+encode terrain as state space points, while speed would be ensured
+by negative reward for every step taken without reaching the 
+goalaccumulating higher reward can be reached only by faster motion.
+Alternatively, the state space could directly include the notion of
+speed. For POMDPs, this would mean that the same concept is
+encoded twice, in some sense: directly in the state space, and 
+indirectly within reward accumulation. Now, even if the reward 
+function would encode more, and finer, details of the properties of 
+motion, the POMDP solution will have to search in a much larger
+space of policies, while still being guided by the implicit concept
+of the reward accumulation procedure.
+On the other hand, the tactical target expression of variations and
+correlations between position and speed of motion is now grounded
+in the state space representation. In this situation, any further 
+constraints, e.g., smoothness of motion, speed limits in different 
+locations, or speed reductions during sharp turns, are explicitly and
+uniformly expressed by the tactical target, and can result in faster
+and more effective action selection by a DBC algorithm.

@@ -1,0 +1,289 @@
+4.1 Methodology
+To evaluate our ad placement strategies, we performed
+a series of experiments using a sample of a real case ad
+collection with 93,972 advertisements, 1,744 advertisers, and
+68,238 keywords2
+. The advertisements are grouped in 2,029
+campaigns with an average of 1.16 campaigns per advertiser.
+For the strategies AAK T and AAK EXP, we had to 
+generate a set of expansion terms. For that, we used a database
+of Web pages crawled by the TodoBR search engine [12]
+(http://www.todobr.com.br/). This database is composed
+of 5,939,061 pages of the Brazilian Web, under the domain
+.br. For the strategies H, AAK H, and AAK EXP H, we also
+crawled the pages pointed to by the advertisers. No other
+filtering method was applied to these pages besides the 
+removal of HTML tags.
+Since we are initially interested in the placement of 
+advertisements in the pages of information portals, our test 
+collection was composed of 100 pages extracted from a 
+Brazilian newspaper. These are our triggering pages. They were
+crawled in such a way that only the contents of their 
+articles was preserved. As we have no preferences for particular
+2
+Data in portuguese provided by an on-line advertisement
+company that operates in Brazil.
+topics, the crawled pages cover topics as diverse as politics,
+economy, sports, and culture.
+For each of our 100 triggering pages, we selected the top
+three ranked ads provided by each of our 10 ad placement
+strategies. Thus, for each triggering page we select no more
+than 30 ads. These top ads were then inserted in a pool
+for that triggering page. Each pool contained an average of
+15.81 advertisements. All advertisements in each pool were
+submitted to a manual evaluation by a group of 15 users.
+The average number of relevant advertisements per page
+pool was 5.15. Notice that we adopted the same pooling
+method used to evaluate the TREC Web-based collection [6].
+To quantify the precision of our results, we used 11-point
+average figures [2]. Since we are not able to evaluate the
+entire ad collection, recall values are relative to the set of
+evaluated advertisements.
+4.2 Tuning Idf factors
+We start by analyzing the impact of different idf factors
+in our advertisement collection. Idf factors are important
+because they quantify how discriminative is a term in the
+collection. In our ad collection, idf factors can be computed
+by taking ads, advertisers or campaigns as documents. To
+exemplify, consider the computation of ad idf for a term
+ti that occurs 9 times in a collection of 100 ads. Then, the
+inverse document frequency of ti is given by:
+idfi = log
+100
+9
+Hence, we can compute ad, advertiser or campaign idf 
+factors. As we observe in Figure 4, for the AD strategy, the best
+ranking is obtained by the use of campaign idf, that is, by
+calculating our idf factor so that it discriminates campaigns.
+Similar results were obtained for all the other methods.
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+0 0.2 0.4 0.6 0.8 1
+precision
+recall
+Campaign idf
+Advertiser idf
+Ad idf
+Figure 4: Precision-recall curves obtained for the
+AD strategy using ad, advertiser, and campaign idf
+factors.
+This reflects the fact that terms might be better 
+discriminators for a business topic than for an specific ad. This
+effect can be accomplished by calculating the factor relative
+to idf advertisers or campaigns instead of ads. In fact, 
+campaign idf factors yielded the best results. Thus, they will be
+used in all the experiments reported from now on.
+500
+4.3 Results
+Matching Strategies
+Figure 5 displays the results for the matching strategies 
+presented in Section 2. As shown, directly matching the 
+contents of the ad to the triggering page (AD strategy) is not so
+effective. The reason is that the ad contents are very noisy.
+It may contain messages that do not properly describe the
+ad topics such as requisitions for user actions (e.g, visit our
+site) and general sentences that could be applied to any
+product or service (e.g, we delivery for the whole 
+country). On the other hand, an advertiser provided keyword
+summarizes well the topic of the ad. As a consequence, the
+KW strategy is superior to the AD and AD KW strategies. This
+situation changes when we require the keywords to appear
+in the target Web page. By filtering out ads whose keywords
+do not occur in the triggering page, much noise is discarded.
+This makes ANDKW a better alternative than KW. Further, in
+this new situation, the contents of the ad becomes useful
+to rank the most relevant ads making AD ANDKW (or AAK for
+ads and keywords) the best among all described methods.
+For this reason, we adopt AAK as our baseline in the next set
+of experiments.
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0 0.2 0.4 0.6 0.8 1
+precision
+recall
+AAK
+ANDKW
+KW
+AD_KW
+AD
+Figure 5: Comparison among our five matching
+strategies. AAK (ads and keywords) is superior.
+Table 1 illustrates average precision figures for Figure 5.
+We also present actual hits per advertisement slot. We call
+hit an assignment of an ad (to the triggering page) that
+was considered relevant by the evaluators. We notice that
+our AAK strategy provides a gain in average precision of 60%
+relative to the trivial AD strategy. This shows that careful
+consideration of the evidence related to the problem does
+pay off.
+Impedance Coupling Strategies
+Table 2 shows top ranked terms that occur in a page 
+covering Argentinean wines produced using grapes derived from
+the Bordeaux region of France. The p column includes the
+top terms for this page ranked according to our tf-idf 
+weighting scheme. The r column includes the top ranked 
+expansion terms generated according to Eq. (6). Notice that the
+expansion terms not only emphasize important terms of the
+target page (by increasing their weights) such as wines and
+Methods Hits 11-pt average
+#1 #2 #3 total score gain(%)
+AD 41 32 13 86 0.104
+AD KW 51 28 17 96 0.106 +1.9
+KW 46 34 28 108 0.125 +20.2
+ANDKW 49 37 35 121 0.153 +47.1
+AD ANDKW (AAK) 51 48 39 138 0.168 +61.5
+Table 1: Average precision figures, corresponding to
+Figure 5, for our five matching strategies. Columns
+labelled #1, #2, and #3 indicate total of hits in
+first, second, and third advertisement slots, 
+respectively. The AAK strategy provides improvements of
+60% relative to the AD strategy.
+Rank p r
+term score term score
+1 argentina 0.090 wines 0.251
+2 obtained* 0.047 wine* 0.140
+3 class* 0.036 whites 0.091
+4 whites 0.035 red* 0.057
+5 french* 0.031 grape 0.051
+6 origin* 0.029 bordeaux 0.045
+7 france* 0.029 acideness* 0.038
+8 grape 0.017 argentina 0.037
+9 sweet* 0.016 aroma* 0.037
+10 country* 0.013 blanc* 0.036
+...
+35 wines 0.010 
+-...
+Table 2: Top ranked terms for the triggering page
+p according to our tf-idf weighting scheme and top
+ranked terms for r, the expansion terms for p, 
+generated according to Eq. (6). Ranking scores were
+normalized in order to sum up to 1. Terms marked
+with ‘*" are not shared by the sets p and r.
+whites, but also reveal new terms related to the main topic
+of the page such as aroma and red. Further, they avoid
+some uninteresting terms such as obtained and country.
+Figure 6 illustrates our results when the set r of 
+expansion terms is used. They show that matching the ads to
+the terms in the set r instead of to the triggering page p
+(AAK T strategy) leads to a considerable improvement over
+our baseline, AAK. The gain is even larger when we use the
+terms in r to expand the triggering page (AAK EXP method).
+This confirms our hypothesis that the triggering page could
+have some interesting terms that should not be completely
+discarded.
+Finally, we analyze the impact on the ranking of using the
+contents of pages pointed by the ads. Figure 7 displays our
+results. It is clear that using only the contents of the pages
+pointed by the ads (H strategy) yields very poor results.
+However, combining evidence from the pages pointed by the
+ads with our baseline yields improved results. Most 
+important, combining our best strategy so far (AAK EXP) with
+pages pointed by ads (AAK EXP H strategy) leads to superior
+results. This happens because the two additional sources
+of evidence, expansion terms and pages pointed by the ads,
+are distinct and complementary, providing extra and 
+valuable information for matching ads to a Web page.
+501
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0 0.2 0.4 0.6 0.8 1
+precision
+recall
+AAK_EXP
+AAK_T
+AAK
+Figure 6: Impact of using a new representation for
+the triggering page, one that includes expansion
+terms.
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0 0.2 0.4 0.6 0.8 1
+precision
+recall
+AAK_EXP_H
+AAK_H
+AAK
+H
+Figure 7: Impact of using the contents of the page
+pointed by the ad (the hyperlink).
+Figure 8 and Table 3 summarize all results described in
+this section. In Figure 8 we show precision-recall curves
+and in Table 3 we show 11-point average figures. We also
+present actual hits per advertisement slot and gains in 
+average precision relative to our baseline, AAK. We notice that
+the highest number of hits in the first slot was generated by
+the method AAK EXP. However, the method with best 
+overall retrieval performance was AAK EXP H, yielding a gain in
+average precision figures of roughly 50% over the baseline
+(AAK).
+4.4 Performance Issues
+In a keyword targeted advertising system, ads are assigned
+at query time, thus the performance of the system is a very
+important issue. In content-targeted advertising systems,
+we can associate ads with a page at publishing (or 
+updating) time. Also, if a new ad comes in we might consider
+assigning this ad to already published pages in oﬄine mode.
+That is, we might design the system such that its 
+performance depends fundamentally on the rate that new pages
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0 0.2 0.4 0.6 0.8 1
+precision
+recall
+AAK_EXP_H
+AAK_EXP
+AAK_T
+AAK_H
+AAK
+H
+Figure 8: Comparison among our ad placement
+strategies.
+Methods Hits 11-pt average
+#1 #2 #3 total score gain(%)
+H 28 5 6 39 0.026 -84.3
+AAK 51 48 39 138 0.168
+AAK H 52 50 46 148 0.191 +13.5
+AAK T 65 49 43 157 0.226 +34.6
+AAK EXP 70 52 53 175 0.242 +43.8
+AAK EXP H 64 61 51 176 0.253 +50.3
+Table 3: Results for our impedance coupling 
+strategies.
+are published and the rate that ads are added or modified.
+Further, the data needed by our strategies (page crawling,
+page expansion, and ad link crawling) can be gathered and
+processed oﬄine, not affecting the user experience. Thus,
+from this point of view, the performance is not critical and
+will not be addressed in this work.

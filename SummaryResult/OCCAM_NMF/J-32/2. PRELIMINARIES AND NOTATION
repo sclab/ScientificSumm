@@ -1,0 +1,13 @@
+when a node v is instructed by its parent to adopt mixed strategy v, it does the  following for each child u - it finds a pair (v, u) ∈ b(v, u) (with the same v value that it was given by its parent) and instructs u to play u. 
+it decides to play mixed strategy w and it instructs v to play mixed strategy v. the remainder of the downward pass is recursive.
+the root selects any pair (w, v) from b(w, v ).
+with the above assumptions about the root, the downstream pass is straightforward: let w denote the root and v denote its child.
+the upstream pass of the generic algorithm of [8] computes the best response policy for v for every node v other than the root.
+the expression b(w, v )|v =v is used to denote the set b(w, v ) ∩ [0, 1]×{v}.
+typically, w is the parent of v , and this is just referred to as the best response policy for v .
+101 we say that v is a potential best response to w (denoted by v ∈ pbrv (w)) if there is an equilibrium in the instance g(v,w ),w =w in which v has mixed strategy v. we define the best response policy for v , given w , as b(w, v ) = {(w, v) | v ∈ pbrv (w), w ∈ [0, 1]}.
+given an edge (v, w ) of the tree g, and a mixed strategy w for w , let g(v,w ),w =w be the instance obtained from g by (1) deleting all nodes z which are separated from v by w (i.e., all nodes z such that the path from z to v passes through w ), and (2) restricting the instance so that w is required to play mixed  strategy w. definition 1. suppose that (v, w ) is an edge of the tree, that v is a mixed strategy for v and that w is a mixed strategy for w .
+this can be achieved by first choosing an arbitrary root of the tree, and then adding a dummy parent of this root, giving the new parent a constant payoff function.
+for convenience, we assume without loss of generality that the root has a single child, and that its payoff is independent of the action chosen by the child.
+each vertex has two actions, which are denoted by 0 and 1. a mixed strategy is given by a single number x ∈ [0, 1], which denotes the probability that the player selects action 1. fur the purposes of the algorithm, the tree is rooted arbitrarily.
+we consider graphical games in which the underlying graph g is an n-vertex tree.

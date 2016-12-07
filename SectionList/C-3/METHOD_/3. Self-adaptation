@@ -1,0 +1,292 @@
+In this section we will explain how we use application 
+malleability to find a suitable set of resources for a given application and to
+adapt to changing conditions in the grid environment. In order to
+monitor the application performance and guide the adaptation, we
+added an extra process to the computation which we call 
+adaptation coordinator. The adaptation coordinator periodically collects
+performance statistics from the application processors. We 
+introduce a new application performance metric: weighted average 
+efficiency which describes the application performance on a 
+heterogeneous set of resources. The coordinator uses statistics from 
+application processors to compute the weighted average efficiency. If
+the efficiency falls above or below certain thresholds, the 
+coordinator decides on adding or removing processors. A heuristic formula
+is used to decide which processors have to be removed. During
+this process the coordinator learns the application requirements by
+remembering the characteristics of the removed processors. These
+requirements are then used to guide the adding of new processors.
+3.1 Weighted average efficiency
+In traditional parallel computing, a standard metric describing the
+performance of a parallel application is efficiency. Efficiency is
+defined as the average utilization of the processors, that is, the
+fraction of time the processors spend doing useful work rather than
+being idle or communicating with other processors (10).
+efficiency =
+1
+n
+∗
+n
+i=0
+(1 − overheadi )
+where n is the number of processors and overheadi is the 
+fraction of time the ith
+processor spends being idle or communicating.
+Efficiency indicates the benefit of using multiple processors.
+Typically, the efficiency drops as new processors are added to
+the computation. Therefore, achieving a high speedup (and thus
+a low execution time) and achieving a high system utilization are
+conflicting goals (10). The optimal number of processors is the
+number for which the ratio of efficiency to execution time is 
+maximized. Adding processors beyond this number yields little benefit.
+This number is typically hard to find, but in (10) it was 
+theoretically proven that if the optimal number of processors is used, the
+efficiency is at least 50%. Therefore, adding processors when 
+efficiency is smaller or equal to 50% will only decrease the system
+utilization without significant performance gains.
+For heterogeneous environments with different processor speeds,
+we extended the notion of efficiency and introduced weighted 
+average efficiency.
+wa efficiency =
+1
+n
+∗
+n
+i=0
+speedi ∗ (1 − overheadi )
+The useful work done by a processor (1 − overheadi) is
+weighted by multiplying it by the speed of this processor 
+relative to the fastest processor. The fastest processor has speed = 1,
+for others holds: 0 < speed ≤ 1. Therefore, slower processors are
+modeled as fast ones that spend a large fraction of the time being
+idle. Weighted average efficiency reflects the fact that adding slow
+processors yields less benefit than adding fast processors.
+In the heterogeneous world, it is hardly beneficial to add 
+processors if the efficiency is lower than 50% unless the added processor
+is faster than some of the currently used processors. Adding faster
+processors might be beneficial regardless of the efficiency.
+3.2 Application monitoring
+Each processor measures the time it spends communicating or 
+being idle. The computation is divided into monitoring periods. 
+After each monitoring period, the processors compute their overhead
+over this period as the percentage of the time they spent being idle
+or communicating in this period. Apart from total overhead, each
+processor also computes the overhead of inter-cluster and 
+intracluster communication.
+To calculate weighted average efficiency, we need to know the
+relative speeds of the processors, which depend on the 
+application and the problem size used. Since it is impractical to run the
+122
+whole application on each processor separately, we use 
+applicationspecific benchmarks. Currently we use the same application with a
+small problem size as a benchmark and we require the application
+programmer to specify this problem size. This approach requires
+extra effort from the programmer to find the right problem size and
+possibly to produce input files for this problem size, which may
+be hard. In the future, we are planning to generate benchmarks 
+automatically by choosing a random subset of the task graph of the
+original application.
+Benchmarks have to be re-run periodically because the speed of
+a processor might change if it becomes overloaded by another 
+application (for time-shared machines). There is a trade-off between
+the accuracy of speed measurements and the overhead it incurs. The
+longer the benchmark, the greater the accuracy of the measurement.
+The more often it is run, the faster changes in processor speed are
+detected. In our current implementation, the application 
+programmer specifies the length of the benchmark (by specifying its 
+problem size) and the maximal overhead it is allowed to cause. 
+Processors run the benchmark at such frequency so as not to exceed the
+specified overhead. In the future, we plan to combine 
+benchmarking with monitoring the load of the processor which would allow
+us to avoid running the benchmark if no change in processor load
+is detected. This optimization will further reduce the benchmarking
+overhead.
+Note that the benchmarking overhead could be avoided 
+completely for more regular applications, for example, for 
+masterworker applications with tasks of equal or similar size. The 
+processor speed could then be measured by counting the tasks 
+processed by this processor within one monitoring period. 
+Unfortunately, divide-and-conquer applications typically exhibit a very 
+irregular structure. The sizes of tasks can vary by many orders of
+magnitude.
+At the end of each monitoring period, the processors send the
+overhead statistics and processor speeds to the coordinator. 
+Periodically, the coordinator computes the weighted average efficiency and
+other statistics, such as average inter-cluster overhead or overheads
+in each cluster. The clocks of the processors are not synchronized
+with each other or with the clock of the coordinator. Each 
+processor decides separately when it is time to send data. Occasionally,
+the coordinator may miss data at the end of a monitoring period,
+so it has to use data from the previous monitoring period for these
+processors. This causes small inaccuracies in the calculations of the
+coordinator, but does not influence the performance of adaptation.
+3.3 Adaptation strategy
+The adaptation coordinator tries to keep the weighted average 
+efficiency between Emin and Emax. When it exceeds Emax, the 
+coordinator requests new processors from the scheduler. The number of
+requested processors depends on the current efficiency: the higher
+the efficiency, the more processors are requested. The coordinator
+starts removing processors when the weighted average efficiency
+drops below Emin. The number of nodes that are removed again
+depends on the weighted average efficiency. The lower the 
+efficiency, the more nodes are removed. The thresholds we use are
+Emax = 50%, because we know that adding processors when 
+efficiency is lower does not make sense, and Emin = 30%. 
+Efficiency of 30% or lower might indicate performance problems such
+as low bandwidth or overloaded processors. In that case, 
+removing bad processors will be beneficial for the application. Such low
+efficiency might also indicate that we simply have too many 
+processors. In that case, removing some processors may not be beneficial
+but it will not harm the application. The coordinator always tries
+to remove the worst processors. The badness of a processor is
+determined by the following formula:
+proc badnessi = α ∗
+1
+speedi
++ β ∗ ic overheadi
++ γ ∗ inW orstCluster(i)
+The processor is considered bad if it has low speed ( 1
+speed
+is
+big) and high inter-cluster overhead (ic overhead). High 
+intercluster overhead indicates that the bandwidth to this processor"s
+cluster is insufficient. Removing processors located in a single
+cluster is desirable since it decreases the amount of wide-area
+communication. Therefore, processors belonging to the worst
+cluster are preferred. Function inW orstCluster(i) returns 1 for
+processors belonging to the worst cluster and 0 otherwise. The
+badness of clusters is computed similarly to the badness of
+processors:
+cluster badnessi = α ∗
+1
+speedi
++ β ∗ ic overheadi
+The speed of a cluster is the sum of processor speeds normalized
+to the speed of the fastest cluster. The ic overhead of a cluster is
+an average of processor inter-cluster overheads. The α, β and γ
+coefficients determine the relative importance of the terms. Those
+coefficients are established empirically. Currently we are using
+the following values: α = 1, β = 100 and γ = 10, based
+on the observation that ic overhead > 0.2 indicates bandwidth
+problems and processors with speed < 0.05 do not contribute to
+the computation.
+Additionally, when one of the clusters has an exceptionally high
+inter-cluster overhead (larger than 0.25), we conclude that the 
+bandwidth on the link between this cluster and the Internet backbone is
+insufficient for the application. In that case, we simply remove the
+whole cluster instead of computing node badness and removing the
+worst nodes. After deciding which nodes are removed, the 
+coordinator sends a message to these nodes and the nodes leave the
+computation. Figure 1 shows a schematic view of the adaptation
+strategy. Dashed lines indicate a part that is not supported yet, as
+will be explained below.
+This simple adaptation strategy allows us to improve application
+performance in several situations typical for the Grid:
+• If an application is started on fewer processors than its degree of
+parallelism allows, it will automatically expand to more 
+processors (as soon as there are extra resources available). Conversely,
+if an application is started on more processors than it can 
+efficiently use, a part of the processors will be released.
+• If an application is running on an appropriate set of resources
+but after a while some of the resources (processors and/or 
+network links) become overloaded and slow down the 
+computation, the overloaded resources will be removed. After removing
+the overloaded resources, the weighted average efficiency will
+increase to above the Emax threshold and the adaptation 
+coordinator will try to add new resources. Therefore, the application
+will be migrated from overloaded resources.
+• If some of the original resources chosen by the user are 
+inappropriate for the application, for example the bandwidth to one
+of the clusters is too small, the inappropriate resources will be
+removed. If necessary, the adaptation component will try to add
+other resources.
+• If during the computation a substantial part of the processors
+will crash, the adaptation component will try to add new 
+resources to replace the crashed processors.
+123
+0
+2000
+4000
+6000
+runtime(secs.)
+Scenario 0
+a b c
+Scenario 1 Scenario 2 Scenario 3 Scenario 4 Scenario 5
+without monitoring and adaptation (runtime 1)
+with monitoring and adaptation (runtime 2)
+with monitoring but no adaptation (runtime 3)
+Figure 2. The runtimes of the Barnes-Hut application, scenarios 0-5
+add nodes
+faster nodes
+available
+if
+compute weighted
+average efficiency E wa
+wait & collect
+statistics
+rank nodes
+remove worst nodes
+waE
+Ewa
+Y
+N
+N
+Y
+above
+if
+below
+if
+Emin
+maxE
+Figure 1. Adaptation strategy
+• If the application degree of parallelism is changing during the
+computation, the number of nodes the application is running on
+will be automatically adjusted.
+Further improvements are possible, but require extra 
+functionality from the grid scheduler and/or integration with monitoring
+services such as NWS (22). For example, adding nodes to a 
+computation can be improved. Currently, we add any nodes the 
+scheduler gives us. However, it would be more efficient to ask for the
+fastest processors among the available ones. This could be done, for
+example, by passing a benchmark to the grid scheduler, so that it
+can measure processor speeds in an application specific way. 
+Typically, it would be enough to measure the speed of one processor
+per site, since clusters and supercomputers are usually 
+homogeneous. An alternative approach would be ranking the processors
+based on parameters such as clock speed and cache size. This 
+approach is sometimes used for resource selection for sequential 
+applications (14). However, it is less accurate than using an 
+application specific benchmark.
+Also, during application execution, we can learn some 
+application requirements and pass them to the scheduler. One example is
+minimal bandwidth required by the application. The lower bound
+on minimal required bandwidth is tightened each time a cluster
+with high inter-cluster overhead is removed. The bandwidth 
+between each pair of clusters is estimated during the computation by
+measuring data transfer times, and the bandwidth to the removed
+cluster is set as a minimum. Alternatively, information from a grid
+monitoring system can be used. Such bounds can be passed to the
+scheduler to avoid adding inappropriate resources. It is especially
+important when migrating from resources that cause performance
+problems: we have to be careful not to add the resources we have
+just removed. Currently we use blacklisting - we simply do not 
+allow adding resources we removed before. This means, however,
+that we cannot use these resources even if the cause of the 
+performance problem disappears, e.g. the bandwidth of a link might
+improve if the background traffic diminishes.
+We are currently not able to perform opportunistic migration
+- migrating to better resources when they are discovered. If an
+application runs with efficiency between Emin and Emax, the
+adaptation component will not undertake any action, even if 
+better resources become available. Enabling opportunistic migration
+requires, again, the ability to specify to the scheduler what 
+better resources are (faster, with a certain minimal bandwidth) and
+receiving notifications when such resources become available.
+Existing grid schedulers such as GRAM from the Globus
+Toolkit (11) do not support such functionality. The developers of
+the KOALA metascheduler (15) have recently started a project
+whose goal is to provide support for adaptive applications. We
+are currently discussing with them the possibility of providing the
+functionalities required by us, aiming to extend our adaptivity 
+strat124
+egy to support opportunistic migration and to improve the initial
+resource selection.

@@ -1,0 +1,44 @@
+We have implemented our architecture in Java. To ease testing
+of the system, the consumer agent has a user interface that allows
+us to enter various requests. The producer agent is fully automated
+and the learning and service offering operations work as explained
+before. In this section, we explain the implementation details of the
+developed system.
+We use OWL [11] as our ontology language and JENA as our
+ontology reasoner. The shared ontology is the modified version of
+the Wine Ontology [19]. It includes the description of wine as a
+concept and different types of wine. All participants of the 
+negotiation use this ontology for understanding each other. According
+to the ontology, seven properties make up the wine concept. The
+consumer agent and the producer agent obtain the possible values
+for the these properties by querying the ontology. Thus, all 
+possible values for the components of the wine concept such as color,
+body, sugar and so on can be reached by both agents. Also a 
+variety of wine types are described in this ontology such as Burgundy,
+Chardonnay, CheninBlanc and so on. Intuitively, any wine type 
+described in the ontology also represents a wine concept. This allows
+us to consider instances of Chardonnay wine as instances of Wine
+class.
+In addition to wine description, the hierarchical information of
+some features can be inferred from the ontology. For instance,
+we can represent the information Europe Continent covers 
+Western Country. Western Country covers French Region, which covers
+some territories such as Loire, Bordeaux and so on. This 
+hierarchical information is used in estimation of semantic similarity. In this
+part, some reasoning can be made such as if a concept X covers Y
+and Y covers Z, then concept X covers Z. For example, Europe
+Continent covers Bordeaux.
+1306 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+For some features such as body, flavor and sugar, there is no
+hierarchical information, but their values are semantically leveled.
+When that is the case, we give the reasonable similarity values for
+these features. For example, the body can be light, medium, or
+strong. In this case, we assume that light is 0.66 similar to medium
+but only 0.33 to strong.
+WineStock Ontology is the producer"s inventory and describes
+a product class as WineProduct. This class is necessary for the
+producer to record the wines that it sells. Ontology involves the 
+individuals of this class. The individuals represent available services
+that the producer owns. We have prepared two separate WineStock
+ontologies for testing. In the first ontology, there are 19 available
+wine products and in the second ontology, there are 50 products.

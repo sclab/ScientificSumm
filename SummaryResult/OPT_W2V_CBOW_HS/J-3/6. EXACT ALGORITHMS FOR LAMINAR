@@ -1,0 +1,38 @@
+We can solve this problem by showing that given any laminar ordering, there is an equivalent one in which each keyword has at most 2 children.
+If the graph G has the laminar property, then, by applying Lemma 11, the dynamic programming recurrence in (5), and Lemma 9, we can find an optimal solution to the Budget Optimization problem in O(B3 U3 n) time.
+In addition, we can apply Lemma 9 to compute the  optimal (randomized) solution.
+Furthermore, G has at most twice as many nodes as G. Given a graph with at most two children per node, we  define F[i, b, U] to be the maximum number of clicks achievable by bidding at least b on each of keywords j s.t.
+For this definition, we use Z(b, U) to denote set of allowable bids and budgets over children: Z(b, U) = {b, b , U , U : b ≥ b, U ≤ U, b ≥ b, U ≤ U, U + U ≤ U} Given a keyword i and a bid ai, compute an incremental spend and traffic associated with bidding ai on keyword i, that is ˆt(i, ai) = X q∈Qi\Qi−1 clicksq(ai), and ˆs(i, ai) = X q∈Qi\Qi−1 costq(ai).
+There exists another graph G with the same optimal solution to the Budget Optimization problem, where each node has at most two children in the laminar ordering.
+If the graph G has the laminar property, then, after applying Lemma 11, the dynamic programming  recurrence in (5) finds an optimal deterministic solution to the Budget Optimization problem exactly in O(B3 U3 n) time.
+Observe that in the dynamic program, we have already solved the instance for every  budget U ≤ U, so we can find the randomized solution with no additional asymptotic overhead.
+Now we define F[i, b, U] as max b, b ,U ,U ∈Z(b,U) j F[j , b , U ] + F[j , b , U ] + ˆt(i, b) ff (5) if (ˆs(i, b) ≤ U − U − U and i > 0), and F[i, b, U] = 0 otherwise.
+, S2 is laminar if, for any two sets Si and Sj, if Si ∩ Sj = ∅ then either Si ⊆ Sj or Sj ⊆ Si.
+In this case we say that j is a child of i.
+Given a keyword interaction graph G, we associate a set of neighboring queries Qk = {q : (k, q) ∈ E} with each  keyword k. If this collection of sets if laminar, we say that the graph has the laminar property.
+Let G be a graph with the laminar property.
+For keywords i, j ∈ K, if Qi ⊆ Qj then there exists an optimal deterministic solution to the Budget  Optimization problem with ai ≥ aj.
+Let I be an input to the Budget  Optimization problem and suppose that we find the optimal  deterministic solution for every possible budget U ≤ U.
+Then we can find the optimal solution in time O(U log U).
+We can view the laminar order as a tree with keyword j as a parent of keyword i if Qj is the minimal set containing Qi.
+Note that the knapsack algorithm in Section 2 solves the problem for the case when the graph is a simple matching.
+We first show that to solve the Budget Optimization problem (for general graphs) optimally in pseudopolynomial time, it suffices to provide an algorithm that solves the  deterministic case.
+The proof (omitted) uses ideas similar to Observation 1 and Lemma 1.
+GRAPHS If a graph has special structure, we can sometimes solve the budget optimization problem exactly.
+The bounds in this section make pessimistic assumptions about having to try every budget and every level.
+Here we  generalize this to the case when the graph has a laminar structure, which will allow us to impose a (partial) ordering on the possible bid values, and thereby give a pseudopolynomial algorithm via dynamic programming.
+Qj ⊆ Qi (and exactly b on keyword i) while spending at most U.
+The following lemma will be useful for giving a structure to the optimal solution, and will allow dynamic programming.
+Given a keyword j with c children i1, .
+We call a solution deterministic if it consists of one bid vector, rather than a general distribution over bid vectors.
+Doing so yields the obvious improvement in the bounds. 
+, ic, we now need to enumerate over all ways to allocate the budget among the children and also over all possible minimum bids for the children.
+For many problems, you only need to choose from a discrete set of bid levels (e.g., multiples of one cent).
+Lemma 9.
+A complication is that a node may have many children and thus a term of Uc would not even be pseudopolynomial.
+Lemma 12.
+Note that a laminar  interaction graph would naturally fall out as a consequence of designing a hierarchical keyword set (e.g., shoes,  highheel shoes, athletic shoes).
+A collection S of n sets S1, .
+Lemma 11.
+Lemma 10.
+48 Lemma 13.

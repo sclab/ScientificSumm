@@ -1,0 +1,82 @@
+In most cases, as we may expect, the system"s response is some ranking of documents, i.e., for most actions a, R(a) consists of all the  possible rankings of the unseen documents, and the decision problem boils down to choosing the best ranking of unseen documents based on the most current user model.
+The second component we may include in our user model is the documents that the user has already viewed.
+Leaving aside how to define and estimate these probabilistic  models and the loss function, we can see that such a decision-theoretic formulation suggests that, in order to choose the optimal response to at, the system should perform two tasks: (1) compute the  current user model and obtain m∗ t based on all the useful  information.
+Second, we can also infer a user"s interest based on the  summaries of the viewed documents.
+When a is the action of submitting a keyword query, such a response is exactly what a current retrieval system would do.
+In fact, according to our eager updating strategy, we may even allow a system to respond to a user"s clicking of browser"s Back button after viewing a document in the same way, so that the user can maximally benefit from implicit feedback.
+For example, if the user does not want to see redundant documents, the loss function should include some  redundancy measure on r based on the already seen documents S. Of course, when the response is not to choose a ranked list of documents, we would need a different loss function.
+L(a, r, m) encodes our decision preferences and assesses the  optimality of responding with r when the current user model is m and the current user action is a.
+3.4 Implicit user modeling Implicit user modeling is captured in our framework through the computation of x∗ = argmaxx P(x|U, D, At, Rt−1), i.e., the system"s current belief of what the user"s information need is.
+Clearly, in order to minimize this loss function, the optimal response r would contain the k  documents with the highest probability of relevance, which is intuitively reasonable.
+When a user is presented with a list of summaries of top ranked documents, if the user chooses to skip the first n documents and to view the (n+1)-th document, we may infer that the user is not interested in the displayed summaries for the first n documents, but is attracted by the displayed summary of the (n + 1)-th document.
+For this purpose, instead of performing query expansion as we did in the previous section, we could also compute an updated x∗ based on the previous query and retrieval results.
+Indeed, at any time, we may assume that the system has some belief about what the user is interested in, which we model through a term vector x = (x1, ..., x|V |), where V = {w1, ..., w|V |} is the set of all terms (i.e., vocabulary) and xi is the weight of term wi.
+To model  ranking, we can introduce a factor of the user model - the probability of each of the k documents being viewed by the user, P(view|di), and define the following ranking loss function: L(a, r, m) = − k i=1 P(view|di)P(relevant|di, m) Since in general, if di is ranked above dj (i.e., i < j), P(view|di) > P(view|dj), this loss function would favor a decision to rank  relevant documents above non-relevant ones, as otherwise, we could always switch di with dj to reduce the loss value.
+According to Bayesian decision theory, the optimal decision at time t is to choose a response that minimizes the Bayes risk, i.e., r∗ t = argmin r∈R(at) M L(at, r, mt)P(mt|U, D, At, Rt−1)dmt (1) where P(mt|U, D, At, Rt−1) is the posterior probability of the user model mt given all the observations about the user U we have made up to time t. To simplify the computation of Equation 1, let us assume that the posterior probability mass P(mt|U, D, At, Rt−1) is mostly  concentrated on the mode m∗ t = argmaxmt P(mt|U, D, At, Rt−1).
+Formally, r∗ t = argminrt L(a, rt, m) = argminf(q)L(a, f(q), m) = f(argminqL(qt, f(q), m)) which shows that our goal is to find q∗ = argminqL(qt, f(q), m), i.e., an optimal query that would give us the best f(q).
+For example, if a user has viewed some documents on the first page of search results, when the user clicks on the Next link to fetch more results, an existing retrieval system would still return the next page of results retrieved based on the original query without considering the new evidence that a particular result has been viewed by the user.
+Let f be the retrieval function of the search engine that our agent uses so that f(q) would give us the search results using query q.
+The computed new user model can then be used to rank the documents with a standard information retrieval model.
+Thus in order to respond optimally, the system should use all the evidence collected so far about the user when choosing a response.
+3.2 User models A user model m ∈ M represents what we know about the user U, so in principle, it can contain any information about the user that we wish to model.
+Depending on the user"s retrieval preferences, there can be many other possibilities.
+If we assume that the uncertainty of a user model mt is solely due to the uncertainty of x, the computation of our current estimate of user model m∗ t will mainly involve computing our best estimate of x.
+One deficiency of this top-k loss function is that it is not  sensitive to the internal order of the selected top k documents, so  switching the ranking order of a non-relevant document and a relevant one would not affect the loss, which is unreasonable.
+First, when two consecutive queries are related, the previous query can be exploited to enrich the current query and provide more search context to help disambiguation.
+3.1 A decision-theoretic framework Let A be the set of all user actions and R(a) be the set of all possible system responses to a user action a ∈ A.
+For example, the vector-space model, assumes that both the query and the documents are represented as term vectors and the score of a document with respect to a query is computed based on the similarity between the query vector and the document  vector [21].
+Specifically, at any time, the system would attempt to do two tasks: (1) User model updating: Monitor any useful evidence from the user regarding his/her information need and update the user model as soon as such evidence is available; (2) Improving search results: Rerank  immediately all the documents that the user has not yet seen, as soon as the user model is updated.
+In principle, every action of the user can potentially provide new evidence to help the system better infer the user"s information need.
+We thus introduce another variable S ⊂ D (D is the whole set of documents in the collection) to denote the subset of documents in the search results that the user has already seen/viewed.
+Here again there may be many possibilities, leading to different  algorithms for implicit user modeling.
+In general, at time t, we may represent a user model as mt = (S, x, At, Rt−1), where S is the seen documents, x is the system"s understanding of the user"s information need, and (At, Rt−1) represents the user"s interaction history.
+Given that the current action of the user is entering a query qt (i.e., at = qt), our response would be f(q) for some q.
+Note that we should use the displayed summaries, as opposed to the actual contents of those documents, since it is possible that the displayed summary of the viewed document is relevant, but the document content is actually not.
+However, we can easily imagine that a more  intelligent web search engine would respond to a user"s clicking of the Next link (to fetch more unseen results) with a more  optimized ranking of documents based on any viewed documents in the current page of results.
+Presumably, the most important factor affecting the  optimality of the system"s response is how well the response addresses the user"s information need.
+In this system, we avoided specifying the probabilistic model P(x|U, D, At, Rt−1) by computing x∗ directly with some existing feedback method.
+Let r = (d1, ..., dk) be the top k documents, S be the set of seen documents by the user, and x∗ be the system"s best guess of the user"s information need.
+We now briefly discuss some possibilities when the response is to rank all the unseen  documents and present the top k of them.
+The system"s goal is to choose an optimal response rt ∈ R(at) for the current user action at.
+In a language modeling approach, we may also regard the query unigram language model [12, 29] or the relevance model [14] as a term vector representation of the user"s information need.
+We discuss one such example that is relevant to the search agent that we  implement.
+In general, the space of user  actions and system responses and their granularities would depend on the interface of a particular retrieval system.
+In such a case, even though the search agent does not have control of the retrieval algorithm, it can still attempt to optimize the search results through refining the query sent to the search engine and/or reranking the results obtained from the search engine.
+Obviously, even if a document is relevant, if the user has already seen the document, it would not be useful to present the same document again.
+A different choice of loss function L(qt, f(q), m) would lead to a different query refinement strategy.
+At any time, let At = (a1, ..., at) be the observed sequence of user actions so far (up to time point t) and Rt−1 = (r1, ..., rt−1) be the responses that the system has made responding to the user actions.
+The first component is a component model of the user"s  information need.
+For example, the user"s action may be submitting a query and the system"s response may be returning a list of 10 document summaries.
+Thus the  system should simply perform a regular retrieval and rank documents according to the probability of relevance [18].
+Inferring user models based on such displayed information, rather than the actual content of a document is an important difference between UCAIR and some other similar systems.
+We can thus use these summaries as negative and positive examples to learn a more accurate user model x∗ .
+Intuitively, x would assign high weights to terms that characterize the topics which the user is interested in.
+When a user enters a query qt (current action), our search agent relies on some existing search engine to actually carry out search.
+Note that rt−1 and qt−1 are contained in m as part of the user"s interaction history.
+We further  define a loss function L(a, r, m) ∈ , where a ∈ A is a user action, r ∈ R(a) is a system response, and m ∈ M is a user model.
+Such a term vector is commonly used in information retrieval to represent both queries and  documents.
+Note that an even more general user model may also include other factors such as the user"s reading level and occupation.
+In UCAIR, both of these strategies for inferring an implicit user model are implemented. 
+We can then approximate the integral with the value of the loss function at m∗ t .
+When at does not affect our belief about m∗ t , the first step can be omitted and we may reuse m∗ t−1 for m∗ t .
+Note that our framework is quite general since we can  potentially model any kind of user actions and system responses.
+3.3 Loss functions The exact definition of loss function L depends on the responses, thus it is inevitably application-specific.
+825 We propose to optimize retrieval performance by adapting  system responses based on every action that a user has taken, and cast the optimization problem as a decision task.
+In UCAIR, we heuristically compute q∗ by expanding qt with terms extracted from rt−1 whenever qt−1 and qt have high similarity.
+Since we have no choice of f, our decision is to choose a good q.
+The loss functions for reranking are already discussed above; we now take a look at the loss functions for query refinement.
+We 826 may simply define the loss associated with r as the negative sum of the probability that each of the di is relevant, i.e., L(a, r, m) = − k i=1 P(relevant|di, m).
+Let M be the space of all possible user models.
+That is, the system would choose a response according to r∗ t = argminr∈R(at)L(at, r, S, x∗ , At, Rt−1) (3) where x∗ = argmaxx P(x|U, D, At, Rt−1).
+In interactive IR, a user interacts with the retrieval system through an action dialogue, in which the system responds to each user  action with some system action.
+We emphasize eager updating and reranking, which makes our work quite different from any existing work.
+Below we present a formal decision theoretic framework for optimizing retrieval performance through implicit user modeling in interactive information retrieval.
+Similarly, a  displayed summary may mislead a user to skip a relevant document.
+When viewed in this way, most existing search engines are clearly non-optimal.
+We now discuss two important components in a user model.
+These are precisely what our UCAIR system does.
+Here many standard relevance feedback techniques can be  exploited [19, 20].
+(2) choose a response rt to minimize the loss function value L(at, rt, m∗ t ).
+This is the  decision mechanism implemented in the UCAIR system to be described later.
+We now discuss a few of them.
+That is, r∗ t ≈ argminr∈R(at)L(at, r, m∗ t ) (2) where m∗ t = argmaxmt P(mt|U, D, At, Rt−1).

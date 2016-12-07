@@ -1,0 +1,19 @@
+the score according to the knowledge model is then defined as follows: ∑ ∑∈ ∈ = vt diqkqjkj qtt ik i kj tptptptttpdqscore )|(log)|()|()|(),( 00 )( θθθ (11) again, only the top 100 expansion terms are used. 
+this is a direct extension of the translation model proposed in [3] to our context-dependent relations.
+we use the following pointwise mutual information as a measure of relatedness (mi > 0) [6]: )()( ),( log),( kj kj kj tptp ttp ttmi = • the probability of a relation should be higher than a threshold (0.0001 in our case); having a set of relations, the corresponding knowledge model is defined as follows: )|()|()|( )|()|()|( 00 )( 0 )( qkqjkj qtt i qkjkj qtt i k q tptptttp ttptttptp kj kj θθ θθ ∑ ∑ ∈ ∈ = = (10) where (tj tk)∈q means any combination of two terms in the query.
+in order to reduce space requirement, we further apply the following filtering criteria: • the two terms in the condition should appear at least certain time together in the collection (10 in our case) and they should be related.
+windows of fixed size (10 words in our case) are used to obtain co-occurrence counts of three terms, and the probability )|( kji tttp is determined as follows: ∑= lt kjlkjikji tttctttctttp ),,(),,()|( (9) where ),,( kji tttc is the count of co-occurrences.
+here, we use a simple co-occurrence analysis.
+the extraction of relations of type {tj,tk} → ti can be performed using mining algorithms for association rules [13].
+adding more terms into the condition will create many rarely applicable relations; • in most cases, an ambiguous word such as java can be effectively disambiguated by one useful context word such as computer or hotel; • the addition of more terms will also lead to a higher space and time complexity for extracting and storing term relations.
+however, we will make this restriction due to the following reasons: • user queries are usually very short.
+in principle, the addition is not restricted to one term.
+we call this type of relation context-dependent relation.
+the term added in the condition specifies a stricter context to apply the relation.
+for example, instead of creating a context-independent relation java→program, we will create {java, computer}→program, which means that program is selected when both java and computer appear in a query.
+the solution we propose is to add more context terms into a, so that it is applicable only when all the terms in a appear in a query.
+as we explained earlier, this is the source of many wrong applications.
+a single term in a means that the relation is applicable to all the queries containing that term.
+both a and b have been restricted to single terms in previous studies.
+in general, a term relation can be represented as a→b.
+term relations from documents in this paper, we extract term relations from the document collection automatically.

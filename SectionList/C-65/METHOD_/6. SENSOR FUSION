@@ -1,0 +1,384 @@
+The sensor fusion algorithm receives detection messages
+from the sensor network and estimates the bullet trajectory,
+the shooter position, the caliber of the projectile and the
+type of the weapon. The algorithm consists of well separated
+computational tasks outlined below:
+1. Compute muzzle blast and shockwave directions of 
+arrivals for each individual sensor (see 6.1).
+2. Compute range estimates. This algorithm can 
+analytically fuse a pair of shockwave and muzzle blast AoA
+estimates. (see 6.2).
+3. Compute a single trajectory from all shockwave 
+measurements (see 6.3).
+4. If trajectory available compute range (see 6.4).
+else compute shooter position first and then trajectory
+based on it. (see 6.4)
+5. If trajectory available compute caliber (see 6.5).
+6. If caliber available compute weapon type (see 6.6).
+We describe each step in the following sections in detail.
+6.1 Direction of arrival
+The first step of the sensor fusion is to calculate the 
+muzzle blast and shockwave AoA-s for each sensorboard. Each
+sensorboard has four microphones that measure the ToA-s.
+Since the microphone spacing is orders of magnitude smaller
+than the distance to the sound source, we can approximate
+the approaching sound wave front with a plane (far field
+assumption).
+Let us formalize the problem for 3 microphones first. Let
+P1, P2 and P3 be the position of the microphones ordered by
+time of arrival t1 < t2 < t3. First we apply a simple 
+geometry validation step. The measured time difference between
+two microphones cannot be larger than the sound 
+propagation time between the two microphones:
+|ti − tj| <= |Pi − Pj |/c + ε
+Where c is the speed of sound and ε is the maximum
+measurement error. If this condition does not hold, the 
+corresponding detections are discarded. Let v(x, y, z) be the
+normal vector of the unknown direction of arrival. We also
+use r1(x1, y1, z1), the vector from P1 to P2 and r2(x2, y2, z2),
+the vector from P1 to P3. Let"s consider the projection of
+the direction of the motion of the wave front (v) to r1 
+divided by the speed of sound (c). This gives us how long it
+takes the wave front to propagate form P1 to P2:
+vr1 = c(t2 − t1)
+The same relationship holds for r2 and v:
+vr2 = c(t3 − t1)
+We also know that v is a normal vector:
+vv = 1
+Moving from vectors to coordinates using the dot product
+definition leads to a quadratic system:
+xx1 + yy1 + zz1 = c(t2 − t1)
+xx2 + yy2 + zz2 = c(t3 − t1)
+x2
++ y2
++ z2
+= 1
+We omit the solution steps here, as they are 
+straightforward, but long. There are two solutions (if the source is on
+the P1P2P3 plane the two solutions coincide). We use the
+fourth microphone"s measurement-if there is one-to 
+eliminate one of them. Otherwise, both solutions are considered
+for further processing.
+6.2 Muzzle-shock fusion
+u
+v
+11,tP
+22,tP
+tP,
+2P′
+Bullet trajectory
+Figure 7: Section plane of a shot (at P) and two
+sensors (at P1 and at P2). One sensor detects the
+muzzle blast"s, the other the shockwave"s time and
+direction of arrivals.
+Consider the situation in Figure 7. A shot was fired from
+P at time t. Both P and t are unknown. We have one muzzle
+blast and one shockwave detections by two different sensors
+118
+with AoA and hence, ToA information available. The 
+muzzle blast detection is at position P1 with time t1 and AoA
+u. The shockwave detection is at P2 with time t2 and AoA
+v. u and v are normal vectors. It is shown below that these
+measurements are sufficient to compute the position of the
+shooter (P).
+Let P2 be the point on the extended shockwave cone 
+surface where PP2 is perpendicular to the surface. Note that
+PP2 is parallel with v. Since P2 is on the cone surface which
+hits P2, a sensor at P2 would detect the same shockwave
+time of arrival (t2). The cone surface travels at the speed of
+sound (c), so we can express P using P2:
+P = P2 + cv(t2 − t).
+P can also be expressed from P1:
+P = P1 + cu(t1 − t)
+yielding
+P1 + cu(t1 − t) = P2 + cv(t2 − t).
+P2P2 is perpendicular to v:
+(P2 − P2)v = 0
+yielding
+(P1 + cu(t1 − t) − cv(t2 − t) − P2)v = 0
+containing only one unknown t. One obtains:
+t =
+(P1−P2)v
+c
++uvt1−t2
+uv−1
+.
+From here we can calculate the shoter position P.
+Let"s consider the special single sensor case where P1 = P2
+(one sensor detects both shockwave and muzzle blast AoA).
+In this case:
+t = uvt1−t2
+uv−1
+.
+Since u and v are not used separately only uv, the absolute
+orientation of the sensor can be arbitrary, we still get t which
+gives us the range.
+Here we assumed that the shockwave is a cone which is
+only true for constant projectile speeds. In reality, the angle
+of the cone slowly grows; the surface resembles one half of
+an American football. The decelerating bullet results in a
+smaller time difference between the shockwave and the 
+muzzle blast detections because the shockwave generation slows
+down with the bullet. A smaller time difference results in a
+smaller range, so the above formula underestimates the true
+range. However, it can still be used with a proper 
+deceleration correction function. We leave this for future work.
+6.3 Trajectory estimation
+Danicki showed that the bullet trajectory and speed can
+be computed analytically from two independent shockwave
+measurements where both ToA and AoA are measured [2].
+The method gets more sensitive to measurement errors as
+the two shockwave directions get closer to each other. In
+the special case when both directions are the same, the 
+trajectory cannot be computed. In a real world application,
+the sensors are typically deployed on a plane approximately.
+In this case, all sensors located on one side of the 
+trajectory measure almost the same shockwave AoA. To avoid
+this error sensitivity problem, we consider shockwave 
+measurement pairs only if the direction of arrival difference is
+larger than a certain threshold.
+We have multiple sensors and one sensor can report two
+different directions (when only three microphones detect the
+shockwave). Hence, we typically have several trajectory 
+candidates, i.e. one for each AoA pair over the threshold. We
+applied an outlier filtering and averaging method to fuse 
+together the shockwave direction and time information and
+come up with a single trajectory. Assume that we have
+N individual shockwave AoA measurements. Let"s take all
+possible unordered pairs where the direction difference is
+above the mentioned threshold and compute the trajectory
+for each. This gives us at most N(N−1)
+2
+trajectories. A 
+trajectory is represented by one point pi and the normal vector
+vi (where i is the trajectory index). We define the distance
+of two trajectories as the dot product of their normal 
+vectors:
+D(i, j) = vivj
+For each trajectory a neighbor set is defined:
+N(i) := {j|D(i, j) < R}
+where R is a radius parameter. The largest neighbor set is
+considered to be the core set C, all other trajectories are
+outliers. The core set can be found in O(N2
+) time. The
+trajectories in the core set are then averaged to get the final
+trajectory.
+It can happen that we cannot form any sensor pairs 
+because of the direction difference threshold. It means all 
+sensors are on the same side of the trajectory. In this case,
+we first compute the shooter position (described in the next
+section) that fixes p making v the only unknown. To find
+v in this case, we use a simple high resolution grid search
+and minimize an error function based on the shockwave 
+directions.
+We have made experiments to utilize the measured 
+shockwave length in the trajectory estimation. There are some
+promising results, but it needs further research.
+6.4 Shooter position estimation
+The shooter position estimation algorithm aggregates the
+following heterogenous information generated by earlier 
+computational steps:
+1. trajectory,
+2. muzzle blast ToA at a sensor,
+3. muzzle blast AoA at a sensor, which is effectively a
+bearing estimate to the shooter, and
+4. range estimate at a sensor (when both shockwave and
+muzzle blast AoA are available).
+Some sensors report only ToA, some has bearing 
+estimate(s) also and some has range estimate(s) as well, 
+depending on the number of successful muzzle blast and shockwave
+detections by the sensor. For an example, refer to Figure 8.
+Note that a sensor may have two different bearing and range
+estimates. 3 detections gives two possible AoA-s for 
+muzzle blast (i.e. bearing) and/or shockwave. Furthermore, the
+combination of two different muzzle blast and shockwave
+AoA-s may result in two different ranges.
+119
+11111 ,,,, rrvvt ′′
+22 ,vt
+333 ,, vvt ′
+4t
+5t
+6t
+bullet trajectory
+shooter position
+Figure 8: Example of heterogenous input data for
+the shooter position estimation algorithm. All 
+sensors have ToA measurements (t1, t2, t3, t4, t5), one 
+sensor has a single bearing estimate (v2), one sensor has
+two possible bearings (v3, v3) and one sensor has two
+bearing and two range estimates (v1, v1,r1, r1)
+In a multipath environment, these detections will not only
+contain gaussian noise, but also possibly large errors due to
+echoes. It has been showed in our earlier work that a similar
+problem can be solved efficiently with an interval arithmetic
+based bisection search algorithm [8]. The basic idea is to
+define a discrete consistency function over the area of 
+interest and subdivide the space into 3D boxes. For any given
+3D box, this function gives the number of measurements
+supporting the hypothesis that the shooter was within that
+box. The search starts with a box large enough to contain
+the whole area of interest, then zooms in by dividing and
+evaluating boxes. The box with the maximum consistency
+is divided until the desired precision is reached. 
+Backtracking is possible to avoid getting stuck in a local maximum.
+This approach has been shown to be fast enough for 
+online processing. Note, however, that when the trajectory
+has already been calculated in previous steps, the search
+needs to be done only on the trajectory making it orders of
+magnitude faster.
+Next let us describe how the consistency function is 
+calculated in detail. Consider B, a three dimensional box, we
+would like to compute the consistency value of. First we
+consider only the ToA information. If one sensor has 
+multiple ToA detections, we use the average of those times, so
+one sensor supplies at most one ToA estimate. For each
+ToA, we can calculate the corresponding time of the shot,
+since the origin is assumed to be in box B. Since it is a box
+and not a single point, this gives us an interval for the shot
+time. The maximum number of overlapping time intervals
+gives us the value of the consistency function for B. For a
+detailed description of the consistency function and search
+algorithm, refer to [8].
+Here we extend the approach the following way. We 
+modify the consistency function based on the bearing and range
+data from individual sensors. A bearing estimate supports
+B if the line segment starting from the sensor with the 
+measured direction intersects the B box. A range supports B,
+if the sphere with the radius of the range and origin of the
+sensor intersects B. Instead of simply checking whether the
+position specified by the corresponding bearing-range pairs
+falls within B, this eliminates the sensor"s possible 
+orientation error. The value of the consistency function is 
+incremented by one for each bearing and range estimate that is
+consistent with B.
+6.5 Caliber estimation
+The shockwave signal characteristics has been studied 
+before by Whitham [20]. He showed that the shockwave period
+T is related to the projectile diameter d, the length l, the
+perpendicular miss distance b from the bullet trajectory to
+the sensor, the Mach number M and the speed of sound c.
+T = 1.82Mb1/4
+c(M2−1)3/8
+d
+l1/4 ≈ 1.82d
+c
+(Mb
+l
+)1/4
+0
+100
+200
+300
+400
+500
+600
+0 10 20 30
+miss distance (m)shockwavelength(microseconds)
+.50 cal
+5.56 mm
+7.62 mm
+Figure 9: Shockwave length and miss distance 
+relationship. Each data point represents one 
+sensorboard after an aggregation of the individual 
+measurements of the four acoustic channels. Three
+different caliber projectiles have been tested (196
+shots, 10 sensors).
+To illustrate the relationship between miss distance and
+shockwave length, here we use all 196 shots with three 
+different caliber projectiles fired during the evaluation. (During
+the evaluation we used data obtained previously using a few
+practice shots per weapon.) 10 sensors (4 microphones by
+sensor) measured the shockwave length. For each sensor,
+we considered the shockwave length estimation valid if at
+least three out of four microphones agreed on a value with
+at most 5 microsecond variance. This filtering leads to a
+86% report rate per sensor and gets rid of large 
+measurement errors. The experimental data is shown in Figure 9.
+Whitham"s formula suggests that the shockwave length for a
+given caliber can be approximated with a power function of
+the miss distance (with a 1/4 exponent). Best fit functions
+on our data are:
+.50 cal: T = 237.75b0.2059
+7.62 mm: T = 178.11b0.1996
+5.56 mm: T = 144.39b0.1757
+To evaluate a shot, we take the caliber whose 
+approximation function results in the smallest RMS error of the
+filtered sensor readings. This method has less than 1% 
+caliber estimation error when an accurate trajectory estimate
+is available. In other words, caliber estimation only works
+if enough shockwave detections are made by the system to
+compute a trajectory.
+120
+6.6 Weapon estimation
+We analyzed all measured signal characteristics to find
+weapon specific information. Unfortunately, we concluded
+that the observed muzzle blast signature is not characteristic
+enough of the weapon for classification purposes. The 
+reflections of the high energy muzzle blast from the environment
+have much higher impact on the muzzle blast signal shape
+than the weapon itself. Shooting the same weapon from 
+different places caused larger differences on the recorded signal
+than shooting different weapons from the same place.
+0
+100
+200
+300
+400
+500
+600
+700
+800
+900
+0 100 200 300 400
+range (m)
+speed(m/s)
+AK-47
+M240
+Figure 10: AK47 and M240 bullet deceleration 
+measurements. Both weapons have the same caliber.
+Data is approximated using simple linear regression.
+0
+100
+200
+300
+400
+500
+600
+700
+800
+900
+1000
+0 50 100 150 200 250 300 350
+range (m)
+speed(m/s)
+M16
+M249
+M4
+Figure 11: M16, M249 and M4 bullet deceleration
+measurements. All weapons have the same caliber.
+Data is approximated using simple linear regression.
+However, the measured speed of the projectile and its 
+caliber showed good correlation with the weapon type. This
+is because for a given weapon type and ammunition pair,
+the muzzle velocity is nearly constant. In Figures 10 and
+11 we can see the relationship between the range and the
+measured bullet speed for different calibers and weapons.
+In the supersonic speed range, the bullet deceleration can
+be approximated with a linear function. In case of the
+7.62 mm caliber, the two tested weapons (AK47, M240) can
+be clearly separated (Figure 10). Unfortunately, this is not
+necessarily true for the 5.56 mm caliber. The M16 with its
+higher muzzle speed can still be well classified, but the M4
+and M249 weapons seem practically undistinguishable 
+(Figure 11). However, this may be partially due to the limited
+number of practice shots we were able to take before the
+actual testing began. More training data may reveal better
+separation between the two weapons since their published
+muzzle velocities do differ somewhat.
+The system carries out weapon classification in the 
+following manner. Once the trajectory is known, the speed can be
+calculated for each sensor based on the shockwave geometry.
+To evaluate a shot, we choose the weapon type whose 
+deceleration function results in the smallest RMS error of the
+estimated range-speed pairs for the estimated caliber class.

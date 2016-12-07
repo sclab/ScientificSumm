@@ -1,0 +1,90 @@
+In order to function in scenarios like the ones described above, Spectrum"s policy manager must manage and maintain all the  references to various chunks of media.
+The directories are: data: this directory is used by the storage manager to store each active URL"s chunks of media.
+To do this, the application requests that the content manager add an additional new policy reference to the part of the content to preserved.
+We provide a set of asynchronous remote access stub routines that allow users to select the transport  protocol to use and to select the encoding method that should be used with the data to be transferred.
+Together, these files and directories are used to track references in our implementation of Spectrum.
+a  remote store) only the meta-information needed to contact the remote 7 Content Manager Policy Manager Storage Manager Storage Fetcher Program Listings Graphical User Interface Network Enabled DVR Program Information Content DVR Application Figure 2: Spectrum in a Network Enabled DVR node is stored locally.
+Note that this directory is used only if the storage manager is local.
+3.3 Spectrum Operational Example To illustrate how Spectrum handles references to content,  consider a Spectrum-based PVR application programmed to store one days worth of streaming content in a rolling window.
+In fact, in our implementation we pass parameters to base-level policies as a string that can be parsed using a getopt-like function.
+The prefs file contains a list of active policy references that point to this URL.
+The DVR  application obtains program listings from some network source, deals with user presentation through a graphical user interface (GUI), and  interface with the Spectrum system through the content management layer APIs.
+The centralized station allows administrators to manage the distribution and storage of content without requiring continuous communication between the content manager and the edge devices, i.e.
+Now, consider the case where the user decides to save part of the content (e.g.
+This combination of higher level functions allows the user to select both content to be stored and what storage policies to 8 Content Manager Centralized Content Management station Content InformationUser Interface Policy Manager Storage Manager Storage Fetcher Edge Portal Server Policy Manager Storage Manager Storage Fetcher Edge Portal Server Distributed Content To Media Endpoints To Media Endpoints Figure 3: Spectrum in a Content Distribution Architecture apply to such content.
+To efficiently handle communications with layers running on  remote systems, all Spectrum"s API calls support both synchronous and asynchronous modes through a uniform interface defined by the reqinfo structure.
+The newclip function adds a reference to each arriving chunk, and schedules a callback a day later.
+To use a Spectrum API function, the caller first chooses either the sync or async mode and allocates a reqinfo structure.
+base data url1 url2 (media files...) (media files...) meta store (general info...) url1 chunks prefs ranges media chunks, etc.url2 poly host ref1 ref1.files ref1.state Figure 4: Data layout of Spectrum policy store preserved by the second reference.
+Obtaining the content (through the network or locally) and the subsequent storage on the local system is then handled by the policy and storage managers.
+General information is stored in the store subdirectory and  includes the location of the store (local or remote) and  information about the types of chunks of data the store can handle.
+To set up the rolling window, the application would use the content manager API to create a policy group and policy reference to the desired content.
+Finally, the media file describes the format of the media being stored under the current URL.
+If the policy manager is using an external storage manager (e.g.
+An important aspect of Spectrum is that it can manage content based on a given policy across heterogenous platforms.
+In our environment content distribution and  storage is done from a centralized content management station which controls several of the edge portals.
+To address this issue, we treat each base-level policy as if it was a separate program.
+This  information includes the base-policy and the parameters used to create the reference.
+Later, when the async call completes or a timeout occurs, the async callback function is called with the appropriate information needed to complete processing.
+For sync calls, the result of the calls is returned  immediately in the reqinfo structure.
+While we are current transferring our XML encoded  messages using a simple TCP connection, in a real world setting this can easily be replaced with an implementation based on secure sockets layer (SSL) to improve security by adding SSL as a  transport protocol.
+For example, a carrier-grade Spectrum manager might store all its policy and reference information in a high-performance database system.
+meta: this directory contains general meta information about the storage manager being used and the data it is storing.
+In this case all layers of the Spectrum architecture reside on the same physical device in a local configuration.
+Thus, the preserved content has two references to it: one from the rolling window and one from the request to preserve the content for an additional week.
+For example, a policy reference named ref1 would be stored in ref1, ref1.files, and ref1.state.
+In order for this to work properly, all  Spectrumbased applications must understand the base-level policies and how they can be parameterized.
+For layers that reside on remote systems (e.g.
+Next the caller invokes the  desired Spectrum API function passing the reqinfo structure as an argument.
+The Spectrum system is applicable to both scenarios as follows.
+Each layer keeps track of its state through a set of local data files that persist across reboots, thus allowing Spectrum to smoothly handle power cycles.
+This function will discard the remaining reference to the content and as there are no remaining references the content will be freed.
+The establishment of the one-day rolling window policy reference would cause the policy manger to ask the storage manager to start receiving the stream.
+As we  explained previously in Section 2.2, envision a small set of base-level policy functions that can be parameterized to produce a wide range of storage polices.
+Our Spectrum policy manager implementation accomplishes this using the file and directory structure shown in Figure 4.
+The ref1.files file contains the list of references to chunks that pref ref1 owns.
+Information on each policy reference is broken up into three files.
+Our test application uses a local policy and storage manager to fetch content and store it in a normal  Unixbased filesystem.
+After the additional week has past, the callback function for the second reference will be called.
+3.1 Implementation We have implemented Spectrum"s three layers in C as part of a library that can be linked with Spectrum-based applications.
+For async calls, the  reqinfo also contains a pointer to a callback function.
+The meta directory also contains a subdirectory per-URL that contains information about the chunks of data stored.
+Since this part of Spectrum is not on the critical data path, this type of formatting is not a performance issue.
+Each host subdirectory contains the set of policy references  created by that host.
+The media files can be  encoded in any format, for example MPEG, Windows Media, or QuickTime.
+a storage appliance), then the media files are stored remotely and are only remotely  referenced by the policy manager.
+At that time, the policy will drop its now day-old reference to the content and the content will be discarded unless it is referenced by some other policy.
+We currently are using plain TCP for most of our transport.
+3.2 Using the Spectrum Content Management System In this section we show two examples of the use of the Spectrum Content Management System in our environment.
+For async calls, a callback function must be provided when the reqinfo is allocated.
+This means that several approaches to distributed operation are possible that would satisfy the architectural requirements.
+The ref1 file contains information about the policy reference that does not change frequently.
+The ranges file contains a list of time ranges of data currently stored.
+Each base-level policy should have a well known name and command line  options for parameterization.
+We are currently using the eXpat XML library [4] to encode our calls.
+In this environment streaming media content (both live, canned-live and on-demand) is being distributed to edge portals from where streaming endpoints are being served.
+After one day the reference from the rolling window will be discarded, but the content will be 9 ref2, etc.
+This format is easily understood and  provides portability since byte order is not an issue in a string.
+As each chunk of streaming data arrives, the policy manager executes the policy reference"s newclip function.
+Each API call takes a pointer to a  reqinfo structure as one of its arguments.
+The chunks file contains a list of chunks currently stored and their reference counts.
+There are three classes of data stored, and each class has its own top level directory.
+The use of Spectrum in a streaming content distribution  architecture (e.g.
+This structure is used to hold the call state and return status.
+For sync calls, the reqinfo can be allocated on the stack, otherwise it is allocated with malloc.
+These references are persistent and thus must be able to survive even if the machine maintaining them is rebooted.
+Function calls across the different Spectrum APIs can be  encoded using a variety of formats include plain text, XDR, and XML.
+Finally, the ref1.state file contains optional policy-specific state information that can change over time.
+a specific program) in the rolling window for an extra week.
+The modular/layered design of the Spectrum architecture  simplifies the objective of distribution of functionality.
+poly: this directory contains a set of host subdirectories.
+For successful async calls, a call in progress value is returned.
+once instructions have been given to edge devices they can operate independently until changes are to be made.
+In this section we describe our implementation of Spectrum and describe how it can be used.
+Note that other implementations are possible.
+The focus of our previous work has been content distribution for streaming media content [2] and network enabled digital video recording [3].
+Transport protocols can range  simple protocols such as UDP up to more complex protocols such as HTTP.
+Furthermore, communication between functions is typically of a master-slave(s) nature.
+In our implementation we have opted to realize this functionality with a simple modular design.
+Figure 2 shows the Network Enabled DVR (NED) architecture.
+PRISM [2]) is depicted in Figure 3.

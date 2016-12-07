@@ -1,0 +1,52 @@
+That is one of the point where our system still has to be improved by adding another set of rules.
+Then, the non cooperation degree μ(A) of agent A is: μ(A) = max(μH (A), μB(A), μM (A)) (4) Then, we have three cases determining which kind of action A will choose: • if μ(A) = μH (A) then A will use the head coverage  algorithm we detailed in the previous subsection • if μ(A) = μB(A) then A will use the distributed clustering algorithm (see section 3) • if μ(A) = μM (A) then A will process Mk immediately in order to help its sender Those three cases summarize the current activities of our agents: they have to find the best parent for them (μ(A) = μH (A)),  improve the structuring through clustering (μ(A) = μB(A)) and  process other agent messages (μ(A) = μM (A)) in order to help them fulfill their own goals.
+Finally the extra head coverage rules are a real improvement on the distributed algorithm alone.
+It is caused by the fact that there is no similarity value between the "viral hepatitis" term and any of the term of the other concept agents.
+Figure 8: Concept agent tree after autonomous stabilization of the system without head coverage rule We now illustrate this rule behavior with an example.
+For this low level structuring, ontologists generally base The Sixth Intl.
+For a given agent A having a parent P, a set of brothers Bi and which received a set of messages Mk having the priority pk the three non cooperation degrees are: • μH (A) = 1 − a(P, A), is the "head coverage" non  cooperation degree, determined by the head coverage of the parent, • μB(A) = max(1 − similarity(A, Bi)), is the  "brotherhood" non cooperation degree, determined by the worst brother of A regarding similarities, • μM (A) = max(pk), is the "message" non cooperation  degree, determined by the most urgent message received.
+We designed a  complementary algorithm to drive this search: When an agent C is unsatisfied by its parent P, it evaluates a(Bi, C) with all its brothers (noted Bi) the one maximizing a(Bi, C) is then chosen as the new parent.
+Curve number 2 represents the average of the value obtained when only the distributed clustering algorithm is activated, not the full rule set.
+Thanks to those two notations we can describe the parent adequacy function a(P, C) between a parent P and a child C: a(P, C) = |TP ∩ head(TC )| |TP ∪ head(TC )| (3) Then, the best parent for C is the P agent that maximizes a(P, C).
+It means that less messages are exchanged in the system while obtaining a tree of higher quality for the  ontologist. 
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 0 5000 10000 15000 20000 25000 10 20 30 40 50 60 70 80 90 100 Amountofmessages Amount of input terms 1.
+Figure 9: Concept agent tree after activation of the head  coverage rule After activating the head coverage rule and letting the system stabilize again we obtain figure 9.
+Some terms do not have any  similarity value with any extracted term.
+We can see that "viral hepatitis" slipped through the branch leading to "hepatitis" and chose it as its new parent.
+In this case, the  metric used is the number of messages exchanged in the system.
+This rule tends to push agents described by a set of term to  become leafs of the concept tree.
+Each agent can try to  determine if its parent is adequate.
+The distributed clustering algorithm tends to  introduce new layers in the taxonomy, while the head coverage  algorithm tends to push some of the agents toward the leafs of the taxonomy.
+The solution we chose came from the search for minimizing non cooperation within the system in accordance with the ADELFE method.
+It is a sensible default choice since "viral hepatitis" is a more specific term than "hepatitis".
+4.1 Adding Head Coverage Rules In this case, agents can act with a very local point of view simply by looking at the parent/child relation.
+In the previous sections, we assumed that similarity can be  computed for any term pair.
+Distributed clustering only (on average) 2.
+It is possible to guess this because each concept agent is described by a set of terms and thanks to the "Head-Expansion" term network.
+We can notice that "hépatite viral" (viral hepatitis) is still linked to the taxonomy root.
+Moreover, let"s note the very small variation of the  average performances with the maximum and the minimum.
+Using this observation, we built a new set of rules, which are not based on similarity to support low level structuring.
+In the worst case for 100 terms, the variation is of 126.73 for an average of 20,737.03 (around 0.6%) which proves the excellent stability of the system.
+But, as soon as one uses real data this property is not verified anymore.
+Moreover for leaf nodes it is sometimes interesting to use other means to position them in the hierarchy.
+The given value is the average of message amount sent in the system as a whole for one hundred runs without user interaction.
+In the following TX will be the set of terms describing concept agent X and head(TX ) the set of all the terms that are head of at least one element of TX .
+It obviously raises the question on how to deal with multiple criteria in our taxonomy building, and how agents  determine their priorities at a given time.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1289 their choices on simple heuristics.
+4.2 On Using Several Criteria In the previous sections and examples, we only used one  algorithm at a time.
+Each agent computes three non cooperation degrees and chooses its current priority depending on which degree is the  highest.
+Figure 8 shows the state of the system after stabilization on test data.
+An agent unsatisfied by its parent can then try to find a better one by evaluating adequacy with candidates.
+They introduce more constraints and stability point is reached with less interactions and decision making by the agents.
+4.3 Experimental Complexity Revisited We evaluated the experimental complexity of the whole  multiagent system when all the rules are activated.
+But obviously our agents lack a way to backtrack in case of modifications in the taxonomy which would make them be located in the wrong branch.
+The highest degree term of this  polynomial is in n3 , then our multi-agent system has a O(n3 ) complexity 1290 The Sixth Intl.
+It addresses our concern to improve the low level structuring of our taxonomy.
+Dynamo, all rules (on average, with min and max) 2.
+It results in the plots of figure 10.
+Once again the system has been executed with input data sets ranging from ten to one hundred terms.
+Curve number 1 represents the average of the value obtained.
+Joint Conf.
+Curve number 3 represents the polynomial minimizing the error with curve number 1.
+Joint Conf.
+Cubic polynomial Figure 10: Experimental results on average.

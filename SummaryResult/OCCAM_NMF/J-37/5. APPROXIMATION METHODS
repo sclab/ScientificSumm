@@ -1,0 +1,36 @@
+furthermore, interior-point methods in this class have polynomial-time worst-case run time, as opposed to the simplex algorithm, which takes exponentially many steps in the worst case.
+a threshold on can also be used as a termination criterion for using the method as an anytime algorithm.
+we observe that running such a linear programming method yields a method for finding -equilibria (i.e.,  strategy profiles in which no agent can increase her expected  utility by more than by deviating).
+5].
+for example, many  interiorpoint path-following algorithms have this property [55, ch.
+in contrast, there are interior-point methods for linear programming that maintain primal and dual  feasibility throughout the execution.
+(in fact, it only obtains primal and dual feasibility at the very end of execution.)
+one problem with the simplex method is that it is not a primal-dual algorithm, that is, it does not maintain both  primal and dual feasibility throughout its execution.
+thus, without requiring further computation, we get lower bounds on the expected utility of each agent"s strategy against that agent"s worst-case opponent.
+every feasible solution of the dual yields an upper bound on the optimal value of the primal, and vice versa [9, p. 57].
+(when using the primal simplex method, dual solutions may be read off of the lp tableau.)
+also, for any feasible solution to the lp, we can get bounds on the quality of the strategies by examining the primal and dual solutions.
+at any point in time, they can output the best strategies found so far.
+thus, the primal and dual simplex  methods serve as anytime algorithms (for a given abstraction) for players 2 and 1, respectively.
+(the dual simplex method can be thought of as running the primal simplex method on the dual problem.)
+analogously, the dual simplex maintains dual feasibility and proceeds by finding increasingly better dual solutions until the primal solution vector is feasible.
+the primal simplex maintains primal feasibility and proceeds by finding better and better primal solutions until the dual solution vector is feasible, 167 at which point optimality has been reached.
+in the lp, primal solutions correspond to strategies of player 2, and dual solutions correspond to strategies of player 1. there are two versions of the simplex method: the primal simplex and the dual simplex.
+this approach has inherent features which we can leverage into desirable properties in the context of solving games.
+5.2 algorithmic approximations in the case of two-player zero-sum games, the  equilibrium computation can be modeled as a linear program (lp), which can in turn be solved using the simplex method.
+one can solve  increasingly less abstracted versions of the game, and evaluate the quality of the solution at every iteration using the ex post method discussed above.
+this knob also begets an anytime algorithm.
+thus, with this threshold as a parameter, we have a knob to turn that in one extreme (threshold = 0) yields an optimal  abstraction and in the other extreme (threshold = ∞) yields a highly abstracted game (this would in effect restrict  players to ignoring all signals, but still observing actions).
+one possibility is to create edge weights in the bipartite graphs used in algorithm 1, and then instead of requiring perfect matchings in the  unweighted graph we would instead require perfect matchings with low cost (i.e., only consider two nodes to be ordered game isomorphic if the corresponding bipartite graph has a perfect matching with cost below some threshold).
+there are many ways in which the penalty function could be defined and implemented.
+5.1 state-space approximations by slightly modifying gameshrink, we can obtain an  algorithm that yields even smaller game trees, at the expense of losing the equilibrium guarantees of theorem 2. instead of requiring the payoffs at terminal nodes to match exactly, we can instead compute a penalty that increases as the  difference in utility between two nodes increases.
+this  technique provides ex post guarantees about the worst-case  performance of a strategy, and can be used independently of the method that is used to compute the strategies.
+(a  variation of this technique may also be applied in n-person games where only one player"s strategies are held fixed.)
+this will be most useful when we want to evaluate how well a given strategy performs when we know that it is not an equilibrium strategy.
+thus, we can objectively determine the expected worst-case performance of player 2"s strategy.
+then player 1 is faced with a single-agent decision problem, which can be solved  bottomup, maximizing expected payoff at every node.
+we can then fix the probabilities of player 2"s actions in the game tree as if they were chance moves.
+to illustrate this, suppose we know player 2"s planned strategy for some game.
+for a two-player game, we can always evaluate the worst-case performance of a strategy, thus providing some objective evaluation of the strength of the strategy.
+this section discusses general techniques for computing  approximately optimal strategy profiles.
+some games are too large to compute an exact  equilibrium, even after using the presented abstraction technique.

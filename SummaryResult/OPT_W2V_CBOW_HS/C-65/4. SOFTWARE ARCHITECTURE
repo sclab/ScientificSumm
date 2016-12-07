@@ -1,0 +1,74 @@
+This  architecture enabled us to deploy the same set of sensors in a centralized scenario, where the ad-hoc mote network (using the I2 C interface) collected and forwarded the results to a base station or to build a decentralized system where the local PDAs execute the sensor fusion on the data obtained through the Bluetooth interface (and optionally from other sensors through the mote interface).
+The time conversion and synchronization between the sensor  network and the board is done by the mote by periodically  requesting the capture of the current timer value through a dedicated GPIO line and reading the captured value from the register file through the I2 C interface.
+The  primary tasks of the sensor board software are 1) acquiring data samples from the analog channels, 2) processing  acoustic data (detection), and 3) providing access to the results and run-time parameters through different interfaces.
+Thus, it effectively integrates the building blocks within the sensorboard and decouples the various communication interfaces.
+By default, they are connected to the RS232 port and to the on-board digital compass line respectively, however, they can be rewired to any communication interface by changing the register file base address in the programs (e.g.
+The Routing Integrated Time Synchronization (RITS) [15] protocol relies on very accurate MAC-layer time-stamping to embed the cumulative delay that a data message accrued since the time of the detection in the message itself.
+If the signal amplitude on one of the channels crosses a predefined threshold, the recorder  component suspends the sample collection with a predefined delay and dumps the contents of the buffers through the USB link.
+The same set of  registers are also accessible through a UART link with a terminal emulation program.
+The recorder component is not used in the final  deployment, however, it is essential for development purposes for refining parameter values for new types of weapons or for other acoustic sources.
+The MICAz motes are responsible for distributing  measurement data across the network, which drastically  improves the localization and classification results at each node.
+the  command line interface can be provided through the Bluetooth channel).
+Soldier Operated Device (PDA/Laptop) FPGA Sensor Board Mica Radio Module 2.4 GHz Wireless Link Radio Control Message Routing Acoustic Event Encoder Sensor Time Synch.
+Interface PicoBlaze WT12 Bluetooth Radio MOTE IF:I2C,Interrupts USB PSRAM U A R T U A R T MB det SW det REC Bluetooth Link User Interface Sensor Fusion Location Engine GPS Message (Dis-)AssemblerSensor Control Figure 4: Software architecture diagram.
+Network Time Synch.Remote Control Time stamping Interrupts Virtual Register Interface C O O R D I N A T O R A n a l o g c h a n n e l s Compass PicoBlaze Comm.
+Note that measurements from other nodes along with their location and orientation information also arrive from the sensorboard which acts as a gateway between the PDA and the sensor network.
+The ad-hoc internode communication, time synchronization and data sharing are the responsibilities of a microcontroller based radio module.
+Two of the external interfaces are not accessible through the register file: a high speed USB link and the SRAM  interface are tied to the recorder block.
+Note that the core operates independently from the other signal  processing modules, therefore, it can be used to validate the detection results off-line.
+The length of these buffers and delays, the sampling rate, the threshold level and the set of recorded channels can be (re)configured run-time through the register file.
+Based on the the current and previous readings and the corresponding mote local time stamps, the mote can calculate and maintain the scaling factor and offset between the two time domains.
+The  messages need to be propagated in the ad-hoc multihop network using a routing service.
+The higher level protocols on these lines are implemented by Xilinx PicoBlaze microcontroller cores [13] and corresponding software programs.
+The results of the sensor fusion are displayed on the PDA screen with low latency.
+Every receiving node can subtract the delay from its current time to obtain the detection time in its local time reference.
+This component receives the  samples from all channels and stores them in circular buffers in the PSRAM device.
+Each of the analog channels is driven by a serial A/D core for providing a 20 MHz serial clock and shifting in 8-bit data samples at 1 MS/s and a digital  potentiometer driver for setting the required gain.
+These time stamps and all other timing information (parameters, acoustic event features) are based on a 1 MHz clock and an internal timer on the FPGA.
+As it is shown in Figure 4, a centralized virtual register file contains the address decoding logic, the registers for storing parameter values and results and the point to point data buses to and from the peripherals.
+Apart from automatic message aggregation and  efficient buffer management, the most unique feature of DFRF is its plug-in architecture, which accepts custom routing policies.
+the number of acoustic channels) and run independently.
+The USB module  implements a simple FIFO with parallel data lines connected to an external FT245R USB device controller.
+The complete  configuration occupies 40% of the resources (slices) of the FPGA and the maximum clock speed is 30 MHz, which is safely higher than the speed used with the actual device (20MHz).
+The FPGA contains several UART cores as well: for  communicating with the on-board Bluetooth module, for  controlling the digital compass and for providing a wired RS232 link through a dedicated connector.
+The coordinator core constantly monitors the  detection results and generates a mote interrupt promptly upon full detection or after a reasonable timeout after partial detection.
+That is, at every node it measures the time the message spent there and adds this to the number in the time delay slot of the message, right before it leaves the current node.
+The detectors fetch run-time  parameter values from the register file and store their results there as well.
+One of them provides a command line interface for test and debug purposes, while the other is responsible for parsing compass readings.
+Since, the application is  implemented in pure Java, it is portable across different PDA platforms.
+The handheld device obtains its own GPS location data and  di115 rectly receives orientation information through the  sensorboard.
+Note, that the motes also need to convert the sensorboard time stamps to mote time as it is described earlier.
+The sensing and signal processing tasks are executed by an FPGA, which also acts as a bridge between various wired and wireless communication channels.
+Also, because the low-level interfaces are hidden by the register file, one can easily add/replace these with new ones (eg.
+Different policies can be used for  different messages concurrently, and the application is able to 116 change the underlying policies at run-time (eg.
+The mote interface is implemented by the I2 C slave IP core and a thin adaptation layer which provides a data and address bus abstraction on top of it.
+Correlating ToA measurements requires a common time base and precise time synchronization in the sensor network.
+The maximum  effective bandwidth is 100 Kbps through this interface.
+The control, status and data registers of the UART modules are available through the register file.
+The sensor fusion and user interface  subsystem is running on PDAs and were implemented in Java.
+Also, it fine tunes the execution of the signal processing cores by setting  parameters through the same link.
+Routing policies are state machines that govern how received messages are stored, resent or discarded.
+The sensor fusion module receives and unpacks raw  measurements (time stamps and feature vectors) from the  sensorboard through the Bluetooth link.
+The mote application is implemented in nesC [5] and is running on top of TinyOS [6].
+: the first generation of motes  supported a standard μP interface bus on the sensor connector, which was dropped in later designs).
+In fact, we switched several times between a simple but lavish broadcast policy and a more efficient gradient routing on the field.
+Although each of these execution models suit their domain specific tasks extremely well, this diversity (a) (b) Figure 3: Sensor prototypes mounted on a kevlar helmet (a) and in a plastic box on a tripod (b).
+The signal paths meet only just before the register file.
+The border between software and hardware is  considerably blurred on the sensor board.
+The FPGA cores are implemented in VHDL, the PicoBlaze programs are written in assembly.
+The most important results are the time stamps of the detected events.
+The sensor application relies on three subsystems  exploiting three different computing paradigms as they are shown in Figure 4.
+These  interfaces provide 1 MB/s effective bandwidth for downloading recorded audio samples, for example.
+The data acquisition and signal processing paths exhibit clear symmetry: the same set of IP cores are instantiated four times (i.e.
+: because of the changing RF environment or power budget).
+The RAM driver implements data read/write cycles with correct timing and is connected to the on-board pseudo SRAM.
+Besides a robust radio (MAC) layer, the motes require two essential middleware services to achieve this goal.
+presents a challenge for software development and system integration.
+Similarly, the application employs a wide variety of  communication protocols such as Bluetooth and IEEE 802.14.5 wireless links, as well as optional UARTs, I2 C and/or USB buses.
+We successfully integrated the  Directed Flood-Routing Framework (DFRF) [9] in our  application.
+The service provides very accurate time conversion (few μs per hop error), which is more than adequate for this application.
+Each channel has its own shockwave and muzzle blast detector, which are described in Section 5.
+Example policies include spanning tree routing, broadcast,  geographic routing, etc.
+The IP  cores-implemented in hardware description languages (HDL) on the  reconfigurable FPGA fabric-closely resemble hardware  building blocks.
+However, some of them-most notably the soft processor cores-execute true software programs.
+With its 3 KB RAM and 28 KB program space (ROM) requirement, it easily fits on the MICAz motes. 

@@ -1,0 +1,298 @@
+In certain network settings, the transit costs of nodes along the
+forwarding path may not be common knowledge, i.e., there exists
+the problem of hidden information. In this section, we address the
+following questions:
+1. Is it possible to design contracts that induce cooperative 
+behavior in the presence of both hidden-action and 
+hiddeninformation?
+2. What is the principal"s loss due to the lack of knowledge of
+the transit costs?
+In hidden-information problems, the principal employs 
+mechanisms to induce truthful revelation of private information from the
+agents. In the routing game, the principal wishes to extract transit
+cost information from the network routers in order to determine the
+lowest cost path (LCP) for a given source-destination pair. The 
+network routers act strategically and declare transit costs to maximize
+their profit. Mechanisms that have been proposed in the literature
+for the routing game [24, 13] assume that once the transit costs
+have been obtained, and the LCP has been determined, the nodes
+on the LCP obediently forward all packets, and that there is no loss
+in the network, i.e., k = 0. In this section, we consider both hidden
+information and hidden action, and generalize these mechanisms
+to induce both truth revelation and high-effort action in 
+equilibrium, where nodes transmit over a lossy communication channel,
+i.e., k ≥ 0.
+4.1 V CG Mechanism
+In their seminal paper [24], Nisan and Ronen present a VCG
+mechanism that induces truthful revelation of transit costs by edges
+120
+Figure 4: Game structure for F P SS, where only hidden-information
+is considered.
+Figure 5: Game structure for F P SS , where both 
+hiddeninformation and hidden-action are considered.
+in a biconnected network, such that lowest cost paths can be 
+chosen. Like all VCG mechanisms, it is a strategyproof mechanism,
+meaning that it induces truthful revelation in a dominant strategy
+equilibrium. In [13] (FPSS), Feigenbaum et al. slightly modify
+the model to have the routers as the selfish agents instead of the
+edges, and present a distributed algorithm that computes the VCG
+payments. The timeline of the FPSS game is presented in 
+figure 4. Under FPSS, transit nodes keep track of the amount of
+traffic routed through them via counters, and payments are 
+periodically transferred from the principals to the transit nodes based on
+the counter values. FPSS assumes that transit nodes are 
+obedient in packet forwarding behavior, and will not update the counters
+without exerting high effort in packet forwarding.
+In this section, we present FPSS , which generalizes FPSS to
+operate in an environment with lossy communication channels (i.e.,
+k ≥ 0) and strategic behavior in terms of packet forwarding. We
+will show that FPSS induces an equilibrium in which all nodes
+truthfully reveal their transit costs and forward packets if they are
+on the LCP. Figure 5 presents the timeline of FPSS . In the first
+stage, the sender declares two payment functions, (sG
+i , sB
+i ), that
+will be paid upon success or failure of packet delivery. Given these
+payments, nodes have incentive to reveal their costs truthfully, and
+later to forward packets. Payments are transferred based on the
+final outcome.
+In FPSS , each node i submits a bid bi, which is its reported
+transit cost. Node i is said to be truthful if bi = ci. We write b for
+the vector (b1, . . . , bn) of bids submitted by all transit nodes. Let
+Ii(b) be the indicator function for the LCP given the bid vector b
+such that
+Ii(b) =
+
+1 if i is on the LCP;
+0 otherwise.
+Following FPSS [13], the payment received by node i at 
+equilibrium is:
+pi = biIi(b) + [
+X
+r
+Ir(b|i
+∞)br −
+X
+r
+Ir(b)br]
+=
+X
+r
+Ir(b|i
+∞)br −
+X
+r=i
+Ir(b)br
+(11)
+where the expression b|i
+x means that (b|i
+x)j = cj for all j = i,
+and (b|i
+x)i = x.
+In FPSS , we compute sB
+i and sG
+i as a function of pi, k, and
+n. First, we recognize that sB
+i must be less than or equal to zero
+in order for the true LCP to be chosen. Otherwise, strategic nodes
+may have an incentive to report extremely small costs to mislead
+the principal into believing that they are on the LCP. Then, these
+nodes can drop any packets they receive, incur zero transit cost,
+collect a payment of sB
+i > 0, and earn positive profit.
+PROPOSITION 4.1. Let the payments of FPSS be:
+sB
+i = 0
+sG
+i =
+pi
+(1 − k)n−i+1
+Then, FPSS has a Nash equilibrium in which all nodes truthfully
+reveal their transit costs and all nodes on the LCP forward packets.
+PROOF. In order to prove the proposition above, we have to
+show that nodes have no incentive to engage in the following 
+misbehaviors:
+1. truthfully reveal cost but drop packet,
+2. lie about cost and forward packet,
+3. lie about cost and drop packet.
+If all nodes truthfully reveal their costs and forward packets, the
+expected utility of node i on the LCP is:
+E[u]i = Pr(xG
+S→i)(E[si] − ci) + Pr(xB
+S→i)sB
+i
+= (1 − k)i
+
+(1 − k)n−i+1
+sG
+i + (1 − (1 − k)n−i+1
+)sB
+i − ci
+
++ (1 − (1 − k)i
+)sB
+i
+= (1 − k)i
+(1 − k)n−i+1 pi
+(1 − k)n−i+1
+− (1 − k)i
+ci
+= (1 − k)i
+(pi − ci)
+≥ 0
+(12)
+The last inequality is derived from the fact that FPSS is a truthful
+mechanism, thus pi ≥ ci. The expected utility of a node not on the
+LCP is 0.
+A node that drops a packet receives sB
+i = 0, which is smaller
+than or equal to E[u]i for i ∈ LCP and equals E[u]i for i /∈ LCP.
+Therefore, nodes cannot gain utility from misbehaviors (1) or (3).
+We next show that nodes cannot gain utility from misbehavior (2).
+1. if i ∈ LCP, E[u]i > 0.
+(a) if it reports bi > ci:
+i. if bi <
+P
+r Ir(b|i
+∞)br −
+P
+r=i Ir(b)br, it is still
+on the LCP, and since the payment is independent
+of bi, its utility does not change.
+ii. if bi >
+P
+r Ir(b|i
+∞)br −
+P
+r=i Ir(b)br, it will
+not be on the LCP and obtain E[u]i = 0, which is
+less than its expected utility if truthfully revealing
+its cost.
+121
+(b) if it reports bi < ci, it is still on the LCP, and since
+the payment is independent of bi, its utility does not
+change.
+2. if i /∈ LCP, E[u]i = 0.
+(a) if it reports bi > ci, it remains out of the LCP, so its
+utility does not change.
+(b) if it reports bi < ci:
+i. if bi <
+P
+r Ir(b|i
+∞)br −
+P
+r=i Ir(b)br, it joins
+the LCP, and gains an expected utility of
+E[u]i = (1 − k)i
+(pi − ct)
+However, if i /∈ LCP, it means that
+ci >
+X
+r
+Ir(c|i
+∞)cr −
+X
+r=i
+Ir(c)cr
+But if all nodes truthfully reveal their costs,
+pi =
+X
+r
+Ir(c|i
+∞)cr −
+X
+r=i
+Ir(c)cr < ci
+therefore, E[u]i < 0
+ii. if bi >
+P
+r Ir(b|i
+∞)br −
+P
+r=i Ir(b)br, it 
+remains out of the LCP, so its utility does not change.
+Therefore, there exists an equilibrium in which all nodes truthfully
+reveal their transit costs and forward the received packets.
+We note that in the hidden information only context, FPSS 
+induces truthful revelation as a dominant strategy equilibrium. In
+the current setting with both hidden information and hidden action,
+FPSS achieves a Nash equilibrium in the absence of per-hop
+monitoring, and a dominant strategy equilibrium in the presence of
+per-hop monitoring, consistent with the results in section 3 where
+there is hidden action only. In particular, with per-hop monitoring,
+the principal declares the payments sB
+i and sG
+i to each node upon
+failure or success of delivery to the next node. Given the payments
+sB
+i = 0 and sG
+i = pi/(1 − k), it is a dominant strategy for the
+nodes to reveal costs truthfully and forward packets.
+4.2 Discussion
+More generally, for any mechanism M that induces a bid vector b
+in equilibrium by making a payment of pi(b) to node i on the LCP,
+there exists a mechanism M that induces an equilibrium with the
+same bid vector and packet forwarding by making a payment of:
+sB
+i = 0
+sG
+i =
+pi(b)
+(1 − k)n−i+1
+.
+A sketch of the proof would be as follows:
+1. IM
+i (b) = IM
+i (b)∀i, since M uses the same choice metric.
+2. The expected utility of a LCP node is E[u]i = (1 −
+k)i
+(pi(b) − ci) ≥ 0 if it forwards and 0 if it drops, and
+the expected utility of a non-LCP node is 0.
+3. From 1 and 2, we get that if a node i can increase its expected
+utility by deviating from bi under M , it can also increase its
+utility by deviating from bi in M, but this is in contradiction
+to bi being an equilibrium in M.
+4. Nodes have no incentive to drop packets since they derive an
+expected utility of 0 if they do.
+In addition to the generalization of FPSS into FPSS , we
+can also consider the generalization of the first-price auction (FPA)
+mechanism, where the principal determines the LCP and pays each
+node on the LCP its bid, pi(b) = bi. First-price auctions achieve
+Nash equilibrium as opposed to dominant strategy equilibrium.
+Therefore, we should expect the generalization of FPA to achieve
+Nash equilibrium with or without monitoring.
+We make two additional comments concerning this class of
+mechanisms. First, we find that the expected total payment made
+by the principal under the proposed mechanisms is
+E[S] =
+nX
+i=1
+(1 − k)i
+pi(b)
+and the expected benefit realized by the principal is
+E[w] = (1 − k)n+1
+wG
+where
+Pn
+i=1 pi and wG
+are the expected payment and expected
+benefit, respectively, when only the hidden-information problem is
+considered. When hidden action is also taken into consideration,
+the generalized mechanism handles strategic forwarding behavior
+by conditioning payments upon the final outcome, and accounts for
+lossy communication channels by designing payments that reflect
+the distribution of risk. The difference between expected payment
+and benefit is not due to strategic forwarding behavior, but to lossy
+communications. Therefore, in a lossless network, we should not
+see any gap between expected benefits and payments, independent
+of strategic or non-strategic forwarding behavior.
+Second, the loss to the principal due to unknown transit costs is
+also known as the price of frugality, and is an active field of 
+research [2, 12]. This price greatly depends on the network topology
+and on the mechanism employed. While it is simple to characterize
+the principal"s loss in some special cases, it is not a trivial problem
+in general. For example, in topologies with parallel disjoint paths
+from source to destination, we can prove that under first-price 
+auctions, the loss to the principal is the difference between the cost of
+the shortest path and the second-shortest path, and the loss is higher
+under the FPSS mechanism.

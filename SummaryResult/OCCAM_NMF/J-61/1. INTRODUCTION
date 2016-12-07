@@ -1,0 +1,31 @@
+we state some theoretical properties of the exchange, and end with a discussion to motivate our main design  decisions, and suggest some next steps. 
+we then describe the full iterative exchange, with upper and lower values, price-feedback, activity rules, and termination  conditions.
+then, we introduce the basic  components for a simple one-shot variation in which bidders state their exact values for trades in a single round.
+in describing the exchange we will first provide an overview of the main components and introduce several working examples.
+the exchange is implemented in java and is currently in validation.
+while we cannot claim that straightforward bidding is an equilibrium of the exchange (and indeed, should not expect to by the myerson-satterthwaite impossibility theorem [22]), the threshold payment rule minimizes the ex post incentive to manipulate across all budget-balanced payment rules.
+this is essential in complex domains where the valuation problem can itself be very challenging for a participant [28].
+done 2,2 +a +10 +b +10 buyer 2,2 -a -5 -b -5 seller 2,2 +a +15 +8 +b +15 +8 buyer 2,2 -a -2 -6 -b -2 -6 seller buyer, buy ab seller, sell ab 12 < pa+pb < 16 pa+pb=14 pa=pb=7 pbuyer = 16 - (4-0) = 12 pseller = -12 - (4-0) = -16 pbuyer = 14 pseller = -14 pessim istic o ptim istic = 1 figure 1: ice system flow of control efficient allocation can often be determined without bidders revealing, or even knowing, their exact value for all trades.
+in addition, the 1 http://www.eecs.harvard.edu/∼parkes/cs286r/ice.html 249 truth agent act rule wd acc fair balclosing rulevickreythreshold done !
+for instance, when there exist linear prices we  establish soundness and completeness: for straightforward  bidders that adjust their bounds to meet activity rules while keeping their true value within the bounds, the exchange will terminate with the efficient allocation.
+the exchange has a number of interesting theoretical  properties.
+[24], is used to determine final payments.
+the threshold payment rule,  introduced by parkes et al.
+the exchange is iterative: bidders express upper and lower valuations on trades by annotating their bid-tree, and then tighten these bounds in response to price feedback in each round.
+the main innovation in our design is an expressive yet  concise tree-based bidding language (which generalizes known languages such as xor/or [23]), and the tight coupling of this language with efficient algorithms for price-feedback to guide bidding, winner-determination to determine trades, and revealed-preference activity rules to ensure progress across rounds.
+the ice design problem is multi-faceted and quite hard.
+the genesis of this project was a class, cs 286r topics at the interface between economics and computer science, taught at harvard university in spring 2004.1 the entire class was dedicated to the design and prototyping of an iterative ce.
+this paper presents the first design for an iterative  combinatorial exchange (ice).
+the instantiation of our general purpose design to specific domains is a compelling next step in our research.
+another potential application domain for ces is to resource allocation in shared distributed systems, such as planetlab [13].
+in both of these domains there are incumbents with property rights, and it is important to facilitate a complex multi-way reallocation of resources.
+ces have received recent attention both in the context of wireless spectrum allocation [18] and for airport takeoff and landing slot allocation [3].
+unlike a ca, a ce allows for fragmented ownership, with multiple buyers and sellers and agents that are both buying and selling.
+thus, unlike a da, a ce allows all participants to express complex valuations via expressive bids.
+for example, in an exchange for wireless spectrum, a bidder may declare that she is willing to pay $1 million for a trade where she obtains licenses for new york city, boston, and philadelphia, and loses her license for washington dc.
+a combinatorial exchange (ce) [24] is a combinatorial double auction that brings together multiple buyers and  sellers to trade multiple heterogeneous goods.
+a common goal in both market designs is to determine the efficient allocation, which is the allocation that maximizes total value.
+buyers may have complementarities or  substitutabilities between goods, and are provided with an  expressive bidding language.
+in a combinatorial  auction (ca), a single seller has multiple heterogeneous items up for sale [11].
+in a double auction (da), multiple buyers and sellers trade units of an identical good [20].
+combinatorial exchanges combine and generalize two  different mechanisms: double auctions and combinatorial  auctions.

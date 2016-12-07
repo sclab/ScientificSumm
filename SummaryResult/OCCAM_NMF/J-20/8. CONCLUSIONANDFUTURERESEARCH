@@ -1,0 +1,28 @@
+this work was supported in part by the national science foundation under grants iis-0427858 and ccf-0514922. 
+we also thank don sheehy for bringing to our attention the idea of shoe exchange.
+acknowledgments we thank economists al roth and utku unver, as well as kidney transplant surgeon michael rees, for alerting us to the fact that prior technology was inadequate for the  clearing problem on a national scale, supplying initial data sets, and discussions on details of the kidney exchange process.
+we are currently exploring a number of  questions along these lines but there is certainly much more to be done.
+therefore, it would be desirable to  perform an optimization with this in mind, such as outputting a low-degree robust subgraph to be tested before the final match is produced, or to output a contingency plan in case of failure.
+the limited-information aspect is that even in batch mode, the graph provided as input is not completely correct: a number of donor-donee pairs believed to be compatible turn out to be incompatible when more expensive last-minute tests are performed.
+in fact, some work has been done on this in certain restricted  settings [22, 24].
+the online aspect is that donees and donors will be  arriving into the system over time, and it may be best to not execute the myopically optimal exchange now, but rather save part of the current market for later matches.
+two important directions for future work are to explicitly address both online and limited-information aspects of the problem.
+our work has treated the kidney exchange as a batch problem with full information (at least in the short run,  kidney exchanges will most likely continue to run in batch mode every so often).
+we can also support forcing part of the allocation, for example, this acutely sick teenager has to get a kidney if possible.
+because we use an ilp  methodology, we can also support a variety of side constraints, which often play an important role in markets in practice [19].
+these include  multiple alternative donors per patient, weighted edges in the market graph (to encode differences in expected life years added based on degrees of compatibility, patient age and weight, etc., as well as the probability of last-minute  incompatibility), angel-triggered chains (chains of transplants triggered by altruistic donors who do not have patients  associated with them, each chain ending with a left-over kidney), and additional issues (such as different scores for saving  different altruistic donors or left-over kidneys for future match runs based on blood type, tissue type, and likelihood that the organ would not disappear from the market by the donor getting second thoughts).
+our algorithm also supports several generalizations, as desired by real-world kidney exchanges.
+undoubtedly, further  parameter tuning and perhaps additional speed improvement  techniques could be used to make the algorithm even faster.
+for the  branch-andprice search in the integer program that surrounds the lp, our enhancements include primal heuristics and we also  compared branching strategies.
+for column generation in the lp, our enhancements include pricing techniques, column seeding techniques, techniques for proving optimality without  having to bring in all positive-price columns (and using another column-generation process in a different formulation to do so), and column removal techniques.
+we conclude that column generation scales dramatically better than  constraint generation.
+some of the techniques use domain-specific  observations while others are domain independent.
+for each, we developed a host of techniques that substantially improve both runtime and memory  usage.
+we adapted two paradigms for the task: constraint generation and column generation.
+the key to our  improvement is incremental problem formulation.
+the best prior technology (vanilla cplex)  cannot handle instances beyond about 900 donor-donee pairs because it runs out of memory.
+thus there is no need to resort to approximate solutions.
+it optimally solves the kidney exchange clearing problem with 10,000  donordonee pairs.
+our work presents the first algorithm capable of clearing these markets on a nationwide scale.
+with over 70,000 patients already waiting for a cadaver kidney in the us, this market is seen as the only ethical way to significantly reduce the 4,000 deaths per year attributed to kidney disease.
+in this work we have developed the most scalable exact algorithms for barter exchanges to date, with special focus on the upcoming national kidney-exchange market in which patients with kidney disease will be matched with  compatible donors by swapping their own willing but incompatible donors.

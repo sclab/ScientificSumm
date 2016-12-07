@@ -1,0 +1,180 @@
+MODELS
+We conclude our results with a return to the price-volume
+model, where we shall introduce some refined methods of
+analysis for online trading algorithms. We leave the 
+generalization of these methods to the order book model for
+future work.
+The competitive ratios defined so far measure performance
+relative to some baseline criterion in the worst case over all
+market sequences S ∈ Σ. It has been observed in many
+online settings that such worst-case metrics can yield 
+pessimistic results, and various relaxations have been 
+considered, such as permitting a probability distribution over the
+input sequence.
+We now consider distributional models that are 
+considerably weaker than assuming a distribution over complete
+market sequences S ∈ Σ. In the volume distribution model,
+we assume only that there exists a distribution Pvol over the
+total volume V traded in the market for the day, and then 
+examine the worst-case competitive ratio over sequences 
+consistent with the randomly chosen volume. More precisely,
+we define
+RVWAP(A, Pvol ) = EV ∼Pvol max
+S∈seq(V )
+VWAPM (S)
+VWAPA(S)
+.
+Here V ∼ Pvol denotes that V is chosen with respect to
+distribution Pvol , and seq(V ) ⊂ Σ is the set of all market
+sequences (p1, v1), . . . , (pT , vT ) satisfying T
+t=1 vt = V .
+Similarly, for OWT, we can define
+ROWT(A, Pmaxprice ) = Ep∼Pmaxprice max
+S∈seq(p)
+p
+VWAPA(S)
+.
+Here Pmaxprice is a distribution over just the maximum price
+of the day, and we then examine worst-case sequences 
+consistent with this price (seq(p) ⊂ Σ is the set of all market
+sequences satisfying max1≤t≤T pt = p). Analogous buy-side
+definitions can be given.
+We emphasize that in these models, only the distribution
+of maximum volume and price is known to the algorithm.
+We also note that our probabilistic assumptions on S are
+considerably weaker than typical statistical finance 
+models, which would posit a detailed stochastic model for the
+step-by-step evolution of (pt, vt). Here we instead permit
+only a distribution over crude, macroscopic measures of the
+entire day"s market activity, such as the total volume and
+high price, and analyze the worst-case performance 
+consistent with these crude measures. For this reason, we refer to
+such settings as the macroscopic distribution model.
+The work of El-Yaniv et al. [3] examines distributional
+assumptions similar to ours, but they emphasize the 
+worst196
+case choices for the distributions as well, and show that this
+leads to results no better than the original worst-case 
+analysis over all sequences. In contrast, we feel that the analysis
+of specific distributions Pvol and Pmaxprice is natural in many
+financial contexts and our preliminary experimental results
+show significant improvements when this rather crude 
+distributional information is taken into account (see Figure 3).
+Our results in the VWAP setting examine the cases where
+these distributions are known exactly or only approximately.
+Similar results can be obtained for macroscopic distributions
+of maximum daily price for the one-way trading setting.
+4.1 Results in the Macroscopic Distribution
+Model
+We begin by noting that the algorithms examined so far
+work by binning total volumes or maximum prices into bins
+of exponentially increasing size, and then guessing the
+index of the bin in which the actual quantity falls. It is
+thus natural that the macroscopic distribution model 
+performance of such algorithms (which are common in 
+competitive analysis) might depend on the distribution of the true
+bin index.
+In the remaining, we assume that Q is a power of 2 and
+the base of the logarithm is 2. Let Pvol denote the 
+distribution of total daily market volume. We define the 
+related distribution Pbins
+vol over bin indices i as follows: for
+all i = 1, . . . , log(Q) − 1, Pbins
+vol (i) is equal to the 
+probability, under Pvol , that the daily volume falls in the interval
+[Vmin 2i−1
+, Vmin 2i
+), and Pbins
+vol (log(Q)) is for the last interval
+[Vmax /2, Vmax ] .
+We define E as
+E(Pbins
+vol ) ≡ Ei∼P bins
+vol
+1/Pbins
+vol (i)
+2
+=
+
+
+log(Q)
+i=1
+Pbins
+vol (i)
+
+
+2
+.
+Since the support of Pbins
+vol has only log(Q) elements, E(Pbins
+vol )
+can vary from 1 (for distributions Pvol that place all of
+their weight in only one of the log(Q) intervals between
+Vmin , Vmin 2, Vmin 4, . . . , Vmax ) to log(Q) (for distributions
+Pvol in which the total daily volume is equally likely to fall
+in any one of these intervals). Note that distributions Pvol
+of this latter type are far from uniform over the entire range
+[Vmin , Vmax ].
+Theorem 10. In the volume distribution model under the
+volume variability assumption, there exists an online 
+algorithm A for selling N shares that, using only knowledge of
+the total volume distribution Pvol , achieves RVWAP(A, Pvol ) ≤
+2E(Pbins
+vol ).
+All proofs in this section are provided in the appendix.
+As a concrete example, consider the case in which Pvol
+is the uniform distribution over [Vmin , Vmax ]. In that case,
+Pbins
+vol is exponentially increasing and peaks at the last bin,
+which, having the largest width, also has the largest weight.
+In this case E(Pbins
+vol ) is a constant (i.e., independent of Q),
+leading to a constant competitive ratio. On the other hand,
+if Pvol is exponential, then Pbins
+vol is uniform, leading to an
+O(log(Q)) competitive ratio, just as in the more adversarial
+price-volume setting discussed earlier. In Figure 3, we 
+provide additional specific bounds obtained for empirical total
+daily volume distributions computed for some real stocks.
+We now examine the setting in which Pvol is unknown,
+but an approximation ˜Pvol is available. Let us define
+C(Pbins
+vol , ˜Pbins
+vol ) = log(Q)
+j=1
+˜Pbins
+vol (j) log(Q)
+i=1
+P bins
+vol (i)
+√ ˜P bins
+vol
+(i)
+.
+C is minimized at C(Pbins
+vol , Pbins
+vol ) = E(Pbins
+vol ), and C may
+be infinite if ˜Pbins
+vol (i) is 0 when Pbins
+vol (i) > 0.
+Theorem 11. In the volume distribution model under the
+volume variability assumption, there exists an online 
+algorithm A for selling N shares that using only knowledge of
+an approximation ˜Pvol of Pvol achieves RVWAP(A, Pvol ) ≤
+2C(Pbins
+vol , ˜Pbins
+vol ).
+As an example of this result, suppose our approximation
+obeys (1/α)Pbins
+vol (i) ≤ ˜Pbins
+vol (i) ≤ αPbins
+vol (i) for all i, for
+some α > 1. Thus our estimated bin index probabilities
+are all within a factor of α of the truth. Then it is easy
+to show that C(Pbins
+vol , ˜Pbins
+vol ) ≤ αE(Pbins
+vol ), so according to
+Theorems 10 and 11 our penalty for using the approximate
+distribution is a factor of α in competitive ratio.

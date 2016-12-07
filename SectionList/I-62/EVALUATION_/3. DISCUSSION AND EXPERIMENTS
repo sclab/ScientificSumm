@@ -1,0 +1,136 @@
+The domain of the experiments is a naval platform which
+must counter incoming missiles (i.e. tasks) by using its 
+resources (i.e. weapons, movements). For the experiments,
+100 randomly resource allocation problems were generated
+for each approach, and possible number of tasks. In our
+problem, |Sta| = 4, thus each task can be in four distinct
+states. There are two types of states; firstly, states where
+actions modify the transition probabilities; and then, there
+are goal states. The state transitions are all stochastic 
+because when a missile is in a given state, it may always transit
+in many possible states. In particular, each resource type
+has a probability to counter a missile between 45% and 65%
+depending on the state of the task. When a missile is not
+countered, it transits to another state, which may be 
+preferred or not to the current state, where the most preferred
+state for a task is when it is countered. The effectiveness
+of each resource is modified randomly by ±15% at the start
+of a scenario. There are also local and global resource 
+constraints on the amount that may be used. For the local
+constraints, at most 1 resource of each type can be 
+allocated to execute tasks in a specific state. This constraint is
+also present on a real naval platform because of sensor and
+launcher constraints and engagement policies. Furthermore,
+for consumable resources, the total amount of available 
+consumable resource is between 1 and 2 for each type. The
+global constraint is generated randomly at the start of a
+scenario for each consumable resource type. The number of
+resource type has been fixed to 5, where there are 3 
+consumable resource types and 2 non-consumable resources types.
+For this problem a standard lrtdp approach has been
+implemented. A simple heuristic has been used where the
+value of an unvisited state is assigned as the value of a goal
+state such that all tasks are achieved. This way, the value
+of each unvisited state is assured to overestimate its real
+value since the value of achieving a task ta is the highest
+the planner may get for ta. Since this heuristic is pretty
+straightforward, the advantages of using better heuristics are
+more evident. Nevertheless, even if the lrtdp approach uses
+a simple heuristic, still a huge part of the state space is not
+visited when computing the optimal policy. The approaches
+described in this paper are compared in Figures 1 and 2.
+Lets summarize these approaches here:
+• Qdec-lrtdp: The backups are computed using the
+Qdec-backup function (Algorithm 1), but in a lrtdp
+context. In particular the updates made in the 
+checkSolved function are also made using the the 
+Qdecbackup function.
+• lrtdp-up: The upper bound of maxU is used for
+lrtdp.
+• Singh-rtdp: The SinghL and SinghU bounds are
+used for bounded-rtdp.
+• mr-rtdp: The revenue-bound and maxU bounds
+are used for bounded-rtdp.
+To implement Qdec-lrtdp, we divided the set of tasks
+in two equal parts. The set of task T ai, managed by agent
+i, can be accomplished with the set of resources Resi, while
+the second set of task T ai , managed by agent Agi , can be
+accomplished with the set of resources Resi . Resi had one
+consumable resource type and one non-consumable resource
+type, while Resi had two consumable resource types and
+one non-consumable resource type. When the number of
+tasks is odd, one more task was assigned to T ai . There are
+constraint between the group of resource Resi and Resi
+such that some assignments are not possible. These 
+constraints are managed by the arbitrator as described in 
+Section 2.2. Q-decomposition permits to diminish the planning
+time significantly in our problem settings, and seems a very
+efficient approach when a group of agents have to allocate
+resources which are only available to themselves, but the 
+actions made by an agent may influence the reward obtained
+by at least another agent.
+To compute the lower bound of revenue-bound, all
+available resources have to be separated in many types or
+parts to be allocated. For our problem, we allocated each
+resource of each type in the order of of its specialization like
+we said when describing the revenue-bound function.
+In terms of experiments, notice that the lrtdp lrtdp-up
+and approaches for resource allocation, which doe not prune
+the action space, are much more complex. For instance, it
+took an average of 1512 seconds to plan for the lrtdp-up
+approach with six tasks (see Figure 1). The Singh-rtdp
+approach diminished the planning time by using a lower
+and upper bound to prune the action space. mr-rtdp 
+further reduce the planning time by providing very tight 
+initial bounds. In particular, Singh-rtdp needed 231 seconds
+in average to solve problem with six tasks and mr-rtdp
+required 76 seconds. Indeed, the time reduction is quite
+significant compared to lrtdp-up, which demonstrates the
+efficiency of using bounds to prune the action space.
+Furthermore, we implemented mr-rtdp with the SinghU
+bound, and this was slightly less efficient than with the
+maxU bound. We also implemented mr-rtdp with the
+SinghL bound, and this was slightly more efficient than
+Singh-rtdp. From these results, we conclude that the 
+difference of efficiency between mr-rtdp and Singh-rtdp is
+more attributable to the marginal-revenue lower bound
+that to the maxU upper bound. Indeed, when the number
+of task to execute is high, the lower bounds by Singh-rtdp
+takes the values of a single task. On the other hand, the
+lower bound of mr-rtdp takes into account the value of all
+1218 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+0.01
+0.1
+1
+10
+100
+1000
+10000
+100000
+1 2 3 4 5 6 7 8 9 10 11 12 13
+Timeinseconds
+Number of tasks
+LRTDP
+QDEC-LRTDP
+Figure 1: Efficiency of Q-decomposition LRTDP
+and LRTDP.
+0.01
+0.1
+1
+10
+100
+1000
+10000
+1 2 3 4 5 6 7 8
+Timeinseconds
+Number of tasks
+LRTDP
+LRTDP-up
+Singh-RTDP
+MR-RTDP
+Figure 2: Efficiency of MR-RTDP compared to
+SINGH-RTDP.
+task by using a heuristic to distribute the resources. 
+Indeed, an optimal allocation is one where the resources are
+distributed in the best way to all tasks, and our lower bound
+heuristically does that.

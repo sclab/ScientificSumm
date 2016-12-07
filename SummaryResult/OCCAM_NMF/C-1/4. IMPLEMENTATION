@@ -1,0 +1,47 @@
+figure 5 network diagram 
+the responses to these lookups are collated by the proxy registry and returned to the client.
+so the proxy registry performs the lookup operations at both planetlab1 and planetlab2.rdfrancetelecom.com for their respective entries listed in the search results.
+the results may include a few services from each of the juddi registries.
+the results of the dht lookup return to  pli1-br3.hpl.hp.com, which forwards them to grouse.hpl.hp.com.
+the dht node may then route the query to one of the other dht nodes which is responsible for the dht key that the query string maps to.
+this involves contacting one of the dht nodes, such as  pli1-br3.hpl.hp.com, which serves as the gateway to the dht for grouse.hpl.hp.com, based on the latter"s configuration file.
+the proxy does a lookup of the dht using the query string or a prefix.
+consider a client which contacts the uddi proxy on grouse.hpl.hp.com.
+there are two proxy uddi and juddi registry pairs.
+figure 5 shows the network diagram for our implementation.
+the results returned have to be refined to ensure that the regular expression matches.
+this will be treated similarly to the previous case as the dht has to be queried with the longest available prefix.
+for example, a search for garden%s should match both garden supplies and gardening tools.
+thirdly, the service name being searched can be a regular expression, such as one with embedded wildcard characters.
+since this can lead to load-imbalance, a better solution might be to use the dht only to get a list of all uddi registries, and send the search to all of them in the locations to be searched.
+if the search string has less than 5 characters, and the search is for a prefix rather than an exact match, the dht cannot be of any help, unless every service is published in the dht with prefix of length 0. using this null prefix will send a copy of every advertised service to the dht node to which the hash of the null prefix maps.
+if a search for the first 12 characters of a service name is submitted, the proxy registry will query the dht with the first 10 characters of the search string, and then refine the search result to ensure that the match extends to the 12th character.
+for example, the prefix sizes chosen in one deployment might be 5, 10, 15 and 20 characters.
+to support this efficiently in the dht, our proxy registries have to take prefixes of the service name of varying length and publish the uri and uddi key multiple times, once using each prefix.
+in other words, a wildcard is implicit at the end of the service name being searched.
+indeed, this is the default behavior of search in uddi.
+secondly, the user could query based on the prefix of a service name.
+to do a case-insensitive search, the proxy registry simply has to convert the query string into lower-case letters.
+to support that, the proxy registry has to publish the same service once using the name exactly as entered in the uddi registry, and once with the name converted to all lower-case letters.
+firstly, the search requested could be case-insensitive.
+however there are additional types of search that must be supported.
+we have so far described the process of exact match on service name.
+the uddi keys make it unnecessary to repeat the search at the uddi registries with the service name.
+using these returned results, the proxy can do fast lookup operations at the respective uddi registries.
+this ensures that when the proxy registry queries for services with a certain name, it gets back the uri and uddi keys for matching entries.
+the value that is stored in the dht using this key is the uri of the registry along with the uddi key of the service.
+the proxy uses the service name as input to the dht"s hash article 2 function to get the dht key.
+the bamboo dht allows multiple proxy registries to publish and delete service information from their respective uddi registries, as well as to query for services from all the registries.
+for the dht implementation, we use the bamboo dht code [11].
+furthermore, it also allows querying multiple registries and collating the response using uddi4j [13].
+the proxy registry is implemented by modifying the juddi source to enable publishing, querying and deleting service information from a dht.
+the standardization of uddi v3 is recent and we intend to extend this work to support uddi v3 and subsequent versions in the future.
+due to the availability of juddi, an open source uddi v2 registry (http://www.juddi.org) and a lack of existing readily available uddi v3 registry, a decision to use uddi v2 was made.
+the advantage of using planetlab is that we can test the dude architecture under real-world conditions with a large scale geographically dispersed node base.
+thus the users can develop and experiment with new services under real-world conditions.
+every planetlab host machine is connected to the internet and runs a common software package including a linux based operating system that supports server virtualization.
+france telecom and hp are two of the major industry supporters for planetlab.
+planetlab machines are hosted by research/academic institutions as well as industrial companies.
+it currently has 527 machines, hosted by 249 sites, spanning over 25 countries.
+planetlab is an open, globally distributed platform for developing, deploying, and accessing network services.
+in this section, we describe our implementation which is currently deployed on planetlab [9].

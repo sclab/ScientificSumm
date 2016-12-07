@@ -1,0 +1,311 @@
+INTERACTIONS
+In this section we present a mapping from a commitment 
+machine to a collection of SAAPL programs (one for each role). We
+begin by considering the simple case of two interacting agents, and
+5
+The + operator is used to denote sequence concatenation.
+assume that the agents take turns to act. In section 4 we relax these
+assumptions.
+Each action A(X) : P ⇒ E is mapped to a number of plans:
+there is a plan (for agent X) with context condition P that 
+performs the action (i.e. applies the effects E to the agent"s beliefs)
+and sends a message to the other agent, and a plan (for the other
+agent) that updates its state when a message is received from X.
+For example, given the action sendAccept(C) ⇒ accept we have
+the following plans, where each plan is preceded by M: or C:
+to indicate which agent that plan belongs to. Note that where the
+identify of the sender (respectively recipient) is obvious, i.e. the
+other agent, we abbreviate ↑N
+m to ↑m (resp. ↓N
+m to ↓m). Turn
+taking is captured through the event ı (short for interact): the
+agent that is active has an ı event that is being handled. Handling
+the event involves sending a message to the other agent, and then
+doing nothing until a response is received.
+C: ı : true ← +accept; ↑sendAccept.
+M: ↓sendAccept : true ← +accept; ı.
+If the action has a non-trivial precondition then there are two plans
+in the recipient: one to perform the action (if possible), and another
+to report an error if the action"s precondition doesn"t hold (we 
+return to this in section 4). For example, the action sendReceipt(M) :
+pay ⇒ receipt generates the following plans:
+M: ı : pay ← +receipt; ↑sendReceipt.
+C: ↓sendReceipt : pay ← +receipt; ı.
+C: ↓sendReceipt : ¬pay ← . . . report error . . . .
+In addition to these plans, we also need plans to start and finish
+the interaction. An interaction can be completed whenever there
+are no base-level commitments, so both agents have the following
+plans:
+ı : ¬∃p.C(p) ← ↑done.
+↓done : ¬∃p.C(p) ← .
+↓done : ∃p.C(p) ← . . . report error . . . .
+An interaction is started by setting up an agent"s initial beliefs, and
+then having it begin to interact. Exactly how to do this depends
+on the agent platform: e.g. the agent platform in question may
+offer a simple way to load beliefs from a file. A generic approach
+that is a little cumbersome, but is portable, is to send each of the
+agents involved in the interaction a sequence of init messages, each
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 875
+Q, N, B, +b
+Basic
+−→ Q, N, B ∪ {b},
+Q, N, B, −b
+Basic
+−→ Q, N, B \ {b},
+Δ = {Piθ|(ti : ci ← Pi) ∈ Π ∧ tiθ = e ∧ B |= ciθ}
+Q, N, B, e
+Basic
+−→ Q, N, B, SO(Δ)
+Q, N, B, P1
+Basic
+−→ Q , N, B , P
+Q, N, B, P1; P2
+Basic
+−→ Q , N, B , P ; P2
+Q, N, B, ; P
+Basic
+−→ Q, N, B, P
+Q, N, B, ↑NB m
+Basic
+−→ Q + N:NB:m, N, B,
+Q = NA:N:m + Q
+Q, N, B, Γ
+Agent
+−→ Q , N, B, Γ ∪ {↓NA m}
+P = SI(Γ) Q, N, B, P
+Basic
+−→ Q , N, B , P
+Q, N, B, Γ
+Agent
+−→ Q , N, B , (Γ \ {P}) ∪ {P }
+P = SI(Γ) P =
+Q, N, B, Γ
+Agent
+−→ Q, N, B, (Γ \ {P})
+N, B, Γ = SA(As) Q, N, B, Γ
+Agent
+−→ Q , N, B , Γ
+Q, As
+MAS
+−→ Q , (As ∪ { N, B , Γ }) \ { N, B, Γ }
+Figure 2: Operational Semantics for SAAPL
+containing a belief to be added; and then send one of the agents a
+start message which begins the interaction. Both agents thus have
+the following two plans:
+↓init(B) : true ← +B.
+↓start : true ← ı.
+Figure 3 gives the SAAPL programs for both merchant and 
+customer that implement the NetBill protocol. For conciseness the
+error reporting plans are omitted.
+We now turn to refining the context conditions. There are three
+refinements that we consider. Firstly, we need to prevent 
+performing actions that have no effect on the interaction state. Secondly,
+an agent may want to specify that certain actions that it is able to
+perform should not be performed unless additional conditions hold.
+For example, the customer may not want to agree to the merchant"s
+offer unless the goods have a certain price or property. Thirdly, the
+context conditions of the plans that terminate the interaction need to
+be refined in order to avoid terminating the interaction prematurely.
+For each plan of the form ı : P ← +E; ↑m we replace the 
+context condition P with the enhanced condition P ∧ P ∧ ¬E where
+P is any additional conditions that the agent wishes to impose,
+and ¬E is the negation of the effects of the action. For 
+example, the customer"s payment plan becomes (assuming no additional
+conditions, i.e. no P ): ı : goods ∧ ¬pay ← +pay; ↑sendEPO.
+For each plan of the form ↓m : P ← +E; ı we could add ¬E to
+the precondition, but this is redundant, since it is already checked
+by the performer of the action, and if the action has no effect then
+Customer"s plans:
+ı : true ← +request; ↑sendRequest.
+ı : true ← +accept; ↑sendAccept.
+ı : goods ← +pay; ↑sendEPO.
+↓sendQuote : true ← +promiseGoods;
++promiseReceipt; ı.
+↓sendGoods : true ← +promiseReceipt; +goods; ı.
+↓sendReceipt : pay ← +receipt; ı.
+Merchant"s plans:
+ı : true ← +promiseGoods;
++promiseReceipt; ↑sendQuote.
+ı : true ← +promiseReceipt; +goods; ↑sendGoods.
+ı : pay ← +receipt; ↑sendReceipt.
+↓sendRequest : true ← +request; ı.
+↓sendAccept : true ← +accept; ı.
+↓sendEPO : goods ← +pay; ı.
+Shared plans (i.e. plans of both agents):
+ı : ¬∃p.C(p) ← ↑done.
+↓done : ¬∃p.C(p) ← .
+↓init(B) : true ← +B.
+↓start : true ← ı.
+Where
+accept ≡ CC(goods pay)
+promiseGoods ≡ CC(accept goods)
+promiseReceipt ≡ CC(pay receipt)
+offer ≡ promiseGoods ∧ promiseReceipt
+Figure 3: SAAPL Implementation of NetBill
+the sender won"t perform it and send the message (see also the 
+discussion in section 4).
+When specifying additional conditions (P ), some care needs to
+be taken to avoid situations where progress cannot be made because
+the only action(s) possible are prevented by additional conditions.
+One way of indicating preference between actions (in many agent
+platforms) is to reorder the agent"s plans. This is clearly safe, since
+actions are not prevented, just considered in a different order.
+The third refinement of context conditions concerns the plans
+that terminate the interaction. In the Commitment Machine 
+framework any state that has no base-level commitment is final, in that
+the interaction may end there (or it may continue). However, only
+some of these final states are desirable final states. Which final
+states are considered to be desirable depends on the domain and
+the desired interaction outcome. In the NetBill example, the 
+desirable final state is one where the goods have been sent and paid
+for, and a receipt issued (i.e. goods ∧ pay ∧ receipt). In order to
+prevent an agent from terminating the interaction too early we add
+this as a precondition to the termination plan:
+ı : goods ∧ pay ∧ receipt ∧ ¬∃p.C(p) ← ↑done.
+Figure 4 shows the plans that are changed from figure 3.
+In order to support the realisation of CMs, we need to change
+SAAPL in a number of ways. These changes, which are discussed
+below, can be applied to existing BDI languages to make them
+commitment machine supportive. We present the three changes,
+explain what they involve, and for each change explain how the
+change was implemented using the 3APL agent oriented 
+programming language. The three changes are:
+1. extending the beliefs of the agent so that they can contain
+commitments;
+876 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+Customer"s plans:
+ı : ¬request ← +request; ↑sendRequest.
+ı : ¬accept ← +accept; ↑sendAccept.
+ı : goods ∧ ¬pay ← +pay; ↑sendEPO.
+Merchant"s plans:
+ı : ¬offer ← +promiseGoods; +promiseReceipt;
+↑sendQuote.
+ı : ¬(promiseReceipt ∧ goods) ←
++promiseReceipt; +goods; ↑sendGoods.
+ı : pay ∧ ¬receipt ← +receipt; ↑sendReceipt.
+Where
+accept ≡ CC(goods pay)
+promiseGoods ≡ CC(accept goods)
+promiseReceipt ≡ CC(pay receipt)
+offer ≡ promiseGoods ∧ promiseReceipt
+Figure 4: SAAPL Implementation of NetBill with refined 
+context conditions (changed plans only)
+2. changing the definition of |= to encompass implied 
+commitments; and
+3. whenever a belief is added, updating existing commitments,
+according to the rules of commitment dynamics.
+Extending the notion of beliefs to encompass commitments in
+fact requires no change in agent platforms that are prolog-like and
+support terms as beliefs (e.g. Jason, 3APL, CAN). However, other
+agent platforms do require an extension. For example, JACK, which
+is an extension of Java, would require changes to support 
+commitments that can be nested. In the case of 3APL no change is needed
+to support this.
+Whenever a context condition contains commitments, 
+determining whether the context condition is implied by the agent"s beliefs
+(B |= C) needs to take into account the notion of implied 
+commitments [15]. In brief, a commitment can be considered to follow
+from a belief set B if the commitment is in the belief set (C ∈ B),
+but also under other conditions. For example, a commitment to pay
+C(pay) can be considered to be implied by a belief set containing
+pay because the commitment may have held and been discharged
+when pay was made true. Similar rules apply for conditional 
+commitments. These rules, which were introduced in [15] were 
+subsequently re-formalised in a simpler form by [14] resulting in the
+four inference rules in the bottom part of figure 5.
+The change that needs to be made to SAAPL to support 
+commitment machine implementations is to extend the definition of |= to
+include these four rules. For 3APL this was realised by having each
+agent include the following Prolog clauses:
+holds(X) :- clause(X,true).
+holds(c(P)) :- holds(P).
+holds(c(P)) :- clause(cc(Q,P),true), holds(Q).
+holds(cc(_,Q)) :- holds(Q).
+holds(cc(_,Q)) :- holds(c(Q)).
+The first clause simply says that anything holds if it is in agent"s
+beliefs (clause(X,true) is true if X is a fact). The 
+remaining four clauses correspond respectively to the inference rules C1,
+C2, CC1 and CC2. To use these rules we then modify context
+conditions in our program so that instead of writing, for 
+example, cc(m,c, pay, receipt) we write holds(cc(m,c,
+pay, receipt)).
+B = norm(B ∪ {b})
+Q, N, B, +b −→ Q, N, B ,
+function norm(B)
+B ← B
+for each b ∈ B do
+if b = C(p) ∧ B |= p then B ← B \ {b}
+elseif b = CC(p q) then
+if B |= q then B ← B \ {b}
+elseif B |= p then B ← (B \ {b}) ∪ {C(q)}
+elseif B |= C(q) then B ← B \ {b}
+endif
+endif
+endfor
+return B
+end function
+B |= P
+B |= C(P)
+C1
+CC(Q P) ∈ B B |= Q
+B |= P
+C2
+B |= CC(P Q)
+B |= Q
+CC1
+B |= C(Q)
+B |= CC(P Q)
+CC2
+Figure 5: New Operational Semantics
+The final change is to update commitments when a belief is
+added. Formally, this is done by modifying the semantic rule for
+belief addition so that it applies an algorithm to update 
+commitments. The modified rule and algorithm (which mirrors the 
+definition of norm in [14]) can be found in the top part of figure 5.
+For 3APL this final change was achieved by manually inserting
+update() after updating beliefs, and defining the following rules
+for update():
+update() <- c(P) AND holds(P)
+| {Deletec(P) ; update()},
+update() <- cc(P,Q) AND holds(Q)
+| {Deletecc(P,Q) ; update()},
+update() <- cc(P,Q) AND holds(P)
+| {Deletecc(P,Q) ; Addc(Q) ; update()},
+update() <- cc(P,Q) AND holds(c(Q))
+| {Deletecc(P,Q) ; update()},
+update() <- true | Skip
+where Deletec and Deletecc delete respectively a base-level
+and conditional commitment, and Addc adds a base-level 
+commitment.
+One aspect that doesn"t require a change is linking commitments
+and actions. This is because commitments don"t trigger actions 
+directly: they may trigger actions indirectly, but in general their effect
+is to prevent completion of an interaction while there are 
+outstanding (base level) commitments.
+Figure 6 shows the message sequences from a number of runs of
+a 3APL implementation of the NetBill commitment machine6
+. In
+order to illustrate the different possible interactions the code was
+modified so that each agent selected randomly from the actions
+that it could perform, and a number of runs were made with the
+customer as the initiator, and then with the merchant as the 
+initiator. There are other possible sequences of messages, not shown,
+6
+Source code is available from http://www.winikoff.net/CM
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 877
+Figure 6: Sample runs from 3APL implementation (alternating turns)
+including the obvious one: request, quote, accept, goods, payment,
+receipt, and then done.
+One minor difference between the 3APL implementation and
+SAAPL concerns the semantics of messages. In the semantics of
+SAAPL (and of most AOPLs), receiving a message is treated as an
+event. However, in 3APL, receiving a message is modelled as the
+addition to the agent"s beliefs of a fact indicating that the message
+was received [6]. Thus in the 3APL implementation we have PG
+rules that are triggered by these beliefs, rather than by any event.
+One issue with this approach is that the belief remains there, so we
+need to ensure that the belief in question is either deleted once 
+handled, or that we modify preconditions of plans to avoid handling it
+more than once. In our implementation we delete these received
+beliefs when they are handled, to avoid duplicate handling of 
+messages.

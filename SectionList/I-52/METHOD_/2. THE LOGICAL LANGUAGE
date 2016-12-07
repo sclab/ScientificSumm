@@ -1,0 +1,55 @@
+In what follows, L will denote a logical language, and ≡
+is an equivalence relation associated with it.
+From L, a set O = {o1, . . . , on} of n offers is identified, such
+that oi, oj ∈ O such that oi ≡ oj. This means that the
+offers are different. Offers correspond to the different 
+alternatives that can be exchanged during a negotiation dialogue.
+For instance, if the agents try to decide the place of their
+next meeting, then the set O will contain different towns.
+Different arguments can be built from L. The set Args(L)
+will contain all those arguments. By argument, we mean a
+reason in believing or of doing something. In [3], it has been
+argued that the selection of the best offer to propose at a
+given step of the dialogue is a decision problem. In [4], it has
+been shown that in an argumentation-based approach for
+decision making, two kinds of arguments are distinguished:
+arguments supporting choices (or decisions), and arguments
+supporting beliefs. Moreover, it has been acknowledged that
+the two categories of arguments are formally defined in 
+different ways, and they play different roles. Indeed, an 
+argument in favor of a decision, built both on an agent"s 
+beliefs and goals, tries to justify the choice; whereas an 
+argument in favor of a belief, built only from beliefs, tries
+to destroy the decision arguments, in particular the beliefs
+part of those decision arguments. Consequently, in a 
+negotiation dialogue, those two kinds of arguments are generally
+exchanged between agents. In what follows, the set Args(L)
+is then divided into two subsets: a subset Argso(L) of 
+arguments supporting offers, and a subset Argsb(L) of arguments
+supporting beliefs. Thus, Args(L) = Argso(L) ∪ Argsb(L).
+As in [5], in what follows, we consider that the structure of
+the arguments is not known.
+Since the knowledge bases from which arguments are built
+may be inconsistent, the arguments may be conflicting too.
+In what follows, those conflicts will be captured by the 
+relation RL, thus RL ⊆ Args(L) × Args(L). Three assumptions
+are made on this relation: First the arguments supporting
+different offers are conflicting. The idea behind this 
+assumption is that since offers are exclusive, an agent has to choose
+only one at a given step of the dialogue. Note that, the
+relation RL is not necessarily symmetric between the 
+arguments of Argsb(L). The second hypothesis says that 
+arguments supporting the same offer are also conflicting. The
+idea here is to return the strongest argument among these
+arguments. The third condition does not allow an argument
+in favor of an offer to attack an argument supporting a 
+belief. This avoids wishful thinking. Formally:
+Definition 1. RL ⊆ Args(L) × Args(L) is a conflict
+relation among arguments such that:
+• ∀a, a ∈ Argso(L), s.t. a = a , a RL a
+• a ∈ Argso(L) and a ∈ Argsb(L) such that a RL a
+Note that the relation RL is not symmetric. This is due
+to the fact that arguments of Argsb(L) may be conflicting
+but not necessarily in a symmetric way. In what follows, we
+assume that the set Args(L) of arguments is finite, and each
+argument is attacked by a finite number of arguments.

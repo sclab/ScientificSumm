@@ -1,0 +1,159 @@
+SYSTEM
+This section describes the architecture and QoS 
+requirements of our DRE multimedia system.
+2.1 Multimedia System Architecture
+Wireless Link
+Wireless Link
+Wireless
+Link
+`
+`
+`
+Physical Link
+Physical Link
+Physical Link
+Base Station
+End Receiver
+End Receiver
+End Receiver`
+Physical Link
+End Receiver
+UAV
+Camera
+Video
+Encoder
+Camera
+Video
+Encoder
+Camera
+Video
+Encoder
+UAV
+Camera
+Video
+Encoder
+Camera
+Video
+Encoder
+Camera
+Video
+Encoder
+UAV
+Camera
+Video
+Encoder
+Camera
+Video
+Encoder
+Camera
+Video
+Encoder
+Figure 1: DRE Multimedia System Architecture
+The architecture for our DRE multimedia system is shown
+in Figure 1 and consists of the following entities: (1)Data
+source (video capture by UAV), where video is captured
+(related to subject of interest) by camera(s) on each UAV,
+followed by encoding of raw video using a specific encoding
+scheme and transmitting the video to the next stage in the
+pipeline. (2)Data distributor (base station), where the
+video is processed to remove noise, followed by 
+retransmission of the processed video to the next stage in the pipeline.
+(3) Sinks (command and control center), where the
+received video is again processed to remove noise, then 
+decoded and finally rendered to end user via graphical displays.
+Significant improvements in video encoding/decoding and
+(de)compression techniques have been made as a result of
+recent advances in video encoding and compression 
+techniques [14]. Common video compression schemes are 
+MPEG1, MPEG-2, Real Video, and MPEG-4. Each compression
+scheme is characterized by its resource requirement, e.g., the
+computational power to (de)compress the video signal and
+the network bandwidth required to transmit the compressed
+video signal. Properties of the compressed video, such as 
+resolution and frame-rate determine both the quality and the
+resource requirements of the video.
+Our multimedia system case study has the following 
+endto-end real-time QoS requirements: (1) latency, (2) 
+interframe delay (also know as jitter), (3) frame rate, and (4)
+picture resolution. These QoS requirements can be 
+classified as being either hard or soft. Hard QoS requirements
+should be met by the underlying system at all times, whereas
+soft QoS requirements can be missed occasionally.2
+For our
+case study, we treat QoS requirements such as latency and
+jitter as harder QoS requirements and strive to meet these
+requirements at all times. In contrast, we treat QoS 
+requirements such as video frame rate and picture resolution as
+softer QoS requirements and modify these video properties
+adaptively to handle dynamic changes in resource 
+availabil2
+Although hard and soft are often portrayed as two discrete
+requirement sets, in practice they are usually two ends of
+a continuum ranging from softer to harder rather than
+two disjoint points.
+ity effectively.
+2.2 DRE Multimedia System Rresources
+There are two primary types of resources in our DRE
+multimedia system: (1) processors that provide 
+computational power available at the UAVs, base stations, and end
+receivers and (2) network links that provide communication
+bandwidth between UAVs, base stations, and end receivers.
+The computing power required by the video capture and
+encoding tasks depends on dynamic factors, such as speed
+of the UAV, speed of the subject (if the subject is mobile),
+and distance between UAV and the subject. The wireless
+network bandwidth available to transmit video captured by
+UAVs to base stations also depends on the wireless 
+connectivity between the UAVs and the base station, which in-turn
+depend on dynamic factors such as the speed of the UAVs
+and the relative distance between UAVs and base stations.
+The bandwidth of the link between the base station and
+the end receiver is limited, but more stable than the 
+bandwidth of the wireless network. Resource requirements and
+availability of resources are subjected to dynamic changes.
+Two classes of applications - QoS-enabled and best-effort
+- use the multimedia system infrastructure described above
+to transmit video to their respective receivers. QoS-enabled
+class of applications have higher priority over best-effort
+class of application. In our study, emergency response 
+applications belong to QoS-enabled and surveillance applications
+belong to best-effort class. For example, since a stream from
+an emergency response application is of higher importance
+than a video stream from a surveillance application, it 
+receives more resources end-to-end.
+Since resource availability significantly affects QoS, we use
+current resource utilization as the primary indicator of 
+system performance. We refer to the current level of system
+resource utilization as the system condition. Based on this
+definition, we can classify system conditions as being either
+under, over, or effectively utilized.
+Under-utilization of system resources occurs when the 
+current resource utilization is lower than the desired lower bound
+on resource utilization. In this system condition, residual
+system resources (i.e., network bandwidth and 
+computational power) are available in large amounts after meeting
+end-to-end QoS requirements of applications. These 
+residual resources can be used to increase the QoS of the 
+applications. For example, residual CPU and network bandwidth
+can be used to deliver better quality video (e.g., with greater
+resolution and higher frame rate) to end receivers.
+Over-utilization of system resources occurs when the 
+current resource utilization is higher than the desired upper
+bound on resource utilization. This condition can arise
+from loss of resources - network bandwidth and/or 
+computing power at base station, end receiver or at UAV - or
+may be due to an increase in resource demands by 
+applications. Over-utilization is generally undesirable since the
+quality of the received video (such as resolution and frame
+rate) and timeliness properties (such as latency and jitter)
+are degraded and may result in an unstable (and thus 
+ineffective) system.
+Effective resource utilization is the desired system 
+condition since it ensures that end-to-end QoS requirements of
+the UAV-based multimedia system are met and utilization of
+both system resources, i.e., network bandwidth and 
+computational power, are within their desired utilization bounds.
+Article 7
+Section 3 describes techniques we applied to achieve effective
+utilization, even in the face of fluctuating resource 
+availability and/or demand.

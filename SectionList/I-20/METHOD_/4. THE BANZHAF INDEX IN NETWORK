@@ -1,0 +1,228 @@
+FLOW GAMES
+We now define the problem of calculating the Banzhaf index in
+the network flow game.
+DEFINITION 1. NETWORK-FLOW-BANZHAF: We are given a
+network flow graph G =< V, E > with a source vertex s and a
+target vertex t, a capacity function c : E → R, and a target flow
+value k. We consider the network flow game, as defined above in
+Section 3. We are given an agent i, controlling the edge ei, and are
+asked to calculate the Banzhaf index for that agent. In the network
+3
+When each ordering of edges is equiprobable, the appropriate 
+index is the Shapley-Shubik index.
+336 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+flow game, let Cei be the set of all subsets of E that contain ei:
+Cei = {C ⊂ E|ei ∈ C}. In this game, the Banzhaf index of ei is:
+βi(v) =
+1
+2|E|−1
+E ⊂Cei
+[v(E ) − v(E \ {ei})].
+Let W(Cei ) be the set of winning subsets of edges in Cei , i.e.,
+the subsets E ∈ Cei where a flow of at least k can be sent from
+s to t using only the edges in E . The Banzhaf index of ei is the
+proportion of subsets in W(Cei ) where ei is crucial to maintaining
+the k-flow. All the edge subsets in W(Cei ) contain ei and are
+winning, but only for some of them, E ∈ W(Cei ), do we have
+that v(E \ {ei}) = 0 (i.e., E is no longer winning if we remove
+ei). The Banzhaf index of ei is the proportion of such subsets.
+4.1 #P-Completeness of Calculating the Banzhaf
+Index in the Network Flow Game
+We now show that the general case of NETWORK-FLOW-BANZHAF
+is #P-complete, by a reduction from #MATCHING.
+First, we note that NETWORK-FLOW-BANZHAF is in #P. There
+are several polynomial algorithms to calculate the maximal 
+network flow, so it is easy to check if a certain subset of edges E ⊂ E
+contains ei and allows a flow of at least k from s to t. It is also
+easy to check if a flow of at least k is no longer possible when
+we remove ei from E (again, by running a polynomial algorithm
+for calculating the maximal flow). The Banzhaf index of ei is 
+exactly the number of such subsets E ⊂ E, so 
+NETWORK-FLOWBANZHAF is in #P. To show that NETWORK-FLOW-BANZHAF
+is #P-complete, we reduce a #MATCHING problem4
+to a 
+NETWORKFLOW-BANZHAF problem.
+DEFINITION 2. #MATCHING: We are given a bipartite graph
+G =< U, V, E >, such that |U| = |V | = n, and are asked to
+count the number of perfect matchings possible in G.
+4.2 The Overall Reduction Approach
+The reduction is done as follows. From the #MATCHING 
+input, G =< U, V, E >, we build two inputs for the 
+NETWORKFLOW-BANZHAF problem. The difference between the answers
+obtained from the NETWORK-FLOW-BANZHAF runs is the 
+answer to the #MATCHING problem. Both runs of the 
+NETWORKFLOW-BANZHAF problem are constructed with the same graph
+G =< V , E >, with the same source vertex s and target vertex
+t, and with the same edge ef for which to compute the Banzhaf 
+index. They differ only in the target flow value. The first run is with
+a target flow of k, and the second run is with a target flow of k + .
+A choice of subset Ec ⊂ E reflects a possible matching in the
+original graph. G is a subgraph of the constructed G . We identify
+an edge in G , e ∈ E , with the same edge in G. This edge indicates
+a particular match between some vertex u ∈ U and another vertex
+v ∈ V . Thus, if Ec ⊂ E is a subset of edges in G which contains
+only edges in the subgraph of G, we identify it with a subset of
+edges in G, or with some candidate of a matching.
+We say Ec ⊂ E matches some vertex v ∈ V , if Ec contains
+some edge that connects to v, i.e., for some u ∈ U we have (u, v) ∈
+Ec. Ec is a possible matching if it does not match a vertex v ∈ V
+with more than one vertex in U, i.e., there are not two vertices
+u1 = u2 in U that both (u1, v) ∈ Ec and (u2, v) ∈ Ec. A perfect
+matching matches all the vertices in V .
+If Ec fails to match a vertex in V (the right side of the partition),
+the maximal possible flow that Ec allows in G is less than k. If it
+matches all the vertices in V , a flow of k is possible. If it matches
+4
+This is one of the most well-known #P-complete problems.
+all the vertices in V , but matches some vertex in V more than once
+(which means this is not a true matching), a flow of k+ is possible.
+is chosen so that if a single vertex v ∈ V is unmatched, the
+maximal possible flow would be less than |V |, even if all the other
+vertices are matched more than once. In other words, is chosen
+so that matching several vertices in V more than once can never
+compensate for not matching some vertex in V , in terms of the
+maximal possible flow.
+Thus, when we check the Banzhaf index of ef when the required
+flow is at least k, we get the number of subsets E ⊂ E that match
+all the vertices in V at least once. When we check the Banzhaf
+index of ef with a required flow of at least k+ , we get the number
+of subsets E ⊂ E that match all the vertices in V at least once, and
+match at least one vertex v ∈ V more than once. The difference
+between the two is exactly the number of perfect matchings in G.
+Therefore, if there existed a polynomial algorithm for 
+NETWORKFLOW-BANZHAF, we could use it to build a polynomial 
+algorithm for #MATCHING, so NETWORK-FLOW-BANZHAF is 
+#Pcomplete.
+4.3 Reduction Details
+The reduction takes the #MATCHING input, the bipartite graph
+G =< U, V, E >, where |U| = |V | = k. It then generates
+a network flow graph G as follows. The graph G is kept as a
+subgraph of G , and each edge in G is given a capacity of 1. A
+new source vertex s is added, along with a new vertex t and a new
+target vertex t. Let = 1
+k+1
+so that · k < 1. The source s is
+connected to each of the vertices in U, the left partition of G, with
+an edge of capacity 1 + . Each of the vertices in V is connected to
+t with an edge of capacity 1 + . t is connected to t with an edge
+ef of capacity 1 + .
+As mentioned above, we perform two runs of 
+NETWORK-FLOWBANZHAF, both checking the Banzhaf index of the edge ef in the
+flow network G . We denote the network flow game defined on G
+with target flow k as v(G ,k). The first run is performed on the game
+with a target flow of k, v(G ,k), returning the index βef (v(G ,k)).
+The second run is performed on the game with a target flow of
+k + , v(G ,k+ ), returning the index βef (v(G ,k+ )). The number
+of perfect matchings in G is the difference between the answers
+in the two runs, βef (v(G ,k)) − βef (v(G ,k+ )). This is proven in
+Theorem 5.
+Figure 1 shows an example of constructing G from G. On the
+left is the original graph G, and on the right is the constructed 
+network flow graph G .
+4.4 Proof of the reduction
+We now prove that the reduction above is correct. In all of this
+section, we take the input to the #MATCHING problem to be
+G =< U, V, E > with |U| = |V | = k, the network flow graph
+constructed in the reduction to be G =< V , E > with capacities
+c : E → R as defined in Section 4.3, the edge for which to 
+calculate the Banzhaf index to be ef , and target flow values of k and
+k + .
+PROPOSITION 1. Let Ec ⊂ E be a subset of edges that lacks
+one or more edges of the following:
+1. The edges connected to s;
+2. The edges connected to t ;
+3. The edge ef = (t , t).
+We call such a subset a missing subset. The maximal flow between
+s and t using only the edges in the missing subset Ec is less than k.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 337
+Figure 1: Reducing #MATCHING to NETWORK-FLOW-BANZHAF
+PROOF. The graph is a layer graph, with s being the vertex in
+the first layer, U the vertices in the second layer, V the vertices in
+the third, t the vertex in the fourth, and t in the fifth. Edges in G
+only go between consecutive layers. The maximal flow in a layer
+graph is limited by the total capacity of the edges between every
+two consecutive layers. If any of the edges between s and U is
+missing, the flow is limited by (|V | − 1)(1 + ) < k. If any of
+the edges between V and t is missing, the flow is also limited by
+(|V | − 1)(1 + ) < k. If the edge ef is missing, there are no edges
+going to the last layer, and the maximal flow is 0.
+Since such missing subsets of edges do not affect the Banzhaf
+index of ef (they add 0 to the sum), from now on we will consider
+only non-missing subsets. As explained in Section 4.2, we identify
+the edges in G that were copied from G (the edges between U and
+V in G ) with their counterparts in G. Each such edge (u, v) ∈ E
+represents a match between u and v in G. Ec is a perfect matching
+if it matches every vertex u to a single vertex v and vice versa.
+PROPOSITION 2. Let Ec ⊂ E be a subset of edges that fails
+to match some vertex v ∈ V . The maximal flow between s and t
+using only the edges in the missing subset Ec is less than k. We call
+such a set sub-matching, and it is not a perfect matching.
+PROOF. If Ec fails to match some vertex v ∈ V , the maximal
+flow that can reach the vertices in the V layer is (1+ )(k−1) < k,
+so this is also the maximal flow that can reach t.
+PROPOSITION 3. Let Ec ⊂ E be a subset of edges that is a
+perfect matching in G. Then the maximal flow between s and t
+using only the edges in Ec is exactly k.
+PROOF. A flow of k is possible. We send a flow of 1 from s
+to each of the vertices in U, send a flow of 1 from each vertex
+u ∈ U to its match v ∈ V , and send a flow of 1 from each v ∈ V
+to t . t gets a total flow of exactly k, and sends it to t. A flow
+of more than k is not possible since there are exactly k edges of
+capacity 1 between the U layer and the V layer, and the maximal
+flow is limited by the total capacity of the edges between these two
+consecutive layers.
+PROPOSITION 4. Let Ec ⊂ E be a subset of edges that 
+contains a perfect matching M ⊂ E in G and at least one more edge
+ex between some vertex ua ∈ U and va ∈ V . Then the maximal
+flow between s and t using only the edges in Ec is at least k+ . We
+call such a set a super-matching, and it is not a perfect matching.
+PROOF. A flow of k is possible, by using the edges of the perfect
+match as in Proposition 3. We send a flow of 1 from s to each of
+the vertices in U, send a flow of 1 from each vertex u ∈ U to its
+match v ∈ V , and send a flow of 1 from each v ∈ V to t . t gets
+a total flow of exactly k, and sends it to t. After using the edges
+of the perfect matching, we send a flow of from s to ua (this is
+possible since the capacity of the edge (s, ua) is 1 + and we have
+only used up 1). We then send a flow of from ua to va. This
+is possible since we have not used this edge at all-it is the edge
+which is not a part of the perfect matching. We then send a flow of
+from va to t . Again, this is possible since we have used 1 out of
+the total capacity of 1 + which that edge has. Now t gets a total
+flow of k + , and sends it all to t, so we have achieved a total flow
+of k + . Thus, the maximal possible flow is at least k + .
+THEOREM 5. Consider a #MATCHING instance G =< U, V, E >
+reduced to a BANZHAF-NETWORK-FLOW instance G as explained
+in Section 4.3. Let v(G ,k) be the network flow game defined on G
+with target flow k, and v(G ,k+ ) be the game defined with a target
+flow of k+ . Let the resulting index of the first run be βef (v(G ,k)),
+and βef (v(G ,k+ )) be the resulting index of the second run. Then
+the number of perfect matchings in G is the difference between the
+answers in the two runs, βef (v(G ,k)) − βef (v(G ,k+ )).
+PROOF. Consider the game v(G ,k). According to Proposition 1,
+in this game, the Banzhaf index of Ef does not count missing 
+subsets Ec ∈ E , since they are losing in this game. According to
+Proposition 2, it does not count subsets Ec ∈ E that are 
+submatchings, since they are also losing. According to Proposition 3,
+it adds 1 to the count for each perfect matching, since such subsets
+allow a flow of k and are winning. According to Proposition 3,
+it adds 1 to the count for each super-matching, since such subsets
+allow a flow of k (and more than k) and are winning.
+Consider the game v(G ,k+ ). Again, according to Proposition 1,
+in this game the Banzhaf index of Ef does not count missing 
+subsets Ec ∈ E , since they are losing in this game. According to
+Proposition 2, it does not count subsets Ec ∈ E that are 
+submatchings, since they are also losing. According to Proposition 3,
+it adds 0 to the count for each perfect matching, since such subsets
+allow a flow of k but not k + , and are thus losing. According to
+Proposition 3, it adds 1 to the count for each super-matching, since
+such subsets allow a flow of k + and are winning.
+Thus the difference between the two indices,
+βef (v(G ,k)) − βef (v(G ,k+ )),
+is exactly the number of perfect matchings in G.
+We have reduced a #MATCHING problem to a 
+NETWORKFLOW-BANZHAF problem. This means that given a polynomial
+338 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+algorithm to calculate the Banzhaf index of an agent in a 
+general network flow game, we can build an algorithm to solve the
+#MATCHING problem. Thus, the problem of calculating the Banzhaf
+index of agents in general network flow games is also #P-complete.

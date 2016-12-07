@@ -1,0 +1,63 @@
+This section addresses a previously open problem, 
+namely, How to solve the IPT problem without requiring each
+application message to piggyback a whole vector clock and
+a whole boolean array?. First, a general condition that
+characterizes which entries of vectors V Ci and IPi can be
+omitted from the control information attached to a message
+sent in the computation, is defined (Section 4.1). It is then
+shown (Section 4.2) that this condition is both sufficient and
+necessary.
+However, this general condition cannot be locally 
+evaluated by a process that is about to send a message. Thus,
+locally evaluable approximations of this general condition
+must be defined. To each approximation corresponds a 
+protocol, implemented with additional local data structures. In
+that sense, the general condition defines a family of IPT 
+protocols, that solve the previously open problem. This issue
+is addressed in Section 5.
+4.1 To Transmit or Not to Transmit Control
+Information
+Let us consider the previous IPT protocol (Section 3.3).
+Rule R3 shows that a process Pj does not systematically
+update each entry V Cj[k] each time it receives a message
+m from a process Pi: there is no update of V Cj[k] when
+V Cj[k] ≥ m.V C[k]. In such a case, the value m.V C[k] is
+useless, and could be omitted from the control information
+transmitted with m by Pi to Pj.
+Similarly, some entries IPj[k] are not updated when a
+message m from Pi is received by Pj. This occurs when
+0 < V Cj[k] = m.V C[k] ∧ m.IP[k] = 1, or when V Cj [k] >
+m.V C[k], or when m.V C[k] = 0 (in the latest case, as
+m.IP[k] = IPi[k] = 0 then no update of IPj[k] is necessary).
+Differently, some other entries are systematically reset to 0
+(this occurs when 0 < V Cj [k] = m.V C[k] ∧ m.IP[k] = 0).
+These observations lead to the definition of the condition
+K(m, k) that characterizes which entries of vectors V Ci and
+IPi can be omitted from the control information attached
+to a message m sent by a process Pi to a process Pj:
+Definition 5. K(m, k) ≡
+(send(m).V Ci[k] = 0)
+∨ (send(m).V Ci[k] < pred(receive(m)).V Cj[k])
+∨
+;
+(send(m).V Ci[k] = pred(receive(m)).V Cj[k])
+∧(send(m).IPi[k] = 1) .
+4.2 A Necessary and Sufficient Condition
+We show here that the condition K(m, k) is both 
+necessary and sufficient to decide which triples of the form
+(k, send(m).V Ci[k], send(m).IPi[k]) can be omitted in an
+outgoing message m sent by Pi to Pj. A triple attached to
+m will also be denoted (k, m.V C[k], m.IP[k]). Due to space
+limitations, the proofs of Lemma 4 and Lemma 5 are given
+in [1]. (The proof of Theorem 2 follows directly from these
+lemmas.)
+214
+Lemma 4. (Sufficiency) If K(m, k) is true, then the triple
+(k, m.V C[k], m.IP[k]) is useless with respect to the correct
+management of IPj[k] and V Cj [k].
+Lemma 5. (Necessity) If K(m, k) is false, then the triple
+(k, m.V C[k], m.IP[k]) is necessary to ensure the correct 
+management of IPj[k] and V Cj [k].
+Theorem 2. When a process Pi sends m to a process Pj,
+the condition K(m, k) is both necessary and sufficient not to
+transmit the triple (k, send(m).V Ci[k], send(m).IPi[k]).

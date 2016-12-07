@@ -1,0 +1,61 @@
+Given the distributions over the actions within the different chance nodes (one for each model of the other agent), the level 1 I-ID is transformed as shown in Fig.
+As we  mentioned previously, the values of the node Mod[Mj] denote the  different models of the other agent, and its distribution is the agent i"s belief over the models of j conditioned on the physical state.
+node, I-IDs differ from IDs by having a dashed link (called the policy link in [15]) between the model node and a chance node, Aj, that represents the distribution over the other agent"s actions given its model.
+The mapping from the level 0 models" decision nodes to the chance nodes is carried out so that actions with the largest value in the decision node are assigned uniform  probabilities in the chance node while the rest are assigned zero probability.
+The conditional probability table of the chance node, Aj, is a multiplexer that assumes the distribution of each of the action nodes (A1 j , A2 j ) depending on the value of Mod[Mj].
+The hexagon is the model node (Mj,l−1) whose structure we show in (b).
+In particular, some of the models within the node are I-IDs that when solved generate the agent"s optimal policy in their decision nodes.
+Members of the model node are I-IDs themselves (m1 j,l−1, m2 j,l−1; diagrams not shown here for simplicity) whose decision nodes are mapped to the corresponding chance nodes (A1 j , A2 j ).
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) (a) (b) Figure 3: (a) A generic two time-slice level l I-DID for agent i in a setting with one other agent j.
+Note that we may view the level l I-ID as a NID.
+The model node contains the alternative computational models ascribed by i to the other agent from the set, Θj,l−1 ∪ SMj, where Θj,l−1 and SMj were defined previously in Section 2.
+Each decision node is mapped to the corresponding chance node, say A1 j , in the  following way: if OPT is the set of optimal actions obtained by solving the I-ID (or ID), then Pr(aj ∈ A1 j ) = 1 |OP T | if aj ∈ OPT, 0 otherwise.
+A naive extension of influence diagrams (IDs) to settings  populated by multiple agents is possible by treating other agents as  automatons, represented using chance nodes.
+The decision node of each level l − 1 I-ID is transformed into a chance node, as we mentioned previously, so that the actions with the largest value in the decision node are assigned uniform  probabilities in the chance node while the rest are assigned zero probability.
+During the transformation, the conditional probability table (CPT) of the node, Aj, is populated such that the node assumes the distribution of each of the chance nodes depending on the value of the node, Mod[Mj].
+We note that the probability distribution over the chance node, S, and the model node together represents agent i"s belief over its interactive states.
+1(c), we show the transformed I-ID when the model node is replaced by the chance nodes and relationships between them.
+1(a), where the model node (Mj,l−1) is denoted using a hexagon.
+Because the model node contains the alternative models of the other agent as its values, its representation is not trivial.
+The different chance nodes (A1 j , A2 j ), one for each model, and  additionally, the chance node labeled Mod[Mj] form the parents of the chance node, Aj.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 815 Figure 1: (a) A generic level l I-ID for agent i situated with one other agent j.
+In other words, when Mod[Mj] has the value m1 j,l−1, the chance node Aj assumes the distribution of the node A1 j , and Aj assumes the distribution of A2 j when Mod[Mj] has the value m2 j,l−1.
+Their solutions provide probability distributions over the other agents" actions, which are entered in the corresponding chance nodes found in the model node of the level 1 I-ID.
+Depending on the value of the node, Mod[Mj], the distribution of each of the chance nodes is assigned to the node Aj.
+Notice the dotted model update link that denotes the update of the models of j and the distribution over the models over time.
+The distribution over the node, Mod[Mj], is the agent i"s belief over the models of j given a physical state.
+We start by solving the level 0 models, which, if intentional, are traditional IDs.
+This procedure is carried out up to the level l I-ID whose solution gives the non-empty set of optimal actions that the agent should perform given its belief.
+3.1 Syntax In addition to the usual chance, decision, and utility nodes,  IIDs include a new type of node called the model node.
+(c) The transformed I-ID with the model node replaced by the chance nodes and the relationships between them.
+The probabilities  assigned to the blocks of the NID are i"s beliefs over j"s models  conditioned on a physical state.
+Note that within the I-IDs (or IDs) at each level, there is only a single decision node.
+The values of Mod[Mj] denote the different models of j.
+In the absence of other agents, the model node and the chance node, Aj, vanish and I-IDs collapse into traditional IDs.
+Borrowing insights from previous work [8], we observe that the model node and the dashed policy link that connects it to the chance node, Aj, could be represented as shown in Fig.
+Thus, there are as many action nodes (A1 j , A2 j ) in Mj,l−1 as the number of models in the support of agent i"s  beliefs.
+However, this approach assumes that the agents" actions are controlled using a probability distribution that does not change over time.
+The Sixth Intl.
+Thus, a model in the model node may itself be an I-ID or ID, and the  recursion terminates when a model is an ID or subintentional.
+Specifically, each of the level l − 1 models within the model node are blocks in the NID (see Fig.
+Notice that analogous to IDs, I-IDs are suitable for online decision-making when the agent"s current belief is known. 
+(b) The semantics of the model update link.
+In addition to the model 1 The 0th level model is a POMDP: Other agent"s actions are treated as exogenous events and folded into the T, O, and R functions.
+1(b) clarifies the semantics of the policy link, and shows how it can be represented using the traditional dependency links.
+For more agents, we will have as many model nodes as there are agents.
+In contrast to the representation in [15], there are no special-purpose policy links, rather the I-ID is composed of only those types of nodes that are found in traditional IDs and dependency  relationships between the nodes.
+The transformed level 1 I-ID is a traditional ID that may be solved  us816 The Sixth Intl.
+If the level l = 1, each block is a traditional ID, otherwise if l > 1, each block within the NID may itself be a NID.
+Interactive influence diagrams (I-IDs) adopt a more sophisticated approach by  generalizing IDs to make them applicable to settings shared with other agents who may act and observe, and update their beliefs.
+Figure 2: A level l I-ID represented as a NID.
+We show a general level l I-ID in Fig.
+3.2 Solution The solution of an I-ID proceeds in a bottom-up manner, and is implemented recursively.
+In Fig.
+This allows I-IDs to be represented and implemented using conventional application tools that target IDs.
+Joint Conf.
+Joint Conf.
+Thus, our NID does not contain any MAIDs.
+Notice that Fig.
+ing the standard expected utility maximization method [18].
+1(c).
+1(b).

@@ -1,0 +1,76 @@
+A key advantage of DPM over a standard pari-mutuel
+market is the ability to cash out of the market before it
+closes, in order to take a profit or limit a loss. This is 
+accomplished by allowing traders to place ask orders on the
+same queue as the market maker. So traders can sell the
+shares that they purchased at or below the price set by the
+market maker. Or traders can place a limit sell order at any
+price. Buyers will purchase any existing shares for sale at
+the lower prices first, before purchasing new shares from the
+market maker.
+7.1 Aftermarket for DPM II
+For the second main case explored above, where all money
+177
+is redistributed, allowing an aftermarket is simple. In fact,
+aftermarket may be a poor descriptor: buying and selling
+are both fully integrated into the same mechanism. Every
+share is worth precisely the same amount, so traders can 
+simply place ask orders on the same queue as the market maker
+in order to sell their shares. New buyers will accept the 
+lowest ask price, whether it comes from the market maker or
+another trader. In this way, traders can cash out early and
+walk away with their current profit or loss, assuming they
+can find a willing buyer.
+7.2 Aftermarket for DPM I
+When winning wagers are refunded and only losing wagers
+are redistributed, each share is potentially worth a different
+amount, depending on how much was paid for it, so it is not
+as simple a matter to set up an aftermarket. However, an
+aftermarket is still possible. In fact, much of the complexity
+can be hidden from traders, so it looks nearly as simple as
+placing a sell order on the queue.
+In this case shares are not homogenous: each share of A
+is actually composed of two distinct parts: (1) the refund of
+p · 1A dollars, and (2) the payoff of P1 · 1A dollars, where p
+is the per-share price paid and 1A is the indicator function
+equalling 1 if A occurs, and 0 otherwise. One can 
+imagine running two separate aftermarkets where people can sell
+these two respective components. However, it is possible to
+automate the two aftermarkets, by automatically bundling
+them together in the correct ratio and selling them in the
+central DPM. In this way, traders can cash out by placing
+sell orders on the same queue as the DPM market maker,
+effectively hiding the complexity of explicitly having two
+separate aftermarkets. The bundling mechanism works as
+follows. Suppose the current price for 1 share of A is p1. A
+buyer agrees to purchase the share at p1. The buyer pays
+p1 dollars and receives p1 · 1A + P1 · 1A dollars. If there is
+enough inventory in the aftermarkets, the buyer"s share is
+constructed by bundling together p1 ·1A from the first 
+aftermarket, and P1 ·1A from the second aftermarket. The seller
+in the first aftermarket receives p1MPr(A) dollars, and the
+seller in the second aftermarket receives p1MPr(B) dollars.
+7.3 Pseudo aftermarket for DPM I
+There is an alternative pseudo aftermarket that"s 
+possible for the case of DPM I that does not require bundling.
+Consider a share of A purchased for $5. The share is 
+composed of $5·1A and $P1 ·1A. Now suppose the current price
+has moved from $5 to $10 per share and the trader wants to
+cash out at a profit. The trader can sell 1/2 share at market
+price (1/2 share for $5), receiving all of the initial $5 
+investment back, and retaining 1/2 share of A. The 1/2 share is
+worth either some positive amount, or nothing, depending
+on the outcome and the final payoff. So the trader is left
+with shares worth a positive expected value and all of his or
+her initial investment. The trader has essentially cashed out
+and locked in his or her gains. Now suppose instead that
+the price moves downward, from $5 to $2 per share. The
+trader decides to limit his or her loss by selling the share for
+$2. The buyer gets the 1 share plus $2·1A (the buyer"s price
+refunded). The trader (seller) gets the $2 plus what remains
+of the original price refunded, or $3 · 1A. The trader"s loss
+is now limited to $3 at most instead of $5. If A occurs, the
+trader breaks even; if B occurs, the trader loses $3.
+Also note that-in either DPM formulation-traders can
+always hedge sell by buying the opposite outcome without
+the need for any type of aftermarket.

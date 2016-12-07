@@ -1,0 +1,175 @@
+The idea of defining beliefs is given by the assumption that an agent believes in something if he knows that it is true in the most plausible worlds of Ω(q,a); formally, this can be stated as Baϕ ≡ Ka( →a ϕ).
+Ultimately, we are going to be interested in normal (not strong) validity, as parameterizing the satisfaction relation with a set P is just a technical device for propagating sets of plausible paths Υa into the semantics of nested formulae.
+Friedman and Halpern: Plausibility Spaces The work of Friedman and Halpern [7] extends the concepts of knowledge and belief with an explicit notion of  plausibility; i.e., some worlds are more plausible for an agent than others.
+In the object language, this is reflected by the fact that plausibility assumptions are specified through path  formulae.
+Certainty is stronger: if an agent is certain about ϕ, the formula must hold in all states with a visible part equal to the current perception, regardless of whether the invisible part is plausible or not.
+As runs are included in time points, they can also be defined plausible or implausible.7 However, it also means that time points serve the role of possible worlds in the basic formulation, which yields Kripke structures with uncountable possible world spaces in all but the most trivial cases.
+Now, it is possible to make statements that refer to plausible paths only, as well as statements that regard all paths that may occur in the system.
+The logic from [7] is defined by the following grammar: ϕ ::= p | ϕ∧ϕ | ¬ϕ | Kaϕ | ϕ →a ϕ, where the semantics of all operators except →a is given as usual, and formulae ϕ →a ψ have the meaning that ψ is true in the most plausible worlds in which ϕ holds.
+To implement this idea, Kripke models are extended with function P which assigns a plausibility space P(q, a) = (Ω(q,a), (q,a)) to every state, or more generally every possible world q, and agent a.
+The implementation of temporal plausibility in [7, 8] is based on the interpreted systems approach with time points (r, m) being subject to plausibility.
+In any case, restricting the reasoning to plausible  possibilities can be essential if we want to make the reasoning  feasible, as the space of all possibilities (we call them physical possibilities in the rest of the paper) is exceedingly large in real life.
+But then, does it make sense to consider λ as plausible?
+Let S, T ⊆ Ω(q,a) be finite subsets of states; now, T is defined to be plausible given S with respect to P(q, a), denoted by S →P (q,a) T, iff all minimal points/states in S (with respect to (q,a)) are also in T.5 Friedman and Halpern"s view to modal plausibility is closely related to probability and, more generally, plausibility measures.
+The importance of strong validity, however, lies in the fact that |≡ ϕ ↔ ψ makes ϕ and ψ completely interchangeable, while the same is not true for normal validity.
+Friedman and Halpern have shown that the KD45  axioms are valid for operator Ba if plausibility spaces satisfy consistency (for all states q ∈ Q it holds that Ω(q,a) ⊆ { q ∈ Q | q ∼a q }) and normality (for all states q ∈ Q it holds that Ω(q,a) = ∅).6 A temporal extension of the language (mentioned briefly in [7], and discussed in more detail in [8]) uses the interpreted systems approach [10, 5].
+Then Ma,P = Q, R, ∼1, ..., ∼k, Υ1, ..., Υa−1, P, Υa+1, ..., Υk, π  denotes model M with a"s set of plausible paths reset to P. Now we can extend the language of CTLKP with  formulae (set-pla γ)ϕ with the intuitive reading: suppose that γ exactly characterizes the set of plausible paths, then ϕ holds, and formal semantics given below: M, q |=P (set-pla γ)ϕ iff Ma,|γ|M , q |=P ϕ.
+Formally, we model the game with a CTLKP model M, in which the set of states Q includes qs for the initial situation, states qr, r ∈ [0, 1], for the situations after a has chosen number r, and final states qw, ql for the winning and the losing situation,  respectively.
+Now, these are time points that play the role of possible worlds; consequently, plausibility spaces P(r,m,a) are assigned to each point (r, m) and agent a. Su et al.
+Note that this is fundamentally different from using a probabilistic model in which all these unlikely scenarios are assigned very low probabilities: in that case, they also have a very small influence on our final decision, but we must process the whole space of physical possibilities to evaluate the options.
+Obviously, the only sensible thing to do for both agents is to choose 1 (using game-theoretical  vocabulary, these strategies are strongly dominant for the  respective players).
+The first version is given by Bα 1 ϕ ≡ K(α → ϕ).4 A drawback of this version is that if α is false, then everything will be believed with respect to α.
+A model with plausibility is given as M = Q, R, ∼1, ..., ∼k, Υ1, ..., Υk, π , where Q, R, ∼1, ..., ∼k, π is a CTLK model, and Υa ⊆ ΛM is the set of paths in M that are plausible according to agent a.
+However, assuming  rationality of the players makes it only plausible that the game must end up with a win: M, qs |= Pla A♦ win ∧ Plb A♦ win, and the agents believe that this will be the case: M, qs |= BaA♦ win ∧ BbA♦ win.
+For instance, we may claim it is plausible to assume that a shop is closed after the opening hours, though the manager may be physically able to open it at any time: Pl aA2 (late → ¬open) ∧ Ph E♦ (late ∧ open).
+Formally, the semantics for →a is given as: M, q |= ϕ →a ψ iff Sϕ P (q,a) →P(q,a) Sψ P (q,a), where Sϕ (q,a) = {q ∈ Ω(q,a) | M, q |= ϕ} are the states in Ω(q,a) that satisfy ϕ.
+Suppose that (r, m) is plausible in itself (formally: (r, m) is minimal wrt (r,m,a)), but (r, m + 1) is not plausible in (r, m + 1).
+A system R is given by runs, where a run r : N → Q is a function from time moments (modeled by N) to global states, and a time point (r, i) is given by a time point i ∈ N and a run r. A global state is a combination of local states, one per agent.
+We observe that this update scheme is similar to the one proposed in [13].
+We say that ϕ is M-true (M |= ϕ) if M, q |= ϕ for all q ∈ QM.
+An interpreted system M = (R, π) is given by a system R and a valuation of propositions π. Epistemic relations are defined over time points, i.e., (r , m ) ∼a (r, m) iff agent a"s local states ra(m ) and ra(m) of (r , m ) and (r, m) are equal.
+Player a has perfect  information in the game (i.e., q ∼a q iff q = q ), but player b does not distinguish between states qr (i.e., qr ∼b qr for all r, r ∈ [0, 1]).
+M, r, i |= Bϕ iff M, r , i |= ϕ for all (r , i ) with V is(r (i )) = Per(r(i)) and Inv(r (i )) ∈ Pls(r(i)) M, r, i |= Cϕ iff M, r , i |= ϕ for all (r (i )) with V is(r (i )) = Per(r(i)) Thus, an agent believes ϕ if, and only if, ϕ is true in all states which look like what he sees now and seem plausible in the current state.
+Formally, the language of CTLKP is defined as: ϕ ::= p | ¬ϕ | ϕ ∧ ϕ | Eγ | Pl aϕ | Ph ϕ | Kaϕ | Baϕ γ ::= fϕ | 2 ϕ | ϕU ϕ.
+Now, the semantics of CTLKP can be given through the  following clauses: M, q |=P p iff q ∈ π(p); M, q |=P ¬ϕ iff M, q |=P ϕ; M, q |=P ϕ ∧ ψ iff M, q |=P ϕ and M, q |=P ψ; M, q |=P E fϕ iff there is a q-subpath λ ∈ P such that M, λ[1] |=P ϕ; M, q |=P E2 ϕ iff there is a q-subpath λ ∈ P such that M, λ[i] |=P ϕ for every i ≥ 0; M, q |=P EϕU ψ iff there is a q-subpath λ ∈ P and i ≥ 0 such that M, λ[i] |=P ψ, and M, λ[j] |=P ϕ for every 0 ≤ j < i; M, q |=P Pl aϕ iff M, q |=Υa ϕ; M, q |=P Ph ϕ iff M, q |= ϕ; M, q |=P Kaϕ iff M, q |= ϕ for every q such that q ∼a q ; M, q |=P Baϕ iff for all q ∈ on(Υa) with q ∼a q , we have that M, q |=Υa ϕ.
+We define |γ|M to be the set of paths that satisfy γ in model M: | fϕ|M = {λ | M, λ[1] |= ϕ} |2 ϕ|M = {λ | ∀i (M, λ[i] |= ϕ)} |ϕ1U ϕ2|M = {λ | ∃i ` M, λ[i] |= ϕ2 ∧ ∀j(0 ≤ j < i ⇒ M, λ[j] |= ϕ1) ´ }.
+Note that branching time makes our notion of belief different from Friedman and Halpern"s. Most notably, property Kϕ → Bϕ is valid in their approach, but not in ours: an agent may 7 Friedman and Halpern even briefly mention how  plausibility of runs can be embedded in their framework.
+In our models, plausibility is also global, i.e., plausibility sets do not depend on the state of the system.
+Formula Pl aϕ has the intended meaning: according to agent a, it is plausible that ϕ holds; formula Ph ϕ reads as: ϕ holds in all  physically possible scenarios (i.e., even in implausible ones).
+But even in these cases, we usually do not get rid of plausibility assumptions completely - we only revise them to make them more cautious.3 To formalize this idea, we extend models of CTLK with sets of plausible paths and add plausibility operators Pl a, physical paths operator Ph , and belief operators Ba to the language of CTLK.
+It is  subjective because Υa represents agent a"s subjective view on what is plausible - and indeed, different agents may have  different ideas on plausibility (i.e., Υa may differ from Υb).
+3.3 Defining Plausible Paths with Formulae So far, we have assumed that sets of plausible paths are somehow given in models.
+In our approach, plausibility is explicitly seen as a temporal property, i.e., it is a property of temporal paths rather than states.
+More precisely, worlds that satisfy α can be considered as plausible.
+The second version overcomes this problem: Bα 2 ϕ ≡ K(α → ϕ) ∧ (K¬α → Kϕ); now ϕ is only believed if it is known that ϕ follows from assumption α, and ϕ must be known if assumption α is known to be false.
+Let M be a CTLKP 3 That is, when planning to open an industrial plant in the UK, we will probably consider the possibility of our main contractor taking her life, but we will still not take into  account the possibilities of: an invasion of UFO, England being destroyed by a meteorite, Fidel Castro becoming the British Prime Minister etc.
+The strength of these different notions is given as follows: Bα 3 ϕ implies Bα 2 ϕ, and Bα 2 ϕ implies Bα 1 ϕ.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 585 is just a partially ordered subset of states/worlds; that is, Ω(q, a) ⊆ Q, and (q,a)⊆ Q ×Q is a reflexive and transitive relation.
+Thus, beliefs of an agent may be seen as things known to him if he disregards all non-plausible possibilities.
+Note also that, in any of the states qr, agent b believes that a (being rational) has played 1: M, qr |= Bbone for all r ∈ [0, 1].
+Finally, Bα 3 ϕ ≡ K(α → ϕ) ∧ ¬K¬α: if the assumption α is known to be false, nothing should be believed with respect to α.
+ϕ is valid (|= ϕ) if M |= ϕ for all models M. ϕ is M-strongly true (M |≡ ϕ) if M, q |=P ϕ for all q ∈ QM and all P ⊆ ΛM.
+An actual notion of plausibility (that is, a particular set of plausible paths) can emerge in many different ways.
+This is because (r, m) ∼a (r , m ) iff a"s local state corresponding to both time points is the same (ra(m) = ra(m )).
+One of the main reasons for using the concept of  plausibility is that we want to define agents" beliefs out of more primitive concepts - in our case, these are plausibility and indistinguishability - in a way analogous to [20, 7].
+That is, we do not consider states (or possible worlds) to be more plausible than others but rather define some behaviors to be plausible, and others implausible.
+Last but not least, our logic provides a mechanism for specifying (and updating) sets of plausible paths in the  object language.
+In this section we present a  dynamic approach where an actual notion of plausibility can be specified in the object language.
+The model checking results from Section 5 are especially encouraging in this light. 
+In contrast, the approach of [18] and [20] is static: not only the logics do not include operators for talking about time and/or change, but these are states that are assumed plausible or not in their semantics.
+Moreover, we define the plausible paths model update as follows.
+The plausible path operator restricts statements only to those paths which are defined to be sensible, whereas the  physical path operator generates statements about all paths that may theoretically occur.
+Thus, plausibility sets can be specified in a succinct way, which is another feature that makes our  framework computation-friendly.
+If an agent knows that ϕ, he must be sure about it.
+In consequence, the semantics of Kaϕ can be read as for every run, and every moment on this run that yields the same local state as now, ϕ holds.
+Plausibility can serve as a primitive concept that helps to define the semantics of beliefs, in a similar way as indistinguishability of states (represented by relation ∼a) is the semantic concept that underlies knowledge.
+Furthermore, we define beliefs on top of plausibility and knowledge, as the facts that an agent would know if he assumed that only plausible things could happen.
+It is holistic because Υa represents agent a"s idea of the  plausible behavior of the whole system (including the behavior of other agents).
+It seems worth emphasizing that this notion of plausibility is subjective and holistic.
+The semantics of CTLKP extends that of CTLK as  follows.
+Note that |= ϕ ↔ ψ does not even imply that M, q |= Φ iff M, q |= Φ[ϕ/ψ].
+Let Φ[ϕ/ψ] denote formula Φ in which every occurrence of ψ was replaced by ϕ.
+ϕ is strongly valid ( |≡ ϕ) if M |≡ ϕ for all models M. Proposition 2.
+Moses and Shoham: Beliefs as Conditional Knowledge In [18], beliefs are relativized with respect to a formula α (which can be seen as a plausibility assumption expressed in the object language).
+An interested reader is referred to [7] for more details.
+That is, by following plausible path λ we are bound to get to an implausible situation.
+Note that, in principle, the outcome of the game is  uncertain: M, qs |= ¬A♦ win∧¬A2 ¬win.
+External sources may provide the agent with information about the invisible part of a state, which results in a set of states Qpls that are plausible for the agent.
+Knowledge exchange is another possibility (e.g., an agent a can tell agent b that player c always bluffs when he is smiling).
+Logics of plausibility can be seen as a qualitative description of agents preferences/knowledge; logics of probability [6, 15], on the other hand, offer a quantitative description.
+Still, they should make sense to the agent; if he believes that ϕ, then the formula should at least hold in all futures that he envisages as plausible.
+The epistemic relation ∼vis is captured in the following way: (r, i) ∼vis (r , i ) iff V is(r(i)) = V is(r (i )).
+In these papers, like in ours, plausibility is used as a primitive  semantic concept that helps to define beliefs on top of agents" knowledge.
+This means that following the plausible path makes it implausible (cf.
+Firstly, the framework of Friedman and Halpern is static in the sense that plausibility is taken as a property of (abstract)  possible worlds.
+the concept of plausibility.
+Investigating systems, in which plausibility is relativized with respect to states (like in [7]), might be an interesting avenue of future work.
+Let M = Q, R, ∼1, ..., ∼k, Υ1, ..., Υk, π be a CTLKP model, and let P ⊆ ΛM be a set of paths.
+Last but not least, folk knowledge can be used to establish  plausibilityrelated classifications of behavior (players normally want to win a game, people want to live).
+3.1 The Concept of Plausibility It is well known how knowledge (or beliefs) can be  modeled with Kripke structures.
+M, r, m |= Kaϕ iff M, r , m |= ϕ for all (r , m ) ∼a (r, m).
+|=P restricts the evaluation of temporal formulae to the paths given in P only.
+First, we outline the idea informally.
+Then,  plausible paths might be defined as ones in which it never snows, i.e., all paths that satisfy 2 ¬snows.
+Our approach is to use the  notion of plausibility for this purpose.
+Thus, there is only one plausible course of events if we assume that our players are rational, and hence Υa = Υb = {qsq1qwqw .
+It may result from observations and learning; an agent can learn from its observations and see specific patterns of events as plausible (a lot of people wear black shoes if they wear a suit).
+Firstly, we augment the models with sets of plausible paths.
+KBC  formulae are defined as ϕ ::= p | ¬ϕ | ϕ ∧ ϕ | Kϕ | Bϕ | Cϕ.
+In our approach,  however, plausibility is explicitly seen as a temporal property.
+Given a global state q, we additionally define V is(q) = qvis , Inv(q) = qinv , Per(q) = qper , and Pls(q) = Qpls .
+In this approach, belief is strongly connected to knowledge in the sense that belief is knowledge with respect to a given assumption.
+These formulae describe properties of paths; therefore, a specific formula can be used to characterize a set of paths.
+Then for all M, q, P: M, q |=P Φ iff M, q |=P Φ[ϕ/ψ] (in particular, M, q |= Φ iff M, q |= Φ[ϕ/ψ]).
+If we want to make it clear that Υa is taken from model M, we will write ΥM a .
+3.2 CTLK with Plausibility In this section, we extend the logic of CTLK with  plausibility; we call the resulting logic CTLKP.
+The differences to [7, 8] are more subtle.
+However, it is not so obvious how we can capture knowledge and beliefs in a sensible way in one framework.
+The computational model consists of (global) states q = (qvis , qinv , qper , Qpls ) where the  environment is divided into a visible (qvis ) and an invisible part (qinv ), and qper captures the agent"s perception of the visible part of the environment.
+For example, it might be the case that path λ is plausible in q = λ[0], but the set of plausible paths in q = λ[1] is empty.
+6 Note that this normality is essentially seriality of states wrt plausibility spaces.
+As Proposition 13 suggests, such a subtle  distinction between knowledge and beliefs is possible in our approach because branching time logics allow for existential quantification over runs.
+The plausibility space 4 Unlike in most approaches, K is interpreted over all worlds and not only over the indistinguishable worlds.
+First, a chooses a real number r ∈ [0, 1] (without revealing the number to b); then, b chooses a real number r ∈ [0, 1].
+Note that we want to specify (usually infinite) sets of infinite paths, and we need a finite representation of these structures.
+3.4 Comparison to Related Work Several modal notions of plausibility were already  discussed in the existing literature [7, 8, 20, 18, 16].
+Moreover,  behaviors can be formally understood as temporal paths in the Kripke structure modeling a multi-agent system.
+Formulae are interpreted in a straightforward way with respect to interpreted systems, e.g.
+Then, we extend CTLK with the notion of plausibility by adding plausible path operators Pl a and physical path operator Ph to the logic.
+WITH PLAUSIBILITY AND BELIEFS In this section we discuss the central concept of this  paper, i.e.
+The  absolute satisfaction relation |= is defined as |=ΛM .
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) know that some course of events is in principle possible, without believing that it can really become the case (see Section 4.2).
+Secondly, our framework is more computationally oriented.
+What Are the Differences to Our Logic?
+The logic does not include temporal formulae, although it might be extended with temporal operators, as time is already present in KBC models.
+In this sense, our work follows [7, 20]: essentially, beliefs are what an agent would know if he took only plausible options into account.
+Their work preceded both [7, 8] and  [20]and although Moses and Shoham do not explicitly mention the term plausibility, it seems appropriate to summarize their idea first.
+The semantic clauses for belief and certainty are given below.
+when our plausibility  assumptions do not seem accurate any more, or when the cost of The Sixth Intl.
+In contrast, we use branching time with explicit  quantification over temporal paths.8 We believe that branching time is more suitable for non-deterministic domains (cf.
+Secondly, we use a non-standard satisfaction relation |=P , which we call plausible satisfaction.
+semantics is given by an extension of interpreted systems [10, 5], here, it is called interpreted KBC systems.
+model and P ⊆ ΛM be an arbitrary subset of paths in M (not necessarily any ΥM a ).
+A similar idea was introduced by Moses and Shoham in [18].
+This concept is expressed via symbols Bα i ϕ; the index i ∈ {1, 2, 3} is used to distinguish between three different implementations of beliefs.
+However, beliefs of an agent are not necessarily about reliable facts.
+Of course, this does not exclude a more extensive analysis in special cases, e.g.
+8 To be more precise, time in [7] does implicitly branch at epistemic states.
+Fourthly, while Friedman and Halpern"s models are very flexible, they also enable system descriptions that may seem counterintuitive.
+on(P) = {q ∈ Q | ∃λ ∈ P∃i (λ[i] = q)}.
+is  another viable source of plausibility assumptions.
+This formulation is flexible enough to allow for incorporating time; still, in our approach, time is inherent to plausibility rather than incidental.
+One logical solution is given by using path formulae γ.
+Combining the argument with computational aspects, we suggest that our approach can be more natural and straightforward for many applications.
+Clearly, there should be a connection between these two notions.
+[20] have developed a multi-modal,  computationally grounded logic with modalities K, B, and C (knowledge, belief, and certainty).
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 583 inaccurate assumptions can be too high (as in the case of high-budget business decisions).
+Let on(P) be the set of all states that lie on at least one path in P, i.e.
+Formally, let γ be a CTLK path formula.
+Thirdly, [7, 8] build on linear time: a run (more precisely, a time moment (r, m)) is fixed when a formula is interpreted.
+However, such an approach - while obviously more flexible - allows for potentially counterintuitive system descriptions.
+: KBC Logic Su et al.
+For instance, think about a country in Africa where it has never snowed.
+The reverse does not hold.
+The transition relation is as follows: qsRqr and qrRql for all r ∈ [0, 1]; q1Rqw, qwRqw, and qlRql.
+Finally, we discuss related work [7, 8, 20, 18, 16], and compare it with our approach.
+The Sixth Intl.
+586 The Sixth Intl.
+584 The Sixth Intl.
+Consider a simple game with two agents a and b, shown in Figure 1.
+Remark 1), which is even stranger in the case of linear time.
+Also, let |≡ ϕ ↔ ψ.
+Game theory, with its rationality criteria  (undominated strategies, maxmin, Nash equilibrium etc.)
+Strong truth and strong validity imply truth and validity, respectively.
+The 5 When there are infinite chains .
+[4]), of which multi-agent systems are a prime example.
+Proposition 3.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) Figure 1: Guessing Robots game Example 1 (Guessing Robots).
+Moreover, π(one) = {q1} and π(win) = {qw}.
+Joint Conf.
+Joint Conf.
+Joint Conf.
+Joint Conf.
+q3 q2 a q1, the definition is much more sophisticated.
+The agents win the game (and collect EUR 1, 000, 000) if both chose 1, otherwise they lose.
+Remark 1.

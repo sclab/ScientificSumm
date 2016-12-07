@@ -1,0 +1,44 @@
+these three kinds of search engines were assigned to the databases among the four testbeds in a round-robin manner. 
+all these algorithms were implemented with the lemur toolkit [12].
+to simulate the multiple type-engine environment, three different types of search engines were used in the experiments: inquery [2], a unigram statistical language model with linear smoothing [12,20] and a tfidf retrieval algorithm with ltc weight [12,20].
+4.2 search engines in the uncooperative distributed information retrieval environments of large organizations (companies) or  domainspecific hidden web, different databases may use different types of search engine.
+100 queries were created from the title fields of trec topics 51-150. the queries 101-150 were used as training queries and the queries 51-100 were used as test queries (details in table 2).
+the frall and doeall databases have lower densities of documents relevant to trec queries than the small databases, even though they are much larger.
+the other 80 collections were left unchanged.
+trec123-fr-doe-81col (nonrelevant): the 13 federal register collections and the 6 department of energy collections in the trec123-100col-bysource testbed were collapsed into two large databases frall and doeall.
+thus, the two large databases have many more relevant documents than the small databases.
+the apall and wsjall databases have higher densities of documents relevant to trec queries than the small databases.
+the other 60 collections were left unchanged.
+trec123-ap-wsj-60col (relevant): the 24 associated press collections and the 16 wall street journal collections in the trec123-100col-bysource testbed were collapsed into two large databases apall and wsjall.
+thus, the two large databases have more relevant documents due to their large sizes, even though the densities of relevant documents are roughly the same as the small databases.
+two large databases were created by merging 20 small databases with the round-robin method.
+name trec topic set trec topic field average length (words) trec123 51-150 title 3.1 37 trec123-2ldb-60col (representative): the databases in the trec123-100col-bysource were sorted with alphabetical order.
+number of documents size (mb) testbed size (gb) min avg max min avg max trec123 3.2 752 10782 39713 28 32 42 table2: query set statistics.
+figure 2. the dynamic programming optimization procedure for equation 16. table1: testbed statistics.
+iv) the best selection solution is given by _ /10| | toral rdoc sdbdb n nd and the corresponding utility value is sel (|db|, ntotal_rdoc/10, nsdb).
+then set the value of iyzd and sel (i, y, z) accordingly.
+iii) iterate the current database candidate i from 2 to |db| for each entry sel (i, y, z): find k such that: )10,min(1: ))()1,,1((maxarg *10 ^ * yktosubject drzkyiselk kj ij k ≤≤ +−−−= ≤ ),,1())()1,,1(( * *10 ^ * zyiseldrzkyiselif kj ij −>+−−− ≤ this means that we should retrieve * 10 k∗ documents from the ith database, otherwise we should not select this database and the previous best solution sel (i-1, y, z) should be kept.
+ii) initialize sel (1, 1..ntotal_rdoc/10, 1..nsdb) with only the estimated relevance information of the 1st database.
+and sel (x, y, z) is the corresponding utility value by choosing the best selection.
+output: optimal selection solution for equation 16. i) create the three-dimensional array: sel (1..|db|, 1..ntotal_rdoc/10, 1..nsdb) each sel (x, y, z) is associated with a selection decision xyzd , which represents the best selection decision in the condition: only databases from number 1 to number x are considered for selection; totally y*10 documents will be retrieved; only z databases are selected out of the x database candidates.
+input: complete lists of probabilities of relevance for all the |db| databases.
+each testbed contains many small databases and two large databases created by merging about 10-20 small databases together.
+details are in table 1. three testbeds built in [21] were based on the  trec123-100colbysource testbed.
+the sizes of the databases are not skewed.
+trec123-100col-bysource: 100 databases were created from trec cds 1, 2 and 3. they were organized by source and publication date [1].
+three testbeds in [21] with skewed database size distributions and different types of relevant document distributions were also used to give more thorough simulation for real environments.
+it was chosen in this work.
+trec123-100col-bysource testbed is one of the most used trec news/government testbed [1,15,17,21].
+as most current distributed information retrieval systems are developed for the environments of large organizations (companies) or  domainspecific hidden web other than open domain hidden web, trec news/government testbed was chosen in this work.
+as the contents and sizes of the databases in the trec news/government testbed are more similar with that of a topic-oriented database, it is a good candidate to simulate the distributed information retrieval environments of large organizations (companies) or  domainspecific hidden web sites, such as west that provides access to legal, financial and news text databases [3].
+by average a database contains thousands of documents, which is more realistic than a database of trec web data with about 250 documents.
+compared with trec web data: i) the news/government documents are much more similar to the contents provided by a topic-oriented database than an arbitrary web page, ii) a database in this testbed is larger than that of trec web data.
+trec news/government data is concentrated on relatively narrow topics.
+another choice is the trec news/government data [1,15,17, 18,21].
+therefore, the noisy web data is not similar with that of high-quality hidden web database contents, which are usually organized by domain experts.
+these types of web pages are contained in the wt2g/wt10g datasets.
+it is not likely for a hidden web database to provide personal homepages or web pages indicating that the pages are under construction and there is no useful information at all.
+however, two weakness of this testbed are: i) each database contains only a small amount of document (259 documents by average for wt2g) [4]; and ii) the contents of wt2g or wt10g are arbitrarily crawled from the web.
+in this way, a large number (o(1000)) of databases with rather diverse contents could be created, which may make this testbed a good candidate to simulate the operational environments such as open domain hidden web.
+the trec web collections wt2g or wt10g [4,13] provide a way to partition documents by different web servers.
+4.1 testbeds it is desirable to evaluate distributed information retrieval algorithms with testbeds that closely simulate the real world applications.

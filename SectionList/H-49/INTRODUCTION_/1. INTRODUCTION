@@ -1,0 +1,44 @@
+In information retrieval, a user poses a query to a system.
+The system retrieves n documents each receiving a 
+realvalued score indicating the predicted degree of relevance.
+If we randomly select pairs of documents from this set, we
+expect some pairs to share the same topic and other pairs to
+not share the same topic. Take two topically-related 
+documents from the set and call them a and b. If the scores of a
+and b are very different, we may be concerned about the 
+performance of our system. That is, if a and b are both on the
+topic of the query, we would like them both to receive a high
+score; if a and b are not on the topic of the query, we would
+like them both to receive a low score. We might become more
+worried as we find more differences between scores of related
+documents. We would be more comfortable with a retrieval
+where scores are consistent between related documents.
+Our paper studies the quantification of this inconsistency
+in a retrieval from a spatial perspective. Spatial analysis is
+appropriate since many retrieval models embed documents
+in some vector space. If documents are embedded in a space,
+proximity correlates with topical relationships. Score 
+consistency can be measured by the spatial version of 
+autocorrelation known as the Moran coefficient or IM [5, 10]. In
+this paper, we demonstrate a strong correlation between IM
+and retrieval performance.
+The discussion up to this point is reminiscent of the 
+cluster hypothesis. The cluster hypothesis states: closely-related
+documents tend to be relevant to the same request [12]. As we
+shall see, a retrieval function"s spatial autocorrelation 
+measures the degree to which closely-related documents receive
+similar scores. Because of this, we interpret 
+autocorrelation as measuring the degree to which a retrieval function
+satisfies the clustering hypothesis. If this connection is 
+reasonable, in Section 6, we present evidence that failure to
+satisfy the cluster hypothesis correlates strongly with poor
+performance.
+In this work, we provide the following contributions,
+1. A general, robust method for predicting the 
+performance of retrievals with zero relevance judgments 
+(Section 3).
+2. A theoretical treatment of the similarities and 
+motivations behind several state-of-the-art performance 
+prediction techniques (Section 4).
+3. The first large-scale experiments of zero-judgment, 
+single run performance prediction (Sections 5 and 6).

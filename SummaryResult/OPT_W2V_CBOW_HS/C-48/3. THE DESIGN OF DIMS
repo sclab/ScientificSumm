@@ -1,0 +1,411 @@
+Having defined the association between nodes and zones, the next problem we tackle is: given a node placement, does there exist a distributed algorithm that enables each node to determine which zones it owns, knowing only the overall boundary of the sensor network?
+However, D would not be the owner of the event, which would still be C. In routing to the  centroid of this zone, the message may traverse the perimeter and return to D. Now D notices that C was the original owner, so it encapsulates the event and directs it to C. In case that there indeed is another node, say X, that owns an overlapped zone with C, X will notice this fact by  finding in the message the same prefix of the code of one of its zones, but with a different geographic location from its own.
+The two representations of a zone (its code and its address) can each be computed from the other, assuming the level of the zone is known.
+We see that the zone sizes are different and depend on the local densities and so are the lengths of zone codes for different nodes.
+One alternative would have been to choose a fixed k for the overall system, and then associate nodes with the zones they are in (and if a zone is empty, associate the nearest node with it, for some definition of nearest).
+There are two algorithms of interest: a consistent hashing technique for mapping an event to a zone, and a routing algorithm for storing the event at the appropriate zone.
+Moreover, each node in the network self-organizes to claim part of the attribute space for itself (we say that each node owns a zone), so events falling into that space are routed to and stored at that node.
+Once a query size has been determined, the location of the query (i.e., the actual boundaries of the zone) are uniformly distributed.
+For this graph (and the next) we use a uniform event distribution, since the event  distribution does not affect the query delivery cost.
+We call this node the owner of the event.
+Our local replication technique rests on the observation that, for each node A, there exists a unique node which will take over its zone when A fails.
+Each node that receives this  message will compare its zone code and code(A) in the message, and if it is more eligible to be the owner of zone(A) than the current owner(A) recorded in the message, it will  update the field owner(A) and the corresponding geographic location.
+In the pseudo code, procedure is Internal() is used to determine if the caller is an internal node and procedure is Owner() is used to determine if the caller is more eligible to be the owner of the event than is currently claimed owner as recorded in the message.
+3.3.2 Routing an Event to its Owner The aim of hashing an event to a zone code is to store the event at the node within the network node that owns that zone.
+If the entire network was divided evenly into zones of depth k (for some pre-defined constant k), then the querier (the node issuing the query) could subdivide a given range query into the relevant  subzones and route individual requests to each of the zones.
+In some situations, especially for large zones where the node that owns a zone is far away from the centroid of the owned zone, there might exist a small perimeter around the destination that does not include the owner of the zone.
+At this time, those zones can also transfer to the new node those events they store but which should belong to the new node.
+Upon receiving a range query Q, a node A (where A is any node on the query propagation path) divides it into multiple smaller sized subqueries if there is an overlap between the zone of A, zone(A) and the zone code associated with Q, code(Q).
+Initially, both node A and node B have claimed the same zone 0 because they are out of radio range of each other.
+The initial zone code we choose for the query is the zone code corresponding to that tree node, and is a prefix of the zone codes of all zones (note that these zones may not be geographically contiguous) in the subtree.
+3 This happens less frequently than for GHTs, where  inserting an event to a location outside the actual (but inside the nominal) boundary of the network will always invoke an external perimeter walk.
+3.3.3 Resolving undecided zone boundaries during insertion Suppose that some node, say C, finds itself to be the  destination (or eventual owner) of an event E. It does so by noticing that code code(C) equals code(E) after locally  recomputing a code for E. In that case, C stores E locally, but only if all four of C"s zone boundaries are decided.
+The basic idea behind our  algorithm is that each node tentatively builds up an idea of the zone it resides in just by communicating with its neighbors (remembering which boundaries of the zone are undecided because there is no radio neighbor that can help resolve that boundary).
+Conceptually, this is easy; in a zone tree (Figure 3), there exists some node which contains the entire range query in its sub-tree, and none of its children in the tree do.
+Once a node B has failed, an event or query message that previously should have been owned by the failed node will now be  delivered to the node A that owns the empty zone left by node B.
+To do this, note that code(E) corresponds to some zone Z , which is A"s current guess for the zone at which event E should be stored.
+In the message, A also marks itself as the owner of event E. As we will see later, the guessed zone Z , the address addr(Z ), and the owner of E, all of them contained in the message, will be refined by intermediate forwarding nodes.
+Then, the node that inserts E would store two copies of E; one at the zone denoted by code(E), and the other at the zone corresponding to the one"s complement of code(E).
+It does not measure the number of messages required to transmit responses to the querier; this latter number  depends upon the precise data distribution and is the same for many of the schemes we compare DIMs against.
+If 65 code(Z) = p0, code(backup(Z)) = p10∗ with the most  number of trailing 0"s. 3.2 Associating Zones with Nodes Our definition of a zone is independent of the actual  distribution of nodes in the sensor field, and only depends upon the geographic extent (the bounding rectangle) of the sensor field.
+It is easy to show that DIMs outperform flooding as long as the ratio of the number of insertions to the number of queries is less than √ N. A final alternative would be to use a geographic hash table (GHT [20]).
+In this case, if k > 1.5, the average cost of query delivery is dominated by the cost to deliver the query to near the covering zone, given by O( √ N).
+In all our experiments, each node first generates 3 events5 on average (more precisely, for a topology of size N, we have 3N events, and each node is equally likely to generate an event).
+When the data is highly skewed-as it was for our trace data set from the habitat monitoring application where most of the event values fell into within 10% of the attribute"s range-a few DIM nodes will clearly become the bottleneck.
+In this case, if the node in zone 1111 can only hear the node in zone 1110, it sets its boundary with the empty zone to undecided, because it did not hear from any neighboring nodes from that direction.
+0 1 0 1 10 10 1 1 10 00 Figure 3: The Corresponding Zone Tree ber that in this algorithm, the node only tries to determine the zone it resides in, not the other zones it might own because those zones are devoid of nodes).
+If code(B) has a longer match with code(E) than the  current owner owner(E), then B sets itself to be the current owner of E, meaning that if nobody is eligible to store E, then B will store the event (we shall see how this happens next).
+To do this, C now sets itself to be the owner of E and continues forwarding the message.
+In order to keep the mapping between the binary zone tree"s leaf nodes and zones, we allow zone expansion to only occur among sibling zones (Section 3.1).
+The nodes that receive a sub-query only return events that match all other attribute ranges.
+Thus, for uniformly distributed queries, the performance of DIMs is comparable to that of flooding.
+The remaining bits of code(Z) are then recursively defined on each of the four quadrants of R. This definition of the zone code matches the definition of zones given above, encoding divisions of the sensor field geography by bit strings.
+3.5.2 Preventing Data Loss from Node Failure The algorithms described above are robust in terms of zone formation, but node failure can erase data.
+Discovering the local replica is data-driven, and uses a  mechanism similar to that of event insertion.
+The basic idea is that A replicates each data item it has in this node.
+We deploy GPSR"s  beaconing message to piggyback the zone codes for nodes.
+A encodes E to 0 and claims itself to be the owner of E. Since A is not an internal node, it sends out E, looking for other owner candidates of E. Once E gets to node B, B will see in the message"s owner field A"s code that is the same as its own.
+In a dense sensor network, the local replica of a node is usually very near to the node, either its direct neighbor or 1-2 hops away, so the cost of sending replicas to local replication will not dominate the network traffic.
+We uniquely define a backup zone for each zone as follows: if the sibling subtree of the zone is on the left, the backup zone is the right-most zone in the sibling subtree;  otherwise, the backup zone is the left-most zone in the sibling subtree.
+As shown in the above algorithm, once a  subquery has been recognized as belonging to the caller"s zone, procedure Resolve is invoked to resolve the subquery and send a reply to the querier.
+To remedy this, for any empty zone Z, we define the owner to be the owner of backup(Z).
+Finally, for the exponential distribution, f(x) = ce−cx for some constant c, and the average cost is just the mean of the corresponding distribution, i.e., O(1) for large N.  Asymptotically, then, the cost of the query for the exponential distribution is dominated by the cost to deliver the query near the covering zone (O( √ N)).
+That is, the bounding rectangle R is first sub-divided into two zones at level 0 by a vertical line that splits R into two equal pieces, each of these sub-zones can be split into two zones at level 1 by a horizontal line, and so on.
+If the message  destination address has been changed, the packet source address needs also to be changed in order to avoid being dropped by GPSR, since GPSR does not allow a node to see the same packet in greedy mode twice.
+Our geographic hash function finds a  localitypreserving mapping from the multi-dimensional space  (described by the set of attributes) to a 2-d geographic space; this mapping is inspired by k-d trees [2] and is described later.
+In this approach, which we call GHT-R (GHT"s for range queries) the insertion cost is O( √ N).
+Assuming a node and its replica don"t simultaneously fail often, a node will almost always detect a replica failure and re-replicate, leading to near 100% response rates.
+Thus, we see that if queries follow either the bounded uniform distribution, the algebraic distribution, or the  exponential distribution, the query cost scales as the insertion cost (for appropriate choice of constants for the bounded uniform and the algebraic distributions).
+Although the basic idea of DIMs may seem  straightforward, it is challenging to design a completely distributed data structure that must be robust to packet losses and node failures, yet must support efficient query distribution and deal with communication voids and obstacles.
+To give some intuition for the performance of DIMs, we  consider four different forms for f(x): the uniform distribution where a query range encompassing the entire network is as likely as a point query; a bounded uniform distribution where all sizes up to a bound B are equally likely; an algebraic  distribution in which most queries are small, but large queries are somewhat likely; and an exponential distribution where most queries are small and large queries are unlikely.
+Otherwise, if there is no overlap between A and Q, then A forwards Q as is (in this case Q is either the original query, or a product of an earlier split).
+Intuitively, R is the bounding rectangle that contains all sensors withing the network.
+We describe event insertion in the next step.
+In this approach, attribute values are assumed to be integers (this is actually quite a reasonable  assumption since attribute values are often quantized), and events are hashed on some (say, the first) attribute.
+To avoid this, DIMs can employ two kinds of replication: local  replication to be resilient to random node failures, and mirror replication for resilience to concurrent failure of  geographically contiguous nodes.
+Our normal event  distribution generates 2-dimensional events and, for each  dimension, the attribute value is normally distributed with a mean corresponding to the mid-point of the attribute value range.
+Recent work [22] has examined the impact of imprecise location information on other data-centric storage mechanisms such as GHTs, and found that there exist relatively simple fixes to GPSR that ameliorate the effects of location error. 
+If the range of Q"s first attribute contains the value 0.5, A divides Q into two sub-queries one of whose first attribute ranges from 0 to 0.5, and the other from 0.5 to 1.
+Each zone resides at a leaf node and the code of a zone is the path from the root to the zone if we represent the branch to the left 66 Build-Zone(a) 1 while Contain(ZA, a) 2 do if length(code(ZA)) mod 2 = 0 3 then new bound ← (bound[0] + bound[1])/2 4 if A.x < new bound 5 then bound[1] ← new bound 6 else bound[0] ← new bound 7 else new bound ← (bound[2] + bound[3])/2 8 if A.y < new bound 9 then bound[3] ← new bound 10 else bound[2] ← new bound 11 Update zone code code(ZA) Figure 4: Zone Boundary Determination, where A.x and A.y represent the geographic coordinate of node A. Insert-Event(e) 1 c ← Encode(e) 2 if Contain(ZA, c) = true and is Internal() = true 3 then Store e and exit 4 Send-Message(c, e) Send-Message(c, m) 1 if ∃ neighbor Y, Closer(Y, owner(m), m) = true 2 then addr(m) ← addr(Y ) 3 else if length(c) > length(code(m)) 4 then Update code(m) and addr(m) 5 source(m) ← caller 6 if is Owner(msg) = true 7 then owner(m) ← caller"s code 8 Send(m) Figure 5: Inserting an event in a DIM.
+In this section, we use simulation to compare DIMs against flooding and GHT-R; this comparison gives us a more detailed understanding of these approaches for  moderate size networks, and gives us a nuanced view of the  mechanistic differences between some of these approaches.
+73 0 2000 4000 6000 8000 10000 12000 50 100 150 200 250 300 MaximumHotspotonTraceDataSet Network Size DIM flooding GHT-R Figure 15: Hotspot usage DIM Zone Manager Query Router Query Processor Event Manager Event Router GPSR interface(Event driven/Thread based) update useuse update GPSR Upper interface(Event driven/Thread based) Lower interface(Event driven/Thread based) Greedy Forwarding Perimeter Forwarding Beaconing Neighbor List Manager update use MoteNIC (MicaRadio) IP Socket (802.11b/Ethernet) Figure 16: Software architecture of DIM over GPSR are comparable to that for the uniform distribution.
+Now, suppose that query sizes follow some density function f(x), then the average cost of resolve a query can be approximated by Ê N 1 xf(x)dx.
+For i between 1 and m, if Ai < 0.5, the i-th bit of the zone code is assigned 0, else 1.
+This A B 0 0 110 100 1111 1110 101 Figure 6: Nodes A and B have claimed the same zone.
+If DIM cannot get any answers (positive or negative) from 70 <0.3-0.8, 0.6-0.9> <0.5-0.8, 0.6-0.9><0.3-0.5, 0.6-0.9> <0.3-0.5, 0.6-0.9> <0.3-0.5, 0.6-0.9> <0.3-0.5, 0.6-0.75> <0.3-0.5, 0.75-0.9> 0 0 1 1 1 1 Figure 9: An example of range query splitting Resolve-Range-Query(Q) 1 Qsub ← nil 2 q0, Qsub ← Split-Query(Q) 3 if q0 = nil 4 then c ← Encode(Q) 5 if Contain(c, code(A)) = true 6 then go to step 12 7 else Send-Message(c, q0) 8 else Resolve(q0) 9 if is Internal() = true 10 then Absorb (q0) 11 else Append q0 to Qsub 12 if Qsub = nil 13 then for each subquery q ∈ Qsub 14 do c ← Encode(q) 15 Send-Message(c, q) Figure 10: Query resolving algorithm certain zones after repeated timeouts, it can at least return the partial query results to the application together with the information about the zones from which data is missing.
+An event can generally be described as a tuple of attribute values, A1, A2, · · · , Ak , where each attribute Ai represents a  sensor reading, or some value corresponding to a detection (e.g., a confidence level).
+We call a sub-rectangle Z of R a zone, if Z is obtained by dividing R k times, k ≥ 0, using a procedure that satisfies the following property: After the i-th division, 0 ≤ i ≤ k, R is  partitioned into 2i equal sized rectangles.
+As the graph shows, local replication performs well for random failures, returning almost 90% of the  responses when up to 30% of the nodes have failed  simultaneously 6 .In the absence of local replication, of course, when 6 In practice, the performance of local replication is likely to 0 100 200 300 400 500 600 700 50 100 150 200 250 300 AverageCostperQueryinBoundedUnifDistribution Network Size DIM flooding GHT-R Figure 13: Average query cost with a bounded uniform query distribution 0 50 100 150 200 250 300 350 400 450 50 100 150 200 250 300 AverageCostperQueryinExponentialDistribution Network Size DIM flooding GHT-R Figure 14: Average query cost with an exponential query distribution 30% of the nodes fail, the response rate is only 70% as one would expect.
+For i between m + 1 and 2m, if Ai−m < 0.25 or Ai−m ∈ [0.5, 0.75), the i-th bit of the zone is assigned 0, else 1, because the next level divisions are at 0.25 and 0.75 which divide the ranges to [0, 0.25), [0.25, 0.5), [0.5, 0.75), and [0.75, 1).
+0.4 0.5 0.6 0.7 0.8 0.9 1 5 10 15 20 25 30 Fractionofrepliescomparedwithnon-failurecase Fraction of failed nodes (%) No Replication Local Replication Figure 12: Local replication performance.
+In principle, this should be relatively straightforward, since each node can simply determine the location of its neighbors, and apply simple geometric methods to determine the largest zone around it such that no other node resides in that zone.
+(Procedure Contain(ZA, a) is used to decide if node a is located within the current zone boundaries of node A).
+In this algorithm, we assume that A is the node at which the algorithm is  executed, ZA is its zone, and a is a newly discovered neighbor of A.
+This rests on the observation that the querier knows which zones fall within its query and should have responded (we assume that a node that has no data matching a query, but whose zone falls within the query, responds with a  negative acknowledgment).
+In addition, the message has three fields, one for the zone code of A, code(A), one for the owner owner(A) of zone(A) which is set to be empty, and one for the geographic location of owner(A).
+Thus, when the querier is far from the queried zone, there are two components to the query delivery cost.
+Essentially, our hashing scheme uses the values of the  attributes in round-robin fashion on the zone tree (such as the one in Figure 3), in order to map an m-attribute event to a zone code.
+Let ZA to be the largest zone that includes only node A and no other node.
+When a node starts up, each node initializes this array to be the network boundary, i.e., initially each node assumes its zone contains the whole network.
+The first is that as the event traverses the perimeter, some  intermediate node, say B whose zone overlaps with C"s marks itself to be the owner of the event, but otherwise does not change the event"s zone code.
+First, all nodes know the approximate geographic boundaries of the network.
+The latter two mechanisms are kept simple, while the event insertion mechanism uses lazy evaluation at each hop to refine the event"s zone code, and it leverages GPSR"s perimeter walking mechanism to fix  undecided zone boundaries.
+Since the message starts from C and is destined for a geographic location near C, GPSR  guarantees that the message will be delivered back to C if no other nodes will update the information in the message.
+If within this covering zone, there are M nodes, the message delivery cost of splitting the query is proportional to M. The average cost of query delivery depends upon the  distribution of query range sizes.
+If the two are identical, node A store event E locally;  otherwise, node A will attempt to route the event to its owner.
+These boundaries may either be configured in nodes at the time of deployment, or may be discovered using a simple protocol.
+So by simply comparing the event"s code and neighbor"s code, a node can decide whether there exists a neighbor Y which is more likely to be the owner of event E. C delivers E to Y , which simply follows the decision making procedure discussed above.
+If the message comes back to C with itself to be the owner, C infers that it must be the true owner of the zone and stores E locally.
+The first, which is proportional to √ N, is the cost to deliver the query near the covering zone.
+We expect that for summary queries (those that expect an aggregate over matching events), the overall cost of DIMs could be lower because the matching data are likely to be found in one or a small number of zones.
+If X"s zone is smaller than or equal to C"s zone, X will also send a shrink request to C. Once C receives a shrink request, it will reduce its zone appropriately and fix its undecided boundary.
+In this case, we call C an internal node.
+By contrast, in DIM, storing an event incurs a perimeter traversal only when a node"s boundaries are undecided.
+Then, given an event E, node A only hashes E to a zone code of length kA.
+This can be inefficient for large range queries and also hard to implement in our design where zone sizes are not  predefined.
+Packet losses can affect query and event  insertion, and node failures can result in lost data, while node arrivals and departures can impact the zone structure.
+As with the bounded uniform distribution, GHT query cost is dominated by the cost of sending sub-queries; for DIMs, the query splitting strategy works quite well in keep overall query delivery costs low.
+Routing a point query is identical to routing an event.
+Finally, we note that in all our evaluations we have only used list queries (those that request all events matching the specified range).
+In all our analyses, we make the simplifying assumption that the size of a query is proportional to the number of nodes that can answer that query.
+Notice that point queries, i.e., queries that ask for events with specified values for each attribute, are a special case of range queries.
+This is reminiscent of k-d trees [2], but is quite different from that data structure: zone trees are spatial embeddings and do not incorporate the re-balancing algorithms in k-d trees.
+Thus, the rest of this section details how range queries are routed.
+Procedure Send-Message is used to send either an event message or a query message.
+level(Z) = k. A zone can be identified either by a zone code code(Z) or by an address addr(Z).
+N is equally likely, the average query delivery cost of uniformly distributed queries is O(N).
+For an algebraic distribution of query sizes, the  relative performance is close to that for the exponential  distribution.
+DIMS: AN ANALYSIS In this section, we present a simple analytic performance evaluation of DIMs, and compare their performance against other possible approaches for implementing multi-dimensional range queries in sensor networks.
+In our design of DIMs, we do not require nodes to have zone codes of the same length, nor do we expect a node to know the zone codes of other nodes.
+Examples of systems that can be used for this  (although, to our knowledge, these systems do not implement multi-dimensional range queries) are Directed Diffusion [15] and TinyDB [17].
+A second possibility is if some intermediate node changes the destination code of E to a more specific value (i.e., longer zone code).
+More generally, if node A finds itself to be inside the zone subtree that maximally covers Q, it will send the subqueries that resulted from the split.
+The first step of the algorithm is to map a range query to a zone code prefix.
+B will update the code contained in the message (and also the geographic destination of the message) if codenew(E) is longer than the event code in the message.
+A second alternative implementation would store events at the node where they are generated.
+The event will end up being stored at a different node than the real owner.
+It is possible to implement range queries by flooding a query within the network.
+Before a node turns itself off (if this is indeed possible), it knows that its backup node (Section 3.1) will take over its zone, and will simply send all its events to its backup node.
+Having established the mapping, and the zone structure, DIMs use a geographic routing algorithm previously  developed in the literature to route events to their corresponding nodes, or to resolve queries.
+If Z lies in the left half of R, the first (from the left) bit of code(Z) is 0, else 1.
+These undecided boundaries are later resolved by a GPSR perimeter traversal when data messages are  actually routed.
+In our algorithm, each node uses an array bound[0..3] to maintain the four boundaries of the zone it owns  (rememFigure 1: A network, where circles represent sensor nodes and dashed lines mark the network boundary.
+Our hashing scheme assigns a k bit zone code to an event as follows.
+If the sensor  network were deployed in a grid-like (i.e., very regular) fashion, then it is easy to see that there exists a k such that each node maps into a distinct level-k zone.
+Before node B stores event E, if B"s  nominal radio range does not intersect the network boundary, it needs to send out E again as A did, because B in this case is not an internal node.
+The rule is: if zone(A)"s sibling zone becomes empty, then A can expand its own zone to include its sibling zone.
+Notice, however, that  GHTRs incur high query cost since almost any query requires as many subqueries as the width of the first attribute"s range.
+Event E inserted by A will eventually be stored in node B.
+On a 100-node network, we inserted a number of events uniformly distributed throughout the network, then issued a query covering the entire network and recorded the  answers.
+Recall now that all queries have to pay an  approximate cost of O( √ N) to deliver the query near the covering zone.
+Having generated events, for each simulation we  generate queries such that, on average, each node generates 2 queries.
+We use an explicit message for discovering the local replica.
+Average Query Delivery Cost measures the average  number of messages required to route a query message to all the relevant nodes in the network.
+72 0 2 4 6 8 10 12 14 16 18 20 50 100 150 200 250 300 AverageCostperInsertion Network Size DIM GHT-R Figure 11: Average insertion cost for DIM and GHT.
+After splitting, we obtain three smaller queries q0 = 0.3 − 0.5, 0.6 − 0.75 , q1 = 0.3 − 0.5, 0.75 − 0.9 , and q2 = 0.5 − 0.8, 0.6 − 0.9 .
+source(m) is used to set the source address of message m. child by 0 and the branch to the right child by 1.
+68 There are several interesting effects with respect to  perimeter walking that arise in our algorithm.
+A range query is sub-divided into several sub-queries, one for each integer in the range of the first attribute.
+Equally complicated is the case where the zone of a node is larger than its communication radius and the node cannot determine the boundaries of its zone by local communication alone.
+The flooding scheme incurs a zero  insertion cost, but an O(N) query cost.
+Accordingly, we use a slightly different technique where a range query is initially routed to a zone  corresponding to the entire range, and is then progressively split into smaller subqueries.
+Finally, this description does not describe how a node"s zone codes are adjusted when neighboring nodes fail, or new nodes come up.
+Upon hearing of such a  neighbor, the node calls the algorithm in Figure 4 to update its zone boundaries and its code accordingly.
+Because it makes our overall query routing system simpler, we allow nodes in a DIM to map to different-sized zones.
+If so, C assumes that some other nodes have a zone that overlaps with its own, and sets out to resolve this overlap.
+The figure plots the fraction of expected responses actually received, with and without replication.
+3.5 Robustness Until now, we have not discussed the impact of node  failures and packet losses, or node arrivals and departures on our algorithms.
+1111 011 00 110 100 101 1110 010 Figure 2: The zone code and boundaries.
+For the uniform distribution P(x) ∝ c for some constant c. If each query size from 1 .
+Recall that our query delivery mechanism is careful about splitting a query into sub-queries, doing so only when the query nears the zone that covers the query range.
+For this  simulation, our bound was 1 4 th the size of the largest possible 5 Our metrics are chosen so that the exact number of events and queries is unimportant for our discussion.
+This algorithm, GPSR [16], essentially enables the delivery of a packet to a node at a specified location.
+The address of a zone Z, addr(Z), is defined to be the  centroid of the rectangle defined by Z.
+The first is that there are some cases where an event insertion might cause the entire outer perimeter of the network to be traversed3 .
+If A"s zone happens to be the sibling of B"s zone, A can safely expand its own zone and notify its expanded zone to its neighbors via GPSR beaconing messages.
+For simplicity, assume for now that the depth of every zone in the network is k, k is a multiple of m, and that this value of k is known to every node.
+In order to deal with this problem, we add an extra operation in event forwarding, called efficient neighbor discovery.
+Figure 5 shows the pseudo-code for inserting and  forwarding an event e. In this pseudo code, we have omitted a  description of the zone shrinking procedure.
+The message contains the event E, code(E), and the target geographic location for storing the event.
+As we expected, DIMs are comparable in  performance to flooding when all sizes of queries are equally likely.
+Node failures are just like node deletions except that a failed node does not have a chance to move its events to another node.
+This is also the regime in which one would expect to use multi-dimensional range queries: to perform relatively tight correlations.
+Finally, using one set of simulations we evaluate the  efficacy of local replication by turning off random fractions of nodes and measuring the fidelity of the returned results.
+Our primary metrics for the performance of a DIM are: Average Insertion Cost measures the average number of messages required to insert an event into the network.
+Our distributed zone building algorithm defers the  resolution of such zones until when either a query is initiated, or when an event is inserted.
+This node also recognizes that its own zone overlaps with C"s and initiates a message  exchange which causes each of them to appropriately shrink their zone.
+This allows a DIM to modify message zone codes in flight (Section 3), and determine the actual owner of an event or query.
+Now node A and B have been mapped to different zones.
+GPSR now delivers this message to the next hop towards addr(Z ) from A.
+The routing mechanism is simple: when a node receives a packet destined to a node at location X, it forwards the packet to the neighbor closest to X.
+If B"s zone code does not exactly match code(E), B will invoke GPSR to deliver E to the next hop.
+Our uniform event distribution generates 2-dimensional events and, for each dimension,  every attribute value is equally likely.
+Also omitted are experiments examining the impact of several other factors, as they do not affect our conclusions in any way.
+Rather, suppose the encoding node is A and its own zone code is of length kA.
+We call this node A"s local replica.
+GPSR includes efficient techniques for perimeter traversal that are based on graph planarization algorithms amenable to distributed implementation.
+Node A sends a message whose geographic destination is a random nearby location chosen by A.
+As we have mentioned before, the undecided boundaries are resolved using GPSR"s perimeter mode when an event is inserted, or a query sent.
+In Section 3.5, we address robustness of event insertion to packet loss or to node failures.
+We denote the zone code assigned to an event E by code(E).
+This is depicted in Figure 15, which shows that for DIMs, and GHT-Rs, the maximum number of transmissions at any network node (the hotspots) is rather high.
+If QA does not exist, then A stops splitting; otherwise, it continues splitting (using the second attribute range) and recomputing QA until QA is small enough so that it completely falls into zone(A) and hence A can now resolve it.
+3.3.1 Hashing an Event to a Zone In Section 3.1, we described a recursive tessellation of the geographic extent of a sensor field.
+Somewhat more realistic is a situation where all query sizes are bounded by a constant B.
+On the other hand, the query delivery cost depends upon the size of ranges specified in the query.
+The sibling subtree of a zone is the subtree rooted at the left or right sibling of the zone in the zone tree.
+This scheme incurs an insertion cost of O( √ N), and a zero query cost.
+To do this, a node C, say, needs to know the zone codes of its neighboring nodes.
+If Z lies in the bottom half of R, the second bit of code(Z) is 0, else 1.
+The code code(Z) is a 0-1 bit string of length level(Z), and is defined as follows.
+In particular, resolving the ownership of zones that do not contain any nodes is  complicated.
+DIM incurs less per event overhead in inserting events  (regardless of the actual event distribution; Figure 11 shows the cost for uniformly distributed events).
+A will set itself to be the owner of the message, and any node which would have dropped this message due to a perimeter loop will redirect the message to A instead.
+As we describe below, as the event is routed, code(E) is refined by intermediate nodes.
+After a conservative timeout, the querier can re-issue the queries selectively to these zones.
+This next hop node (call it B) does not  immediately forward the message.
+DIMS: SIMULATION RESULTS Our analysis gives us some insight into the asymptotic behavior of various approaches for multi-dimensional range queries.
+The basic insight underlying DIM is that data  locality can be obtained by a locality-preserving geographic hash function.
+The other alternative, sending all events to an external storage node results in the access link being a bottleneck, especially if nodes within the network issue queries.
+For our GHT-R experiments, the dynamic range of the attributes had 100 discrete values, but we restricted the query range for any one attribute to 50 discrete values to allow those simulations to complete in reasonable time.
+In these networks, nodes (either  individually or collaboratively) will generate events.
+Such a query returns all events whose attribute values fall into the corresponding ranges.
+When no such  neighbor exists (as when there exists a void in the network), the node starts the packet on a perimeter mode traversal,  using the well known right-hand rule to circumnavigate voids.
+After encoding event E, node A compares code(E) with code(A).
+We omit this in the pseudo code.
+3.5.1 Maintaining Zones In previous sections, we described how the zone discovery algorithm could leave zone boundaries undecided.
+For example, in Figure 2, the zone 110 does not contain any nodes and would not have an owner.
+might result in a new perimeter walk that returns to D (if, for example, D happens to be geographically closest to the centroid of the zone).
+We have implemented selective query retransmission for resiliency to packet loss, but have left the evaluation of this mechanism to future work.
+Once it detects this, the node can expand its zone.
+However, as we show in later sections, this alternative can be inefficient, particularly as the system scales, and if nodes within the network issue such queries  relatively frequently.
+These are the cases where two nodes own their zones after exchanging a shrink message; they do not periodically exchange messages thereafter to maintain this zone relationship.
+Clearly, the trade-off here is an approximate doubling of both  insertion and query costs.
+For the results presented here, each node has on average 20 nodes within its nominal radio range.
+The algebraic distribution, where f(x) ∝ x−k , for some constant k between 1 and 2, has an average query resolution cost given by Ê N 1 xf(x)dx = O(N2−k ).
+For event  insertion, a simple ACK scheme suffices.
+Every query message contains 4 By point queries, we mean the equality condition on all indexed keys.
+A can see this message because A stands right around the empty area left by B and is guaranteed to be visited in a GPSR perimeter traversal.
+For this event, the 5-bit zone code is code(ZA) = 01110.
+Sometimes, however, this is not the case, and B will have to be explicitly discovered.
+Thus, if DIM limited queries to a size proportional to√ N, the average query cost would be O( √ N).
+Recall, though, that because the zone discovery algorithm Section 3.2 only uses information from immediate neighbors, one or more of C"s boundaries may be undecided.
+If code(Z) = p1, code(backup(Z)) = p01∗ with the most number of trailing 1"s (∗ means 0 or 1 occurrences).
+5.2 Results Although we have examined almost all the combinations of factors described above, we discuss only the most salient ones here, for lack of space.
+Notice that this definition of ownership may leave some sections of the sensor field un-associated with a node.
+Let backup(Z) be the backup zone of zone Z.
+In this case, we detect the failure in a data-driven fashion, with obvious efficiency benefits compared to periodic keepalives.
+Before invoking GPSR, a node needs to check if there exists a neighbor who is eligible to be the real owner of the event.
+We modified the GPSR module to call our DIM implementation when it receives any data message in transit or when it is about to drop a message because that message traversed the entire perimeter.
+The key to resolving range queries efficiently is data  locality: i.e., events with comparable attribute values are stored nearby.
+Our approach to split a query Q into subqueries is as follows.
+3.5.3 Robustness to Packet Loss Finally, the mechanisms for querying and event insertion can be easily made resilient to packet loss.
+In a dense N-node network where the likelihood of traversing perimeters is small, the average event insertion cost proportional to √ N [23].
+A B 01 00 110 100 1111 1110 101 Figure 8: The zone layout after shrinking.
+This binary tree forms the index that we will use in the following event and query processing procedures.
+A now invokes GPSR to send a message to addr(Z ) (the centroid of Z , Section 3.1).
+3.1 Zones The key idea behind DIMs, as we have discussed, is a  geographic locality-preserving hash that maps a multi-attribute event to a geographic zone.
+For normally distributed events, the insertion costs be much better than this.
+In DIMs, event insertion essentially uses geographic  routing.
+Thus, in Figure 2, the zone in the top-right corner of the rectangle R has a zone code of 1111.
+Using this algorithm, then, each node can independently and asynchronously decide its own tentative zone based on the location of its neighbors.
+Consider an event E that has just been generated at a node A.
+Since we don"t have realistic ratios for these, we focus on the microscopic costs, rather than on the overall system costs.
+Rather, it attempts to  com2 DIM does not assume that all nodes are homogeneous in terms of the sensors they have.
+Figure 14 plots the average query cost for the exponential distribution (the average query size for this distribution was set to be 1 16 th the largest possible query).
+However, a node"s local replica itself may fail.
+However, our use of the trace data demonstrates that DIMs work for events which have more than two dimensions.
+Here we rely on GPSR"s  perimeter mode routing to probe around the void that causes the undecided boundary.
+B then shrinks its zone from 0 to 01 according to A"s location which is also recorded in the message and send a shrink request to A.
+Now, we turn our attention to node failures.
+Let us label this node D. D now tries to initiate delivery to the centroid of the new zone.
+3.3.4 Summary and Pseudo-code In summary, our event insertion procedure is designed to nicely interact with the zone discovery mechanism, and the event hashing mechanism.
+This lazy evaluation of zone codes allows different nodes to use  different length zone codes without any explicit coordination.
+Now, B compares its own code code(B) against the owner code owner(E) contained in the incoming message.
+3.4 Resolving and Routing Queries DIMs support both point queries4 and range queries.
+We now describe a consistent hashing scheme for a DIM that supports range queries on m distinct attributes2 Let us denote these attributes A1 .
+Node  locations can be automatically determined by a localization system or by other means.
+Now we describe how zones are mapped to nodes.
+Even for this generous query size, DIMs perform quite well (almost a third the cost of flooding).
+For some k, some zones may be empty and other zones might have more than one node situated within them.
+69 the geographic location of its initiator, so the corresponding reply message can be delivered directly back to the  initiator.
+Finally, our trace event distribution is a collection of 4-dimensional events obtained from a habitat monitoring network.
+This is a standard problem that the database indices have dealt with by tree re-balancing.
+This  implementation was relatively straightforward, given that we had ported GPSR, and modified GPSR to detect the completion of perimeter mode traversals.
+Finally, in the process of query resolution, zones might shrink similar to shrinkage during inserting.
+Then the cost to deliver queries is O(r √ N).
+Figure 13 plots the average query cost for a bounded  uniform query size distribution.
+Note that the zone codes collectively define a zone tree such that individual zones are at the leaves of this tree.
+67 pute a new zone code for E to get a new code codenew(E).
+As we shall see, this represents a fairly skewed data set.
+Intuitively, a zone is a  subdivision of the geographic extent of a sensor field.
+The query sizes are determined using the four size distributions we discussed in Section 4: uniform,  boundeduniform, algebraic and exponential.
+Queries are flooded 71 throughout the network, and nodes that have matching data respond.
+Figure 11 plots the average insertion costs for DIM and GHT-R (for flooding, of course, the insertion costs are zero).
+A querier would need, in parallel, to query both the original DIM and its mirror since there is no way of knowing if a collection of nodes has failed.
+In general, however, the node placements within a sensor field are likely to be less regular than the grid.
+Two zones are called sibling zones if their zone codes are the same except for the last bit.
+Furthermore, an  insertion or a query in a DIM can traverse the outer perimeter (Section 3.3), but less frequently than in GHTs.
+As we have discussed in Section 1, range queries can  enable efficient correlation and triggering within the network.
+The querier computes the zone code of Q, denoted by code(Q) and then starts routing a query to addr(code(Q)).
+Then, we say that A owns ZA.
+The key challenge in routing zone queries is brought out by the following strawman design.
+These  undecided boundaries are resolved during insertion or  querying, using the zone shrinking procedure describe above.
+The location is close enough to A such that GPSR will guarantee that the message will delivered back to A.
+The system we present in this paper, the DIM, relies upon two foundations: a locality-preserving geographic hash, and an underlying geographic routing scheme.
+Once the packet comes back to A, it will know the location of its local replica and can start to send replicas.
+However, for the applications we envision, where nodes within the network are trying to correlate events, the uniform distribution is highly unrealistic.
+Since DIMs are  implemented on top of GPSR, we first ported an earlier GPSR implementation to the latest version of ns-2.
+In this manner, as the event wends its way to its owner, its zone code gets refined.
+For example, suppose that node A, whose code is 0110, is to split a range query Q = 0.3 − 0.8, 0.6 − 0.9 .
+Clearly, this is the regime in which one might expect DIMs to perform best, when most of the queries are small and large queries are relatively rare.
+Each sub-query is then hashed to the appropriate location.
+Knowing the expected answers for this query, we then successively removed a fraction f of nodes randomly, and re-issued the same query.
+In GPSR, this is called greedy-mode forwarding.
+Then A decides the half that overlaps with its own zone.
+Suppose that the range of the first attribute contains r discrete values.
+In GHT-R, storing almost every event incurs a perimeter traversal, and storing some events require  traversing the outer perimeter of the network [20].
+3.3 Inserting an Event In this section, we describe how events are inserted into a DIM.
+When a new node joins the network, the zone discovery mechanism (Section 3.2) will cause neighboring zones to  appropriately adjust their zone boundaries.
+A simple alternative is called external storage [23], where all events are stored centrally in a node outside the sensor  network.
+For a zone Z, let p be the first level(Z) − 1 digits of code(Z).
+If i is an odd (even) number, the i-th division is parallel to the y-axis (x-axis).
+For any given placement of network nodes, consider a node A.
+We now describe the algorithm, and illustrate it using  examples.
+It can assume that there will not be any nodes outside the network boundary and so B is an internal node.
+Also left to future work is a detailed understanding of the impact of location error on DIM"s mechanisms.
+In this case, the average cost for resolving such a query is approximately Ê B 1 xf(x)dx = O(B).
+Conceptually, the sensor field is logically divided into zones and each zone is assigned to a single node.
+We note that DIMs (as currently designed) are not  perfect.
+Suppose an event E has a zone code code(E).
+This splitting procedure is illustrated in Figure 9 which also shows the codes of each subquery after splitting.
+For all of this to work, DIMs make two assumptions that are consistent with the literature [23].
+Thus, in an m dimensional DIM, a node that does not possess all m sensors can use NULL values for the corresponding readings.
+In this manner, the zone formation process is resolved on demand in a data-driven way.
+We have conducted experiments at other node densities; they are in agreement with the results presented here.
+The zone boundary algorithm now  relies upon GPSR"s beacon messages to learn the locations of neighbors within radio range.
+There exists a far cheaper technique to ensure resilience to random node failures.
+Increasing the number of dimensions does not noticeably  degrade DIMs query cost (omitted for lack of space).
+Then the packet will be delivered in GPSR perimeter mode.
+Notice that in Figure 2, there is an empty zone whose code should be 110.
+How well does the performance of DIMs compare against alternative choices for implementing multi-dimensional queries?
+When this condition holds, C knows for sure that no other nodes have overlapped zones with it.
+In our example, that empty zone"s owner would also be the node that owns 1110, its backup zone.
+For all our experiments, we use uniformly placed sensor nodes with network sizes ranging from 50 nodes to 300 nodes.
+Of those  mechanisms, the only one we did not implement is mirror  replication.
+If the  sibling is within radio range, the absence of GPSR beaconing messages can detect this.
+Of course, the overall performance of the system will depend on the relative frequency of events and queries, as we discuss in Section 4.
+Our DIM implementation in ns-2 is 2800 lines of code.
+To precisely understand the associations between zones and nodes, we define the notion of zone ownership.
+Procedure Closer(A, B, m) returns true if code(A) is closer to code(m) than code(B).
+[23] also make similar arguments with respect to data-centric storage schemes in general; DIMs are an instance of such schemes.
+However, as [23] points out, such systems may be impractical in sensor networks since the access link to the external node becomes a hotspot.
+(For less skewed data distributions, and reasonable query size distributions, the hotspot curves for all three schemes are comparable.)
+Furthermore, for ease of discussion, we assume that all attribute values have been normalized to be between 0 and 1.
+Second, each node knows its geographic location.
+The focus of this paper is the  design of systems to efficiently answer multi-dimensional range queries of the form: x1 − y1, x2 − y2, · · · , xk − yk .
+In addition, to this, we implemented in ns-2 most of the DIM mechanisms described in Section 3.
+Upon receiving this request, A also shrinks its zone from 0 to 00.
+This node is defined as the node responsible for A"s zone"s backup zone (see Section 3.1).
+We repeat this procedure until all k bits have been assigned.
+In this case, there exists an efficient approach for error  recovery.
+There are two ways to deal with this situation; periodic refreshes, or repeated  datadriven discovery of local replicas.
+A zone is defined by the following constructive procedure.
+B will then force the message walking another perimeter before storing it.
+The primary metrics for our simulations are the average query and insertion costs, as defined in Section 4.
+X will shrink its zone to resolve the overlap.
+A then replies to subquery q0 with data stored locally and sends subqueries q1 and q2 using the procedure outlined above.
+In practice, however, the proportionality constants are significantly  different, and DIMs outperform GHT-Rs, as we shall show using detailed simulations.
+The normal event distribution represents a skewed data set.
+But how does a node decide if its sibling has failed?
+DIM index attributes are not necessarily  primary keys.
+A B <0.4,0.8,0.9> Figure 7: An event/query message (filled arrows)  triggers zone shrinking (hollow arrows).
+DIM treats NULL as an extreme value for range comparisons.
+The former has higher overhead, but more quickly discovers failed replicas.
+We now discuss how DIMs can be made robust to these kinds of dynamics.
+Node deletion may also cause zone expansion.
+But if B"s nominal radio range  intersects the network boundary, it then has two choices.
+If this does not happen, there are two possibilities.
+On the other hand, B can also make a conservative decision assuming that there might be some other nodes it have not heard of yet.
+As we shall see, these two algorithms are inter-related.
+A different approach is needed for  detecting siblings who are not within radio range.
+The reason for this is interesting.
+Most sensor networks are deployed to collect data from the environment.
+We call the non-negative integer k the level of zone Z, i.e.
+Often B will be a radio neighbor of A and can be detected from GPSR beacons.
+Finally, we implemented GHT-R, our GHT-based  multidimensional range query mechanism in ns-2.
+As an example, consider event E = 0.3, 0.8 .
+Figures 6 through 8 show an example of this data-driven zone shrinking.
+Of course, queries and responses can be lost as well.
+Figure 2 illustrates the results of applying this algorithm for the network in Figure 1.
+For example, if code(Z1) = 01101 and code(Z2) = 01100, then Z1 and Z2 are sibling zones.
+Figure 3 describes the corresponding zone tree.
+We have conducted experiments for three different event value distributions.
+Using this implementation, we conducted a fairly  extensive evaluation of DIM and two alternatives (flooding, and our GHT-R).
+Consider a rectangle R on the x-y plane.
+Suppose that A inserts an event E = 0.4, 0.8, 0.9 .
+The splitting steps is shown in Figure 2.
+Figure 10 describes the pseudo-code for the zone splitting algorithm.
+As an aside, a  network may have many DIM instances running concurrently.
+In our case, simpler  solutions might be possible (and we discuss this in Section 7).
+Figure 6 also works as an example where the outer  perimeter is traversed.
+Each node has a radio range of 40m.
+We now describe the complete design of DIMs.
+Figure 12 describes the efficacy of local replication.
+This is an aggressive approach.
+The superior scaling of DIMs is evident in these graphs.
+Let A"s local replica be B.
+We return to this in Section 3.5.
+query (e.g., a query of the form 0 − 0.5, 0 − 0.5 .
+In the next section, we  validate these analyses using detailed packet-level simulations.
+In practice, however, communication voids and obstacles make the  algorithm much more challenging.
+This technique essentially creates a mirror DIM.
+Thus,  asymptotically, GHT-R"s perform similarly to DIMs.
+We leave an understanding of this to future work.
+We describe this algorithm here.
+To obtain this figure, we conducted the following experiment.
+Let"s call it QA.
+Mirror replication is conceptually easy.
+We will relax this assumption shortly.
+5.1 Simulation Methodology We use ns-2 for our simulations.
+Shenker et al.

@@ -1,0 +1,74 @@
+6.1 Performance/Space-Optimal Approaches One strategy to eliminate the problem of skipped  postings is to eagerly materialize sublists for all elementary time intervals, i.e., to choose M = E. In doing so, for every query q t only postings valid at time t are read and thus the best possible performance is achieved.
+Then, we can process the above query with optimal cost by reading only those postings that existed at this t. At a first glance, it may seem counterintuitive to reduce index size in the first step (using temporal coalescing), and then to increase it again using the sublist materialization techniques presented in this section.
+The initial approach described above that keeps only the full list Lv and thus picks M = { [t1, tn) } is referred to as Sopt in the remainder.
+The time complexity of the algorithm is in O(n2 ) - for each prefix subproblem the above recurrence must be evaluated, which is possible in linear time if list sizes |L : [ti, tj)| are precomputed.
+6.3 Space-Bound Approach So far we considered the problem of materializing sublists that give a guarantee on performance while requiring  minimal space.
+In many situations, though, the storage space is at a premium and the aim would be to materialize a set of sublists that optimizes expected performance while not  exceeding a given space limit.
+This approach requires minimal space, since it keeps each posting exactly once.
+Its space complexity is in O(n) - for keeping the n boolean variables.
+The space required for the materialization of sublists in a set M is defined as S( M ) = X m∈M |Lv : m| , i.e., the total length of all lists in M. Given a set M, we let π( [ti, ti+1) ) = [tj, tk) ∈ M : [ti, ti+1) ⊆ [tj, tk) denote the time interval that is used to process queries q t with t ∈ [ti, ti+1).
+The performance of processing queries q t for t ∈ [ti, ti+1) inversely depends on its processing cost PC( [ti, ti+1) ) = |Lv : π( [ti, ti+1) )| , which is assumed to be proportional to the length of the list Lv : π( [ti, ti+1) ).
+Thus, in order to process the query q t time t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 d1 d2 d3 document 1 2 3 4 5 6 7 8 9 10 Figure 2: Sublist Materialization it is sufficient to scan any materialized sublist whose  timeinterval contains t. We illustrate the idea of sublist materialization using an example shown in Figure 2.
+We employ the notation Lv : [ti, tj) to refer to the  materialized sublist for the time interval [ti, tj), that is formally defined as, Lv : [ti, tj) = {( d, p, [tb, te) ) ∈ Lv | tb < tj ∧ te > ti} .
+An optimal solution to the problem can be computed by means of induction using the recurrence C( [t1, tk+1) ) = min {C( [t1, tj) ) + |Lv : [tj, tk+1)| | 1 ≤ j ≤ k ∧ condition} , where C( [t1, tj) ) is the optimal cost (i.e., the space  required) for the prefix subproblem { [ti, ti+1) ∈ E | [ti, ti+1) ⊆ [t1, tj) } and condition stands for ∀ [ti, ti+1) ∈ E : [ti, ti+1) ⊆ [tj, tk+1) ⇒ |Lv : [tj, tk+1)| ≤ γ · |Lv : [ti, ti+1)| .
+Formally, this space-bound sublist-materialization problem can be stated as argmin M X [ti, ti+1) ∈ E P( [ti, ti+1) ) · PC( [ti, ti+1) ) s.t.
+In detail, the technique, which we refer to as PG (Performance  Guarantee) in the remainder, finds a set M that has minimal required space, but guarantees for any elementary time  interval [ti, ti+1) (and thus for any query q t with t ∈ [ti, ti+1)) that performance is worse than optimal by at most a factor of γ ≥ 1.
+The space complexity is in O(n2 ) - the cost of keeping the precomputed sublist lengths and memoizing optimal solutions to prefix subproblems.
+The problem can be solved by using dynamic  programming over an increasing number of time intervals: At each time interval in E the algorithms decides whether to start a new materialization time-interval, using the known best  materialization decision from the previous time intervals, and keeping track of the required space consumption for  materialization.
+As we argued above, we solely have to look at sets M that completely cover the time interval [t1, tn) and do not contain overlapping time intervals.
+In this section, we tackle this problem by proposing the idea of materializing sublists each of which corresponds to a contiguous  subinterval of time spanned by the full index.
+The SB technique seeks to find a set M that adheres to this space limit but minimizes the expected processing cost (and thus optimizes the expected performance).
+Thus, in order to optimize the  performance of processing queries we minimize their processing costs.
+Then we define E = { [ti, ti+1) | 1 ≤ i < n} to be the set of elementary time intervals.
+We refer to the set of time intervals for which sublists are materialized as M ⊆ { [ti, tj) | 1 ≤ i < j ≤ n } , and demand ∀ t ∈ [t1, tn) ∃ m ∈ M : t ∈ m , i.e., the time intervals in M must completely cover the time interval [t1, tn), so that time-travel queries q t for all t ∈ [t1, tn) can be processed.
+Each of these sublists contains all coalesced postings that overlap with the  corresponding time interval of the sublist.
+If applied in conjunction, though, there is a synergetic effect - sublists that are materialized from a temporally  coalesced index are generally smaller.
+Intuitively, the recurrence states that an optimal solution for [t1, tk+1) be combined from an optimal solution to a prefix subproblem C( [t1, tj) ) and a time interval [tj, tk+1) that can be materialized without violating the performance guarantee.
+The time complexity of the method is in O(n2 ) - the expected processing cost must be computed in each round.
+Suppose that we split the time axis of the list at time t2, forming two sublists with postings {1, 5, 8} and {2, 3, 4, 5, 6, 7, 8, 9, 10} respectively.
+The space restriction is modeled by means of a user-specified  parameter κ ≥ 1 that limits the maximum allowed blowup in index size from the space-optimal solution provided by Sopt.
+We also assume that  intervals in M are disjoint.
+The technique presented next is driven by the idea that significant space savings over Popt are  achievable, if an upper-bounded loss on the performance can be tolerated, or to put it differently, if a performance  guarantee relative to the optimum is to be retained.
+∀ [ti, ti+1) ∈ E : PC( [ti, ti+1) ) ≤ γ · |Lv : [ti, ti+1)| .
+tn be the sorted sequence of all unique time-interval boundaries of an  inverted list Lv.
+The use of temporal coalescing improves the performance by  reducing the index size, while the sublist materialization improves performance by judiciously replicating entries.
+, t10 and numbered the postings  themselves as 1, .
+Unfortunately, the algorithm has time complexity in O(n3 |Lv|) and its space complexity is in O(n2 |Lv|), which is not practical for large data sets.
+In addition, throughout all rounds, the method keeps track of the best solution seen so far.
+As a side remark note that for κ = 1.0 the SB method does not necessarily produce the solution that is obtained from Sopt, but may produce a solution that requires the same amount of space while achieving better expected  performance. 
+Although only three postings (postings 1, 5 and 8) are valid at time t, the whole inverted list has to be read in the worst case.
+Efficiency of processing a query q t on our time-travel  inverted index is influenced adversely by the wasted I/O due to read but skipped postings.
+bn that convey the boundaries of time intervals in the set.
+Note that all those postings whose validity time-interval spans across the  temporal boundaries of several sublists are replicated in each of the spanned sublists.
+We can make this assumption  without ruling out any optimal solution with regard to space or performance defined below.
+However, we reiterate that our main objective is to improve the efficiency of  processing queries, not to reduce the index size alone.
+If it achieves higher expected processing cost, it is randomly accepted with probability e−∆/r where ∆ is the increase in expected processing cost and R ≥ r ≥ 1 denotes the number of remaining rounds.
+For ease of description, we have numbered boundaries of validity time-intervals, in increasing time-order, as t1, .
+Initially, all n − 2 intermediate variables assume false, which  corresponds to the set M = { [t1, tn) }.
+Pseudocode of the algorithm is omitted for space reasons, but can be found in the accompanying technical report [5].
+Temporal coalescing  implicitly addresses this problem by reducing the overall index list size, but still a significant overhead remains.
+A successor adhering to the space limit is always accepted if it achieves lower expected processing cost than the current solution.
+If the sublist for [t1, t3) was materialized instead, one could save significant space while incurring only an overhead of one skipped posting for all t ∈ [t1, t3).
+A random successor can now be easily generated by switching the value of one of the n − 2 intermediate variables.
+The solution space for the problem at hand can be efficiently explored.
+Popt and Sopt are extremes: the former provides the best possible performance but is not space-efficient, the latter requires minimal space but does not provide good  performance.
+The two approaches presented in the rest of this section allow mutually trading off space and performance and can thus be thought of as means to explore the  configuration spectrum between the Popt and the Sopt approach.
+Now, consider the processing of a query q t with t ∈ [t1, t2) using this inverted list.
+In each round a random successor of the current solution is looked at.
+In the definition of the expected processing cost, P( [ti, ti+1) ) denotes the probability of a query time-point being in [ti, ti+1).
+If the successor does not adhere to the space limit, it is always rejected (i.e., the current solution is kept).
+Further, the two techniques, can be applied separately and are  independent.
+Therefore, we will refer to this approach as Popt in the remainder.
+We represent such a set M as an array of n boolean variables b1 .
+In the example  illustrated in Figure 2 materialized sublists for [t1, t2) and [t2, t3) differ only by one posting.
+6.2 Performance-Guarantee Approach The Popt approach clearly wastes a lot of space  materializing many nearly-identical sublists.
+Simulated annealing takes a fixed number R of rounds to explore the solution space.
+A detailed description of the algorithm is omitted here, but can be found in the accompanying technical  report [5].
+Note that b1 and bn are always set to true.
+The technique presented next, which is named SB, tackles this very problem.
+Formally, this problem can be stated as argmin M S( M ) s.t.
+Let T = t1 .
+To aid the presentation in the rest of the paper, we first provide some definitions.
+We obtain an approximate solution to the problem  using simulated annealing [22, 23].
+The index list Lv visualized in the figure contains a total of 10 postings from three  documents d1, d2, and d3.
+X m∈M |Lv : m| ≤ κ |Lv| .

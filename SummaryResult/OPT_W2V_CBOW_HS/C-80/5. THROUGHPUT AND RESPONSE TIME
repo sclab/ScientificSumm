@@ -1,0 +1,69 @@
+Like the 5 Mb/s case, this response time increases with the addition of extra test clients.
+As Ganesh does not saturate the network with higher test client configurations, at 1600 test clients, its average response time is 0.1 seconds rather than Native"s 7.7 seconds.
+Further, as shown in Figure 6 (d), while the average response time for Native at 20 Mb/s is acceptable at 400 test clients, it is unusable with 800 test clients with an average response time of 15.8 seconds.
+Ganesh at 5 Mb/s with 400 test clients, delivers more than a sixfold  increase in throughput.
+Comparing both Ganesh and Native at 20 Mb/s, we see that Ganesh is no longer bandwidth constrained and delivers up to a twofold improvement over Native at 1600 test clients.
+For the Authoring mix, at 800 test clients at 5 Mb/s, Figure 7 (a) shows that Native"s throughput increase by 85% when compared to the original benchmark while Ganesh"s improvement is smaller at 15%.
+We use two metrics to quantify the performance improvement obtainable through the use of Ganesh: throughput, from the perspective of the web server, and average response time, from the perspective of the client.
+5.1 BBOARD Results and Analysis 5.1.1 Authoring Mix Figures 6 (a) and (b) present the average number of requests  serviced per second and the average response time for these requests as perceived by the clients for BBOARD"s Authoring Mix.
+Ganesh, however, still tracks Native in terms of throughput.
+While this is exactly the behavior of SlashCode, the code base behind the  Slashdot web site, we decided to modify the benchmark to perform some pre-filtering at the database.
+While WWW 2007 / Track: Performance and Scalability Session: Scalable Systems for Dynamic Content 316 0 50 100 150 200 250 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Requests/sec Native Ganesh 0.001 0.01 0.1 1 10 100 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Avg.Resp.Time(sec) Native Ganesh Note Logscale (a) Throughput: Authoring Mix (b) Response Time: Authoring Mix Mean of three trials.
+WWW 2007 / Track: Performance and Scalability Session: Scalable Systems for Dynamic Content 315 0 50 100 150 200 250 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Requests/sec Native Ganesh 0.001 0.01 0.1 1 10 100 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Avg.Resp.Time(sec) Native Ganesh Note Logscale (a) Throughput: Authoring Mix (b) Response Time: Authoring Mix 0 50 100 150 200 250 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Requests/sec Native Ganesh 0.001 0.01 0.1 1 10 100 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Avg.Resp.Time(sec) Native Ganesh Note Logscale (c) Throughput: Browsing Mix (d) Response Time: Browsing Mix Mean of three trials.
+It turned out the benchmark code that displays stories read all the comments associated with the particular story from the database and only then did some  postprocessing to select the comments to be displayed.
+Figure 8 (a) shows that the increase in throughput due to Ganesh ranges from 8% at 400 test clients to 18% with 1600 test clients.
+Further, Figure 6 (d) shows that Native"s average response time of 35 seconds at 400 test clients make the system unusable.
+These high response times further increase with the addition of test clients.
+Native"s performance drops above 800 clients as the test clients time out due to high response times.
+At the higher bandwidths of 20 and 100 Mb/s, neither Ganesh nor Native is bandwidth limited and deliver equivalent throughput and response times.
+5.2.2 Browsing Mix For AUCTION"s Browsing Mix, Figures 8 (c) and (d) present the average number of requests serviced per second and the average response time for these requests as perceived by the clients.
+The most significant gain for Native is seen at 20 Mb/s.
+This modified benchmark, named the Filter Variant, models a developer who applies optimizations at the SQL level to transfer less data.
+While the throughput for both remains the same at 800 test clients, Figure 8 (d) shows that Ganesh"s  average response time is 62% lower than Native.
+The improvement increases to over a  elevenfold increase at 800 test clients before Ganesh saturates the  network.
+Based on these numbers, increasing the  number of test clients makes the Native system unusable.
+Native saturates the link at 800 clients and adding extra test clients only increases the average response time.
+Figure 8 (a) also shows that with a fourfold increase of  bandwidth from 5 Mb/s to 20 Mb/s, Native is no longer bandwidth  constrained and there is no performance difference between Ganesh and Native.
+5.1.2 Browsing Mix Figures 6 (c) and (d) present the average number of requests  serviced per second and the average response time for these requests as perceived by the clients for BBOARD"s Browsing Mix.
+Figure 6 (a) also shows that for 400 and 800 test clients Ganesh at 5 Mb/s has the same throughput and average response time as Native at 20 Mb/s.
+At 400 clients, the Native solution delivers 29 requests/sec with an average response time of 8.3 seconds.
+Similar results are seen for the 100 Mb/s scenario.
+Throughput is measured in terms of the number of client requests that can be serviced per second.
+Native"s throughput drops with an increase in test clients as clients timeout due to  congestion at the application server.
+5.2 AUCTION Results and Analysis 5.2.1 Bidding Mix Figures 8 (a) and (b) present the average number of requests  serviced per second and the average response time for these requests as perceived by the clients for AUCTION"s Bidding Mix.
+As seen in Figure 8 (b), the average response times for Ganesh are significantly lower than Native ranging from a decrease of 84% at 800 test clients to 88% at 1600 test clients.
+At 5 Mb/s, Native and Ganesh deliver similar throughput and response times with 400 test clients.
+With the higher test client configurations, we did  observe that the bandwidth used by Ganesh was lower than Native.
+In the interests of brevity, we only briefly summarize the results from the Authoring mix.
+As expected, there are no visible gains from Ganesh at the higher bandwidth of 100 Mb/s where the network is no longer the  bottleneck.
+At 1600 test clients, when  compared to the original benchmark, Native sees a 73% improvement in throughput and a 77% reduction in average response time.
+As Figure 6 (a) shows, Native easily saturates the 5 Mb/s link.
+At 1600 test clients, Figure 8 (c) shows that Ganesh"s throughput is almost twice that of Native.
+Due to the data-intensive nature of the Browsing mix, Ganesh at 5 Mb/s surprisingly performs much better than Native at 20 Mb/s.
+In this section, we address the first question raised in Section 4: Can performance can be improved significantly by exploiting  similarity across database results?
+Regardless of the test client configuration, Figure 6 (c) shows that Native"s throughput at 5 Mb/s is limited to 10 reqs/sec.
+5.1.3 Filter Variant We were surprised by the Native performance from the BBOARD benchmark.
+Ganesh, regardless of the test client  configuration, is not bandwidth constrained and maintains the same  response time.
+Figure 7: BBOARD Benchmark - Filter Variant - Throughput and Average Response Time Ganesh sees no improvement when compared to the original, it still processes 19% more requests/sec than Native.
+Compared to Native, Figure 6 (b) shows that Ganesh"s response times are substantially lower with sub-second response times at 400 clients.
+Figure 6: BBOARD Benchmark - Throughput and Average Response Time other tasks [24].
+To answer this question, we use results from the BBOARD and AUCTION benchmarks.
+The AUCTION benchmark is not as data intensive as BBOARD.
+Even with the 1600 test client configuration Ganesh  delivers an acceptable average response time of 8.2 seconds.
+At the bandwidth of 5 Mb/s, Native performance was lower than what we had expected.
+Ganesh at 5 Mb/s, however, delivers a twofold improvement with 400 test clients and a fivefold improvement at 1200 clients.
+The size of cache dumps taken at the end of the experiments never exceeded 212 MB.
+Ganesh"s  performance drops slightly at 1200 and 1600 clients as the network is saturated.
+The maximum standard deviation for throughput and response time was 9.8% and 11.9% of the corresponding mean.
+Only at 1200 and 1600 clients does Native at 20 Mb/s deliver higher throughput than Ganesh at 5 Mb/s.
+The maximum standard deviation for throughput and response time was 7.2% and 11.5% of the corresponding mean.
+As  mentioned earlier, the Bidding mix consists of a mixture of read and write operations.
+Thus, while the  optimizations were more helpful to Native, Ganesh still delivers an improvement in performance.
+However, performance plateaus out after 1200 test clients due to the database CPU being saturated.
+Ganesh at 20 Mb/s and both Native and Ganesh at 100 Mb/s are not bandwidth limited.
+Usability studies have shown that response times above 10 seconds cause the user to move on to 1 As Java lacks a sizeof() operator, Java caches therefore limit their size based on the number of objects.
+Therefore, most of the gains are observed at the lower bandwidth of 5 Mb/s.
+Again, most of the gains are observed at lower bandwidths.
+Benchmark Orig.
+Ganesh might still be useful in these non-constrained scenarios if bandwidth is purchased on a metered basis.
+Size Ganesh Size Rabin Size SelectSort1 223.6 MB 5.4 MB 219.3 MB SelectSort2 223.6 MB 5.4 MB 223.6 MB Table 2: Similarity Microbenchmarks 

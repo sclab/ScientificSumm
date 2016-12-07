@@ -1,0 +1,401 @@
+In this section, a model for sensor network target detection
+is proposed, a definition of path exposure is presented and
+expressions for evaluating this path exposure are developed.
+2.1 Model
+Consider a rectangular sensor field with n sensors 
+de42
+ployed at locations si, i = 1, . . . , n. A target at location
+u emits a signal which is measured by the sensors. The 
+signal from the target decays as a polynomial of the distance.
+If the decay coefficient is k, the signal energy of a target at
+location u measured by the sensor at si is given by
+Si(u) =
+K
+||u − si||k
+(1)
+where K is the energy emitted by the target and ||u − si||
+is the geometric distance between the target and the sensor.
+Depending on the environment the value k typically ranges
+from 2.0 to 5.0 [4].
+Energy measurements at a sensor are usually corrupted
+by noise. If Ni denotes the noise energy at sensor i during a
+particular measurement, then the total energy measured at
+sensor i, when the target is at location u, is
+Ei(u) = Si(u) + Ni =
+K
+||u − si||k
++ Ni.
+The sensors collaborate to arrive at a consensus decision as
+to whether a target is present in the region. We consider two
+basic approaches for reaching this consensus: Value fusion
+and Decision fusion [3]. In value fusion, one of the sensors
+gathers the energy measurements from the other sensors,
+totals up the energy and compares the sum to a threshold
+to decide whether a target is present. If the sum exceeds
+the threshold, then the consensus decision is that a target
+is present. In contrast, in decision fusion, each individual
+sensor compares its energy measurement to a threshold to
+arrive at a local decision as to whether a target is present.
+The local decisions (1 for target present and 0 otherwise)
+from the sensors are totaled at a sensor and the sum is 
+compared to another threshold to arrive at the consensus 
+decision. In some situations, value fusion outperforms decision
+fusion and vice versa.
+2.1.1 Value Fusion.
+The probability of consensus target detection when the
+target is at location u is
+Dv(u) = Prob
+n
+i=1
+K
+||u − si||k
++ Ni ≥ η
+= Prob
+n
+i=1
+Ni ≥ η −
+n
+i=1
+K
+||u − si||k
+,
+where η is the value fusion threshold. If the noise processes
+at the sensors are independent, then the probability density
+function of n
+i=1 Ni equals the convolution of the 
+probability density function of Ni, i = 1, . . . , n. In particular, if
+the noise process at each sensor is Additive White Gaussian
+Noise (AWGN), then n
+i=1 Ni has a Chi-square distribution
+of degree n.
+Due to the presence of noise, the sensors may incorrectly
+decide that a target is present even though there is no 
+target in the field. The probability of a consensus false target
+detection is
+Fv = Prob
+n
+i=1
+Ni ≥ η . (2)
+As above, if the noise processes at the sensors are 
+independent and AWGN, then the false alarm probability can be
+computed from the Chi-square distribution of degree n.
+2.1.2 Decision Fusion.
+For decision fusion, the probability of consensus target
+detection when the target is located at u is
+Dd(u) = Prob
+n
+i=1
+hd,i(u) ≥ η2
+=
+n
+j=η2
+n
+j
+· P1
+j
+· P0
+(n−j)
+where
+P1 = Prob [hd,i(u) = 1]
+= Prob Ni ≥ η1 −
+K
+||u − si||k
+and
+P0 = Prob [hd,i(u) = 0]
+= 1 − Prob [hd,i(u) = 1] .
+can be computed from Chi-square distribution of degree 1
+for AWGN noise process.
+The probability of false target detection at sensor i is
+Prob[gd,i = 1] = Prob[Ni ≥ η1] and
+Prob[gd,i = 0] = 1 − Prob[gd,i = 1].
+Therefore, the probability of consensus false target detection
+is
+Fd = Prob
+n
+i=1
+gd,i ≥ η2
+=
+n
+j=η2
+n
+j
+· (Prob [gd,i = 1])j
+· (Prob [gd,i = 0])(n−j)
+The above equations serve as an analytic basis for 
+evaluating exposure as defined in the following subsection.
+Note that in value and decision fusion the knowledge of the
+sensors location can be used to make the detection decision.
+For example, a sensor can report values that differ 
+substantially from its neighbors values. This discrepancy can be
+analyzed to avoid false alarms or misses and therefore 
+improve the detection performance. However, such algorithms
+are not considered in this paper.
+2.2 De£nition of exposure
+We define exposure to be the probability of detecting the
+target or an intruder carrying out the unauthorized activity,
+where the activity depends on the problem under 
+consideration. In this paper, the activity considered is the 
+Unauthorized Traversal (UT) as defined below.
+Unauthorized Traversal (UT) Problem: We are given
+a sensor field with n sensors at locations s1, s2, . . . , sn (see
+Figure 1). We are also given the stochastic characterization
+of the noise at each sensor and a tolerable bound, α, on the
+false alarm probability. Let P denote a path from the west to
+the east periphery of the sensor field. A target traversing the
+sensor field using path P is detected if it is detected at some
+point u ∈ P. The exposure of path P is the net probability
+of detecting a target that traverses the field using P. The
+target is assumed to be able to follow any path through the
+field and the problem is to find the path P with the least
+exposure.
+43
+Sensor
+Figure 1: Example sensor fields for UT problem.
+2.3 Solution to the UT problem
+Let P denote a path from the west to the east 
+periphery through the sensor field. A target that traverses the
+field using P is not detected if and only if it is not detected
+at any time while it is on that path. Since detection 
+attempts by the sensor network occur at a fixed frequency, we
+can associate each detection attempt with a point u ∈ P
+when assuming that the target traverses the field at a 
+constant speed. The detection attempts are based on energy
+measured over a period of time T during which the target
+is moving. Therefore, the detection probability associated
+with each point u reflects the measurements performed 
+during time T. Considering the path, the net probability of not
+detecting a target traversing the field using P is the 
+product of the probabilities of no detection at each point u ∈ P.
+That is, if G(P) denotes the net probability of not detecting
+a target as it traverses over path P, then,
+log G(P) =
+u∈P
+log(1 − D(u))du,
+where D(u) is either Dv(u) of Dd(u) depending on whether
+the sensors use value or decision fusion to arrive at a 
+consensus decision. Since the exposure of P is (1 − G(P)), the
+problem is to find the path which minimizes (1 − G(P)) or
+equivalently the path that minimizes | log G(P)|1
+.
+In general, the path P that minimizes | log G(P)| can be
+fairly arbitrary in shape. The proposed solution does not
+exactly compute this path. Instead, we rely on the following
+approximation. We first divide the sensor field into a fine
+grid and then assume that the target only moves along this
+grid. The problem then is to find the path P on this grid
+that minimizes | log G(P)|. Note that, the finer the grid the
+closer the approximation. Also, one can use higher order
+grids such as in [5] instead of the rectangular grid we use
+in this paper. The higher order grids change the runtime
+of the algorithm but the approach is the same as with the
+rectangular grid.
+For the target not to be detected at any point u ∈ P,
+1
+Note that, G(P) lies between 0 and 1 and thus log G(P) is
+negative.
+1. Generate a suitably fine rectangular grid.
+2. For each line segment l between adjacent grid points
+3. Compute | log ml| using Equation 3
+4. Assign l a weight equal to | log ml|
+5. Endfor
+6. Add a link from virtual point a to each grid point on
+the west
+7. Add a link from virtual point b to each grid point on
+the east
+8. Assign a weight of 0 to all the line segments from a
+and b
+9. Compute the least weight path P from a to b using
+Dijkstra"s algorithm
+10. Let w equal the total weight of P.
+11. Return P as the least exposure path with an
+exposure equal to 10−w
+.
+Figure 2: Pseudo-code of the proposed solution for
+the UT problem.
+it need not be detected at any point u lying between any
+two adjacent grid points of P. We therefore subdivide any
+path P as a chain of grid segments. Let us consider two
+adjacent points, say v1 and v2 on the grid. Let l denote
+the line segment between v1 and v2. Also, let ml denote
+the probability of not detecting a target traveling between
+v1 and v2 on the line segment l. Then, from the discussion
+above,
+log ml =
+u∈l
+log(1 − D(u))du (3)
+The probability ml can be evaluated by finding the detection
+probability D(u) at each point u ∈ l. Note that, ml lies
+between 0 and 1 and, therefore, log ml is negative.
+To find the least exposed path, a non-negative weight
+equal to | log ml| is assigned to each segment l on this grid.
+Also, a fictitious point a is created and a line segment is
+added from a to each grid point on the west periphery of
+the sensor field. A weight equal to 0 is assigned to each of
+these line segments. Similarly, a fictitious point b is created
+and a line segment is added from b to each grid point on
+the east periphery of the sensor field. A weight equal to 0
+is assigned to each of these line segments.
+The problem of finding the least exposed path from west
+periphery to east periphery is then equivalent to the problem
+of finding the least weight path from a to b on this grid. Such
+a path can be efficiently determined using the Dijkstra"s
+shortest path algorithm [1]. A pseudo-code of the overall
+algorithm is shown in Figure 2.
+Example: Figure 3 shows a sensor field with eight sensors
+at locations marked by dark circles. Assume the noise 
+process at each sensor is Additive White Gaussian with mean
+0 and variance 1. Further assume that the sensors use value
+fusion to arrive at a consensus decision. Then, from 
+Equation 2, we chose a threshold η = 3.0 to achieve a false alarm
+probability of 0.187%. The field has been divided into a
+10 × 10 grid. The target emits an energy K = 12 and the
+energy decay factor is 2. The figure shows the weight 
+assigned to each line segment in the grid as described above.
+The least exposure path found by the Dijkstra"s algorithm
+for this weighted grid is highlighted. The probability of 
+de44
+Fictitious Fictitious
+Threshold = 3.0, Detection Probability of the Path = 0.926
+Point A Point B0.090.921.651.610.860.08
+0.860.355.1744.9
+0.03
+0.800.821.3640.5
+1.051.503.4442.580.041.41.420.17
+0.63
+3.36
+0.04
+1.48
+0.323.596.833.600.240.11
+2.01
+1.88
+0.030.030.030.050.060.070.040.020.100.03
+0.010.010.050.060.05
+0.540.45
+0.050.040.020.03
+1.14
+0.040.020.050.070.040.020.010.02
+0.010.010.010.040.31
+0.05
+0.040.010.000.01
+0.000.010.010.220.420.440.240.020.000.00
+0.010.010.010.050.480.490.060.010.010.01
+2.24
+3.00
+0.16
+0.12
+1.54
+43.4
+43.4
+2.69
+1.06
+0.98
+0.040.01
+1.18
+0.06
+0.07
+0.21
+3.45
+3.44
+0.20
+0.14
+0.74
+0.31
+0.33
+0.09
+0.05
+0.02
+0.05
+0.06
+0.06
+0.06
+0.02
+0.02
+0.01
+0.01
+0.02
+0.04
+0.03
+0.04
+0.07
+0.03
+0.05
+0.04
+0.01
+0.01
+0.01
+0.01
+0.00
+0.02
+0.06
+0.32
+0.52
+0.02
+0.03
+0.01
+0.01
+0.01
+0.00
+0.00
+0.02
+0.25
+0.49
+0.24
+0.02
+0.01
+0.01
+0.00
+0.01
+0.00
+0.01
+0.02
+0.28
+0.65
+0.25
+0.02
+0.01
+0.01
+0.00
+0.89
+1.12
+0.85
+0.24
+1.60
+40.2
+5.01
+0.29
+0.25
+1.00
+0.65
+2.29
+2.55
+0.83
+0.17
+1.89
+80.0
+44.9
+2.75
+1.05
+1.32
+0.53
+0.850.390.190.120.361.361.210.270.610.53
+0.07
+0.49
+0.19
+0.93
+1.89
+1.13
+0.16
+0.06
+0.17
+0.97
+1.26
+0.04
+1.10
+0.43
+Sensor
+0.00 Edge Weight
+0.05
+1.38
+Figure 3: Illustration of the proposed solution for an example UT problem.
+tecting the target traversing the field using the highlighted
+path is 0.926.

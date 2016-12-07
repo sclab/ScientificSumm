@@ -1,0 +1,30 @@
+ICE is approximately 6502 lines of Java code, broken up
+into the functional packages described in Table 1.10
+The prototype is modular so that researchers may easily
+replace components for experimentation. In addition to the
+core exchange discussed in this paper, we have developed
+an agent component that allows a user to simulate the 
+behavior and knowledge of other players in the system, better
+allowing a user to formulate their strategy in advance of
+actual play. A user specifies a valuation model in an 
+XMLinterpretation of our bidding language, which is revealed to
+the exchange via the agent"s strategy.
+Major exchange tasks are handled by engines that 
+dictate the non-optimizer specific logic. These engines drive
+the appropriate MIP/LP builders. We realized that all of
+our optimization formulations boil down to two classes of
+optimization problem. The first, used by winner 
+determination, activity rule, closing rule, and constraint generation
+in pricing, is a MIP that finds trades that maximize value,
+holding prices and slacks constant. The second, used by the
+three pricing stages, is an LP that holds trades constant,
+seeking to minimize slack, profit, or prices. We take 
+advantage of the commonality of these problems by using common
+LP/MIP builders that differ only by a few functional hooks
+to provide the correct variables for optimization.
+We have generalized our back-end optimization solver 
+interface11
+(we currently support CPLEX and the LGPL- 
+licensed LPSolve), and can take advantage of the load-balancing
+and parallel MIP/LP solving capability that this library 
+provides.

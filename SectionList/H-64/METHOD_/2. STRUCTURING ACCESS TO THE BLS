@@ -1,0 +1,141 @@
+WEBSITE
+The Bureau of Labor Statistics is a federal government
+agency charged with compiling and publishing statistics 
+pertaining to labor and production in the US and abroad. Given
+this broad mandate, the BLS publishes a wide array of 
+information, intended for diverse audiences. The agency"s
+website acts as a clearinghouse for this process. With over
+15,000 text/html documents (and many more documents if
+spreadsheets and typeset reports are included), providing
+access to the collection provides a steep challenge to 
+information architects.
+2.1 The Relation Browser
+The starting point of this work is the notion that access
+to information in the BLS website could be improved by
+the addition of a dynamic interface such as the relation
+browser described by Marchionini and Brunk [13]. The 
+relation browser allows users to traverse complex data sets by
+iteratively slicing the data along several topics. In Figure
+1 we see a prototype instantiation of the relation browser,
+applied to the FedStats website3
+.
+The relation browser supports information seeking by 
+allowing users to form queries in a stepwise fashion, slicing and
+re-slicing the data as their interests dictate. Its motivation
+is in keeping with Shneiderman"s suggestion that queries
+and their results should be tightly coupled [2]. Thus in 
+Fig3
+http://www.fedstats.gov
+Figure 1: Relation Browser Prototype
+ure 1, users might limit their search set to those documents
+about energy. Within this subset of the collection, they
+might further eliminate documents published more than a
+year ago. Finally, they might request to see only documents
+published in PDF format.
+As Marchionini and Brunk discuss, capturing the 
+publication date and format of documents is trivial. But successful
+implementations of the relation browser also rely on topical
+classification. This presents two stumbling blocks for system
+designers:
+• Information architects must define the appropriate set
+of topics for their collection
+• Site maintainers must classify each document into its
+appropriate categories
+These tasks parallel common problems in the metadata
+community: defining appropriate elements and marking up
+documents to support metadata-aware information access.
+Given a collection of over 15,000 documents, these 
+hurdles are especially daunting, and automatic methods of 
+approaching them are highly desirable.
+2.2 A Pre-Existing Structure
+Prior to our involvement with the project, designers at
+BLS created a shallow classificatory structure for the most
+important documents in their website. As seen in Figure 2,
+the BLS home page organizes 65 top-level documents into
+15 categories. These include topics such as Employment and
+Unemployment, Productivity, and Inflation and Spending.
+152
+Figure 2: The BLS Home Page
+We hoped initially that these pre-defined categories could
+be used to train a 15-way document classifier, thus 
+automating the process of populating the relation browser altogether.
+However, this approach proved unsatisfactory. In personal
+meetings, BLS officials voiced dissatisfaction with the 
+existing topics. Their form, it was argued, owed as much to
+the institutional structure of BLS as it did to the inherent
+topology of the website"s information space. In other words,
+the topics reflected official divisions rather than semantic
+clusters. The BLS agents suggested that re-designing this
+classification structure would be desirable.
+The agents" misgivings were borne out in subsequent 
+analysis. The BLS topics comprise a shallow classificatory 
+structure; each of the 15 top-level categories is linked to a small
+number of related pages. Thus there are 7 pages associated
+with Inflation. Altogether, the link structure of this 
+classificatory system contains 65 documents; that is, excluding
+navigational links, there are 65 documents linked from the
+BLS home page, where each hyperlink connects a document
+to a topic (pages can be linked to multiple topics). Based on
+this hyperlink structure, we defined M, a symmetric 65×65
+matrix, where mij counts the number of topics in which 
+documents i and j are both classified on the BLS home page. To
+analyze the redundancy inherent in the pre-existing 
+structure, we derived the principal components of M (cf. [11]).
+Figure 3 shows the resultant scree plot4
+.
+Because all 65 documents belong to at least one BLS topic,
+4
+A scree plot shows the magnitude of the kth
+eigenvalue
+versus its rank. During principal component analysis scree
+plots visualize the amount of variance captured by each 
+component.
+m00M0M
+0
+1010M10M
+10
+2020M20M
+20
+3030M30M
+30
+4040M40M
+40
+5050M50M
+50
+6060M60M
+60
+m00M0M
+0
+22M2M
+2
+44M4M
+4
+66M6M
+6
+88M8M
+8
+1010M10M
+10
+1212M12M
+12
+1414M14M
+14
+Eigenvalue RankMEigenvalue RankM
+Eigenvalue Rank
+Eigenvlue MagnitudeMEigenvlue MagnitudeM
+EigenvlueMagnitude
+Figure 3: Scree Plot of BLS Categories
+the rank of M is guaranteed to be less than or equal to
+15 (hence, eigenvalues 16 . . . 65 = 0). What is surprising
+about Figure 3, however, is the precipitous decline in 
+magnitude among the first four eigenvalues. The four largest
+eigenvlaues account for 62.2% of the total variance in the
+data. This fact suggests a high degree of redundancy among
+the topics. Topical redundancy is not in itself problematic.
+However, the documents in this very shallow classificatory
+structure are almost all gateways to more specific 
+information. Thus the listing of the Producer Price Index under
+three categories could be confusing to the site"s users. In
+light of this potential for confusion and the agency"s own 
+request for redesign, we undertook the task of topic discovery
+described in the following sections.

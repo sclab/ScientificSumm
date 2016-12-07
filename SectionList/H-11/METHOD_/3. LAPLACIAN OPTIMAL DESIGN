@@ -1,0 +1,288 @@
+Since the covariance matrix Hsse used in traditional 
+approaches is only dependent on the measured samples, i.e.
+zi"s, these approaches fail to evaluate the expected errors
+on the unmeasured samples. In this Section, we introduce
+a novel active learning algorithm called Laplacian Optimal
+Design (LOD) which makes efficient use of both measured
+(labeled) and unmeasured (unlabeled) samples.
+3.1 The Objective Function
+In many machine learning problems, it is natural to 
+assume that if two points xi, xj are sufficiently close to each
+other, then their measurements (f(xi), f(xj)) are close as
+well. Let S be a similarity matrix. Thus, a new loss function
+which respects the geometrical structure of the data space
+can be defined as follows:
+J0(w) =
+k
+i=1
+f(zi)−yi
+2
++
+λ
+2
+m
+i,j=1
+f(xi)−f(xj)
+2
+Sij (3)
+where yi is the measurement (or, label) of zi. Note that,
+the loss function (3) is essentially the same as the one used
+in Laplacian Regularized Regression (LRR, [2]). However,
+LRR is a passive learning algorithm where the training data
+is given. In this paper, we are focused on how to select the
+most informative data for training. The loss function with
+our choice of symmetric weights Sij (Sij = Sji) incurs a
+heavy penalty if neighboring points xi and xj are mapped
+far apart. Therefore, minimizing J0(w) is an attempt to
+ensure that if xi and xj are close then f(xi) and f(xj) are
+close as well. There are many choices of the similarity matrix
+S. A simple definition is as follows:
+Sij =
+⎧
+⎨
+⎩
+1, if xi is among the p nearest neighbors of xj,
+or xj is among the p nearest neighbors of xi;
+0, otherwise.
+(4)
+Let D be a diagonal matrix, Dii = j Sij, and L = D−S.
+The matrix L is called graph Laplacian in spectral graph
+theory [3]. Let y = (y1, · · · , yk)T
+and X = (x1, · · · , xm).
+Following some simple algebraic steps, we see that:
+J0(w)
+=
+k
+i=1
+wT
+zi − yi
+2
++
+λ
+2
+m
+i,j=1
+wT
+xi − wT
+xj
+2
+Sij
+= y − ZT
+w
+T
+y − ZT
+w + λwT
+m
+i=1
+DiixixT
+i
+−
+m
+i,j=1
+SijxixT
+j w
+= yT
+y − 2wT
+Zy + wT
+ZZT
+w
++λwT
+XDXT
+− XSXT
+w
+= yT
+y − 2wT
+Zy + wT
+ZZT
++ λXLXT
+w
+The Hessian of J0(w) can be computed as follows:
+H0 =
+∂2
+J0
+∂w2
+= ZZT
++ λXLXT
+In some cases, the matrix ZZT
++λXLXT
+is singular (e.g. if
+m < d). Thus, there is no stable solution to the optimization
+problem Eq. (3). A common way to deal with this ill-posed
+problem is to introduce a Tikhonov regularizer into our loss
+function:
+J(w)
+=
+k
+i=1
+wT
+zi − yi
+2
++
+λ1
+2
+m
+i,j=1
+wT
+xi − wT
+xj
+2
+Sij
++λ2 w 2
+(5)
+The Hessian of the new loss function is given by:
+H =
+∂2
+J
+∂w2
+= ZZT
++ λ1XLXT
++ λ2I
+:= ZZT
++ Λ
+where I is an identity matrix and Λ = λ1XLXT
++ λ2I.
+Clearly, H is of full rank. Requiring that the gradient of
+J(w) with respect to w vanish gives the optimal estimate
+ˆw:
+ˆw = H−1
+Zy
+The following proposition states the bias and variance 
+properties of the estimator for the coefficient vector w.
+Proposition 3.1. E( ˆw − w) = −H−1
+Λw, Cov( ˆw) =
+σ2
+(H−1
+− H−1
+ΛH−1
+)
+Proof. Since y = ZT
+w + and E( ) = 0, it follows that
+E( ˆw − w) (6)
+= H−1
+ZZT
+w − w
+= H−1
+(ZZT
++ Λ − Λ)w − w
+= (I − H−1
+Λ)w − w
+= −H−1
+Λw (7)
+Notice Cov(y) = σ2
+I, the covariance matrix of ˆw has the
+expression:
+Cov( ˆw) = H−1
+ZCov(y)ZT
+H−1
+= σ2
+H−1
+ZZT
+H−1
+= σ2
+H−1
+(H − Λ)H−1
+= σ2
+(H−1
+− H−1
+ΛH−1
+) (8)
+Therefore mean squared error matrix for the coefficients w
+is
+E(w − ˆw)(w − ˆw)T
+(9)
+= H−1
+ΛwwT
+ΛH−1
++ σ2
+(H−1
+− H−1
+ΛH−1
+) (10)
+For any x, let ˆy = ˆwT
+x be its predicted observation. The
+expected squared prediction error is
+E(y − ˆy)2
+= E( + wT
+x − ˆwT
+x)2
+= σ2
++ xT
+[E(w − ˆw)(w − ˆw)T
+]x
+= σ2
++ xT
+[H−1
+ΛwwT
+ΛH−1
++ σ2
+H−1
+− σ2
+H−1
+ΛH−1
+]x
+Clearly the expected square prediction error depends on the
+explanatory variable x, therefore average expected square
+predictive error over the complete data set A is
+1
+m
+m
+i=1
+E(yi − ˆwT
+xi)2
+=
+1
+m
+m
+i=1
+xT
+i [H−1
+ΛwwT
+ΛH−1
++ σ2
+H−1
+− σ2
+H−1
+ΛH−1
+]xi
++σ2
+=
+1
+m
+Tr(XT
+[σ2
+H−1
++ H−1
+ΛwwT
+ΛH−1
+− σ2
+H−1
+ΛH−1
+]X)
++σ2
+Since
+Tr(XT
+[H−1
+ΛwwT
+ΛH−1
+− σ2
+H−1
+ΛH−1
+]X)
+Tr(σ2
+XT
+H−1
+X),
+Our Laplacian optimality criterion is thus formulated by
+minimizing the trace of XT
+H−1
+X.
+Definition 1. Laplacian Optimal Design
+min
+Z=(z1,··· ,zk)
+Tr XT
+ZZT
++ λ1XLXT
++ λ2I
+−1
+X (11)
+where z1, · · · , zk are selected from {x1, · · · , xm}.

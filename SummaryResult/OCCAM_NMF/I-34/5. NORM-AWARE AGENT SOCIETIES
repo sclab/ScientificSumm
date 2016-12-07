@@ -1,0 +1,27 @@
+the test thus equates to asking if the action is outside such gaps, that is, the action is within the curtailed scope of influence of the norm. 
+the elements of σc are unifiers stating what values the variables of the norm cannot have, that is, they represent gaps in the original scope of the norm"s influence.
+the verification of non-unification of σ with any element of σc deserves an explanation.
+finally, in line 7 it checks if the time of the action is within the norm temporal influence.
+the definition, as a logic  program, is shown in figure 6. it checks (line 4) if the agent identifier 1 check(action, ω) ← 2 action = a:r, ¯ϕ, t ∧ 3 ω = (fτ1:τ2 ϕ) σc, td, ta, te ∧ 4 unify(a, τ1, σ) ∧ unify(r, τ2, σ) ∧ unify( ¯ϕ, ϕ, σ)∧ 5 forall(σ , (σc ∈ σc, unify(σc, σ, σ )), mgus)∧ 6 mgus = ∅∧ 7 ta ≤ t ≤ te figure 6: check if action is within influence of curtailed norm and role of the action unify with the appropriate terms τ1, τ2 of ω and that the actions ¯ϕ, ϕ themselves unify, all under the same  unifier σ. it then verifies (lines 5-6) that σ does not unify with any of the conflict sets in σc.
+2), is within the influence of an annotated prohibition ω, its second parameter.
+we do so via the definition of predicate check/2, which holds if its first argument, a candidate action (in the format of the elements of ξ of def.
+5.1 using annotated norms we now explain how annotated norms are used by norm-aware agents.
+the governor agent keeps looping (line 9) using the identifier for the external agent and its new set of roles.
+in line 7 the governor agent, in possession of the applicable norms as well as other relevant information, interacts with the external agent to decide on a set of actions which are norm-compliant - these actions will be used to update (line 8) the global execution state ξ. in the process of updating the state of execution, a new set of roles must be assigned to the external agent, represented as newroles.
+predicate filter norms/4 collects the norms which apply to agent id (the governor agent"s external agent).
+in this case, the tuple is again retrieved (line 5) and the governor agent proceeds (line 6) to analyse the current global normative state ω with a view to obtaining the subset ωid ⊆ ω of norms referring to agent id under roles roles.
+the second clause (lines 4-9) depicts a generic loop when the termination condition of the first clause does not hold.
+the team of governor agents synchronise their access to the tuple space [12], thus ensuring each has a chance to function.
+we show 1 main(id, roles) ← 2 get tuple( i, s, ξ, ω )∧ 3 terminate(id, roles, i, ξ, ω) 4 main(id, roles) ← 5 get tuple( i, s, ξ, ω )∧ 6 filter norms(id, roles, ω, ωid )∧ 7 discuss norms(id, roles, i, s, ξ, ωid , actions)∧ 8 update tuple(roles, actions, newroles)∧ 9 main(id, newroles) figure 5: governor agent as a logic program the lines of our clauses numbered 1-9. the first clause (lines 1-3) depicts the termination condition: get tuple/1 (line 2) retrieves i, s, ξ, ω from the shared tuple space and terminate/4 checks if the current vo enactment (recorded in ξ) has come to an end.
+we define in figure 5 how governor agents work - we use a logic program for this purpose.
+the  governor agent keeps an account of all roles the external agent is  currently playing: in our vos, it is possible for agents to take up more than one role simultaneously.
+as such, it has the unique identifier of the external agent.
+the governor agent represents the external agent within the vo.
+we depict  below how the pairs of governor/external agents work together: any non-deterministic choices on the vo are decided by the external agent; any normative aspects are considered by the governor agent.
+governor agents are necessary because we cannot anticipate or  legislate over the design or behaviour of external agents.
+the governor agents have access to the vo description i, the current state s of the vo enactment, the global execution state ξ and the global normative state ω.  governor agents are able to write to and read from (denoted by the ⇐⇒) a shared memory space (e.g., a blackboard-like solution implemented as a tuple space), updating the global configuration (denoted by the  ) to reflect the dynamics of the vo enactment.
+i, s, ξ, ω i, s , ξ , ω · · · agn £ ¢   ¡ govn ⇐⇒ figure 4: architecture for norm-aware agent societies of external agents interact (denoted by the  ) with their  corresponding governor agents.
+we show our architecture in figure 4 below: a number external governor agents agents tuple space ag1 £ ¢   ¡ gov1 ⇐⇒ .
+this is a kind of chaperon that interacts with an external agent, and observes and reports on its behaviour.
+we address open and heterogeneous mass: we accommodate external agents by providing each of them with a corresponding governor agent [12].
+we now describe how our norm-regulated vos give rise to  normaware agent societies.

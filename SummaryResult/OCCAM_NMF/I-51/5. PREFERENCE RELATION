@@ -1,0 +1,16 @@
+in our framework, agents use this joint confidence as the  preference relation: a justified prediction α is preferred over another one β if c(α) ≥ c(β). 
+figure 2 illustrates the individual evaluation of the confidence of an argument, in particular, three  endorsing cases and one counterexample are found in the case base of agents ai, giving an estimated confidence of 0.6 moreover, we can also define the joint confidence of an argument α as the confidence computed using the cases present in the case bases of all the agents in the group: c(α) = i y ai α 1 + i y ai α + nai α notice that, to collaboratively compute the joint confidence, the agents only have to make public the aye and nay values locally computed for a given argument.
+notice that this correction follows the same idea than the laplace  correction to estimate probabilities.
+notice that we add 1 to the denominator, this is to avoid giving excessively high confidences to justified predictions whose confidence has been computed using a small number of cases.
+the confidence on a justified prediction is the number of  endorsing cases divided by the number of endorsing cases plus  counterexamples.
+an agent estimates the confidence of an argument as: cai (α) = y ai α 1 + y ai α + nai α i.e.
+on autonomous agents and multi-agent systems (aamas 07) 977 + + + + + +   - - + figure 2: confidence of arguments is evaluated by contrasting them against the case bases of the agents.
+joint conf.
+the sixth intl.
+with them, an agent ai obtains the y (aye) and n (nay) values: • y ai α = |{c ∈ ci| α.d c.p ∧ α.s = c.s}| is the number of cases in the agent"s case base subsumed by the justification α.d that belong to the solution class α.s, • nai α = |{c ∈ ci| α.d c.p ∧ α.s = c.s}| is the number of cases in the agent"s case base subsumed by justification α.d that do not belong to that solution class.
+specifically, to assess the confidence of a justified prediction α, an agent obtains the set of cases in its individual case base that are subsumed by α.d.
+the more the endorsing cases, the higher the confidence; and the more the  counterexamples, the lower the confidence.
+the idea behind case-based confidence is to count how many of the cases in an individual case base endorse a justified prediction, and how many of them are counterexamples of it.
+basically, we will define a confidence measure for each justified prediction (that takes into account the cases owned by each agent), and the justified prediction with the highest confidence will be the preferred one.
+for that reason, we are going to define a preference relation over contradicting justified predictions based on cases.
+a specific argument provided by an agent might not be consistent with the information known to other agents (or even to some of the information known by the agent that has generated the justification due to noise in training data).

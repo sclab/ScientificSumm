@@ -1,0 +1,54 @@
+In a recent study, Raghavan and Garcia-Molina [29] present an
+architectural model for a Hidden Web crawler. The main focus of
+this work is to learn Hidden-Web query interfaces, not to 
+generate queries automatically. The potential queries are either provided
+manually by users or collected from the query interfaces. In 
+contrast, our main focus is to generate queries automatically without
+any human intervention.
+The idea of automatically issuing queries to a database and 
+examining the results has been previously used in different contexts.
+For example, in [10, 11], Callan and Connel try to acquire an 
+accurate language model by collecting a uniform random sample from
+the database. In [22] Lawrence and Giles issue random queries to
+a number of Web Search Engines in order to estimate the fraction
+of the Web that has been indexed by each of them. In a similar
+fashion, Bharat and Broder [8] issue random queries to a set of
+Search Engines in order to estimate the relative size and overlap of
+their indexes. In [6], Barbosa and Freire experimentally evaluate
+methods for building multi-keyword queries that can return a large
+fraction of a document collection. Our work differs from the 
+previous studies in two ways. First, it provides a theoretical framework
+for analyzing the process of generating queries for a database and
+examining the results, which can help us better understand the 
+effectiveness of the methods presented in the previous work. Second,
+we apply our framework to the problem of Hidden Web crawling
+and demonstrate the efficiency of our algorithms.
+Cope et al. [15] propose a method to automatically detect whether
+a particular Web page contains a search form. This work is 
+complementary to ours; once we detect search interfaces on the Web
+using the method in [15], we may use our proposed algorithms to
+download pages automatically from those Web sites.
+Reference [4] reports methods to estimate what fraction of a
+text database can be eventually acquired by issuing queries to the
+database. In [3] the authors study query-based techniques that can
+extract relational data from large text databases. Again, these works
+study orthogonal issues and are complementary to our work.
+In order to make documents in multiple textual databases 
+searchable at a central place, a number of harvesting approaches have
+108
+been proposed (e.g., OAI [21], DP9 [24]). These approaches 
+essentially assume cooperative document databases that willingly share
+some of their metadata and/or documents to help a third-party search
+engine to index the documents. Our approach assumes 
+uncooperative databases that do not share their data publicly and whose
+documents are accessible only through search interfaces.
+There exists a large body of work studying how to identify the
+most relevant database given a user query [20, 19, 14, 23, 18]. This
+body of work is often referred to as meta-searching or database
+selection problem over the Hidden Web. For example, [19] 
+suggests the use of focused probing to classify databases into a topical
+category, so that given a query, a relevant database can be selected
+based on its topical category. Our vision is different from this body
+of work in that we intend to download and index the Hidden pages
+at a central location in advance, so that users can access all the
+information at their convenience from one single location.

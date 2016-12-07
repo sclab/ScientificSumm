@@ -1,0 +1,124 @@
+In this section we demonstrate that it is NP-complete
+to design a deterministic mechanism that maximizes the
+expected sum of the payments collected from the agents.
+We show that this problem is hard even in the single-agent
+setting, thereby immediately showing it hard for both IR
+concepts, for both solution concepts. To demonstrate 
+NPhardness, we reduce from the MINSAT problem.
+Definition 9 (MINSAT). We are given a formula φ
+in conjunctive normal form, represented by a set of Boolean
+variables V and a set of clauses C, and an integer K (K <
+|C|). We are asked whether there exists an assignment to the
+variables in V such that at most K clauses in φ are satisfied.
+MINSAT was recently shown to be NP-complete [14]. We
+can now present our result.
+Theorem 1. Payment-maximizing deterministic AMD is
+NP-complete, even for a single agent, even with a uniform
+distribution over types.
+Proof. It is easy to show that the problem is in NP.
+To show NP-hardness, we reduce an arbitrary MINSAT
+instance to the following single-agent payment-maximizing
+deterministic AMD instance. Let the agent"s type set be
+Θ = {θc : c ∈ C} ∪ {θv : v ∈ V }, where C is the set of
+clauses in the MINSAT instance, and V is the set of 
+variables. Let the probability distribution over these types be
+uniform. Let the outcome set be O = {o0} ∪ {oc : c ∈
+C} ∪ {ol : l ∈ L}, where L is the set of literals, that is,
+L = {+v : v ∈ V } ∪ {−v : v ∈ V }. Let the notation v(l) = v
+denote that v is the variable corresponding to the literal l,
+that is, l ∈ {+v, −v}. Let l ∈ c denote that the literal l
+occurs in clause c. Then, let the agent"s utility function
+be given by u(θc, ol) = |Θ| + 1 for all l ∈ L with l ∈ c;
+u(θc, ol) = 0 for all l ∈ L with l /∈ c; u(θc, oc) = |Θ| + 1;
+u(θc, oc ) = 0 for all c ∈ C with c = c ; u(θv, ol) = |Θ| for all
+l ∈ L with v(l) = v; u(θv, ol) = 0 for all l ∈ L with v(l) = v;
+u(θv, oc) = 0 for all c ∈ C. The goal of the AMD instance
+is G = |Θ| + |C|−K
+|Θ|
+, where K is the goal of the MINSAT 
+instance. We show the instances are equivalent. First, suppose
+there is a solution to the MINSAT instance. Let the 
+assignment of truth values to the variables in this solution be given
+by the function f : V → L (where v(f(v)) = v for all v ∈ V ).
+Then, for every v ∈ V , let o(θv) = of(v) and π(θv) = |Θ|.
+For every c ∈ C, let o(θc) = oc; let π(θc) = |Θ| + 1 if c
+is not satisfied in the MINSAT solution, and π(θc) = |Θ|
+if c is satisfied. It is straightforward to check that the IR
+constraint is satisfied. We now check that the agent has no
+incentive to misreport. If the agent"s type is some θv, then
+any other report will give it an outcome that is no better,
+for a payment that is no less, so it has no incentive to 
+misreport. If the agent"s type is some θc where c is a satisfied
+clause, again, any other report will give it an outcome that
+is no better, for a payment that is no less, so it has no 
+incentive to misreport. The final case to check is where the
+agent"s type is some θc where c is an unsatisfied clause. In
+this case, we observe that for none of the types, reporting it
+leads to an outcome ol for a literal l ∈ c, precisely because
+the clause is not satisfied in the MINSAT instance. Because
+also, no type besides θc leads to the outcome oc, reporting
+any other type will give an outcome with utility 0, while still
+forcing a payment of at least |Θ| from the agent. Clearly the
+agent is better off reporting truthfully, for a total utility of
+0. This establishes that the agent never has an incentive to
+misreport. Finally, we show that the goal is reached. If s is
+the number of satisfied clauses in the MINSAT solution (so
+that s ≤ K), the expected payment from this mechanism
+is |V ||Θ|+s|Θ|+(|C|−s)(|Θ|+1)
+|Θ|
+≥ |V ||Θ|+K|Θ|+(|C|−K)(|Θ|+1)
+|Θ|
+=
+|Θ| + |C|−K
+|Θ|
+= G. So there is a solution to the AMD 
+instance.
+Now suppose there is a solution to the AMD instance,
+given by an outcome function o and a payment function
+π. First, suppose there is some v ∈ V such that o(θv) /∈
+{o+v, o−v}. Then the utility that the agent derives from
+the given outcome for this type is 0, and hence, by IR, no
+payment can be extracted from the agent for this type. 
+Because, again by IR, the maximum payment that can be 
+extracted for any other type is |Θ| + 1, it follows that the
+maximum expected payment that could be obtained is at
+most (|Θ|−1)(|Θ|+1)
+|Θ|
+< |Θ| < G, contradicting that this is a
+solution to the AMD instance. It follows that in the solution
+to the AMD instance, for every v ∈ V , o(θv) ∈ {o+v, o−v}.
+136
+We can interpret this as an assignment of truth values to
+the variables: v is set to true if o(θv) = o+v, and to false
+if o(θv) = o−v. We claim this assignment is a solution to
+the MINSAT instance. By the IR constraint, the maximum
+payment we can extract from any type θv is |Θ|. Because
+there can be no incentives for the agent to report falsely, for
+any clause c satisfied by the given assignment, the maximum
+payment we can extract for the corresponding type θc is |Θ|.
+(For if we extracted more from this type, the agent"s utility
+in this case would be less than 1; and if v is the variable 
+satisfying c in the assignment, so that o(θv) = ol where l occurs
+in c, then the agent would be better off reporting θv instead
+of the truthful report θc, to get an outcome worth |Θ|+1 to
+it while having to pay at most |Θ|.) Finally, for any 
+unsatisfied clause c, by the IR constraint, the maximum payment
+we can extract for the corresponding type θc is |Θ| + 1. It
+follows that the expected payment from our mechanism is
+at most V |Θ|+s|Θ|+(|C|−s)(|Θ|+1)
+Θ
+, where s is the number of
+satisfied clauses. Because our mechanism achieves the goal,
+it follows that V |Θ|+s|Θ|+(|C|−s)(|Θ|+1)
+Θ
+≥ G, which by simple
+algebraic manipulations is equivalent to s ≤ K. So there is
+a solution to the MINSAT instance.
+Because payment-maximizing AMD is just the special case
+of AMD for a self-interested designer where the designer has
+no preferences over the outcome chosen, this immediately
+implies hardness for the general case of AMD for a 
+selfinterested designer where payments are possible. However,
+it does not yet imply hardness for the special case where
+payments are not possible. We will prove hardness in this
+case in the next section.

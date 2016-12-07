@@ -1,0 +1,20 @@
+While applying text classifiers at the document-level is fairly
+well-understood, there exists the potential for significantly 
+increasing the performance of the sentence-level classifiers. Such methods
+include alternate ways of combining the predictions over each 
+sentence, weightings other than tfidf, which may not be appropriate
+since sentences are small, better sentence segmentation, and other
+types of phrasal analysis. Additionally, named entity tagging, time
+expressions, etc., seem likely candidates for features that can 
+further improve this task. We are currently pursuing some of these
+avenues to see what additional gains these offer.
+Finally, it would be interesting to investigate the best methods for
+combining the document-level and sentence-level classifiers. Since
+the simple bag-of-words representation at the document-level leads
+to a learned model that behaves somewhat like a context-specific
+prior dependent on the sender/receiver and general topic, a first
+choice would be to treat it as such when combining probability
+estimates with the sentence-level classifier. Such a model might
+serve as a general example for other problems where bag-of-words
+can establish a baseline model but richer approaches are needed to
+achieve performance beyond that baseline.

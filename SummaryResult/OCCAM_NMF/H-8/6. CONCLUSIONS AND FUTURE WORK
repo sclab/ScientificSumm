@@ -1,0 +1,18 @@
+any opinions, findings, and conclusions or recommendations expressed in this material are those of the author and do not necessarily reflect those of the  sponsor. 
+acknowledgments this work was supported in part by the center for intelligent information retrieval and in part by the defense advanced research projects agency (darpa) under contract number hr0011-06-c-0023.
+we have many more experimental results that we  unfortunately did not have space for but that reinforce the notion that rtc is highly robust: with just a few judgments per topic, we can accurately assess the confidence in any  pairwise comparison of systems.
+in the meantime, capping  confidence estimates at 95% is a hack that solves the problem.
+additionally, it will be worthwhile to investigate the issue of overfitting: the circumstances it occurs under and what can be done to prevent it.
+this is an obvious area for future exploration.
+in addition to expert aggregation, we could estimate probabilities by  looking at similarities between documents.
+a  simpler expert aggregation model might perform as well or  better (though all our efforts to simplify failed).
+the model we presented in section 3 is by no means the only possibility for creating a robust test collection.
+it could be applied to evaluation on a dynamic test collection as defined by soboroff [18].
+we see further use for this method in scenarios such as web retrieval in which the corpus is frequently changing.
+as time goes on, the number of judgments grows until there is 100% confidence in every evaluation-and there is a full test collection for the task.
+ments being shared by researchers, each group  contributing a few more judgments to gain more confidence about their particular systems.
+the results are highly consistent across data sets.
+in the long run, we see small sets of relevance  judgaccuracy confidence ad-hoc 94 ad-hoc 96 ad-hoc 97 ad-hoc 98 ad-hoc 99 web 04 robust 05 terabyte 05 0.5 − 0.6 64.1% 61.8% 62.2% 62.0% 59.4% 64.3% 61.5% 61.6% 0.6 − 0.7 76.1% 77.8% 74.5% 78.2% 74.3% 78.1% 75.9% 75.9% 0.7 − 0.8 75.2% 78.9% 77.6% 80.0% 78.6% 82.6% 77.5% 80.4% 0.8 − 0.9 83.2% 85.5% 84.6% 84.9% 86.8% 84.5% 86.7% 87.7% 0.9 − 0.95 93.0% 93.6% 92.8% 93.7% 92.6% 94.2% 93.9% 94.2% 0.95 − 0.99 93.1% 94.3% 93.1% 93.7% 92.8% 95.0% 93.9% 91.6% 1.0 99.2% 96.8% 98.7% 99.5% 99.6% 100% 99.2% 98.3% w -0.34 -0.34 -0.48 -0.35 -0.44 -0.07 -0.41 -0.67 median judged 235 276 243 213 179 448 310 320 mean τ 0.538 0.573 0.556 0.579 0.532 0.596 0.565 0.574 table 5: accuracy, w, mean τ, and median number of judgments for all 8 testing sets.
+the confidence estimates of rtc, in addition to being  accurate, provide a guide for obtaining additional judgments: focus on judging documents from the lowest-confidence  comparisons.
+table 2 and figure 2 together show how biased a small set of judgments can be: mtc is dramatically overestimating confidence and is much less accurate than rtc, which is able to remove the bias to give a robust evaluation.
+in this work we have offered the first formal definition of the common idea of reusability of a test collection and presented a model that is able to achieve reusability with very small sets of relevance judgments.

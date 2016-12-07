@@ -1,0 +1,79 @@
+We denote the profit of a truthful auction A on input b as A(b).
+The expected profit of the auction, E[A(b)], is the sum of the  expected payments made by each bidder, which we denote by pi(b) for bidder i.
+The optimal single price omniscient auction, F, is defined as follows.
+When specifying a symmetric  scaleinvariant auction we can assume that f is only a function of the relative magnitudes of the n − 1 bids in b-i and that one of the bids, bj = 1.
+In order to evaluate the performance of auctions with respect to the goal of profit maximization, we introduce the optimal single price  omniscient auction F and the related omniscient auction F(2) .
+This is without loss of generality as (a) any lower bound that applies to the n = case also extends to the case where n ≥ [8], and (b) there is a  reduction from the unlimited supply auction problem to the limited supply auction problem that takes an unlimited supply auction that is β-competitive with F(2) and constructs a limited supply auction parameterized by that is β-competitive with F(2, ) , the optimal omniscient auction that sells between 2 and units [6].
+Let A be a truthful auction.
+The deterministic  bidindependent auction defined by f, BIf , works as follows.
+We say that A is β-competitive against F(2) (or just β-competitive) if for all bid vectors b, the expected profit of A on b satisfies E[A(b)] ≥ F(2) (b) β .
+2.4 Lower Bounds and Optimal Auctions Frequently in this paper, we will refer to the best known lower bound on the competitive ratio of truthful auctions: THEOREM 2.
+Henceforth, we will assume that we are in the unlimited supply case, and we will examine lower bounds for limited supply  problems by placing a restriction on the number of bidders in the  auction.
+Note that given a single bid, b, a truthful mechanism might offer it price t and if t ≤ b then the bidder wins and pays t; otherwise the  bidder pays nothing (and loses).
+It will be convenient to specify such auctions via the density function of f(b-i), ρb-i (z).
+The profit of F(2) is max2≤k≤n kb(k) There are a number of reasons to choose this benchmark for comparison, interested readers should see [5] or [6] for a more detailed discussion.
+[8] The competitive ratio of any auction on n bidders is at least 1 − n i=2 −1 n i−1 i i − 1 n − 1 i − 1 .
+176 2.2 Scale Invariant and Symmetric Auctions A symmetric auction is one where the auction outcome is  unchanged when the input bids arrive in a different permutation.
+This bound is derived by analyzing the performance of any  auction on the following distribution B.
+This is natural as the profit benchmark we  consider is symmetric, and it allows us to consider only symmetric auctions when looking for the one with the optimal competitive  ratio.
+ProfitExtractR: Given bids b, find the largest k such that the highest k bidders can equally share the cost R. Charge each of these bidders R/k.
+Thus, we are motivated to consider  symmetric scale-invariant auctions.
+2.3 Limited Supply Versus Unlimited Supply Following [8], throughout the remainder of this paper we will be making the assumption that n = , i.e., the number of bidders is equal to the number of units for sale.
+Auction F on input b determines the value k such that kb(k) is maximized.
+We will use this profit extraction mechanism in Section 5 with the following intuition.
+For each bidder i: 1.
+In the competitive framework of [5] and subsequent papers, the performance of a truthful auction is gauged in comparison to F(2) , the optimal singled priced auction that sells at least two units.
+Such a profit extractor makes it possible to treat this subset of bidders as a single bid with value F(S).
+The goal of profit extraction is, given bids b, to extract a target value R of profit from some subset of the bidders.
+We denote the probability density of f(b-i) at z by ρb-i (z).
+Important properties of this auction are as follows: • ProfitExtractR is truthful.
+In each random bid  vector B, each bid Bi is drawn i.i.d.
+In the four-bidder case, this lower bound is 96/215.
+Let Υn denote the n-bidder auction that achieves the optimal competitive ratio.
+We consider single-round, sealed-bid auctions for a set of  identical units of an item to bidders who each desire one unit.
+2.5 Profit Extraction In this section we review the truthful profit extraction mechanism ProfitExtractR.
+Given this equivalence, we will use the the terminology  bidindependent and truthful interchangeably.
+Clearly, the expected payment of each bid satisfies pi(b) = bi 0 xρb-i (x)dx.
+An auction is truthful if and only if it is equivalent to a bid-independent auction.
+to prices (non-negative real numbers).
+Likewise, a mechanism can offer the set of bidders S a target revenue R. If R ≤ F(2) (S), then ProfitExtractR raises R from S; otherwise, the it raises no  revenue from S. 
+It is enough to specify such a density function of the form ρ1,z1,...,zn−1 (z) with 1 ≤ zi ≤ zi+1.
+A useful simplification of the problem of designing truthful auctions is obtained through the following algorithmic characterization [9].
+It is conjectured that this lower bound is tight for any number of bidders and the optimal auction, Υn, matches it.
+Given a bid vector of n bids, b = (b1, .
+1 The 1-unit Vickrey auction sells to the highest bidder at the second highest bid value.
+For a randomized bid-independent auction, f(b-i) is a random variable.
+In Section 4 we generalize this framework to other profit  benchmarks.
+An auction defined by bid-independent function f is scale  invariant if, for all i and all z, Pr[f(b-i) ≥ z] = Pr[f(cb-i) ≥ cz].
+[8] show that a symmetric auction achieves the optimal competitive ratio.
+If ti > bi, bidder i loses.
+The profit of F on input b is thus F(b) = max1≤k≤n kb(k).
+In the next section, we define the  auction Υ3 which matches this lower bound.
+All bidders with bi ≥ b(k) win at price b(k); all remaining bidders lose.
+The proof of the following theorem can be found, for example, in [5].
+Give a vector b = (b1, .
+This is achieved by Υ2 which is the 1-unit Vickrey auction.1 In the three-bidder case, this lower bound is 13/6.
+A randomized bid-independent auction is a distribution over  deterministic bid-independent auctions.
+Otherwise, (ti = bi) the auction can either accept the bid at price ti or reject it.
+2.1 Competitive Framework We now review the competitive framework from [5].
+It is conjectured that the assumption of scale invariance is without loss of generality.
+Let f be a function from bid vectors (with a ‘?")
+If no subset of bidders can cover the cost, the mechanism has no winners.
+, bn), let b-i denote the vector of with bi replaced with a ‘?
+If ti < bi, bidder i wins at price ti.
+from the distribution such that Pr[Bi ≥ s] ≤ 1/s for all s ∈ S. In the two-bidder case, this lower bound is 2.
+As  mentioned in the introduction, we adopt the game-theoretic solution concept of truthful mechanism design.
+, bn), let b(i)  represent the i-th largest value in b.
+Set ti = f(b-i).
+• If R ≤ F(b), ProfitExtractR(b) = R; otherwise it has no winners and no revenue.
+In the limit as the number of bidders grows, this lower bound approaches a number which is  approximately 2.42.
+This mechanism is a special case of a general cost-sharing schema due to Moulin and Shenker [11].
+, bi−1, ?, bi+1, .
+THEOREM 1.
+", i.e., b-i = (b1, .
+DEFINITION 2.
+Related formulations to this one have appeared in numerous places in recent literature (e.g., [1, 14, 5, 10]).
+DEFINITION 1.
+DEFINITION 3.
+DEFINITION 4.
+Goldberg et al.

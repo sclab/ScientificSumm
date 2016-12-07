@@ -1,0 +1,82 @@
+By predicting which word variants are going to be useful, we can dramatically reduce the  number of stemmed words, thus improving both the recall and the precision.
+Since we only care how much we can improve the naive model, we will only use these 408 queries (all the queries that are affected by the naive stemming model) in the experiments.
+We measure this by the percentage of queries that are actually stemmed, over all the queries that could possibly be stemmed.
+Document context sensitive stemming gives a significant lift to the performance, from 2.7% to 4.2% for short queries and from -2.4% to -1.6% for long queries, with an overall lift from 1.5% to 2.8%.
+The oracle model only expands a word if the stemming will give better results.
+Based on language modeling  prediction, this model stems only a subset of the 408 queries stemmed by the document sensitive matching model.
+In particular, it gives significant improvements on long queries.
+The third column is the average dcg score over all tested queries in this category (including the ones that were not stemmed by the strategy).
+Considering the tight upper-bound 2 on the improvement to be gained from pluralization handling (via the oracle model), the current performance on short queries is very  satisfying.
+Given the same level of relevance  improvement, we prefer a stemming method that has less additional cost.
+Instead of looking at the influence over all queries as we described above, Table 6 summarizes the dcg improvements over the affected queries only.
+4.1 Evaluation metrics We will measure both relevance improvement and the stemming cost required to achieve the relevance.
+Given a query and a ranked list of K documents (K is set to 5 in our experiments), the DCG(K) score for this query is calculated as follows: DCG(K) = KX k=1 gk log2(1 + k) .
+(7) where gk is the weight for the document at rank k. Higher degree of relevance corresponds to a higher weight.
+The query book store will be transformed into (book OR books)(store OR stores) when limiting stemming to pluralization handling only, where OR is an operator that denotes the equivalence of the left and right arguments.
+4.2 Data preparation We randomly sample 870 queries from a three month query log, with 290 from each month.
+For short queries too, we observe both dcg improvement and stemming cost reduction with the unigram language model.
+The naive model and document sensitive matching model stem the most queries.
+We then further improve the document sensitive matching model from the query side with selective word stemming based on statistical language modeling (section 3.4), referred as  selective stemming model.
+An interesting  observation is the average dcg decreases with a better model, which indicates a better stemming strategy stems more  difficult queries (low dcg queries). 
+The reason that it improves short queries is that most short queries only have one word that can be stemmed.
+This model makes the same stemming as the naive model on the query side, but performs  conservative matching on the document side using the strategy described in section 3.5.
+Now we can compare the stemming strategies from a  different aspect.
+The improvement comes from the conservative context sensitive document matching.
+The second column is the number of queries  affected by this strategy; this column measures the stemming cost, and the numbers should be low for the same level of dcg.
+To get a sense of how these models perform, we also have an oracle model that gives the upper-bound performance a stemmer can achieve on this data.
+4.1.2 Stemming cost Another metric is to measure the additional cost incurred by stemming.
+4.5 Results We summarize the overall results in Table 4, and present the results on short queries and long queries separately in Table 5.
+With the unigram language model, we can  reduce the stemming cost by 26.7% (from 408/408 to 300/408) and lift the overall dcg improvement from 2.8% to 3.4%.
+We can see that the number of affected queries decreases as the  stemming strategy becomes more accurate (dcg improvement).
+Among all these 870 queries, we remove all misspelled queries since misspelled queries are not of interest to stemming.
+Then we improve the naive stemming model by document sensitive matching, referred as document  sensitive matching model.
+We can see the naively stemming only obtains a statistically  insignificant improvement of 1.5%.
+Expanding all of them without selection will significantly hurt precision.
+We may gain additional benefit with a more powerful language model for long queries.
+A page is graded into one of the five scales: Perfect, Excellent, Good, Fair, Bad, with corresponding weights.
+We use dcg to  represent the average DCG(5) over a set of test queries.
+The advantages of predictive word expansion with a  language model is further boosted with a better bigram  language model.
+4.3 Naive stemming for Web search Before explaining the experiments and results in detail, we"d like to describe the traditional way of using stemming for Web search, referred as the naive model.
+For short queries, bigram  language model improves the dcg gain from 4.4% to 4.7%, and reduces stemming cost from 272/272 to 150/272.
+Among the 408 queries stemmed by the naive model, there are 272 short queries with 2 or 3 words, and 136 long queries with at least 4 words.
+We observe that the bigram language model gives a larger lift for long queries.
+We first run the naive model to see how well it performs over the baseline.
+However, we still notice that for long queries,  context sensitive stemming is not able to improve performance because it still selects too many documents and gives the ranking function a hard problem.
+However, it also hurts long queries by -2.4%.
+This is because the uncertainty in long queries is larger and a more powerful language model is needed.
+Out of the 529 queries, there are 408 queries that they stem,  corresponding to 46.7% query traffic (out of a total of 870).
+For the bigram language model, over the 250/408 stemmed queries, the dcg improvement is 6.1%.
+For long queries, bigram language model improves dcg gain from 1.1% to 2.5%, and reduces stemming cost from 136/136 to 100/136.
+This confirms our hypothesis that reducing  unnecessary word expansion leads to precision improvement.
+We hypothesize that a trigram language model would give a further lift for long queries and leave this for future investigation.
+The fourth column is the relative improvement over the baseline, and the last column is the p-value of Wilcoxon significance test.
+To analyze the pluralization handling influence on  different query categories, we divide queries into short queries and long queries.
+Thus, blindly pluralizing short queries is  relatively safe.
+For long queries, the dcg gain upper-bound is 4.6% for perfect pluralization handling, our current gain is 2.5% with a bigram language model.
+4.1.1 Relevance measurement We use a variant of the average Discounted Cumulative Gain (DCG), a recently popularized scheme to measure search engine relevance [1, 11].
+Looking at Table 5, it gives an improvement of 2.7% on short queries.
+We experiment with unigram language model and bigram  language model.
+Selective word pluralization further helps resolving the problem faced by document context sensitive stemming.
+We also remove all one word queries since stemming one word queries without context has a high risk of changing query intent, especially for short words.
+For short queries, the dcg gain upper-bound is 6.3% for perfect pluralization handling, our current gain is 4.7% with a bigram language model.
+This reduces many spurious matches.
+Looking at the the upper-bound of overhead reduction for oracle stemming, 75% (308/408) of the naive stemmings are wasteful.
+However for long queries, most queries can have multiple words that can be pluralized.
+The overall dcg gain is lifted from 3.4% to 3.9%, and stemming cost is dramatically reduced from 408/408 to 250/408, corresponding to only 29% of query traffic (250 out of 870) and an overall 1.8% dcg  improvement overall all query traffic.
+4.4 Experimental setup The baseline model is the model without stemming.
+The dcg gain is turned from negative to positive, from −1.6% to 1.1%.
+It does not stem every word that places all the burden on the ranking algorithm, but tries to eliminate unnecessary  stemming in the first place.
+In the end, we have 529 correctly spelled queries with at least 2 words.
+An  expanded word is valid only if it occurs within the context of original query in the document.
+While the chosen window size of 4 works the best amongst all the choices, it still  allows spurious matches.
+This is to treat every word variant equivalent for all possible words in the query.
+We currently capture about half of them.
+It is possible that the window size needs to be chosen on a per query basis to ensure tighter proximity constraints for different types of noun phrases.
+Further reduction of the overhead  requires sacrificing the dcg gain.
+However, the difficulties of long queries come from many other aspects including the  proximity and the segmentation problem.
+Overall, the improvement is canceled out.
+Each row in Table 4 is a stemming strategy  described in section 4.4.
+There are several observations about the results.
+1 a context segment can not be a single stop word.
+The first column is the name of the strategy.
+These problems have to be addressed separately.

@@ -1,0 +1,44 @@
+We define the degree of document overlap  between two features fi and fj as follows.
+The set of features similar to fi can then collectively describe an event.
+(feature similarity) KL(fi, fj ) is given by max(KL(fi|fj ), KL(fj |fi)), where KL(fi|fj ) = T t=1 f(yfi (t)|θfi )log f(yfi (t)|θfi ) f(yfj (t)|θfj ) .
+Specifically, we need to find a subset Ri of HH that minimizes the following cost function: C(Ri) = KL(Ri) d(Ri) fj ∈Ri Sfj , Ri ⊂ HH.
+1: Sort and select features in descending DPS order: Sf1 ≥ Sf2 ≥ .
+Furthermore, trivial events only containing year/month features (i.e., an event only containing 1 feature Aug could be identified over a  1year news stream) could be removed, although such events will have inherent high cost and should already be ranked very low.
+5: Init: Ri ← fi, C(Ri) = 1/Sfi and HH = HH − fi.
+6.2 Unsupervised Greedy Event Detection We use features from HH to detect important aperiodic events, features from LH to detect less-reported/unimportant aperiodic events, and features from HL to detect periodic events.
+1 is employed to compute the similarity between two periodic features, Next, we define the overal similarity among a set of  features R using the maximum inter-feature KL-Divergence value as follows.
+(1) Since KL-divergence is not symmetric, we define the  similarity between between fi and fj as the maximum of KL(fi|fj ) and KL(fj |fi).
+3: for fi ∈ HH do 4: k = k + 1.
+(Set DF Overlap) d(R) = min ∀fi,fj ∈R d(fi, fj).
+Measuring Feature Distribution Similarity We measure the similarity between two features fi and fj using discrete KL-divergence defined as follows.
+6: while HH not empty do 7: m = arg min m C(Ri ∪ fm).
+Further, the similarity between two  aperiodic features can be computed using a closed form of the KL-divergence [16].
+(2) The underlying event e (associated with the burst of fi) can be represented by Ri as y(e) = fj ∈Ri Sfj fu∈Ri Sfu yfj .
+The same discrete KL-divergence  formula of Eq.
+Accordingly, the DF Overlap among a set of features R is also defined.
+6.1 Feature Correlation If two features fi and fj are representative of the same event, they must satisfy the following necessary conditions: 1. fi and fj are identically distributed: yfi ∼ yfj .
+8: if C(Ri ∪ fm) < C(Ri) then 9: Ri ← fm and HH = HH − fm.
+(3) The burst analysis for event e is exactly the same as the feature trajectory.
+Input: HH, document index for each feature.
+After identifying and modeling bursts for all features, the next task is to paint a picture of the event with a potential set of representative features.
+Given two features fi and fj , the overlapping document set containing both features is Mi ∩ Mj .
+Given bursty feature fi ∈ HH, the goal is to find highly correlated  features from HH.
+(Feature DF Overlap) d(fi, fj ) = |Mi∩Mj| min(|Mi|,|Mj|) .
+The cost in Eq.
+2. fi and fj have a high document overlap.
+(set"s similarity)KL(R) = max ∀fi,fj ∈R KL(fi, fj ).
+The UG algorithm allows a feature Algorithm 2 Unsupervised Greedy event detection (UG).
+Intuitively, the higher the |Mi ∩ Mj |, the more likelty that fi and fj will be highly correlated.
+All of them share the same algorithm.
+2 can be minimized using our  unsupervised greedy UG event detection algorithm, which is  described in Algorithm 2.
+Document Overlap Let Mi be the set of all documents containing feature fi.
+Note that our UG algorithm only requires one data-dependant parameter, the boundary between high and low power spectrum, to be set once, and this parameter can be easily estimated using the HS algorithm (Algorithm 1). 
+12: end if 13: end while 14: Output ek as Eq.
+2: k = 0.
+15: end for to be contained in multiple events so that we can detect  several events happening at the same time.
+Definition 6.
+Definition 8.
+Definition 7.
+Definition 9.
+10: else 11: break while.
+≥ Sf|HH| .

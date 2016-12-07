@@ -1,0 +1,99 @@
+APPLICATION
+The main goal of hydrocarbon reservoir simulations is to
+forecast the production behavior of oil and gas field
+(denoted as field hereafter) for its development and optimal
+management. In reservoir modeling, the field is divided into
+several geological models as shown in Figure 1. For
+accurate performance forecasting of the field, it is necessary
+to reconcile several geological models to the dynamic
+response of the field through history matching [16-20].
+Figure 1. Cross-sectional view of the Field. Vertical
+layers correspond to different geological models and the
+nails are oil wells whose historical information will be
+used for forecasting the production behavior.
+(Figure Ref:http://faculty.smu.edu/zchen/research.html).
+The EnKF is a Monte Carlo method that works with an
+ensemble of reservoir models. This method utilizes 
+crosscovariances [21] between the field measurements and the
+reservoir model parameters (derived from several models)
+to estimate prediction uncertainties. The geological model
+parameters in the ensemble are sequentially updated with a
+goal to minimize the prediction uncertainties. Historical
+production response of the field for over 50 years is used in
+these simulations. The main advantage of EnKF is that it
+can be readily linked to any reservoir simulator, and can
+assimilate latest production data without the need to re-run
+the simulator from initial conditions. Researchers in Texas
+are large subscribers of the Schlumberger ECLIPSE [22]
+package for reservoir simulations. In the reservoir
+modeling, each geological model checks out an ECLIPSE
+license. The simulation runtime of the EnKF methodology
+depends on the number of geological models used, number
+of ECLIPSE licenses available, production history of the
+field, and propagated uncertainties in history matching.
+The overall EnKF workflow is shown Figure 2.
+Figure 2. Ensemble Kaman Filter Data Assimilation
+Workflow. Each site has L licenses.
+At START, the master/control process (EnKF main
+program) reads the simulation configuration file for number
+(N) of models, and model-specific input files. Then, N
+working directories are created to store the output files. At
+the end of iteration, the master/control process collects the
+output files from N models and post processes 
+crosscovariances [21] to estimate the prediction uncertainties.
+This information will be used to update models (or input
+files) for the next iteration. The simulation continues until
+the production histories are exhausted.
+Typical EnKF simulation with N=50 and field histories
+of 50-60 years, in time steps ranging from three months to a
+year, takes about three weeks on a serial computing
+environment.
+In parallel computing environment, there is no
+interprocess communication between the geological models
+in the ensemble. However, at the end of each simulation
+time-step, model-specific output files are to be collected for
+analyzing cross covariances [21] and to prepare next set of
+input files. Therefore, master-slave model in 
+messagepassing (MPI) environment is a suitable paradigm. In this
+approach, the geological models are treated as slaves and
+are distributed across the available processors. The master
+Cluster or (TIGRE/GridWay)
+START
+Read Configuration File
+Create N Working Directories
+Create N Input files
+Model l Model 2 Model N. . .
+ECLIPSE
+on site A
+ECLIPSE
+on Site B
+ECLIPSE
+on Site Z
+Collect N Model Outputs,
+Post-process Output files
+END
+. . .
+process collects model-specific output files, analyzes and
+prepares next set of input files for the simulation. Since
+each geological model checks out an ECLIPSE license,
+parallelizability of the simulation depends on the number of
+licenses available. When the available number of licenses is
+less than the number of models in the ensemble, one or
+more of the nodes in the MPI group have to handle more
+than one model in a serial fashion and therefore, it takes
+longer to complete the simulation.
+A Petroleum Engineering Department usually procures
+10-15 ECLIPSE licenses while at least ten-fold increase in
+the number of licenses would be necessary for industry
+standard simulations. The number of licenses can be
+increased by involving several Petroleum Engineering
+Departments that support ECLIPSE package.
+Since MPI does not scale very well for applications that
+involve remote compute clusters, and to get around the
+firewall issues with license servers across administrative
+domains, Grid-enabling the EnKF workflow seems to be
+necessary. With this motivation, we have implemented
+Grid-enabled EnKF workflow for the TIGRE environment
+and demonstrated parallelizability of the application across
+TIGRE using GridWay metascheduler. Further details are
+provided in the next section.

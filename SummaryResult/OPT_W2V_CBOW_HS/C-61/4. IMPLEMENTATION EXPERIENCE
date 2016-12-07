@@ -1,0 +1,61 @@
+This is why a server is still needed to be authoritative in this situation and maintain consistency throughout the players.
+With the addition of the communication proxy, after the client verifies its own positional updates it will be able to send the update to all clients within its region through a low latency link instead of having to first go through the game server which could possibly be in a very remote location.
+The only  extra processing the client has to do in the hybrid architecture is to compare its current position to the positions of all  objects (walls, boxes, etc.)
+From our tests we have realized this is a problem because when there is a realistic amount of latency between the client and server, it is possible for two players to pick up the same object at the same time.
+In this version of the game when a player moves around the game space, the client validates that the player"s new position does not intersect with any walls or static objects.
+When two players attempt to pick up an object at physical times which are close to each other, the update sent by the player who picked up the object first will not reach the second player in time for it to see that the object has already been claimed.
+When latencies of 6 The 5th Workshop on Network & System Support for Games 2006 - NETGAMES 2006 100ms and up are induced into the link between the client and server, the game is still playable since time critical  aspects of the game like movement do not have to wait on a reply from the server.
+The inconsistencies where two clients can pick up the same object in the client authoritative architecture are not present in this version of the client.
+This causes the player to pass through the wall for the period that it is waiting for the server to resolve the collision.
+The purpose of the  implementation is to test its feasibility in a real game.
+The client has no  delay in waiting for an update for its own position and other clients do not have to wait on the server to verify the update.
+We have experimented with the authority assignment  mechanism described in the last section by implementing the mechanisms in a game called RPGQuest.
+This game model of complete authority given to the client is beneficial with respect to movement.
+The client was delegated the authority to validate its own movement and the authority to pick up objects without  validation from the server.
+The first version of the game, which is the original  implementation of RPGQuest, was created with a completely  authoritative server and a non-authoritative client.
+When a player hits a wall, the  collision is processed locally and does not have to wait on the server to resolve the collision.
+This obviously means that each client will have to already have downloaded the locations of all static objects within its current region. 
+This eliminates any extra  processing delay that would occur at the server and is also a more accurate means of verification since the client has a more accurate view of its own state than the server.
+The two players will now both think that they own the object.
+In this section we will discuss the three different versions of the game that we experimented with.
+When studying the source code of the original version of the RPGQuest game, there is a substantial delay that is unavoidable each time an action must be validated by the server.
+Authority given to the server includes decisions of when a player  collides with static objects and other players and when a player picks up an object.
+With the increased latency, the messages coming from the server correcting the player when it runs into a wall are not  received fast enough.
+The  original dumb clients of RPGQuest know the position of other players; it is not just sent a screen snapshot from the server.
+This version of the RPGQuest game where authority is  distributed between the client and server is an improvement from the server authoritative version.
+Whenever a movement update is sent to the server, the client must then wait whatever the round trip delay is, plus some processing time at the server in order to receive its validated or corrected position.
+Objects are placed within the game world and players gain points for each  object that is collected.
+In this version, in the interest of consistency, the server remained  authoritative for deciding who picked up an object.
+In our client authoritative version of RPGQuest clients send their own updates to all other players whenever they pick up an object.
+A positional update is then sent to the server which then simply forwards it to the other clients within the region.
+To test the benefits and show the feasibility of our  architecture of mixed authority, we developed a third version of the RPGQuest game that distributed authority for  different actions between the client and server.
+It is not desirable to have to wait for server validation on a movement that could change before the reply is even received.
+The coding of the different versions of the game was very simple.
+Although game playing experience with respect to  responsiveness is improved when the authority for movement is given to the client, there are still aspects of games that do not benefit from this approach.
+The client was given full authority to send positional updates to other clients and verify its own position without the need to  verify its updates with the server.
+There is little lag between the time player hits a wall and the time the server corrects the player"s position.
+A position update is then sent to the server which then immediately forwards the update to the other clients within the region.
+This version of the game performs well up to 100ms round-trip latency between the client and the server.
+It is better to place authority on the client for quickly changing actions such as movement.
+When the player tries to move their avatar, the client verifies that the move will not cause it to move through a wall.
+RPGQuest is a basic first person game where the player can move around a three dimensional environment.
+The dumb clients use client side prediction to fill in the gaps between the updates they receive.
+However, the benefits of mixed authority will not truly be seen until an implementation of our communication proxy is integrated into the game.
+The server updates each client with the position of all nearby clients.
+We believe that as the interactivity of games increases, our architecture of mixed authority that does not rely on server validation will be necessary.
+The basic functionality of this game is  representative of current online first person shooter and role playing games.
+In order to get around this problem, we developed a second version of the game, which gives all authority to the client.
+An example of a game aspect that requires consistency is picking up objects that should only be possessed by a single player.
+The game clients connect to a game server which allows many players to coexist in the same game world.
+The most important of these is consistency.
+This is obviously  unacceptable in any game where movement or any other rapidly changing state information must be validated and  disseminated to the other clients rapidly.
+The complexity of the client increased very slightly in the client authoritative and hybrid models.
+Although actions such as movement are time critical, other actions are not as time critical, but instead require consistency among the player states.
+These two versions of the RPGQuest game has showed us why it is necessary to mix the two absolute models of  authority.
+However, as more latency is induced between the client and server, the game becomes increasingly difficult to play.
+A screen shot from this game is shown in Figure 3.
+The update does not have to go through any extra processing or validation.
+It is also sometimes necessary to place consistency over efficiency in aspects of the game that cannot tolerate any inconsistencies such as object ownership.
+The game uses the DirectX 8 graphics API and  DirectPlay networking API.
+in its area.
+Figure 3: The RPGQuest Game.

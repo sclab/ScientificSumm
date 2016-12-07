@@ -1,0 +1,30 @@
+this is the source of one of the technical challenges that we address: determining the precise sequence of actions once a parent task or plan is aborted. 
+fourth, given that tasks may contain sub-tasks, which may  contain further sub-tasks, it is necessary for a parent task to wait until its children have finished their abort methods.
+hence, plan aborting or failure does not necessarily lead to task aborting or failure.
+in the former case, it is clear that all plans being executed to perform the task should be aborted; in the latter case, it may be that there are better alternatives to the current plan and one of these should be attempted.
+third, there is a distinction between aborting a task and aborting a plan.
+rather, cleaning up involves compensation via forward recovery actions [3].
+in both cases, note that it is not simply a matter of the agent undo-ing its actions to date; indeed, this may be neither possible (since the agent acts in a situated world and its actions change world state) nor desirable (depending on the semantics of the task).
+this is similar to the case for failure, in that there may also be actions to take when a task or plan fails.
+in other words, aborting a task is not simply a matter of dropping the task and associated active plans: there are some clean up actions that may need to be done.
+second, once the decision is made to abort the attempt to submit a paper, there are some actions the agent should take, such as  cancelling the clearance request.
+hence, our objective is to determine how to incorporate aborting mechanisms into the standard execution cycle rather than determine what should be aborted and when.
+in this paper we only touch on the problem of  determining whether a task or plan should be aborted, instead concentrating on determining the appropriate actions once this decision is made.
+first, the decision to abort a particular course of action can come from the internal deliberations of the agent (such as  reasoning about priorities in a conflict over resources), or from external sources (such as another agent cancelling a commitment), as in this example.
+we note a number of important observations from the  example.
+aborting the first plan requires calo to notify the paper number registry that the allocated paper number is obsolete, which it can achieve by the cancel paper number (cpn) task.2 aborting the second plan requires calo to notify alice"s manager that alice no longer  requires clearance for publication, which calo can achieve by  invoking the cancel clearance request (ccr) task.
+aborting the task implies aborting both the sms plan and the afc subplan.
+she therefore instructs her calo agent to abort the sms task.
+alice will no longer be able to attend ijcai.
+now suppose that a change in circumstances causes alice to reconsider her travel plans while she is writing the paper.
+3. confirm that the response was positive, and fail otherwise.
+2. wait for response (wfr) from the manager.
+similarly, calo can perform the task apply for clearance (afc) by a plan consisting of: 1. send clearance request (scr) to alice"s manager.
+these steps must be performed in order, with the exception of steps 3 (afc) and 4 (twp), which may be performed in parallel.
+5. handle paper submission (hps): follow company internal procedures for submitting a paper to a conference.
+4. track writing paper (twp): keep track of alice"s progress in writing the paper.
+3. apply for clearance (afc) for publication from alice"s  manager based on the abstract and conference details.
+2. track writing abstract (twa): keep track of alice"s progress in preparing an abstract.
+calo"s plan for an sms task in the case of a conference submission consists of the following sub-tasks: 1. allocate a paper number (apn) to be used for administrative purposes in the company.
+alice plans to attend the ijcai conference later in the year, and her calo agent adopts the task of support meeting submission (sms) to assist her.
+alice is a knowledge worker assisted by a learning, personal  assistive agent such as calo [11].

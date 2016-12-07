@@ -1,0 +1,27 @@
+round(s) = (s − 1) s + 1 (9) a(s, n, s) = max n s ∗ 2round(s) , 1 (10) 
+equation 9 shows the function that defines the cycle number of an iteration s. in fac2, half of the remaining work units are allocated in each round (equation 10).
+a(s, n, s) = max n 1 − 1 s s−1 s , 1 , s > 0 (8) 3.7 factoring (fac2) fac2 allocates work units in cycles consisting of s  allocation sequences.
+its goal is to create a tradeoff between the number of the work units processed and the imbalance in finishing times (equation 8).
+a(s, n, s) = max n 2s − [(s − 1) ∗ δ] , 1 (7) 3.6 guided self scheduling (gss) guided self-scheduling (gss) [11] allocates work units in groups whose length decrease exponentially.
+steps = 4ns n + 2s (5) 157 δ = n − 2s 2s(steps − 1) (6) tss calculates the length of the sth block using the  difference between the length of the first block and total reduction from the last s − 1 blocks (equation 7).
+this strategy uses two variables, steps and δ, that represent the total number of allocation steps and the block reduction factor,  respectively (equations 5 and 6).
+3.5 trapezoidal self scheduling (tss) trapezoidal self-scheduling (tss) [16] allocates work units in groups with a linearly decreasing size.
+nevertheless, ss usually demands a lot of communication, since each work unit retrieval requires one interaction with the master.
+a(n, s) = 1, while work units are still left to allocate (4) in ss, the maximum imbalance is limited by the  processing time of a work unit in the slowest node.
+a(n, s) = n s (3) 3.4 self scheduling (ss) self scheduling (ss) [15] distributes a single work unit to every slave node (equation 4).
+this strategy is appropriate for  homogeneous systems with dedicated resources (equation 3).
+3.3 fixed (static scheduling) the fixed [13] strategy distributes all work units  uniformly to slaves nodes.
+allocate(m, si, n, s) = a(n, s) ∗ w eightf actor(m, si, s) (1) w eightf actor(m, si, s) = p ∗ w orkerrate(m, si) p i=1 w orkerrate(m, si) (2) the following subsections present some work allocation policies, which are instances a(n, s) of equation 1.
+weightfactor(m, si, s) was defined by [13] (equation 2) and provides weights for each slave si, based on its statically known processing rate (workerrate).
+3.2 task allocation strategies given a master/slave application composed by a master m and s slaves, the allocation function allocate(m, si, n, s) determines how many tasks out of n must be assigned to a slave si (equation 1), where a(n, s) represents an  allocation policy.
+in this problem, it is assumed that no precedence relations exist among the tasks.
+the task allocation problem consists of assigning tasks to processors in order to maximize system performance [13].
+a very important problem to be solved in this context is task allocation.
+usually, grid applications are modelled as master/slave, where one problem is divided in many independent work units (tasks) of smaller size that can be distributed to slave nodes for parallel processing.
+the work carried out in this paper is deployed on a grid based on globus (gt3).
+many ogsa  architecture implementations were developed, including one for globus.
+ogsa provided a new architecture for grid applications based on web services in order to achieve  interoperability using industry standards.
+in 2002, the open grid services architecture (ogsa) was introduced by the global grid forum (ggf) to expand standardization.
+globus implements a set of protocols, apis and services used by hundreds of grid applications all over the world.
+the globus toolkit [4] emerged as an open source project and quickly became a de facto standard for grid computing infrastructure.
+3.1 grid computing grid computing was initially developed to enable resource sharing between scientific institutions who needed to share data, software and computational power.

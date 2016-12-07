@@ -1,0 +1,117 @@
+Surprisingly, we find that the improvements in latency obtained with one-instantaneous zebroids are independent of the input  distribution of the popularity of the data items.
+Moreover, we observe that for sparse storage scenarios, the higher improvements with z-relay zebroids are obtained at the cost of a higher replacement overhead when compared to the one-instantaneous zebroids case.
+This is because in sparse scenarios, the  transitive hand-offs between the zebroids creates higher number of  replicas for the requested data item, yielding lower availability latency.
+Finally, the analysis captures a  oneshot scenario where given an initial data item replica distribution, the availability latency is computed.
+Even in scenarios where the frequency of access to the data items changes dynamically, zebroids will continue to provide similar latency improvements. 
+We find that the improvements in latency with zebroids are  obtained at a minimal replacement overhead (< 1 per client request).
+The lru-global and lfu-global schemes provide a latency  performance that is worse than random.
+Hence, no zebroids are employed when this item is requested, yielding an overhead/request for this item as zero.
+On account of similar trends, here we present the case when α is kept constant and N is varied (Figure 5).
+Similar observations, like the one-instantaneous zebroid case, apply since the simulation and analysis curves again start diverging when the analysis  assumptions are no longer valid.
+A similar scenario occurs if N is increased to such a large value that another car with the requested data item is always available in the vicinity of the client.
+A more central question is: Do zebroids provide 78 0 20 40 60 80 100 1.5 2 2.5 3 3.5 Number of cars Aggregate availability latency (δ agg ) lru_global lfu_global lru_local lfu_local random Figure 1: Figure 1 shows the availability latency when  employing one-instantaneous zebroids as a function of (N,α) values, when the total storage in the system is kept fixed, ST = 200. significant improvements in availability latency?
+For illustration, we assume that the T data items are requested uniformly.
+Now a replacement is only incurred if one of these Nc i newly  created replicas meets the client earlier than any of the ri servers.
+6.5.1 Analysis The fractional difference (labelled ω) in the latency between the no-zebroids and one-instantaneous zebroids is obtained from  equations 2, 3, and 4 as ω = T i=1 fi·C ri − T i=1 fi·C ri+(N−ri)·(1−(1− 1 G )ri ) T i=1 fi·C ri (11) Here C = c·G·log G. This captures the fractional improvement in the availability latency obtained by employing one-instantaneous zebroids.
+6.4.1 Analysis Since p represents the probability that a car route predicted by the dispatcher matches the actual one, hence, the latency with zebroids can be approximated by, δerr agg = p · δagg(zeb) + (1 − p) · δagg(no − zeb) (9) δerr agg = p · δagg(zeb) + (1 − p) · C ri (10) Expressions for δagg(zeb) can be obtained from Equations 4 (one-instantaneous) or 5 (z-relay zebroids).
+However, if N ·α is constant then increasing N causes α 80 0 20 40 60 80 100 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 Number of cars one−instantaneous zebroids Average number of replacements per request (N=20,α=10) (N=25,α=8) (N=50,α=4) (N=100,α=2) Figure 4: Figure 4 captures replacement overhead when  employing one-instantaneous zebroids as a function of (N,α)  values, when the total storage in the system is kept fixed, ST = 200. to go down.
+Recall that to calculate the latency with one-instantaneous 0 50 100 150 200 250 300 350 400 0 1 2 3 4 5 6 Number of cars Aggregate availability latency (δagg ) no−zebroids one−instantaneous z−relays 3.a 0 50 100 150 200 250 300 350 400 0 10 20 30 40 50 60 Number of cars % Improvement in δagg wrt no−zebroids (ω) one−instantaneous z−relays 3.b Figure 3: Figure 3 depicts the latency performance with both one-instantaneous and z-relay zebroids as a function of the car density when α = 2 and T = 25. zebroids, Nc i new replicas are created in the same cell as the servers.
+The net effect results in reduction in ω for larger values of N. 10 1 10 2 10 3 10 −1 10 0 10 1 10 2 Number of cars no−zebroidsanal no−zebroids sim one−instantaneous anal one−instantaneoussim Aggregate Availability latency (δagg ) 2.a) δagg 10 1 10 2 10 3 0 10 20 30 40 50 60 70 80 90 100 Number of cars % Improvement in δagg wrt no−zebroids (ω) analytical upper−bound simulation 2.b) ω Figure 2: Figure 2 shows the latency performance with  oneinstantaneous zebroids via simulations along with the  analytical approximation for a 10 × 10 torus with T = 10.
+Since Xri and XNc i are assumed to be independent, by the property of exponentially distributed random variables we have, Overhead/request = 1 · P(XNc i < Xri ) + 0 · P(Xri ≤ XNc i ) (6) Overhead/request = ri C ri C + Nc i C = ri ri + Nc i (7) Recall that the number of replicas for data item i, ri, is a function of the total storage in the system i.e., ri = k·N ·α where k satisfies the constraint 1 ≤ ri ≤ N. Using this along with Equation 2, we get Overhead/request = 1 − G G + N · (1 − k · α) (8) Now if we keep the total system storage N · α constant since G and T are also constant, increasing N increases the replacement overhead.
+0 50 100 150 200 250 300 350 400 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 Number of cars z−relays one−instantaneous Average number of replacements per request Figure 5: Figure 5 shows the replacement overhead with  zebroids for the cases when N is varied keeping α = 2.
+10 20 30 40 50 60 70 80 90 100 0 0.5 1 1.5 2 2.5 3 3.5 4 Prediction percentage no−zebroids (N=50) one−instantaneous (N=50) z−relays (N=50) no−zebroids (N=200) one−instantaneous (N=200) z−relays (N=200) Aggregate Availability Latency (δagg ) Figure 6: Figure 6 shows δagg for different car densities as a function of the prediction accuracy metric with α = 2 and T = 25.
+Using this, along with the approximation (1 − x)n 1 − n · x for small x, we simplify the above equation to get, ω = 1 − T i=1 ri 1+ N−ri G T i=1 ri In order to determine when the gains with one-instantaneous  zebroids are maximized, we can frame an optimization problem as follows: Maximize ω, subject to T i=1 ri = ST THEOREM 1.
+Moreover, it is also seen that the simulation validation curve for the improvements in δagg with z-relay zebroids approaches that of the one-instantaneous zebroid case for higher storage (higher N  values).
+With Figure 3.b, keeping α constant, initially increasing car  density has higher latency benefits because increasing N introduces more zebroids in the system.
+6.3.1 Analysis With one-instantaneous zebroids, for each client request a  maximum of one zebroid is employed for latency improvement.
+Note that replacements performed by the zebroids cause fluctuations in these replica distributions which may effect future client requests.
+Initially, when the network is sparse the analytical approximation for improvements in latency with zebroids, obtained from  Equations 2 and 4, closely matches the simulation results.
+In cases with biased popularity toward certain data items, the  aggregate improvements in latency across all data item requests still  remain the same.
+The figure indicates that a random replacement scheme shows competitive performance.
+On the other hand, the increased number of servers benefits the no-zebroids case in bringing δagg down.
+Moreover, as  mentioned earlier, the analysis provides an upper bound on the latency improvements, as it treats the newly created replicas given by Nc i independently.
+Moreover, the mobility pattern of the cars is random, hence, the locations from which the requests are issued by clients are also random and not known a priori at the dispatcher.
+In this case, only the x-axis is drawn to a log-scale.
+6.4.2 Simulation Figure 6 shows the variation in δagg as a function of this route prediction accuracy metric.
+Let Xri and XNc i respectively be random variables that capture the minimum time till any of the ri and Nc i replicas meet the client.
+With a square-root replication scheme,  improvements obtained with one-instantaneous zebroids are independent of the input popularity distribution of the data items.
+6.3.2 Simulation Figure 4 shows the replacement overhead with one-instantaneous zebroids when (N,α) are varied while keeping the total system  storage constant.
+When the storage is extremely scarce so that only one replica per data item exists in the AutoMata network, the number of replacements performed by the zebroids is zero since any replacement will cause a data item to be lost from the system.
+This is because in the former case, each of these z zebroids selected along the lowest latency path to the client needs to perform a replacement.
+However, the key observation here is that the latency improvement with z-relay zebroids is significantly  better than the one-instantaneous zebroids case, especially for lower storage scenarios.
+(See [9] for proof) 6.5.2 Simulation We perform simulations with two different frequency  distribution of data items: Uniform and Zipfian (with mean= 0.27).
+Hence, the initial distribution of the data item replicas changes from square-root to that resembling linear replication.
+We speculate that the performance of these local policies will approach that of their global variants for a large enough history of data item requests.
+Consequently, the number of replicas per data item goes up thereby increasing the 79 number of servers.
+We refer the reader to [9] for the case when α is varied and N is held constant.
+We observe a smooth reduction in the 81 improvement in δagg as the prediction accuracy metric reduces.
+However, the total  system storage can be changed either by varying car density (N) or storage per car (α).
+With a wide choice of  replacement schemes available for a zebroid, what is their effect on  availability latency?
+We separate the effect of N and α by capturing the variation of N while keeping α constant (case 1) and vice-versa (case 2) both with z-relay and one-instantaneous zebroids.
+We find that zebroids continue to provide improvements in  availability latency even with lower accuracy in the car route  predictions.
+However, the replacement overhead is still less than 1 indicating that on an average less than one  replacement per client request is needed even when z-relay zebroids are employed.
+However, these Nc i replicas start from the same cell as one of the server replicas ri.
+However, somewhat counter-intuitively with relatively higher system storage, z-relay zebroids provide slightly lower  improvements in latency as compared to one-instantaneous zebroids.
+Recall that the initial replica distribution is set as per the  squareroot replication scheme.
+Hence, the replacement overhead per client request can amount to a  maximum of one.
+The lfu-local and lru-local schemes have  similar performance to random since they do not have enough history of local data item requests.
+We use a single parameter p to quantify the accuracy of the car route predictions.
+At the other end of the spectrum, if storage becomes so abundant that α = T then the entire data item repository can be replicated on every car.
+Similar latency improvements with one-instantaneous zebroids are  obtained in both cases.
+What inherent trade-offs exist between car density and storage per car with  regards to their combined as well as individual effect on availability latency in the presence of zebroids?
+The higher number of replicas for the popular data items provide marginal additional benefits, while the lower number of replicas for the other data items hurts the latency performance of these global policies.
+6.2.2 Simulation We conduct simulations to examine the entire storage spectrum obtained by changing car density N or storage per car α to also capture scenarios where the sparseness assumptions for which the analysis is valid do not hold.
+We speculate that this is due to the different data item replica  distributions enforced by them.
+However, as N increases, the sparseness assumption for which the analysis is valid, namely N << G, is no longer true.
+This implies that a higher replacement overhead is  incurred for higher N and lower α values.
+However, there is a storage spectrum in the middle where replacements by the scheduled zebroids result in improvements in δagg (see Figure 3).
+The trends shown by the simulation are in agreement with those predicted by the analysis above.
+Hence, the replacement policy cannot find a zebroid as often to transport the requested data item to the client earlier than any of the servers.
+The random replacement scheme does not alter this distribution since it makes replacements blind to the  popularity of a data item.
+On account of space limitations, here, we summarize the  observations in the case when z-relay zebroids are employed.
+On account of the  competitive performance shown by a random policy, for the remainder of the paper, we present the performance of zebroids that employ a random replacement policy.
+We present an intuitive argument for the behavior of the  perrequest replacement overhead curves.
+Here, we set the repository size as T = 25.
+The number of replacements is again zero since each request can be satisfied locally.
+6.4 What happens to the availability latency with zebroids in scenarios with  inaccuracies in the car route predictions?
+Moreover, when ri = N, this means that every car has a replica of data item i.
+What is the  associated overhead incurred in employing these zebroids?
+Similar trends are observed with case 2, a complete description of those results are available in [9].
+We are currently exploring  suitable choices of parameters that can capture these changing replica distributions.
+By scale-up, we mean that α and N are changed proportionally to keep the total system storage, ST , constant.
+For zebroids that are scheduled but fail to rendezvous with the client due to the prediction error, we tag any such replacements made by the zebroids as failed.
+Next, we present  simulation results that validate our analysis hypothesis for the overhead associated with deployment of one-instantaneous zebroids.
+The point at which the two curves move away from each other corresponds to a value of δagg ≤ 1.
+This is because these  policies rapidly develop a preference for the more popular data items thereby creating a larger number of replicas for them.
+As N is further increased, ω reduces because the total storage in the system goes up.
+6.3 What is the overhead incurred with  improvements in latency with zebroids?
+The trends mentioned above are similar to that obtained from the analysis.
+We find that in many scenarios employing zebroids provides  substantial improvements in availability latency.
+Let α = 1, making the total storage in the system ST = N. Assuming the initial replica distribution is as per the  squareroot replication scheme, we have, ri = √ fi·N T j=1 √ fj .
+During  eviction, the more popular data items are almost never selected as a replacement candidate.
+For illustration, we present ‘scale-up" experiments where  oneinstantaneous zebroids are employed (see Figure 1).
+6.5 Under what conditions are the  improvements in availability latency with zebroids maximized?
+This is because of several reasons.
+However, the replacements cause dynamic data re-organization so as to better serve the currently active  request.
+This is because one-instantaneous zebroids are a special case of z-relay zebroids.
+Both the x and y axes are drawn to a log-scale.
+6.1 How does a replacement scheme employed by a zebroid impact availability latency?
+The dispatcher ensures that no data item is lost from the system.
+6.2.1 Analysis We first consider the case of one-instantaneous zebroids.
+Figure 2.b show the % improvement in δagg obtained with one-instantaneous zebroids.
+We choose the following values of (N,α) = {(20,10), (25,8), (50,4), (100,2)}.
+It is seen that failed replacements gradually increase as the prediction accuracy reduces.
+The new replicas created do not affect future requests from the client.
+6.2 Do zebroids provide significant  improvements in availability latency?
+Figure 2.a shows the variation in δagg as a function of N for T = 10 and α = 1 with a 10 × 10 torus using Equation 4.
+These findings are significant because a random replacement policy can be  implemented in a simple decentralized manner.
+The  interested reader can obtain further details in [9].
+We present both simple  analysis and detailed simulations to provide answers to these questions as well as gain insights into design of carrier-based systems.
+Consequently, there are fewer replicas for the less popular items.
+Hence, the two curves rapidly diverge.
+What  happens to these improvements in scenarios where a dispatcher may have imperfect information about the car routes?
+This result has important implications.
+In this section, we describe our evaluation results where the  following key questions are addressed.
+Figure 3 captures case 1 mentioned above.
+Hence, we get fi = K2 ·r2 i N2 , where K = T j=1 fj.
+Here, T = 50 and ST = 200.

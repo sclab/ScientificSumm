@@ -1,0 +1,4 @@
+The client keeps track of objects that are read and modified by its transaction; it sends this information, along with new copies of modified objects, to the servers when it tries to commit the transaction.
+That is, a client includes the page version number corresponding to each object in the read object set sent in the commit request to the server.
+That is, when clients within a group modify different objects on the same page, the page retains its complete status and remains available for peer fetch.
+The client continues to retain pages containing invalidated objects ; these pages are 

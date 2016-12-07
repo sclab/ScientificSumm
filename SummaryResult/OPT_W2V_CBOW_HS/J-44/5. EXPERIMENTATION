@@ -1,0 +1,149 @@
+This indicates that the promotion of a movie is benefited most by the ratings of a few users, and are unaffected by the ratings of most users.
+• The number of good ratings is comparable to the bad ratings, and ratings are seen to switch states often, except in the case of scouts (see below).
+Studying the dynamics of rating roles in terms of transitions between good, bad, and negligible values can provide insights into the functioning of the recommender system.
+We measured the Pearson  correlation coefficient between aggregated scout values for a movie with the popularity of a movie (number of times it is rated); and with its popularity*variance measure at different  snapshots of the system.
+A movie is said to induce a good scout if the movie was in the top 100 of the sorted list, and to induce a bad scout if it was in bottom 100 of the same list.
+Note that good and bad scouts, together, comprise only 1.4% + 1.7% = 3.1% of the ratings, implying that the majority of the ratings are negligible role players as scouts (more on this later).
+9, we can observe: • The bulk of the ratings have negligible values,  irrespective of their role.
+This reiterates that a few ratings influence most of the system"s performance.
+Note that the scout values were initially anti-correlated with popularity (Fig.
+It is not  practical to expect a recommender system to have no ratings in bad roles.
+This indicates that, over the long run, a user"s rating is more useful to others (movies or other users) than to the user himself.
+We make assessments of rating roles at intervals of 10,000 ratings and processed the first 200,000 ratings in the dataset (giving rise to 20 snapshots).
+Whether all of these discordant pairs are observable by the user is unclear, however, certainly this suggests that there is a need to be able to direct users to items whose ratings would improve the lists.
+They show that a mix of popularity and rating entropy identifies the best items to suggest to new users when evaluated using MAE.
+Of the remaining 85 users, we found 26 users had good scouts and a good neighborhood, 6 had bad scouts and a good neighborhood, 29 had good scouts and a bad neighborhood, and 24 had bad scouts and a bad  neighborhood.
+At discrete epochs, i.e., after processing every 10,000 ratings, we compute the predictions for the ratings in the test data, and then compute the role values for the ratings used in the predictions.
+• The negative and positive scout states are not  reachable through any transition, indicating that these  ratings must begin as such, and cannot be coerced into these roles.
+As discussed before, we consider only the item-based algorithm here (with item neighborhoods of size 30) and, due to space considerations, only present role value results for rank accuracy.
+Note, though, that a user may have long stopped using the system.
+Bad scouts, Bad neighborhood: (SFN(u) < 0) ∧ (CFN(u) < 0 ∨ PFN(u) < 0) From our sample set of 561 users, we found that 476 users were inactive.
+The effective confidence in a movie m is Cm = Tm − Bm N (8) where Tm is the number of times it appeared in the top 100, Bm the number of times it appeared in the bottom 100, and N is the number of intervals considered.
+255 -10 0 10 20 30 40 50 60 -0.08 -0.06 -0.04 -0.02 0 0.02 0.04 Scout Value Frequency Figure 6: Distribution of scout values for a sample user.
+-0.4 -0.2 0 0.2 0.4 0.6 0.8 30000 60000 90000 120000 150000 180000 Popularity Pop*Var Figure 7: Correlation between aggregated scout value and item popularity (computed at different intervals).
+0 0.2 0.4 0.6 0.8 1 1.2 10000 30000 50000 70000 90000110000130000150000 Ratings merged into model Value Precision Recall Figure 5: Precision and recall for the item-based collaborative filtering algorithm.
+Scout + (2%)  Scout(1.5%) Scout 0 (96.5%) Connector + (1.2%)  Connector(0.8%) Connector 0 (98%) Promoter + (3%)  Promoter(2%) Promoter 0 (95%) 84% 84% 81% 74% 10% 6% 11% 77% 8% 7% 8% 82% 4% 86% 4% 68% 15% 13% 5% 5% 77% 11% 7% 5% 4% 3% 3% 3% Healthy Unhealthy Decaying Figure 9: Transitions among rating roles.
+Harold and Maude (1971) 0.46 141 Grifters, The (1990) 0.46 180 Sting, The (1973) 0.38 244 Godfather: Part III, The (1990) 0.38 154 Lawrence of Arabia (1962) 0.38 167 High Noon (1952) 0.38 84 Women on the Verge of a... (1988) 0.38 113 Grapes of Wrath, The (1940) 0.38 115 Duck Soup (1933) 0.38 131 Arsenic and Old Lace (1944) 0.38 138 Midnight Cowboy (1969) 0.38 137 To Kill a Mockingbird (1962) 0.31 195 Four Weddings and a Funeral (1994) 0.31 271 Good, The Bad and The Ugly, The (1966) 0.31 156 It"s a Wonderful Life (1946) 0.31 146 Player, The (1992) 0.31 220 Jackie Brown (1997) 0.31 118 Boat, The (Das Boot) (1981) 0.31 210 Manhattan (1979) 0.31 158 Truth About Cats & Dogs, The (1996) 0.31 143 Ghost (1990) 0.31 227 Lone Star (1996) 0.31 125 Big Chill, The (1983) 0.31 184 256 By studying the evolution of scout values, we can identify movies that consistently feature in good scouts over time.
+In this model, a transition such as [+, 0, +] ; [0, +, 0] : 1 is counted as [scout+] ; [scout0] : 1 [scout+] ; [connector+] : 1 [scout+] ; [promoter0] : 1 [connector0] ; [scout0] : 1 [connector0] ; [scout+] : 1 [connector0] ; [promoter0] : 1 [promoter+] ; [scout0] : 1 [promoter+] ; [connector+] : 1 [promoter+] ; [promoter0] : 1 Of these, transitions like [pX] ; [q0] where p = q, X ∈ {+, 0, −} are considered uninteresting, and only the rest are counted.
+We observe that a large number of ratings never serve as scouts for their users.
+As a remedy, users with bad scouts and a good  neighborhood can be asked to reconsider rating of some movies hoping to improve the system"s recommendations.
+Good connectors are induced by  ensuring a user with a high promoter value rates a movie with a high scout value.
+The majority of the transitions involve both good and bad ratings becoming  negligible.
+Even though the positive roles (and the negative roles) make up a very small percentage of all ratings, their  contribution supersedes their size.
+Since we are interested in the evolution of the rating role values over time, the model of the recommender system is built by processing ratings in their arrival order.
+In our experiments, we find that a rating"s longest standing role is often as a connector.
+Note that the item-based algorithm  discussed here produces recommendation lists with nearly half of the pairs in the list discordant from the user"s preference.
+Indicating whether someone likes this movie or not goes a long way toward situating the user in a suitable neighborhood, with similar preferences.
+In our experiment, we consider lists of length 30, and sample the lists of about 5% of users through the  evolution of the model (at intervals of 10,000 ratings each) and compute their neighborhood characteristics.
+In some selected  experiments, we observed that removing a set of badly behaving connectors helped improve the system"s overall performance by 1.5%.
+So, inducing good promoters is important for cold-start recommendation.
+We incrementally update the role values as the time ordered ratings are merged into the model.
+Furthermore, the role state transition diagram would also be the ideal place to study the effects of shilling, a topic we will consider in future research.
+5.1 Methodology Our experiments use the MovieLens million rating dataset, which consists of ratings by 6040 users of 3952 movies.
+We claim that users with ratings that have respectable scout values will be happier with the system than those with ratings with low scout values.
+The distribution of the scout values for most users"  ratings are Gaussian with mean zero.
+Being John Malkovich (1999) 1.00 445 Star Wars: Episode IV - A New Hope (1977) 0.92 623 Princess Bride, The (1987) 0.85 477 Sixth Sense, The (1999) 0.85 617 Matrix, The (1999) 0.77 522 Ghostbusters (1984) 0.77 441 Casablanca (1942) 0.77 384 Insider, The (1999) 0.77 235 American Beauty (1999) 0.69 624 Terminator 2: Judgment Day (1991) 0.69 503 Fight Club (1999) 0.69 235 Shawshank Redemption, The (1994) 0.69 445 Run Lola Run (Lola rennt) (1998) 0.69 220 Terminator, The (1984) 0.62 450 Usual Suspects, The (1995) 0.62 326 Aliens (1986) 0.62 385 North by Northwest (1959) 0.62 245 Fugitive, The (1993) 0.62 402 End of Days (1999) 0.62 132 Raiders of the Lost Ark (1981) 0.54 540 Schindler"s List (1993) 0.54 453 Back to the Future (1985) 0.54 543 Toy Story (1995) 0.54 419 Alien (1979) 0.54 415 Abyss, The (1989) 0.54 345 2001: A Space Odyssey (1968) 0.54 358 Dogma (1999) 0.54 228 Little Mermaid, The (1989) 0.54 203 Table 2: Movies forming the worst scouts.
+We make a further  simplification and utilize only 9 states, indicating whether the rating is a scout, promoter, or connector, and whether it has a positive, negative, or negligible role.
+Removing bad scouts was found to be  worthwhile for individual users but the overall performance  improvement was only marginal.
+Transitions that recur to these states have frequencies of 10% and 15% when compared to just 4% for scouts.
+In particular, we discuss results relating to identifying good scouts,  promoters, and connectors; the evolution of rating roles; and the characterization of user neighborhoods.
+As we have seen, we can assign role values to each rating when evaluating a collaborative filtering system.
+The effect was even higher on a few select users who observed an improvement of above 10% in precision without much loss in recall.
+As indicated earlier, there are hardly any transitions from promoters/connectors to scouts.
+Note that these results are conditioned by the static nature of the dataset, which is a set of ratings over a fixed window of time.
+Thus, a rating can be in one of 27 possible states, and there are about 272 possible transitions.
+-0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1 30000 60000 90000 120000 150000 180000 Figure 8: Correlation between aggregated promoter value and user prolificity (computed at different  intervals).
+5.2 Inducing good scouts The ratings of a user that serve as scouts are those that allow the user to receive recommendations.
+Interestingly, the best scout-‘Being John Malkovich"-is about a puppeteer who discovers a portal into a movie star, a movie that has been described variously on amazon.com as ‘makes you feel giddy," ‘seriously weird," ‘comedy with depth," ‘silly," ‘strange," and ‘inventive."
+Thus, a threshold of 0.005 is chosen to bin a rating as good, bad or negligible in terms of its scout, connector and promoter value.
+Movies that would be bad scout choices are shown in Table 2 with their associated  confidences.
+The positive credit held by a rating is a measure of its  contribution to the betterment of the system, and the discredit is a measure of its contribution to the detriment of the  system.
+The ratings are in the range 1 to 5, and are labeled with the time the rating was given.
+Similarly, observing a large number of good roles become bad ones is a sign of imminent failure of the system.
+In this  section, we demonstrate the use of this approach to our overall goal of defining an approach to monitor and manage the health of a recommender system through experiments done on the MovieLens million rating dataset.
+We find a strong correlation between a user"s number of  ratings and his aggregated promoter value.
+One potential criticism of this methodology is that the ratings in the test set are never evaluated for their roles.
+9 is clearly useful for monitoring the health of a recommender system.
+On the other hand, several factors may have made a movie a bad scout, like the sharp variance in user preferences in the neighborhood of a movie.
+The  timestamping provided by MovieLens is hence crucial for the  analyses presented here.
+Good scouts, Bad neighborhood: (SFN(u) > 0) ∧ (CFN(u) < 0 ∨ PFN(u) < 0) 4.
+Consider a user who has rated 100 movies in a  particular interval, of which 20 are part of the test set.
+A rating with a poor connector value is often seen due to its user being a bad promoter, or its movie being a bad scout.
+Two users may have the same opinion about Lawrence of Arabia, but they may  differ sharply about how they felt about the other movies they saw.
+Users with good scouts and a bad  neighborhood are harder to address; this situation might entail  selectively removing some connector-promoter pairs that are causing the damage.
+We classify different rating states as good, bad, or  negligible.
+5 shows a plot of the precision and recall as ratings were merged in time order into the model.
+5.5 Monitoring the evolution of rating roles One of the more significant contributions of our work is the ability to model the evolution of recommender systems, by studying the changing roles of ratings over time.
+Similarly, the users that constitute the best promoters are also part of the best connectors.
+For  instance, acceptable limits can be imposed on different types of transitions and, if a transition fails to meet the  threshold, the recommender system or a part of it can be brought under closer scrutiny.
+With simple relevance feedback from the user, such ratings can be isolated as bad scouts and discounted from future predictions.
+We note that the frequency distribution of promoter values for a sample movie"s ratings is also Gaussian (similar to Fig.
+Likewise, good connectors were 1.2% of the system, and hold 30% of all positive credit.
+5.4 Inducing good connectors Given the way scouts, connectors, and promoters are  characterized, it follows that the movies that are part of the best scouts are also part of the best connectors.
+The percentages for each state indicates the number of ratings that were found to be in those states.
+8 depicts the evolution of the Pearson correlation co-efficient between the prolificity of a user (number of ratings) versus his  aggregated promoter value.
+The role and value of a rating can change depending on many factors like user behavior, redundancy, shilling effects or  properties of the collaborative filtering algorithm used.
+The  system can be expected to deliver more if they engineer some good scouts.
+As the time ordered ratings are merged into the model, we label a small randomly selected percentage (20%) as test data.
+Ratings that serve multiple purposes are counted using multiple episode instantiations but the states themselves are not duplicated beyond the 9 restricted states.
+Using this measure, the top few movies expected to induce the best scouts are shown in Table 1.
+Although more popular movies appear in the list of good scouts, these tables show that a blind choice of scout based on popularity alone can be potentially dangerous.
+The results here are based on n = 4 repetitions.
+6 shows the  frequency distribution of scout values for a sample user at a given snapshot.
+The popularities of the movies are also displayed.
+Such a classification allows the use of different strategies to better a user"s experience with the system depending on his context.
+Bad scouts, Good neighborhood: (SFN(u) < 0) ∧ (CFN(u) > 0 ∧ PFN(u) > 0) 5.
+A new movie is thus cast into the neighborhood of many other movies improving its visibility.
+However, it suffices to see ratings in bad roles  either convert to good or vestigial roles.
+Given this observation, the obvious rule to follow when introducing a new movie is to have it rated directly by  prolific users who posses high aggregated promoter values.
+A good scout can become a bad scout, a good promoter can become a good connector, good and bad scouts can become vestigial, and so on.
+The probability that every rating is considered for evaluation is then considerably high: 1 − 0.2n , where n is the number of times the experiment is repeated with different random seeds.
+Tracking  promoter values consistently allows only the most active recent users to be considered.
+The bad connectors (0.8% of the system) hold 36% of all discredit.
+To keep the experiment computationally manageable, we define a test dataset for each user.
+Movies appearing consistently high over time are expected to remain up there in the future.
+We consider transitions from any state to a good state as healthy, from any state to a bad state as unhealthy, and from any state to a vestigial state as decaying.
+Such ratings can be removed from the prediction process to bring marginal improvements to recommendations.
+A sequence such as: [+, 0, 0] → [+, 0, 0] → [0, +, 0] → [0, 0, 0] is interpreted as the transitions [+, 0, 0] ; [0, +, 0] : 1 [+, 0, 0] ; [0, 0, 0] : 1 [0, +, 0] ; [0, 0, 0] : 1 instead of [+, 0, 0] ; [0, +, 0] : 2 [+, 0, 0] ; [0, 0, 0] : 2 [0, +, 0] ; [0, 0, 0] : 1.
+We expect that conspicuous shills, by recommending wrong movies to users, will be  discredited with negative aggregate promoter values and should be identifiable easily.
+For example, even though only 1.7% of all ratings were classified as good scouts, they hold 79% of all positive credit in the system!
+We believe that a continuous visualization of these transitions will improve the ability to manage a recommender system.
+Following their intuition, we would expect to see a higher correlation between  popularityentropy and good scouts.
+For instance, a rating r, at time t with role value triple [0.1, 0.001, −0.01] is classified as [scout +, connector 0, promoter −], where + indicates good, 0 indicates negligible, and − indicates bad.
+Handling users with bad scouts and bad neighborhoods is a more difficult challenge.
+• Healthy percentages are seen on transitions between promoters and connectors.
+We found the aggregated scout values for all movies in intervals of 10,000 ratings each.
+Hence it is important to track transitions  between them regardless of their small numbers.
+Good scouts, Good neighborhood: (SFN(u) > 0) ∧ (CFN(u) > 0 ∧ PFN(u) > 0) 3.
+5.3 Inducing good promoters Ratings that serve to promote items in a collaborative  filtering system are critical to allowing a new item be  recommended to users.
+Table 1: Movies forming the best scouts.
+To simplify our presentation, we consider the percentage of the sample that fall into one of the following categories: 1.
+257 Across different snapshots, a rating can remain in the same state or change.
+5.6 Characterizing neighborhoods Earlier we saw that we can characterize the neighborhood of ratings involved in creating a recommendation list L for 258 a user.
+An obvious question is whether good scouts can be formed by merely rating popular movies as suggested by Rashid et al.
+Thus, we conjecture that 59 users (29+24+6) are in danger of leaving the system.
+Good  connectors are the slowest to decay whereas (good) scouts decay the fastest.
+The item-based collaborative filtering algorithm"s  performance was ordinary with respect to rank accuracy.
+We employ the principle of non-overlapping episodes [6] to count such transitions.
+Similarly, the bad scouts were just 1.4% of all ratings but hold 82% of all  discredit.
+In future work, we intend to conduct field  studies and study the improvement in performance of different strategies for different contexts. 
+Best Scouts Conf.
+• The percentages of healthy transitions outweigh the unhealthy ones - this hints that the system is healthy, albeit only marginally.
+We claim these movies will make viable scouts for other users.
+We overcome this concern by  repeating the experiment, using different random seeds.
+If a scout has a value greater than 0.005, it indicates that it is uniquely involved in at least 2 concordant predictions, which we will say is good.
+The recall was always high, but the average precision was just about 53%.
+Bad scouts ensue when there is deviation in behavior around a common synchronization point.
+9 depicts the major transitions counted while  processing the first 200,000 ratings from the MovieLens dataset.
+Good promoters (3% of the system) hold 46% of all credit, while bad promoters (2%) hold 50% of all discredit.
+A relatable scenario is when Amazon"s recommender makes suggestions of books or items based on other items that were purchased as gifts.
+See [6] for further details about this counting procedure.
+A possible  explanation is that there has been insufficient time for the popular movies to accumulate ratings.
+Worst scouts Conf.
+• Good promoters and good connectors have a much longer survival period than scouts.
+7), but became  moderately correlated as the system evolved.
+Only transitions with frequency greater than or equal to 3% are shown.
+Both popularity and popularity*variance performed similarly.
+However a diagram such as Fig.
+From Fig.
+Inactive user: (SFN(u) = 0) 2.

@@ -1,0 +1,115 @@
+Query processing for the spectator S means to search the node structure whose cell region intersects with S. In Figure 3(a), E2 is indexed on the same cell, thus being delivered to the client S after the query evaluation.
+Node  indexing partitions the space into equi-sized subspaces (grid cells),  indexes entities on each cell, and searches for entities that satisfy a spatial condition with a given query.
+Once we know the node structure of the leftmost cell per row, we can compute that of its right-hand cell from the leftmost node structure and the row-wise edges.
+After one cell evaluation, the indexed user entities are retrieved and the computed node structure is delivered for every client that is associated with a user.
+Its features are (1) an edge  structure and (2) periodic entity update and cell evaluation.
+Edge indexing, however, requires one AT and one DT per point  entity and two token removals and two insertions during the update, in the worst case.
+As a result, search operations on the moving edge structures are no longer  necessary and the system becomes insensitive to any underlying  distribution pattern and moving speed of the entities.
+404 Tokens: IT(E1) IT(E2) IT(A) IT(S) Tokens: AT(E1) DT(E1) AT(E2) DT(E2) AT(A) DT(A) IT(S) (a) node indexing (b) edge indexing (c) edge indexing with row-wise cell evaluation Figure 3: Illustration of different data structures for node indexing and edge indexing for the sample space in Figure 2.
+As a  result, we reduce the complexity of the index construction and update by a factor of two.
+Thus, na¨ıve edge indexing stores more tokens than node indexing - the total number of edge tokens shown in Figure 3(b) is 35 (17 ATs + 17 DTs + 1 IT); for node  indexing in Figure 3(a) the number is 25.
+For the sample space shown in Figure 2, the concept of node indexing is illustrated in Figure 3(a).
+Each server indexes all the entities, delivers any new events (i.e., a new user enters into the sub-world or an object moves from one place to another) to clients, and resolves any inconsistencies among the entities.
+The DE for two adjacent cells i, j is defined as a set of DTs, satisfying: E−(i, j) = Ni − (Ni ∩ Nj ) (2) In a 2D map, depending on the adjacency relationship between two neighboring cells, edges are further classified as either  rowwise, if two neighbors are adjacent horizontally (Er ), or  columnwise, if they are adjacent vertically (Ec ).
+When transiting from cell 3 to 4, the algorithm will recognize that P2, R1 disappear and P1 is newly appearing while the spatial condition of R2 is unchanged.
+Retrieval of the indexed objects for a given user includes the search and  de3 A better indexing method for a 3D space is work in progress.
+In the figure, two row-wise adjacent cells 3 and 4 have two row-wise edge transitions between them, E+(3, 4), E−(3, 4); two point entities P1, P2; and two polygonal entities R1, R2.
+The AE for two adjacent cells i and j is defined as a set of ATs and expressed as E+(i, j) = Nj − (Ni ∩ Nj ) (1) where Ni and Nj are the node structures for the cells i and j.
+m average side length of the AOI of entities V ar(mi) variance of random variable mi v maximum reachable distance.
+Next, Section 4.2 presents an abstraction of our node and edge structures whose detailed indexing and cell evaluation methods are explained later in Sections 4.3 and 4.4.
+Symbol Meaning U set of populated object entities O set of moving object entities, O ⊆ U Uq set of populated user entities Q set of moving user entities, Q ⊆ Uq A set of avatars, A = {a|a ∈ U ∩ Uq} i.P location of entity i where i ∈ (U ∪ Uq) i.R AOI of entity i where i ∈ (U ∪ Uq) mi side length of entity i where i ∈ (U ∪ Uq).
+Similarly, E−(3, 4) = N3 − Cell 3 Cell 4 E+(3, 4)={P1} E_(3, 4)={P2,R1} P2 P1 R2 R1 Figure 4: Example of edge indexing of two point entities {P1, P2} and two polygonal entities {R1, R2} between two row-wise adjacent cells.
+If the first two neighbor cells are horizontally adjacent to i and the last two cells (i−M), (i+M) are vertically nearby, the eight edge structures are Ec +(i−M, i), Ec −(i−M, i), Er +(i−1, i), Er −(i−1, i), Er +(i, i+ 1), Er −(i, i + 1), Ec +(i, i + M), and Ec −(i, i + M).
+First, we split a single edge structure that  indexes both stationary and moving entities into two separate edge 406 Table 1: Summary of notations for virtual entities and their properties.
+An edge is another data structure for two adjacent cells that stores their ATs or DTs.
+The two-step algorithm can also be used for our edge indexing by updating the edge structures of the entities that moved during the previous time period and by applying Lemma 1 during the cell evaluations.
+4.5.1 Single-table Approach: Update Typically, there exist two practical policies for a region update: Full Update simply removes every token of the previous entity  region and re-inserts newly updated tokens into newly  positioned areas.
+In many LBS applications, node indexing maintains a node  structure per cell and stores an index of entities whose spatial extent is a point location.
+4.2 Abstraction We define a token as an abstraction of a virtual entity that  satisfies a specific spatial relationship with a given cell.
+Due to the use of a simple point geometry for entities, this allows for lightweight index  updates.
+To highlight the  difference to our newly proposed method, we term all existing grid partitioning-based indexing methods node indexing.
+Figure 3(c) illustrates the concept of our row-wise edge indexing method.
+Nj , a set of ITs of a given cell j can be derived from a set of ITs of its neighbor cell i, Ni and its edges E+(i, j) − E−(i, j): Nj = Ni + E+(i, j) − E−(i, j) Row-wise and column-wise edge structures, however, capture some redundant information.
+One of the popular node indexing methods, Query Indexing, has been reported to have such performance degradation during the update of rectangle-shaped range queries [13].
+In  summary, as shown in Figure 3(c), our edge indexing method uses edge structures for the AOI enabled entities (A, E1, E2) while it uses node structures for the point entity (S).
+The algorithm begins by updating all the corresponding indices of newly moved entities (the entity update step) and then computes the node structures of every cell (the cell evaluation step).
+A node is a data structure that stores ITs of a cell.
+(N3 ∩ N4) = {P2, R1}.
+Incremental Update only removes the tokens whose spatial  relationship with the cells changed upon an update and inserts them into new edge structures that satisfy the new spatial conditions.
+Instead of indexing the object entities with a user entity structure, our system indexes their visible regions on the grid cells.
+After the reconstruction, all grid cells are evaluated to compute their visible sets.
+The spatial  condition that the point location of S resides inside the AOI of E2 can be symbolized as S.P ∈ E2.R.
+Once all the cells are evaluated, the moving edges are destroyed and the reconstruction step follows.
+For a given range query, a search is performed from the node structures of the cells whose region intersects with the spatial extent of the range query.
+Appearance Token (AT) denotes that its entity is an IT for the given cell, but not for the previously adjacent cell.
+Periodic Entity Update and Cell Evaluation Many objects are continuously moving and hence index structures must be regularly updated.
+P2, R1, R2 overlap with cell 3 while P1, R2 overlap with cell 4.
+Our application only considers the efficient indexing of virtual entities and the search for the most relevant entities - that is, how many entities per sub-world are indexed and how quickly index updates are recognized and retrieved.
+4.3 Node Indexing Grid partitioning is a popular space subdivision method that has recently gained popularity for indexing moving entities in highly dynamic virtual environments [12, 8, 13, 10].
+Figure 3(b) illustrates how edge structures are constructed from node structures, using Equations 1 and 2.
+We also define two data structures for storing and retrieving the tokens: a node and an edge.
+Efficient delivery of retrieved real geometry data is out of the scope of this paper.
+In our  application, we use three types of tokens: Inclusion Token (IT) indicates that its entity overlaps with or is covered by the given cell.
+Node indexing has one IT per point entity and requires one token removal and one insertion upon any location movement.
+There are three object entities, {E1, E2, A}, and two user entities, {S, A} in the world.
+4.4 Edge Indexing Our new indexing method, edge indexing, is designed to  provide an efficient indexing method for the specific spatial extension (square) of the entities in a grid.
+livery of the indices stored on the cell it is located in.
+In addition to this adaptability, the Lemma also reveals another important property of cell evaluations: either row edges or column edges are enough to obtain all the node structures.
+4.5.2 Two-table Approach: Separating Moving  Entities from Stationary Entities So far, we have not addressed any side-effect of token removals during the update operation.
+The total number of tokens is reduced to 17 (8 ATs + 8 DTs + 1 IT).
+A virtual space is partitioned into equal-sized sub-worlds.
+Inversely, the cell  evaluation process with edge indexing derives node structures from the edge structures.
+In such a situation, we take advantage of using both according to the spatial property of entity extension.
+Consequently, edges are of four different types, according to their token type and adjacency: Er +(i, j), Er −(i, j), Ec +(i, j), and Ec −(i, j).
+The sample sub-world separated with bold-dashed lines in Figure 2 contains four virtual entities: two autonomous entities (E1, E2); one spectator entity S; and one avatar A.
+Thus, the node for cell i is defined as a set of IT entities and formally expressed as Ni = {o|o.R∩i.R = ∅}, where R is either an AOI or a cell region.
+The above calculation also corresponds to our intuition.
+For efficient management of moving entities, a server further divides its sub-world into smaller partitions, called grid cells.
+For example, a  single movement of an entity whose spatial extent overlaps with 100 grid cells requires 100 token deletions and 100 token insertions, in the worst case.
+Every cell stores IT entities that intersect with its region.
+Disappearance Token (DT) is the opposite of AT, meaning that while its entity does not satisfy the IT relationship with the given cell, it does so with the previously adjacent cell.
+Figure 2 shows the 4 × 4 grid enclosed by the dashed lines.
+The sub-world hosting is a collaborative  virtual environment where every server hosts one sub-world, thus constructing a single world.
+As mentioned in  Section 3, all object entities (E1, E2, A) have their own square-shaped AOI.
+Several optimization issues for edge indexing follow in Section 4.5.
+Inserting a token is implemented by  inserting it at the head of the corresponding hash bucket, hence the processing time becomes constant.
+It is represented by the number of cell units.
+However, if the spatial extent of an entity is a complex geometry such as rectangle, node indexing will suffer from significant system degradation due to expensive update overhead.
+As shown in the figure, N3 indexes {P2, R1, R2} and N4  maintains the indices of {P1, R2}.
+4.4.2 Another Example Figure 4 illustrates how to construct edge structures from two nearby cells.
+Two user entities (S, A) are associated with individual client machines, (client S and client A in the figure).
+In a 2D M × M grid map, each cell i is surrounded by four neighboring cells (i− 1), (i+ 1), (i− M), (i+ M) (except for the 405 outermost cells) and eight different edge structures.
+If the edge only stores the AT entities, it is termed an Appearance Edge (AE); otherwise, if it stores DTs, it is termed a Disappearance Edge (DE).
+It is represented by the number of cell units.
+The detailed analysis of its indexing complexity is presented in Section 5.
+Therefore, the hash implementation may suffer from a significant system penalty when used with a huge number of populated  entities.
+Let us assume that the system maintains the row-wise edges.
+The leftmost node structures are assumed to be obtained in  advance.
+However, the token removal time depends on the expected number of tokens per hash bucket.
+Second Life is the classic example of such an approach.
+The proof of Lemma 1 is trivial as it is easily induced from Equations 1 and 2.
+A singly linked list implementation is used for the moving edge structure. 
+Every sub-world is managed by its dedicated server machine.
+With this approach, redundant ITs between two adjacent cells (Ni ∩Nj ) are eliminated.
+E+(3, 4) is obtained from  Equation 1: N4 − (N3 ∩ N4) = {P1}.
+After all the cells are evaluated, the algorithm starts over.
+Much of the existing work falls into this category.
+If an entity is not moving, its tokens will be placed in a stationary edge structure.
+Obviously, edge indexing is inefficient for indexing a point  geometry.
+4.1 Target Application Our target application assumes both 3D object streaming and sub-world hosting.
+Generally, this is done through a  twostep algorithm [13] that works as follows.
+If any node structure and all the edge structures are known a priori, we can derive all the node structures as defined by Lemma 1.
+Let us assume that an edge index is realized with a hash table.
+This retrieval process is interchangeably called a user (or query) evaluation.
+4.4.1 Idea Edge Structure The main characteristic of our approach is that it maintains edge structures instead of using node structures.
+Hence, without any column-wise edges we can obtain all the node structures successfully.
+4.5 Optimization Issues In this section, we describe several optimization techniques for edge indexing, which reduces the algorithm complexity  significantly.
+Two-table edge indexing is designed to make the token removal overhead constant.
+Thus, we can insert P2, R1 in the disappearance edge set and insert P1 in the appearance edge set.
+Second, all moving edge structures are periodically reconstructed.
+To reduce such redundancy, a subsequent two-step algorithm can be applied to the original edge indexing.
+We repeat this computation until we reach the rightmost cell.
+If we know N3, E+(3, 4), and E−(3, 4), we can compute N4 according to Lemma 1, N4 = N3+E+(3, 4)− E−(3, 4) = {P1, R2}.
+Otherwise, it will be placed with a  moving edge.
+In Section 4.1 we introduce our target application model.
+Lemma 1.

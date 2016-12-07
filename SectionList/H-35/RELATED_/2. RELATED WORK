@@ -1,0 +1,74 @@
+2.1 Information Retrieval
+The key problem for document retrieval is ranking, specifically,
+how to create the ranking model (function) that can sort documents
+based on their relevance to the given query. It is a common practice
+in IR to tune the parameters of a ranking model using some labeled
+data and one performance measure [1]. For example, the 
+state-ofthe-art methods of BM25 [24] and LMIR (Language Models for
+Information Retrieval) [18, 22] all have parameters to tune. As
+the ranking models become more sophisticated (more features are
+used) and more labeled data become available, how to tune or train
+ranking models turns out to be a challenging issue.
+Recently methods of ‘learning to rank" have been applied to
+ranking model construction and some promising results have been
+obtained. For example, Joachims [16] applies Ranking SVM to
+document retrieval. He utilizes click-through data to deduce 
+training data for the model creation. Cao et al. [4] adapt Ranking
+SVM to document retrieval by modifying the Hinge Loss function
+to better meet the requirements of IR. Specifically, they introduce
+a Hinge Loss function that heavily penalizes errors on the tops of
+ranking lists and errors from queries with fewer retrieved 
+documents. Burges et al. [3] employ Relative Entropy as a loss function
+and Gradient Descent as an algorithm to train a Neural Network
+model for ranking in document retrieval. The method is referred to
+as ‘RankNet".
+2.2 Machine Learning
+There are three topics in machine learning which are related to
+our current work. They are ‘learning to rank", boosting, and direct
+optimization of performance measures.
+Learning to rank is to automatically create a ranking function
+that assigns scores to instances and then rank the instances by 
+using the scores. Several approaches have been proposed to tackle
+the problem. One major approach to learning to rank is that of
+transforming it into binary classification on instance pairs. This
+‘pair-wise" approach fits well with information retrieval and thus is
+widely used in IR. Typical methods of the approach include 
+Ranking SVM [13], RankBoost [8], and RankNet [3]. For other 
+approaches to learning to rank, refer to [2, 11, 31].
+In the pair-wise approach to ranking, the learning task is 
+formalized as a problem of classifying instance pairs into two categories
+(correctly ranked and incorrectly ranked). Actually, it is known
+that reducing classification errors on instance pairs is equivalent to
+maximizing a lower bound of MAP [16]. In that sense, the 
+existing methods of Ranking SVM, RankBoost, and RankNet are only
+able to minimize loss functions that are loosely related to the IR
+performance measures.
+Boosting is a general technique for improving the accuracies of
+machine learning algorithms. The basic idea of boosting is to 
+repeatedly construct ‘weak learners" by re-weighting training data
+and form an ensemble of weak learners such that the total 
+performance of the ensemble is ‘boosted". Freund and Schapire have
+proposed the first well-known boosting algorithm called AdaBoost
+(Adaptive Boosting) [9], which is designed for binary 
+classification (0-1 prediction). Later, Schapire & Singer have introduced a
+generalized version of AdaBoost in which weak learners can give
+confidence scores in their predictions rather than make 0-1 
+decisions [26]. Extensions have been made to deal with the problems
+of multi-class classification [10, 26], regression [7], and ranking
+[8]. In fact, AdaBoost is an algorithm that ingeniously constructs
+a linear model by minimizing the ‘exponential loss function" with
+respect to the training data [26]. Our work in this paper can be
+viewed as a boosting method developed for ranking, particularly
+for ranking in IR.
+Recently, a number of authors have proposed conducting direct
+optimization of multivariate performance measures in learning. For
+instance, Joachims [17] presents an SVM method to directly 
+optimize nonlinear multivariate performance measures like the F1 
+measure for classification. Cossock & Zhang [5] find a way to 
+approximately optimize the ranking performance measure DCG [15].
+Metzler et al. [19] also propose a method of directly maximizing
+rank-based metrics for ranking on the basis of manifold learning.
+AdaRank is also one that tries to directly optimize multivariate 
+performance measures, but is based on a different approach. AdaRank
+is unique in that it employs an exponential loss function based on
+IR performance measures and a boosting technique.

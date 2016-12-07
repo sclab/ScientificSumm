@@ -1,0 +1,101 @@
+Although Wireless Sensor Networks (WSN) have shown
+promising prospects in various applications [5], researchers
+still face several challenges for massive deployment of such
+networks. One of these is to identify the location of 
+individual sensor nodes in outdoor environments. Because of 
+unpredictable flow dynamics in airborne scenarios, it is not currently
+feasible to localize sensor nodes during massive UVA-based
+deployment. On the other hand, geometric information is 
+indispensable in these networks, since users need to know where
+events of interest occur (e.g., the location of intruders or of a
+bomb explosion).
+Previous research on node localization falls into two 
+categories: range-based approaches and range-free approaches.
+Range-based approaches [13, 17, 19, 24] compute per-node
+location information iteratively or recursively based on 
+measured distances among target nodes and a few anchors which
+precisely know their locations. These approaches generally
+require costly hardware (e.g., GPS) and have limited 
+effective range due to energy constraints (e.g., ultrasound-based
+TDOA [3, 17]). Although range-based solutions can be 
+suitably used in small-scale indoor environments, they are 
+considered less cost-effective for large-scale deployments. On the
+other hand, range-free approaches [4, 8, 10, 13, 14, 15] do not
+require accurate distance measurements, but localize the node
+based on network connectivity (proximity) information. 
+Unfortunately, since wireless connectivity is highly influenced by the
+environment and hardware calibration, existing solutions fail
+to deliver encouraging empirical results, or require substantial
+survey [2] and calibration [24] on a case-by-case basis.
+Realizing the impracticality of existing solutions for the
+large-scale outdoor environment, researchers have recently
+proposed solutions (e.g., Spotlight [20] and Lighthouse [18])
+for sensor node localization using the spatiotemporal 
+correlation of controlled events (i.e., inferring nodes" locations based
+on the detection time of controlled events). These solutions
+demonstrate that long range and high accuracy localization can
+be achieved simultaneously with little additional cost at 
+sensor nodes. These benefits, however, come along with an 
+implicit assumption that the controlled events can be precisely
+distributed to a specified location at a specified time. We argue
+that precise event distribution is difficult to achieve, especially
+at large scale when terrain is uneven, the event distribution 
+device is not well calibrated and its position is difficult to 
+maintain (e.g., the helicopter-mounted scenario in [20]).
+To address these limitations in current approaches, in this
+paper we present a multi-sequence positioning (MSP) method
+15
+for large-scale stationary sensor node localization, in 
+deployments where an event source has line-of-sight to all sensors.
+The novel idea behind MSP is to estimate each sensor node"s
+two-dimensional location by processing multiple easy-to-get
+one-dimensional node sequences (e.g., event detection order)
+obtained through loosely-guided event distribution.
+This design offers several benefits. First, compared to a
+range-based approach, MSP does not require additional costly
+hardware. It works using sensors typically used by sensor 
+network applications, such as light and acoustic sensors, both of
+which we specifically consider in this work. Second, compared
+to a range-free approach, MSP needs only a small number of
+anchors (theoretically, as few as two), so high accuracy can be
+achieved economically by introducing more events instead of
+more anchors. And third, compared to Spotlight, MSP does not
+require precise and sophisticated event distribution, an 
+advantage that significantly simplifies the system design and reduces
+calibration cost.
+This paper offers the following additional intellectual 
+contributions:
+• We are the first to localize sensor nodes using the concept
+of node sequence, an ordered list of sensor nodes, sorted
+by the detection time of a disseminated event. We 
+demonstrate that making full use of the information embedded
+in one-dimensional node sequences can significantly 
+improve localization accuracy. Interestingly, we discover
+that repeated reprocessing of one-dimensional node 
+sequences can further increase localization accuracy.
+• We propose a distribution-based location estimation 
+strategy that obtains the final location of sensor nodes using
+the marginal probability of joint distribution among 
+adjacent nodes within the sequence. This new algorithm 
+outperforms the widely adopted Centroid estimation [4, 8].
+• To the best of our knowledge, this is the first work to
+improve the localization accuracy of nodes by adaptive
+events. The generation of later events is guided by 
+localization results from previous events.
+• We evaluate line-based MSP on our new Mirage test-bed,
+and wave-based MSP in outdoor environments. Through
+system implementation, we discover and address several
+interesting issues such as partial sequence and sequence
+flips. To reveal MSP performance at scale, we provide
+analytic results as well as a complete simulation study.
+All the simulation and implementation code is available
+online at http://www.cs.umn.edu/∼zhong/MSP.
+The rest of the paper is organized as follows. Section 2
+briefly surveys the related work. Section 3 presents an
+overview of the MSP localization system. In sections 4 and 5,
+basic MSP and four advanced processing methods are 
+introduced. Section 6 describes how MSP can be applied in a wave
+propagation scenario. Section 7 discusses several 
+implementation issues. Section 8 presents simulation results, and Section 9
+reports an evaluation of MSP on the Mirage test-bed and an
+outdoor test-bed. Section 10 concludes the paper.

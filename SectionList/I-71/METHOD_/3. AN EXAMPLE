@@ -1,0 +1,107 @@
+In the previous section we have described in great detail
+our formal model for SSA. However, we have not tackled
+the practical aspect of the model yet. In this section, we
+give a brushstroke of the pragmatic view of our approach.
+We study a very simple example and explain how agents
+can use those approximations of the logic of SSA they can
+obtain through communication.
+Let us reflect on a system consisting of robots located in
+a two-dimensional grid looking for packages with the aim of
+moving them to a certain destination (Figure 4). Robots
+can carry only one package at a time and they can not move
+through a package.
+Figure 4: The scenario
+Robots have a partial view of the domain and there exist
+two kinds of robots according to the visual field they have.
+Some robots are capable of observing the eight adjoining
+squares but others just observe the three squares they have
+in front (see Figure 5). We call them URDL (shortened
+form of Up-Right-Down-Left) and LCR (abbreviation for
+Left-Center-Right) robots respectively.
+Describing the environment states as well as the robots"
+perception functions is rather tedious and even unnecessary.
+We assume the reader has all those descriptions in mind.
+All robots in the system must be able to solve package
+distribution problems cooperatively by communicating their
+intentions to each other. In order to communicate, agents
+send messages using some ontology. In our scenario, there
+coexist two ontologies, the UDRL and LCR ontologies. Both
+of them are very simple and are just confined to describe
+what robots observe.
+Figure 5: Robots field of vision
+When a robot carrying a package finds another package
+obstructing its way, it can either go around it or, if there is
+another robot in its visual field, ask it for assistance. Let
+us suppose two URDL robots are in a situation like the one
+depicted in Figure 6. Robot1 (the one carrying a package)
+decides to ask Robot2 for assistance and sends a request.
+This request is written below as a KQML message and it
+should be interpreted intuitively as: Robot2, pick up the
+package located in my Up square, knowing that you are
+located in my Up-Right square.
+`
+request
+:sender Robot1
+:receiver Robot2
+:language Packages distribution-language
+:ontology URDL-ontology
+:content (pick up U(Package) because UR(Robot2)
+´
+Figure 6: Robot assistance
+Robot2 understands the content of the request and it can
+use a rule represented by the following constraint:
+1, UR(Robot2) , 2, UL(Robot1) , 1, U(Package)
+2, U(Package)
+The above constraint should be interpreted intuitively as:
+if Robot2 is situated in Robot1"s Up-Right square, Robot1
+is situated in Robot2"s Up-Left square and a package is
+located in Robot1"s Up square, then a package is located
+in Robot2"s Up square.
+Now, problems arise when a LCR robot and a URDL
+robot try to interoperate. See Figure 7. Robot1 sends a
+request of the form:
+`
+request
+:sender Robot1
+:receiver Robot2
+:language Packages distribution-language
+:ontology LCR-ontology
+:content (pick up R(Robot2) because C(Package)
+´
+Robot2 does not understand the content of the request but
+they decide to begin a process of alignment -corresponding
+with a channel C1
+. Once finished, Robot2 searches in Th(C1
+)
+for constraints similar to the expected one, that is, those of
+the form:
+1, R(Robot2) , 2, UL(Robot1) , 1, C(Package)
+C1 2, λ(Package)
+where λ ∈ {U, R, D, L, UR, DR, DL, UL}. From these, only
+the following constraints are plausible according to C1
+:
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1283
+Figure 7: Ontology mismatch
+1, R(Robot2) , 2, UL(Robot1) , 1, C(Package)
+C1 2, U(Package)
+1, R(Robot2) , 2, UL(Robot1) , 1, C(Package)
+C1 2, L(Package)
+1, R(Robot2) , 2, UL(Robot1) , 1, C(Package)
+C1 2, DR(Package)
+If subsequently both robots adopting the same roles take
+part in a situation like the one depicted in Figure 8, a new
+process of alignment -corresponding with a channel C2
+- takes
+place. C2
+also considers the previous information and hence
+refines C1
+. The only constraint from the above ones that
+remains plausible according to C2
+is :
+1, R(Robot2) , 2, UL(Robot1) , 1, C(Package)
+C2 2, U(Package)
+Notice that this constraint is an element of the theory of the
+distributed logic. Agents communicate in order to cooperate
+successfully and success is guaranteed using constrains of the
+distributed logic.
+Figure 8: Refinement

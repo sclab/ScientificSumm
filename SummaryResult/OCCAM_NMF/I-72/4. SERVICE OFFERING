@@ -1,0 +1,25 @@
+• service offering considering only the current request (scr): the producer selects a counter offer according to the  similarity of the consumer"s current request but does not consider previous requests. 
+on autonomous agents and multi-agent systems (aamas 07) • random service offering (ro): the producer generates a counter offer randomly from the available service list,  without considering the consumer"s preferences.
+joint conf.
+4.3 alternative service offering mechanisms in addition to these three service offering mechanisms (service offering with cea, service offering with dcea, and service  offering with id3), we include two other mechanisms.. 1304 the sixth intl.
+second, the similarities of possible services are not measured with respect to s, but instead to all previously made requests.
+first, since id3 does not maintain g, the list of unaccepted services that are  classified as negative are removed from the service list.
+4.2 service offering via id3 if the producer learns the consumer"s preferences with id3, a similar mechanism is applied with two differences.
+here, we have associated a rating value with each service and the producer prefers the higher rated service to others.
+the producer agent can break the tie in a number of ways.
+we compute the similarities in various ways as will be explained in section 5. after the similarity of the available services with the current s is calculated, there may be more than one service with the maximum similarity.
+to do this, the producer has to compute the similarity between the services it can offer and the services that have been requested (in s).
+when the producer cannot offer the service as requested, it tries to find the service that is most similar to the services that have been requested by the consumer during the negotiation.
+for example, for a wine this corresponds to selling a wine that matches the specified features of the  consumer"s request identically.
+upon  receiving a request, if the producer can offer an exactly matching service, then it does so.
+this list constitutes the provider"s inventory of services.
+when the consumer starts the interaction with the producer agent, producer agent loads all related services to the service list object.
+since the most specific set s holds the previous requests and the current request, estimating similarity between this set and every service in the  service list is very convenient to find the best offer from the service list.
+the most specific set, s is used in order to find best  offer, which is similar to the consumer"s preferences.
+in other words, it filters the service set from the undesired services, since g contains hypotheses that are consistent with the requests of the consumer.
+the most general set, g is used by the producer in order to avoid offering the services, which will be rejected by the consumer agent.
+the learning components, the most specific set s and the most general set g are actively used in offering service.
+when producer receives a request from the consumer, the  learning set of the producer is trained with this request as a positive sample.
+the service offering mechanism is the same for both the original cea and dcea, but as explained before their methods for updating g and s are different.
+4.1 service offering via cea and dcea to generate the best offer, the producer agent uses its service ontology and the cea algorithm.
+after learning the consumer"s preferences, the producer needs to make a counter offer that is compatible with the consumer"s  preferences.

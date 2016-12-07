@@ -1,0 +1,424 @@
+4.1 Methods
+For each of the methods that use a class prior, we use a smoothed
+add-one estimate, i.e. P(c) = |c|+1
+N+2
+where N is the number of 
+documents. For methods that fit the class-conditional densities, p(s|+)
+and p(s|−), the resulting densities are inverted using Bayes" rule as
+described above. All of the methods below are fit using maximum
+likelihood estimates.
+For recalibrating a classifier (i.e. correcting poor probability 
+estimates output by the classifier), it is usual to use the log-odds of
+the classifier"s estimate as s(d). The log-odds are defined to be
+log P (+|d)
+P (−|d)
+. The normal decision threshold (minimizing error) in
+terms of log-odds is at zero (i.e. P(+|d) = P(−|d) = 0.5).
+Since it scales the outputs to a space [−∞, ∞], the log-odds
+make normal (and similar distributions) applicable [19]. Lewis &
+Gale [17] give a more motivating viewpoint that fitting the log-odds
+is a dampening effect for the inaccurate independence assumption
+and a bias correction for inaccurate estimates of the priors. In 
+general, fitting the log-odds can serve to boost or dampen the signal
+from the original classifier as the data dictate.
+Gaussians
+A Gaussian is fit to each of the class-conditional densities, using
+the usual maximum likelihood estimates. This method is denoted
+in the tables below as Gauss.
+Asymmetric Gaussians
+An asymmetric Gaussian is fit to each of the class-conditional
+densities using the maximum likelihood estimation procedure 
+described above. Intervals between adjacent scores are divided by 10
+in testing candidate θs, i.e. 8 points between actual scores 
+occurring in the data set are tested. This method is denoted as A. Gauss.
+Laplace Distributions
+Even though Laplace distributions are not typically applied to
+this task, we also tried this method to isolate why benefit is gained
+from the asymmetric form. The usual MLEs were used for 
+estimating the location and scale of a classical symmetric Laplace 
+distribution as described in [14]. We denote this method as Laplace below.
+Asymmetric Laplace Distributions
+An asymmetric Laplace is fit to each of the class-conditional
+densities using the maximum likelihood estimation procedure 
+described above. As with the asymmetric Gaussian, intervals between
+adjacent scores are divided by 10 in testing candidate θs. This
+method is denoted as A. Laplace below.
+Logistic Regression
+This method is the first of two methods we evaluated that 
+directly fit the posterior, P(+|s(d)). Both methods restrict the set
+of families to a two-parameter sigmoid family; they differ 
+primarily in their model of class labels. As opposed to the above 
+methods, one can argue that an additional boon of these methods is they
+completely preserve the ranking given by the classifier. When this
+is desired, these methods may be more appropriate. The previous
+methods will mostly preserve the rankings, but they can deviate if
+the data dictate it. Thus, they may model the data behavior better at
+the cost of departing from a monotonicity constraint in the output
+of the classifier.
+Lewis & Gale [17] use logistic regression to recalibrate na¨ıve
+Bayes for subsequent use in active learning. The model they use is:
+P(+|s(d)) =
+exp(a + b s(d))
+1 + exp(a + b s(d))
+. (6)
+Instead of using the probabilities directly output by the classifier,
+they use the loglikelihood ratio of the probabilities, log P (d|+)
+P (d|−)
+, as
+the score s(d). Instead of using this below, we will use the 
+logodds ratio. This does not affect the model as it simply shifts all of
+the scores by a constant determined by the priors. We refer to this
+method as LogReg below.
+Logistic Regression with Noisy Class Labels
+Platt [22] proposes a framework that extends the logistic 
+regression model above to incorporate noisy class labels and uses it to
+produce probability estimates from the raw output of an SVM.
+This model differs from the LogReg model only in how the 
+parameters are estimated. The parameters are still fit using maximum
+likelihood estimation, but a model of noisy class labels is used in
+addition to allow for the possibility that the class was mislabeled.
+The noise is modeled by assuming there is a finite probability of
+mislabeling a positive example and of mislabeling a negative 
+example; these two noise estimates are determined by the number
+of positive examples and the number of negative examples (using
+Bayes" rule to infer the probability of incorrect label).
+Even though the performance of this model would not be 
+expected to deviate much from LogReg, we evaluate it for 
+completeness. We refer to this method below as LR+Noise.
+4.2 Data
+We examined several corpora, including the MSN Web Directory,
+Reuters, and TREC-AP.
+MSN Web Directory
+The MSN Web Directory is a large collection of heterogeneous
+web pages (from a May 1999 web snapshot) that have been 
+hierarchically classified. We used the same train/test split of 50078/10024
+documents as that reported in [9]. The MSN Web hierarchy is a
+seven-level hierarchy; we used all 13 of the top-level categories.
+The class proportions in the training set vary from 1.15% to 22.29%.
+In the testing set, they range from 1.14% to 21.54%. The classes
+are general subjects such as Health & Fitness and Travel & Vacation.
+Human indexers assigned the documents to zero or more categories.
+For the experiments below, we used only the top 1000 words with
+highest mutual information for each class; approximately 195K
+words appear in at least three training documents.
+Reuters
+The Reuters 21578 corpus [16] contains Reuters news articles
+from 1987. For this data set, we used the ModApte standard train/
+test split of 9603/3299 documents (8676 unused documents). The
+classes are economic subjects (e.g., acq for acquisitions, earn
+for earnings, etc.) that human taggers applied to the document;
+a document may have multiple subjects. There are actually 135
+classes in this domain (only 90 of which occur in the training and
+testing set); however, we only examined the ten most frequent classes
+since small numbers of testing examples make interpreting some
+performance measures difficult due to high variance.1
+Limiting to
+the ten largest classes allows us to compare our results to 
+previously published results [10, 13, 21, 22]. The class proportions in
+the training set vary from 1.88% to 29.96%. In the testing set, they
+range from 1.7% to 32.95%.
+For the experiments below we used only the top 300 words with
+highest mutual information for each class; approximately 15K words
+appear in at least three training documents.
+TREC-AP
+The TREC-AP corpus is a collection of AP news stories from
+1988 to 1990. We used the same train/test split of 142791/66992
+documents that was used in [18]. As described in [17] (see also
+[15]), the categories are defined by keywords in a keyword field.
+The title and body fields are used in the experiments below. There
+are twenty categories in total. The class proportions in the training
+set vary from 0.06% to 2.03%. In the testing set, they range from
+0.03% to 4.32%.
+For the experiments described below, we use only the top 1000
+words with the highest mutual information for each class; 
+approximately 123K words appear in at least 3 training documents.
+4.3 Classifiers
+We selected two classifiers for evaluation. A linear SVM 
+classifier which is a discriminative classifier that does not normally 
+output probability values, and a na¨ıve Bayes classifier whose 
+probability outputs are often poor [1, 7] but can be improved [1, 26, 27].
+1
+A separate comparison of only LogReg, LR+Noise, and
+A. Laplace over all 90 categories of Reuters was also conducted.
+After accounting for the variance, that evaluation also supported
+the claims made here.
+SVM
+For linear SVMs, we use the Smox toolkit which is based on
+Platt"s Sequential Minimal Optimization algorithm. The features
+were represented as continuous values. We used the raw output
+score of the SVM as s(d) since it has been shown to be appropriate
+before [22]. The normal decision threshold (assuming we are 
+seeking to minimize errors) for this classifier is at zero.
+Na¨ıve Bayes
+The na¨ıve Bayes classifier model is a multinomial model [21].
+We smoothed word and class probabilities using a Bayesian 
+estimate (with the word prior) and a Laplace m-estimate, respectively.
+We use the log-odds estimated by the classifier as s(d). The normal
+decision threshold is at zero.
+4.4 Performance Measures
+We use log-loss [12] and squared error [4, 6] to evaluate the 
+quality of the probability estimates. For a document d with class c(d) ∈
+{+, −} (i.e. the data have known labels and not probabilities), 
+logloss is defined as δ(c(d), +) log P(+|d) + δ(c(d), −) log P(−|d)
+where δ(a, b)
+.
+= 1 if a = b and 0 otherwise. The squared error is
+δ(c(d), +)(1 − P(+|d))2
++ δ(c(d), −)(1 − P(−|d))2
+. When the
+class of a document is correctly predicted with a probability of one,
+log-loss is zero and squared error is zero. When the class of a 
+document is incorrectly predicted with a probability of one, log-loss
+is −∞ and squared error is one. Thus, both measures assess how
+close an estimate comes to correctly predicting the item"s class but
+vary in how harshly incorrect predictions are penalized.
+We report only the sum of these measures and omit the averages
+for space. Their averages, average log-loss and mean squared 
+error (MSE), can be computed from these totals by dividing by the
+number of binary decisions in a corpus.
+In addition, we also compare the error of the classifiers at their
+default thresholds and with the probabilities. This evaluates how
+the probability estimates have improved with respect to the 
+decision threshold P(+|d) = 0.5. Thus, error only indicates how the
+methods would perform if a false positive was penalized the same
+as a false negative and not the general quality of the probability
+estimates. It is presented simply to provide the reader with a more
+complete understanding of the empirical tendencies of the methods.
+We use a a standard paired micro sign test [25] to determine 
+statistical significance in the difference of all measures. Only pairs
+that the methods disagree on are used in the sign test. This test
+compares pairs of scores from two systems with the null 
+hypothesis that the number of items they disagree on are binomially 
+distributed. We use a significance level of p = 0.01.
+4.5 Experimental Methodology
+As the categories under consideration in the experiments are not
+mutually exclusive, the classification was done by training n binary
+classifiers, where n is the number of classes.
+In order to generate the scores that each method uses to fit its
+probability estimates, we use five-fold cross-validation on the 
+training data. We note that even though it is computationally efficient
+to perform leave-one-out cross-validation for the na¨ıve Bayes 
+classifier, this may not be desirable since the distribution of scores can
+be skewed as a result. Of course, as with any application of n-fold
+cross-validation, it is also possible to bias the results by holding n
+too low and underestimating the performance of the final classifier.
+4.6 Results & Discussion
+The results for recalibrating na¨ıve Bayes are given in Table 1a.
+Table 1b gives results for producing probabilistic outputs for SVMs.
+Log-loss Error2
+Errors
+MSN Web
+Gauss -60656.41 10503.30 10754
+A.Gauss -57262.26 8727.47 9675
+Laplace -45363.84 8617.59 10927
+A.Laplace -36765.88 6407.84†
+8350
+LogReg -36470.99 6525.47 8540
+LR+Noise -36468.18 6534.61 8563
+na¨ıve Bayes -1098900.83 17117.50 17834
+Reuters
+Gauss -5523.14 1124.17 1654
+A.Gauss -4929.12 652.67 888
+Laplace -5677.68 1157.33 1416
+A.Laplace -3106.95‡
+554.37‡
+726
+LogReg -3375.63 603.20 786
+LR+Noise -3374.15 604.80 785
+na¨ıve Bayes -52184.52 1969.41 2121
+TREC-AP
+Gauss -57872.57 8431.89 9705
+A.Gauss -66009.43 7826.99 8865
+Laplace -61548.42 9571.29 11442
+A.Laplace -48711.55 7251.87‡
+8642
+LogReg -48250.81 7540.60 8797
+LR+Noise -48251.51 7544.84 8801
+na¨ıve Bayes -1903487.10 41770.21 43661
+Log-loss Error2
+Errors
+MSN Web
+Gauss -54463.32 9090.57 10555
+A. Gauss -44363.70 6907.79 8375
+Laplace -42429.25 7669.75 10201
+A. Laplace -31133.83 5003.32 6170
+LogReg -30209.36 5158.74 6480
+LR+Noise -30294.01 5209.80 6551
+Linear SVM N/A N/A 6602
+Reuters
+Gauss -3955.33 589.25 735
+A. Gauss -4580.46 428.21 532
+Laplace -3569.36 640.19 770
+A. Laplace -2599.28 412.75 505
+LogReg -2575.85 407.48 509
+LR+Noise -2567.68 408.82 516
+Linear SVM N/A N/A 516
+TREC-AP
+Gauss -54620.94 6525.71 7321
+A. Gauss -77729.49 6062.64 6639
+Laplace -54543.19 7508.37 9033
+A. Laplace -48414.39 5761.25‡
+6572‡
+LogReg -48285.56 5914.04 6791
+LR+Noise -48214.96 5919.25 6794
+Linear SVM N/A N/A 6718
+Table 1: (a) Results for na¨ıve Bayes (left) and (b) SVM (right). The best entry for a corpus is in bold. Entries that are statistically
+significantly better than all other entries are underlined. A † denotes the method is significantly better than all other methods except
+for na¨ıve Bayes. A ‡ denotes the entry is significantly better than all other methods except for A. Gauss (and na¨ıve Bayes for the table
+on the left). The reason for this distinction in significance tests is described in the text.
+We start with general observations that result from examining
+the performance of these methods over the various corpora. The
+first is that A. Laplace, LR+Noise, and LogReg, quite clearly 
+outperform the other methods. There is usually little difference 
+between the performance of LR+Noise and LogReg (both as shown
+here and on a decision by decision basis), but this is unsurprising
+since LR+Noise just adds noisy class labels to the LogReg model.
+With respect to the three different measures, LR+Noise and 
+LogReg tend to perform slightly better (but never significantly) than
+A. Laplace at some tasks with respect to log-loss and squared error.
+However, A. Laplace always produces the least number of errors
+for all of the tasks, though at times the degree of improvement is
+not significant.
+In order to give the reader a better sense of the behavior of these
+methods, Figures 4-5 show the fits produced by the most 
+competitive of these methods versus the actual data behavior (as estimated
+nonparametrically by binning) for class Earn in Reuters. Figure 4
+shows the class-conditional densities, and thus only A. Laplace is
+shown since LogReg fits the posterior directly. Figure 5 shows the
+estimations of the log-odds, (i.e. log P (Earn|s(d))
+P (¬Earn|s(d))
+). Viewing the
+log-odds (rather than the posterior) usually enables errors in 
+estimation to be detected by the eye more easily.
+We can break things down as the sign test does and just look at
+wins and losses on the items that the methods disagree on. Looked
+at in this way only two methods (na¨ıve Bayes and A. Gauss) ever
+have more pairwise wins than A. Laplace; those two sometimes
+have more pairwise wins on log-loss and squared error even though
+the total never wins (i.e. they are dragged down by heavy penalties).
+In addition, this comparison of pairwise wins means that for
+those cases where LogReg and LR+Noise have better scores than
+A. Laplace, it would not be deemed significant by the sign test at
+any level since they do not have more wins. For example, of the
+130K binary decisions over the MSN Web dataset, A. Laplace had
+approximately 101K pairwise wins versus LogReg and LR+Noise.
+No method ever has more pairwise wins than A. Laplace for the
+error comparison nor does any method every achieve a better total.
+The basic observation made about na¨ıve Bayes in previous work
+is that it tends to produce estimates very close to zero and one [1,
+17]. This means if it tends to be right enough of the time, it will
+produce results that do not appear significant in a sign test that 
+ignores size of difference (as the one here). The totals of the squared
+error and log-loss bear out the previous observation that when it"s
+wrong it"s really wrong.
+There are several interesting points about the performance of the
+asymmetric distributions as well. First, A. Gauss performs poorly
+because (similar to na¨ıve Bayes) there are some examples where
+it is penalized a large amount. This behavior results from a 
+general tendency to perform like the picture shown in Figure 3 (note
+the crossover at the tails). While the asymmetric Gaussian tends
+to place the mode much more accurately than a symmetric 
+Gaussian, its asymmetric flexibility combined with its distance function
+causes it to distribute too much mass to the outside tails while 
+failing to fit around the mode accurately enough to compensate. Figure
+3 is actually a result of fitting the two distributions to real data. As
+a result, at the tails there can be a large discrepancy between the
+likelihood of belonging to each class. Thus when there are no 
+outliers A. Gauss can perform quite competitively, but when there is an
+0
+0.002
+0.004
+0.006
+0.008
+0.01
+0.012
+-600 -400 -200 0 200 400
+p(s(d)|Class={+,-})
+s(d) = naive Bayes log-odds
+Train
+Test
+A.Laplace
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+0.45
+-15 -10 -5 0 5 10 15
+p(s(d)|Class={+,-})
+s(d) = linear SVM raw score
+Train
+Test
+A.Laplace
+Figure 4: The empirical distribution of classifier scores for documents in the training and the test set for class Earn in Reuters.
+Also shown is the fit of the asymmetric Laplace distribution to the training score distribution. The positive class (i.e. Earn) is the
+distribution on the right in each graph, and the negative class (i.e. ¬Earn) is that on the left in each graph.
+-6
+-4
+-2
+0
+2
+4
+6
+8
+-250 -200 -150 -100 -50 0 50 100 150
+LogOdds=logP(+|s(d))-logP(-|s(d))
+s(d) = naive Bayes log-odds
+Train
+Test
+A.Laplace
+LogReg
+-5
+0
+5
+10
+15
+-4 -2 0 2 4 6
+LogOdds=logP(+|s(d))-logP(-|s(d))
+s(d) = linear SVM raw score
+Train
+Test
+A.Laplace
+LogReg
+Figure 5: The fit produced by various methods compared to the empirical log-odds of the training data for class Earn in Reuters.
+outlier A. Gauss is penalized quite heavily. There are enough such
+cases overall that it seems clearly inferior to the top three methods.
+However, the asymmetric Laplace places much more emphasis
+around the mode (Figure 4) because of the different distance 
+function (think of the sharp peak of an exponential). As a result most
+of the mass stays centered around the mode, while the asymmetric
+parameters still allow more flexibility than the standard Laplace.
+Since the standard Laplace also corresponds to a piecewise fit in the
+log-odds space, this highlights that part of the power of the 
+asymmetric methods is their sensitivity in placing the knots at the actual
+modes - rather than the symmetric assumption that the means 
+correspond to the modes. Additionally, the asymmetric methods have
+greater flexibility in fitting the slopes of the line segments as well.
+Even in cases where the test distribution differs from the training
+distribution (Figure 4), A. Laplace still yields a solution that gives
+a better fit than LogReg (Figure 5), the next best competitor.
+Finally, we can make a few observations about the usefulness
+of the various performance metrics. First, log-loss only awards a
+finite amount of credit as the degree to which something is 
+correct improves (i.e. there are diminishing returns as it approaches
+zero), but it can infinitely penalize for a wrong estimate. Thus, it
+is possible for one outlier to skew the totals, but misclassifying this
+example may not matter for any but a handful of actual utility 
+functions used in practice. Secondly, squared error has a weakness in
+the other direction. That is, its penalty and reward are bounded in
+[0, 1], but if the number of errors is small enough, it is possible for
+a method to appear better when it is producing what we generally
+consider unhelpful probability estimates. For example, consider a
+method that only estimates probabilities as zero or one (which na¨ıve
+Bayes tends to but doesn"t quite reach if you use smoothing). This
+method could win according to squared error, but with just one 
+error it would never perform better on log-loss than any method that
+assigns some non-zero probability to each outcome. For these 
+reasons, we recommend that neither of these are used in isolation as
+they each give slightly different insights to the quality of the 
+estimates produced. These observations are straightforward from the
+definitions but are underscored by the evaluation.

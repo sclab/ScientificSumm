@@ -1,0 +1,93 @@
+Efficiently finding Nash equilibria in Socratic games with
+non-strategically zero-sum worlds is probably difficult 
+because the existence of such an algorithm for classical games
+has been shown to be unlikely [10, 11, 13, 16, 17, 27, 54,
+55]. There has, however, been some algorithmic success in
+finding Nash equilibria in restricted classical settings (e.g.,
+[21, 46, 47, 57]); we might hope to extend our results to
+analogous Socratic games.
+An efficient algorithm to find correlated equilibria in 
+general Socratic games seems more attainable. Suppose the
+players receive recommended queries and responses. The
+difficulty is that when a player considers a deviation from
+his recommended query, he already knows his recommended
+response in each of the Stage-2 games. In a correlated 
+equilibrium, a player"s expected payoff generally depends on his
+recommended strategy, and thus a player may deviate in
+Stage 1 so as to land in a Stage-2 game where he has been
+given a better than average recommended response. 
+(Socratic games are succinct games of superpolynomial type,
+so Papadimitriou"s results [56] do not imply correlated 
+equilibria for them.)
+Socratic games can be extended to allow players to make
+adaptive queries, choosing subsequent queries based on 
+previous results. Our techniques carry over to O(1) rounds of
+unobservable queries, but it would be interesting to 
+compute equilibria in Socratic games with adaptive observable
+queries or with ω(1) rounds of unobservable queries. 
+Special cases of adaptive Socratic games are closely related to
+single-agent problems like minimum latency [1, 7, 26], 
+determining strategies for using priced information [9, 29, 37],
+and an online version of minimum test cover [18, 50]. 
+Although there are important technical distinctions between
+adaptive Socratic games and these problems, approximation
+techniques from this literature may apply to Socratic games.
+The question of approximation raises interesting questions
+even in non-adaptive Socratic games. An -approximate
+Nash equilibrium is a strategy profile α so that no player
+can increase her payoff by an additive by deviating from α.
+Finding approximate Nash equilibria in both adaptive and
+non-adaptive Socratic games is an interesting direction to
+pursue.
+Another natural extension is the model where query 
+results are stochastic. In this paper, we model a query as
+deterministically partitioning the possible worlds into 
+subsets that the query cannot distinguish. However, one could
+instead model a query as probabilistically mapping the set
+of possible worlds into the set of signals. With this 
+modification, our unobservable-query model becomes equivalent
+to the model of Bergemann and V¨alim¨aki [4, 5], in which
+the result of a query is a posterior distribution over the
+worlds. Our techniques allow us to compute equilibria in
+such a stochastic-query model provided that each query is
+represented as a table that, for each world/signal pair, lists
+the probability that the query outputs that signal in that
+world. It is also interesting to consider settings in which the
+game"s queries are specified by a compact representation of
+the relevant probability distributions. (For example, one
+might consider a setting in which the algorithm has only a
+sampling oracle for the posterior distributions envisioned by
+Bergemann and V¨alim¨aki.) Efficiently finding equilibria in
+such settings remains an open problem.
+Another interesting setting for Socratic games is when the
+set Q of available queries is given by Q = P(Γ)-i.e., each
+player chooses to make a set q ∈ P(Γ) of queries from a
+specified groundset Γ of queries. Here we take the query
+cost to be a linear function, so that δ(q) =
+P
+γ∈q δ({γ}).
+Natural groundsets include comparison queries (if my 
+opponent is playing strategy aii, would I prefer to play ai or
+ˆai?), strategy queries (what is my vector of payoffs if I
+play strategy ai?), and world-identity queries (is the world
+w ∈ W the real world?). When one can infer a polynomial
+bound on the number of queries made by a rational player,
+then our results yield efficient solutions. (For example, we
+can efficiently solve games in which every groundset element
+γ ∈ Γ has δ({γ}) = Ω(M − M), where M and M denote
+the maximum and minimum payoffs to any player in any
+world.) Conversely, it is NP-hard to compute a Nash 
+equilibrium for such a game when every δ({γ}) ≤ 1/|W|2
+, even
+when the worlds are constant sum and Player II has only
+a single available strategy. Thus even computing a best
+response for Player I is hard. (This proof proceeds by 
+reduction from set cover; intuitively, for sufficiently low query
+costs, Player I must fully identify the actual world through
+his queries. Selecting a minimum-sized set of these queries
+is hard.) Computing Player I"s best response can be viewed
+as maximizing a submodular function, and thus a best 
+response can be (1 − 1/e) ≈ 0.63 approximated greedily [14].
+An interesting open question is whether this approximate
+best-response calculation can be leveraged to find an 
+approximate Nash equilibrium.

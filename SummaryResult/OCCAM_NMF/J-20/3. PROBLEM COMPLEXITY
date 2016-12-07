@@ -1,0 +1,15 @@
+it is easy to see then that in a perfect cover, each gadget ti contributes cycles  according to the cases above: ti ∈ m, or ti /∈ m. hence, there exists a perfect 3d-matching in the original instance. 
+note that the construction only has short cycles of lengths 3 and l, and no short cycle involves distinct  vertices from two different gadgets.
+it is clear that all vertices are covered, since m partitions x × y × z. conversely, suppose we have a perfect cover by short  cycles.
+otherwise, if ti /∈ m, add the three  lengthl cycles containing xi a, yi b and zi c respectively.
+also add the cycle ª xi a, yi b, zi c « .
+if ti = {xa, yb, zc} ∈ m, add from ti"s gadget the three  lengthl cycles containing xa, yb and zc respectively.
+we will show the  construction admits a perfect cycle cover by short cycles.
+1 ... 2 3 y_b ... 2 3 z_c y_b^i z_c^i l−1 l−1 l−1 x_a^i x_a ... 2 31 1 figure 2: np-completeness gadget for triple ti and maximum cycle length l. let m be a perfect 3d-matching.
+note that the gadgets intersect only on vertices in x ∪ y ∪ z. it is clear that this construction can be done in polynomial time.
+given an instance of 3d-matching, construct one vertex for each  element in x, y and z. for each triple, ti = {xa, yb, zc} construct the gadget in figure 2, which is a similar to one in garey and johnson [5, pp 68-69].
+instead then, we use the following reduction.
+for  nphardness, we reduce from 3d-matching, which is the  problem of, given disjoint sets x, y and z of size q, and a set of triples t ⊆ x × y × z, deciding if there is a disjoint subset m of t with size q. one straightforward idea is to construct a tripartite graph with vertex sets x ∪ y ∪ z and directed edges (xa, yb), (yb, zc), and (zc, xa) for each triple ti = {xa, yb, zc} ∈ t. however, it is not too hard to see that this encoding fails because a perfect cycle cover may include a cycle with no corresponding triple.
+it is clear that this problem is in np.
+theorem 1. given a graph g = (v, e) and an integer l ≥ 3, the problem of deciding if g admits a perfect cycle cover containing cycles of length at most l is np-complete.
+in this section, we prove that (the decision version of) the market clearing problem with short cycles is np-complete.

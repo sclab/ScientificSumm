@@ -1,0 +1,25 @@
+we note that while this proof was based on the fact that there are two consecutive orders in the books which are far (y) apart, we can provide a slightly more complicated  example in which all orders are close (at most 2 apart), yet still one change results in large differences. 
+setting y = x + 2, we obtain the lemma for every property.
+therefore, at the end we have that lastbid(σ ) = 12 + y − 1, lastask(σ ) = 12 + y, close(σ ) = 12 + y, and average(σ ) = y y+2 (12 + y) + 2 y+2 (12).
+therefore, the next two buy orders with ∆ = +1 are executed, and afterwards we have that the bid is 11 and the ask is 12 + y. now the 2y sell orders are accumulated at 12+y, and after the next y buy orders the bid is at 12+y−1.
+we change the first buy order from ∆ = 0 to ∆ = +1.
+we first note that s2(σ) = 2, there are 2y executions, all at price 12, the last bid is 11 and the last ask is 12. next we analyze a modified sequence.
+the original sequence σ is a buy order with ∆ = 0, followed by two buy orders with ∆ = +1, then 2y sell orders with ∆ = 0, and then 2y buy orders with ∆ = +1.
+we consider a sequence σ such that after an initialization period there have been no executions, the buy book has 2 orders at price 10, and the sell book has two orders at price 12 and 2 orders with value 12+y, where y is a positive integer that will be determined by the analysis.
+without loss of generality let us consider sequences in which all prices are integer-valued, in which case the smallest possible value for the second spread is 1; we provide the proof for the case s2(σ) = 2, but the s2(σ) = 1 case is similar.
+theorem 6.2. for any positive numbers s and x, there is sequence σ such that s2(σ) = s and a 1-modification σ of σ such that • |close(σ) − close(σ )| ≥ x • |average(σ) − average(σ )| ≥ x • |lastbid(σ) − lastbid(σ )| ≥ x • |lastask(σ) − lastask(σ )| ≥ x proof.
+now many sell orders followed by many buy orders will arrive, such that in the original sequence they will be executed only at the low price and in the modified sequence they will executed at the high price.
+at the  beginning the sell book contains only two prices which are far apart and both contain only two orders, now several buy orders arrive, at the original sequence they are not being executed, while in the modified sequence they will be  executed and leave the sell book with only the orders at the high price.
+before providing the proof, we give its intuition.
+the next theorem shows that the spread-based stability results of section 5.1 do not also hold in the relative model.
+now there are n + 1 sell orders at 10, n buy orders at 9 and one buy order at 8. now each order in the alternating sequence is executed with one of the former orders and we have volume(σ ) = 2n.
+after the first 2n orders there are still no executions; however, the books are  different.
+since the books before the alternating sequence contain n + 1 sell orders at 10 and n + 1 buy orders at 8, we have that each pair of buy sell order in the alternating part is matched and executed, but none of the initial 2n orders is executed, and thus volume(σ) = n. now we change the first buy order to have ∆ = +1.
+for concreteness we assume that at the  beginning the ask is 10 and the bid is 8. the sequence σ is composed from n buy orders with ∆ = 0, followed by n sell orders with ∆ = 0, and finally an alternating sequence of buy orders with ∆ = +1 and sell orders with ∆ = −1 of length 2n.
+theorem 6.1. there is a sequence σ and a 1-modification σ of σ such that volume(σ ) ≥ 2volume(σ).
+126 we begin by showing that in the relative model, even a single modification can double the number of shares  executed.
+in the relative model we assume that for every sequence the ask and bid are always defined, so the books have a non-empty initial configuration.
+in section 7 we provide many  simulations on actual market data that demonstrate that this instability is inherent to the relative model, and not due to artificial constructions.
+while in the previous sections we showed stability results for the absolute model, here we provide simple examples which show instability in the relative model for the  executed volume, last bid, last ask, average execution price and the last execution price.
+thus if a trader wants her buy order to be executed quickly, she may position it above the current bid and be the first in the queue; if the trader is  patient and believes that the price trend is going to be  downward she will place orders deeper in the buy book, and so on.
+in the relative model the underlying assumption is that traders try to exploit their knowledge of the books to  strategically place their orders.

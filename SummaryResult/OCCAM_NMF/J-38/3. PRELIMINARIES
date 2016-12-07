@@ -1,0 +1,32 @@
+to properly understand the computational complexity  questions, we have to look at compact representation. 
+all these problems will be easy if the game is described by its characteristic form, but only so because the description takes space  exponential in the number of agents, and hence simple brute-force approach takes time polynomial to the input description.
+note that the complexity of the above problems depends on the how the game is described.
+(core non-emptiness) given a description of the coalitional game, determine if there exists any payoff vector x such that è i∈s xi ≥ v (s) for all s ⊆ n, andè i∈n xi = v(n).
+(core membership) given a description of the coalitional game and a payoff vector x such that è i∈n xi = v(n), determine if è i∈s xi ≥ v(s) for all s ⊆ n. problem 3.
+(shapley value) given a description of the coalitional game and an agent i, compute the shapley value of agent i. problem 2.
+problem 1.
+3.2 computational problems we will study the following three problems related to  solution concepts in coalitional games.
+definition 4. an outcome x ∈ r|n| is in the core of the game n, v if for all s ⊆ n, i∈s xi ≥ v(s) note that the core of a game may be empty, i.e., there may not exist any payoff vector that satisfies the stability  requirement for the given game.
+stability under core means that no set of players can jointly deviate to improve their payoffs.
+(v(s ∪ {i}) − v(s)) 171 the core is a descriptive solution concept that focuses on outcomes that are stable.
+(|n| − |s| − 1)!
+formally, definition 3. the shapley value of agent i, φi(v), in game n, v is given by the following formula φi(v) = s⊆n\{i} |s|!
+the division of payoff to agent i is the average marginal contribution of agent i over all possible permutations of the agents.
+the shapley value is a normative solution concept that prescribes a fair way to divide the gains from cooperation when the grand coalition is formed.
+two of the best known solution concepts are the shapley value and the core.
+different  solution concepts attempt to capture in some way outcomes that are stable and/or fair.
+a solution concept assigns to each  coalitional game a set of reasonable outcomes.
+if a simple game is monotonic, then it is fully described by the set of minimal winning coalitions, i.e., coalitions s for which v(s) = 1 but for all coalitions t ⊂ s, v(t) = 0. an outcome in a coalitional game specifies the utilities the agents receive.
+this coincides with the notion of using simple games as a model for voting.
+simple games are often assumed to be monotonic, i.e., if s wins, then for all t ⊇ s, t also wins.
+in a simple game, a coalition either wins, in which case it has a value of 1, or loses, in which case it has a value of 0. it is often used to model voting situations.
+another important class of coalitional games is the class of simple games.
+definition 2. a coalitional game is monotonic if for all s ⊂ t ⊆ n, v(s) ≤ v(t).
+an important class of coalitional games is the class of monotonic games.
+a group of agents in a game is known as a coalition, and the entire set of agents is known as the grand coalition.
+definition 1. a coalition game with transferable utility in characteristic form is denoted by the pair n, v , where • n is the set of agents; and • v : 2n → r is a function that maps each group of agents s ⊆ n to a real-valued payoff.
+the canonical representation of a  coalitional game with transferable utility is its characteristic form.
+this transferable utility assumption is commonly made in  coalitional game theory.
+3.1 coalitional games throughout this paper, we assume that payoffs to groups of agents can be freely distributed among its members.
+we will then define the computational questions that will be studied in the second half of the paper.
+in this section, we will review the relevant concepts of coalitional game theory and its two most important solution concepts - the shapley value and the core.

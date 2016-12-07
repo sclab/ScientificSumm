@@ -1,0 +1,86 @@
+We give a higher rank to occurrences of OOV terms that contain phones close (in time) to each other.
+By definition, true occurrences of a query are found automatically by searching the manual transcripts  using the following rule: the gap between adjacent words in a query must be less than 0.5 seconds in the corresponding speech.
+3. keyword queries containing both IV and OOV terms using the word index for IV terms and the phonetic index for OOV terms; for query processing, the  different sets of matches are unified if the query terms have OR semantics and intersected if the query terms have AND semantics.
+3.4 Ranking Since IV terms and OOV terms are retrieved from two  different indices, we propose two different functions for scoring an occurrence of a term; afterward, an aggregate score is  assigned to the query based on the scores of the query terms.
+For evaluating the results, each system output  occurrence is judged as correct or not according to whether it is close in time to a true occurrence of the query retrieved from manual transcripts; it is judged as correct if the  midpoint of the system output occurrence is less than or equal to 0.5 seconds from the time span of a true occurrence of the query.
+3.4.2 Out of vocabulary term ranking For OOV term ranking, we use the information provided by the phonetic index.
+Because the task is term detection, we do not use a  document frequency criterion for ranking the occurrences.
+There are three kinds of errors that can occur in a transcript:  substitution of a term that is part of the speech by another term, deletion of a spoken term that is part of the speech and insertion of a term that is not part of the speech.
+We obtain occurrences of the term prosody.
+Each occurrence of a unit of indexing (word or phone) u in a transcript D is indexed with the following information: • the begin time t of the occurrence of u, • the duration d of the occurrence of u.
+We use the information provided by the word index.
+In the first occurrence, there are probably some insertion or silence between the phone p and r, and between the phone d and iy.
+3.4.3 Combination The score of an occurrence of a query Q at time t0 in the document D is determined by the multiplication of the score of each keyword ki, where each ki occurs at time ti with a duration di in the transcript D: score(Q, t0, D) = n i=0 score(ki, ti, D)γn Note that according to what we have ex-plained in  Section 3.3, we have ∀1 ≤ i ≤ n, 0 < ti −(ti−1 +di−1) < 0.5 sec.
+We define the score score(k, t, D) of a keyword k occurring at a time t in the transcript D, by the following formula: score(k, t, D) = Brank(k|t,D) × Pr(k|t, D) Note that 0 ≤ score(k, t, D) ≤ 1.
+Let us consider a keyword k converted to the sequence of phones (pk 0 , ..., pk l ).
+We define the normalized score score(k, tk 0 , D) of a keyword k = (pk 0 , ..., pk l ), where each pk i occurs at time tk i with a duration of dk i in the transcript D, by the following formula: score(k, tk 0 , D) = 1 − l i=1 5 × (tk i − (tk i−1 + dk i−1)) l Note that according to what we have ex-plained in  Section 3.3, we have ∀1 ≤ i ≤ l, 0 < tk i − (tk i−1 + dk i−1) < 0.2 sec, 0 < 5 × (tk i − (tk i−1 + dk i−1)) < 1, and consequently, 0 < score(k, tk 0 , D) ≤ 1.
+have presented in [17] the enhancement in the recall and the MAP by searching on WCN instead of considering only the 1-best path word transcript in the context of spoken  document retrieval.
+Since the probability to have a false alarm is inversely proportional to the length of the phrase query, we have boosted the score of queries by a γn exponent, that is related to the number of keywords in the phrase.
+The terms are extracted from the query.
+4. phrase queries containing both IV and OOV terms; for query processing, the posting lists of the IV terms  retrieved from the word index are merged with the  posting lists of the OOV terms retrieved from the phonetic index.
+For an IV query term, the posting list is extracted from the word index.
+The silence can be due to the fact that the phones belongs to two different words ans therefore, it is not an occurrence of the term prosody.
+In addition, for WCN indexing, we store • the confidence level of the occurrence of u at the time t that is evaluated by its posterior probability Pr(u|t, D), • the rank of the occurrence of u among the other  hypotheses beginning at the same time t, rank(u|t, D).
+Manual transcripts of the speech are not provided but are used by the evaluators to find true occurrences.
+It is different from classical IR that aims to rank the results and not to score them.
+We merge the posting lists of the phones such that the sequence of phones appears in the right order and the gap in time between the pairs of phones (p, r), (r, aa), (aa, z), (z, ih), (ih, d), (d, iy) is less than 0.2 seconds.
+Occurrence 1: (p, 0.25, 0.01), (r, 0.36, 0.01), (aa, 0.37, 0.01), (z, 0.38, 0.01), (ih, 0.39, 0.01), (d, 0.4, 0.01), (iy, 0.52, 0.01).
+Our goal is to estimate for each found occurrence how likely the query appears.
+The posting list of research is extracted from the word index and we merge it with the occurrences found for prosody such that they appear in the right order and the distance in time between prosody and research is less than 0.5 seconds.
+It is the hardest task since we need to combine posting lists retrieved from phonetic and word indices.
+According to our formula, the score of the first occurrence is 0.83 and the score of the second occurrence is 1.
+The duration of the keyword  occurrence is tk l − tk 0 + dk l .
+The begin time of the query occurrence is determined by the begin time t0 of the first query term and the duration of the query occurrence by tn − t0 + dn. 
+Note that since the task is to find exact matches of the phrase queries, we have not filtered stopwords and the  corpus is not stemmed before indexing.
+For each phone, we give the begin time and the duration in second.
+The next step consists of merging the different posting lists according to the timestamp of the occurrences in order to create results matching the query.
+For OOV search, we check that the distance in time between two adjacent phones of a query term is less that 0.2 seconds; this value has been determined empirically.
+Terms that are part of this vocabulary are IV terms; the other terms are OOV.
+Generally, the accuracy of a word transcript is characterized by its word error rate (WER).
+The main problem with retrieving information from  spoken data is the low accuracy of the transcription  particularly on terms of interest such as named entities and  content words.
+For example, the term prosody is converted to the sequence of phones (p, r, aa, z, ih, d, iy).
+Note that our indexing model allows to search for different types of queries: 1. queries containing only IV terms using the word index.
+For an OOV query term, the term is converted to a sequence of phones using a joint maximum entropy N-gram model [10].
+Using an appropriate  ranking model, we can avoid the decrease in precision.
+The vocabulary of the ASR system building word transcripts is given.
+We will show that the usage of phonetic transcripts tends to improve the recall without affecting the precision too much, using an appropriate ranking.
+3.1 Spoken document detection task As stated in the STD 2006 evaluation plan [2], the task consists in finding all the exact matches of a specific query in a given corpus of speech data.
+The merging is possible since we have stored the timestamps for each unit of indexing (word and phone) in both indices.
+We define a scoring function that is related to the average gap in time between the different phones.
+The term prosody is converted to the sequence of phones (p, r, aa, z, ih, d, iy).
+These misses reduce the precision of the search.
+Search recall can be enhanced by expanding the transcript with extra words.
+However, due to their low accuracy, we have preferred to use only the 1-best path extracted from the phonetic lattices.
+The posting list of each phone is extracted from the phonetic index.
+Substitutions and  insertions reflect the fact that a term which is not part of the speech signal appears in the transcript.
+The term prosody is OOV and the term research is IV.
+Such an expansion tends to correct the substitutions and the deletions and consequently, might improve recall but will probably reduce precision.
+Example: let us consider the sequence (p, r, aa, z, ih, d, iy) and two different occurrences of the sequence.
+The STD evaluation has focused on the fourth query type.
+The posting list of each phone is extracted from the phonetic index.
+First, we check that the words and phones appear in the right order according to their begin times.
+A query is a phrase  containing several words.
+These words can be taken from the other alternatives provided by the WCN; these alternatives may have been spoken but were not the top choice of the ASR.
+These misses reduce the recall of the search.
+In such a way, we can reduce the effect of insertion errors since we allow insertions between the adjacent words and phones.
+2. queries containing only OOV terms using the phonetic index.
+In word transcripts, OOV terms are deleted or substituted.
+Conforming to the requirements of the STD evaluation, the distance in time between two adjacent query terms must be less than 0.5 seconds.
+Our query processing does not allow substitutions and deletions.
+The queries are text and not speech.
+3.2 Indexing We have used the same indexing process for WCN and phonetic transcripts.
+Substitutions and deletions reflect the fact that an  occurrence of a term in the speech signal is not recognized.
+Note that this task is different from the more classical task of spoken document retrieval.
+Second, we check that the gap in time  between adjacent words and phones is reasonable.
+[17] on spoken document retrieval to term detection.
+Occurrence 2: (p, 0.45, 0.01), (r, 0.46, 0.01), (aa, 0.47, 0.01), (z, 0.48, 0.01), (ih, 0.49, 0.01), (d, 0.5, 0.01), (iy, 0.51, 0.01).
+3.4.1 In vocabulary term ranking For IV term ranking, we extend the work of Mamou et al.
+This vector associates a boosting factor to each rank of the different hypotheses; the boosting factors are normalized between 0 and 1.
+Example: Let us consider the phrase query prosody research.
+3.3 Search In the following, we present our approach for  accomplishing the STD task using the indices described above.
+Therefore, the usage of phonetic transcripts is more desirable.
+We have determined empirically the value of γn = 1/n.
+We have adapted this model of IV search to term detection.
+Let us consider a query Q = (k0, ..., kn), associated with a boosting vector B = (B1, ..., Bj).
+If the rank r is larger than j, we assume Br = 0.
+Mamou et al.

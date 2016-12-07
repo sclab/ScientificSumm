@@ -1,0 +1,31 @@
+In this case, the expected availability latency for the data item is the  expected meeting time of the random walk undertaken by the client with any of the random walks performed by the servers.
+This is also an exponential  distribution with the following expected value (note that this formulation is valid only for sparse cases when G >> ri): δi = cGlogG ri The aggregate availability latency without employing zebroids is then this expression averaged over all data items, weighted by their frequency of access: δagg(no − zeb) = T i=1 fi · c · G · log G ri = T i=1 fi · C ri (2) 77 4.1 One-instantaneous zebroids Recall that with one-instantaneous zebroids, for a given request, a new replica is created on a car in the vicinity of the server,  provided this car meets the client earlier than any of the ri servers.
+With the random walk mobility model on a 2D-torus, there is a guarantee that as long as there is at least one replica of the requested data item in the network, the client will eventually encounter this replica [2].
+This selected zebroid is included in the Nc i new replicas.
+The aggregated expected availability latency in the case of one-instantaneous zebroids is then given by, δagg(zeb) = T i=1 fi · c · G · log G ri + Nc i = T i=1 fi · C ri + Nc i (4) Note that in obtaining this expression, for ease of analysis, we have assumed that the new replicas start from random locations in the torus (not necessarily from the same cell as the original ri servers).
+Let Nc i be the expected total number of nodes that are in the same cell as any of the ri servers.
+The meeting time, or equivalently the availability latency δi, for the client requesting data item i is the time till it encounters any of these ri replicas for the first time.
+All analysis results presented in this section are obtained  assuming that the client is willing to wait as long as it takes for its request to be satisfied (unbounded trip duration γ = ∞).
+Extensions to the analysis that also consider finite trip durations can be obtained in [9].
+Here, we present the analytical evaluation methodology and some approximations as closed-form equations that capture the  improvements in availability latency that can be obtained with both  oneinstantaneous and z-relay zebroids.
+• Let N be the number of cars in the network performing a 2D random walk on a √ G× √ G torus.
+Consider a scenario where no zebroids are employed.
+Since the dispatcher is aware of all future car movements it would only transfer the  requested data item on a single zebroid, if it determines that the  zebroid will meet the client earlier than any other server.
+Then, we have Nc i = (N − ri) · (1 − (1 − 1 G )ri ) (3) In the analytical model, we assume that Nc i new replicas are created, so that the total number of replicas is increased to ri +Nc i .
+It should be noted that the procedure listed above will yield a similar latency to that employed by a dispatcher employing  oneinstantaneous zebroids (see Section 3.1).
+An additional car serves as a client yielding a total of N + 1 cars.
+The aggregate  availability latency (δagg) with z-relay zebroids is given by, δagg(zeb) = T i=1 [fi · C N + 1 · 1 N + 1 − ri · (N · log N ri − log (N + 1 − ri))] (5) 
+Although for sparse density scenarios, the independence assumption does hold, it is no longer valid when N approaches G. • Let the size of data item repository of interest be T. Also, data item i has ri replicas.
+4.2 z-relay zebroids To calculate the expected availability latency with z-relay  zebroids, we use a coloring problem analog similar to an approach used by Spyropoulos et al.
+[2] show that the the meeting time of two random walks in such a setting can be modelled as an exponential distribution with the mean C = c · G · log G, where the constant c 0.17 for G ≥ 25.
+This implies ri cars, identified as servers, have a copy of this data item when the client requests item i.
+• We assume that all cars start from the stationary distribution and perform independent random walks.
+As we shall show below by comparison with simulations, this approximation provides an upper-bound on the improvements that can be obtained because it results in a lower expected latency at the client.
+The availability latency is reduced since the client is more likely to meet a replica earlier.
+It thus treats all the Nc i carriers independently, just like the ri original servers.
+Moreover, this replica is spawned at the time step when the client issues the request.
+Moreover, this class of Markovian mobility  models has been used to model the movements of vehicles [3, 21].
+Details of the procedure to obtain a closed-form expression are given in [9].
+Such a mobility model has been used widely in the literature [17, 16] chiefly because it is amenable to analysis and provides a baseline against which performance of other mobility models can be compared.
+First, we present some  preliminaries of our analysis methodology.
+Aldous et al.

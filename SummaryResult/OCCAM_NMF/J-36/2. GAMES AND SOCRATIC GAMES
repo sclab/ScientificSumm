@@ -1,0 +1,44 @@
+the payoffs for unobservable queries are analogous, with fresp j (qj, qj(w)) in place of fresp j (q, qj(w)). 
+for a strategy-function profile f for observable queries, the (expected) payoff to player i is given by x q∈q,w∈w,a∈a 2 6 6 4 fquery i (qi) · fquery ii (qii) · p(w) · pr[ai ← fresp i (q, qi(w))] · pr[aii ← fresp ii (q, qii(w))] · (uw i (a) − δi(qi)) 3 7 7 5 .
+thus it suffices to consider only this representation of mixed strategies.
+as in any game with perfect recall, one can  easily map a mixture of pure strategies to a behavioral strategy f = fquery , fresp that induces the same probability of  making a particular query qi or playing a particular action after making a query qi in a particular world.
+mixed strategies are typically defined as probability  distributions over the pure strategies, but here we represent a mixed strategy by a pair fquery , fresp , which is commonly referred to as a behavioral strategy in the game-theory literature.
+(with  unobservable queries, for example, the probability that player i plays action ai conditioned on making query qi in world w is given by pr[ai ← fresp i (qi, qi(w))].)
+player i chooses an  action ai ∈ ai according to the probability distribution fresp i (q, qi(w)) for observable queries, and according to fresp i (qi, qi(w)) for unobservable queries.
+• a function fresp i that maps r or ri to a  probability distribution over actions.
+formally, we will consider a mixed-strategy-function profile f = fquery , fresp to have two parts: • a function fquery i : qi → [0, 1], where fquery i (qi) is the probability that player i makes query qi.
+a mixed strategy involves both randomly choosing a query qi ∈ qi and randomly choosing an action ai ∈ ai in response to the results of the query.
+note that the number of pure strategies is  exponential, as there are exponentially many response  functions.
+thus player i"s response function maps r or ri to ai.
+a player"s state of knowledge after a query is a point in r := q × s or ri := qi × s for observable or unobservable queries,  respectively.
+in the socratic game, a pure strategy for player i consists of a query qi ∈ qi and a response function mapping any  result of the query qi to a strategy ai ∈ ai to play.
+after learning the results of the queries, the players select strategies a ∈ a and receive as payoffs u wreal i (a) − δi(qi).
+for unobservable queries, player i learns only qi and qi(wreal).
+when queries are observable, each player learns which query was made by the other player, and the results of his or her own query-that is, each player i learns qi, qii, and qi(wreal).
+we consider both observable queries and  unobservable queries.
+the players make queries q ∈ q, and player i receives the signal qi(wreal).
+that is, it is as if the players are playing the game a, uwreal but do not know wreal.
+• δi : qi → r≥0 gives the query cost for each available query for player i. initially, the world wreal is chosen according to the  probability distribution p, but the identity of wreal remains  unknown to the players.
+• p : w → [0, 1] is a probability distribution over the possible worlds.
+when player i receives signal qi(wreal) in response to query qi, he or she can infer that wreal ∈ {w : qi(w) = qi(wreal)}, i.e., the set of possible worlds from which query qi cannot distinguish wreal.
+• qi is a set of available queries for player i. when player i makes query qi : w → s, he or she receives the signal qi(wreal).
+• s is a set of signals.
+• ui = {uw i : a → r | w ∈ w} is a set of payoff functions for player i, one for each possible world.
+• w is a set of possible worlds, one of which is the real world wreal.
+a socratic game is a 7-tuple a, w, u, s, q, p, δ , where, for i ∈ {i,ii}: • ai is, as before, the set of pure strategies for player i.
+2.2 socratic games in this section, we formally define socratic games.
+formally, in a correlated equilibrium, for every a ∈ a we must have that ai is a best response to a randomly chosen ˆaii ∈ aii drawn according to ψ(ai, ˆaii), and the analogous condition must hold for player ii.
+(a nash equilibrium is a correlated equilibrium in which ψ(a) = αi(ai) · αii(aii) is a product distribution.)
+a correlated equilibrium is a distribution ψ over a that obeys the following: if a ∈ a is drawn randomly according to ψ and player i learns ai, then no player i has incentive to deviate unilaterally from playing ai.
+formally, the strategy pair α is a nash  equilibrium if and only if both ui(αi, αii) = maxαi∈ai ui(αi, αii) and uii(αi, αii) = maxαii∈aii uii(αi, αii); that is, the  strategies αi and αii are mutual best responses.
+this generalization to mixed strategies is known as von neumann/morgenstern utility [70], in which players are indifferent between a guaranteed payoff x and an expected payoff of x. a nash equilibrium is a pair α of mixed strategies so that neither player has an incentive to change his or her strategy unilaterally.
+payoff functions are generalized as ui (α) = ui (αi, αii) := ea∼α[ui (a)] = p a∈a α(a)ui (a), where the quantity α(a) = 151 αi(ai) · αii(aii) denotes the joint probability of the  independent events that each player i chooses action ai from the distribution αi.
+a game is  constant sum if, for all a ∈ a, we have that ui(a) + uii(a) = c for some fixed c independent of a. player i can also play a mixed strategy αi ∈ ai, where ai denotes the space of probability measures over the set ai.
+if each player i chooses strategy ai ∈ ai, then the payoffs to  players i and ii are ui(a) and uii(a), respectively.
+we require that a and u be common knowledge.
+a (two-player) game is a pair a, u , where, for i ∈ {i,ii}, • ai is the set of pure strategies for player i, and a = ai, aii ; and • ui : a → r is the utility function for player i, and u = ui, uii .
+2.1 background on game theory consider two players, player i and player ii, each of whom is attempting to maximize his or her utility (or payoff).
+let pr[x ← π] denote the probability that a particular value x is drawn from the distribution π, and let ex∼π[g(x)] denote the expectation of g(x) when x is drawn from π.
+throughout the paper,  boldface variables will be used to denote a pair of variables (e.g., a = ai, aii ).
+we present these  models in the context of two-player games, but the multiplayer case is a natural extension.
+in this section, we review background on game theory and formally introduce socratic games.

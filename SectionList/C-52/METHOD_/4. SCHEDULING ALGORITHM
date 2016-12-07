@@ -1,0 +1,640 @@
+FORSENDING DR VECTORS
+In Section 3 we showed how delay from the sender of a new DR
+2
+Normally, DR vectors are not computed on a periodic basis but
+on an on-demand basis where the decision to compute a new DR
+vector is based on some threshold being exceeded on the deviation
+between the real path and the path exported by the previous DR
+vector.
+3
+vector to the receiver of the DR vector could lead to export error
+because of the deviation of the placed path from the exported path
+at the receiver until this new DR vector is received. We also 
+mentioned that the goal of the DR vector scheduling algorithm is to
+make the export error equal at all receivers over a period of time.
+Since the game is played in a distributed environment, it makes
+sense for the sender of an entity to keep track of all the errors at the
+receivers and try to make them equal. However, the sender cannot
+know the actual error at a receiver till it gets some information 
+regarding the error back from the receiver. Our algorithm estimates
+the error to compute a schedule to send DR vectors to the receivers
+and corrects the error when it gets feedbacks from the receivers. In
+this section we provide motivations for the algorithm and describe
+the steps it goes through. Throughout this section, we will use the
+following example to illustrate the algorithm.
+timeT1
+Exported path
+Placed path
+at receiver 2
+dt1
+A
+B
+C
+D
+E
+F
+T0
+G2
+G1
+dt2
+DR1 sent
+to receiver 1
+DR1 sent
+to receiver 2
+T1
+1 T1
+2
+da1
+da2
+G
+H
+I
+J
+K
+L
+N
+M
+DR1 estimated
+to be received
+by receiver 2
+DR1 estimated
+to be received
+by receiver 1
+DR1 actually
+received by
+receiver 1
+DR1 actually
+received by
+receiver 2
+DR0 sent to
+both receivers
+DR1 computed
+by sender
+Placed path
+at receiver 1
+Figure 2: DR vector flow between a sender and two receivers
+and the evolution of estimated and actual placed paths at the
+receivers. DR0 = (T0, T0, x0, y0, vx0, vy0), sent at time T0 to
+both receivers. DR1 = (T1, T1
+1 , x1, y1, vx1, vy1) sent at time
+T1
+1 = T1+δ1 to receiver 1 and DR1 = (T1, T2
+1 , x1, y1, vx1, vy1)
+sent at time T2
+1 = T1 + δ2 to receiver 2.
+Consider the example in Figure 2. The figure shows a single
+sender sending DR vectors for an entity to two different receivers
+1 and 2. DR0 computed at T0 is sent and received by the receivers
+sometime between T0 and T1 at which time they move the location
+of the entity to match the exported path. Thus, the path of the
+entity is shown only from the point where the placed path matches
+the exported path for DR0. Now consider DR1. At time T1, DR1
+is computed by the sender but assume that it is not immediately
+sent to the receivers and is only sent after time δ1 to receiver 1
+(at time T1
+1 = T1 + δ1) and after time δ2 to receiver 2 (at time
+T2
+1 = T1 + δ2). Note that the sender includes the sending 
+timestamp with the DR vector as shown in the figure. Assume that
+the sender estimates (it will be clear shortly why the sender has to
+estimate the delay) that after a delay of dt1, receiver 1 will receive
+it, will use the coordinate and velocity parameters to compute the
+entity"s current location and move it there (point C) and from this
+time onwards, the exported and the placed paths will become the
+same. However, in reality, receiver 1 receives DR1 after a delay
+of da1 (which is less than sender"s estimates of dt1), and moves
+the corresponding entity to point H. Similarly, the sender estimates
+that after a delay of dt2, receiver 2 will receive DR1, will compute
+the current location of the entity and move it to that point (point
+E), while in reality it receives DR1 after a delay of da2 > dt2 and
+moves the entity to point N. The other points shown on the placed
+and exported paths will be used later in the discussion to describe
+different error components.
+4.1 Computation of Relative Export Error
+Referring back to the discussion from Section 3, from the sender"s
+perspective, the export error at receiver 1 due to DR1 is given
+by Err(DR1, T1, T1 + δ1 + dt1) (the integral of the distance 
+between the trajectories AC and DB over the time interval [T1, T1 +
+δ1 + dt1]) of Figure 2. This is due to the fact that the sender uses
+the estimated delay dt1 to compute this error. Similarly, the 
+export error from the sender"s perspective at received 2 due to DR1
+is given by Err(DR1, T1, T1 + δ2 + dt2) (the integral of the 
+distance between the trajectories AE and DF over the time interval
+[T1, T1 + δ2 + dt2]). Note that the above errors from the sender"s
+perspective are only estimates. In reality, the export error will be
+either smaller or larger than the estimated value, based on whether
+the delay estimate was larger or smaller than the actual delay that
+DR1 experienced. This difference between the estimated and the
+actual export error is the relative export error (which could either
+be positive or negative) which occurs for every DR vector that is
+sent and is accumulated at the sender.
+The concept of relative export error is illustrated in Figure 2.
+Since the actual delay to receiver 1 is da1, the export error 
+induced by DR1 at receiver 1 is Err(DR1, T1, T1 + δ1 + da1).
+This means, there is an error in the estimated export error and the
+sender can compute this error only after it gets a feedback from the
+receiver about the actual delay for the delivery of DR1, i.e., the
+value of da1. We propose that once receiver 1 receives DR1, it
+sends the value of da1 back to the sender. The receiver can 
+compute this information as it knows the time at which DR1 was sent
+(T1
+1 = T1 + δ1, which is appended to the DR vector as shown in
+Figure 2) and the local receiving time (which is synchronized with
+the sender"s clock). Therefore, the sender computes the relative
+export error for receiver 1, represented using R1 as
+R1 = Err(DR1, T1, T1 + δ1 + dt1)
+− Err(DR1, T1, T1 + δ1 + da1)
+= Err(DR1, T1 + δ1 + dt1, T1 + δ1 + da1)
+Similarly the relative export error for receiver 2 is computed as
+R2 = Err(DR1, T1, T1 + δ2 + dt2)
+− Err(DR1, T1, T1 + δ2 + da2)
+= Err(DR1, T1 + δ2 + dt2, T1 + δ2 + da2)
+Note that R1 > 0 as da1 < dt1, and R2 < 0 as da2 > dt2.
+Relative export errors are computed by the sender as and when it
+receives the feedback from the receivers. This example shows the
+4
+relative export error values after DR1 is sent and the corresponding
+feedbacks are received.
+4.2 Equalization of Error Among Receivers
+We now explain what we mean by making the errors equal
+at all the receivers and how this can be achieved. As stated 
+before the sender keeps estimates of the delays to the receivers, dt1
+and dt2 in the example of Figure 2. This says that at time T1
+when DR1 is computed, the sender already knows how long it may
+take messages carrying this DR vector to reach the receivers. The
+sender uses this information to compute the export errors, which are
+Err(DR1, T1, T1 + δ1 + dt1) and Err(DR1, T1, T1 + δ2 + dt2)
+for receivers 1 and 2, respectively. Note that the areas of these error
+components are a function of δ1 and δ2 as well as the network 
+delays dt1 and dt2. If we are to make the exports errors due to DR1
+the same at both receivers, the sender needs to choose δ1 and δ2
+such that
+Err(DR1, T1, T1 + δ1 + dt1) = Err(DR1, T1, T1 + δ2 + dt2).
+But when T1 was computed there could already have been 
+accumulated relative export errors due to previous DR vectors (DR0 and
+the ones before). Let us represent the accumulated relative error up
+to DRi for receiver j as Ri
+j. To accommodate these accumulated
+relative errors, the sender should now choose δ1 and δ2 such that
+R0
+1 + Err(DR1, T1, T1 + δ1 + dt1) =
+R0
+2 + Err(DR1, T1, T1 + δ2 + dt2)
+The δi determines the scheduling instant of the DR vector at the
+sender for receiver i. This method of computation of δ"s ensures
+that the accumulated export error (i.e., total actual error) for each
+receiver equalizes at the transmission of each DR vector.
+In order to establish this, assume that the feedback for DR vector
+Di from a receiver comes to the sender before schedule for Di+1 is
+computed. Let Si
+m and Ai
+m denote the estimated error for receiver
+m used for computing schedule for Di and accumulated error for
+receiver m computed after receiving feedback for Di, respectively.
+Then Ri
+m = Ai
+m −Si
+m. In order to compute the schedule instances
+(i.e., δ"s) for Di, for any pair of receivers m and n, we do Ri−1
+m +
+Si
+m = Ri−1
+n + Si
+n. The following theorem establishes the fact
+that the accumulated export error is equalized at every scheduling
+instant.
+THEOREM 4.1. When the schedule instances for sending Di
+are computed for any pair of receivers m and n, the following 
+condition is satisfied:
+i−1
+k=1
+Ak
+m + Si
+m =
+i−1
+k=1
+Ak
+n + Si
+n.
+Proof: By induction. Assume that the premise holds for some i.
+We show that it holds for i+1. The base case for i = 1 holds since
+initially R0
+m = R0
+n = 0, and the S1
+m = S1
+n is used to compute the
+scheduling instances.
+In order to compute the schedule for Di+1, the we first compute
+the relative errors as
+Ri
+m = Ai
+m − Si
+m, and Ri
+n = Ai
+n − Si
+n.
+Then to compute δ"s we execute
+Ri
+m + Si+1
+m = Ri
+n + Si+1
+n
+Ai
+m − Si
+m + Si+1
+m = Ai
+n − Si
+n + Si+1
+n .
+Adding the condition of the premise on both sides we get,
+i
+k=1
+Ak
+m + Si+1
+m =
+i
+k=1
+Ak
+n + Si+1
+n .
+4.3 Computation of the Export Error
+Let us now consider how the export errors can be computed.
+From the previous section, to find δ1 and δ2 we need to find
+Err(DR1, T1, T1 +δ1 +dt1) and Err(DR1, T1, T1 +δ2 +dt2).
+Note that the values of R0
+1 and R0
+2 are already known at the sender.
+Consider the computation of Err(DR1, T1, T1 +δ1 +dt1). This is
+the integral of the distance between the trajectories AC due to DR1
+and BD due to DR0. From DR0 and DR1, point A is (X1, Y1) =
+(x1, y1) and point B is (X0, Y0) = (x0 + (T1 − T0) × vx0, y0 +
+(T1 − T0) × vy0). The trajectory AC can be represented as a
+function of time as (X1(t), Y1(t) = (X1 + vx1 × t, Y1 + vy1 × t)
+and the trajectory of BD can be represented as (X0(t), Y0(t) =
+(X0 + vx0 × t, Y0 + vy0 × t).
+The distance between the two trajectories as a function of time
+then becomes,
+dist(t) = (X1(t) − X0(t))2 + (Y1(t) − Y0(t))2
+= ((X1 − X0) + (vx1 − vx0)t)2
++((Y1 − Y0) + (vy1 − vy0)t)2
+= ((vx1 − vx0)2 + (vy1 − vy0)2)t2
++2((X1 − X0)(vx1 − vx0)
++(Y1 − Y0)(vy1 − vy0))t
++(X1 − X0)2 + (Y1 − Y0)2
+Let
+a = (vx1 − vx0)2
++ (vy1 − vy0)2
+b = 2((X1 − X0)(vx1 − vx0)
++(Y1 − Y0)(vy1 − vy0))
+c = (X1 − X0)2
++ (Y1 − Y0)2
+Then dist(t) can be written as
+dist(t) = a × t2 + b × t + c.
+Then Err(DR1, t1, t2) for some time interval [t1, t2] becomes
+t2
+t1
+dist(t) dt =
+t2
+t1
+a × t2 + b × t + c dt.
+A closed form solution for the indefinite integral
+a × t2 + b × t + c dt =
+(2at + b)
+√
+at2 + bt + c
+4a
++
+1
+2
+ln
+1
+2b
++ at
+√
+a
++ at2 + bt + c c
+1
+√
+a
+−
+1
+8
+ln
+1
+2b
++ at
+√
+a
++ at2 + bt + c b2
+a− 3
+2
+Err(DR1, T1, T1 +δ1 +dt1) and Err(DR1, T1, T1 +δ2 +dt2)
+can then be calculated by applying the appropriate limits to the
+above solution. In the next section, we consider the computation
+of the δ"s for N receivers.
+5
+4.4 Computation of Scheduling Instants
+We again look at the computation of δ"s by referring to Figure 2.
+The sender chooses δ1 and δ2 such that R0
+1 + Err(DR1, T1, T1 +
+δ1 +dt1) = R0
+2 +Err(DR1, T1, T1 +δ2 +dt2). If R0
+1 and R0
+2 both
+are zero, then δ1 and δ2 should be chosen such that Err(DR1, T1, T1+
+δ1 +dt1) = Err(DR1, T1, T1 +δ2 +dt2). This equality will hold
+if δ1 + dt1 = δ2 + dt2. Thus, if there is no accumulated relative
+export error, all that the sender needs to do is to choose the δ"s in
+such a way that they counteract the difference in the delay to the
+two receivers, so that they receive the DR vector at the same time.
+As discussed earlier, because the sender is not able to a priori learn
+the delay, there will always be an accumulated relative export error
+from a previous DR vector that does have to be taken into account.
+To delve deeper into this, consider the computation of the 
+export error as illustrated in the previous section. To compute the
+δ"s we require that R0
+1 + Err(DR1, T1, T1 + δ1 + dt1) = R0
+2 +
+Err(DR1, T1, T1 + δ2 + dt2). That is,
+R0
+1 +
+T1+δ1+dt1
+T1
+dist(t) dt = R0
+2 +
+T1+δ2+dt2
+T1
+dist(t) dt.
+That is
+R0
+1 +
+T1+dt1
+T1
+dist(t) dt +
+T1+dt1+δ1
+T1+dt1
+dist(t) dt =
+R0
+2 +
+T1+dt2
+T1
+dist(t) dt +
+T1+dt2+δ2
+T1+dt2
+dist(t) dt.
+The components R0
+1, R0
+2, are already known to (or estimated by)
+the sender. Further, the error components
+T1+dt1
+T1
+dist(t) dt and
+T1+dt2
+T1
+dist(t) dt can be a priori computed by the sender using
+estimated values of dt1 and dt2. Let us use E1 to denote R0
+1 +
+T1+dt1
+T1
+dist(t) dt and E2 to denote R0
+2 +
+T1+dt2
+T1
+dist(t) dt.
+Then, we require that
+E1 +
+T1+dt1+δ1
+T1+dt1
+dist(t) dt = E2 +
+T1+dt2+δ2
+T1+dt2
+dist(t) dt.
+Assume that E1 > E2. Then, for the above equation to hold, we
+require that
+T1+dt1+δ1
+T1+dt1
+dist(t) dt <
+T1+dt2+δ2
+T1+dt2
+dist(t) dt.
+To make the game as fast as possible within this framework, the δ
+values should be made as small as possible so that DR vectors are
+sent to the receivers as soon as possible subject to the fairness 
+requirement. Given this, we would choose δ1 to be zero and compute
+δ2 from the equation
+E1 = E2 +
+T1+dt2+δ2
+T1+dt2
+dist(t) dt.
+In general, if there are N receivers 1, . . . , N, when a sender 
+generates a DR vector and decides to schedule them to be sent, it first
+computes the Ei values for all of them from the accumulated 
+relative export errors and estimates of delays. Then, it finds the smallest
+of these values. Let Ek be the smallest value. The sender makes δk
+to be zero and computes the rest of the δ"s from the equality
+Ei +
+T1+dti+δi
+T1+dti
+dist(t) dt = Ek,
+∀i 1 ≤ i ≤ N, i = k. (1)
+The δ"s thus obtained gives the scheduling instants of the DR 
+vector for the receivers.
+4.5 Steps of the Scheduling Algorithm
+For the purpose of the discussion below, as before let us denote
+the accumulated relative export error at a sender for receiver k up
+until DRi to be Ri
+k. Let us denote the scheduled delay at the sender
+before DRi is sent to receiver k as δi
+k. Given the above discussion,
+the algorithm steps are as follows:
+1. The sender computes DRi at (say) time Ti and then 
+computes δi
+k, and Ri−1
+k , ∀k, 1 ≤ k ≤ N based on the estimation
+of delays dtk, ∀k, 1 ≤ k ≤ N as per Equation (1). It 
+schedules, DRi to be sent to receiver k at time Ti + δi
+k.
+2. The DR vectors are sent to the receivers at the scheduled
+times which are received after a delay of dak, ∀k, 1 ≤ k ≤
+N where dak ≤ or > dtk. The receivers send the value of
+dak back to the sender (the receiver can compute this value
+based on the time stamps on the DR vector as described 
+earlier).
+3. The sender computes Ri
+k as described earlier and illustrated
+in Figure 2. The sender also recomputes (using exponential
+averaging method similar to round-trip time estimation by
+TCP [10]) the estimate of delay dtk from the new value of
+dak for receiver k.
+4. Go back to Step 1 to compute DRi+1 when it is required
+and follow the steps of the algorithm to schedule and send
+this DR vector to the receivers.
+4.6 Handling Cases in Practice
+So far we implicity assumed that DRi is sent out to all receivers
+before a decision is made to compute the next DR vector DRi+1,
+and the receivers send the value of dak corresponding to DRi and
+this information reaches the sender before it computes DRi+1 so
+that it can compute Ri+1
+k and then use it in the computation of δi+1
+k .
+Two issues need consideration with respect to the above algorithm
+when it is used in practice.
+• It may so happen that a new DR vector is computed even
+before the previous DR vector is sent out to all receivers.
+How will this situation be handled?
+• What happens if the feedback does not arrive before DRi+1
+is computed and scheduled to be sent?
+Let us consider the first scenario. We assume that DRi has been
+scheduled to be sent and the scheduling instants are such that δi
+1 <
+δi
+2 < · · · < δi
+N . Assume that DRi+1 is to be computed (because
+the real path has deviated exceeding a threshold from the path 
+exported by DRi) at time Ti+1 where Ti + δi
+k < Ti+1 < Ti + δi
+k+1.
+This means, DRi has been sent only to receivers up to k in the
+scheduled order. In our algorithm, in this case, the scheduled delay
+ordering queue is flushed which means DRi is not sent to receivers
+still queued to receive it, but a new scheduling order is computed
+for all the receivers to send DRi+1.
+For those receivers who have been sent DRi, assume for now
+that daj, 1 ≤ j ≤ k has been received from all receivers (the 
+scenario where daj has not been received will be considered as a part
+of the second scenario later). For these receivers, Ei
+j, 1 ≤ j ≤ k
+can be computed. For those receivers j, k + 1 ≤ j ≤ N to
+whom DRi was not sent Ei
+j does not apply. Consider a receiver
+j, k + 1 ≤ j ≤ N to whom DRi was not sent. Refer to 
+Figure 3. For such a receiver j, when DRi+1 is to be scheduled and
+6
+timeTi
+Exported path
+dtj
+A
+B
+C
+D
+Ti-1
+Gi
+j
+DRi+1 computed by sender
+and DRi for receiver k+1 to
+N is removed from queue
+DRi+1 scheduled
+for receiver k+1
+Ti+1
+G
+H
+E
+F
+DRi scheduled
+for receiver j
+DRi computed
+by sender
+Placed path
+at receiver k+1
+Gi+1
+j
+Figure 3: Schedule computation when DRi is not sent to 
+receiver j, k + 1 ≤ j ≤ N.
+δi+1
+j needs to be computed, the total export error is the accumulated
+relative export error at time Ti when schedule for DRi was 
+computed, plus the integral of the distance between the two trajectories
+AC and BD of Figure 3 over the time interval [Ti, Ti+1 + δi+1
+j +
+dtj]. Note that this integral is given by Err(DRi, Ti, Ti+1) +
+Err(DRi+1, Ti+1, Ti+1 + δi+1
+j + dtj). Therefore, instead of Ei
+j
+of Equation (1), we use the value Ri−1
+j + Err(DRi, Ti, Ti+1) +
+Err(DRi+1, Ti+1, Ti+1 + δi+1
+j + dtj) where Ri−1
+j is relative 
+export error used when the schedule for DRi was computed.
+Now consider the second scenario. Here the feedback dak 
+corresponding to DRi has not arrived before DRi+1 is computed and
+scheduled. In this case, Ri
+k cannot be computed. Thus, in the 
+computation of δk for DRi+1, this will be assumed to be zero. We
+do assume that a reliable mechanism is used to send dak back to
+the sender. When this information arrives at a later time, Ri
+k will
+be computed and accumulated to future relative export errors (for
+example Ri+1
+k if dak is received before DRi+2 is computed) and
+used in the computation of δk when a future DR vector is to be
+scheduled (for example DRi+2).
+4.7 Experimental Results
+In order to evaluate the effectiveness and quantify benefits 
+obtained through the use of the scheduling algorithm, we implemented
+the proposed algorithm in BZFlag (Battle Zone Flag) [11] game.
+It is a first-person shooter game where the players in teams drive
+tanks and move within a battle field. The aim of the players is to
+navigate and capture flags belonging to the other team and bring
+them back to their own area. The players shoot each other"s tanks
+using shooting bullets. The movement of the tanks as well as that
+of the shots are exchanged among the players using DR vectors.
+We have modified the implementation of BZFlag to 
+incorporate synchronized clocks among the players and the server and 
+exchange time-stamps with the DR vector. We set up a testbed with
+four players running the instrumented version of BZFlag, with one
+as a sender and the rest as receivers. The scheduling approach and
+the base case where each DR vector was sent to all the receivers
+concurrently at every trigger point were implemented in the same
+run by tagging the DR vectors according to the type of approach
+used to send the DR vector. NISTNet [12] was used to introduce
+delays across the sender and the three receivers. Mean delays of
+800ms, 500ms and 200ms were introduced between the sender and
+first, second and the third receiver, respectively. We introduce a
+variance of 100 msec (to the mean delay of each receiver) to model
+variability in delay. The sender logged the errors of each receiver
+every 100 milliseconds for both the scheduling approach and the
+base case. The sender also calculated the standard deviation and
+the mean of the accumulated export error of all the receivers every
+100 milliseconds. Figure 4 plots the mean and standard deviation
+of the accumulated export error of all the receivers in the 
+scheduling case against the base case. Note that the x-axis of these graphs
+(and the other graphs that follow) represents the system time when
+the snapshot of the game was taken.
+Observe that the standard deviation of the error with scheduling
+is much lower as compared to the base case. This implies that the
+accumulated errors of the receivers in the scheduling case are closer
+to one another. This shows that the scheduling approach achieves
+fairness among the receivers even if they are at different distances
+(i.e, latencies) from the sender.
+Observe that the mean of the accumulated error increased 
+multifold with scheduling in comparison to the base case. Further 
+exploration for the reason for the rise in the mean led to the conclusion
+that every time the DR vectors are scheduled in a way to equalize
+the total error, it pushes each receivers total error higher. Also, as
+the accumulated error has an estimated component, the schedule is
+not accurate to equalize the errors for the receivers, leading to the
+DR vector reaching earlier or later than the actual schedule. In 
+either case, the error is not equalized and if the DR vector reaches
+late, it actually increases the error for a receiver beyond the highest
+accumulated error. This means that at the next trigger, this receiver
+will be the one with highest error and every other receiver"s error
+will be pushed to this error value. This flip-flop effect leads to
+the increase in the accumulated error for all the receivers.
+The scheduling for fairness leads to the decrease in standard 
+deviation (i.e., increases the fairness among different players), but it
+comes at the cost of higher mean error, which may not be a 
+desirable feature. This led us to explore different ways of equalizing the
+accumulated errors. The approach discussed in the following 
+section is a heuristic approach based on the following idea. Using the
+same amount of DR vectors over time as in the base case, instead
+of sending the DR vectors to all the receivers at the same frequency
+as in the base case, if we can increase the frequency of sending
+the DR vectors to the receiver with higher accumulated error and
+decrease the frequency of sending DR vectors to the receiver with
+lower accumulated error, we can equalize the export error of all
+receivers over time. At the same time we wish to decrease the 
+error of the receiver with the highest accumulated error in the base
+case (of course, this receiver would be sent more DR vectors than
+in the base case). We refer to such an algorithm as a budget based
+algorithm.

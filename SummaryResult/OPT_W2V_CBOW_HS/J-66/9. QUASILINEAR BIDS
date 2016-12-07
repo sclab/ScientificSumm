@@ -1,0 +1,50 @@
+Because in an optimal solution, we will extract as much payment from the bidders as possible given the πci , all we need to show is that the πci are set optimally by this approach.
+When the objective is payment  maximization, even when bids are quasilinear, the solution obtained by decomposing the problem across charities is in general not optimal (even with concave bids).
+Given a DONATION-CLEARING instance with payment maximization as the objective where all bids are quasilinear and concave, consider the following  algorithm.
+The resulting solution is certainly valid: first of all, at least as much money is collected as is given away, because bj πbj − ci πci = bj ci πbi j − ci πci = ci (( bj πbi j ) − πci )-and the terms of this summation are the objectives of the individual optimization problems, each of which can be set at least to 0 (by setting all the variables are set to 0), so it follows that the expression is nonnegative.
+If we change this amount to πci and leave everything else unchanged, this will only affect the payment that we can extract from the bidders because of this particular charity, and the difference in surplus will be bj ui j(πci ) − ui j(π∗ ci ) − πci + π∗ ci .
+Start with πci = 0 for all charities.
+For charity ci, this amounts to  maximizing ( bj ui j(πci )) − πci as a function of πci .
+But the solution πc1 = 1, πc2 = 2 is also valid, for a total donation of 3 > 7 3 .
+Then, letting γci = d bj ui j (πci ) dπci (at nondifferentiable points, these  derivatives should be taken from the right), increase πc∗ i (where c∗ i ∈ arg maxci γci ), until either γc∗ i is no longer the highest (in which case, recompute c∗ i and start increasing the  corresponding payment), or bj uj = ci πci and γc∗ i < 1.
+Consider a single bidder b1 placing the following quasilinear bid over two charities c1 and c2: u1 1(πc1 ) = 2πci for 0 ≤ πci ≤ 1, u1 1(πc1 ) = 2 + πci −1 4 otherwise; u2 1(πc2 ) = πci 2 .
+By Lemma 1, we can solve the problem  separately for each charity.
+DONATION-CLEARING is (weakly)  NPcomplete when payment maximization is the objective, even when every bid is concerns only one charity (and has a  stepfunction utility function for this charity), and is quasilinear.
+In this section, we will see that the clearing problem is much easier in the case of quasilinear bids.
+But now notice that this expression is maximized as a function of πci by the decomposed  solution for this charity (the terms without πci in them do not matter, and of course in the decomposed solution we always set πbi j = ui j(πci )).
+Second, no bidder bj pays more than she is willing to, because uj −πbj = ci ui j(πci )− ci πbi j = ci (ui j(πci )−πbi j )-and the terms of this summation are nonnegative by the constraints we imposed on the individual optimization problems.
+Then, for each charity ci, maximize ( bj πbi j ) − πci , under the constraint that for every bidder bj, πbi j ≤ ui j(πci ).
+The decomposed solution is πc1 = 7 3 , πc2 = 0, for a total donation of 7 3 .
+All that remains to show is that the solution is  optimal.
+(A similar greedy algorithm works when the objective is surplus and the bids are quasilinear and concave, with as only difference that we stop increasing the payments as soon as γc∗ i < 1.)
+In most cases, quasilinearity is an  unreasonable assumption: for example, usually bidders have a limited budget for donations, so that the payment  willingness will stop increasing in utility after some point (or at least increase slower in the case of a softer budget  constraint).
+Unfortunately, the decomposing lemma does not hold for payment maximization.
+It follows that if we change πci to the decomposed solution, the change in surplus will be at least 0 (and the solution will still be valid).
+Thus, the bidders will never reach a high enough utility for their budget constraint (even when it is soft) to take effect, and thus a linear  approximation of their payment willingness function is reasonable.
+The key observation here is that when bids are  quasilinear, the clearing problem decomposes across charities.
+In this setting, once a certain small amount has been donated to a charity, a bidder will derive no more utility from more money  being donated from that charity.
+In a quasilinear bid, the bidder"s payment willingness function is linear in utility: that is, wj = uj.
+This expression is, of course, 0 if πci = π∗ ci .
+However, when the bids are also concave, a simple greedy clearing algorithm is optimal.
+In fact, when payment maximization is the objective, DONATION-CLEARING remains (weakly) NP-complete in general.
+Nevertheless, quasilinearity may be a reasonable assumption in the case where the bidders are large  organizations with large budgets, and the charities are a few small projects requiring relatively little money.
+Then we can clear the market optimally by clearing the market for each charity individually.
+When all bids are quasilinear and surplus is the objective, DONATION-CLEARING can be done in linear time.
+(In the remainder of the paper, proofs are omitted because of space constraint.)
+Thus, we can change the πci one by one to the decomposed solution without ever losing any surplus.
+Finally, let πbj = uj.
+Another reason for studying the quasilinear setting is that it is the easiest setting for mechanism design, which we will discuss shortly.
+Suppose all bids are quasilinear, and surplus is the objective.
+Let π∗ ci be the amount paid to charity πci in some optimal solution.
+First, we address the case where we are trying to maximize surplus (which is the most natural setting for mechanism  design).
+That is, for each bidder bj, let πbj = ci πbi j .
+Because all its terms are piecewise linear functions, this whole function is piecewise linear, and must be maximized at one of the points where it is nondifferentiable.
+57 Proof.
+(Because the units of utility are arbitrary, we may as well let them  correspond exactly to units of money-so we do not need a constant multiplier.)
+Another class of bids of interest is the class of quasilinear bids.
+It follows that we need only check all the points at which one of the terms is  nondifferentiable.
+Lemma 1.
+Proposition 1.
+Theorem 6.
+Theorem 5.
+Theorem 4.

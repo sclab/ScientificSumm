@@ -1,0 +1,42 @@
+we also notice that e26 is actually a subset of e27 (soccer game), which is acceptable since the sheffield league results are announced independently every weekend. 
+the gmm model is able to detect and estimate the bursty period nicely although it cannot distinguish the slight  difference between every monday-friday and all weekdays as shown in e23.
+all of the detected periodic events are indeed valid, and correspond to real life periodic events.
+table 1 lists the top 5 detected periodic events with respect to the cost (e23 − e27).
+7.4 detecting periodic events among the 1,087 hl features, 330 important periodic events were detected within 10 minutes of computing time.
+one advantage of our ug algorithm for discovering less-reported aperiodic events is that we are able to precisely detect the true event period.
+for  example, e22 is one of the rescue events in an airplane hijack topic.
+we found that these 5 events are actually very trivial events with only a few news reports, and are usually subsumed by some larger topics.
+table 1 lists the top 5 detected aperiodic events (e18 − e22) with respect to the cost.
+after 742 minutes of computation time, we detected 23, 525 less reported aperiodic events from 83,471 lh features.
+we can see that all 17 important aperiodic events are popularly reported events.
+the number of documents of a detected event is roughly estimated by the number of indexed documents containing the representative features.
+2 such that 1) the number of features span different events, and 2) not all features relevant to an event will be selected, e.g., the feature clinton is representative to e12 but since clinton relates to many other events, its time domain signal is far different from those of other representative features like dole and bob.
+recall that selecting the features for one event should minimize the cost in eq.
+for example, the defeat of bob dole, election of tony blair, missile attack on iraq, etc.
+among the 17 events, other than the overlaps between e3 and e4 (both describes the same hostage event), e11 and e16 (both about company reports), the 14 identified events are extremely  accurate and correspond very well to the major events of the period.
+note that the entire identification took less than 1 second, after  removing events containing only the month feature.
+among the 69 hh features, we detected 17 important  aperiodic events as shown in table 1 (e1 − e17).
+since no benchmark news streams exist for event detection (tdt datasets are not proper streams), we evaluate the quality of the automatically detected events by comparing them to manually-confirmed events by searching through the corpus.
+7.3 detecting aperiodic events we shall evaluate our two hypotheses, 1)important  aperiodic events can be defined by a set of hh features, and 2)less reported aperiodic events can be defined by a set of lh features.
+therefore, setting the boundary between high and low power spectrum using the upper bound sf of sw is a reasonable heuristic.
+the ll classification and high dfidf scores of  stopwords agree with the generally accepted notion that  stopwords are equally frequent over all time.
+by checking the scatter distribution of features from sw on hh, hl, lh, and ll as shown in figure 9, we found that 87.02%(409/470) of the detected stopwords originated from ll.
+3. the (vertical) boundary between high and low power spectrum is not as clearcut and the exact value will be application specific.
+this allows reliably detecting aperiodic events and periodic events independently.
+following observations: 1. most features have low s and are easily distinguishable from those features having a much higher s, which allows us to detect important (a)periodic events from trivial events by selecting features with high s. 2. features in the hh and lh quadrants are aperiodic, which are nicely separated (big horizontal gap) from the periodic features.
+0 5 11.18 50 100 200 300 400 500 1000 12879.82 1 2 4 6 8 20 50 100 183 364 365 s(f) p(f) 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 lh hh ll hl figure 10: distribution of categorized features over the four quadrants (shading in log scale).
+from the figure, we can make the 0 2 4 6 8 11.18 12879.82 1 65 100 130 259 s(f) p(f) lh hh ll hl figure 9: distribution of sw (stopwords) in the hh, hl, lh, and ll regions.
+the boundary  between high and low periodicity was set to 365/2 = 183. all 422,963 (423433 − 470) word features were categorized into 4 feature sets: hh (69 features), hl (1,087 features), lh (83,471 features), and ll (338,806 features) as shown in figure 10. in figure 10, each gray level denotes the  relative density of features in a square region, measured by log10(1 + dk), where dk is the number of features within the k-th square region.
+the upper bound power spectrum value of 11.18 for  stopwords training was selected as the boundary between the high power and low power spectrum.
+after the removal of these stopwords, the distribution of weekday and weekend news are more or less matched, and in the ensuing experiments, we shall make use of the full corpus (weekdays and weekends).
+in this manner, 470 stopwords were found and removed as visualized in figure 9. some detected stopwords are a (p = 65, s = 3.36, dfidf = 0.3103), at (p = 259, s = 1.86, dfidf = 0.1551), gmt (p = 130, s = 6.16, dfidf = 0.1628) and much (p = 22, s = 0.80, dfidf = 0.1865).
+by only analyzing news stories over 259 weekdays, we computed the upper bound of the power spectrum for stopwords at 11.18 and corresponding dfidf ranges from 0.1182 to 0.3691. any feature f satisfying sf <= 11.18 and 0.1182 <= dfidff <= 0.3691 over weekdays will be considered a stopword.
+we  excluded the last five stopwords as they are uncommon in news stories.
+7.2 categorizing features we downloaded 34 well-known stopwords utilized by the google search engine as our seed training features, which includes a, about, an, are, as, at, be, by, de, for, from, how, in, is, it, of, on, or, that, the, this, to, was, what, when, where, who, will, with, la, com, und, en and www.
+we did remove  nonenglish characters, however, after which the number of word features amounts to 423,433. all experiments were  implemented in java and conducted on a 3.2 ghz pentium 4 pc running windows 2003 server with 1 gb of memory.
+since dynamic stopword removal is one of the functionalities of our method, no stopword was removed.
+in order to preserve the time-sensitive past/present/future tenses of verbs and the differences between lower case nouns and upper case named entities, no stemming was done.
+version 2 of the open source lucene software [1] was used to tokenize the news text content and generate the document-word  vector.
+7.1 dataset and experimental setup the reuters corpus contains 806,791 english news stories from 08/20/1996 to 08/19/1997 at a day resolution.
+we first introduce the dataset and experimental setup, then we  subjectively evaluate the categorization of features for hh, hl, lh, ll and sw. finally, we study the (a)periodic event detection problem with algorithm 2.
+in this section, we study the performances of our feature categorizing method and event detection algorithm.

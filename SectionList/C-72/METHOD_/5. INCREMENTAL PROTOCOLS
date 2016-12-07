@@ -1,0 +1,76 @@
+5.1 Incremental FM Aggregates
+One limitation of FM aggregation is that it does not 
+support updates. Due to the probabilistic nature of FM, once
+bit vectors have been ORed together, information cannot
+simply be removed from them as each node"s contribution
+has not been recorded. We propose the use of delete vectors,
+an extension of FM to support updates. We maintain a 
+separate aggregate delete vector whose value is subtracted from
+the original aggregate vector"s value to obtain the resulting
+value as follows.
+AGGINC = (2a−1
+/0.77351) − (2b−1
+/0.77351) (1)
+Here, a and b represent the bit positions of the least 
+significant zero in the original and delete bit vectors respectively.
+Suppose we wish to compute the average signal level 
+detected in a particular frequency. To compute this, we 
+compute the SUM of all signal level measurements and divide
+that by the COUNT of the number of measurements. A
+SUM aggregate is computed similar to COUNT (explained
+in Section 4.1), except that each node performs s coin toss
+experiments, where s is the locally measured signal level.
+Figure 2 illustrates the sequence by which the average signal
+energy is computed in a particular band using FM 
+aggregation.
+Now suppose that the measured signal at a node changes
+from s to s . The vectors are updated as follows.
+• s > s: We simply perform (s − s) more coin toss 
+experiments and bitwise OR the result with the original
+bit vector.
+• s < s: We increase the value of the delete vector by
+performing (s − s ) coin toss experiments and bitwise
+OR the result with the current delete vector.
+Using delete vectors, we can now support updates to the
+measured signal level. With the original implementation of
+FM, the aggregate would need to be discarded and a new one
+recomputed every time an update occurred. Thus, delete
+vectors provide a low overhead alternative for applications
+whose data changes incrementally, such as signal level 
+measurements in a coordinated spectrum sensing environment.
+Next we discuss how these aggregates can be communicated
+between devices using incremental routing protocols.
+5.2 Incremental Routing Protocol
+We use the following incremental variants of the routing
+protocols presented in Section 4.2 to support incremental
+updates to previously computed aggregates.
+Update Received OR
+Local Update Occurs
+Recovered
+Susceptible
+Time-stamp Expires
+Initial State
+Additional
+Update
+Received
+Infectious
+Clean Up
+Figure 3: State diagram each device passes through as
+updates proceed in the system
+• Incremental Gossip Protocol (IGP): When an 
+update occurs, the updated node initiates the gossiping
+procedure. Other nodes only begin gossiping once they
+receive the update. Therefore, nodes receiving the 
+update become active and continue communicating with
+their neighbors until the update protocol terminates,
+after O(log(N)) time steps.
+• Incremental Random Walk Protocol (IRWP):
+When an update (or updates) occur in the system, 
+instead of starting random walks at k random nodes in
+the network, all k random walks are initiated from the
+updated node(s). The rest of the protocol proceeds in
+the same fashion as the standard random walk 
+protocol. The allocation of walks to updates is discussed
+in more detail in [3], where the authors show that the
+number of walks has an almost negligible impact on
+network overhead.

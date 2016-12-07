@@ -1,0 +1,123 @@
+We also use historical contact information to estimate the 
+probability of meeting other nodes in the future. But our method differs
+in that we estimate the contact probability within a period of time.
+For example, what is the contact probability in the next hour? 
+Neither PRoPHET nor Link-State considers time in this way.
+One way to estimate the timely-contact probability is to use the
+ratio of the total contact duration to the total time. However, this
+approach does not capture the frequency of contacts. For example,
+one node may have a long contact with another node, followed by
+a long non-contact period. A third node may have a short contact
+with the first node, followed by a short non-contact period. Using
+the above estimation approach, both examples would have similar
+contact probability. In the second example, however, the two nodes
+have more frequent contacts.
+We design a method to capture the contact frequency of mobile
+nodes. For this purpose, we assume that even short contacts are
+sufficient to exchange messages.1
+The probability for node i to meet node j is computed by the
+following procedure. We divide the contact history Hi(j) into a
+sequence of n periods of ΔT starting from the start time (t0) of the
+first contact in history Hi(j) to the current time. We number each
+of the n periods from 0 to n − 1, then check each period. If node
+i had any contact with node j during a given period m, which is
+[t0 + mΔT, t0 + (m + 1)ΔT), we set the contact status Im to be
+1; otherwise, the contact status Im is 0. The probability p
+(0)
+ij that
+node i meets node j in the next ΔT can be estimated as the average
+of the contact status in prior intervals:
+p
+(0)
+ij =
+1
+n
+n−1X
+m=0
+Im. (5)
+To adapt to the change of contact patterns, and reduce the storage
+space for contact histories, a node may discard old history contacts;
+in this situation, the estimate would be based on only the retained
+history.
+The above probability is the direct contact probability of two
+nodes. We are also interested in the probability that we may be
+able to pass a message through a sequence of k nodes. We define
+the k-order probability inductively,
+p
+(k)
+ij = p
+(0)
+ij +
+X
+α
+p
+(0)
+iα p
+(k−1)
+αj , (6)
+where α is any node other than i or j.
+3.1 Our Routing Protocol
+We first consider the case of a two-hop path, that is, with only
+one relay node. We consider two approaches: either the receiving
+neighbor decides whether to act as a relay, or the source decides
+which neighbors to use as relay.
+3.1.1 Receiver Decision
+Whenever a node meets other nodes, they exchange all their 
+messages (or as above, index messages). If the destination of a 
+message is the receiver itself, the message is delivered. Otherwise, if
+the probability of delivering the message to its destination through
+this receiver node within ΔT is greater than or equal to a certain
+threshold, the message is stored in the receiver"s storage to forward
+1
+In our simulation, however, we accurately model the 
+communication costs and some short contacts will not succeed in transfer of
+all messages.
+to the destination. If the probability is less than the threshold, the
+receiver discards the message. Notice that our protocol replicates
+the message whenever a good-looking relay comes along.
+3.1.2 Sender Decision
+To make decisions, a sender must have the information about its
+neighbors" contact probability with a message"s destination. 
+Therefore, meta-data exchange is necessary.
+When two nodes meet, they exchange a meta-message, 
+containing an unordered list of node IDs for which the sender of the 
+metamessage has a contact probability greater than the threshold.
+After receiving a meta-message, a node checks whether it has
+any message that destined to its neighbor, or to a node in the node
+list of the neighbor"s meta-message. If it has, it sends a copy of the
+message.
+When a node receives a message, if the destination of the 
+message is the receiver itself, the message is delivered. Otherwise, the
+message is stored in the receiver"s storage for forwarding to the
+destination.
+3.1.3 Multi-node Relay
+When we use more than two hops to relay a message, each node
+needs to know the contact probabilities along all possible paths to
+the message destination.
+Every node keeps a contact probability matrix, in which each cell
+pij is a contact probability between to nodes i and j. Each node
+i computes its own contact probabilities (row i) with other nodes
+using Equation (5) whenever the node ends a contact with other
+nodes. Each row of the contact probability matrix has a version
+number; the version number for row i is only increased when node i
+updates the matrix entries in row i. Other matrix entries are updated
+through exchange with other nodes when they meet.
+When two nodes i and j meet, they first exchange their contact
+probability matrices. Node i compares its own contact matrix with
+node j"s matrix. If node j"s matrix has a row l with a higher version
+number, then node i replaces its own row l with node j"s row l.
+Likewise node j updates its matrix. After the exchange, the two
+nodes will have identical contact probability matrices.
+Next, if a node has a message to forward, the node estimates
+its neighboring node"s order-k contact probability to contact the
+destination of the message using Equation (6). If p
+(k)
+ij is above a
+threshold, or if j is the destination of the message, node i will send
+a copy of the message to node j.
+All the above effort serves to determine the transfer probability
+when two nodes meet. The replication decision is orthogonal to
+the transfer decision. In our implementation, we always replicate.
+Although PRoPHET [16] and Link-State [22] do no replication, as
+described, we added replication to those protocols for better 
+comparison to our protocol.

@@ -1,0 +1,26 @@
+we then design empirical experiments to compare the two families of language models in section 4. we discuss the related work in 5 and conclude in 6. 
+in section 3, we analytically compare the poisson language model with the multinomial language model, from the perspective of  retrieval.
+in section 2, we introduce the new family of query generation models with poisson distribution, and present various smoothing  methods which lead to different retrieval functions.
+the rest of the paper is organized as follows.
+this new background model is shown to outperform the standard background model and reduce the sensitivity of retrieval performance to the smoothing parameter.
+another potential advantage of the poisson model is that its  corresponding background model for smoothing can be improved through using a mixture model that has a closed form  formula.
+this advantage is seen for both one-stage and two-stage smoothing.
+we exploit this potential advantage to develop a new term-dependent smoothing algorithm for poisson model and show that this new smoothing algorithm can improve performance over term-independent smoothing algorithms using either poisson or multinomial model.
+in particular, a key difference is that the poisson model can naturally accommodate  perterm smoothing, which is hard to achieve with a multinomial model without heuristic twist of the semantics of a  generative model.
+we find that while with some  smoothing methods, the new model and the multinomial model lead to exactly the same formula, with some other  smoothing methods they diverge, and the poisson model brings in more flexibility for smoothing.
+we  derive several smoothing methods for poisson model in parallel to those used for multinomial distributions, and compare the corresponding retrieval models with those based on  multinomial distributions.
+as in the existing work on multinomial language models, smoothing is critical for this new family of models.
+indeed, similar to the multinomial distribution, the poisson distribution models term frequencies, but  without the constraint that all the term probabilities must sum to 1, and similar to multivariate bernoulli, it models each term independently, thus can easily accommodate per-term smoothing.
+in some sense, the poisson model combines the advantage of multinomial in modeling term frequency and the advantage of the multivariate bernoulli in accommodating per-term smoothing.
+to score a  document, we would first estimate a multivariate poisson model based on the document, and then score it based on the  likelihood of the query given by the estimated poisson model.
+in this new family of models, we model the frequency of each term independently with a poisson distribution.
+note that term absence is also indirectly captured in a multinomial model through the constraint that all the term probabilities must sum to 1. in this paper, we propose and study a new family of query generation models based on the poisson distribution.
+however, multivariate bernoulli also has one potential advantage over multinomial from the viewpoint of retrieval: in a multinomial distribution, the probabilities of all the terms must sum to 1, making it hard to accommodate per-term smoothing, while in a  multivariate bernoulli, the presence probabilities of different terms are completely independent of each other, easily  accommodating per-term smoothing and weighting.
+compared with  multivariate bernoulli, multinomial distribution has the advantage of being able to model the frequency of terms in the query; in contrast, multivariate bernoulli only models the presence and absence of query terms, thus cannot capture different frequencies of query terms.
+the heavy use of multinomial distribution is partly due to the fact that it has been successfully used in speech recognition, where multinomial distribution is a  natural choice for modeling the occurrence of a particular word in a particular position in text.
+the  multinomial distribution is especially popular and also shown to be quite effective.
+virtually all the existing query generation language  models are based on either multinomial distribution [19, 6, 28] or multivariate bernoulli distribution [21, 18].
+we can then rank documents based on the likelihood of generating the query.
+in such a model, given a query q and a document d, we  compute the likelihood of generating query q with a model estimated based on document d, i.e., the conditional  probability p(q|d).
+among many variants of language  models proposed, the most popular and fundamental one is the query-generation language model [21, 13], which leads to the query-likelihood scoring method for ranking documents.
+as a new type of probabilistic retrieval models, language models have been shown to be effective for many retrieval tasks [21, 28, 14, 4].

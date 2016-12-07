@@ -1,0 +1,93 @@
+We use acknowledgment messages not only to inform senders about the successful delivery of messages but also to delete the replicas of the delivered messages that are still present in the network.
+In general, it is worth noting that, according to the JMS specification and suggested design patterns, it is  common and preferable for a client to have all of its messages delivered to a single queue.
+However, clients maintain a list of the identifiers of the recently  received messages to avoid the delivery of message duplicates.
+The host that has started the session receives the list and, in the same way, sends the  messages that are not present in the other host.
+When a host receives the list, it checks its message buffer and updates it according to the following rules: (1) if a message has a single recipient and it has been delivered, it is deleted from the buffer; (2) if a message has multiple recipients, the identifiers of the  delivered hosts are deleted from the associated list of recipients.
+It is important to note that durable subscribers have explicitly to unsubscribe from a topic in order to stop the notification process; however, all durable subscriptions have a predefined expiration time in order to cope with the cases of subscribers that do not meet again because of their movements or failures.
+The  problem is that, in our scenario, disconnections are the norm 1 In theory, it is not possible to send a message to a peer that has never been reachable in the past, since there can be no entry present in the registry.
+When a message is delivered to one of the subscribers, this recipient is deleted from the list.
+According to this, JMS messages are  characterised by some properties defined using the header field, which contains values that are used by both clients and providers for their delivery.
+In other words, we provide the applications with  at-mostonce reliability for both types of messages.
+However, it is worth noting that it is not possible to ensure once-and-only-once reliability for  persistent messages as defined in the specification, since, as we  discussed in the previous subsection, the underlying epidemic protocol can guarantee only best-effort delivery.
+Only the successful  deliveries of the persistent messages are notified to the senders.
+On the other hand, if a non-durable subscriber becomes disconnected, its subscription is deleted; in other words,  during disconnections, notifications are not sent using the  epidemic protocol but exploit only the synchronous protocol.
+It is important to note that, at the middleware level, it is logically irrelevant whether or not the network layer  implements some form of ad-hoc routing (though considerably more efficient if it does); the middleware only considers  information about which nodes are actively reachable at any point in time.
+In order to deliver a message to a host that is not  currently in reach1 , we use an asynchronous epidemic routing protocol that will be discussed in detail in Section 4.2.
+In this case, the delivery latency will be low as a result of the rapidity of propagation of the infection in the connected cloud (see also the simulation results in Section 5).
+4.1 Adaptation of JMS for Mobile ad-hoc Networks Developing applications for mobile networks is yet more challenging: in addition to the same considerations as for infrastructured wireless environments, such as the limited device capabilities and power constraints, there are issues of rate of change of network connectivity, and the lack of a static routing infrastructure.
+The mechanism we discuss is intended for the  purposes of demonstrating feasibility; more efficient  communication mechanisms for this environment are themselves  complex, and are the subject of another paper [13].
+This mechanism is the one that distinguishes the delivery of persistent and non-persistent messages in our JMS implementation: the deliveries of the former are notified to the senders, whereas the latter are not.
+The other host evaluates this list and sends back a list containing the identifiers it is storing that are not present in the other host, together with the messages that the other does not have.
+In fixed platforms, durable subscriptions are maintained during the  disconnections of the clients, whether these are intentional or are the result of failures.
+Queues are advertised periodically to the hosts that are within transmission range or that are reachable by means of the underlying synchronous communication protocol, if  provided.
+4.4 Reliability and Acknowledgment  Mechanisms As already discussed, at-most-once message delivery is the best that can be achieved in terms of delivery semantics in partially connected ad-hoc settings.
+A host that initiates a  discovery process will find the topics and the queues present in its connected portion of the network in a straightforward manner.
+Unsubscription messages are delivered in the same way as are subscription messages.
+In this case, the optimum location of the queue may well be on this  particular host.
+For example, let us suppose that it is possible to know a priori, or it is possible to determine dynamically, that a certain host is the receiver of the most part of messages sent to a particular queue.
+In order to delete the other possible replicas, we employ  acknowledgment messages (discussed in Section 4.4), returned in the same way as a normal message.
+With respect to durable  subscriptions, if a subscriber becomes disconnected,  notifications are not stored but are sent using the epidemic  protocol rather than the synchronous protocol.
+Clearly, the delivery ratio of the protocol increases proportionally to the maximum  allowed delay time and the buffer size in each host (interesting simulation results may be found in [16]).
+Each host maintains a list of the messages Middleware for Pervasive and ad-hoc Computing 124 successfully delivered that is updated as part of the normal process of information exchange between the hosts.
+A message that needs to be sent is replicated on each host in reach.
+This is a way to free space in the buffers (one preferentially deletes older  messages in cases of conflict); to eliminate stale replicas in the system; and to limit the time for which destinations must hold message identifiers to dispose of duplicates.
+In traditional systems, while a durable subscriber is disconnected from the server, it is responsible for storing messages.
+In order to implement different levels of reliability, EMMA treats persistent and non-persistent messages differently,  during the execution of the anti-entropy epidemic protocol.
+Point to Point Model The point to point model is based on the concept of queues, that are used to enable  asynchronous communication between the producer of a message and possible different consumers.
+If this is insufficient and non-persistent messages are present in the buffer, these are replaced.
+4.2 Message Delivery using Epidemic Routing In this section, we examine one possible mechanism that will allow the delivery of messages in a partially connected network.
+In our solution, the  location of queues is determined by a negotiation process that is application dependent.
+This feature is clearly provided to limit the number of the unnecessary messages sent around the network.
+When a client wishes to send a message to the topic list, it sends it to the topic holder (in the same way as it would send a message to a queue).
+If two hosts are in the same cloud (i.e., a connected path exists  between them), but no synchronous protocol is available, the messages are sent using the epidemic protocol.
+It is worth noting that we use a single message with multiple recipients, instead of multiple messages with multiple recipients.
+If the topic becomes accessible to this host again, it must make another subscription in order to receive the notifications.
+Given the existence of an epidemic protocol, the discovery mechanism consists of advertising the queues to the hosts that are currently  unreachable using analogous mechanisms.
+The messages with higher  priorities are delivered in a preferential way.
+However, it is  possible to improve the reliability of the system with efficient acknowledgment mechanisms.
+Within epidemic routing, each host maintains a buffer containing the messages that it has created and the replicas of the messages generated by the other hosts.
+In the case of messages with multiple recipients, a list of the actual recipients is also stored.
+In other words, the host  assumes that the queue will be unreachable from that point in time.
+This simple mechanism, together with the use of expiration timestamps, guarantees that the old acknowledgment notifications are deleted from the  system after a limited period of time.
+In fact, if there is not enough space to replicate all the  persistent messages, a mechanism based on priorities is used to delete and replicate non-persistent messages (and, if  necessary, persistent messages).
+Publish-Subscribe Model In the publish-subscribe model, some of the hosts are similarly designated to hold topics and store subscriptions, as before.
+As discussed above, persistent messages are prioritised above the non-persistent ones.
+When two hosts connect, the host with the smaller identifier initiates a so-called anti-entropy session, sending a list containing the unique identifiers of the messages that it currently stores.
+According to the JMS specification, persistent messages must be delivered with a higher degree of reliability than the  nonpersistent ones.
+The topic holder then forwards the message to all subscribers, using the synchronous protocol if possible, the epidemic protocol otherwise.
+However this is not yet part of the current architecture of EMMA. 
+Messages are deleted from the buffers using the expiration time value that can be set by senders.
+However, to overcome this possible limitation, we provide a primitive through which information can be added to the registry without using the normal channels.
+According to the JMS specification, it is possible to assign a priority to each message.
+EMMA provides a  mechanism for failure notification to applications if the  acknowledgment is not received within a given timeout (that can be configured by application developers).
+In other words, we cannot  consider disconnections as failures.
+In other words, durable notifications remain valid during the possible  disconnections of the subscriber.
+If a host  becomes connected to another cloud of mobile nodes, during its movement, the message spreads through this collection of hosts.
+In this way, copies of the messages are quickly spread through connected networks, like an infection.
+Messages with higher priorities are treated in a preferential way.
+As discussed in Section 3, a JMS application can use either the point to point and the publish-subscribe styles of messaging.
+When the durable subscriber  reconnects, the server sends it all unexpired messages.
+Since the message buffer space is limited, persistent messages are preferentially replicated using the available free space.
+Topics are advertised through the registry in the same way as are queues, and a client wishing to subscribe to a topic must register with the client holding the topic.
+The reliability offered by this protocol is typically best  effort, since there is no guarantee that a message will  eventually be delivered to its recipient.
+These lists have, clearly, finite dimensions and are  implemented as circular queues.
+If the resulting length of the list of recipients is zero, the message is deleted from the buffer.
+Consequently, we now describe an initial attempt to adapt the JMS specification to target the particular requirements related to ad-hoc scenarios.
+A JMS message can be persistent or non-persistent.
+To improve the performance, a hash-table indexes the content of the buffer.
+This may be caused, for example, if a host storing the queue becomes unreachable.
+In order to improve the reliability of EMMA, a design mechanism for intelligent replication of queues and topics based on the context information could be developed.
+The asynchronous message delivery described above is based on a typical pure epidemic-style routing protocol [16].
+We have also adapted the concepts of durable and non durable subscriptions for ad-hoc settings.
+The lists are exchanged during the first steps of the anti-entropic  epidemic protocol with a certain predefined frequency.
+4.3 Adaptation of the JMS Message Model In this section, we will analyse the aspects of our  adaptation of the specification related to the so-called JMS Message Model [5].
+If a lease is not refreshed (i.e, its life is not extended), it can expire and, consequently, the entry is deleted from the registry.
+A lease represents the time of validity of a particular entry.
+Should buffer overflow occur, messages are dropped.
+Epidemic-style replication of data and messages has been exploited in the past in many fields starting with the distributed database systems area [2].
+Further selection is based on their priorities.
+The hosts that receive advertisement  messages add entries to their JNDI registry.
+Each entry is  characterized by a lease (a mechanism similar to that present in Jini [15]).
+The aspects discussed in the remainder of this section are valid for both models (point to point and publish-subscribe).
+For these reasons, we adopt a slightly different semantics.
+123 Middleware 2004 Companion rather than the exception.

@@ -1,0 +1,44 @@
+performance is better on average for all msp instances, but again we see larger improvements for more complex problem instances. 
+the last three columns show the same metrics we used for the generic dcop instances, except this time we only show the improvements of dcpop-all over dpop.
+results are shown in table 3. the values in the first five columns represent (in left to right order), the total number of agents, the total number of meetings, the total  number of variables, the average total number of constraints, and the average minimum iw produced by a traditional pseudotree.
+for our tests we generated 100 sample problems for each  combination of agents and meetings.
+unary constraints are placed on each variable to account for a person"s valuation of each meeting and time slot.
+all variables that belong to the same meeting have equality constraints so that all of the  participants choose the same time slot.
+all variables that belong to the same person have mutual exclusion constraints placed so that the person cannot attend more than one meeting during the same time slot.
+the msp maps to a dcop instance where each variable represents the time slot that a specific person will attend a specific meeting.
+meetings can be held within departments or among departments, and can be assigned to one of eight time slots.
+each person must attend a specified number of meetings.
+the problem setup includes a number of people that are grouped into departments.
+7.2 meeting scheduling problem in addition to our initial generic dcop tests, we ran a series of tests on the meeting scheduling problem (msp) as described in [6].
+we show this trend in greater detail in figures 4, 5, and 6. notice how the improvement increases as the complexity of the problem increases.
+another trend we notice is that the improvement is greater for high density problems than low density problems.
+on autonomous agents and multi-agent systems (aamas 07) 747 figure 6: path cost dcpop improvement ag mtg vars const iw cd md pc 10 4 12 13.5 2.25 -0.01 -0.01 5.6% 30 14 44 57.6 3.63 0.09 0.09 10.9% 50 24 76 101.3 4.17 0.08 0.09 10.7% 100 49 156 212.9 5.04 0.16 0.20 30.0% 150 74 236 321.8 5.32 0.21 0.23 35.8% 200 99 316 434.2 5.66 0.18 0.22 29.5% table 3: meeting scheduling problems perform dpop.
+joint conf.
+thus given the choice between the  pseudotrees produced by all 10 heuristics, dcpop-all will always  outlow density high density algorithm cd md pc cd md pc dpop 7.81 6.81 3.78 13.34 12.34 5.34 dcpop-ce 7.94 6.73 3.74 12.83 11.43 5.07 dcpop-all 7.62 6.49 3.66 12.72 11.36 5.05 improvement 0.18 0.32 13% 0.62 0.98 36% table 1: 20 node problems low density high density algorithm cd md pc cd md pc dpop 33.35 32.35 14.55 58.51 57.50 19.90 dcpop-ce 33.49 29.17 15.22 57.11 50.03 20.01 dcpop-all 32.35 29.57 14.10 56.33 51.17 18.84 improvement 1.00 2.78 104% 2.18 6.33 256% table 2: 100 node problems figure 4: computation dimension size figure 5: message dimension size the sixth intl.
+this logically follows from our earlier assertion that given the same input, dcpop performs exactly the same as dpop.
+notice that  dcpopall outperforms dpop on all metrics.
+for the pc metric the value shown is a percentage reduction in the maximum  sequential path cost (% = dp op −dcp op dcp op ∗ 100).
+for the cd and md metrics the value shown is a reduction in number of dimensions.
+the final row in both tables is a measurement of improvement of dcpop-all over dpop.
+for the pc metric the value shown is the natural logarithm of the  maximum sequential path cost (since the actual value grows  exponentially with the complexity of the problem).
+for the cd and md  metrics the value shown is the average number of dimensions.
+for dcpop-all we chose the best pseudotree produced by all 10 heuristics for each problem in the set.
+these are all versions of the best-first traversal discussed in section 5. for both dpop and dcpop-ce we chose the best pseudotree produced by their respective 5 heuristics for each problem in the set.
+these are all versions of the guided dfs traversal discussed in section 5. the cross-edged pseudotrees used for dcpop-ce were generated using 5 heuristics: mcn, lcn, mcn a-b, lcn a-b, and lcsg a-b.
+the pseudotrees used for dpop were generated using 5  heuristics: dfs, dfs mcn, dfs clique mcn, dfs mcn dstb, and dfs mcn bec.
+in both table 1 and table 2 we have listed performance  metrics for the original dpop algorithm, the dcpop algorithm using only cross-edged pseudotrees (dcpop-ce), and the dcpop  algorithm using traditional and cross-edged pseudotrees (dcpop-all).
+high density problems consist of the remainder of the problem sets.
+iw ≤ 10 for the 20 node problems and iw ≤ 50 for the 100 node problems).
+low density cases consist of those  problems that have a best dpop iw less than or equal to half of the total number of nodes (e.g.
+results are shown for the first set in table 1 and for the second set in table 2. for the two problem sets we split the cases into low density and high density categories.
+the first set uses 20 variables, and the best dpop iw ranges from 1 to 16 with an average of 8.5. the second set uses 100 variables, and the best dpop iw ranged from 2 to 68 with an average of 39.3. since most of the problems in the second set were too complex to actually  compute the solution, we took measurements of the metrics using the techniques described earlier in section 5 without actually solving the problem.
+the generator then created binary constraints until each variable reached its maximum number of constraints.
+each problem was generated by  assigning a random number (picked from a range) of constraints to each variable.
+7.1 generic dcop instances for our initial tests we randomly generated two sets of problems with 3000 cases in each.
+to analyze the relative complexity of a given dcop instance, we find the  minimum induced width (iw) of any traditional pseudotree produced by a heuristic for the original dpop.
+we also include as metrics the  maximum computation size in number of dimensions (cd) and  maximum message size in number of dimensions (md).
+the maximum sequential path cost is equal to the sum of the computations performed on the longest path from the root to any leaf node.
+we also introduced the maximum sequential path cost (pc) as a measurement of the maximum amount of parallelism  achievable by the algorithm.
+we have already shown that the total number of messages is linear with respect to the number of constraints in the dcop  instance.
+on autonomous agents and multi-agent systems (aamas 07) existing performance metrics for dcop algorithms include the total number of messages, synchronous clock cycles, and message size.
+746 the sixth intl.

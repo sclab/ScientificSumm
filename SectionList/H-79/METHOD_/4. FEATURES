@@ -1,0 +1,69 @@
+To apply RankNet (or other machine learning techniques) to the
+ranking problem, we needed to extract a set of features from each
+page. We divided our feature set into four, mutually exclusive,
+categories: page-level (Page), domain-level (Domain), anchor text
+and inlinks (Anchor), and popularity (Popularity). We also
+optionally used the PageRank of a page as a feature. Below, we
+describe each of these feature categories in more detail.
+PageRank
+We computed PageRank on a Web graph of 5 billion crawled
+pages (and 20 billion known URLs linked to by these pages).
+This represents a significant portion of the Web, and is
+approximately the same number of pages as are used by
+Google, Yahoo, and MSN for their search engines.
+Because PageRank is a graph-based algorithm, it is important
+that it be run on as large a subset of the Web as possible. Most
+previous studies on PageRank used subsets of the Web that are
+significantly smaller (e.g. the TREC VLC2 corpus, used by
+many, contains only 19 million pages)
+We computed PageRank using the standard value of 0.85 for α.
+Popularity
+Another feature we used is the actual popularity of a Web page,
+measured as the number of times that it has been visited by
+users over some period of time. We have access to such data
+from users who have installed the MSN toolbar and have opted
+to provide it to MSN. The data is aggregated into a count, for
+each Web page, of the number of users who viewed that page.
+Though popularity data is generally unavailable, there are two
+other sources for it. The first is from proxy logs. For example, a
+university that requires its students to use a proxy has a record
+of all the pages they have visited while on campus.
+Unfortunately, proxy data is quite biased and relatively small.
+Another source, internal to search engines, are records of which
+results their users clicked on. Such data was used by the search
+engine Direct Hit, and has recently been explored for
+dynamic ranking purposes [20]. An advantage of the toolbar
+data over this is that it contains information about URL visits
+that are not just the result of a search.
+The raw popularity is processed into a number of features such
+as the number of times a page was viewed and the number of
+times any page in the domain was viewed. More details are
+provided in section 5.5.
+Anchor text and inlinks
+These features are based on the information associated with
+links to the page in question. It includes features such as the
+total amount of text in links pointing to the page (anchor
+text), the number of unique words in that text, etc.
+Page
+This category consists of features which may be determined by
+looking at the page (and its URL) alone. We used only eight,
+simple features such as the number of words in the body, the
+frequency of the most common term, etc.
+Domain
+This category contains features that are computed as averages
+across all pages in the domain. For example, the average
+number of outlinks on any page and the average PageRank.
+Many of these features have been used by others for ranking Web
+pages, particularly the anchor and page features. As mentioned,
+the evaluation is typically for dynamic ranking, and we wish to
+evaluate the use of them for static ranking. Also, to our
+knowledge, this is the first study on the use of actual page
+visitation popularity for static ranking. The closest similar work is
+on using click-through behavior (that is, which search engine
+results the users click on) to affect dynamic ranking (see e.g.,
+[20]).
+Because we use a wide variety of features to come up with a static
+ranking, we refer to this as fRank (for feature-based ranking).
+fRank uses RankNet and the set of features described in this
+section to learn a ranking function for Web pages. Unless
+otherwise specified, fRank was trained with all of the features.

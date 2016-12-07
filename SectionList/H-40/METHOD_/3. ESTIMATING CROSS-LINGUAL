@@ -1,0 +1,381 @@
+QUERY SIMILARITY
+A search engine has a query log containing user queries in
+different languages within a certain period of time. In addition to
+query terms, click-through information is also recorded. Therefore,
+we know which documents have been selected by users for each
+query. Given a query in the source language, our CLQS task is to
+determine one or several similar queries in the target language
+from the query log.
+The key problem with cross-lingual query suggestion is how to
+learn a similarity measure between two queries in different
+languages. Although various statistical similarity measures have
+been studied for monolingual terms [8, 26], most of them are
+based on term co-occurrence statistics, and can hardly be applied
+directly in cross-lingual settings.
+In order to define a similarity measure across languages, one
+has to use at least one translation tool or resource. So the measure
+is based on both translation relation and monolingual similarity. In
+this paper, as our purpose is to provide up-to-date query similarity
+measure, it may not be sufficient to use only a static translation
+resource. Therefore, we also integrate a method to mine possible
+translations on the Web. This method is particularly useful for
+dealing with OOV terms.
+Given a set of resources of different natures, the next question
+is how to integrate them in a principled manner. In this paper, we
+propose a discriminative model to learn the appropriate similarity
+measure. The principle is as follows: we assume that we have a
+reasonable monolingual query similarity measure. For any training
+query example for which a translation exists, its similarity
+measure (with any other query) is transposed to its translation.
+Therefore, we have the desired cross-language similarity value for
+this example. Then we use a discriminative model to learn the
+cross-language similarity function which fits the best these
+examples.
+In the following sections, let us first describe the detail of the
+discriminative model for cross-lingual query similarity estimation.
+Then we introduce all the features (monolingual and cross-lingual
+information) that we will use in the discriminative model.
+3.1 Discriminative Model for Estimating
+Cross-Lingual Query Similarity
+In this section, we propose a discriminative model to learn 
+crosslingual query similarities in a principled manner. The principle is
+as follows: for a reasonable monolingual query similarity between
+two queries, a cross-lingual correspondent can be deduced
+between one query and another query"s translation. In other
+words, for a pair of queries in different languages, their 
+crosslingual similarity should fit the monolingual similarity between
+one query and the other query"s translation. For example, the
+similarity between French query pages jaunes (i.e., yellow
+page in English) and English query telephone directory should
+be equal to the monolingual similarity between the translation of
+the French query yellow page and telephone directory. There
+are many ways to obtain a monolingual similarity measure
+between terms, e.g., term co-occurrence based mutual information
+and 2
+χ . Any of them can be used as the target for the cross-lingual
+similarity function to fit. In this way, cross-lingual query
+similarity estimation is formulated as a regression task as follows:
+Given a source language query fq , a target language query eq ,
+and a monolingual query similarity MLsim , the corresponding
+cross-lingual query similarity CLsim is defined as follows:
+),(),( eqMLefCL qTsimqqsim f
+= (1)
+where fqT is the translation of fq in the target language.
+Based on Equation (1), it would be relatively easy to create a
+training corpus. All it requires is a list of query translations. Then
+an existing monolingual query suggestion system can be used to
+automatically produce similar query to each translation, and create
+the training corpus for cross-lingual similarity estimation. Another
+advantage is that it is fairly easy to make use of arbitrary
+information sources within a discriminative modeling framework
+to achieve optimal performance.
+In this paper, support vector machine (SVM) regression
+algorithm [25] is used to learn the cross-lingual term similarity
+function. Given a vector of feature functions f between fq and
+eq , ),( efCL ttsim is represented as an inner product between a
+weight vector and the feature vector in a kernel space as follows:
+)),((),( efefCL ttfwttsim φ•= (2)
+where φ is the mapping from the input feature space onto the
+kernel space, and wis the weight vector in the kernel space which
+will be learned by the SVM regression training. Once the weight
+vector is learned, the Equation (2) can be used to estimate the
+similarity between queries of different languages.
+We want to point out that instead of regression, one can
+definitely simplify the task as a binary or ordinal classification, in
+which case CLQS can be categorized according to discontinuous
+class labels, e.g., relevant and irrelevant, or a series of levels of
+relevancies, e.g., strongly relevant, weakly relevant, and
+irrelevant. In either case, one can resort to discriminative
+classification approaches, such as an SVM or maximum entropy
+model, in a straightforward way. However, the regression
+formalism enables us to fully rank the suggested queries based on
+the similarity score given by Equation (1).
+The Equations (1) and (2) construct a regression model for
+cross-lingual query similarity estimation. In the following
+sections, the monolingual query similarity measure (see Section
+3.2) and the feature functions used for SVM regression (see
+Section 3.3) will be presented.
+3.2 Monolingual Query Similarity Measure
+Based on Click-through Information
+Any monolingual term similarity measure can be used as the
+regression target. In this paper, we select the monolingual query
+similarity measure presented in [26] which reports good
+performance by using search users" click-through information in
+query logs. The reason to choose this monolingual similarity is
+that it is defined in a similar context as ours − according to a user
+log that reflects users" intention and behavior. Therefore, we can
+expect that the cross-language term similarity learned from it can
+also reflect users" intention and expectation.
+Following [26], our monolingual query similarity is defined by
+combining both query content-based similarity and click-through
+commonality in the query log.
+First the content similarity between two queries p and q is
+defined as follows:
+))(),((
+),(
+),(
+qknpknMax
+qpKN
+qpsimilarity content = (3)
+where )( xkn is the number of keywords in a query x, ),( qpKN is
+the number of common keywords in the two queries.
+Secondly, the click-through based similarity is defined as
+follows,
+))(),((
+),(
+),(
+qrdprdMax
+qpRD
+qpsimilarity throughclick =−
+(4)
+where )(xrd is the number of clicked URLs for a query x, and
+),( qpRD is the number of common URLs clicked for two queries.
+Finally, the similarity between two queries is a linear
+combination of the content-based and click-through-based
+similarities, and is presented as follows:
+),(*
+),(*),(
+qpsimilarity
+qpsimilarityqpsimilarity
+throughclick
+content
+−
++=
+β
+α (5)
+where α and β are the relative importance of the two similarity
+measures. In this paper, we set ,4.0=α and 6.0=β following the
+practice in [26]. Queries with similarity measure higher than a
+threshold with another query will be regarded as relevant
+monolingual query suggestions (MLQS) for the latter. In this
+paper, the threshold is set as 0.9 empirically.
+3.3 Features Used for Learning Cross-Lingual
+Query Similarity Measure
+This section presents the extraction of candidate relevant queries
+from the log with the assistance of various monolingual and
+bilingual resources. Meanwhile, feature functions over source
+query and the cross-lingual relevant candidates are defined. Some
+of the resources being used here, such as bilingual lexicon and
+parallel corpora, were for query translation in previous work. But
+note that we employ them here as an assistant means for finding
+relevant candidates in the log rather than for acquiring accurate
+translations.
+3.3.1 Bilingual Dictionary
+In this subsection, a built-in-house bilingual dictionary containing
+120,000 unique entries is used to retrieve candidate queries. Since
+multiple translations may be associated with each source word,
+co-occurrence based translation disambiguation is performed [3,
+10]. The process is presented as follows:
+Given an input query }{ ,2,1 fnfff wwwq K= in the source
+language, for each query term fiw , a set of unique translations are
+provided by the bilingual dictionary D : },,{)( ,2,1 imiifi tttwD K= .
+Then the cohesion between the translations of two query terms is
+measured using mutual information which is computed as follows:
+)()(
+),(
+log),()( ,
+klij
+klij
+klijklij
+tPtP
+ttP
+ttPttMI = (6)
+where .
+)(
+)(,
+),(
+),(
+N
+tC
+tP
+N
+ttC
+ttP
+klij
+klij ==
+Here ),( yxC is the number of queries in the log containing both
+x and y , )(xC is the number of queries containing term x , and
+N is the total number of queries in the log.
+Based on the term-term cohesion defined in Equation (6), all the
+possible query translations are ranked using the summation of the
+term-term cohesion ∑≠
+=
+kiki
+klijqdict ttMITS f
+,,
+),()( . The set of
+top-4 query translations is denoted as )( fqTS . For each possible
+query translation )( fqTST∈ , we retrieve all the queries containing
+the same keywords as T from the target language log. The
+retrieved queries are candidate target queries, and are assigned
+)(TSdict
+as the value of the feature Dictionary-based Translation
+Score.
+3.3.2 Parallel Corpora
+Parallel corpora are precious resources for bilingual knowledge
+acquisition. Different from the bilingual dictionary, the bilingual
+knowledge learned from parallel corpora assigns probability for
+each translation candidate which is useful in acquiring dominant
+query translations.
+In this paper, the Europarl corpus (a set of parallel French and
+English texts from the proceedings of the European Parliament) is
+used. The corpus is first sentence aligned. Then word alignments
+are derived by training an IBM translation model 1 [4] using
+GIZA++ [21]. The learned bilingual knowledge is used to extract
+candidate queries from the query log. The process is presented as
+follows:
+Given a pair of queries, fq in the source language and eq in the
+target language, the Bi-Directional Translation Score is defined as
+follows:
+)|()|(),( 111 feIBMefIBMefIBM qqpqqpqqS = (7)
+where )|(1 xypIBM
+is the word sequence translation probability
+given by IBM model 1 which has the following form:
+∏∑= =+
+=
+||
+1
+||
+0
+||1 )|(
+)1|(|
+1
+)|(
+y
+j
+x
+i
+ijyIBM xyp
+x
+xyp (8)
+where )|( ij xyp is the word to word translation probability
+derived from the word-aligned corpora.
+The reason to use bidirectional translation probability is to deal
+with the fact that common words can be considered as possible
+translations of many words. By using bidirectional translation, we
+test whether the translation words can be translated back to the
+source words. This is helpful to focus on the translation
+probability onto the most specific translation candidates.
+Now, given an input query fq , the top 10 queries }{ eq with the
+highest bidirectional translation scores with fq are retrieved from
+the query log, and ),(1 efIBM qqS in Equation (7) is assigned as the
+value for the feature Bi-Directional Translation Score.
+3.3.3 Online Mining for Related Queries
+OOV word translation is a major knowledge bottleneck for query
+translation and CLIR. To overcome this knowledge bottleneck,
+web mining has been exploited in [7, 27] to acquire 
+EnglishChinese term translations based on the observation that Chinese
+terms may co-occur with their English translations in the same
+web page. In this section, this web mining approach is adapted to
+acquire not only translations but semantically related queries in
+the target language.
+It is assumed that if a query in the target language co-occurs
+with the source query in many web pages, they are probably
+semantically related. Therefore, a simple method is to send the
+source query to a search engine (Google in our case) for Web
+pages in the target language in order to find related queries in the
+target language. For instance, by sending a French query pages
+jaunes to search for English pages, the English snippets
+containing the key words yellow pages or telephone directory
+will be returned. However, this simple approach may induce
+significant amount of noise due to the non-relevant returns from
+the search engine. In order to improve the relevancy of the
+bilingual snippets, we extend the simple approach by the
+following query modification: the original query is used to search
+with the dictionary-based query keyword translations, which are
+unified by the ∧ (and) ∨ (OR) operators into a single Boolean
+query. For example, for a given query abcq = where the set of
+translation entries in the dictionary of for a is },,{ 321 aaa , b is
+},{ 21 bb and c is }{ 1c , we issue 121321 )()( cbbaaaq ∧∨∧∨∨∧ as
+one web query.
+From the returned top 700 snippets, the most frequent 10 target
+queries are identified, and are associated with the feature
+Frequency in the Snippets.
+Furthermore, we use Co-Occurrence Double-Check (CODC)
+Measure to weight the association between the source and target
+queries. CODC Measure is proposed in [6] as an association
+measure based on snippet analysis, named Web Search with
+Double Checking (WSDC) model. In WSDC model, two objects a
+and b are considered to have an association if b can be found by
+using a as query (forward process), and a can be found by using b
+as query (backward process) by web search. The forward process
+counts the frequency of b in the top N snippets of query a, denoted
+as )@( abfreq . Similarly, the backward process count the
+frequency of a in the top N snippets of query b, denoted
+as )@( bafreq . Then the CODC association score is defined as
+follows:
+⎪
+⎩
+⎪
+⎨
+⎧ =×
+=
+⎥
+⎥
+⎦
+⎤
+⎢
+⎢
+⎣
+⎡
+×
+otherwise,
+0)@()@(if,0
+),(
+)(
+)@(
+)(
+)@(
+log
+α
+e
+ef
+f
+fe
+qfreq
+qqfreq
+qfreq
+qqfreq
+effe
+efCODC
+e
+qqfreqqqfreq
+qqS (9)
+CODC measures the association of two terms in the range
+between 0 and 1, where under the two extreme cases, eq and fq
+are of no association when 0)@( =fe qqfreq
+or 0)@( =ef qqfreq , and are of the strongest association when
+)()@( ffe qfreqqqfreq = and )()@( eef qfreqqqfreq = . In
+our experiment, α is set at 0.15 following the practice in [6].
+Any query eq mined from the Web will be associated with a
+feature CODC Measure with ),( efCODC qqS as its value.
+3.3.4 Monolingual Query Suggestion
+For all the candidate queries 0Q being retrieved using dictionary
+(see Section 3.3.1), parallel data (see Section 3.3.2) and web
+mining (see Section 3.3.3), monolingual query suggestion system
+(described in Section 3.1) is called to produce more related
+queries in the target language. For each target query eq , its
+monolingual source query )( eML qSQ is defined as the query in
+0Q with the highest monolingual similarity with eq , i.e.,
+),(maxarg)( 0 eeMLQqeML qqsimqSQ e
+′= ∈′
+(10)
+Then the monolingual similarity between eq and )( eML qSQ is
+used as the value of the eq "s Monolingual Query Suggestion
+Feature. For any target query 0Qq∈ , its Monolingual Query
+Suggestion Feature is set as 1.
+For any query 0Qqe ∉ , its values of Dictionary-based
+Translation Score, Bi-Directional Translation Score, Frequency
+in the Snippet, and CODC Measure are set to be equal to the
+feature values of )( eML qSQ .
+3.4 Estimating Cross-lingual Query Similarity
+In summary, four categories of features are used to learn the 
+crosslingual query similarity. SVM regression algorithm [25] is used to
+learn the weights in Equation (2). In this paper, LibSVM toolkit
+[5] is used for the regression training.
+In the prediction stage, the candidate queries will be ranked
+using the cross-lingual query similarity score computed in terms
+of )),((),( efefCL ttfwttsim φ•= , and the queries with
+similarity score lower than a threshold will be regarded as 
+nonrelevant. The threshold is learned using a development data set by
+fitting MLQS"s output.

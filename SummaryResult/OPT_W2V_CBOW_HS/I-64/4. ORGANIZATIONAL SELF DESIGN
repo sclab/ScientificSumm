@@ -1,0 +1,70 @@
+This function takes the set of local roles that are the responsibility of the spawning agent and returns a subset of those roles for allocation to the newly spawned agent.
+Agent spawning is the generation of a new agent to handle a subset of the roles of the spawning agent.
+These two primitives result in a change in the assignment of roles to the agents.
+If R be the local roles of the spawning agent and R be the subset of roles being evaluated for allocation to the newly spawned agent, the cost function for this heuristic is given by: COST(R, R ) ← GETRESOURCECOST(R − R )+GETRESOURCECOST(R ) Balancing execution time: This heuristic attempts to allocate roles in a way that tries to ensure that each agent has an equal amount of work to do.
+Note that each agent only has limited organizational knowledge and is individually  responsible for spawning off or combining with another agent, as needed, based on its estimate of its performance so far.
+For a local role, all the descendent nodes of that role will be local.
+Also to allow temporary changes to the environmental  conditions to be overlooked, we want the probability of an  organizational change to be inversely proportional to the time since the last organizational change.
+Note that the spawning agent is only changing its local organizational knowledge and not the global organizational knowledge.
+To compute if agent spawning is necessary, we use the annealing equation with ΔE = 1 α∗Slack where α is a constant and Slack is the difference between the total time available for completion of the outstanding tasks and the sum of the expected time required for completion of each task on the task queue.
+∃a∃r∀ri∈SUBTASKS(r)(a ∈ A) ∧ (r ∈ (T ∪ M))∧ (TYPE(a, ri) = Local) =⇒ (TYPE(a, r) = Local) When a new agent is spawned, the agent doing the spawning will assign one or more of its local roles to the newly spawned agent (Algorithm 1).
+Since the use of different cost functions will result in different  organizational structures and since we have no a priori reason to believe that one cost function will out-perform the other, we evaluated the performance of three different cost functions based on the  following three different heuristics: Algorithm 4 GETEXPECTEDDURATION(Roles) : (T ∪ M) → N+ 1: M ← (Roles ∩ M) 2: exptDuration ← 0 3: for [outcome =< (q, c, d), outcomeProb >] in M do 4: exptOutcomeDuration ← 0 5: for (n,p) in d do 6: exptOutcomeDuration ← n × p 7: exptDuration ← exptDuration + [exptOutcomeDuration × outcomeProb] 8: return exptDuration Allocating top-most roles first: This heuristic always breaks up at the top-most nodes first.
+Formally, if the function TYPE(Agent, TÆMS Node) : A×(T ∪ M) → {Local, Managed, Unassigned}, returns the type of the  responsibility of the agent towards the specified role, then TYPE(a, r) = Local ⇐⇒ ∀ri∈SUBTASKS(r)TYPE(a, ri) = Local TYPE(a, r) = Managed ⇐⇒ [∃a1∃r1(r1 ∈ SUBTASKS(r)) ∧ (TYPE(a1, r1) = Managed)] ∨ [∃a2∃a3∃r2∃r3(a2 = a3) ∧ (r2 = r3) ∧ (r2 ∈ SUBTASKS(r)) ∧ (r3 ∈ SUBTASKS(r)) ∧ (TYPE(a2, r2) = Local) ∧ (TYPE(a3, r3) = Local)] 4.2 Organization Formation and Adaptation To form or adapt their organizational structure, the agents use two organizational primitives: agent spawning and composition.
+Algorithm 1 SpawnAgent(SpawningAgent) : A → A 1: LocalRoles ← {r ⊆ (T ∪ M) | TYPE(SpawningAgent, r)= Local} 2: NewAgent ← CREATENEWAGENT() 3: NewAgentRoles ← FINDROLESFORSPAWNEDAGENT (LocalRoles) 4: for role in NewAgentRoles do 5: TYPE(NewAgent, role) ← Local 6: TYPE(SpawningAgent, role) ← Unassigned 7: PRESERVEORGANIZATIONALINVARIANTS() 8: return NewAgent Algorithm 2 FINDROLESFORSPAWNEDAGENT  (SpawningAgentRoles) : (T ∪ M) → (T ∪ M) 1: R ← SpawningAgentRoles 2: selectedRoles ← nil 3: for roleSet in [P(R) − {φ, R}] do 4: if COST(R, roleSet) < COST(R, selectedRoles) then 5: selectedRoles ← roleSet 6: return selectedRoles Algorithm 3 GETRESOURCECOST(Roles) : (T ∪ M) → 1: M ← (Roles ∩ M) 2: cost ← 0 3: for resource in R do 4: maxResourceUsage ← 0 5: for method in M do 6: if ρ(method, resource) > maxResourceUsage then 7: max ← ρ(method, resource) 8: cost ← cost + [C(resource) × maxResourceUsage] 9: return cost 4.2.1 Role allocation during spawning One of the key questions that the agent doing the spawning needs to answer is - which of its local-roles should it assign to the newly spawned agent and which of its local roles should it keep to  itself?
+Hence, as a part of its organizational  knowledge, each agent keeps a list of the local roles that it is enacting and the non-local roles that it is managing.
+To do this, the composed agent takes on the roles of all the local and managed tasks of the composing agent.
+We  selected this heuristic because (a) it is the simplest to implement, (b) fastest to run (the role allocation can be done in constant time  without the need of a search through the task structure) and (c) it makes sense from a human-organizational perspective as this heuristic  corresponds to dividing an organization along functional lines.
+If this time is relatively short, the agents are still adjusting to the changes in the environment - hence the  probability of an agent initiating an organizational change should be high.
+Formally, if R be the local roles of the spawning agent and R be the subset of roles being evaluated for allocation to the newly spawned agent, then the cost function for this heuristic is given by: COST(R, R ) ← |GETEXPECTEDDURATION(R−R )−GETEXPECTEDDURATION(R )| To evaluate these heuristics, we ran a series of experiments that tested the performance of the resultant organization on randomly generated task structures.
+Similarly, the newly spawned agent will only know of its just assigned local roles.
+To see how the organizational primitives work, we first describe four rules that can be thought of as the organizational invariants which will always hold before and after any organizational change: 1.
+The mechanism of  computing ΔE is different for agent spawning than for agent composition and is described below.
+(TYPE(a1, r1) = Local) ∧ (TYPE(a2, r2) = Local)∧ (a1 = a2) ∧ (r1 = r2) =⇒ ∀ri∈(SUPERTASKS(r1)∩SUPERTASKS(r2))∃ai(ai ∈ A)∧ (TYPE(ai, ri) = Managed) 4.
+If all the direct descendants of a role are local and the sole responsibility of a single agent, that role will be a local role.
+That is, if the nodes of a task  structure were numbered, starting from the root, in a breadth-first  fashion, then this heuristic would select the local-role of the spawning agent that had the lowest number and breakup that node (by  allocating one of its subtasks to the newly spawned agent).
+In order to participate in the formation and adaption of an  organization, the agents need to explicitly represent and reason about the role assignments.
+we want a stable  organizational structure that is suited to the task and environmental conditions at hand.
+Hence, we will use the terms role, task node and task interchangeably.
+Similarly, for a managed (non-local) role, all the ascendent nodes of that role will be managed.
+Note that the value of p is capped at a certain threshold in order to prevent the organization from being too sluggish in its reaction to environmental change.
+To preserve invariant rules 2 and 3, the spawning agent will change the type of all the ascendent roles of the nodes assigned to the newly spawned agent from local to managed.
+For such roles, the agent concerned can do one or more subtasks, solely at its  discretion and without consultation with any other agent.
+Hence, we wish to change the organizational structure only if the task structure and/or environmental conditions change.
+Agent  composition, on the other hand, is orthogonal to agent spawning and involves the merging of two or more agents together - the  combined agent is responsible for enacting all the roles of the agents being merged.
+Similarly, if the time since the last organizational change is relatively large, we wish to have a low probability of organizational change.
+The relationships between the roles are the coordination relationships that exist between the subparts of a problem.
+When an agent (the composing agent) decides to compose with another agent (the composed agent), the organizational knowledge of the composing agent is merged with the organizational  knowledge of the composed agent.
+We define a role as a TÆMS  subtree rooted at a particular node.
+In our approach, the organizational design is directly contingent on the task structure and the environmental conditions under which the problems need to be solved.
+The roles may be thought of as the parts played by the agents enacting the roles in the solution to the problem and reflect the long-term commitments made by the agents in question to a certain course of action (that includes task responsibility, authority, and mechanisms for coordination).
+Also, if the amount of Slack is negative, immediate agent spawning will occur without use of the annealing equation.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) same time, the spawning agent is taking on the task of managing the previously local roles.
+To allow this variation in probability of organizational change, we use simulated annealing to determine the probability of  keepThe Sixth Intl.
+For each potential role allocation, this heuristic works by calculating the absolute value of the difference between the expected duration of its own roles after spawning and the expected duration of the roles of the newly spawned agent.
+Hence, the set (T ∪ M)  encompasses the space of all possible roles.
+If the agent has been sitting idle for a long period of time, ΔE is large, which implies that p, the probability of keeping the existing organizational structure, is low. 
+If this difference is close to zero, then the both the agents have roughly the same amount of work to do.
+Managed roles, on the other hand, must be coordinated between two or more agents as such roles will have two or more descendent local roles that are the responsibility of two or more separate agents.
+Minimizing total resources: This heuristic attempts to  minimize the total cost of the resources needed by the agents in the organization to execute their roles.
+We, also, differentiate between local and managed (non-local) roles.
+Local roles are roles that are the sole responsibility of a  single agent, that is, the agent concerned is responsible for solving all the subproblems of the tree rooted at that node.
+From this formula, if T is large, p, or the probability of keeping the existing organizational structure is large.
+4.3 Reasons for Organizational Change As organizational change is expensive (requiring clock cycles, allocation/deallocation of resources, etc.)
+Care is taken to preserve the organizational invariant rules 1 and 4.
+If two local roles that are enacted by two different agents share a common ancestor, that ancestor will be a managed role.
+4.1 Agent Roles and Relationships The organizational structure is primarily composed of roles and the relationships between the roles.
+This probability is  calculated using the annealing formula: p = e− ΔE kT where ΔE is the amount of overload/underload, T is the time since the last  organizational change and k is a constant.
+Note, by definition, a role may consist of one or more other (sub-) roles as a particular TÆMS node may itself be made up of one or more subtrees.
+One or more agents may enact a particular role and one or more roles must be enacted by every agent.
+TYPE(a, r) = Local =⇒ ∀ri∈SUBTASKS(r)TYPE(a, ri) = Local 2.
+Any of the  existing coordination mechanisms (such as GPGP [11]) can be used to achieve this coordination.
+To calculate if agent composition is necessary, we again use the simulated annealing equation.
+However, in this case, ΔE = β ∗ Idle Time, where β is a constant and Idle Time is the amount of time for which the agent was idle.
+This subset is selected based on the results of a cost function as is evident from line 4 of the algorithm.
+At the 1230 The Sixth Intl.
+TYPE(a, r) = Managed =⇒ ∀ri∈SUPERTASKS(r)∃ai(ai ∈ A) ∧ (TYPE(ai, ri) = Managed) 3.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1231 ing an existing organizational structure.
+The onus of answering this question falls on the  FINDROLESFORSPAWNEDAGENT() function, shown in Algorithm 2 above.
+The results are given in Section 6.
+Joint Conf.
+Joint Conf.

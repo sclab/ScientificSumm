@@ -1,0 +1,58 @@
+In this work we address time-travel text search over 
+temporally versioned document collections. Given a keyword
+query q and a time t our goal is to identify and rank 
+relevant documents as if the collection was in its state as of
+time t.
+An increasing number of such versioned document 
+collections is available today including web archives, 
+collaborative authoring environments like Wikis, or timestamped
+information feeds. Text search on these collections, 
+however, is mostly time-ignorant: while the searched collection
+changes over time, often only the most recent version of
+a documents is indexed, or, versions are indexed 
+independently and treated as separate documents. Even worse, for
+some collections, in particular web archives like the 
+Internet Archive [18], a comprehensive text-search functionality
+is often completely missing.
+Time-travel text search, as we develop it in this paper,
+is a crucial tool to explore these collections and to unfold
+their full potential as the following example demonstrates.
+For a documentary about a past political scandal, a 
+journalist needs to research early opinions and statements made
+by the involved politicians. Sending an appropriate query
+to a major web search-engine, the majority of returned 
+results contains only recent coverage, since many of the early
+web pages have disappeared and are only preserved in web
+archives. If the query could be enriched with a time point,
+say August 20th 2003 as the day after the scandal got 
+revealed, and be issued against a web archive, only pages that
+existed specifically at that time could be retrieved thus better
+satisfying the journalist"s information need.
+Document collections like the Web or Wikipedia [32], as
+we target them here, are already large if only a single 
+snapshot is considered. Looking at their evolutionary history, we
+are faced with even larger data volumes. As a consequence,
+na¨ıve approaches to time-travel text search fail, and viable
+approaches must scale-up well to such large data volumes.
+This paper presents an efficient solution to time-travel
+text search by making the following key contributions:
+1. The popular well-studied inverted file index [35] is 
+transparently extended to enable time-travel text search.
+2. Temporal coalescing is introduced to avoid an 
+indexsize explosion while keeping results highly accurate.
+3. We develop two sublist materialization techniques to
+improve index performance that allow trading off space
+vs. performance.
+4. In a comprehensive experimental evaluation our 
+approach is evaluated on the English Wikipedia and parts
+of the Internet Archive as two large-scale real-world
+datasets with versioned documents.
+The remainder of this paper is organized as follows. The
+presented work is put in context with related work in 
+Section 2. We delineate our model of a temporally versioned
+document collection in Section 3. We present our time-travel
+inverted index in Section 4. Building on it, temporal 
+coalescing is described in Section 5. In Section 6 we describe
+principled techniques to improve index performance, before
+presenting the results of our experimental evaluation in 
+Section 7.

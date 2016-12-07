@@ -1,0 +1,14 @@
+we plan to refine the conformational optimization  algorithm in conflex to explore the conformation space search of larger bio-molecules such hiv protease using up to 1000 workers in a grid environment. 
+this feature is especially important in large-scale applications which require lengthy calculation in a grid environment.
+in grid environments in which the environment changes dynamically, it is also necessary to support fault tolerance.
+deployment tools will be required as the number of remote hosts is increased.
+in the  current omnirpc, the registration of an execution program to remote hosts and deployments of worker programs are  manually set.
+future studies will include development of deployment tools and an examination of fault tolerance.
+we need to refine the algorithm used to generate the trial structure in order to improve the load balance optimization for trial structures in conflex.
+the load imbalance of the trial structure optimizations may cause performance degradation.
+the experimental result shows that conflex-g achieved a speedup of 56.5 times for the 1bl1 molecule, where the molecule consists of a large number of atoms and each trial structure optimization requires a great deal of time.
+this can eliminate  unnecessary communication and the initialization at each call in conflex-g. conflex-g can achieves performance comparable to conflex mpi and exploits more computing resources by allowing the use of multiple pc clusters in the grid.
+omnirpc provides a restricted persistence model so that the module is automatically initialized at invocation by calling the initialization procedure.
+in order to explore the conformation of large bio-molecules,  conflexg was used to generate trial structures of the molecules, and allocate jobs to optimize them by molecular mechanics in the grid.
+we reported its performance in a grid testbed of several geographically distributed pc clusters.
+we have designed and implemented conflex-g using omnirpc.

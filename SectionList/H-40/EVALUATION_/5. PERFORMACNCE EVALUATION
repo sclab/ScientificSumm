@@ -1,0 +1,243 @@
+In this section, we will benchmark the cross-lingual query
+suggestion system, comparing its performance with monolingual
+query suggestion, studying the contribution of various information
+sources, and testing its effectiveness when being used in CLIR
+tasks.
+5.1 Data Resources
+In our experiments, French and English are selected as the source
+and target language respectively. Such selection is due to the fact
+that large scale query logs are readily available for these two
+languages. A one-month English query log (containing 7 million
+unique English queries with occurrence frequency more than 5) of
+MSN search engine is used as the target language log. And a
+monolingual query suggestion system is built based on it. In
+addition, 5,000 French queries are selected randomly from a
+French query log (containing around 3 million queries), and are
+manually translated into English by professional French-English
+translators. Among the 5,000 French queries, 4,171 queries have
+their translations in the English query log, and are used for CLQS
+training and testing. Furthermore, among the 4,171 French
+queries, 70% are used for cross-lingual query similarity training,
+10% are used as the development data to determine the relevancy
+threshold, and 20% are used for testing. To retrieve the 
+crosslingual related queries, a built-in-house French-English bilingual
+lexicon (containing 120,000 unique entries) and the Europarl
+corpus are used.
+Besides benchmarking CLQS as an independent system, the
+CLQS is also tested as a query translation system for CLIR
+tasks. Based on the observation that the CLIR performance
+heavily relies on the quality of the suggested queries, this
+benchmark measures the quality of CLQS in terms of its
+effectiveness in helping CLIR. To perform such benchmark, we
+use the documents of TREC6 CLIR data (AP88-90 newswire,
+750MB) with officially provided 25 short French-English queries
+pairs (CL1-CL25). The selection of this data set is due to the fact
+that the average length of the queries are 3.3 words long, which
+matches the web query logs we use to train CLQS.
+5.2 Performance of Cross-lingual Query
+Suggestion
+Mean-square-error (MSE) is used to measure the regression error
+and it is defined as follows:
+( )2
+),(),(
+1
+∑ −=
+i
+eiqMLeifiCL qTsimqqsim
+l
+MSE fi
+where l is the total number of cross-lingual query pairs in the
+testing data.
+As described in Section 3.4, a relevancy threshold is learned
+using the development data, and only CLQS with similarity value
+above the threshold is regarded as truly relevant to the input
+query. In this way, CLQS can also be benchmarked as a
+classification task using precision (P) and recall (R) which are
+defined as follows:
+CLQS
+MLQSCLQS
+P
+S
+SS I
+= ,
+MLQS
+MLQSCLQS
+R
+S
+SS I
+=
+where CLQSS is the set of relevant queries suggested by CLQS,
+MLQSS is the set of relevant queries suggested by MLQS (see
+Section 3.2).
+The benchmarking results with various feature configurations
+are shown in Table 1.
+Regression Classification
+Features
+MSE P R
+DD 0.274 0.723 0.098
+DD+PC 0.224 0.713 0.125
+DD+PC+
+Web
+0.115 0.808 0.192
+DD+PC+
+Web+ML
+QS
+0.174 0.796 0.421
+Table 1. CLQS performance with different feature settings
+(DD: dictionary only; DD+PC: dictionary and parallel corpora;
+DD+PC+Web: dictionary, parallel corpora, and web mining;
+DD+PC+Web+MLQS: dictionary, parallel corpora, web mining
+and monolingual query suggestion)
+Table 1 reports the performance comparison with various
+feature settings. The baseline system (DD) uses a conventional
+query translation approach, i.e., a bilingual dictionary with 
+cooccurrence-based translation disambiguation. The baseline system
+only covers less than 10% of the suggestions made by MLQS.
+Using additional features obviously enables CLQS to generate
+more relevant queries. The most significant improvement on recall
+is achieved by exploiting MLQS. The final CLQS system is able
+to generate 42% of the queries suggested by MLQS. Among all
+the feature combinations, there is no significant change in
+precision. This indicates that our methods can improve the recall
+by effectively leveraging various information sources without
+losing the accuracy of the suggestions.
+Besides benchmarking CLQS by comparing its output with
+MLQS output, 200 French queries are randomly selected from the
+French query log. These queries are double-checked to make sure
+that they are not in the CLQS training corpus. Then CLQS system
+is used to suggest relevant English queries for them. On average,
+for each French query, 8.7 relevant English queries are suggested.
+Then the total 1,740 suggested English queries are manually
+checked by two professional English/French translators with
+cross-validation. Among the 1,747 suggested queries, 1,407
+queries are recognized as relevant to the original ones, hence the
+accuracy is 80.9%. Figure 1 shows an example of CLQS of the
+French query terrorisme international (international terrorism
+in English).
+5.3 CLIR Performance
+In this section, CLQS is tested with French to English CLIR tasks.
+We conduct CLIR experiments using the TREC 6 CLIR dataset
+described in Section 5.1. The CLIR is performed using a query
+translation system followed by a BM25-based [23] monolingual
+IR module. The following three different systems have been used
+to perform query translation: (1) CLQS: our CLQS system; (2)
+MT: Google French to English machine translation system; (3)
+DT: a dictionary based query translation system using 
+cooccurrence statistics for translation disambiguation. The
+translation disambiguation algorithm is presented in Section 3.3.1.
+Besides, the monolingual IR performance is also reported as a
+reference. The average precision of the four IR systems are
+reported in Table 2, and the 11-point precision-recall curves are
+shown in Figure 2.
+Table 2. Average precision of CLIR on TREC 6 Dataset
+(Monolingual: monolingual IR system; MT: CLIR based on
+machine translation; DT: CLIR based on dictionary
+translation; CLQS: CLQS-based CLIR)
+IR System Average Precision % of Monolingual IR
+Monolingual 0.266 100%
+MT 0.217 81.6%
+DT 0.186 69.9%
+CLQS 0.233 87.6%
+Figure 1. An example of CLQS of the French query
+terrorisme international
+international terrorism (0.991); what is terrorism (0.943);
+counter terrorism (0.920); terrorist (0.911);
+terrorist attacks (0.898); international terrorist (0.853);
+world terrorism (0.845); global terrorism (0.833);
+transnational terrorism (0.821); human rights (0.811);
+terrorist groups (0. 777); patterns of global terrorism (0.762)
+september 11 (0.734)
+11-point P-R curves (TREC6)
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1
+Recall
+Precison
+Monolingual
+MT
+DT
+CLQS
+The benchmark shows that using CLQS as a query translation
+tool outperforms CLIR based on machine translation by 7.4%,
+outperforms CLIR based on dictionary translation by 25.2%, and
+achieves 87.6% of the monolingual IR performance.
+The effectiveness of CLQS lies in its ability in suggesting
+closely related queries besides accurate translations. For example,
+for the query CL14 terrorisme international (international
+terrorism), although the machine translation tool translates the
+query correctly, CLQS system still achieves higher score by
+recommending many additional related terms such as global
+terrorism, world terrorism, etc. (as shown in Figure 1). Another
+example is the query La pollution causée par l'automobile (air
+pollution due to automobile) of CL6. The MT tool provides the
+translation the pollution caused by the car, while CLQS system
+enumerates all the possible synonyms of car, and suggest the
+following queries car pollution, auto pollution, automobile
+pollution. Besides, other related queries such as global
+warming are also suggested. For the query CL12 La culture
+écologique (organic farming), the MT tool fails to generate the
+correct translation. Although the correct translation is neither in
+our French-English dictionary, CLQS system generates organic
+farm as a relevant query due to successful web mining.
+The above experiment demonstrates the effectiveness of using
+CLQS to suggest relevant queries for CLIR enhancement. A
+related research is to perform query expansion to enhance CLIR
+[2, 18]. So it is very interesting to compare the CLQS approach
+with the conventional query expansion approaches. Following
+[18], post-translation expansion is performed based on 
+pseudorelevance feedback (PRF) techniques. We first perform CLIR in
+the same way as before. Then we use the traditional PRF
+algorithm described in [24] to select expansion terms. In our
+experiments, the top 10 terms are selected to expand the original
+query, and the new query is used to search the collection for the
+second time. The new CLIR performance in terms of average
+precision is shown in Table 3. The 11-point P-R curves are drawn
+in Figure 3.
+Although being enhanced by pseudo-relevance feedback, the
+CLIR using either machine translation or dictionary-based query
+translation still does not perform as well as CLQS-based
+approach. Statistical t-test [13] is conducted to indicate whether
+the CLQS-based CLIR performs significantly better. Pair-wise 
+pvalues are shown in Table 4. Clearly, CLQS significantly
+outperforms MT and DT without PRF as well as DT+PRF, but its
+superiority over MT+PRF is not significant. However, when
+combined with PRF, CLQS significant outperforms all the other
+methods. This indicates the higher effectiveness of CLQS in
+related term identification by leveraging a wide spectrum of
+resources. Furthermore, post-translation expansion is capable of
+improving CLQS-based CLIR. This is due to the fact that CLQS
+and pseudo-relevance feedback are leveraging different categories
+of resources, and both approaches can be complementary.
+IR System AP without PRF AP with PRF
+Monolingual 0.266 (100%) 0.288 (100%)
+MT 0.217 (81.6%) 0.222 (77.1%)
+DT 0.186 (69.9%) 0.220 (76.4%)
+CLQS 0.233 (87.6%) 0.259 (89.9%)
+11-point P-R curves with pseudo relevance feedback (TREC6)
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1
+Recall
+Precison
+Monolingual
+MT
+DT
+CLQS
+MT DT MT+PRF DT+PRF
+CLQS 0.0298 3.84e-05 0.1472 0.0282
+CLQS+PR
+F
+0.0026 2.63e-05 0.0094 0.0016

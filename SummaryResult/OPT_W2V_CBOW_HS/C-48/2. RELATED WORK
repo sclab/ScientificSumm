@@ -1,0 +1,38 @@
+Unlike these approaches, in our work the data generated at a node are hashed (in general) to different  locations.
+Finally, our work is most close related to data-centric storage [23] systems, which include geographic hash-tables (GHTs) [20], DIMENSIONS [7], and DIFS [10].In a GHT, data is hashed by name to a location within the network,  enabling highly efficient rendezvous.
+DIMENSIONS and DIFS can be thought of as using the same set of primitives as GHT (storage using consistent hashing), but for different ends: DIMENSIONS allows  drill64 down search for features within a sensor network, while DIFS allows range queries on a single key in addition to other operations. 
+The basic problem that this paper addresses -  multidimensional range queries - is typically solved in database systems using indexing techniques.
+Our work is superficially similar to CAN in that both construct a zone-based overlay atop of the underlying physical  network.
+Our work avoids query flooding by an appropriate choice of hashing.
+A similar differentiation applies with respect to work on data-centric routing in sensor networks [15, 25], where data generated at a node is assumed to be stored at the node, and queries are either flooded throughout the network [15], or each source sets up a network-wide overlay announcing its presence so that mobile sinks can rendezvous with sources at the nearest node on the overlay [25].
+More recent work in the Internet context has addressed support for range queries in DHT systems [1, 12], but it is unclear if these directly translate to the sensor network context.
+We also leverage properties in GPSR (as we describe later), but we use a locality-preserving hash to store data, enabling efficient multi-dimensional range queries.
+The classical indexing structures are data-dependent (as are some indexing schemes that use locality preserving hashes, and developed in the theory literature [14, 8, 13]).
+GHTs are built upon the GPSR [16] protocol and leverage some interesting properties of that protocol, such as the ability to route to a node nearest to a given location.
+Our current design is not data dependent.
+Finally, tangentially related to our work is the class of spatial indexing systems [21, 6, 11].
+[17] also describe a distributed index, called Semantic Routing Trees (SRT).
+This index is used to direct queries to nodes that have detected relevant data.
+Several research efforts have expressed the vision of a database interface to sensor networks [9, 3, 18], and there are examples of systems that contribute to this vision [18, 3, 17].
+The underlying details make the two systems very different: CAN"s overlay is purely logical while our overlay is consistent with the underlying physical topology.
+Our approach essentially represents a geographic embedding of such structures in a sensor field.
+Second, SRT constructs a routing tree based on historical sensor readings, and therefore works well only for  slowlychanging sensor values.
+These approaches work well for relatively long-lived queries.
+Examples of such systems, of course, are the Internet Domain Name  System, and the class of distributed hash table (DHT) systems exemplified by Freenet[4], Chord[24], and CAN[19].
+This hashing is the key to scaling multi-dimensional range searches.
+The index structure is decided not only by the data, but also by the order in which data is inserted.
+While there has been some work on distributed indexing, the problem has not been extensively explored.
+In all the other systems described above, queries are flooded throughout the network, and can  dominate the total cost of the system.
+Our work  differs from SRT in three key aspects.
+In fact, DIMs could become an important component of a sensor network database system such as TinyDB [17].
+Indexing techniques essentially trade-off some data  insertion cost to enable efficient querying.
+Our work is similar in spirit to this body of  literature.
+The database  community has focused mostly on centralized indices, but distributed indexing has received some attention in the literature.
+Finally, in SRT queries are issued from a fixed node while in DIM queries can be issued from any node.
+Indexing has, for long, been a classical research problem in the database  community [5, 2].
+Our work draws its inspiration from the class of multi-key constant branching index structures,  exemplified by k-d trees [2], where k represents the dimensionality of the data space.
+There  exist distributed indices of a restricted kind-those that allow exact match or partial prefix match queries.
+Our work departs from prior work in this area in two  significant respects.
+There is one important difference.
+First, SRT is built on single attributes while DIM supports mulitple attributes.
+Madden et al.

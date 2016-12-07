@@ -1,0 +1,44 @@
+for details of how the routing tables are constructed and maintained, the reader is referred to [8, 11]. 
+to attain consistent routing or lookup, a dht key must be routed to the node with the numerically closest identifier.
+bamboo, like all dhts, specifies algorithms to be followed when a node joins the overlay network, or when a node fails or leaves the network the geometry must be maintained even when this rate is high.
+the routing table entry at row i and column j, denoted ri[j], is another node whose identifier matches its own in first i digits, and whose (i + 1)st digit is j. the routing table allows efficient overlay routing.
+for example, in the bamboo dht [11], and in the pastry dht [8] on which bamboo is based, nodes maintain links to neighboring nodes and to other distant nodes found in a routing table.
+the pattern of these links is known as the dht"s geometry.
+the nodes of a dht maintain links to some of the other nodes in the dht.
+the identifier space is assigned to the nodes in a distributed and deterministic fashion, so that routing and lookup can be performed efficiently.
+nodes in a dht are also mapped into the same identifier space by applying the hash function to their identifier, such as ip address and port number, or public key.
+a hash function, such as md5 or sha-1, is applied to an object name to obtain its dht key.
+the dht keys are obtained from a large identifier space.
+the value stored in the dht can be any object or a copy or reference to it.
+this has to be done with robustness because of the transient nature of nodes in p2p systems.
+just like any other hash table data structure, it provides a simple interface consisting of put() and get() operations.
+there will be multiple values for this key, one for each service containing the keyword.
+for our deployment, a key is the hash of a keyword from a service name or description.
+it maintains a collection of key-value pairs on the nodes participating in this graph structure.
+2.3 distributed hash tables a distributed hash table (dht) is a peer-to-peer (p2p) distributed system that forms a structured overlay allowing more efficient routing than the underlying network.
+a recommended deployment scenario proposed by the uddi v3.0.2 specification is to use the uddi business registries as root registries, and it is possible to enable this using our solution.
+the improvements within uddi v3 that allow support for multi-registry environments are significant and open the possibility for additional research around how  multiregistry environments may be deployed.
+however, no normative description of these topologies is provided in the uddi specification at this point.
+uddi v3 provides larger support for multi-registry environments based on portability of keys by allowing keys to be re-registered in multiple registries, the ability to link registries in various topologies is effectively enabled.
+however, uddi today has issues that have not been addressed, such as scalability and autonomy of individual registries.
+improvement of the uddi standard is continuing in full force and uddi version 3 (v3) was recently approved as an oasis standard.
+the readers can refer to [7] for a recent article that discusses the shortcomings of uddi and the properties of an ideal service registry.
+in fact, the only known uses of uddi are what are known as private uddi registries within an enterprise"s boundaries.
+however, today we find that uddi has not been widely deployed in the internet.
+when uddi was initially offered, it provided a lot of potential.
+thus, by browsing a uddi registry, a developer should be able to locate a service and a company and find out how to invoke the service.
+green pages represent the technical information that is necessary to invoke a given service.
+in uddi, white pages are a listing of the business entities.
+just like in yellow pages, companies register themselves and their services under different categories.
+uddi"s intent is to function as a registry for services just as the yellow pages is a registry for businesses.
+a uddi registry enables a business to enter three types of information in a uddi registry - white pages, yellow pages and green pages.
+although there are different ways of doing this, the web services standards committees address this requirement through a specification called uddi (universal description, discovery, and integration).
+again, scalability is a major concern since millions of buyers looking for specific services need to find all the potential sellers of the service who can meet their needs.
+2.2 uddi beyond grid computing, the problem of service discovery needs to be addressed more generally in the web services community.
+specifically, this approach is not a good match for systems that try to exploit the convergence of grid and peer-to-peer computing [5].
+this approach for attaining scalability works best in hierarchical virtual organizations (vo), and expanding a search to find sufficient number of matches involves traversing the hierarchy.
+to attain scalability, index services from different globus containers can register with each other in a hierarchical fashion to aggregate data.
+its basic function makes it similar to uddi registry.
+the implementation of the web service version of the monitoring and discovery service (ws mds), also known as the mds4 component of the globus toolkit version 4 (gt4), includes such a registry in the form of the index service resource and service properties are collected and indexed by this service.
+in the architecture presented in [6], the service discovery function is assigned to a specialized grid service called registry.
+2.1 grid service discovery grid computing is based on standards which use web services technology.

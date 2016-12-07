@@ -1,0 +1,24 @@
+The work most similar to our own in the literature consists of work in which document collections or queries are altered in a systematic way to measure differences query  performance.
+Regardless of method, QE algorithms that are capable of retrieving relevant documents despite partial or total term mismatch between queries and relevant documents should increase the recall of IR systems (by retrieving documents that would have previously been missed) as well as their precision (by retrieving more  relevant documents).
+There is general interest in the research community to improve the  robustness of IR systems by improving retrieval performance on difficult queries, as is evidenced by the Robust track in the TREC competitions and new evaluation measures such as GMAP.
+Although similar in introducing a  controlled amount of variance into their test collections, these works differ from the work being presented in this paper in that the work being presented here explicitly and  systematically measures query effectiveness in the presence of query-document term mismatch. 
+Query expansion (QE) is one technique used in IR to improve search performance by  increasing the likelihood of term overlap (either explicitly or implicitly) between queries and documents that are relevant to users" information needs.
+By  purposely inducing mismatch between the terms in queries and relevant documents, our evaluation framework allows us a controlled manner in which to degrade the quality of the queries with respect to their relevant documents, and then to measure the both the degree of (induced) difficulty of the query and the degree to which QE improves the retrieval performance of the degraded query.
+Research efforts have been made to predict which queries will be improved by QE and then selectively  applying it only to those queries [1, 5, 27, 29, 15, 48], to achieve optimal overall performance.
+The evaluation of IR systems has received much attention in the research community, both in terms of developing test collections for the evaluation of different systems [11, 12, 13, 43] and in terms of the utility of evaluation metrics such as recall, precision, mean average precision, precision at rank, Bpref, etc.
+In cross-language IR, [28] explores different query expansion techniques while  purposely degrading their translation resources, in what amounts to expanding a query with only a controlled percentage of its translation terms.
+In addition, related work on predicting query difficulty, or which queries are likely to  perform poorly, has been done [1, 4, 5, 9].
+Accounting for term mismatch between the terms in user queries and the documents relevant to users" information needs has been a fundamental issue in IR research for  almost 40 years [38, 37, 47].
+QE  techniques are judged as effective in the case that they help more than they hurt overall on a particular collection [47, 45, 41, 27].
+Implicit query expansion can be based on statistical properties of the document collection, or it may rely on external knowledge sources such as a thesaurus or an ontology [32, 17, 26, 50, 51, 2].
+In addition, the IR research community has given  attention to differences between the performance of individual queries.
+Often, the expansion terms added to a query in the query expansion phase end up hurting the overall  retrieval performance because they introduce semantic noise, causing the meaning of the query to drift.
+In practice, QE tends to improve the average overall  retrieval performance, doing so by improving performance on some queries while making it worse on others.
+Explicit query expansion  occurs at run-time, based on the initial search results, as is the case with relevance feedback and pseudo relevance  feedback [34, 37].
+As such, much work has been done with respect to different strategies for choosing semantically relevant QE terms to include in order to avoid query drift [34, 50, 51, 18, 24, 29, 30, 32, 3, 4, 5].
+[42] introduces into the document collection  pseudowords that are ambiguous with respect to word sense, in  order to measure the degree to which word sense  disambiguation is useful in IR.
+GMAP (geometric mean average precision) gives more weight to the lower end of the average precision (as opposed to MAP), thereby emphasizing the degree to which difficult or poorly performing queries contribute to the score [33].
+However, no attention is given to evaluating the  robustness of IR systems implementing QE with respect to  querydocument term mismatch in quantifiable terms.
+[6] experiments with altering the  document collection by adding semantically related expansion terms to documents at indexing time.
+In addition, there have been  comparative evaluations of different QE techniques on various test collections [47, 45, 41].
+[7, 8, 44, 14].

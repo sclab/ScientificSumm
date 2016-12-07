@@ -1,0 +1,47 @@
+to solve the stages, it is necessary to find nash equilibria in bayesian strategically zero-sum games, and we give an explicit polynomial-time algorithm to do so. 
+for  observablequery socratic games, we handle the exponentiality by  decomposing the game into stages, solving the stages  separately, and showing how to reassemble the solutions  efficiently.
+for unobservable-query socratic games with strategically zero-sum worlds, we address these obstacles by  formulating a new lp that uses only polynomially many variables (though still an exponential number of constraints) and then use ellipsoid-based techniques to solve it.
+as a result, the standard linear programs for computing equilibria have an exponential  number of variables and an exponential number of constraints.
+second, even when the socratic game itself is strategically zero sum, the number of possible  strategies available to each player is exponential in the natural representation of the game.
+thus even when it is easy to find nash equilibria in each of the worlds of a socratic game, we require new techniques to solve the socratic game itself.
+(exponential-time algorithms like lemke/howson, of course, can be used [45].)
+worse yet, a socratic game with  strategically zero-sum worlds is not itself classically strategically zero sum-indeed, there are no known efficient  algorithmic techniques to compute nash equilibria in the resulting class of classical games.
+first, a socratic game with constant-sum worlds is not itself a constant-sum classical game-rather, the resulting classical game is only  strategically zero sum.
+we face two major obstacles in extending these  classical results to socratic games.
+a socratic game is itself a classical game, so one might hope that these results can be applied to socratic games with constant-sum (or  strategically zero-sum) worlds.
+however, it is well known that nash equilibria can be found efficiently via an lp for two-player constant-sum games [49, 71] (and strategically zero-sum games [51]).
+therefore we would not expect to find a straightforward polynomial-time algorithm to  compute nash equilibria in general socratic games.
+every (complete-information) classical game is a trivial socratic game (with a single possible world and a single trivial query), and efficiently finding nash  equilibria in classical games has been shown to be hard [10, 11, 13, 16, 17, 27, 54, 55].
+algorithmically, the generality of extensive-form games makes them difficult to solve efficiently, and the special cases that are known to be efficiently solvable do not include even  simple socratic games.
+like all games, socratic games can be viewed as a  special case of extensive-form games, which represent games by trees in which internal nodes represent choices made by chance or by the players, and the leaves represent outcomes that correspond to a vector of payoffs to the players.
+finally, we give an efficient  algorithm to find correlated equilibria-a weaker but  increasingly well-studied solution concept for games [2, 3, 32, 56, 57]-in observable-query socratic games with strategically zero-sum worlds.
+our second result is an efficient algorithm to find nash equilibria in observable-query socratic games with constant-sum worlds.
+strategically zero-sum games generalize constant-sum games by allowing the sum of the players" payoffs to depend on  individual players" choices of strategy, but not on any interaction of their choices.
+our techniques also yield nash equilibria in unobservable-query socratic games with strategically zero-sum worlds.
+our first result is an efficient  algorithm to find nash equilibria in unobservable-query  socratic games with constant-sum worlds, in which the sum of the players" payoffs is independent of their actions.
+we give efficient algorithms to find nash  equilibriai.e., tuples of strategies from which no player has unilateral incentive to deviate-in broad classes of two-player socratic games in both models.
+we consider socratic games under two  models: an unobservable-query model where players learn only the response to their own queries and an observable-query model where players also learn which queries their opponents made.
+our results.
+this tension between the risk arising from uncertainty and the cost of acquiring information is ubiquitous in economics, political science, and beyond.
+our research was initially inspired by recent results in  psychology on decision making, but it soon became clear that socratic game theory is also a general tool for understanding the exploitation versus exploration tradeoff, well studied in machine learning, in a strategic multiplayer environment.
+compared to traditional game theory, the distinguishing feature of our model is the introduction of explicit costs to the players for learning arbitrary partial  information about which of the many possible worlds is the real world.
+finally each player selects an action and receives a payoff-a function of the players" selected actions and the identity of the real world-less the cost of the query that he or she made.
+each player then selects an  arbitrary query from a set of available costly queries and  receives a corresponding piece of information about the real world.
+a real world is  cho150 sen randomly from a set of possible worlds according to a common prior distribution.
+a socratic game proceeds as follows.
+the model of bergemann and v¨alim¨aki is similar in many regards to the one that we explore here; see section 7 for some discussion.
+a number of related models have been explored by economists and  computer scientists motivated by similar situations, often with a focus on mechanism design and auctions; a sampling of this research includes the work of larson and sandholm [41, 42, 43, 44], parkes [59], fong [22], compte and jehiel [12], rezende [63], persico and matthews [48, 60], cr´emer and khalil [15], rasmusen [62], and bergemann and v¨alim¨aki [4, 5].
+(in traditional games of incomplete and imperfect information, there is information that the players do not have; in socratic games, unlike in these games, the players have a chance to acquire the missing information, at some cost.)
+this approach contrasts with traditional game theory, in which players are usually modeled as having fixed, exogenously given  information about the structure of the game and its payoffs.
+as in traditional game theory, the players in a  socratic game choose actions to maximize their payoffs, but we model players with incomplete information who can make costly queries to reduce their uncertainty about the state of the world before they choose their actions.
+in this paper, we model situations of this type as socratic games.
+how should one balance the cost of acquiring more information against the risk of playing a game with higher uncertainty?
+is the cost of a survey worth the information that it provides?
+moreover, the larger-and more expensive-the survey, the more accurate it will be.
+perhaps californians are susceptible to nixon"s advertising, but are unresponsive to kennedy"s. in light of this uncertainty, the kennedy campaign may conduct a survey, at some cost, to estimate the effectiveness of its advertising.
+of course, neither campaign knows the effectiveness of its advertising in each state.
+the nixon  campaign faces the same dilemma.
+should it focus on, say, california or new york?
+how should the kennedy campaign allocate its remaining advertising budget?
+democratic party strategists huddle around a map.
+late october 1960. a smoky room.

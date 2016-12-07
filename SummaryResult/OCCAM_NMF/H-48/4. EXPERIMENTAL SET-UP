@@ -1,0 +1,27 @@
+although these are the metrics we chose to demonstrate this  framework, any appropriate ir metrics could be used within the framework. 
+4.4 metrics in this implementation of the evaluation framework, we chose three metrics by which to compare ir system  performance: mean average precision (map), precision at 10 documents (p10), and recall at 1000 documents.
+for the shorter trec title queries, we removed one, two, three, and five terms from the relevant documents.
+the longer description queries from trec topics 151-200 were likewise evaluated on the ap89 collection with one, two, three, five, and seven query terms removed from their  relevant documents.
+for the fsupp collection, queries were evaluated  incrementally with one, two, three, five, and seven terms  removed from their corresponding relevant documents.
+additionally, high idf terms tend to be  domainspecific terms that are less likely to be known to non-expert user, hence we start by removing these first.
+terms with high idf values tend to  influence document ranking more than those with lower idf values.
+4.3 query term removal strategy in our experiments, we chose to sequentially and  additively remove query terms from highest-to-lowest inverse document frequency (idf) with respect to the entire  document collection.
+after stop word removal, the title queries range from two to eleven words and the description queries range from four to twenty-six terms.
+in our evaluation, we used both the title and the description fields of topics  151200 as queries, so we have two sets of results for the ap89 collection.
+the trec ap89 test collection contains 84,678  documents, averaging 252 words in length.
+2 www.lemurproject.org 3 each of the 11,953 documents was evaluated by domain experts with respect to each of the 44 queries.
+the fsupp collection is a proprietary collection of 11,953 case law documents for which we have 44 queries (ranging from four to twenty-two words after stop word removal) with full relevance judgments.3 the average length of documents in the fsupp collection is 3444 words.
+the two test collections used were the trec ap89 collection (tipster disk 1) and the fsupp collection.
+4.2 test collections we evaluated the performance of the four ir systems  outlined above on two different test collections.
+the ql model used jelinek-mercer smoothing, with λ = 0.6.
+when run with feedback, the feedback parameters used in okapi were set at 10 documents and 25 terms.
+the okapi and ql model results were obtained using the lemur toolkit.2 okapi was run with the parameters k1=1.2, b=0.75, and k3=7.
+as a result, we  expect that when query terms are removed from relevant  documents, the performance of these systems should degrade more dramatically than their counterparts that implement qe.
+we choose these as baselines  because they are dependent only on the words appearing in the queries and have no qe capabilities.
+okapi without feedback is intended as an analogous baseline for okapi with  feedback, and the ql model is intended as an appropriate  baseline for tcs, as they both implement language-modeling based retrieval algorithms.
+okapi (without feedback) and a language model query likelihood (ql) model (implemented using indri) are  included as keyword-only baselines.
+translation probabilities for qe [2] are calculated from these large external corpora.
+this external knowledge source is a corpus separate from, but thematically related to, the document collection to be searched.
+tcs is a language modeling based retrieval engine that utilizes a subject-appropriate  external corpus (i.e., legal or news) as a knowledge source.
+of the four  systems used in the evaluation, two implement query  expansion techniques: okapi (with pseudo-feedback for qe), and a proprietary concept search engine (we"ll call it tcs, for thomson concept search).
+4.1 ir systems we used the proposed evaluation framework to evaluate four ir systems on two test collections.

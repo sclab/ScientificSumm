@@ -1,0 +1,14 @@
+m, q |= eϕu ψ iff there is a q-path λ and i ≥ 0 such that m, λ[i] |= ψ, and m, λ[j] |= ϕ for every 0 ≤ j < i; m, q |= kaϕ iff m, q |= ϕ for every q such that q ∼a q . 
+it will not always be so when plausible paths are introduced.
+2 for ctlk models, λ is a q-subpath iff it is a q-path.
+a sequence q0q1... such that q = q0 and there are q0 , ..., qi such that q0 ...qi q0q1... ∈ λm.2 the semantics of ctlk is defined as follows: m, q |= p iff q ∈ π(p); m, q |= ¬ϕ iff m, q |= ϕ; m, q |= ϕ ∧ ψ iff m, q |= ϕ and m, q |= ψ; m, q |= e fϕ iff there is a q-path λ such that m, λ[1] |= ϕ; m, q |= e2 ϕ iff there is a q-path λ such that m, λ[i] |= ϕ for every i ≥ 0; 1 additional operators a (for every path) and ♦  (sometime in the future) are defined in the usual way.
+a q-path is a path that starts from q, i.e., λ[0] = q. a q-subpath is a sequence of states, starting from q, which is a subpath of some path in the model, i.e.
+the set of all paths in m is denoted by λm (if the model is clear from context, m will be omitted).
+a path λ in m refers to a possible behavior (or  computation) of system m, and can be represented as an infinite sequence of states that follow relation r, that is, a sequence q0q1q2... such that qirqi+1 for every i = 0, 1, 2, ... we  denote the ith state in λ by λ[i].
+we assume that relation r is serial and that all ∼a are equivalence relations.
+the semantics of ctlk is based on kripke models m = q, r, ∼1, ..., ∼k, π , which include a nonempty set of states q, a state transition relation r ⊆ q × q, epistemic  indistinguishability relations ∼a⊆ q × q (one per agent), and a valuation of propositions π : π → p(q).
+epistemic logic uses operators for  representing agents" knowledge: kaϕ is read as agent a knows that ϕ. let π be a set of atomic propositions with a typical  element p, and agt = {1, ..., k} be a set of agents with a typical element a. the language of ctlk consists of formulae ϕ, given as follows: ϕ ::= p | ¬ϕ | ϕ ∧ ϕ | eγ | kaϕ γ ::= fϕ | 2 ϕ | ϕu ϕ. we will sometimes refer to formulae ϕ as (vanilla) state formulae and to formulae γ as (vanilla) path formulae.
+ctl includes operators for temporal properties of  systems: i.e., path quantifier e (there is a path), together with temporal operators: f(in the next state), 2  (always from now on) and u (until).1 every occurrence of a temporal operator is preceded by exactly one path  quantifier in ctl (this variant of the language is sometimes called vanilla ctl).
+ctlk [19] is a straightforward combination of the computation tree logic ctl [4, 3] and standard epistemic logic [9, 5].
+thus, we need a notion of time and change, plus a notion of what the agents are supposed to know in particular situations.
+in this paper we develop a framework for agents" beliefs about how the world can (or must) evolve.

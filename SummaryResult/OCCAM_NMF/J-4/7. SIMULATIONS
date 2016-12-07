@@ -1,0 +1,41 @@
+the two approaches are not mutually exclusive, however, and some combination of the two might prove better than either alone, although we did not investigate this possibility. 
+the reason why efficiency and relevance suffer more with a reserve score is that this approach will often exclude  bidders entirely, whereas this never occurs when tuning weights.
+tuning weights seems to be a much more desirable approach than  introducing a reserve score in this instance.
+the optimal setting is r = 0.2, which gives only an 8%  increase in revenue from r = 0. however, it results in a 13% efficiency loss and a 26% relevance loss.
+results are shown in figure 4. naturally, both  efficiency and relevance suffer with an increasing reserve score.
+we also looked into the effect of introducing a reserve score.
+-1 -0.5 0 0.5 1 1 1.5 2 2.5 3 3.5 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 r(q) q revenue 2 2.5 3 3.5 4 4.5 5 5.5 6 6.5 7 7.5 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 v(q) q efficiency 0.8 1 1.2 1.4 1.6 1.8 2 2.2 2.4 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 l(q) q relevance figure 3: revenue, efficiency, and relevance for different parameters q with spearman correlation of 0.4. estimated standard errors are less than 1% of the values shown.
+estimated standard errors are less than 1% of the values shown.
+54 0 1 2 3 4 5 6 7 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 r(q) q revenue 0 1 2 3 4 5 6 7 8 9 10 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 v(q) q efficiency 0.6 0.8 1 1.2 1.4 1.6 1.8 2 2.2 2.4 2.6 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 l(q) q relevance figure 2: revenue, efficiency, and relevance for different parameters q under varying spearman correlation (key at right).
+only relative values are meaningful.
+8 the y-axes in figures 2-4 have been normalized because the simulations are based on proprietary data.
+see for example nelsen [10].
+it can be designed so that the variables are correlated.
+7 a copula is a function that takes marginal distributions and gives a joint distribution with these marginals.
+6 see varian [11] for a definition of mean absolute deviation.
+imposing a bound of, say, 5% on efficiency and relevance loss from the baseline at q = 1, the optimal setting is q = 0.6, yielding 11% more revenue than the baseline.
+however, at q = 0 efficiency and  relevance are 9% and 17% lower than at q = 1, respectively.
+simulation  results with this correlation are in figure 3. in this instance rank-by-bid is in fact optimal, yielding 25% more revenue than rank-by-revenue.
+a typical spearman correlation between value and  relevance for the keyword was about 0.4-for different days in a week the correlation lay within [0.36, 0.55].
+the curves level off as q → +∞ because eventually agents are ranked purely according to relevance, and similarly as q → −∞.
+(any small deviation from these trends is due to the  randomness inherent in the simulations.)
+the trends in efficiency and relevance are as described in the results from section 6.
+it may also occur beyond 1 for different distributions, but we do not know if these would be realistic.
+figure 2 also shows that in principle, the optimal q may be negative.
+at zero correlation, they give about the same  expected revenue in this instance.
+if choosing only between  rankby-bid and rank-by-revenue, rank-by-bid is best for positive correlation whereas rank-by-revenue is best for negative  correlation.
+the results are shown in figure 2.8 it is apparent from the figure that the optimal choice of q moves to the right as correlation decreases; this agrees with our intuition from section 5. the choice is very sensitive to the level of correlation.
+we used a gaussian copula to create dependence between value and relevance.7 given the marginal distributions for value and relevance together with this copula, we simulated the revenue effect of varying q for different levels of  spearman correlation, with 12 slots and 13 bidders.
+always at most 0.08, and usually significantly less, over  different days in a period of two weeks.6 we fit a lognormal distribution to the lower bounds on the bidders" values,  resulting in parameters μ = 0.35 and σ = 0.71. the empirical distributions of value and relevance together with the fitted lognormal and beta curves are given in  figure 1. it appears that mixtures of beta and lognormal  distributions might be better fits, but since these distributions are used mainly for illustration purposes, we err on the side of simplicity.
+we found that the mean absolute  deviation required to fit bids to symmetric equilibrium was 0 1 2 3 4 5 6 7 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 value density 0 0.05 0.1 0.15 0.2 0.25 0 2 4 6 8 10 relevance density figure 1: empirical marginal distributions of value and relevance.
+its upper bound lies below its lower bound, then we compute the smallest perturbation to the bids necessary to make the interval non-empty, which involves solving a quadratic program.
+if the interval for a given value is empty, i.e.
+by this technique, upper and lower bounds are obtained on bidder values given the bids according to inequality (3).
+using varian"s [11] technique, we derived bounds on the bidders" actual values given these bids.
+we then fit a beta distribution to the advertiser effects resulting in parameters a = 2.71 and b = 25.43. we obtained bids of advertisers for the keyword.
+we found that, indeed, position effects are monotonically decreasing with lower rank.
+from this we estimated advertiser and position effects using a maximum-likelihood criterion.
+we obtained click and impression data for the advertisers bidding on the keyword.
+(we do not reveal the identity of the keyword to respect the privacy of the advertisers.)
+bid and  clickthrough rate data for a certain keyword that draws over a million searches per month.
+to add a measure of reality to our simulations, we fit distributions for value and relevance to yahoo!

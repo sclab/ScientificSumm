@@ -1,0 +1,41 @@
+in one experiment, for example, our adaptive policy downloaded more than 90% of the pages within pubmed (that contains 14 million documents) after it issued fewer than 100 queries. 
+the results from our experiments are very promising.
+our experiments will show the relative  advantages of various crawling policies and demonstrate their  potential.
+• we evaluate various crawling policies through experiments on real web sites.
+our adaptive policy examines the pages returned from previous queries and adapts its query-selection policy  automatically based on them (section 3).
+• we propose a new adaptive policy that approximates the optimal policy.
+unfortunately, we show that the optimal policy is np-hard and cannot be implemented in practice (section 2.2).
+• we investigate a number of crawling policies for the hidden web, including the optimal policy that can potentially download the maximum number of pages through the minimum number of interactions.
+(section 2).
+in summary, this paper makes the following contributions: • we present a formal framework to study the problem of  hiddenweb crawling.
+we also evaluate our proposed solutions through experiments conducted on real hidden-web sites.
+in this paper, we provide a theoretical framework to investigate the hidden-web crawling problem and propose effective ways of generating queries automatically.
+can the crawler automatically come up with meaningful queries without understanding the semantics of the search form?
+in this case, what queries should we pick?
+when the query forms have a free text input, however, an infinite  number of queries are possible, so we cannot exhaustively issue all  possible queries.
+we exhaustively issue all possible queries, one query at a time.
+clearly, when the search forms list all possible values for a query (e.g., through a drop-down list), the solution is straightforward.
+how a crawler can automatically generate queries so that it can discover and download the hidden web pages.
+here, we present a solution to the second challenge, i.e.
+the first challenge was addressed by raghavan and garcia-molina in [29], where a method for learning search  interfaces was presented.
+given that the only entry to hidden web pages is through querying a search form, there are two core challenges to  implementing an effective hidden web crawler: (a) the crawler has to be able to understand and model a query interface, and (b) the crawler has to come up with meaningful queries to issue to the query interface.
+100 figure 1: a single-attribute search interface hidden-web crawler attempts to automate this process for  hidden web sites with textual content, thus minimizing the  associated costs and effort required.
+our 1 us patent office: http://www.uspto.gov 2 crawlers are the programs that traverse the web automatically and download pages for search engines.
+according to a recent  article [5], several organizations have recognized the importance of bringing information of their hidden web sites onto the surface, and committed considerable resources towards this effort.
+users do not necessarily perceive what actually exists on the web, but what is indexed by search engines [28].
+• reducing potential bias: due to the heavy reliance of many web users on search engines for locating information, search engines influence how the users perceive the web [28].
+by making the hidden-web pages searchable at a central location, we can significantly reduce the user"s wasted time and effort in  searching the hidden web.
+• improving user experience: even if a user is aware of a  number of hidden-web sites, the user still has to waste a significant amount of time and effort, visiting all of the potentially relevant sites, querying each of them and exploring the result.
+unless users go  directly to hidden-web sites and issue queries there, they cannot access the pages at the sites.
+since a majority of web users rely on search engines to discover pages, when pages are not indexed by search engines, they are unlikely to be viewed by many web users.
+we believe that an effective hidden-web crawler can have a tremendous impact on how users search information on the web: • tapping into unexplored information: the hidden-web crawler will allow an average web user to easily explore the vast amount of information that is mostly hidden at present.
+conventional crawlers rely on the hyperlinks on the web to discover pages, so current search engines cannot index the hidden-web pages (due to the lack of links).
+in this paper, we study how we can build a hidden-web crawler2 that can automatically download pages from the hidden web, so that search engines can index them.
+for example, pubmed hosts many high-quality papers on medical research that were selected from careful  peerreview processes, while the site of the us patent and trademarks office1 makes existing patent documents available, helping  potential inventors examine prior art.
+moreover, the content provided by many hidden-web sites is often of very high quality and can be extremely valuable to many users [7].
+estimate that well over 100,000 hidden-web sites currently exist on the web.
+in [12], chang et al.
+according to many studies, the size of the hidden web increases rapidly as more organizations put their valuable content online through an easy-to-use web interface [7].
+these pages are often referred to as the hidden web [17] or the deep web [7], because search engines typically cannot index the pages and do not return them in their results (thus, the pages are essentially hidden from a typical web user).
+in particular, a large part of the web is hidden behind search forms and is reachable only when users type in a set of keywords, or queries, to the forms.
+recent studies show that a significant fraction of web content cannot be reached by following links [7, 12].

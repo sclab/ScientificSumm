@@ -1,0 +1,269 @@
+5.1 FSupp Collection
+Figures 1, 2, and 3 show the performance (in terms of
+MAP, P10 and Recall, respectively) for the four search 
+engines on the FSupp Collection. As expected, the 
+performance of the keyword-only IR systems, QL and Okapi, drops
+quickly as query terms are removed from the relevant 
+documents in the collection. The performance of Okapi with
+feedback (Okapi FB) is somewhat surprising in that on the
+original collection (i.e., prior to query term removal), its 
+performance is worse than that of Okapi without feedback on
+all three measures.
+TCS outperforms the QL keyword baseline on every 
+measure except for MAP on the original collection (i.e., prior
+to removing any query terms). Because TCS employs 
+implicit query expansion using an external domain specific
+knowledge base, it is less sensitive to term removal (i.e.,
+mismatch) than the Okapi FB, which relies on terms from
+the top-ranked documents retrieved by an initial 
+keywordonly search. Because overall search engine performance is
+frequently measured in terms of MAP, and because other
+evaluations of QE often only consider performance on the
+entire collection (i.e., they do not consider term mismatch),
+the QE implemented in TCS would be considered (in 
+an0 1 2 3 4 5 6 7
+Number of Query Terms Removed from Relevant Documents
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+0.45
+MeanAveragePrecision(MAP)
+Okapi FB
+Okapi
+TCS
+QL
+FSupp: Mean Average Precision with Query Terms Removed
+Figure 1: The performance of the four retrieval 
+systems on the FSupp collection in terms of Mean 
+Average Precision (MAP) and as a function of the 
+number of query terms removed (the horizontal axis).
+0 1 2 3 4 5 6 7
+Number of Query Terms Removed from Relevant Documents
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+0.45
+0.5
+0.55
+0.6
+Precisionat10Documents(P10)
+Okapi FB
+Okapi
+TCS
+QL
+FSupp: P10 with Query Terms Removed
+Figure 2: The performance of the four retrieval 
+systems on the FSupp collection in terms of Precision
+at 10 and as a function of the number of query terms
+removed (the horizontal axis).
+other evaluation) to hurt performance on the FSupp 
+Collection. However, when we look at the comparison of TCS to
+QL when query terms are removed from the relevant 
+documents, we can see that the QE in TCS is indeed contributing
+positively to the search.
+5.2 The AP89 Collection: using the
+description queries
+Figures 4, 5, and 6 show the performance of the four IR
+systems on the AP89 Collection, using the TREC topic 
+descriptions as queries. The most interesting difference 
+between the performance on the FSupp Collection and the
+AP89 collection is the reversal of Okapi FB and TCS. On
+FSupp, TCS outperformed the other engines consistently
+(see Figures 1, 2, and 3); on the AP89 Collection, Okapi
+FB is clearly the best performer (see Figures 4, 5, and 6).
+This is all the more interesting, based on the fact that QE in
+Okapi FB takes place after the first search iteration, which
+0 1 2 3 4 5 6 7
+Number of Query Terms Removed from Relevant Documents
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+Recall
+Okapi FB
+Okapi
+TCS
+Indri
+FSupp: Recall at 1000 documents with Query Terms Removed
+Figure 3: The Recall (at 1000) of the four retrieval
+systems on the FSupp collection as a function of
+the number of query terms removed (the horizontal
+axis).
+0 1 2 3 4 5 6 7
+Number of Query Terms Removed from Relevant Documents
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+MeanAveragePrecision(MAP)
+Okapi FB
+Okapi
+TCS
+QL
+AP89: Mean Average Precision with Query Terms Removed (description queries)
+Figure 4: MAP of the four IR systems on the AP89
+Collection, using TREC description queries. MAP
+is measured as a function of the number of query
+terms removed.
+0 1 2 3 4 5 6 7
+Number of Query Terms Removed from Relevant Documents
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+0.45
+Precisionat10Documents(P10)
+Okapi FB
+Okapi
+TCS
+QL
+AP89: P10 with Query Terms Removed (description queries)
+Figure 5: Precision at 10 of the four IR systems
+on the AP89 Collection, using TREC description
+queries. P at 10 is measured as a function of the
+number of query terms removed.
+0 1 2 3 4 5 6 7
+Number of Query Terms Removed from Relevant Documents
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+Recall
+Okapi FB
+Okapi
+TCS
+QL
+AP89: Recall at 1000 documents with Query Terms Removed (description queries)
+Figure 6: Recall (at 1000) of the four IR systems
+on the AP89 Collection, using TREC description
+queries, and as a function of the number of query
+terms removed.
+we would expect to be handicapped when query terms are
+removed.
+Looking at P10 in Figure 5, we can see that TCS and
+Okapi FB score similarly on P10, starting at the point where
+one query term is removed from relevant documents. At two
+query terms removed, TCS starts outperforming Okapi FB.
+If modeling this in terms of expert versus non-expert users,
+we could conclude that TCS might be a better search engine
+for non-experts to use on the AP89 Collection, while Okapi
+FB would be best for an expert searcher.
+It is interesting to note that on each metric for the AP89
+description queries, TCS performs more poorly than all the
+other systems on the original collection, but quickly 
+surpasses the baseline systems and approaches Okapi FB"s 
+performance as terms are removed. This is again a case where
+the performance of a system on the entire collection is not
+necessarily indicative of how it handles query-document term
+mismatch.
+5.3 The AP89 Collection: using the title queries
+Figures 7, 8, and 9 show the performance of the four IR
+systems on the AP89 Collection, using the TREC topic titles
+as queries. As with the AP89 description queries, Okapi
+FB is again the best performer of the four systems in the
+evaluation. As before, the performance of the Okapi and
+QL systems, the non-QE baseline systems, sharply degrades
+as query terms are removed. On the shorter queries, TCS
+seems to have a harder time catching up to the performance
+of Okapi FB as terms are removed.
+Perhaps the most interesting result from our evaluation
+is that although the keyword-only baselines performed 
+consistently and as expected on both collections with respect
+to query term removal from relevant documents, the 
+performances of the engines implementing QE techniques differed
+dramatically between collections.
+0 1 2 3 4 5
+Number of Query Terms Removed from Relevant Documents
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+MeanAveragePrecision(MAP)
+Okapi FB
+Okapi
+TCS
+QL
+AP89: Mean Average Precision with Query Terms Removed (title queries)
+Figure 7: MAP of the four IR systems on the AP89
+Collection, using TREC title queries and as a 
+function of the number of query terms removed.
+0 1 2 3 4 5
+Number of Query Terms Removed from Relevant Documents
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+0.45
+0.5
+Precisionat10Documents(P10)
+Okapi FB
+Okapi
+TCS
+QL
+AP89: P10 with Query Terms Removed (title queries)
+Figure 8: Precision at 10 of the four IR systems on
+the AP89 Collection, using TREC title queries, and
+as a function of the number of query terms removed.
+0 1 2 3 4 5
+Number of Query Terms Removed from Relevant Documents
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+Recall
+Okapi FB
+Okapi
+TCS
+QL
+AP89: Recall at 1000 documents with Query Terms Removed (title queries)
+Figure 9: Recall (at 1000) of the four IR systems on
+the AP89 Collection, using TREC title queries and
+as a function of the number of query terms removed.

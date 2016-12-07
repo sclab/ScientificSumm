@@ -1,0 +1,311 @@
+In this section we characterize the power of ascending
+item-price auctions. We first show that this power is not
+trivial: such auctions can in general elicit an exponential
+amount of information. On the other hand, we show that
+the optimal allocation cannot always be determined by a
+single ascending auction, and in some cases, nor by an 
+exponential number of ascending-price trajectories. Finally,
+we separate the power of different models of ascending 
+auctions.
+5.1 The Power of Item-Price Ascending
+Auctions
+We first show that if small enough increments are allowed,
+a single ascending trajectory of item-prices can elicit 
+preferences that cannot be elicited with polynomial 
+communication. As mentioned, all our hardness results hold for any
+increment, even infinitesimal.
+Theorem 5.1. Some classes of valuations can be elicited
+by item-price ascending auctions, but cannot be elicited by a
+polynomial number of queries of any kind.
+Proof. (sketch) Consider two bidders with v(S) = 1 if
+|S| > n
+2
+, v(S) = 0 if |S| < n
+2
+and every S such that |S| = n
+2
+has an unknown value from {0, 1}. Due to [32], determining
+the optimal allocation here requires exponential 
+communication in the worst case. Nevertheless, we show (see [9]) that
+an item-price ascending auction can do it, as long as it can
+use exponentially small increments.
+We now describe another positive result for the power of
+item-price ascending auctions. In section 4.1, we showed
+38
+v(ab) v(a) v(b)
+Bidder 1 2 α ∈ (0, 1) β ∈ (0, 1)
+Bidder 2 2 2 2
+Figure 6: No item-price ascending auctions can 
+determine the optimal allocation for this class of valuations.
+that a value query can be simulated with a (truly) 
+polynomial number of item-price demand queries. Here, we show
+that every value query can be simulated by a (pseudo) 
+polynomial number of ascending item-price demand queries. (In
+the next subsection, we show that we cannot always 
+simulate even a pair of value queries using a single item-price
+ascending auction.) In the full paper (part II,[9]), we show
+that we can simulate other types of queries using item-price
+ascending auctions.
+Proposition 5.2. A value query can be simulated by an
+item-price ascending auction. This simulation requires a
+polynomial number of queries.
+Actually, the proof for Proposition 5.2 proves a stronger
+useful result regarding the information elicited by iterative
+auctions. It says that in any iterative auction in which the
+changes of prices are small enough in each stage 
+(pseudocontinuous auctions), the value of all bundles demanded
+during the auction can be computed. The basic idea is that
+when the bidder moves from demanding some bundle Ti to
+demanding another bundle Ti+1, there is a point in which she
+is indifferent between these two bundles. Thus, knowing the
+value of some demanded bundle (e.g., the empty set) enables
+computing the values of all other demanded bundles.
+We say that an auction is pseudo-continuous, if it only
+uses demand queries, and in each step, the price of at most
+one item is changed by (for some ∈ (0, δ]) with respect
+to the previous query.
+Proposition 5.3. Consider any pseudo-continuous 
+auction (not necessarily ascending), in which bidder i demands
+the empty set at least once along the auction. Then, the
+value of every bundle demanded by bidder i throughout the
+auction can be calculated at the end of the auction.
+5.2 Limitations of Item-Price Ascending
+Auctions
+Although we observed that demand queries can solve any
+combinatorial auction problem, when the queries are 
+restricted to be ascending, some classes of valuations cannot
+be elicited nor fully-elicited. An example for such class of
+valuations is given in Figure 6.
+Theorem 5.4. There are classes of valuations that 
+cannot be elicited nor fully elicited by any item-price ascending
+auction.
+Proof. Let bidder 1 have the valuation described in the
+first row of Figure 6, where α and β are unknown values in
+(0, 1). First, we prove that this class cannot be fully elicited
+by a single ascending auction. Specifically, an ascending
+auction cannot reveal the values of both α and β.
+As long as pa and pb are both below 1, the bidder will
+always demand the whole bundle ab: her utility from ab is
+strictly greater than the utility from either a or b separately.
+For example, we show that u1(ab) > u1(a):
+u1(ab) = 2 − (pa + pb) = 1 − pa + 1 − pb
+> vA(a) − pa + 1 − pb > u1(a)
+Thus, in order to gain any information about α or β, the
+price of one of the items should become at least 1, w.l.o.g.
+pa ≥ 1. But then, the bundle a will not be demanded by
+bidder 1 throughout the auction, thus no information at all
+will be gained about α.
+Now, assume that bidder 2 is known to have the valuation
+described in the second row of Figure 6. The optimal 
+allocation depends on whether α is greater than β (in bidder 1"s
+valuation), and we proved that an ascending auction cannot
+determine this.
+The proof of the theorem above shows that for an 
+unknown value to be revealed, the price of one item should be
+greater than 1, and the other price should be smaller than
+1. Therefore, in a price-monotonic trajectory of prices, only
+one of these values can be revealed. An immediate 
+conclusion is that this impossibility result also holds for item-price
+descending auctions. Since no such trajectory exists, then
+the same conclusion even holds for non-deterministic 
+itemprice auctions (in which exogenous data tells us how to 
+increase the prices). Also note that since the hardness stems
+from the impossibility to fully-elicit a valuation of a single
+bidder, this result also holds for non-anonymous ascending
+item-price auctions.
+5.3 Limitations of Multi-Trajectory
+Ascending Auctions
+According to Theorem 5.4, no ascending item-price 
+auction can always elicit the preferences (we prove a similar
+result for bundle prices in section 6). But can two 
+ascending trajectories do the job? Or a polynomial number of
+ascending trajectories? We give negative answers for such
+suggestions.
+We define a k-trajectory ascending auction as a 
+demandquery iterative auction in which the demand queries can be
+partitioned to k sets of queries, where the prices published
+in each set only increase in time. Note that we use a general
+definition; It allows the trajectories to run in parallel or 
+sequentially, and to use information elicited in some 
+trajectories for determining the future queries in other trajectories.
+The power of multiple-trajectory auctions can be 
+demonstrated by the negative result of Gul and Stacchetti [17] who
+showed that even for an auction among substitutes 
+valuations, an anonymous ascending item-price auction cannot
+compute VCG prices for all players.21
+Ausubel [4] overcame
+this impossibility result and designed auctions that do 
+compute VCG prices by organizing the auction as a sequence of
+n + 1 ascending auctions. Here, we prove that one cannot
+elicit XOR valuations with k terms by less than k − 1 
+ascending trajectories. On the other hand, we show that an
+XOR formula can be fully elicited by k−1 non-deterministic
+ascending auctions (or by k−1 deterministic ascending 
+auctions if the auctioneer knows the atomic bundles).22
+21
+A recent unpublished paper by Mishra and Parkes 
+extends this result, and shows that non-anonymous prices with
+bundle-prices are necessary in order that an ascending 
+auction will end up with a universal-competitive-equilibrium
+(that leads to VCG payments).
+22
+This result actually separates the power of deterministic
+39
+Proposition 5.5. XOR valuations with k terms cannot
+be elicited (or fully elicited) by any (k-2)-trajectory 
+itemprice ascending auction, even when the atomic bundles are
+known to the elicitor. However, these valuations can be
+elicited (and fully elicited) by (k-1)-trajectory 
+non-deterministic non-anonymous item-price ascending auctions.
+Moreover, an exponential number of trajectories is 
+required for eliciting some classes of valuations:
+Proposition 5.6. Elicitation and full-elicitation of some
+classes of valuations cannot be done by any k-trajectory 
+itemprice ascending auction, where k = o(2m
+).
+Proof. (sketch) Consider the following class of 
+valuations: For |S| < m
+2
+, v(S) = 0 and for |S| > m
+2
+, v(S) = 2;
+every bundle S of size m
+2
+has some unknown value in (0, 1).
+We show ([9]) that a single item-price ascending auction
+can reveal the value of at most one bundle of size n
+2
+, and
+therefore an exponential number of ascending trajectories is
+needed in order to elicit such valuations.
+We observe that the algorithm we presented in Section
+4.2 can be implemented by a polynomial number of 
+ascending auctions (each item-price demand query can be 
+considered as a separate ascending auction), and therefore a
+min(n, 4
+√
+m)-approximation can be achieved by a 
+polynomial number of ascending auctions. We do not currently
+have a better upper bound or any lower bound.
+5.4 Separating the Various Models of
+Ascending Auctions
+Various models for ascending auctions have been suggested
+in the literature. In this section, we compare the power of
+the different models. As mentioned, all auctions are 
+considered anonymous and deterministic, unless specified 
+otherwise.
+Ascending vs. Descending Auctions: We begin the
+discussion of the relation between ascending auctions and
+descending auctions with an example. The algorithm by
+Lehmann, Lehmann and Nisan [25] can be implemented by
+a simple item-price descending auction (see the full paper for
+details [9]). This algorithm guarantees at least half of the 
+optimal efficiency for submodular valuations. However, we are
+not familiar with any ascending auction that guarantees a
+similar fraction of the efficiency. This raises a more general
+question: can ascending auctions solve any 
+combinatorialauction problem that is solvable using a descending auction
+(and vice versa)? We give negative answers to these 
+questions. The idea behind the proofs is that the information
+that the auctioneer can get for free at the beginning of
+each type of auction is different.23
+and non-deterministic iterative auctions: our proof shows
+that a non-deterministic iterative auction can elicit the 
+kterm XOR valuations with a polynomial number of demand
+queries, and [7] show that this elicitation must take an 
+exponential number of demand queries.
+23
+In ascending auctions, the auctioneer can reveal the most
+valuable bundle (besides M) before she starts raising the
+prices, thus she can use this information for adaptively
+choose the subsequent queries. In descending auctions, one
+can easily find the bundle with the highest average per-item
+price, keeping all other bundles with non-positive utilities,
+and use this information in the adaptive price change.
+Proposition 5.7. There are classes that cannot be 
+elicited (fully elicited) by ascending item-price auctions, but can
+be elicited (resp. fully elicited) with a descending item-price
+auction.
+Proposition 5.8. There are classes that cannot be 
+elicited (fully elicited) by item-price descending auctions, but can
+be elicited (resp. fully elicited) by item-price ascending 
+auctions.
+Deterministic vs. Non-Deterministic Auctions: 
+Nondeterministic ascending auctions can be viewed as auctions
+where some benevolent teacher that has complete 
+information guides the auctioneer on how she should raise the prices.
+That is, preference elicitation can be done by a 
+non-deterministic ascending auction, if there is some ascending trajectory
+that elicits enough information for determining the optimal
+allocation (and verifying that it is indeed optimal). We show
+that non-deterministic ascending auctions are more powerful
+than deterministic ascending auctions:
+Proposition 5.9. Some classes can be elicited (fully
+elicited) by an item-price non-deterministic ascending 
+auction, but cannot be elicited (resp. fully elicited) by item-price
+deterministic ascending auctions.
+Anonymous vs. Non-Anonymous Auctions: As will
+be shown in Section 6, the power of anonymous and 
+nonanonymous bundle-price ascending auctions differs 
+significantly. Here, we show that a difference also exists for 
+itemprice ascending auctions.
+Proposition 5.10. Some classes cannot be elicited by
+anonymous item-price ascending auctions, but can be elicited
+by a non-anonymous item-price ascending auction.
+Sequential vs. Simultaneous Auctions: A 
+non-anonymous auction is called simultaneous if at each stage, the price
+of some item is raised by for every bidder. The auctioneer
+can use the information gathered until each stage, in all the
+personalized trajectories, to determine the next queries.
+A non-anonymous auction is called sequential if the 
+auctioneer performs an auction for each bidder separately, in
+sequential order. The auctioneer can determine the next
+query based on the information gathered in the trajectories
+completed so far and on the history of the current trajectory.
+Proposition 5.11. There are classes that cannot be 
+elicited by simultaneous non-anonymous item-price ascending
+auctions, but can be elicited by a sequential non-anonymous
+item-price ascending auction.
+Adaptive vs. Oblivious Auctions: If the auctioneer 
+determines the queries regardless of the bidders" responses (i.e.,
+the queries are predefined) we say that the auction is 
+oblivious. Otherwise, the auction is adaptive. We prove that an
+adaptive behaviour of the auctioneer may be beneficial.
+Proposition 5.12. There are classes that cannot be 
+elicited (fully elicited) using oblivious item-price ascending 
+auctions, but can be elicited (resp. fully elicited) by an adaptive
+item-price ascending auction.
+40
+5.5 Preference Elicitation vs. Full Elicitation
+Preference elicitation and full elicitation are closely 
+related problems. If full elicitation is easy (e.g., in 
+polynomial time) then clearly elicitation is also easy (by a 
+nonanonymous auction, simply by learning all the valuations
+separately24
+). On the other hand, there are examples where
+preference elicitation is considered easy but learning is
+hard (typically, elicitation requires smaller amount of 
+information; some examples can be found in [7]).
+The tatonnement algorithms by [22, 12, 16] end up with
+the optimal allocation for substitutes valuations.25
+We prove
+that we cannot fully elicit substitutes valuations (or even
+their sub-class of OXS valuations defined in [25]), even for a
+single bidder, by an item-price ascending auction (although
+the optimal allocation can be found by an ascending auction
+for any number of bidders!).
+Theorem 5.13. Substitute valuations cannot be fully 
+elicited by ascending item-price auctions. Moreover, they 
+cannot be fully elicited by any m
+2
+ascending trajectories (m > 3).
+Whether substitutes valuations have a compact 
+representation (i.e., polynomial in the number of goods) is an 
+important open question. As a step in this direction, we show
+that its sub-class of OXS valuations does have a compact
+representation: every OXS valuation can be represented by
+at most m2
+values.26
+Lemma 5.14. Any OXS valuation can be represented by
+no more than m2
+values.

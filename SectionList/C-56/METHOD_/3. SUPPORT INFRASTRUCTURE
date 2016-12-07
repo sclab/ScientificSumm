@@ -1,0 +1,62 @@
+The support infrastructure comprises tools for 
+specification, and services for execution and monitoring of 
+structured processes in highly distributed, heterogeneous and 
+autonomous grid environments. It has services to monitor
+availability of resources in the grid, to interpret processes
+and schedule activities and controllers, and to execute 
+activities.
+3.1 Infrastructure Architecture
+The support infrastructure architecture is composed of
+groups of machines and data repositories, which preserves
+its administrative autonomy. Generally, localized machines
+and repositories, such as in local networks or clusters, form
+a group. Each machine in a group must have a Java Virtual
+Machine (JVM) [11], and a Java Runtime Library, besides
+a combination of the following grid support services: group
+manager (GM), process coordinator (PC) and activity 
+manager (AM). This combination determines what kind of group
+node it represents: a group server, a process server, or 
+simply a worker (see Figure 2).
+In a group there are one or more group managers, but
+only one acts as primary and the others, as replicas. They
+are responsible to maintain availability information of group
+machines. Moreover, group managers maintain references to
+data resources of the group. They use group repositories to
+persist and recover the location of nodes and their 
+availability.
+To control process execution, there are one or more 
+process coordinators per group. They are responsible to 
+instantiate and execute processes and controllers, select resources,
+and schedule and dispatch activities to workers. In order
+to persist and recover process execution and data, and also
+load process specification, they use group repositories.
+Finally, in several group nodes there is an activity 
+manager. It is responsible to execute activities in the hosted
+machine on behalf of the group process coordinators, and to
+inform the current availability of the associated machine to
+group managers. They also have pendent activity queues,
+containing activities to be executed.
+3.2 Inter-group Relationships
+In order to model real grid architecture, the infrastructure
+must comprise several, potentially all, local networks, like
+Internet does. Aiming to satisfy this intent, local groups are
+89 Middleware 2004 Companion
+GM
+GM
+GM
+GM
+Figure 3: Inter-group relationships
+connected to others, directly or indirectly, through its group
+managers (see Figure 3).
+Each group manager deals with requests of its group 
+(represented by dashed ellipses), in order to register local 
+machines and maintain correspondent availability. 
+Additionally, group managers communicate to group managers of
+other groups. Each group manager exports coarse 
+availability information to group managers of adjacent groups and
+also receives requests from other external services to 
+furnish detailed availability information. In this way, if there
+are resources available in external groups, it is possible to
+send processes, controllers and activities to these groups in
+order to execute them in external process coordinators and
+activity managers, respectively.

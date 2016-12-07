@@ -1,0 +1,44 @@
+To make sure we are not favoring UserBehavior, we also tested all other strategies on the same hold-out test sets, resulting in the same accuracy results as testing over the complete datasets. 
+The evaluation is based on comparing preferences predicted by various models to the correct preferences derived from the explicit user relevance judgments.
+Specifically, we compare the following strategies: • SA: The Skip Above clickthrough strategy (Section 4.2) • SA+N: A more comprehensive extension of SA that takes better advantage of current search engine ranking.
+In addition for these queries we also had user interaction data for more than 120,000 instances of these queries.
+To evaluate UserBehavior we train and validate on 75% of labeled queries, and test on the remaining 25%.
+5.1 Evaluation Methodology and Metrics Our evaluation focuses on the pairwise agreement between preferences for results.
+In order to better understand the effect of the amount of user interaction data available for a query on accuracy, we created subsets of our data (Q1, Q10, and Q20) that contain different amounts of interaction data: • Q1: Human-rated queries with at least 1 click on results recorded (3500 queries, 28,093 query-URL pairs) • Q10: Queries in Q1 with at least 10 clicks (1300 queries, 18,728 query-URL pairs).
+Specifically, we report the average query recall and precision.
+To create our set of test pairs we take each query and compute the cross-product between all search results, returning preferences for pairs according to the order of the associated relevance labels.
+We compared our UserBehavior model (Section 4.3) to previously published implicit feedback interpretation techniques and some variants of these approaches (Section 4.2), and to the current search engine ranking based on query and page features alone (Section 4.1).
+• CDiff: Our generalization of the CD strategy that explicitly uses the relevance component of clickthrough probabilities to induce preferences between search results (Section 4.2).
+For each query the top 10 returned search results were manually rated on a 6-point scale by trained judges as part of ongoing relevance improvement effort.
+In our preliminary experiments we observed that higher ranker scores indicate higher confidence in the predictions.
+We discuss other applications of our models beyond web search ranking in Section 7.
+The overall Recall and Precision are computed as the average of Query Recall and Query Precision, respectively.
+Note that the Current ranker implementation was trained over a superset of the rated query/URL pairs in our datasets, but using the same truth labels as we do for our evaluation.
+This heuristic allows us to do graceful recall-precision tradeoff using the score of the highest ranked result to threshold the queries (Section 4.3) • Current: Current search engine ranking (section 4.1).
+In order to compute the accuracy of our preference predictions with respect to the correct preferences, we adapt the standard Recall and Precision measures [20].
+5.2 Datasets For evaluation we used 3,500 queries that were randomly sampled from query logs(for a major web search engine.
+5.3 Methods Compared We considered a number of methods for comparison.
+Then we describe the datasets (Section 5.2) and the methods we compared in this study (Section 5.3).
+Hence, all strategies except for UserBehavior were tested on the full set of queries and associated relevance preferences, while UserBehavior was tested on a randomly chosen hold-out subset of the queries as described above.
+While our task of computing pairwise agreement is different from the absolute relevance ranking task, the metrics are used in the similar way.
+These datasets were collected as part of normal user experience and hence have different characteristics than previously reported datasets collected in laboratory settings.
+• CD: Our refinement of SA+N that takes advantage of our mixture model of clickthrough distribution to select trusted clicks for interpretation (Section 4.2).
+• CD+CDiff: The strategy combining CD and CDiff as the union of predicted preferences from both (Section 4.2).
+We first describe the methodology used, including our evaluation metrics (Section 5.1).
+For our task, Query Precision and Query Recall for a query q are defined as: • Query Precision: Fraction of predicted preferences for results for q that agree with preferences obtained from explicit human judgment.
+It is worth noting that both the ad-hoc SA and SA+N, as well as the distribution-based strategies (CD, CDiff, and CD+CDiff), do not require a separate training and test set, since they are based on heuristics for detecting anomalous click frequencies for results.
+• UserBehavior: We order predictions based on decreasing highest score of any page.
+The sampling was done per query (i.e., all results for a chosen query were included in the respective dataset, and there was no overlap in queries between training and test sets).
+• Query Recall: Fraction of preferences obtained from explicit human judgment for q that were correctly predicted.
+The user interactions were harvested from anonymous browsing traces that immediately followed a query submitted to the web search engine.
+Furthermore, for many applications such as tuning ranking functions, pairwise preference can be used directly for training [1,4,9].
+We discuss this issue further when we consider extensions to the current work in Section 7.
+This allows us to compare to previous work [9,10].
+These three weeks (21 days) of user interaction data was filtered to include only the users in the English-U.S. market.
+We now describe our experimental setup.
+Training/Test Split: The only strategy for which splitting the datasets into training and test was required was the UserBehavior method.
+This data collection was part of voluntary opt-in feedback submitted by users from October 11 through October 31.
+To avoid ambiguity in evaluation, we discard all ties (i.e., pairs with equal label).
+Furthermore, the data size is order of magnitude larger than any study reported in the literature.
+A drawback of this evaluation measure is that some preferences may be more valuable than others, which pairwise agreement does not capture.
+• Q20: Queries in Q1 with at least 20 clicks (1000 queries total, 12,922 query-URL pairs).

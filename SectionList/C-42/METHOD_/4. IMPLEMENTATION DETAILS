@@ -1,0 +1,110 @@
+To Grid-enable the EnKF approach, we have eliminated
+the MPI code for parallel processing and replaced with N
+single processor jobs (or sub-jobs) where, N is the number
+of geological models in the ensemble. These model-specific
+sub-jobs were distributed across TIGRE sites that support
+ECLIPSE package using the GridWay [8] metascheduler.
+For each sub-job, we have constructed a GridWay job
+template that specifies the executable, input and output
+files, and resource requirements. Since the TIGRE compute
+resources are not expected to change frequently, we have
+used static resource discovery policy for GridWay and the
+sub-jobs were scheduled dynamically across the TIGRE
+resources using GridWay. Figure 3 represents the sub-job
+template file for the GridWay metascheduler.
+Figure 3. GridWay Sub-Job Template
+In Figure 3, REQUIREMENTS flag is set to choose the
+resources that satisfy the application requirements. In the
+case of EnKF application, for example, we need resources
+that support ECLIPSE package. ARGUMENTS flag
+specifies the model in the ensemble that will invoke
+ECLIPSE at a remote site. INPUT_FILES is prepared by
+the EnKF main program (or master/control process) and is
+transferred by GridWay to the remote site where it is 
+untared and is prepared for execution. Finally,
+OUTPUT_FILES specifies the name and location where the
+output files are to be written.
+The command-line features of GridWay were used to
+collect and process the model-specific outputs to prepare
+new set of input files. This step mimics MPI process
+synchronization in master-slave model. At the end of each
+iteration, the compute resources and licenses are committed
+back to the pool. Table 1 shows the sub-jobs in TIGRE
+Grid via GridWay using gwps command and for clarity,
+only selected columns were shown
+.
+USER JID DM EM NAME HOST
+pingluo 88 wrap pend enkf.jt antaeus.hpcc.ttu.edu/LSF
+pingluo 89 wrap pend enkf.jt antaeus.hpcc.ttu.edu/LSF
+pingluo 90 wrap actv enkf.jt minigar.hpcc.ttu.edu/LSF
+pingluo 91 wrap pend enkf.jt minigar.hpcc.ttu.edu/LSF
+pingluo 92 wrap done enkf.jt cosmos.tamu.edu/PBS
+pingluo 93 wrap epil enkf.jt cosmos.tamu.edu/PBS
+Table 1. Job scheduling across TIGRE using GridWay
+Metascheduler. DM: Dispatch state, EM: Execution state,
+JID is the job id and HOST corresponds to site specific
+cluster and its local batch scheduler.
+When a job is submitted to GridWay, it will go through a
+series of dispatch (DM) and execution (EM) states. For
+DM, the states include pend(ing), prol(og), wrap(per),
+epil(og), and done. DM=prol means the job has been
+scheduled to a resource and the remote working directory is
+in preparation. DM=warp implies that GridWay is
+executing the wrapper which in turn executes the
+application. DM=epil implies the job has finished
+running at the remote site and results are being transferred
+back to the GridWay server. Similarly, when EM=pend
+implies the job is waiting in the queue for resource and the
+job is running when EM=actv. For complete list of
+message flags and their descriptions, see the documentation
+in ref [8].
+We have demonstrated the Grid-enabled EnKF runs
+using GridWay for TIGRE environment. The jobs are so
+chosen that the runtime doesn"t exceed more than a half
+hour. The simulation runs involved up to 20 jobs between
+A&M and TTU sites with TTU serving 10 licenses. For
+resource information, see Table I.
+One of the main advantages of Grid-enabled EnKF
+simulation is that both the resources and licenses are
+released back to the pool at the end of each simulation time
+step unlike in the case of MPI implementation where
+licenses and nodes are locked until the completion of entire
+simulation. However, the fact that each sub-job gets
+scheduled independently via GridWay could possibly incur
+another time delay caused by waiting in queue for execution
+in each simulation time step. Such delays are not expected
+EXECUTABLE=runFORWARD
+REQUIREMENTS=HOSTNAME=cosmos.tamu.edu |
+HOSTNAME=antaeus.hpcc.ttu.edu |
+HOSTNAME=minigar.hpcc.ttu.edu |
+ARGUMENTS=001
+INPUT_FILES=001.in.tar
+OUTPUT_FILES=001.out.tar
+in MPI implementation where the node is blocked for
+processing sub-jobs (model-specific calculation) until the
+end of the simulation. There are two main scenarios for
+comparing Grid and cluster computing approaches.
+Scenario I: The cluster is heavily loaded. The conceived
+average waiting time of job requesting large number of
+CPUs is usually longer than waiting time of jobs requesting
+single CPU. Therefore, overall waiting time could be
+shorter in Grid approach which requests single CPU for
+each sub-job many times compared to MPI implementation
+that requests large number of CPUs at a single time. It is
+apparent that Grid scheduling is beneficial especially when
+cluster is heavily loaded and requested number of CPUs for
+the MPI job is not readily available.
+Scenario II: The cluster is relatively less loaded or
+largely available. It appears the MPI implementation is
+favorable compared to the Grid scheduling. However,
+parallelizability of the EnKF application depends on the
+number of ECLIPSE licenses and ideally, the number of
+licenses should be equal to the number of models in the
+ensemble. Therefore, if a single institution does not have
+sufficient number of licenses, the cluster availability doesn"t
+help as much as it is expected.
+Since the collaborative environment such as TIGRE can
+address both compute and software resource requirements
+for the EnKF application, Grid-enabled approach is still
+advantageous over the conventional MPI implementation in
+any of the above scenarios.

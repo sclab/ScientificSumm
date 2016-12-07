@@ -1,0 +1,300 @@
+Given that finding the optimal strategy for the leader is NP-hard,
+we provide a heuristic approach. In this heuristic we limit the 
+possible mixed strategies of the leader to select actions with 
+probabilities that are integer multiples of 1/k for a predetermined integer
+k. Previous work [14] has shown that strategies with high entropy
+are beneficial for security applications when opponents" utilities
+are completely unknown. In our domain, if utilities are not 
+considered, this method will result in uniform-distribution strategies.
+One advantage of such strategies is that they are compact to 
+represent (as fractions) and simple to understand; therefore they can
+be efficiently implemented by real organizations. We aim to 
+maintain the advantage provided by simple strategies for our security
+application problem, incorporating the effect of the robbers" 
+rewards on the security agent"s rewards. Thus, the ASAP heuristic
+will produce strategies which are k-uniform. A mixed strategy is
+denoted k-uniform if it is a uniform distribution on a multiset S of
+pure strategies with |S| = k. A multiset is a set whose elements
+may be repeated multiple times; thus, for example, the mixed 
+strategy corresponding to the multiset {1, 1, 2} would take strategy 1
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 313
+{1,2} {2,1}
+{1a, 1b} −1α − .9(1 − α), .5α + .6(1 − α) −.375α − .275(1 − α), .125α + .225(1 − α)
+{1a, 2b} −1α − .025(1 − α), .5α − .025(1 − α) −.375α − .9(1 − α), .125α + .6(1 − α)
+{2a, 1b} −.125α − .9(1 − α), −.125α + .6(1 − α) −1α − .275(1 − α), .5α + .225(1 − α)
+{2a, 2b} −.125α − .025(1 − α), −.125α − .025(1 − α) −1α − .9(1 − α), .5α + .6(1 − α)
+Table 3: Harsanyi Transformed Payoff Table
+with probability 2/3 and strategy 2 with probability 1/3. ASAP 
+allows the size of the multiset to be chosen in order to balance the
+complexity of the strategy reached with the goal that the identified
+strategy will yield a high reward.
+Another advantage of the ASAP heuristic is that it operates 
+directly on the compact Bayesian representation, without requiring
+the Harsanyi transformation. This is because the different follower
+(robber) types are independent of each other. Hence, evaluating
+the leader strategy against a Harsanyi-transformed game matrix
+is equivalent to evaluating against each of the game matrices for
+the individual follower types. This independence property is 
+exploited in ASAP to yield a decomposition scheme. Note that the LP
+method introduced by [5] to compute optimal Stackelberg policies
+is unlikely to be decomposable into a small number of games as it
+was shown to be NP-hard for Bayes-Nash problems. Finally, note
+that ASAP requires the solution of only one optimization problem,
+rather than solving a series of problems as in the LP method of [5].
+For a single follower type, the algorithm works the following
+way. Given a particular k, for each possible mixed strategy x for the
+leader that corresponds to a multiset of size k, evaluate the leader"s
+payoff from x when the follower plays a reward-maximizing pure
+strategy. We then take the mixed strategy with the highest payoff.
+We need only to consider the reward-maximizing pure 
+strategies of the followers (robbers), since for a given fixed strategy x
+of the security agent, each robber type faces a problem with fixed
+linear rewards. If a mixed strategy is optimal for the robber, then
+so are all the pure strategies in the support of that mixed strategy.
+Note also that because we limit the leader"s strategies to take on
+discrete values, the assumption from Section 3.2 that the followers
+will break ties in the leader"s favor is not significant, since ties will
+be unlikely to arise. This is because, in domains where rewards are
+drawn from any random distribution, the probability of a follower
+having more than one pure optimal response to a given leader 
+strategy approaches zero, and the leader will have only a finite number
+of possible mixed strategies.
+Our approach to characterize the optimal strategy for the security
+agent makes use of properties of linear programming. We briefly
+outline these results here for completeness, for detailed discussion
+and proofs see one of many references on the topic, such as [2].
+Every linear programming problem, such as:
+max cT
+x | Ax = b, x ≥ 0,
+has an associated dual linear program, in this case:
+min bT
+y | AT
+y ≥ c.
+These primal/dual pairs of problems satisfy weak duality: For any x
+and y primal and dual feasible solutions respectively, cT
+x ≤ bT
+y.
+Thus a pair of feasible solutions is optimal if cT
+x = bT
+y, and
+the problems are said to satisfy strong duality. In fact if a linear
+program is feasible and has a bounded optimal solution, then the
+dual is also feasible and there is a pair x∗
+, y∗
+that satisfies cT
+x∗
+=
+bT
+y∗
+. These optimal solutions are characterized with the following
+optimality conditions (as defined in [2]):
+• primal feasibility: Ax = b, x ≥ 0
+• dual feasibility: AT
+y ≥ c
+• complementary slackness: xi(AT
+y − c)i = 0 for all i.
+Note that this last condition implies that
+cT
+x = xT
+AT
+y = bT
+y,
+which proves optimality for primal dual feasible solutions x and y.
+In the following subsections, we first define the problem in its
+most intuititive form as a mixed-integer quadratic program (MIQP),
+and then show how this problem can be converted into a 
+mixedinteger linear program (MILP).
+4.1 Mixed-Integer Quadratic Program
+We begin with the case of a single type of follower. Let the
+leader be the row player and the follower the column player. We
+denote by x the vector of strategies of the leader and q the vector
+of strategies of the follower. We also denote X and Q the index
+sets of the leader and follower"s pure strategies, respectively. The
+payoff matrices R and C correspond to: Rij is the reward of the
+leader and Cij is the reward of the follower when the leader takes
+pure strategy i and the follower takes pure strategy j. Let k be the
+size of the multiset.
+We first fix the policy of the leader to some k-uniform policy
+x. The value xi is the number of times pure strategy i is used in
+the k-uniform policy, which is selected with probability xi/k. We
+formulate the optimization problem the follower solves to find its
+optimal response to x as the following linear program:
+max
+X
+j∈Q
+X
+i∈X
+1
+k
+Cijxi qj
+s.t.
+P
+j∈Q qj = 1
+q ≥ 0.
+(2)
+The objective function maximizes the follower"s expected reward
+given x, while the constraints make feasible any mixed strategy q
+for the follower. The dual to this linear programming problem is
+the following:
+min a
+s.t. a ≥
+X
+i∈X
+1
+k
+Cijxi j ∈ Q. (3)
+From strong duality and complementary slackness we obtain that
+the follower"s maximum reward value, a, is the value of every pure
+strategy with qj > 0, that is in the support of the optimal mixed
+strategy. Therefore each of these pure strategies is optimal. 
+Optimal solutions to the follower"s problem are characterized by linear
+programming optimality conditions: primal feasibility constraints
+in (2), dual feasibility constraints in (3), and complementary 
+slackness
+qj a −
+X
+i∈X
+1
+k
+Cijxi
+!
+= 0 j ∈ Q.
+These conditions must be included in the problem solved by the
+leader in order to consider only best responses by the follower to
+the k-uniform policy x.
+314 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+The leader seeks the k-uniform solution x that maximizes its
+own payoff, given that the follower uses an optimal response q(x).
+Therefore the leader solves the following integer problem:
+max
+X
+i∈X
+X
+j∈Q
+1
+k
+Rijq(x)j xi
+s.t.
+P
+i∈X xi = k
+xi ∈ {0, 1, . . . , k}.
+(4)
+Problem (4) maximizes the leader"s reward with the follower"s best
+response (qj for fixed leader"s policy x and hence denoted q(x)j)
+by selecting a uniform policy from a multiset of constant size k. We
+complete this problem by including the characterization of q(x)
+through linear programming optimality conditions. To simplify
+writing the complementary slackness conditions, we will constrain
+q(x) to be only optimal pure strategies by just considering integer
+solutions of q(x). The leader"s problem becomes:
+maxx,q
+X
+i∈X
+X
+j∈Q
+1
+k
+Rijxiqj
+s.t.
+P
+i xi = kP
+j∈Q qj = 1
+0 ≤ (a −
+P
+i∈X
+1
+k
+Cijxi) ≤ (1 − qj)M
+xi ∈ {0, 1, ...., k}
+qj ∈ {0, 1}.
+(5)
+Here, the constant M is some large number. The first and fourth
+constraints enforce a k-uniform policy for the leader, and the 
+second and fifth constraints enforce a feasible pure strategy for the
+follower. The third constraint enforces dual feasibility of the 
+follower"s problem (leftmost inequality) and the complementary 
+slackness constraint for an optimal pure strategy q for the follower 
+(rightmost inequality). In fact, since only one pure strategy can be 
+selected by the follower, say qh = 1, this last constraint enforces that
+a =
+P
+i∈X
+1
+k
+Cihxi imposing no additional constraint for all other
+pure strategies which have qj = 0.
+We conclude this subsection noting that Problem (5) is an 
+integer program with a non-convex quadratic objective in general,
+as the matrix R need not be positive-semi-definite. Efficient 
+solution methods for non-linear, non-convex integer problems remains
+a challenging research question. In the next section we show a 
+reformulation of this problem as a linear integer programming 
+problem, for which a number of efficient commercial solvers exist.
+4.2 Mixed-Integer Linear Program
+We can linearize the quadratic program of Problem 5 through the
+change of variables zij = xiqj, obtaining the following problem
+maxq,z
+P
+i∈X
+P
+j∈Q
+1
+k
+Rijzij
+s.t.
+P
+i∈X
+P
+j∈Q zij = k
+P
+j∈Q zij ≤ k
+kqj ≤
+P
+i∈X zij ≤ k
+P
+j∈Q qj = 1
+0 ≤ (a −
+P
+i∈X
+1
+k
+Cij(
+P
+h∈Q zih)) ≤ (1 − qj)M
+zij ∈ {0, 1, ...., k}
+qj ∈ {0, 1}
+(6)
+PROPOSITION 1. Problems (5) and (6) are equivalent.
+Proof: Consider x, q a feasible solution of (5). We will show
+that q, zij = xiqj is a feasible solution of (6) of same objective
+function value. The equivalence of the objective functions, and
+constraints 4, 6 and 7 of (6) are satisfied by construction. The fact
+that
+P
+j∈Q zij = xi as
+P
+j∈Q qj = 1 explains constraints 1, 2, and
+5 of (6). Constraint 3 of (6) is satisfied because
+P
+i∈X zij = kqj.
+Let us now consider q, z feasible for (6). We will show that q and
+xi =
+P
+j∈Q zij are feasible for (5) with the same objective value.
+In fact all constraints of (5) are readily satisfied by construction. To
+see that the objectives match, notice that if qh = 1 then the third
+constraint in (6) implies that
+P
+i∈X zih = k, which means that
+zij = 0 for all i ∈ X and all j = h. Therefore,
+xiqj =
+X
+l∈Q
+zilqj = zihqj = zij.
+This last equality is because both are 0 when j = h. This shows
+that the transformation preserves the objective function value, 
+completing the proof.
+Given this transformation to a mixed-integer linear program (MILP),
+we now show how we can apply our decomposition technique on
+the MILP to obtain significant speedups for Bayesian games with
+multiple follower types.

@@ -1,0 +1,120 @@
+However, the ordering of negotiations depends on the negotiation  deadline on Order Computer, which should be provided by the Store Agent.
+This strategy allows every negotiation to have the largest possible duration, however it also eliminates the possibility of performing negotiations in sequence - all  negotiations need to be performed in parallel because the total available time is the same as the duration of each negotiation.
+In the agent"s further negotiation process, formula 4 with different  parameter values is used in reasoning on how much flexibility should be allocated to a certain issue.
+The more additional negotiations that are needed, the smaller value c has, hence more flexibility will be assigned to this issue to  ensure the negotiation success.
+Specifically, each agent provides the following information to other related agents: • Whether additional negotiation is needed in order to make a decision on the contracting task; if so, how many more  negotiations are needed.
+The second feature we will explore is the time allocated for the negotiation process to complete.
+Use the same negotiation deadline for all related negotiations, which means allocate all available time to all negotiations: δ(v) = total available time For example if the negotiation deadline for Purchase  Computer is 20, the Store Agent will tell the PC Manufacturer to reply by 20 for Order Computer (ignoring the  communication delay).
+Meanwhile, the Distribution Center would tell the PC Manufacturer that task Order Hardware involves further  negotiation with other agents (negCount = 3), and that its local decision depends on other agents" decisions.
+In this work, we adopt the following formula for the success probability function based on the flexibility of the negotiation issue: ps(v) = pbs(v) ∗ (2/π) ∗ (arctan(f(v) + c))) (4) This function describes a phenomenon where initially the  likelihood of a successful negotiation increases significantly as the  flexibility grows, and then levels off afterward, which mirrors our  experience from previous experiments.
+The negotiation with highest penalty (1: Order hardware) is performed after all related negotiations (2, 3, and 4) have been completed so as to reduce the risk of  decommitment.
+Let subNeg(T) be a set of subtasks of task T that require additional negotiations, then we have: negCount(T) = |subNeg(T)| + X t∈subNeg(T ) (negCount(t)) (2) For example, in the scenario described in Figure 1, for the distribution center, task Order Hardware consists of three subtasks that need additional negotiations with other agents: Order Chips, Order Memory and Deliver Hardware.
+To improve the accuracy of this function and make it closer to the  reality, the agent adjusts these two values according to the meta-level information transferred during pre-negotiation phase.
+According to this schedule, as long as task Order Hardware is performed  during time [11, 28] and task Deliver Computer is performed during time [34, 40], there exists a feasible schedule for all tasks and task Order Computer can be finished by time 40, which is the  deadline promised to the Customer.
+Some of these tasks can be performed locally by the PC manufacturer, such as Get Software and Install Software, while other tasks (non-local tasks) such as Order Hardware and Deliver Computer need to be performed by other agents.The PC Manufacturer needs to negotiate with the Distribution Center and the Transporter about whether they can perform these tasks, and if so, when and how they will perform them.
+The most uncertain negotiation (4: Deliver Hardware) is performed first.
+In our implementation, the following procedure is used to calculate c based on the meta-level information negCount and PnoConflict: if(PnoConflict > 0.99) // no other competing task c = Clarge − negCount else // competing task exists c = Csmall This procedure works as follows: when there is no other competing Figure 5: Different Success Probability Functions task, c depends on the number of additional negotiations needed.
+The likelihood of conflict Pcij between a task of type i and another task of type j is  calculated based on the statistical model of each task"s parameters, including earliest start time (est), deadline (dl), task  duration (dur) and slack time (sl), using a formula [7]: Pcij = P(dli − estj ≤ duri + durj ∧ dlj − esti ≤ duri + durj) When there are more than two types of tasks, the likelihood of no conflict between task i and the rest of the tasks, is  calculated as: PnoConflict(i) = Qn j=1,j=i(1 − Pcij) For example, the Memory Producer tells the Distribution Center about the task Order Memory.
+We defined a quantitative measure called flexibility: Given a task t, suppose the allocated time range for t is [est, dl], est is the earliest start time and dl stands for the deadline, flexibility(t) = dl − est − process time(t) process time(t) (3) Flexibility is an important attribute because it directly affects the possible outcome of the negotiation.
+In our  implementation, we use the following procedure to decide the negotiation duration δ(v): if(negCount(v) >= 3) // more additional  negotiation needed δ(v) = (negCount(v)−1)∗basic neg cycle else if(negCount(v) > 0) // one or two  additional negotiations needed δ(v) = 2 ∗ basic neg cycle else //no additional negotiation δ(v) = basic neg cycle + 1 basic neg cycle represents the minimum time needed for a negotiation cycle (proposal-think-reply), which is 3 in our system setting including communication delay.
+In this work, we introduce a short period and Produce_Computer Get_Software Install_Software Deliver_Computer Memory ProducerHardware Producer Transporter Consumer Agent Order_Computer Order_Memory Order_Hardware Order_Hardware process−time: 3 Distribution Center PC Manufacturer Order_Chips Deliver_HardwareGet_Parts process−time: 11 enables enables process−time: 4 process−time: 3 and and enables process−time: 4 and enables process−time: 3 process−time: 2 Figure 3: Task Structures of PC Manufacturer and  Distribution Center for agents to learn the characteristics of those incoming tasks,  including est, dl, dur and sl, which are used to calculate Pcij and PnoConflict for the meta-level coordination.
+pbs is calculated based on PnoConflict, f(v) (the flexibility of v in previous negotiation), and c, using the reverse format of equation 4. pbs(v) = min(1.0, PnoConflict(v)∗(π/2)/(arctan(f(v)+c))) (5) For example, based on the scenario described above, the agents have the following values for c and pbs based on the meta-level information transferred: • PC Manufacturer, Order Hardware: pbs = 1.0, c = 2; • Distribution Center, Order Chips: pbs = 1.0, c = 5; • Store Agent, Order Memory: pbs = 0.79, c = 1; Figure 5 shows the different patterns of the success probability function given different parameter values.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) E: Order Hardware F: Deliver Computer H: Get Memory I: Deliver Hardware I: Deliver Hardware F: Deliver Computer G: Get CPU E: Get Hardware and TransporterDistribution Center A: Purchase Computer B: Purchase Memory C: Order Computer D: Order Memory Store Agent PC Manufacturer and C: Order Computer Figure 2: Distributed Model of Negotiation Chains every agent has accurate information.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 53 Order_Hardware Deliver_Computer [34, 40] process time: 4 process time: 3 [11, 28] [11, 28] process time: 11 Get_Software Install_Software [28, 34] process time: 2 Order_Computer starts at time 11 and finishes by 40 Figure 4: A Sample Local Schedule of the PC Manufacturer shows a sample local schedule of the PC Manufacturer.
+negCount represents the total number of additional negotiations needed for a task, including  additional negotiations needed for its subtasks that happen among other agents.
+4.1 Flexibility and Success Probability Agents not only need to deal with complex negotiation problems, they also need to handle their own local scheduling and planning process that are interleaved with the negotiation process.
+This function describes the agent"s assumption about how the other agent involved in this negotiation would response to this particular negotiation request, when it has flexibility f(v).
+The values of c depends on whether there is further negotiation involved and whether there are other tasks competing with this task for common resources.
+Evenly divide the available time among the n related negotiations: δ(v) = total available time/n For example, if the current time is 0, and the negotiation deadline for Order Computer is 21, given two other related negotiations, Order Hardware and Deliver Computer, each negotiation is allocated with a duration of 7.
+The negotiation duration δ(v) is an estimation of how long the negotiation takes based on experience.
+One  additional time unit is allocated for the simplest negotiation  because it allows the agent to perform a more complicated  reasoning process in thinking.
+In order to control the negotiation process, every  negotiation should be finished before its negotiation deadline, and the negotiation duration is the time allocated for this negotiation.
+Allocate time for each  negotiation according to the meta-level information transferred in the pre-negotiation phase.
+Intuitively we feel the strategy 1 may not be a good one, because performing all negotiations in parallel would increase the risk of decommitment and hence also decommitment penalties.
+During system  performance, agents are continually monitoring these characteristics.
+Based on such patterns, the Store Agent would allocate more flexibility to the task Order Memory to increase the likelihood of success in negotiation.
+Especially, we will be concerned with two features that have strong implications for the agent"s macro strategy for the multi-linked negotiations, and hence also affect the performance of a negotiation chain significantly.
+How long the negotiation on Order  Computer takes depends on how the PC Manufacturer handles its local multiple negotiations: whether it replies to the Store Agent first or waits until all other related negotiations have been settled.
+On the other hand, the CPU Producer tells the Distribution Center about the task Order Chips: its local decision does not  involve additional negotiation with other agents, and there are no other tasks competing with this task (PnoConflict = 1.0) given the current environment setting.
+The first is the amount of flexibility specified in the negotiation  parameter.
+The larger the range is, the more likely the negotiation will succeed,  because it is easier for the other agent to find a local schedule for this task.
+4.2 Negotiation Duration and Deadline In the agent"s local model, there are two attributes that describe how soon the agent expects the other agent would reply to the  negotiation v: negotiation duration δ(v) and negotiation deadline (v) 54 The Sixth Intl.
+If the negotiation deadline is less than 8, then all negotiations have to be performed in parallel, because there is no time for sequencing negotiations.
+Next we will describe how the agent uses the meta-level  information transferred during the pre-negotiation phase.
+The time allocated for each negotiation affects the possible ordering of those negotiations, and it also affects the negotiation outcome.
+COORDINATION In order for an agent to get a better local model about other agents in the negotiation chain context, we introduce a pre-negotiation phase into the local negotiation process.
+When the PC Manufacturer negotiates with other agents about the non-local task, it needs to have the other agents" arrangement fit into its local schedule.
+A good  negotiation order should reduce the risk of decommitment and hence reduce the decommitment penalty.
+During the pre-negotiation phase, agents communicate with other agents who have tasks  contracting relationships with them, they transfer meta-level  information before they decide on how and when to do the negotiations.
+The success probability of a negotiation can be described as a function of the flexibility.
+These time ranges allocated for task Order Hardware and task Deliver Computer are called  consistent ranges; the negotiations on these tasks can be performed independently within these ranges without worrying about conflict.
+the earliest start times and the deadlines, etc.
+An updated message will be send to related agents when there is significant change of the meta-level information.
+The negotiation deadline of Order Computer for the PC Manufacturer is actually decided based on the negotiation duration of Order Computer for the Store Agent.
+If the negotiation deadline is less than 12 and greater than 8, the following negotiation order is preferred: (4, 3, 2) → 1, which means negotiation 4, 3, 2 can be performed in parallel, and 1 needs to be performed after them.
+Now the question arises: how should an agent decide how much time it should spend on each negotiation, which actually affects the other agents" negotiation decisions.
+Agents only need to  communicate when the environment changes, for example, new types of tasks are generated, the characteristics of tasks changes, the  negotiation partner changes, etc.
+If no more negotiation is needed, c is assigned to a large number Clarge, meaning that less flexibility is needed for this issue.
+Time 20 can be considered as the negotiation deadline for Purchase Computer.
+How much time the Store Agent would like to spend on the negotiation Order Computer is its duration, and also determines the negotiation deadline for the PC Manufacturer.
+In a negotiation chain situation, this  information is being propagated and updated through the chain until 52 The Sixth Intl.
+This  information will be used to improve the agent"s local model, more  specifically, they are used in the agent"s local decision-making process by affecting the values of some features.
+c is a parameter used to adjust the relationship.
+Each agent tells other agents what types of tasks it will ask them to perform, and the probability distributions of some parameters of those tasks, i.e.
+Notice that each task should be allocated with a time range that is large enough to accommodate the estimated task process time.
+The original model does not handle this question since it assumes the negotiation duration δ(v) is known.
+If a negotiation cannot be finished during the allocated time, the agent has to stop this negotiation and consider it as a failure.
+Its local decision does not involve additional negotiation with other agents (negCount = 0),  however, there is another task from the Store Agent that competes with this task, thus the likelihood of no conflict is 0.5 (PnoConflict = 0.5).
+When the customer posts a contract for task Purchase Computer, it could require the Store Agent to reply by time 20.
+Here we propose three different approaches to handle this issue.
+When there are other competing tasks, c is assigned to a small number Csmall, meaning that more flexibility is needed for this issue.
+Based on the above information, the Distribution Center knows that task Order Memory needs more flexibility than task Order Chips in order to be successful in  negotiation.
+However, the situation is not that simple in a negotiation chain problem.
+Conflict means that given all constrains, the agent cannot accomplish all tasks on time, it needs to reject some tasks.
+In the original model for single agent [10], the negotiation  deadline (v) is assumed to be given by the agent who initiates the  contract.
+This piece of information helps the PC Manufacturer allocate appropriate flexibility for task Order Hardware in negotiation.
+For example, the deadline of task Order Hardware  cannot be later than the start time of task Deliver Computer.
+Considering the following scenario.
+Since the PC Manufacturer is dealing with multiple non-local tasks simultaneously, it also needs to  ensure the commitments on these non-local tasks are consistent with each other.
+Part of the negotiation solution is a negotiation ordering φ which specifies in what order the multiple negotiations should be performed.
+The communication and computation overhead of this  prenegotiation mechanism is very small, given the simple information collection procedure and the short message to be transferred.
+These values are selected according to our experience; however, a more practical approach is to have agents learn and dynamically adjust these values.
+However, no further negotiations are needed for other agents to make decision on these subtasks, hence the negCount for these subtasks are 0.
+This is also part of our future work.
+If so, more flexibility is needed for this issue and hence c should be assigned a smaller value.
+Again, the structure of this  procedure is selected according to experience, and it can be learned and adjusted by agents dynamically.
+A more complicated negotiation, which involves further negotiations, should be allocated  additional time.
+• Whether there are other tasks competing with this task and what is the likelihood of conflict.
+These two important attributes that affect the negotiation  solution.
+When the Store Agent negotiates with the PC Manufacturer about Order Computer, what negotiation  deadline should it specify?
+When the PC manufacturer  receives the message from the Distribution Center, it updates its local information: negCount(Order Computer) = 2+ negCount(Deliver Computer)(0)+ negCount(Order Hardware)(3) = 5 and sends the updated information to the Store Agent.
+For example, Table 1 shows some of the negotiations for the  Distribution Center and their related attributes.
+The reason is that the  negotiation with the Distribution Center about Order Hardware is more complicated because it involves further negotiations between the Distribution Center and other agents.
+Figure 3 shows the local task structures of the PC Manufacturer and the Distribution Center.
+The  decision about the negotiation order depends on the success probability, reward, and decommitment penalty of each negotiation.
+pbs is the basic success  probability of this negotiation v when the flexibility f(v) is very large.
+In our  experiment described later, such distributed information is learned rather than being directly told by other agents.
+The pre-negotiation communication occurs before negotiation, but not before every negotiation session.
+When these probability distributions are not available directly, agents can learn such information from their past experience.
+: success probability) index task-name δ(v) reward s.p.
+This function is part of the agent"s local model about other agents.
+1. same-deadline policy.
+If no major change happens, the agent can just use the current knowledge from previous  communications.
+The following information is sent to the PC manufacturer by the distribution center: negCount(Order Hardware) = 3 For the PC manufacturer task Order Computer contains two subtasks that requires additional negotiations: Deliver  Computer and Order Hardware.
+For example, the PC Manufacturer allocates a duration of 12 for the negotiation Order Hardware, and a duration of 4 for Deliver Computer.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) Table 1: Examples of negotiations (δ(v): negotiation duration, s.p.
+We will discuss the effect of this mechanism in Section 5.
+2. meta-info-deadline policy.
+Then the question is, how big should this time range be?
+Given enough time  (negotiation deadline is greater than 16), the best negotiation order is: 4 → 3 → 2 → 1.
+Different  function patterns can result from different parameter values, as shown in Figure 5.
+A search algorithm has been developed to find such negotiation order described in [10].
+In our experimental work, we have Clarge as 5 and Csmall as 1.
+However, it is not very clear how strategy 2 and 3 perform, and we will  discuss some experimental results in Section 5. 
+Details are discussed in the following sections.
+3. evenly-divided-deadline policy.
+Joint Conf.
+Joint Conf.
+Joint Conf.
+Figure 4 The Sixth Intl.
+penalty 1 Order Hardware 4 6 0.99 3 2 Order Chips 4 1 0.99 0.5 3 Order Memory 4 1 0.80 0.5 4 Deliver Hardware 4 1 0.70 0.5 .

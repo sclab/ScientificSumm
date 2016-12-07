@@ -1,0 +1,88 @@
+For our purposes, two families of these auctions serve as the main motivating starting points: the first is the  ascending item-price auctions of [22, 17] that with computational efficiency find an optimal allocation among (gross)  substitutes valuations, and the second is the ascending  bundleprice auctions of [37, 3] that find an optimal allocation among general valuations - but not necessarily with  computational efficiency.
+These results are part of a recent line of research ([7, 43, 24, 40]) that study the preference elicitation problem in combinatorial auctions and its relation to the full elicitation problem (i.e.,  learn5 These are valuations where bidders have values for k  specific packages, and the value of each bundle is the maximal value of one of these packages that it contains.
+We try to answer the following questions: (i) Which models of ascending auctions can find the optimal allocation, and for which classes of valuations?
+We have therefore seen a multitude of suggested iterative auctions in which the auction protocol repeatedly interacts with the different bidders, aiming to adaptively elicit enough information about the bidders" preferences as to be able to find a good (optimal or close to optimal)  allocation.
+Ascending auctions are also considered more intuitive for many bidders, and are believed to increase the trust of the bidders in the auctioneer, as they see the result gradually emerging from the bidders" responses.
+Bundle-price auctions are a generalization of (the more natural and intuitive) item-price auctions.
+In [32], the universal generality of demand queries is also shown: any non-deterministic communication protocol for finding an allocation that optimizes the social welfare can be converted into one that only uses demand queries (with bundle prices).
+This strengthens our lower bounds, but means that the upper bounds require evaluation from this perspective also before being used in any real combinatorial auction.1 The second part of this paper studies the power of  ascending -price auctions.
+Most of this work presented "upper bounds", i.e., proposed mechanisms with ascending prices and analyzed their properties.
+In contrast, [7] show that there exist valuations that are XORs of k = √ m bundles such that any item-price auction that finds an optimal allocation between them  requires exponentially many queries.
+Most of the suggested iterative auctions proceed by  maintaining temporary prices for the bundles of items and  repeatedly querying the bidders as to their preferences between the bundles under the current set of prices, and then updating the set of bundle prices according to the replies received (e.g., [22, 12, 17, 37, 3]).
+The preference elicitation problem and the full elicitation problem relate to a well studied problem in microeconomics known as the integrability problem (see, e.g., [27]).
+(iii) How do the different models for ascending auctions compare?
+In a combinatorial auction, a set M of m  nonidentical items are sold in a single auction to n competing bidders.
+Iterative auctions Demand auctions Item-price auctions Anonymous price auctions Ascending auctions 1 2 3 4 5 6 97 8 10 Figure 1: The diagram classifies the following auctions according to their properties: (1) The adaptation [12] for Kelso & Crawford"s [22]  auction.
+Effectively, such an iterative  auction accesses the bidders" preferences by repeatedly making the following type of demand query to bidders: Query to bidder i: a vector of bundle prices p = {p(S)}S⊆M ; Answer: a bundle of items S ⊆ M that maximizes vi(S) − p(S)..
+30 Valuation family Upper bound Reference Lower bound Reference General min(n, O( √ m)) [26], Section 4.2 min(n, m1/2− ) [32] Substitutes 1 [32] Submodular 2 [25], 1+ 1 2m , 1-1 e (*) [32],[23] Subadditive O(logm) [13] 2 [13] k-duplicates O(m1/k+1 ) [14] O(m1/k+1 ) [14] Procurement ln m [32] (log m)/2 [29, 32] Figure 2: The best approximation factors currently achievable by computationally-efficient combinatorial auctions, for several classes of valuations.
+This does not rule out other allocations by ascending auctions: in this paper we view the auctions as a  computational process where the outcome - both the allocation and the payments - can be determined according to all the data elicited throughout the auction; This general  framework strengthens our negative results.4 We find the study of ascending auctions appealing for  various reasons.
+(ii) In cases where the optimal allocation cannot be determined by ascending auctions, how well can such auctions approximate the social welfare?
+Another  important differentiation between models of iterative auctions is 29 based on whether they use anonymous or non-anonymous prices: In some auctions the prices that are presented to the bidders are always the same (anonymous prices).
+In this paper we focus on just one central  issue: the communication between bidders and the allocation mechanism - preference elicitation.
+4 In few recent auction designs (e.g., [4, 28]) the payments are not necessarily the final prices of the auctions.
+There are two aspects to  computational efficiency in these settings: the first is the  communication with the bidders, i.e., the number of queries made, and the second is the usual computational tractability.
+However, in [33] it was demonstrated that this completeness of demand queries holds only in the nondeterministic setting, while in the usual deterministic setting, demand queries (even with bundle  prices) may be exponentially weaker than general  communication.
+The design of a combinatorial auction involves many  considerations.
+1.1 Extant Work Many iterative combinatorial auction mechanisms rely on demand queries (see the survey in [35]).
+Figure 1  summa3 A Walrasian equilibrium is vector of item prices for which all the items are sold when each bidder receives a bundle in his demand set.
+Applications include many complex resource allocation problems and, in fact, combinatorial auctions may be viewed as the common abstraction of many complex resource allocation problems.
+The preferences of bidder i are specified by a valuation function vi : 2M → R+ , where vi(S) denotes the value that bidder i attaches to winning the bundle of items S. We assume free disposal, i.e., that the vi"s are monotone non-decreasing.
+A  result which is closer in spirit to ours, is by Gul and Stacchetti [17], who showed that no item-price ascending auction can always determine the VCG prices, even for substitutes  valuations.2 Our framework is more general than the traditional line of research that concentrates on the final allocation and 1 We do observe however that some weak incentive  property comes for free in demand-query auctions since myopic players will answer all demand queries truthfully.
+The main lower bound in this area, due to [32], states that indeed, due to inherent  communication requirements, it is not possible for any iterative auction to find the optimal allocation among general valuations with sub-exponentially many queries.
+Ascending auctions are iterative  auctions where the published prices cannot decrease in time.
+Thus,  direct revelation auctions in which bidders simply declare their preferences to the mechanism are only practical for very small auction sizes or for very limited families of bidder preferences.
+In this paper, we embark on a systematic analysis of the computational power of iterative auctions that are based on demand queries.
+It is known that indeed item-price auctions may be exponentially weaker: a nice example is the case of valuations that are a XOR of k bundles5 , where k is small (say, polynomial).
+ing the exact valuations of the bidders).
+Then, we describe the power of item-price ascending auctions (Section 5) and bundle-price ascending auctions (Section 6).
+Some auctions, called item-price or linear-price  auctions, specify a price pi for each item, and the price of any given bundle S is always linear, p(S) = P i∈S pi.
+Combinatorial auctions face both economic and computational difficulties and are a central problem in the recently active border of economic theory and computer  science.
+In this work, we try to systematically analyze what do the  differences between various models of ascending auctions mean.
+A Walrasian equilibrium3 is known to exist in the case of Substitutes valuations, and is known to be impossible for any wider class of valuations [16].
+These types of queries are very natural in an economic  setting as they capture the revealed preferences of the  bidders.
+Lahaie and Parkes [24] show an economically-efficient bundle-price  auction that uses a polynomial number of queries whenever k is polynomial.
+Ascending auctions also have other desired economic properties, e.g., they incur smaller  information revelation (consider, for example, English auctions vs. second-price sealed bid auctions).
+Readers who are mainly interested in the self-contained discussion of ascending  auctions can skip Section 4.
+(6) Ausubel"s [4] auction for substitutes valuations.
+In [41] this was generalized also to  nondeterministic protocols for finding allocations that satisfy other natural types of economic requirements (e.g.,  approximate social efficiency, envy-freeness).
+A similar exponential lower bound was shown in [32] also for even approximating the  optimal allocation to within a factor of m1/2− .
+We do not aim to present auctions for practical use but rather to understand the limitations and possibilities of these kinds of auctions.
+First, ascending auctions are widely used in many real-life settings from the FCC spectrum auctions [15] to almost any e-commerce website (e.g., [2, 1]).
+The usual goal of the  auctioneer is to optimize the social welfare P i vi(Si), where the allocation S1...Sn must be a partition of the items.
+(5) Our descending adaptation for the 2-approximation for submodular valuations by [25] (see Subsection 5.4).
+Several lower bounds and upper bounds for approximation are known for some natural classes of valuations - these are summarized in Figure 2.
+rizes the basic classes of auctions implied by combinations of the above properties and classifies some of the auctions proposed in the literature according to this classification.
+(8) The duplicate-item auction by [5].
+In other auctions (non-anonymous), different bidders may face  different (discriminatory) vectors of prices.
+Other auctions, called bundle-price auctions, allow specifying  arbitrary (non-linear) prices p(S) for bundles.
+Ascending auctions have been extensively studied in the literature (see the recent survey by Parkes [35]).
+Note that from an algorithmic point of view we are talking about sub-linear time algorithms: the input size here is  really n(2m − 1) numbers - the descriptions of the valuation functions of all bidders.
+A forthcoming book [11] addresses many of the issues involved in the design and implementation of combinatorial auctions.
+(2) The Proxy Auction [3] by Ausubel & Milgrom.
+All lower bounds in the table apply to all iterative auctions (except the one marked by *); all upper bounds in the table are achieved with item-price demand queries.
+This problem studies if and when one can derive the utility function of a consumer from her demand function.
+In the first part of this paper, our main question is what can be done using a polynomial number of these types of queries?
+We also note that in some cases (but not always!)
+the incentives issues can be handled orthogonally to the preference  elicitation issues, e.g., by using Vickrey-Clarke-Groves (VCG) prices (e.g., [4, 34]).
+As mentioned, this  paper concentrates on the single aspect of preference elicitation and on its computational consequences and does not address issues of incentives.
+Combinatorial auctions have recently received a lot of  attention.
+Our upper bounds will always be  computationally efficient both in terms of the number of queries and in terms of regular computation.
+In ascending-price auctions, forcing prices to be anonymous may be a  significant restriction.
+(7) The adaptation by Nisan & Segal [32] of the O( √ m) approximation by [26].
+(10) The AkBA Auction by Wurman & Wellman [42].
+That is,  polynomial in the main parameters of the problem: n, m and the number of bits t needed for representing a single value vi(S).
+The bidders have preferences regarding the bundles of items that they may receive.
+Transferring all  information about bidders" preferences requires an infeasible (exponential in m) amount of communication.
+Missing proofs from Section 4 can be found in part I of the full paper ([8]).
+(9) Auction for Read-Once formulae by [43].
+Actually, this is maybe the most straightforward way to sell items: ask the bidders what would they like to buy under certain prices, and increase the prices of over-demanded goods.
+Our lower bounds will depend only on the number of  queriesand hold independently of any computational assumptions like P = NP.
+Paper organization: Due to the relatively large  number of results we present, we start with a survey of our new results in Section 2.
+Missing proofs from Sections 5 and 6 can be found in part II of the full paper ([9]). 
+Are some models computationally stronger than others?
+After describing our formal model in Section 3, we present our results concerning the power of  demand queries in Section 4.
+These papers adapt methods from machine-learning theory to the  combinatorialauction setting.
+2 We further discuss this result in Section 5.3.
+payments and in particular, on reaching "Walrasian  equilibria" or "Competitive equilibria".
+(4) iBundle(2) by Parkes & Ungar [37].
+(3) iBundle(3) by Parkes & Ungar [34].

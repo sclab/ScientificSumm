@@ -1,0 +1,3 @@
+At each virtual node, the ReadDir aggregation function simply selects a random non-null child value (if any) and we use the Update-Up policy for propagating updates.
+Finally, to locate a nearby copy of an object o, a node n1 issues a series of probe requests for the (ReadDir, o) attribute, starting with level = 1 and increasing the level value with each repeated probe request until a non-null node ID n2 is returned.
+Additionally , we have initial experience using SDIMS to construct two significant applications : the control plane for a large-scale distributed file system [ 12 ] and a 

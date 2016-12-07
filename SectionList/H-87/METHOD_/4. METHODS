@@ -1,0 +1,203 @@
+4.1 Incremental Rocchio for AF
+We employed a common version of Rocchio-style classifiers
+which computes a prototype vector per topic (T) as follows:
+|)(|
+'
+|)(|
+)()(
+)(')(
+TD
+d
+TD
+d
+TqTp
+TDdTDd
+−
+∈
++
+∈ ∑∑ −+
+−+=
+rr
+rr
+rr
+γβα
+The first term on the RHS is the weighted vector representation
+of topic description whose elements are terms weights. The
+second term is the weighted centroid of the set )(TD+ of
+positive training examples, each of which is a vector of 
+withindocument term weights. The third term is the weighted centroid
+of the set )(TD− of negative training examples which are the
+nearest neighbors of the positive centroid. The three terms are
+given pre-specified weights of βα, and γ , controlling the
+relative influence of these components in the prototype.
+The prototype of a topic is updated each time the system makes
+a yes decision on a new document for that topic. If relevance
+feedback is available (as is the case in TREC adaptive filtering),
+the new document is added to the pool of
+either )(TD+ or )(TD− , and the prototype is recomputed
+accordingly; if relevance feedback is not available (as is the case
+in TDT event tracking), the system"s prediction (yes) is
+treated as the truth, and the new document is added to )(TD+ for
+updating the prototype. Both cases are part of our experiments
+in this paper (and part of the TDT 2004 evaluations for AF). To
+distinguish the two, we call the first case simply Rocchio and
+the second case PRF Rocchio where PRF stands for 
+pseudorelevance feedback.
+The predictions on a new document are made by computing the
+cosine similarity between each topic prototype and the
+document vector, and then comparing the resulting scores
+against a threshold:
+⎩
+⎨
+⎧
+−
++
+=−
+)(
+)(
+))),((cos(
+no
+yes
+dTpsign new θ
+rr
+Threshold calibration in incremental Rocchio is a challenging
+research topic. Multiple approaches have been developed. The
+simplest is to use a universal threshold for all topics, tuned on a
+validation set and fixed during the testing phase. More elaborate
+methods include probabilistic threshold calibration which
+converts the non-probabilistic similarity scores to probabilities
+(i.e., )|( dTP
+r
+) for utility optimization [9][13], and margin-based
+local regression for risk reduction [11].
+It is beyond the scope of this paper to compare all the different
+ways to adapt Rocchio-style methods for AF. Instead, our focus
+here is to investigate the robustness of Rocchio-style methods in
+terms of how much their performance depends on elaborate
+system tuning, and how difficult (or how easy) it is to get good
+performance through cross-corpus parameter optimization.
+Hence, we decided to use a relatively simple version of Rocchio
+as the baseline, i.e., with a universal threshold tuned on a
+validation corpus and fixed for all topics in the testing phase.
+This simple version of Rocchio has been commonly used in the
+past TDT benchmark evaluations for topic tracking, and had
+strong performance in the TDT2004 evaluations for adaptive
+filtering with and without relevance feedback (Section 5.1).
+Results of more complex variants of Rocchio are also discussed
+when relevant.
+4.2 Logistic Regression for AF
+Logistic regression (LR) estimates the posterior probability of a
+topic given a document using a sigmoid function
+)1/(1),|1( xw
+ewxyP
+rrrr ⋅−
++==
+where x
+r
+is the document vector whose elements are term
+weights, w
+r
+is the vector of regression coefficients, and
+}1,1{ −+∈y is the output variable corresponding to yes or
+no with respect to a particular topic. Given a training set of
+labeled documents { }),(,),,( 11 nn yxyxD
+r
+L
+r
+= , the
+standard regression problem is defined as to find the maximum
+likelihood estimates of the regression coefficients (the model
+parameters):
+{ } { }
+{ }))exp(1(1logminarg
+)|(logmaxarg)|(maxarg
+ii xwyn
+i
+w
+wDP
+w
+wDP
+w
+mlw
+rr
+r
+r
+r
+r
+r
+r
+⋅−+∑ ==
+==
+This is a convex optimization problem which can be solved
+using a standard conjugate gradient algorithm in O(INF) time
+for training per topic, where I is the average number of
+iterations needed for convergence, and N and F are the number
+of training documents and number of features respectively [14].
+Once the regression coefficients are optimized on the training
+data, the filtering prediction on each incoming document is
+made as:
+( )
+⎩
+⎨
+⎧
+−
++
+=−
+)(
+)(
+),|(
+no
+yes
+wxyPsign optnew θ
+rr
+Note that w
+r
+is constantly updated whenever a new relevance
+judgment is available in the testing phase of AF, while the
+optimal threshold optθ is constant, depending only on the 
+predefined utility (or cost) function for evaluation. If T11SU is the
+metric, for example, with the penalty ratio of 2:1 for misses and
+false alarms (Section 3.1), the optimal threshold for LR
+is 33.0)12/(1 =+ for all topics.
+We modified the standard (above) version of LR to allow more
+flexible optimization criteria as follows:
+⎭
+⎬
+⎫
+⎩
+⎨
+⎧
+−++= ∑=
+⋅− 2
+1
+)1log()(minarg μλ
+rrr rr
+r
+weysw
+n
+i
+xwy
+i
+w
+map
+ii
+where )( iys is taken to be α , β and γ for query, positive
+and negative documents respectively, which are similar to those
+in Rocchio, giving different weights to the three kinds of
+training examples: topic descriptions (queries), on-topic
+documents and off-topic documents. The second term in the
+objective function is for regularization, equivalent to adding a
+Gaussian prior to the regression coefficients with mean μ
+r
+and
+covariance variance matrix Ι⋅λ2/1 , where Ι is the identity
+matrix. Tuning λ (≥0) is theoretically justified for reducing
+model complexity (the effective degree of freedom) and
+avoiding over-fitting on training data [5]. How to find an
+effective μ
+r
+is an open issue for research, depending on the
+user"s belief about the parameter space and the optimal range.
+The solution of the modified objective function is called the
+Maximum A Posteriori (MAP) estimate, which reduces to the
+maximum likelihood solution for standard LR if 0=λ .

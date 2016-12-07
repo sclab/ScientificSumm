@@ -1,0 +1,31 @@
+we could ask the user for finer  judgment (e.g., choosing from highly relevant, somewhat relevant, do not know, somewhat irrelevant and highly irrelevant), but binary feedback is more compact, taking less space to display and less user effort to make judgment. 
+we also do not explicitly exploit negative feedback (i.e., penalizing irrelevant terms), because with binary feedback an unchecked term is not necessarily irrelevant (maybe the user is  unsure about its relevance).
+a sample (completed) feedback form is shown in figure 1. in this study we only deal with binary judgment: a presented term is by default unchecked, and a user may check it to  indicate relevance.
+the selected terms are then  presented to the user for judgment.
+we also filter out terms in the original query text because they tend to always be relevant when the query is short.
+if a term happens to be in top l in multiple clusters, we assign it to the cluster where it has highest probability and let the other clusters take one more term as compensation.
+table 1: cluster models for topic 363 transportation tunnel disasters cluster 1 cluster 2 cluster 3 tunnel 0.0768 tunnel 0.0935 tunnel 0.0454 transport 0.0364 fire 0.0295 transport 0.0406 traffic 0.0206 truck 0.0236 toll 0.0166 railwai 0.0186 french 0.0220 amtrak 0.0153 harbor 0.0146 smoke 0.0157 train 0.0129 rail 0.0140 car 0.0154 airport 0.0122 bridg 0.0139 italian 0.0152 turnpik 0.0105 kilomet 0.0136 firefight 0.0144 lui 0.0095 truck 0.0133 blaze 0.0127 jersei 0.0093 construct 0.0131 blanc 0.0121 pass 0.0087 · · · · · · · · · from each of the k estimated clusters, we choose the l = m/k terms with highest probabilities to form a total of m  presentation terms.
+note that only the middle cluster is relevant.
+table 1 shows the cluster models for trec query transportation tunnel disasters (k = 3).
+for its details, we refer the reader to [26].
+the cluster models can be  efficiently estimated using the expectation-maximization (em)  algorithm.
+we then estimate the cluster models by  maximizing the probability of the pseudo-feedback documents being generated from the multinomial mixture model: log p(d|λ) = d∈d w∈v c(w; d) log p(w|d) where d = {di| i = 1, 2, · · · n} is the set of the n documents, v is the vocabulary, c(w; d) is w"s frequency in d and λ = {θi| i = 1, 2, · · · k} ∪ {πdij | i = 1, 2, · · · n, j = 1, 2, · · · k} is the set of model parameters to estimate.
+the  documents are regarded as sampled from a mixture of k + 1  components, including the k clusters and the background model: p(w|d) = λbp(w|θb) + (1 − λb) k i=1 πd,ip(w|θi) where w is a word, λb is the mixture weight for the background model θb, and πd,i is the document-specific mixture weight for the i-th cluster model θi.
+specifically, we assume the n documents contain k clusters {ci| i = 1, 2, · · · k}, each characterized by a multinomial word distribution (also known as unigram language model) θi and corresponding to an aspect of the topic.
+we rely on the mixture multinomial model, which is used for theme discovery in [26].
+second, the terms are selected from multiple clusters in the pseudo-feedback documents, to ensure sufficient representation of different aspects of the topic.
+first, we introduce a background model θb that is estimated from collection statistics and explains the common terms, so that they are much less likely to appear in the presentation list.
+we solve the above problems by two corresponding measures.
+second, the  presentation list will tend to be filled by terms from major aspects of the topic; those from a minor aspect are likely to be missed due to their relatively low frequencies.
+first, a lot of common noisy terms will be selected due to their high frequencies in the document collection, unless a stop-word list is used for filtering.
+this method,  however, has two drawbacks.
+the simplest way of selecting feedback terms is to choose the most frequent m terms from the n documents.
+due to the latter reason, it is possible to make n quite large (e.g., in our experiments we set n = 60) to increase its coverage of different aspects in the topic.
+these documents serve as pseudo-feedback, since they provide a much richer context than the original query (usually very short), while the user is not asked to judge their relevance.
+in our approach, the top n documents from an initial retrieval using the original query form the source of feedback terms: all terms that appear in them are considered candidates to present to the user.
+diversely so as to increase coverage).
+this is similar to active feedback[21], which suggests that a retrieval system should actively probe the user"s  information need, and in the case of relevance feedback, the feedback documents should be chosen to maximize learning benefits (e.g.
+therefore, it is important to carefully select presentation terms to maximize expected gain from user feedback, i.e., those that can potentially reveal most evidence of the user"s information need.
+if the relevant terms are plentiful, but all concentrate on a single aspect of the query topic, then we will only be able to get feedback on that aspect and missing others, resulting in a breadth loss in retrieved results.
+if the terms are poorly chosen and there are few relevant ones, the user will have a hard time looking for useful terms to help clarify his/her  information need.
+proper selection of terms to be presented to the user for  judgment is crucial to the success of term feedback.

@@ -1,0 +1,211 @@
+We show in Proposition 1 that the RP rule is satisfied if and only if π∗ l ≥ π∗ u. Constructing the modified valuation as ˜vi recognizes that there is shared uncertainty across trades that satisfy the same nodes in a bid tree.
+From the definition of CE prices, it follows that CE prices would have δ = 0 as a solution to (9), at which point trade λt i would be in the best-response set of every agent (with λt i = ∅, i.e.
+In the current rules, the default action we choose is to set the upper bounds in valuations down to the  maximal value of the provisional price on a node8 and the  lowerbound value on that node.9 Such a bidder can remain active 8 The provisional price on a node is defined as the minimal total price across all feasible trades for which the subtree rooted at the tree is satisfied.
+Otherwise, trade ˆλi is added to   i for all bidders i for which this constraint is 253 violated and we re-solve the LP with the new set of  constraints.4 II: Fairness.
+For sufficiency, notice that the difference in  payoff between trade L∗ i and another trade λi is unaffected by the way uncertainty is resolved on any node that is satisfied in both L∗ i and λi.
+In R-WD(i) the objective is to determine a most preferred trade for each bidder at these prices.
+Given an initial solution we first pin down the error on all  bidders for whom a constraint (11) is binding.
+We can illustrate the formulation (9) on  Example 2, assuming for simplicity that vα = v (i.e.
+[12], and select approximate prices as follows: I: Accuracy.
+For the necessary direction, we first show that any trade that satisfies RP must solve RP1(i).
+This continues, pinning down any new bidders for whom one of constraints (11) is binding, until the error is lexicographically optimized for all  bidders.7 The exact same process is repeated for FAIR and BAL, with bidders pinned down and constraints (15)  replaced with π∗ i ≥ πvcg,i − (vα i (λt i) − p(λt i)), ∀λ ∈   i , (where π∗ i is the current objective) in FAIR, and items pinned down and constraints (18) replaced with p∗ j ≥ pj (where p∗ j  represents the target for the maximal price on that item) in BAL.
+The objective here is the same as in the Threshold payment rule (see Section 4.3): minimize the maximal  error between bidder payoff (at vα ) for the provisional trade and the VCG payoff (at vα ).
+Fixing the values in ˜vi on nodes satisfied in L∗ i has the effect of removing this consideration when a trade U∗ i is selected that satisfies one of these nodes.
+5.1 Upper and Lower Valuations The bidding language is extended to allow a bidder i to  report a lower and upper value (viβ, viβ) on each node.
+9 This is entirely analogous to when a bidder in an ascending clock auction stops bidding at a price: she is not permitted to bid at a higher price again in future rounds.
+The RP rule is satisfied because the bidder will always prefer +A to +B at equal prices, whichever way the uncertain value on the root node is ultimately resolved.
+Prices p∗ are competitive equilibrium prices if the efficient trade λ∗ is supported at prices p∗ , so that for each bidder: λ∗ i ∈ arg max λ∈Feas(x0) {vi(λi) − p∗ (λi)} (8) CE prices will not always exist and we will often need to compute approximate prices [5].
+But, this is a  contradiction because the trade λ that defines vi(Ti, λi) is still feasible with upper bounds vi, and viβ ≥ viβ for all nodes β in a well-formed tree.
+5.4 Bidder Feedback In each round, our default design provides every bidder with the provisional trade and also with the current  provisional prices.
+The effect is to endogenously define a  schedule for moving from optimistic to pessimistic values across rounds, based on how close the trades are to one another.
+Third, we break remaining ties to prefer  balanced prices: choosing prices that minimize the maximal price across all items.
+First, if the seller"s bounds were [−20, −4] then there is an optimistic trade but no pessimistic trade, and PO = −4 and PP = 0, and αeff = 0.
+Now, suppose (for  contradiction) that some λi with maximal payoff π∗ l but uncertainty less than L∗ i satisfies RP.
+On the other hand, if the buyer"s value for +AB was  between [18, 24] and the seller"s value for −AB was between [−12, −6], the Threshold payments are (15, −15) at both  upper and lower bounds, and αthresh = 1.
+Second, we break ties to find a trade with maximal value uncertainty across all possible solutions to RP1(i): max λ vi(λi) − vi(λi) [RP2(i)] s.t.
+The exchange provides price-based feedback 252 to guide bidders in this process, and terminates with an efficient (or approximately-efficient) trade with respect to reported valuations.
+Then, a relaxed version of (9) (written ACC) is formulated by substituting (10) with vα i (λ) − p(λ) ≤ vα i (λt i) − p(λt i) + δ, ∀i, ∀λ ∈   i , (11) where   i is a set of trades that are feasible for bidder i given the other bids.
+It is helpful to think about the bidders interacting with proxy agents that will act on their behalf in responding to provisional prices pt−1 determined at the end of round t − 1.
+the current lower and upper bounds, vt and vt , are used to define a provisional  valuation profile vα (the α-valuation), together with a provisional trade λt and provisional prices pt = (pt 1, .
+When RP fails, a bidder must increase a lower bound on at least one node in sat(L∗ i ) \ sat(U∗ i ) or decrease an upper bound on at least one node in sat(U∗ i ) \ sat(L∗ i ) in order to meet the activity rule.
+Bid tree Ti satisfies RP given prices pt−1 if and only if any lower-bound trade L∗ i that solves RP1(i) and RP2(i) satisfies: vi(Ti, L∗ i ) − pt−1 (L∗ i ) ≥ ˜vi(Ti, U∗ i ) − pt−1 (U∗ i ), (26) where ˜vi is the modified valuation in Eq.
+Note that when sat(U∗ i ) = sat(L∗ i ) then condition (26) is always trivially satisfied, and so the guidance in the lemma is always well-defined when RP fails.
+Check condition: vα i (ˆλi) − p∗ (ˆλ) ≤ vα i (λt i) − p∗ (λt i) + δ∗ , (13) and if this condition holds for all bidders i, then solution (p∗ , δ∗ ) is optimal for problem (9).
+Based on these labels, we can define the valuation functions vi(Ti, λi) and vi(Ti, λi), using the exact same semantics as in Eq.
+At the bounds depicted, both the optimistic and the pessimistic trades occur and PO = PP = 4 and αeff = 1.
+Given this, we define αthresh =   0 when PP is 0 1/γthresh otherwise (31) which is 0 while PP is 0 and then trends towards 1 as progress is made.
+vα i (λ) − p(λ) ≤ vα i (λt i) − p(λt i) + δ∗ i , ∀i, ∀λ ∈   i (16) π∗ i ≥ πvcg,i − (vα i (λt i) − p(λt i)), ∀i, (17) Y ≥ pj, ∀j (18) Y ≥ 0, pj ≥ 0, ∀j, where δ∗ represents the error in the optimal solution from ACC and π∗ represents the error in the optimal solution from FAIR.
+Captures strategic behavior and information revelation decisions 762 Model Support Provides XML support to load goods and valuations into world 200 World Keeps track of all agent, good, and valuation details 998 Exchange Driver & Communication Controls exchange, and coordinates remote agent behavior 585 Bidding Language Implements the tree-based bidding language 1119 Activity Rule Engine Implements the revealed preference rule with range support 203 Closing Rule Engine Checks if auction termination condition reached 137 WD Engine Provides WD-related logic 377 Pricing Engine Provides Pricing-related logic 460 MIP Builders Translates logic used by engines into our general optimizer formulation 346 Pricing Builders Used by three pricing stages 256 Winner Determination Builders Used by WD, activity rule, closing rule, and pricing constraint generation 365 Framework Support code; eases modular replacement of above components 510 Table 1: Exchange Component and Code Breakdown. 
+Accuracy will seek prices p(A), p(B), p(C) and p(D) to minimize the δ ≥ 0 required to satisfy constraints: p(A) + p(B) + p(C) + p(D) ≥ 0 (seller) p(A) + p(B) ≤ 6 + δ (buyer 1) p(A) + δ ≥ 4, p(B) + δ ≥ 4 (buyer 2) p(C) + p(D) ≤ 3 (buyer 3) p(C) + δ ≥ 2, p(D) + δ ≥ 2 (buyer 4) An optimal solution requires p(A) = p(B) = 10/3, with δ = 2/3, with p(C) and p(D) taking values such as p(C) = p(D) = 3/2.
+vα i (λ) − p(λ) ≤ vα i (λt i) − p(λt i) + δ, ∀i, ∀λ (10) δ ≥ 0,pj ≥ 0, ∀j.
+Recognizing this, define γeff (PP, PO) = 1 + PP − PO PP , (27) when PP > 0, and observe that γeff (PP, PO) ≥ 1 when this is defined, and that γeff (PP, PO) will start large and then trend towards 1 as the optimistic allocation converges towards the pessimistic allocation.
+The idea is loosely based around the RP-rule in Ausubel et al.
+The α-valuation is a linear combination of the current  upper and lower valuations, with αEFF ∈ [0, 1] chosen  endogenously based on the closeness of the optimistic trade (at v) and the pessimistic trade (at v).
+Here, we first argue that one of these trades must satisfy a (weak) superset of all the nodes with  uncertain value that are satisfied by all other trades in this set.
+Clearly RP2(i) will choose this trade, L∗ i , and λi must satisfy a subset of these nodes (by  assumption).
+the trade and the payments.
+First, we compute prices that minimize the maximal error in the best-response constraints across all bidders.
+In computing prices, we explain how to compute  approximate (or otherwise) prices for structured bidding languages, and without enumerating all possible trades.
+(20) To make this determination for bidder i we solve a  sequence of problems, each of which is a variation on the WD problem.
+At these valuations the Threshold payoffs would be 2 to both the seller and the buyer.
+At this point, the task is to determine the new α-valuation, and in turn the provisional allocation λt and provisional prices pt .
+In moving to the last-and-final round, and finally closing, we also care about the  convergence of payments, in addition to the convergence towards an efficient trade.
+A change to a lower bound on a shared node affects both L∗ i and U∗ i identically because of the use of the modified valuation to determine U∗ i .
+λ ∈ Feas(x0 ) (25) Let π∗ u denote the payoff from this optimal trade at modified values ˜v.
+First, note that PP ≥ PO and PP ≥ 0 by definition, for all bid-trees, although PO can be negative (because the right trade at v is not currently a useful trade at v).
+ICE transitions to a  lastand-final round when one of the following holds: 1. αeff ≥ CUTOFFeff and αthresh ≥ CUTOFFthresh, 2. there is no trade at the optimistic values, where CUTOFFeff , CUTOFFthresh ∈ (0, 1] determine the accuracy required for termination.
+Third, we break ties to prefer prices that minimize the maximal price across all items.
+First, we construct a candidate lower-bound trade, which is a feasible trade that solves: max λ vi(λi) − pt−1 (λi) [RP1(i)] s.t.
+Consistency in our exchange requires that bidders tighten bounds as the exchange progresses.
+For such a bidder i, the constraint is replaced with vα i (λ) − p(λ) ≤ vα i (λt i) − p(λt i) + δ∗ i , ∀λ ∈   i , (19) and the error to bidder i no longer appears explicitly in the objective.
+5.5 Termination Conditions Once each bidder has committed its new bids (and either met the RP rule or suffered the penalty) then round t closes.
+Bid tree Ti satisfies RP at prices pt−1 if and only if there exists some feasible trade L∗ for which, vi(L∗ i ) − pt−1 (L∗ i ) ≥ max λ∈Feas(x0) vi(λi) − pt−1 (λi), ∀vi ∈ Ti.
+The RP rule is satisfied because the proxy knows that however the remaining value uncertainty on +B is resolved the bidder will always (weakly) prefer +B to +A.
+Given a well-formed tree, T, then vi(Ti, λi) ≤ vi(Ti, λi) for all trades.
+Rather than provide precise valuations, bidders can provide lower and upper valuations and revise this bid information across rounds.
+However, we can see the Threshold payments are (17, −17) at v but (14, −14) at v. Evaluating γthresh , we have γthresh = 1 + √ 1/2(32+32) (4/2) = 5/2, and αthresh = 2/5.
+In each round, we define αeff ∈ [0, 1] as: αeff =   0 when PP is 0 1/γeff otherwise (28) which is 0 while PP is 0 and then trends towards 1 once PP> 0 in some round.
+λ ∈ Feas(x0 ), (21) The solution π∗ l to RP1(i) represents the maximal payoff that bidder i can achieve across all feasible trades, given its pessimistic valuation.
+At the end of the last-and-final round vα = v is used to define the final trade and the final Threshold payments.
+Without this, then for any choice of trade that solves RP1(i), there is another trade with a disjoint set of uncertain but satisfied nodes that provides a  counterexample to RP (Eq.
+(24) where sat(L∗ i ) is the set of nodes that are satisfied in the lower-bound tree for trade L∗ i .
+no trade, for all agents with no surplus for trade at the prices.)
+Similarly, changing the bounds on nodes that are satisfied in both trades has no effect on revealed preference.
+vα i (λ) − p(λ) ≤ vα i (λt i) − p(λt i) + δ∗ i , ∀i, ∀λ ∈   i (14) π ≥ πvcg,i − (vα i (λt i) − p(λt i)), ∀i (15) π ≥ 0,pj ≥ 0, ∀j, where δ∗ represents the error in the optimal solution, from ACC.
+Constraint generation is also used to solve BAL, generating new trades for   i as necessary.
+Second, we break remaining ties to prefer fair prices: choosing prices that minimize the worst-case error with respect to Threshold payoffs (i.e.
+Consider the following parameter: γthresh = 1 + ||pthresh(v) − pthresh(v)||2 (PP/Nactive) , (30) which is defined for PP > 0, where pthresh(v) denotes the Threshold payments at valuation profile v, Nactive is the number of bidders that are actively engaged in trade in the PP trade, and || · ||2 is the L2-norm.
+This is used to define α-valuation vα i = αeff vi + (1 − αeff )vi, ∀i, (29) which is used to define the provisional allocation and  provisional prices.
+Suppose prices are currently 3 for each of A and B.
+All constraints in   i are retained, and this set grows across all stages and across all rounds of the exchange.
+Changing the upper- or lower- values on nodes that are not satisfied by either trade does not change L∗ i or U∗ i , and does not change the payoff from these trades.
+Fixing the prices p∗ , we then solve n subproblems (one for each bidder), max λ vα i (λi) − p∗ (λi) [R-WD(i)] s.t.
+5.3 Revealed-Preference Activity Rules The role of activity rules in the auction is to ensure both consistency and progress across rounds [21].
+Just using vi in RP3(i), we would find L∗ i is buy A with payoff π∗ l = 3 but then find U∗ i is buy B with π∗ u = 7 and fail RP.
+Now, consider the case that some trade contains a superset of all the uncertain satisfied nodes of the other trades.
+For this reason, we set ˜viβ = viβ = 5 on the root node, which is exactly the same value that was adopted in determining π∗ l .
+Case a): only one solution to RP1(i) has uncertain value and so λi has certain value.
+It is solved as a MIP, by rewriting the objective in WD(T, x0 ) as max{viβ · satiβ −   j p∗ j · λij } for agent i.
+4 Problem R-WD(i) is a specialization of the WD problem, in which the objective is to maximize the payoff of a single bidder, rather than the total value across all bidders.
+The proxy can prove +B but not +A is a best-response for all vi ∈ Ti, and should choose +B as its candidate.
+[12], that use a nucleolus approach, are also closely related.
+In addition, when pinning-down bidders for the purpose of lexicographical refinement we relax the  associated bidder-constraints with a small > 0 on the  righthand side.
+255 within the exchange, but only with valuations that are  consistent with these new bounds.
+Suppose prices are currently 3 for each of A and B.
+Second, we break ties to prefer prices that minimize the maximal deviation from Threshold  payments across all bidders.
+Let λt denote the current provisional trade and suppose the provisional valuation is vα .
+A change to an upper bound on a shared node has no effect in determining either L∗ i or U∗ i .
+λ ∈ Feas(x0 ) (22) vi(λi) − pt−1 (λi) ≥ π∗ l (23) We adopt solution L∗ i as our candidate for the trade that may satisfy RP.
+Prices pt are used to  inform an activity rule, and drive progress towards an efficient trade.
+Finally, this gives p(A) = p(B) = 10/3 and p(C) = p(D) = 5/3, with accuracy 2/3 to bidders 1 and 2 and 1/3 to bidders 3 and 4.
+A termination condition is also checked, to  determine whether to move the exchange to a last-and-final round.
+Balance is justified when, all else being equal, items are more likely to have similar than dissimilar values.6 The LP for balance is formulated as follows: min p,Y Y [BAL] s.t.
+To define the α-valuation we compute the following two quantities: Pessimistic at Pessimistic (PP) Determine an efficient trade, λ∗ l , at pessimistic values, i.e.
+utility to bidders with Threshold payments), but without choosing prices that are less accurate.5 Example 6.
+For all three sub-problems we also perform lexicographical  refinement (with respect to bidders in ACC and FAIR, and with respect to goods in BAL).
+Suppose a proxy was queried by the exchange and asked which trade the bidder was most interested in at the provisional prices.
+Suppose there is some λi for which vi(Ti, λi) > vi(Ti, λi).
+On the other hand, fixing the values on these nodes has no  effect on trades considered in RP3(i) that do not share a node with L∗ i .
+Given these  provisional prices, the price on trade λi for bidder i is pt (λi) =   j≤m pt j · λij.
+We must recognize that however the uncertainty on the root node is resolved it will affect +A and +B in exactly the same way.
+These take the place of the exact value viβ defined in Section 4.1.
+ACC is then re-solved, and makes progress by further minimizing the maximal error across all bidders yet to be pinned down.
+We say that such a bid-tree is well-formed if viβ ≤ viβ for all nodes.
+Suppose  otherwise, that some λi with payoff greater than π∗ l satisfies RP.
+Activity rules ensure that bidders are active during early rounds, and promote useful elicitation throughout the exchange.
+Once a bidder makes some changes on some subset of these nodes, the  bidder can query the exchange.
+Note that γthresh is defined for payments and not payoffs.
+Given this modified  valuation, we find U∗ to solve: max λ ˜vi(λi) − pt−1 (λi) [RP3(i)] s.t.
+6 The use of balance was advocated by Kwasnica et al.
+Taken together, these steps are designed to promote the informativeness of the prices in driving progress across rounds.
+Overloading notation, let vi ∈ Ti denote a valuation that is consistent with lower and upper valuations in bid tree Ti.
+For this we introduce another parameter, αthresh ∈ [0, 1], that trends from 0 to 1 as the Threshold payments at lower and upper valuations converge.
+Let   i denote a manageable subset of all possible feasible trades to bidder i.
+to solve maxλ   i vi(λi), and set PO=  i vi(λ∗ ui).
+The only knowledge that such a proxy has of the valuation of a bidder is through the bid-tree.
+Consider again Example 1, and consider the upper and lower bounds as depicted in Figure 1.
+We also provide guidance to help a bidder meet the RP rule.
+Let ˆλi denote the solution to R-WD(i).
+Case b): two or more solutions to RP1(i) have  uncertain value.
+The RP rule says the following: the proxy must have enough 7 For example, applying this to accuracy on Example 2 we solve once and find bidders 1 and 2 are binding, for error δ∗ = 2/3.
+Now, we construct a modified valuation ˜vi, by setting ˜viβ =   viβ , if β ∈ sat(L∗ i ) viβ , otherwise.
+to solve maxλ   i vi(λi), and set PP=  i vi(λ∗ li).
+The other bidders are kept around in the MIP (but do not appear in the objective), and are used to define the space of feasible trades.
+For instance, in ACC we  successively minimize the maximal error across all bidders.
+We extend ideas due to Rassenti et al.
+The efficient trade allocates AB to buyer 1 and CD to buyer 3.
+Let sat(L∗ i ) and sat(U∗ i ) denote the nodes that are satisfied in trades L∗ i and U∗ i , as computed in RP1-RP3.
+5.2 Price Feedback In each round, approximate competitive-equilibrium (CE) prices, pt = (pt 1, .
+We prefer to err on the side of being conservative in determining whether or not to add another constraint in performing check (13).
+254 information to be able to determine this surplus-maximizing trade at current prices.
+This linear program (LP) is designed to find prices that minimize the worst-case error across all agents.
+Problem FAIR is also solved through constraint generation, using R-WD(i) to add  additional violated constraints as necessary.
+λ ∈ Feas(x0 ), (12) to check whether solution (p∗ , δ∗ ) to ACC is feasible in  problem (9).
+[12] prefer to smooth prices across rounds.
+The exchange can then respond yes, or can revise the set of nodes sat(λ∗ l ) and sat(λ∗ u) as necessary.
+The motivation is to require more than simply consistency: we need bidders to provide enough information for the system to be able to to prove that an allocation is (approximately) efficient.
+We pin these down and then minimize the error to bidders 3 and 4.
+For this, we adopt constraint generation to efficient handle an  exponential number of constraints.
+This can be exactly achieved in pricing with pA + pB = 14.
+Then, maxsat∈valid(Ti,λi)   β∈Ti viβ · satβ > maxsat∈valid(Ti,λi)   β∈Ti viβ · satβ.
+This is appropriate because it is the accuracy of the outcome of the exchange that matters: i.e.
+But, we now see that λi cannot satisfy RP because L∗ i would be a counterexample to RP.
+Pessimistic at Optimistic (PO) Determine an efficient trade, λ∗ u, at optimistic values, i.e.
+We adopt a definition of price accuracy that generalizes the notions adopted in previous papers for  unstructured bidding languages.
+For example, accuracy in Example 1  (depicted in Figure 1) requires 12 ≤ pA +pB ≤ 16 (for vα = v).
+We adopt a simple revealed-preference (RP) activity rule.
+A bidder has XOR(+A, +B) and value bounds [5, 10] on the root node and a value of 1 on leaf +A.
+Returning again to Example 1,  depicted in Figure 1, we see that accuracy and fairness require p(A) + p(B) = 14.
+Thus, the structure of the bid-tree language is exploited in generating new constraints, because this is solved as a concise MIP.
+Finally, balance sets p(A) = p(B) = 7.
+But, this cannot satisfy RP because L∗ i with uncertain value would be a counterexample to RP (Eq.
+Rather than solve it explicitly we use constraint  generation [4] and dynamically generate a sufficient subset of  constraints.
+5 The methods of Dunford et al.
+To understand the importance of this  tiebreaking rule consider Example 7.
+To compute accurate CE prices, we consider: min p,δ δ (9) s.t.
+But, valuation vi ∈ Ti together with L∗ i presents a  counterexample to RP (Eq.
+A bidder has XOR(+A, +B) and a value of +5 on the leaf +A and a value range of [5,10] on leaf +B.
+We are now ready to introduce the iterative  combinatorial exchange (ICE) design.
+Thus, the computational effort in constraint generation is re-used.
+For CUTOFFthresh < 2/5 the exchange would remain open.
+The fairness tie-breaking method is formulated as the  following LP: min p,π π [FAIR] s.t.
+Several new components are introduced, relative to the design for the one-shot exchange.
+, pt m), are determined.
+Thus, the RP condition will continue to fail.
+We call trade U∗ i the witness trade.
+But, (9) has an exponential number of constraints (Eq.
+In implementation we are careful to address a number of  -issues that arise due to floating-point issues.
+Then, RP3(i) applied to U∗ i gives buy A and the RP test is judged to be passed.
+In each round t ∈ {0, 1, .
+This is an elegant feedback mechanism because it is adaptive.
+[1], where it is used for one-sided CAs.
+, pt m) on items.
+Failure to meet the activity rule must have some  consequence.
+This is by RP.
+Notice that +B is a  counterexample to +A, but not the other way round.
+Definition 3 (CE prices).
+[17] and Dunford et al.
+Each step is described in detail below.
+Dunford et al.
+The following lemma is useful: Lemma 1.
+This avoids later  infeasibility issues.
+[26], Kwasnica et al.
+Consider the following examples: Example 7.
+Termination Condition.
+II: Fairness.
+See 7 for an additional discussion.
+Proceed by case analysis.
+Example 8 helps to illustrate this.
+Definition 5 (termination).
+Lemma 2.
+III: Balance.
+III: Balance.
+Proposition 1.
+I: Accuracy.
+Example 9.
+Comment 1: Lexicographical Refinement.
+Example 5.
+Definition 4.
+Example 8.
+256 Component Purpose Lines Agent.
+Comment 2: Computation.

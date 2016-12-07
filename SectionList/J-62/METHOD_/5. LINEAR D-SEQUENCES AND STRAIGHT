@@ -1,0 +1,254 @@
+PATHS
+For v, w ∈ D we write vw for the (closed) line segment
+joining v and w.
+A D-sequence −→u of order k is linear provided that there
+is a sequence of real numbers 0 = λ0 ≤ λ1 ≤ . . . ≤ λk = 1
+such that ui = (1 − λi)u0 + λiuk. In particular, each ui
+belongs to u0uk. For v, w ∈ D we write Lvw
+for the set of
+linear (v, w)-sequences.
+For b, c ∈ A and v, w ∈ D we write LCvw
+bc for the set of
+compatible pairs (−→a , −→u ) such that −→a ∈ Pbc and −→u ∈ Lvw
+.
+For a path −→a , we write L(−→a ) for the set of linear 
+sequences compatible with −→a . We say that −→a is straight if
+L(−→a ) = ∅.
+For example, in figure 1, D-sequence (v, w, x, y, z) is 
+linear while (v, w, u, y, z), (x, w, p, y, z), and (x, v, w, y, z) are
+not. Hence path (a, b, c, e) and (a, b, d, e) are both straight.
+However, path (b, a, d, e) is not straight.
+289
+Lemma 8. Let b, c ∈ A and v ∈ Db, w ∈ Dc. There is
+a simple path −→a and D-sequence −→u such that (−→a , −→u ) ∈
+LCvw
+bc . Furthermore, for any such path −→a , δ(−→a ) ≤ v(b) −
+v(c).
+Proof. By the convexity of D, any sequence of points on
+vw is a D-sequence.
+If b = c, singleton path −→a = (b) and D-sequence −→u =
+(v, w) are obviously compatible. δ(−→a ) = 0 = v(b) − v(c).
+So assume b = c. If Db ∩Dc ∩vw = ∅, we pick an arbitrary
+x from this set and let −→a = (b, c) ∈ SPbc, −→u = (v, x, w) ∈
+Lvw
+. Again it is easy to check the compatibility of (−→a , −→u ).
+Since v ∈ Db, v(b) − v(c) ≥ δbc = δ(−→a ).
+For the remaining case b = c and Db ∩Dc ∩vw = ∅, notice
+v = w otherwise v = w ∈ Db ∩ Dc ∩ vw. So we can define
+λx for every point x on vw to be the unique number in [0, 1]
+such that x = (1 − λx)v + λxw. For convenience, we write
+x ≤ y for λx ≤ λy.
+Let Ia = Da ∩ vw for each a ∈ A. Since D = ∪a∈ADa, we
+have vw = ∪a∈AIa. Moreover, by the convexity of Da and
+vw, Ia is a (possibly trivial) closed interval.
+We begin by considering the case that Ib and Ic are each
+a single point, that is, Ib = {v} and Ic = {w}.
+Let S be a minimal subset of A satisfying ∪s∈SIs = vw.
+For each s ∈ S, Is is maximal, i.e., not contained in any
+other It, for t ∈ S. In particular, the intervals {Is : s ∈
+S} have all left endpoints distinct and all right endpoints
+distinct and the order of the left endpoints is the same as
+that of the right endpoints. Let k = |S| + 2 and index S
+as a2, . . . , ak−1 in the order defined by the right endpoints.
+Denote the interval Iai by [li, ri]. Thus l2 < l3 < . . . < lk−1,
+r2 < r3 < . . . < rk−1 and the fact that these intervals cover
+vw implies l2 = v, rk−1 = w and for all 2 ≤ i ≤ k − 2,
+li+1 ≤ ri which further implies li < ri. Now we define
+the path −→a = (a1, a2, . . . , ak−1, ak) with a1 = b, ak = c
+and a2, a3, . . . , ak−1 as above. Define the linear D-sequence
+−→u = (u0, u1, . . . , uk) by u0 = u1 = v, uk = w and for
+2 ≤ i ≤ k−1, ui = ri. It follows immediately that (−→a , −→u ) ∈
+LCvw
+bc . Neither b nor c is in S since lb = rb and lc = rc. Thus
+−→a is simple.
+Finally to show δ(−→a ) ≤ v(b) − v(c), we note
+v(b) − v(c) = v(a1) − v(ak) =
+k−1X
+i=1
+(v(ai) − v(ai+1))
+and
+δ(−→a ) = ∆−→a (−→u ) =
+k−1X
+i=1
+(ui(ai) − ui(ai+1))
+= v(a1) − v(a2) +
+k−1X
+i=2
+(ri(ai) − ri(ai+1)).
+For two outcomes d, e ∈ A, let us define fde(z) = z(d)−z(e)
+for all z ∈ D. It suffices to show faiai+1 (ri) ≤ faiai+1 (v) for
+2 ≤ i ≤ k − 1.
+Fact 9. For d, e ∈ A, fde(z) is a linear function of z.
+Furthermore, if x ∈ Dd and y ∈ De with x = y, then
+fde(x) = x(d) − x(e) ≥ δde ≥ −δed ≥ −(y(e) − y(d)) =
+fde(y). Therefore fde(z) is monotonically nonincreasing along
+the line
+←→
+xy as z moves in the direction from x to y.
+Applying this fact with d = ai, e = ai+1, x = li and y = ri
+gives the desired conclusion. This completes the proof for
+the case that Ib = {v} and Ic = {w}.
+For general Ib, Ic, rb < lc otherwise Db ∩ Dc ∩ vw = Ib ∩
+Ic = ∅. Let v = rb and w = lc. Clearly we can apply the
+above conclusion to v ∈ Db, w ∈ Dc and get a compatible
+pair (−→a , −→u ) ∈ LCv w
+bc with −→a simple and δ(−→a ) ≤ v (b) −
+v (c). Define the linear D-sequence −→u by u0 = v, uk = w
+and ui = ui for i ∈ [k − 1]. (−→a , −→u ) ∈ LCvw
+bc is evident.
+Moreover, applying the above fact with d = b, e = c, x = v
+and y = w, we get v(b) − v(c) ≥ v (b) − v (c) ≥ δ(−→a ).
+Corollary 10. For any b, c ∈ A there is a straight (b, 
+c)path.
+The main result of this section (theorem 12) says that for
+any b, c ∈ A, every straight (b, c)-path has the same δ-weight.
+To prove this, we first fix v ∈ Db and w ∈ Dc and show
+(lemma 11) that every straight (b, c)-path compatible with
+some linear (v, w)-sequence has the same δ-weight ρbc(v, w).
+We then show in theorem 12 that ρbc(v, w) is the same for
+all choices of v ∈ Db and w ∈ Dc.
+Lemma 11. For b, c ∈ A, there is a function ρbc : Db ×
+Dc −→ R satisfying that for any (−→a , −→u ) ∈ LCvw
+bc , δ(−→a ) =
+ρbc(v, w).
+Proof. Let (−→a , −→u ), (−→a , −→u ) ∈ LCvw
+bc . It suffices to
+show δ(−→a ) = δ(−→a ). To do this we construct a linear
+(v, w)-sequence −→u and paths −→a ∗
+, −→a ∗∗
+∈ Pbc, both 
+compatible with −→u , satisfying δ(−→a ∗
+) = δ(−→a ) and δ(−→a ∗∗
+) = δ(−→a ).
+Lemma 7 implies δ(−→a ∗
+) = δ(−→a ∗∗
+), which will complete the
+proof.
+Let |−→a | = ord(−→u ) = k and |−→a | = ord(−→u ) = l. We 
+select −→u to be any linear (v, w)-sequence (u0, u1, . . . , ut) such
+that −→u and −→u are both subsequences of −→u , i.e., there
+are indices 0 = i0 < i1 < · · · < ik = t and 0 = j0 <
+j1 < · · · < jl = t such that −→u = (ui0 , ui1 , . . . , uik ) and
+−→u = (uj0 , uj1 , . . . , ujl ). We now construct a (b, c)-path
+−→a ∗
+compatible with −→u such that δ(−→a ∗
+) = δ(−→a ). (An
+analogous construction gives −→a ∗∗
+compatible with −→u such
+that δ(−→a ∗∗
+) = δ(−→a ).) This will complete the proof.
+−→a ∗
+is defined as follows: for 1 ≤ j ≤ t, a∗
+j = ar where
+r is the unique index satisfying ir−1 < j ≤ ir. Since both
+uir−1 = ur−1 and uir = ur belong to Dar
+, uj ∈ Dar
+for
+ir−1 ≤ j ≤ ir by the convexity of Dar
+. The compatibility of
+(−→a ∗
+, −→u ) follows immediately. Clearly, a∗
+1 = a1 = b and a∗
+t =
+ak = c, so −→a ∗
+∈ Pbc. Furthermore, as δa∗
+j a∗
+j+1
+= δarar
+= 0
+for each r ∈ [k], ir−1 < j < ir,
+δ(−→a ∗
+) =
+k−1X
+r=1
+δa∗
+ir
+a∗
+ir+1
+=
+k−1X
+r=1
+δarar+1
+= δ(−→a ).
+We are now ready for the main theorem of the section:
+Theorem 12. ρbc is a constant map on Db × Dc. Thus
+for any b, c ∈ A, every straight (b, c)-path has the same 
+δweight.
+Proof. For a path −→a , (v, w) is compatible with −→a if
+there is a linear (v, w)-sequence compatible with −→a . We
+write CP(−→a ) for the set of pairs (v, w) compatible with
+−→a . ρbc is constant on CP(−→a ) because for each (v, w) ∈
+CP(−→a ), ρbc(v, w) = δ(−→a ). By lemma 8, we also haveS
+−→a ∈SPbc
+CP(−→a ) = Db ×Dc. Since A is finite, SPbc, the set
+of simple paths from b to c, is finite as well.
+290
+Next we prove that for any path −→a , CP(−→a ) is closed.
+Let ((vn
+, wn
+) : n ∈ N) be a convergent sequence in CP(−→a )
+and let (v, w) be the limit. We want to show that (v, w) ∈
+CP(−→a ). For each n ∈ N, since (vn
+, wn
+) ∈ CP(−→a ), there is
+a linear (vn
+, wn
+)-sequence un
+compatible with −→a , i.e., there
+are 0 = λn
+0 ≤ λn
+1 ≤ . . . ≤ λn
+k = 1 (k = |−→a |) such that
+un
+j = (1 − λn
+j )vn
++ λn
+j wn
+(j = 0, 1, . . . , k). Since for each
+n, λn
+= (λn
+0 , λn
+1 , . . . , λn
+k ) belongs to the closed bounded set
+[0, 1]k+1
+we can choose an infinite subset I ⊆ N such that the
+sequence (λn
+: n ∈ I) converges. Let λ = (λ0, λ1, . . . , λk) be
+the limit. Clearly 0 = λ0 ≤ λ1 ≤ · · · ≤ λk = 1.
+Define the linear (v, w)-sequence −→u by uj = (1 − λj )v +
+λj w (j = 0, 1, . . . , k). Then for each j ∈ {0, . . . , k}, uj is
+the limit of the sequence (un
+j : n ∈ I). For j > 0, each un
+j
+belongs to the closed set Daj , so uj ∈ Daj . Similarly, for j <
+k each un
+j belongs to the closed set Daj+1 , so uj ∈ Daj+1 .
+Hence (−→a , −→u ) is compatible, implying (v, w) ∈ CP(−→a ).
+Now we have Db × Dc covered by finitely many closed
+subsets on each of them ρbc is a constant.
+Suppose for contradiction that there are (v, w), (v , w ) ∈
+Db × Dc such that ρbc(v, w) = ρbc(v , w ).
+L = {((1 − λ)v + λv , (1 − λ)w + λw ) : λ ∈ [0, 1]}
+is a line segment in Db ×Dc by the convexity of Db, Dc. Let
+L1 = {(x, y) ∈ L : ρbc(x, y) = ρbc(v, w)}
+and L2 = L − L1. Clearly (v, w) ∈ L1, (v , w ) ∈ L2. Let
+P = {−→a ∈ SPbc : δ(−→a ) = ρbc(v, w)}.
+L1 =
+`S
+−→a ∈P CP(−→a )
+´
+∩ L, L2 =
+S
+−→a ∈SPbc−P CP(−→a )
+
+∩ L
+are closed by the finiteness of P. This is a contradiction,
+since it is well known (and easy to prove) that a line segment
+can not be expressed as the disjoint union of two nonempty
+closed sets.
+Summarizing corollary 10, lemma 11 and theorem 12, we
+have
+Corollary 13. For any b, c ∈ A, there is a real number
+ρbc with the property that (1) There is at least one straight
+(b, c)-path of δ-weight ρbc and (2) Every straight (b, c)-path
+has δ-weight ρbc.

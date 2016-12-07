@@ -1,0 +1,100 @@
+The patrolling domain and the payoffs for the associated game
+are detailed in Sections 2 and 3. We performed experiments for this
+game in worlds of three and four houses with patrols consisting of
+two houses. The description given in Section 2 is used to generate
+a base case for both the security agent and robber payoff functions.
+The payoff tables for additional robber types are constructed and
+added to the game by adding a random distribution of varying size
+to the payoffs in the base case. All games are normalized so that,
+for each robber type, the minimum and maximum payoffs to the
+security agent and robber are 0 and 1, respectively.
+Using the data generated, we performed the experiments using
+four methods for generating the security agent"s strategy:
+• uniform randomization
+• ASAP
+• the multiple linear programs method from [5] (to find the true
+optimal strategy)
+• the highest reward Bayes-Nash equilibrium, found using the
+MIP-Nash algorithm [17]
+The last three methods were applied using CPLEX 8.1. Because
+the last two methods are designed for normal-form games rather
+than Bayesian games, the games were first converted using the
+Harsanyi transformation [8]. The uniform randomization method is
+simply choosing a uniform random policy over all possible patrol
+routes. We use this method as a simple baseline to measure the 
+performance of our heuristics. We anticipated that the uniform policy
+would perform reasonably well since maximum-entropy policies
+have been shown to be effective in multiagent security domains
+[14]. The highest-reward Bayes-Nash equilibria were used in order
+to demonstrate the higher reward gained by looking for an optimal
+policy rather than an equilibria in Stackelberg games such as our
+security domain.
+Based on our experiments we present three sets of graphs to
+demonstrate (1) the runtime of ASAP compared to other common
+methods for finding a strategy, (2) the reward guaranteed by ASAP
+compared to other methods, and (3) the effect of varying the 
+parameter k, the size of the multiset, on the performance of ASAP.
+In the first two sets of graphs, ASAP is run using a multiset of
+80 elements; in the third set this number is varied. The first set of
+graphs, shown in Figure 1 shows the runtime graphs for three-house
+(left column) and four-house (right column) domains. Each of the
+three rows of graphs corresponds to a different randomly-generated
+scenario. The x-axis shows the number of robber types the 
+security agent faces and the y-axis of the graph shows the runtime in
+seconds. All experiments that were not concluded in 30 minutes
+(1800 seconds) were cut off. The runtime for the uniform policy
+is always negligible irrespective of the number of adversaries and
+hence is not shown.
+The ASAP algorithm clearly outperforms the optimal, 
+multipleLP method as well as the MIP-Nash algorithm for finding the 
+highestreward Bayes-Nash equilibrium with respect to runtime. For a
+316 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+Figure 1: Runtimes for various algorithms on problems of 3
+and 4 houses.
+domain of three houses, the optimal method cannot reach a 
+solution for more than seven robber types, and for four houses it 
+cannot solve for more than six types within the cutoff time in any of
+the three scenarios. MIP-Nash solves for even fewer robber types
+within the cutoff time. On the other hand, ASAP runs much faster,
+and is able to solve for at least 20 adversaries for the three-house
+scenarios and for at least 12 adversaries in the four-house 
+scenarios within the cutoff time. The runtime of ASAP does not increase
+strictly with the number of robber types for each scenario, but in
+general, the addition of more types increases the runtime required.
+The second set of graphs, Figure 2, shows the reward to the patrol
+agent given by each method for three scenarios in the three-house
+(left column) and four-house (right column) domains. This reward
+is the utility received by the security agent in the patrolling game,
+and not as a percentage of the optimal reward, since it was not 
+possible to obtain the optimal reward as the number of robber types
+increased. The uniform policy consistently provides the lowest 
+reward in both domains; while the optimal method of course 
+produces the optimal reward. The ASAP method remains consistently
+close to the optimal, even as the number of robber types increases.
+The highest-reward Bayes-Nash equilibria, provided by the 
+MIPNash method, produced rewards higher than the uniform method,
+but lower than ASAP. This difference clearly illustrates the gains in
+the patrolling domain from committing to a strategy as the leader
+in a Stackelberg game, rather than playing a standard Bayes-Nash
+strategy.
+The third set of graphs, shown in Figure 3 shows the effect of the
+multiset size on runtime in seconds (left column) and reward (right
+column), again expressed as the reward received by the security
+agent in the patrolling game, and not a percentage of the optimal
+Figure 2: Reward for various algorithms on problems of 3 and
+4 houses.
+reward. Results here are for the three-house domain. The trend is
+that as as the multiset size is increased, the runtime and reward level
+both increase. Not surprisingly, the reward increases monotonically
+as the multiset size increases, but what is interesting is that there is
+relatively little benefit to using a large multiset in this domain. In
+all cases, the reward given by a multiset of 10 elements was within
+at least 96% of the reward given by an 80-element multiset. The
+runtime does not always increase strictly with the multiset size;
+indeed in one example (scenario 2 with 20 robber types), using a
+multiset of 10 elements took 1228 seconds, while using 80 elements
+only took 617 seconds. In general, runtime should increase since a
+larger multiset means a larger domain for the variables in the MILP,
+and thus a larger search space. However, an increase in the number
+of variables can sometimes allow for a policy to be constructed
+more quickly due to more flexibility in the problem.

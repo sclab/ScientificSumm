@@ -1,0 +1,35 @@
+further details are provided in the next section. 
+with this motivation, we have implemented grid-enabled enkf workflow for the tigre environment and demonstrated parallelizability of the application across tigre using gridway metascheduler.
+since mpi does not scale very well for applications that involve remote compute clusters, and to get around the firewall issues with license servers across administrative domains, grid-enabling the enkf workflow seems to be necessary.
+the number of licenses can be increased by involving several petroleum engineering departments that support eclipse package.
+a petroleum engineering department usually procures 10-15 eclipse licenses while at least ten-fold increase in the number of licenses would be necessary for industry standard simulations.
+when the available number of licenses is less than the number of models in the ensemble, one or more of the nodes in the mpi group have to handle more than one model in a serial fashion and therefore, it takes longer to complete the simulation.
+since each geological model checks out an eclipse license, parallelizability of the simulation depends on the number of licenses available.
+process collects model-specific output files, analyzes and prepares next set of input files for the simulation.
+eclipse on site a eclipse on site b eclipse on site z collect n model outputs, post-process output files end .
+the master cluster or (tigre/gridway) start read configuration file create n working directories create n input files model l model 2 model n. .
+in this approach, the geological models are treated as slaves and are distributed across the available processors.
+therefore, master-slave model in  messagepassing (mpi) environment is a suitable paradigm.
+however, at the end of each simulation time-step, model-specific output files are to be collected for analyzing cross covariances [21] and to prepare next set of input files.
+in parallel computing environment, there is no interprocess communication between the geological models in the ensemble.
+typical enkf simulation with n=50 and field histories of 50-60 years, in time steps ranging from three months to a year, takes about three weeks on a serial computing environment.
+the simulation continues until the production histories are exhausted.
+this information will be used to update models (or input files) for the next iteration.
+at the end of iteration, the master/control process collects the output files from n models and post processes  crosscovariances [21] to estimate the prediction uncertainties.
+then, n working directories are created to store the output files.
+at start, the master/control process (enkf main program) reads the simulation configuration file for number (n) of models, and model-specific input files.
+each site has l licenses.
+the overall enkf workflow is shown figure 2. figure 2. ensemble kaman filter data assimilation workflow.
+the simulation runtime of the enkf methodology depends on the number of geological models used, number of eclipse licenses available, production history of the field, and propagated uncertainties in history matching.
+in the reservoir modeling, each geological model checks out an eclipse license.
+researchers in texas are large subscribers of the schlumberger eclipse [22] package for reservoir simulations.
+the main advantage of enkf is that it can be readily linked to any reservoir simulator, and can assimilate latest production data without the need to re-run the simulator from initial conditions.
+historical production response of the field for over 50 years is used in these simulations.
+the geological model parameters in the ensemble are sequentially updated with a goal to minimize the prediction uncertainties.
+this method utilizes  crosscovariances [21] between the field measurements and the reservoir model parameters (derived from several models) to estimate prediction uncertainties.
+the enkf is a monte carlo method that works with an ensemble of reservoir models.
+(figure ref:http://faculty.smu.edu/zchen/research.html).
+vertical layers correspond to different geological models and the nails are oil wells whose historical information will be used for forecasting the production behavior.
+figure 1. cross-sectional view of the field.
+in reservoir modeling, the field is divided into several geological models as shown in figure 1. for accurate performance forecasting of the field, it is necessary to reconcile several geological models to the dynamic response of the field through history matching [16-20].
+application the main goal of hydrocarbon reservoir simulations is to forecast the production behavior of oil and gas field (denoted as field hereafter) for its development and optimal management.

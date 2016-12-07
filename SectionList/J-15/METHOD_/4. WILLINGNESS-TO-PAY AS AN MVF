@@ -1,0 +1,135 @@
+4.1 Construction
+In this section we apply measurable value to represent 
+differences of willingness to pay for outcomes. We assume that the agent
+has a preference order over outcome space, represented by a set of
+attributes A, and an attribute p representing monetary consequence.
+Note that in evaluating a purchase decision, p would correspond to
+the agent"s money holdings net of the transaction (i.e., wealth 
+after purchase), not the purchase price. An outcome in this space is
+represented for example by (θ , p ), where θ is an instantiation of
+A and p is a value of p. We further assume that preferences are
+quasi-linear in p, that is there exists a value function of the form
+v(A, p) = u(A) + L(p), where L is a positive linear function.2
+The quasi-linear form immediately qualifies money as a 
+measure of preference differences, and establishes a monetary scale for
+u(A).
+DEFINITION 8. Let v(A, p) = u(A)+L(p) represent , where
+p is the attribute representing money. We call u(A) a 
+willingnessto-pay (wtp) function.
+Note that wtp may also refer to the seller"s willingness to accept
+function. The wtp u(A) is a cardinal function, unique up to a 
+positive linear transformation. Since
+(θ1, p ) (θ2, p ) ⇔ u(θ1) − u(θ2) ≤ L(p − p ),
+(where θ1, θ1 ∈ Θ, the domain of A) the wtp function can be used
+to choose among priced outcomes.
+1
+This proof and most other proofs in this paper are omitted for
+space consideration, and are available in an online appendix.
+2
+In many procurement applications, the deals in question are small
+relative to the enterprises involved, so the quasi-linearity 
+assumption is warranted. This assumption can be relaxed to a condition
+called corresponding tradeoffs [17], which does not require the
+value over money to be linear. To simplify the presentation, 
+however, we maintain the stronger assumption.
+Naturally, elicitation of wtp function is most intuitive when 
+using direct monetary values. In other words, we elicit a function in
+which L(p) = p, so v(A, p) = u(A) + p. We define a reference
+outcome (θ0
+, p0
+), and assuming continuity of p, for any assignment
+ˆθ there exists a ˆp such that (ˆθ, ˆp) ∼ (θ0
+, p0
+). As v is normalized
+such that v(θ0
+, p0
+) = 0, ˆp is interpreted as the wtp for ˆθ, or the
+reserve price of ˆθ.
+PROPOSITION 7. The wtp function is an MVF over differences
+in the reserve prices.
+We note that the wtp function is used extensively in economics,
+and that all the development in Section 3 could be performed 
+directly in terms of wtp, relying on quasi-linearity for preference
+measurement, and without formalization using MVFs. This 
+formalization however aligns this work with the fundamental 
+difference independence theory by Dyer and Sarin.
+In addition to facilitating the detection of GAI structure, the CDI
+condition supports elicitation using local queries, similar to how
+CAI is used by Braziunas and Boutilier [6]. We adopt their 
+definition of conditional set of Ir, noted here Sr, as the set of neighbors
+of attributes in Ir not including the attributes of Ir. Clearly, Sr is
+the separating set of Ir in the CDI map, hence CDI(Ir, Vr), where
+Vr = A \ (Ir ∪ Sr). From the definition of CDI, for any V 1
+r , V 2
+r
+we have:
+u(I1
+r S0
+r V 1
+r ) − u(I2
+r S0
+r V 1
+r ) = u(I1
+r S0
+r V 2
+r ) − u(I2
+r S0
+r V 2
+r ).
+Eliciting the wtp function therefore amounts to eliciting the 
+utility (wtp) of one full outcome (the reference outcome θ0
+), and then
+obtaining the function over each maximal clique using monetary
+differences between its possible assignments (technique known as
+pricing out [17]), keeping the variables in the conditional set fixed.
+These ceteris paribus elicitation queries are local in the sense that
+the agent does not need to consider the values of the rest of the 
+attributes. Furthermore, in eliciting MVFs we can avoid the global
+scaling step that is required for EU functions. Since the preference
+differences are extracted with respect to specific amounts of the
+attribute p, the utility is already scaled according to that external
+measure. Hence, once the conditional utility functions u([Ij]) are
+obtained, we can calculate u(A) according to (4).
+This last step may require (in the worst case) computation of a
+number of terms that is exponential in the number of max cliques.
+In practice however we do not expect the intersection of the cliques
+to go that deep; intersection of more than just a few max cliques
+would normally be empty. To take advantage of that we can use the
+search algorithm suggested by Braziunas and Boutilier [6], which
+efficiently finds all the nonempty intersections for each clique.
+4.2 Optimization
+As shown, the wtp function can be used directly for pairwise
+comparisons of priced outcomes. Another preference query often
+treated in the literature is optimization, or choice of best outcome,
+possibly under constraints.
+Typical decisions about exchange of a good or service exhibit
+what we call first-order preferential independence (FOPI), under
+which most or all single attributes have a natural ordering of quality,
+independent of the values of the rest.3
+For example, when 
+choosing a PC we always prefer more memory, faster CPU, longer 
+warranty, and so on. Under FOPI, the unconstrained optimization of
+3
+This should not be mistaken with the highly demanding 
+condition of mutual preferential independence, that requires all tradeoffs
+between attributes to be independent.
+230
+unpriced outcomes is trivial, hence we consider choice among 
+attribute points with prices. Since any outcome can be best given
+enough monetary compensation, this problem is not well-defined
+unless the combinations are constrained somehow.
+A particularly interesting optimization problem arises in the 
+context of negotiation, where we consider the utility of both buyers and
+sellers. The multiattribute matching problem (MMP) [12] is 
+concerned with finding an attribute point that maximizes the surplus of
+a trade, or the difference between the utilities of the buyer and the
+seller, ub(A) − us(A). GAI, as an additive decomposition, has the
+property that if ub and us are in GAI form then ub(A)−us(A) is in
+GAI form as well. We can therefore use combinatorial optimization
+procedures for GAI decomposition, based on the well studied 
+variable elimination schemes (e.g., [15]) to find the best trading point.
+Similarly, this optimization can be done to maximize surplus 
+between a trader"s utility function and a pricing system that assigns a
+price to each level of each GAI element, and this way guide traders
+to their optimal bidding points. In the rest of the paper we develop
+a multiattribute procurement auction that builds on this idea.

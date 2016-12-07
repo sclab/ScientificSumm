@@ -1,0 +1,130 @@
+VALUE
+In this section, we define the coalitional cost of this game
+and analyze the solution proposed by the Shapley value.
+Given a queue q ∈ Q, the cost of a coalition of S ⊆ N jobs
+in the queue is defined as the cost incurred by jobs in S if
+these are the only jobs served in the queue using an efficient
+ordering. Formally, the cost of a coalition S ⊆ N is,
+C(S) =
+ 
+i∈S
+ 
+j∈S:σ∗
+j ≤σ∗
+i
+θjpj,
+where σ∗
+= σ∗
+(S) is an efficient ordering considering jobs
+from S only. The worth of a coalition of S jobs is just
+−C(S). Maniquet [15] observes another equivalent way to
+define the worth of a coalition is using the dual function of
+the cost function C(·). Other interesting ways to define the
+worth of a coalition in such games is discussed by Chun [1],
+who assume that a coalition of jobs are served after the jobs
+not in the coalition are served.
+The Shapley value (or cost share) of a job i is defined as,
+SVi =
+ 
+S⊆N\{i}
+|S|!(|N| − |S| − 1)!
+|N|!
+¡C(S∪{i})−C(S)¢. (1)
+The Shapley value allocation rule says that jobs are ordered
+using an efficient ordering and transfers are assigned to jobs
+such that the cost share of job i is given by Equation 1.
+Lemma 3. Let σ∗
+be an efficient ordering of jobs in set
+N. For all i ∈ N, the Shapley value is given by,
+SVi = piθi +
+1
+2
+¡Li + Ri¢,
+where Li = θi £j∈Pi(σ∗) pj and Ri = pi £j∈Fi(σ∗) θj.
+Proof. Another way to write the Shapley value formula
+is the following [10],
+SVi =
+ 
+S⊆N:i∈S
+∆(S)
+|S|
+,
+where ∆(S) = C(S) if |S| = 1 and ∆(S) = C(S)−£T S ∆(T).
+This gives ∆({i}) = C({i}) = piθi ∀i ∈ N. For any i, j ∈ N
+with i = j, we have
+∆({i, j}) = C({i, j}) − C({i}) − C({j})
+= min(piθi + pjθj + pjθi, piθi + pjθj + piθj)
+− piθi − pjθj
+= min(pjθi, piθj).
+We will show by induction that ∆(S) = 0 if |S| > 2. For
+|S| = 3, let S = {i, j, k}. Without loss of generality, assume
+θi
+pi
+≥
+θj
+pj
+≥ θk
+pk
+. So, ∆(S) = C(S) − ∆({i, j}) − ∆({j, k}) −
+∆({i, k})−∆({i})−∆({j})−∆({k}) = C(S)−piθj −pjθk −
+piθk − piθi − pjθj − pkθk = C(S) − C(S) = 0.
+Now, assume for T S, ∆(T) = 0 if |T| > 2. Without
+loss of generality assume that σ to be the identity mapping.
+Now,
+∆(S) = C(S) −
+ 
+T S
+∆(T)
+= C(S) −
+ 
+i∈S
+ 
+j∈S:j<i
+∆({i, j}) −
+ 
+i∈S
+∆({i})
+= C(S) −
+ 
+i∈S
+ 
+j∈S:j<i
+pjθi −
+ 
+i∈S
+piθi
+= C(S) − C(S) = 0.
+This proves that ∆(S) = 0 if |S| > 2. Using the Shapley
+value formula now,
+SVi =
+ 
+S⊆N:i∈S
+∆(S)
+|S|
+= ∆({i}) +
+1
+2
+ 
+j∈N:j=i
+∆({i, j})
+= piθi +
+1
+2
+¡ 
+j<i
+∆({i, j}) +
+ 
+j>i
+∆({i, j})¢
+= piθi +
+1
+2
+¡ 
+j<i
+pjθi +
+ 
+j>i
+piθj¢= piθi +
+1
+2
+¡Li + Ri¢.

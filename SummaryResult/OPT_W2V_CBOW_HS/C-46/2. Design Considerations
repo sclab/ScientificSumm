@@ -1,0 +1,72 @@
+Thus, applications see a unified view of distributed data, and can query the index at any proxy to get access to data stored at any sensor.
+The proxy uses the summary to construct an index; the index is global in that it stores information from all sensors in the  system and it is distributed across the various proxies in the system.
+This metadata is a tuple of known types, which may be used by the application to locate and identify data records, and which may be searched on and compared by TSAR in the course of locating data for the application.
+A large fraction of queries on sensor data can be expected to be spatio-temporal in nature.
+Such a tier-specific separation of data storage from metadata indexing enables the system to exploit the idiosyncrasies of multi-tier networks, while improving performance and  functionality.
+Remote  sensors may easily distinguish false positives from queries which result in search hits, and calculate the ratio between the two; based on this ratio, TSAR employs a novel adaptive technique that dynamically varies the granularity of sensor summaries to balance the metadata overhead and the overhead of false positives.
+The middle tier consists of power-rich sensor proxies that have significant computation, memory and storage resources and can use 40 Table 1: Characteristics of sensor storage systems System Data Index Reads Writes Order preserving Centralized store Centralized Centralized index Handled at store Send to store Yes Local sensor store Fully distributed No index Flooding, diffusion Local No GHT/DCS [24] Fully distributed In-network index Hash to node Send to hashed node No TSAR/PRESTO Fully distributed Distributed index at proxies Proxy lookup + sensor query Local plus index update Yes User Unified Logical Store Queries (time, space, value) Query Response Cache Query forwarding Proxy Remote Sensors Local Data Archive on Flash Memory Interval Skip Graph Query forwarding summaries start index end index linear traversal Query Response Cache-miss triggered query forwarding summaries Figure 1: Architecture of a multi-tier sensor network.
+We believe that if the data storage system provides the abstraction of a single logical store to applications, as 41 does TSAR, then it will have additional flexibility to  optimize communication and storage costs.
+A canonical sensor node at this tier is equipped with low-power sensors, a micro-controller, and a radio as well as a significant amount of flash memory (e.g., 1GB).
+Some instances of such queries  include the time and location of target or intruder detections (e.g.,  security and monitoring applications), notifications of specific types of events such as pressure and humidity values exceeding a  threshold (e.g., industrial applications), or simple data collection queries which request data from a particular time or location (e.g., weather or environment monitoring).
+However, index lookups may yield false positives, where a summary matches the query but when queried the remote sensor finds no matching value, wasting network resources.
+For maximum network life a sensor storage system should leverage the flash memory on sensors to archive data locally, substituting cheap memory operations for expensive radio transmission.
+2.1 System Model We envision a multi-tier sensor network comprising multiple tiers - a bottom tier of untethered remote sensor nodes, a middle tier of tethered sensor proxies, and an upper tier of applications and user terminals (see Figure 1).
+2.3 Design Principles Our design of a sensor storage system for multi-tier networks is based on the following set of principles, which address the issues arising from the system and usage models above.
+The key  features of the system design are as follows: In TSAR, writes occur at sensor nodes, and are assumed to  consist of both opaque data as well as application-specific metadata.
+Our goal is to design a storage system that exploits the relative abundance of resources at proxies to mask the scarcity of resources at the sensors.
+The proxies share this metadata index to provide a unified logical view of all data in the system, thereby enabling efficient, low-latency lookups.
+Expected queries of such data include those requesting ranges of one or more attributes; for instance, a query for all image data from cameras within a specified geographic area for a certain  period of time.
+But without efficient mechanisms for retrieval, the energy gains of local storage may be outweighed by  communication costs incurred by the application in searching for data.
+These queries require an index on both time and value.
+Variants of value queries involve restricting the query to a geographical region, or specifying a range (v1, v2) rather than a single value v. Value queries can be handled by indexing on the values reported in the summaries.
+In urban environments, the proxy tier would comprise a tethered base-station class nodes (e.g., Crossbow Stargate), each with with multiple radios-an 802.11 radio that connects it to a wireless mesh network and a low-power radio (e.g.
+In general, we assume radio communication to be  substantially more expensive than accesses to flash memory.
+We then present a description of the expected usage models for this system, followed by several principles addressing these factors which guide the  design of our storage system.
+The more coarse-grained the summary, the lower the update overhead and the greater the  fraction of false positives, while finer summaries incur update overhead while reducing query overhead due to false positives.
+To do this, we associate  metadata with each data record - data fields of known syntax which serve as identifiers and may be queried by the storage system.
+We thus expect that applications will be best served by a query interface which allows them to locate data by value or attribute (e.g.
+This in turn implies the need to maintain metadata in the form of an index that provides low cost lookups.
+Applications may also pose value-based queries that involve  determining if a value v was observed at any sensor; the query  returns a list of sensors and the times at which they observed this value.
+• Principle 1: Store locally, access globally: Current  technology allows local storage to be significantly more  energyefficient than network communication, while technology trends show no signs of erasing this gap in the near future.
+Since the index is constructed using a coarse-grain summary, instead of the actual data, index lookups will yield approximate matches.
+Specifically, if a sensor reports a numerical value, then the index is constructed on these values.
+The use of radio, processor, RAM, and the flash memory all consume energy, which needs to be limited.
+Examples of this metadata are data attributes such as location and time, or selected or summarized data values.
+In addition to storing data locally, each sensor periodically sends a summary of reported metadata to a nearby proxy.
+To support such queries, the system needs to archive data on a  persistent store.
+In this section, we first describe the various components of a multi-tier sensor network assumed in our work.
+offset) of a record in a stream is unlikely to be of significance, except if it conveys information concerning the location and/or time at which the information was generated.
+location and time), rather than a read interface for unstructured data.
+We leverage the presence of resource-rich proxies to index  metadata for resource-constrained sensors.
+In a camera-based sensing application, for  instance, this metadata might include coordinates describing the field of view, average luminance, and motion values, in addition to basic information such as time and sensor location.
+• Principle 2: Distinguish data from metadata: Data must be identified so that it may be retrieved by the application without exhaustive search.
+The common constraint for this tier is energy, and the need for a long lifetime in spite of a finite energy constraint.
+The precise data representation used in the summary is application-specific; for instance, a temperature sensor might choose to report the maximum and minimum temperature values observed in an interval as a coarse-grain representation of the  actual time series.
+Hybrid value and spatio-temporal queries are also possible.
+At the highest tier of our infrastructure are applications that query the sensor network through a query interface[20].
+Specifically, each query triggers lookups in this distributed index and the list of matches is then used to retrieve the  corresponding data from the sensors.
+In addition, it is often desirable to support efficient access to data in a way that maintains spatial and temporal  ordering.
+its location in flash memory), and a coarse-grain representation of the metadata associated with the record.
+Depending on the application, this metadata may be two or three orders of magnitude smaller than the data itself, for instance if the metadata consists of features extracted from image or acoustic data.
+2.2 Usage Models The design of a storage system such as TSAR is affected by the queries that are likely to be posed to it.
+The lowest tier is assumed to form a dense deployment of  lowpower sensors.
+Such queries specify a time interval, a value range and a spatial region and request all records that match these attributes - find all  instances where the temperature exceeded 100o F at location R  during the month of August.
+Each proxy is assumed to manage several tens to hundreds of lower-tier sensors in its vicinity.
+A search involves finding matching values that are either contained in the search range (v1, v2) or match the search value v exactly.
+In this work, we focus on applications that require access to past sensor data.
+There are several distributed index and lookup methods which might be used in this system; however, the index structure described in Section 3 is highly suited for the task.
+it will never miss summaries which include the value being searched for.
+2.4 System Design TSAR embodies these design principles by employing local  storage at sensors and a distributed index at the proxies.
+• Principle 3: Provide data-centric query support: In a sensor application the specific location (i.e.
+Order-preserving structures such as the well-known B-Tree maintain relationships between indexed values and thus  allow natural access to ranges, as well as predecessor and successor operations on their key values.
+However, the most straightforward mechanism, and one which naturally provides efficient ordered access, is via the use of order-preserving data structures.
+A typical  sensor network deployment will contain multiple geographically  distributed proxies.
+Sensors provide information about the physical world; two key  attributes of this information are when a particular event or activity occurred and where it occurred.
+802.15.4) that connects it to the sensor nodes.
+In remote sensing applications [10], this tier could comprise a similar Stargate node with a solar power cell.
+The summary contains information such as the sensor ID, the interval (t1, t2) over which the summary was generated, a handle identifying the corresponding data record (e.g.
+In TSAR our focus is on range queries on value or time, with planned extensions to include spatial scoping.
+There are several ways of supporting range queries, such as locality-preserving hashes such as are used in DIMS [18].
+For instance, in a building monitoring application, one sensor proxy might be placed per floor or hallway to monitor temperature, heat and light sensors in their vicinity.
+The TSAR summarization mechanism guarantees that  index lookups will never yield false negatives - i.e.
+these resources continuously.

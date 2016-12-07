@@ -1,0 +1,158 @@
+pTHINC is a thin-client system that consists of a simple
+client viewer application that runs on the PDA and a server
+that runs on a commodity PC. The server leverages more
+powerful PCs to to run web browsers and other application
+logic. The client takes user input from the PDA stylus and
+virtual keyboard and sends them to the server to pass to
+the applications. Screen updates are then sent back from
+the server to the client for display to the user.
+When the pTHINC PDA client is started, the user is 
+presented with a simple graphical interface where information
+such as server address and port, user authentication 
+information, and session settings can be provided. pTHINC first
+attempts to connect to the server and perform the 
+necessary handshaking. Once this process has been completed,
+pTHINC presents the user with the most recent display of
+his session. If the session does not exist, a new session is 
+created. Existing sessions can be seamlessly continued without
+changes in the session setting or server configuration.
+Unlike other thin-client systems, pTHINC provides a user
+with a persistent web session model in which a user can
+launch a session running a web browser and associated 
+applications at the server, then disconnect from that session
+and reconnect to it again anytime. When a user reconnects
+to the session, all of the applications continue running where
+the user left off, so that the user can continue working as
+though he or she never disconnected. The ability to 
+disconnect and reconnect to a session at anytime is an important
+benefit for mobile wireless PDA users which may have 
+intermittent network connectivity.
+pTHINC"s persistent web session model enables a user to
+reconnect to a web session from devices other than the one
+on which the web session was originally initiated. This 
+provides users with seamless mobility across different devices.
+If a user loses his PDA, he can easily use another PDA to
+access his web session. Furthermore, pTHINC allows users
+to use non-PDA devices to access web sessions as well. A
+user can access the same persistent web session on a 
+desktop PC as on a PDA, enabling a user to use the same web
+session from any computer.
+pTHINC"s persistent web session model addresses a key
+problem encountered by mobile web users, the lack of a 
+common web environment across computers. Web browsers 
+often store important information such as bookmarks, cookies,
+and history, which enable them to function in a much more
+useful manner. The problem that occurs when a user moves
+between computers is that this data, which is specific to a
+web browser installation, cannot move with the user. 
+Furthermore, web browsers often need helper applications to
+process different media content, and those applications may
+not be consistently available across all computers. pTHINC
+addresses this problem by enabling a user to remotely use
+the exact same web browser environment and helper 
+applications from any computer. As a result, pTHINC can 
+provide a common, consistent web browsing environment for
+mobile users across different devices without requiring them
+to attempt to repeatedly synchronize different web browsing
+environments across multiple machines.
+To enable a user to access the same web session on 
+different devices, pTHINC must provide mechanisms to 
+support different display sizes and resolutions. Toward this end,
+pTHINC provides a zoom feature that enables a user to
+zoom in and out of a display and allows the display of a web
+144
+Figure 1: pTHINC shortcut keys
+session to be resized to fit the screen of the device being
+used. For example, if the server is running a web session at
+1024×768 but the client is a PDA with a display resolution
+of 640×480, pTHINC will resize the desktop display to fit
+the full display in the smaller screen of the PDA. pTHINC
+provides the PDA user with the option to increase the size
+of the display by zooming in to different parts of the display.
+Users are often familiar with the general layout of commonly
+visited websites, and are able to leverage this resizing 
+feature to better navigate through web pages. For example,
+a user can zoom out of the display to view the entire page
+content and navigate hyperlinks, then zoom in to a region
+of interest for a better view.
+To enable a user to access the same web session on 
+different devices, pTHINC must also provide mechanisms to
+support different display orientations. In a desktop 
+environment, users are typically accustomed to having displays
+presented in landscape mode where the screen width is larger
+than its height. However, in a PDA environment, the choice
+is not always obvious. Some users may prefer having the
+display in portrait mode, as it is easier to hold the device
+in their hands, while others may prefer landscape mode in
+order to minimize the amount of side-scrolling necessary
+to view a web page. To accommodate PDA user 
+preferences, pTHINC provides an orientation feature that enables
+it to seamless rotate the display between landscape and 
+portrait mode. The landscape mode is particularly useful for
+pTHINC users who frequently access their web sessions on
+both desktop and PDA devices, providing those users with
+the same familiar landscape setting across different devices.
+Because screen space is a relatively scarce resource on
+PDAs, pTHINC runs in fullscreen mode to maximize the
+screen area available to display the web session. To be able
+to use all of the screen on the PDA and still allow the user
+to control and interact with it, pTHINC reuses the typical
+shortcut buttons found on PDAs to perform all the 
+control functions available to the user. The buttons used by
+pTHINC do not require any OS environment changes; they
+are simply intercepted by the pTHINC client application
+when they are pressed. Figure 1 shows how pTHINC 
+utilizes the shortcut buttons to provide easy navigation and
+improve the overall user experience. These buttons are not
+device specific, and the layout shown is common to 
+widelyused PocketPC devices. pTHINC provides six shortcuts to
+support its usage model:
+• Rotate Screen: The record button on the left edge is
+used to rotate the screen between portrait and 
+landscape mode each time the button is pressed.
+• Zoom Out: The leftmost button on the bottom front
+is used to zoom out the display of the web session
+providing a bird"s eye view of the web session.
+• Zoom In: The second leftmost button on the bottom
+front is used to zoom in the display of the web session
+to more clearly view content of interest.
+• Directional Scroll: The middle button on the bottom
+front is used to scroll around the display using a single
+control button in a way that is already familiar to PDA
+users. This feature is particularly useful when the user
+has zoomed in to a region of the display such that only
+part of the display is visible on the screen.
+• Show/Hide Keyboard: The second rightmost button on
+the bottom front is used to bring up a virtual keyboard
+drawn on the screen for devices which have no physical
+keyboard. The virtual keyboard uses standard PDA
+OS mechanisms, providing portability across different
+PDA environments.
+• Close Session: The rightmost button on the bottom
+front is used to disconnect from the pTHINC session.
+pTHINC uses the PDA touch screen, stylus, and standard
+user interface mechanisms to provide a user interface 
+pointand-click metaphor similar to that provided by the mouse
+in a traditional desktop computing environment. pTHINC
+does not use a cursor since PDA environments do not 
+provide one. Instead, a user can use the stylus to tap on 
+different sections of the touch screen to indicate input focus. A
+single tap on the touch screen generates a corresponding 
+single click mouse event. A double tap on the touch screen 
+generates a corresponding double click mouse event. pTHINC
+provides two-button mouse emulation by using the stylus to
+press down on the screen for one second to generate a right
+mouse click. All of these actions are identical to the way
+users already interact with PDA applications in the common
+PocketPC environment. In web browsing, users can click on
+hyperlinks and focus on input boxes by simply tapping on
+the desired screen area of interest. Unlike local PDA web
+browsers and other PDA applications, pTHINC leverages
+more powerful desktop user interface metaphors to enable
+users to manipulate multiple open application windows 
+instead of being limited to a single application window at any
+given moment. This provides increased browsing flexibility
+beyond what is currently available on PDA devices. Similar
+to a desktop environment, browser windows and other 
+application windows can be moved around by pressing down
+and dragging the stylus similar to a mouse.

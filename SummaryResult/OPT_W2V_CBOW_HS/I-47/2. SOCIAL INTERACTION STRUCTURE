@@ -1,0 +1,147 @@
+The context of some agent is defined as the interaction in which it participates (def.
+: setUp, join, create, destroy where the member and environment fields represent the agents (A) and local resources (R) participating in the  interaction; the sub-interaction field, its set of inner interactions; and the protocol field the rules that govern the interaction (P).
+Any  interaction, but the top-level one, is set up within the context of another interaction by an initiator agent.
+A resource is structured around several public operations that  participants may invoke, in accordance to the rules specified by the interaction"s protocol.
+However, we may identify four major components in all of them: the participating agents, the resources that agents manipulate, the protocol regulating the agent activities and the  subinteraction space.
+Its life-cycle  begins in the playing state when its player agent joins the  interaction, or some software component is attached as an agent to the multi-agent system (in this latter case, the player value is nil).
+Moreover,  components need to be aware of the current state of the interaction, so that they will also be capable of observing certain events from the interaction.
+Moreover, it returns for each agent a collection of events representing the changes in the obligation set.
+A test request may also be regarded as a complex interaction, ultimately decomposed in the atomic, or bottom-level  interactions represented by communicative actions (e.g.
+For instance, the course"s protocol specifies that the agents empowered to join the interaction as students are those students of the degree who have payed the fee established for the course"s subject, and own the certificates corresponding to its  prerequisite subjects.
+Besides agents, resources and social protocols, two other kinds of entities are of major relevance in our analysis of  social interactions: actions, which represent the way in which agents alter the environmental and social state of the  interaction; and events, which represent the changes in the interaction resulting from the performance of actions or the activity of environmental resources.
+For instance, the course"s protocol  establishes that members of departments must join the course as teachers whenever they are assigned to the course"s subject.
+Other types of computational resources put at the disposal of students by teachers include compilers and interpreters.
+For instance, students of a course are played by student agents belonging to the (undergraduate) degree, whereas lecturers may be played by teachers of a given department and the assistant role may be played by students of a Ph.D degree (both, the department and the Ph.D. degrees, are modelled as sub-interactions of the faculty).
+The derived roles and partIn features  represent the roles played by the agent and the contexts in which these roles are played (def.
+If so happens, a well-defined set of protocols must ensure that its sub-interactions and members are finished as well (inv.
+From an architectural point of view, interactions between software components are embodied in software connectors: first-class entities defined on the basis of the different roles played by software components and the protocols that  regulate their behaviour [1].
+The present specification abstracts away the particular formalism used to specify these rules, and focuses instead on several  requirements concerning the structure and interface of protocols.
+It refines the generic model in several respects, attending to the features commonly ascribed to agent-based computing: • According to the autonomy feature, we may  distinguish a first kind of participant (i.e.
+The type R of resources, ranged over by meta-variable r, can be specified by the following record type: R cr : A, owners : Set A, op : Set OP def.
+attached to an ORB.
+The roles of a connector represent its participants, such as the caller and callee roles of an RPC connector, or the sender and receiver roles in a  message passing connector.
+: see where the purpose is represented as a well-formed boolean formula, of a generic type F, which evaluates to true if the purpose is satisfied and false otherwise.
+Hence, even if some student has paid the fee, the attempt to join the course will fail if the course has not entered the corresponding stage6 .
+, vn : T. The type SetT  represents a collection of values drawn from type T. The type QueueT represents a queue of values v : T waiting to be  processed.
+Each kind of entity T will be specified as a record type T l1 : T1, .
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 891 variable p, is defined as follows5 : P emp : A × ACT → Boolean, perm : A × ACT → Boolean, obl :→ Set (A × Set O × Set E), monitor : E → Set A, finish :→ Boolean, over : A → Boolean def.
+: (8) pfinish() ∧ s ∈ pcontext,sub ⇒ sprot,finish() (9) pfinish() ∧ a ∈ pcontext,mem ⇒ pover(a) (10) pover(a) ∧ ai ∈ aroles ⇒ acontext,prot,over i (ai) (11) αadd ∪ {a} ⊆ pmonitor( a, α, ) act.
+Corresponding rules, encapsulated by the empowered function field, shall allow to determine whether some agent is capable to perform a given action over the interaction.
+The ownership relationship between members and resources is considered as a normative device aimed at the simplification of the protocol"s rules that govern the  interaction of agents and the environment.
+to set up sub-interactions) in order to satisfy their purposes within some interaction.
+Last, the protocol shall allow to control the state of the  interaction as well as the states of its members.
+Basically, agents are those software components which will be regarded as autonomous within the scope of the interaction1 .
+The purpose declared by some agent when it joins an interaction shall be regarded as the institutional goal that it purports to satisfy within that context3 .
+Its sets of agent and resource participants, initially empty, vary as agents join and leave the interaction, and as they create and destroy resources from its local  environment.
+This means that resources are created, accessed and manipulated by agents in a social interaction context (def.
+The initiator is 2 In the context of this application, a one-to-one mapping between human users and software components attached to the community as agents would be a right choice.
+tionality is exploited by teachers in order to monitor the enrollment of students to the course.
+For instance, the course"s protocol establishes that the  participation of students is over when they gain ownership of the course"s certificate or the chances to get it are exhausted.
+: (3) acontext = i ⇔ a ∈ imem (4) a1 ∈ aroles ⇔ aplayer 1 = a (5) i ∈ apartIn ⇔ a1 ∈ imem ∧ a1 ∈ aroles act.
+Thus, the function field finish returns true if the regulated interaction must finish its execution.
+The formal model will be illustrated with several examples drawn from the  design of a virtual organization to aid in the management of university courses.
+its members, the  environment, etc.)
+In either case, the final state of the agent will be successful if its purpose was satisfied; unsuccessful  otherwise.
+The type A of agents, ranged over by meta-variable a, is defined as follows: A state : SA, player : A, purp : F, att : Queue ACT , ev : Queue E, obl : Set O def.
+These kinds of rules shall allow to determine whether some agent must perform an  action of a given type, as well as if some obligation was fulfilled, violated or needs to be revoked.
+The types of agents participating in a given interaction are primarily identified from their  purposes.
+Moreover, the  participation of resources in an interaction is not  mandatory.
+The function obligations of the protocol structure thus identifies the agents whose  obligation set must be updated.
+Firstly, protocols shall include rules to identify the  empowerments and permissions of any agent attempting to alter the state of the interaction (e.g.
+• Last, according to the sociality of agents, the  specification of social connector protocols - the glue linking agents among themselves and with resources, will rely on normative concepts such as permissions, obligations and empowerments [23].
+Unlike agents, resources represent those  nonautonomous components whose state may be  externally controlled by other components (agents or  resources) within the interaction.
+and the attempts of members, are subject to the rules  governing the interaction.
+Given some value v : T, the term vl refers to the value of the field l of a record type T. Given some labels l1, l2, .
+For instance, within the scope of the course agents will participate in programming  assignment groups, lectures, tutoring meetings, examinations and so on.
+Basically, this means that software components counting as agents in a social  interaction may behave non-autonomously in other contexts, e.g.
+It also establishes that the course must be finished when the admission stage has passed and all the students finished their participation. 
+2.1 Social Interactions Social interactions shall be considered as composite  connectors [17], structured in terms of a tree of nested  subinteractions.
+in their interactions through human-user interfaces.
+Corresponding rules identify the conditions under which some interaction will be automatically finished, and whether the participation of some member agent will be automatically over.
+The last field of the structure represents the obligations (O) of agents, to be described later.
+The special term nil will be used to represent the absence of proper value for an optional field, so that vl = nil will be true in those cases and false otherwise.
+The attempts and events fields of the agent structure represent the queues of attempts to  execute some actions (ACT ), and the events (E) received by the agent which have not been observed yet.
+For instance, this  func5 The formalization assumes that protocol"s functions  implicitly recieve as input the interaction being regulated.
+Accordingly, we may specify the type I of social interactions, ranged over by the meta-variable i, as follows: I state : SI, ini : A, mem : Set A, env : Set R, sub : Set I, prot : P, ch : CH def.
+Permission rules shall allow to determine whether the attempt of an empowered agent to perform some particular action is satisfied or not (cf.
+For instance, the ownership of programs may be shared by several students if the assignment can be performed by groups of two or more students.
+• A second group of participants, so-called  environmental resources, may be identified from the situatedness feature.
+The community is thus the top-level interaction which  subsumes any other kind of multi-agent interaction2 .
+Eventually, the interaction may come to an end (according to the protocol"s rules), or be explicitly closed by some agent, thus prematurely disabling the activity of its participants.
+The context of some interaction is defined as its super-interaction (def.
+In the following, we describe the basic entities involved in social interactions.
+Thirdly, the protocol shall allow to specify monitoring rules for the different events originating within the  interaction.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) thus a mandatory feature for any interaction different to the community (inv.
+An agent may play roles at interactions within or outside the scope of its context.
+Both, the visibility of the interaction 3 Thus, it may or may not correspond to actual internal goals or intentions of the component.
+Moreover, resources may have owners.
+Permission rules, in turn, specify that those students may only join the course in the admission stage.
+through the execution of some action (e.g.
+Empowerments shall be regarded as the  institutional capabilities which some agent possesses in order to satisfy its purpose.
+An agent may update its event queue by seeing the state of some entity of the community.
+6 The hasPaidFee relationship between (degree) students and subject resources is represented by an additional, application-dependent field of the agent structure for this kind of roles.
+2.2 Agents Components attach themselves as agents in social  interactions with the purpose of achieving something.
+The analysis of social interactions introduced in this  section gives rise to a new kind of social connector.
+Corresponding rules shall establish the set of agents that must be awared of some event.
+The organizational and communicative interaction types identified above clearly differ in many ways.
+For instance, students are those agents participating in a course who purport to obtain a certificate in the course"s subject.
+This may either happen when certain conditions are met (specified by the protocol rules), or when the agent takes the explicit decision of leaving the  interaction.
+890 The Sixth Intl.
+Secondly, protocols shall allow to determine the  obligations of agents towards the interaction.
+For instance, objectives, topics,  assignments, grades and exams are different kinds of informational resources created by lecturers and assistants in the context of the course interaction.
+The attachment operation binds a component to the role of a given connector.
+Eventually, the participation of some agent in the  interaction will be over.
+Obligations  represent a normative device of social enforcement, fully  compatible with the autonomy of agents, used to bias their  behaviour in a certain direction.
+Traversing upwards from a degree to its ancestors, we find its faculty, the university and, finally, the multi-agent community or agent society.
+The generic types I, A, R and P are thus extendable.
+Students may also create programs to satisfy the requirements of some assignment.
+The life-cycle of the interaction begins in the open state.
+role) in a  social interaction, so-called agents.
+2.4 Protocols The protocol of any interaction is made up of the rules which govern its overall state and dynamics.
+Members may gain ownership of some resource by taking it, and grant  ownership to other agents by giving or sharing their own  properties.
+The type SA Enum {playing, leaving, succ, unsuc} represents the execution state of the agent.
+This conceptualization of agenthood resembles the way in which objects are understood in CORBA: as any kind of software component (C, Prolog, Cobol, etc.)
+The event channel, to be described in the next  section, allows the dispatching of local events to external  interactions.
+The type SI Enum {open, closing, closed} represents the possible execution states of the interaction.
+Other members of the course include lecturers and teaching assistants.
+: take, share, give, invoke Essentially, resources can be regarded as objects deployed in a social setting.
+1), so that the context of the  toplevel interaction is nil.
+On the one hand, this interaction is actually a complex one, made up of lower-level interactions.
+Let"s consider an interaction representing a university course (e.g.
+2.3 Resources Resources are software components which may represent different types of non-autonomous informational or  computational entities.
+join, create, etc.).
+Similarly, the function over  returns true if the participation of the specified member must be over.
+represents an enumeration type whose values are v1, .
+Similarly, the admission stage is an additional boolean field of the structure for school interactions.
+On the other hand, courses are run within the scope of a particular degree (e.g.
+Well-formed protocols must ensure the consistency between these functions across playing roles (inv.
+The mandatory feature creator represents the agent who created this resource.
+computer science), a higher-level interaction.
+6), according to the rules specified by its  protocol.
+permitted field).
+The set of operations of a resource makes up its interface.
+ln : Tn , possibly followed by a number of invariants, definitions, and the actions affecting their state.
+The last operations feature represents the interface of the resource, consisting of a set of operations.
+The value v in the expression [v| ] : Queue[T]  represents the head of the queue.
+Accordingly, the type P of protocols, ranged over by  metaThe Sixth Intl.
+Assignment groups, in turn, may hold a number of assignment submissions and test requests interactions.
+Empowerments may only be exercised under certain circumstances - that permissions specify.
+Components will normally attempt to perform different actions (e.g.
+, vn} 1 Note that we think of the autonomy feature in a relative, rather than absolute, perspective.
+: Close, Leave We demand from protocols four major kinds of functions.
+4 Free variables in the antecedents/consequents of  implications shall be understood as universally/existentially  quantified.
+Joint Conf.
+The transient leaving state will be described in the next section.
+Joint Conf.
+on data structures).
+The transient closing state will be described in the next section.
+The type Enum {v1, .
+Instances or values v of a record type T will be represented as v = v1, .
+: (2) iini = nil ⇔ icontext = nil act.
+: (6) rcontext = i ⇔ r ∈ ienv act.
+request, agree, refuse, .
+, the expression vl1,l2,... is syntactic sugar for ((vl1 )l2 ) .
+: (7) pcontext = i ⇔ p = iprot inv.
+: (1) icontext = i1 ⇔ i ∈ isub 1 inv.
+10)7 .
+4, 5)4 .

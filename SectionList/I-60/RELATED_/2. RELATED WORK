@@ -1,0 +1,133 @@
+In their seminal paper, Lamport et al. [8] describe the
+Byzantine Generals problem, in which processors need to
+handle malfunctioning components that give conflicting 
+information to different parts of the system. They also present
+a model in which not all agents are connected, and thus an
+agent cannot send a message to all the other agents. Dolev et
+al. [5] has built on this problem and has analyzed the number
+of faulty agents that can be tolerated in order to eventually
+reach the right conclusion about true data. Similar work
+is presented by Minsky et al. [11], who discuss techniques
+for constructing gossip protocols that are resilient to up to
+t malicious host failures. As opposed to the above works,
+our work focuses on vehicular networks, in which the agents
+are constantly roaming the network and exchanging data.
+Also, the domain of transportation networks introduces 
+dynamic data, as the load of the roads is subject to change. In
+addition, the system in transportation networks has a 
+feedback mechanism, since the load in the roads depends on the
+reports and the movement of the agents themselves.
+Malkhi et al. [10] present a gossip algorithm for 
+propagating information in a network of processors, in the presence
+of malicious parties. Their algorithm prevents the spreading
+of spurious gossip and diffuses genuine data. This is done
+in time, which is logarithmic in the number of processes
+and linear in the number of corrupt parties. Nevertheless,
+their work assumes that the network is static and also that
+the agents are static (they discuss a network of processors).
+This is not true for transportation networks. For example,
+in our model, agents might gossip about heavy traffic load
+of a specific road, which is currently jammed, yet this 
+information might be false several minutes later, leaving the
+agents to speculate whether the spreading agents are indeed
+malicious or not. In addition, as the agents are constantly
+moving, each agent cannot choose with whom he interacts
+and exchanges data.
+In the context of analyzing the data and deciding whether
+the data is true or not, researchers have focused on 
+distributed reputation systems or decision mechanisms to decide
+whether or not to share data.
+Yu and Singh [18] build a social network of agents" 
+reputations. Every agent keeps a list of its neighbors, which can
+be changed over time, and computes the trustworthiness of
+other agents by updating the current values of testimonies
+obtained from reliable referral chains. After a bad 
+experience with another agent every agent decreases the rating of
+the "bad" agent and propagates this bad experience 
+throughout the network so that other agents can update their 
+ratings accordingly. This approach might be implemented in
+our domain to allow gossip agents to identify self-interested
+agents and thus minimize their effect. However, the 
+implementation of such a mechanism is an expensive addition
+to the infrastructure of autonomous agents in 
+transportation networks. This is mainly due to the dynamic nature of
+the list of neighbors in transportation networks. Thus, not
+only does it require maintaining the neighbors" list, since the
+neighbors change frequently, but it is also harder to build a
+good reputation system.
+Leckie et al. [9] focus on the issue of when to share 
+information between the agents in the network. Their domain
+involves monitoring distributed sensors. Each agent 
+monitors a subset of the sensors and evaluates a hypothesis based
+on the local measurements of its sensors. If the agent 
+believes that a hypothesis is sufficient likely he exchanges this
+information with the other agents. In their domain, the
+goal of all the agents is to reach a global consensus about
+the likelihood of the hypothesis. In our domain, however, as
+the agents constantly move, they have many samples, which
+they exchange with each other. Also, the data might also
+vary (e.g., a road might be reported as jammed, but a few
+minutes later it could be free), thus making it harder to
+decide whether to trust the agent, who sent the data. 
+Moreover, the agent might lie only about a subset of its samples,
+thus making it even harder to detect his cheating.
+Some work has been done in the context of gossip networks
+or transportation networks regarding the spreading of data
+and its dissemination.
+Datta et al. [4] focus on information dissemination in
+mobile ad-hoc networks (MANET). They propose an 
+autonomous gossiping algorithm for an infrastructure-less 
+mobile ad-hoc networking environment. Their autonomous 
+gossiping algorithm uses a greedy mechanism to spread data
+items in the network. The data items are spread to 
+immediate neighbors that are interested in the information, and
+avoid ones that are not interested. The decision which node
+is interested in the information is made by the data item
+itself, using heuristics. However, their work concentrates on
+the movement of the data itself, and not on the agents who
+propagate the data. This is different from our scenario in
+which each agent maintains the data it has gathered, while
+the agent itself roams the road and is responsible (and has
+the capabilities) for spreading the data to other agents in
+the network.
+Das et al. [3] propose a cooperative strategy for content
+delivery in vehicular networks. In their domain, peers 
+download a file from a mesh and exchange pieces of the file among
+themselves. We, on the other hand, are interested in 
+vehicular networks in which there is no rule forcing the agents to
+cooperate among themselves.
+Shibata et al. [16] propose a method for cars to 
+cooperatively and autonomously collect traffic jam statistics to
+estimate arrival time to destinations for each car. The 
+communication is based on IEEE 802.11, without using a fixed
+infrastructure on the ground. While we use the same 
+domain, we focus on a different problem. Shibata et al. [16]
+mainly focus on efficiently broadcasting the data between
+agents (e.g., avoid duplicates and communication overhead),
+as we focus on the case where agents are not cooperative in
+328 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+nature, and on how selfish agents affect other agents and the
+network load.
+Wang et al. [17] also assert, in the context of wireless 
+networks, that individual agents are likely to do what is most
+beneficial for their owners, and will act selfishly. They design
+a protocol for communication in networks in which all agents
+are selfish. Their protocol motivates every agent to 
+maximize its profit only when it behaves truthfully (a mechanism
+of incentive compatibility). However, the domain of wireless
+networks is quite different from the domain of 
+transportation networks. In the wireless network, the wireless terminal
+is required to contribute its local resources to transmit data.
+Thus, Wang et al. [17] use a payment mechanism, which 
+attaches costs to terminals when transmitting data, and thus
+enables them to maximize their utility when transmitting
+data, instead of acting selfishly. Unlike this, in the context
+of transportation networks, constructing such a mechanism
+is not quite a straightforward task, as self-interested agents
+and regular gossip agents might incur the same cost when
+transmitting data. The difference between the two types of
+agents only exists regarding the credibility of the data they
+exchange.
+In the next section, we will describe our transportation
+network model and gossiping between the agents. We will
+also describe the different agents in our system.

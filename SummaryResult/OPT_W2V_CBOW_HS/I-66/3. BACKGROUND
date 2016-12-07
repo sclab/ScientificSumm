@@ -1,0 +1,34 @@
+Si refers to the set of local states of agent i and Su is the set of unaffectable states.
+An ND-POMDP is similar to an n-ary Distributed Constraint Optimization Problem (DCOP)[8, 12] where the variable at each node represents the policy selected by an individual agent, πi with the domain of the variable being the set of all local policies, Πi.
+Ω = ×1≤i≤nΩi is the set of joint observations where Ωi is the set of observations for agents i. Observational independence is assumed in ND-POMDPs i.e., the joint observation function is defined as O(s, a, ω) = 1≤i≤n Oi(si, su, ai, ωi), where s = s1, .
+, an is the joint action  performed in state s = s1, .
+Thus, given a policy for a parent node, GOA requires an agent to iterate through all its policies, finding the best response policy and returning the value to the parent - while at the parent node, to find the best policy, an agent requires its children to return their best responses to each of its policies.
+A hyper-link, l, exists between a subset of agents for all Rl that  comprise R. The interaction hypergraph is defined as G = (Ag, E), where the agents, Ag, are the vertices and E = {l|l ⊆ Ag ∧ Rl is a component of R} are the edges.
+, ωn ∈ Ω is the observation received in state s. This implies that each agent"s observation depends only on the  unaffectable state, its local action and on its resulting local state.
+Value for a policy at an agent is defined as the sum of best response values from its  children and the joint policy reward associated with the parent policy.
+, sn, su is the world state that results from the agents  performing a = a1, .
+Since the interaction graph captures all the reward interactions among agents and as this algorithm iterates through all the relevant joint policy evaluations, this algorithm yields a globally optimal solution. 
+The initial belief state (distribution over the initial state), b, is defined as b(s) = bu(su) · 1≤i≤n bi(si), where bu and bi refer to the distribution over initial unaffectable state and agent i"s initial belief state, respectively.
+A = ×1≤i≤nAi is the set of joint actions, where Ai is the set of action for agent i. ND-POMDP assumes transition independence, where the  transition function is defined as P(s, a, s ) = Pu(su, su) · 1≤i≤n Pi(si, su, ai, si), where a = a1, .
+, πn that maximizes team"s expected reward over a finite horizon T starting from the belief state b.
+, alr ), where each l could refer to any sub-group of agents and r = |l|.
+The first phase is the UTIL  propagation, where the utility messages, in this case values of policies, are passed up from the leaves to the root.
+Unaffectable state refers to that part of the world state that cannot be affected by the agents" actions, e.g.
+The reward function, R, is defined as R(s, a) = l Rl(sl1, .
+, sn, su is the resulting state.
+It is defined as the tuple S, A, P, Ω, O, R, b , where S = ×1≤i≤nSi × Su is the set of world states.
+This UTIL propagation process is repeated at each level in the tree, until the root exhausts all its policies.
+The reward component Rl where |l| = 1 can be thought of as a local constraint while the reward component Rl where l > 1  corresponds to a non-local constraint in the constraint graph.
+GOA takes advantage of the local interactions in the interaction graph, by pruning out unnecessary joint policy evaluations  (associated with nodes not connected directly in the tree).
+The goal in ND-POMDP is to compute the joint policy π = π1, .
+, an in the previous state, and ω = ω1, .
+In the second phase of VALUE propagation, where the optimal policies are passed down from the root till the leaves.
+Based on the reward function, an interaction hypergraph is constructed.
+GOA"s message passing follows that of DPOP.
+, sn, su and s = s1, .
+GOA borrows from a global optimal DCOP algorithm called DPOP[12].
+3.2 Algorithm: Global Optimal Algorithm (GOA) In previous work, GOA has been defined as a global optimal algorithm for ND-POMDPs [10].
+We will use GOA in our  experimental comparisons, since GOA is a state-of-the-art global optimal algorithm, and in fact the only one with experimental results  available for networks of more than two agents.
+, slr, su, al1, .
+environmental factors like target locations that no agent can control.
+3.1 Model: Network Distributed POMDP The ND-POMDP model was introduced in [10], motivated by domains such as the sensor networks introduced in Section 2.

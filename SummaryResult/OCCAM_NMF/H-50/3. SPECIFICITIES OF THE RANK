@@ -1,0 +1,29 @@
+the above-mentioned difficulties. 
+in the ir context, rank aggregation methods need to  decide more or less explicitly which assumptions to retain w.r.t.
+h4 new: candidate documents receive new positions in each input ranking, after discarding excluded ones.
+regarding the positions of the  candidate documents, we can consider the following  working hypotheses: h4 init: the initial positions of candidate documents are kept in each input ranking.
+4. when assumption h2 k holds, each input ranking may contain documents which will not be considered in the consensus ranking.
+h3 no: no assumption is made, that is each missing  document is considered neither better nor worse than any other document.
+we consider the following two working  hypotheses: h3 yes: each missing document in each j is assigned a position.
+main reasons for a missing  document are that it was not indexed or it was indexed but deemed irrelevant ; usually this information is not available.
+3. some candidate documents are missing documents in some input rankings.
+we also call a candidate document which is missing in one or more rankings, a missing document.
+hereafter, we call documents which will be retained in the consensus ranking, candidate documents, and documents that will be excluded from the consensus ranking, excluded documents.
+h2 all: we consider all the documents which are ranked in at least one input ranking.
+two working hypotheses are therefore considered: h2 k : we only consider documents which are present in at least k input rankings (k > 1).
+2. since there are different documents in the input  rankings, we must decide which documents should be kept in the consensus ranking.
+h1 all: we consider all the documents from each input ranking.
+we thus consider the following two working hypotheses: h1 k : we only consider the top k best documents from each input ranking.
+rank aggregation of partial lists raises four major  difficulties which we state hereafter, proposing for each of them various working assumptions: 1. partial lists can have various lengths, which can favour long lists.
+[11], authors found that among the top 100 best documents of 7 input search engines, 67% of the documents were present in only one search engine, whereas less than two documents were present in all the search engines.
+for instance, in the experiments carried out by dwork et al.
+this was outlined in [14] as the problem of having to merge top-k results from various input lists.
+3.2 partial lists in real world applications, such as metasearch engines, rankings provided by the input methods are often partial lists.
+• assuming that document di is better ranked than  document di in a ranking j, di is more likely to be  definitively more relevant than di in j when the number of intermediate positions between di and di increases.
+thus a slight perturbation of the initial ranking is meaningless.
+it is therefore important to build the consensus ranking based on robust information: • documents with near positions in j are more likely to have similar interest or relevance.
+this was outlined in [13] as the problem of aggregation with ties.
+in this case, we call such rankings semi orders.
+indeed, in the ir context, the complete order provided by an input method may hide ties.
+for instance, having three relevant documents in the first three positions, any perturbation of these three items will have the same value.
+aggregation problem in the ir context 3.1 limited significance of the rankings the exact positions of documents in one input ranking have limited significance and should not be overemphasized.

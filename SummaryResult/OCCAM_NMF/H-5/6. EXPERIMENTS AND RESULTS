@@ -1,0 +1,23 @@
+moreover, since indri uses pseudo-relevance feedback while caf´e uses feedback based on actual relevance judgments, the improvement in case of indri is less dramatic than that of caf´e. 
+the performance trends are not consistent across all chunks because on-topic documents are not uniformly distributed over all the chunks, making some queries ‘easier" than others in certain chunks.
+while the performance with and without feedback on the first few chunks is expected to be close, for subsequent chunks, the performance curve with feedback enabled rises above the one with the no-feedback setting.
+figures 1 and 2 show the performance trends for both the systems across chunks.
+since documents were processed chunk by chunk, it would be interesting to see how the performance of systems improves over time.
+in such a case, we can simply choose a higher value for γ which corresponds to a higher tolerance for redundancy, and hence let the system tune its parameters accordingly.
+sometimes, however, users might indeed be interested in seeing the same information from multiple sources, as an table 1: ndcu scores of indri and caf´e for two dampening factors (γ), and various settings (f: feedback, n: novelty detection, a: anti-redundant ranking) indri caf´e γ base +prf base +f +f+n +f+a +f+n+a 0 0.19 0.19 0.22 0.23 0.24 0.24 0.24 0.1 0.28 0.29 0.24 0.35 0.35 0.36 0.36 indicator of its importance or reliability.
+it is informative to evaluate retrieval systems using our utility measure (with γ = 0) which accounts for novelty and thus gives a more realistic picture of how well a system can generalize from user feedback, rather than using traditional ir measures like recall and precision which give an incomplete picture of improvement obtained from user feedback.
+however, the user does not benefit from seeing such redundant passages, and is usually interested in other passages containing related information.
+hence, the improvement obtained from enabling user feedback is smaller with γ = 0 than the improvement obtained from feedback with γ = 0.1. this reveals a shortcoming of contemporary retrieval  systemswhen the user gives positive feedback on a passage, the systems gives higher weights to the terms present in that passage and tends to retrieve other passages containing the same terms - and thus - usually the same information.
+using γ = 0 creates a much more strict metric since it does not give any credit to a passage that contains relevant but redundant information.
+these scores are averaged over the six tasks in the test set, and are calculated with two dampening factors (see section 4.2): γ = 0 and 0.1, to simulate no tolerance and small tolerance for redundancy, respectively.
+6.3 results in table 1, we show the ndcu scores of the two systems under various settings.
+user feedback was also simulated - relevance judgments for each system-returned passage (as determined by the nugget matching rules described in section 4.1.2) were 4 url: http://nyc.lti.cs.cmu.edu/downloads figure 1: performance of indri across chunks figure 2: performance of caf´e across chunks used as user feedback in the adaptation of query profiles and user histories.
+the ndcu for each system run is calculated  automatically.
+each system was allowed to use the training set to tune its parameters for optimizing ndcu (equation 8), including the relevance threshold for both indri and caf´e, and the novelty and  antiredundancy thresholds for caf´e.
+the 12 tasks defined on the corpus were divided into a training and test set with 6 tasks each.
+at any given point of time in the distillation process, each system accessed the past data up to the current point, and returned a ranked list of up 50 passages per query.
+6.2 experimental setup we divided the tdt4 corpus spanning 4 months into 10 chunks, each defined as a period of 12 consecutive days.
+we compare indri with prf turned on and off, against caf´e with user feedback, novelty detection and  antiredundant ranking turned on and off.
+indri does not support any kind of novelty detection.
+indri supports standard search engine functionality,  including pseudo-relevance feedback (prf) [3, 6], and is representative of a typical query-based retrieval system.
+6.1 baselines we used indri [17], a popular language-model based retrieval engine, as a baseline for comparison with caf´e.

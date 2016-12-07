@@ -1,0 +1,32 @@
+4 There is another Inverse Property 1 (IP1) that is required in an OT system for achieving the correct undo effect [21], but IP1 is not related to IT functions.
+284 There are generally two ways to achieve OT correctness with respect to these transformation properties: one is to design transformation functions capable of preserving these properties; the other is to design control algorithms capable of breaking the pre-conditions for requiring these properties.
+COT is a high-level control algorithm responsible for  determining which operation should be transformed against other operations and in which order according to  contextbased conditions.
+The makeInverse(O) procedure directly  follows these definitions.
+Past research has shown that it is relatively easy to  design transformation functions capable of preserving CP1, but non-trivial to design and formally prove transformation functions capable of preserving CP2, IP2 and IP3.
+PC-CP2: CP2 is required only if the OT system  allows an operation to be transformed against the same group of context-independent operations in different orders.
+To explore alternative solutions to these properties, we explicitly state the Pre-Conditions (PC) for CP1, CP2, IP2, and IP3 as follows: 1.
+Given two operations Oa and Ob, if Oa := IT(Oa, Ob), Ob := IT(Ob, Oa), and Oa := IT(Oa, Ob), then it must be: Oa = Oa, which means the transformed inverse operation Oa is equal to the inverse of the transformed operation Oa.
+[Ob, Oa], which means that [Oa, Ob] and [Ob, Oa] are equivalent with respect to the effect on the document state DS.
+3 Convergence Property 1 & 2 in this paper (and in [21]) are the same as Transformation Property 1 & 2 in [19].
+Inverse Property 3 (IP3).
+Similar to GOTO-ANYUNDO, the basic COT algorithm assumes that underlying transformation functions are  capable of preserving the following properties [4, 15, 19, 23, 21]: 2 The reader is referred to [25] for precise definitions of three primitive operations Insert, Delete and Update and their  corresponding inverses.
+PC-IP2: IP2 is required only if the OT system allows an operation Ox to be transformed against a pair of do and undo operations (O and O) one-by-one.
+Given three  operations O, Oa and Ob, if Oa = IT(Oa, Ob) and Ob = IT(Ob, Oa), then it must be: IT(IT(O, Oa), Ob) = IT(IT(O, Ob), Oa), which means that [Oa, Ob] and [Ob, Oa] are equivalent with respect to the effect in transformation.
+Given a  document state DS, and operations Oa, Ob, if Oa = IT(Oa, Ob), and Ob = IT(Ob, Oa), then it must be: DS ?
+Another important component of an OT system is the low-level transformation functions  responsible for transforming operations according to their types and parameters.
+Inverse Property 2 (IP2)4 .
+IT functions capable of preserving IP2 and IP3 had been devised in the context of ANYUNDO [21], but our experience in implementing these functions revealed that those solutions are quick intricate and inefficient (more analysis can be found in Section 7).
+Counterexamples illustrating the violation of these properties in some early published transformation functions can be found in [23, 21, 8, 11].
+PC-IP3: IP3 is required only if the OT system allows an inverse operation Oa to be transformed against  another operation Ob that is context-independent of Oa.
+The pre-conditions for requiring them, however, were never explicitly stated in their specifications, which has unfortunately caused quite some misconceptions in OT  literature.
+Past research has identified a range of  transformation properties/conditions that must be maintained for ensuring the correctness of an OT system.
+The above transformation properties are important  discoveries of past research, but they are not unconditionally required.
+PC-CP1: CP1 is required only if the OT system  allows the same group of context-independent operations to be executed in different orders.
+Convergence Property 2 (CP2).
+Clearly, solving CP2, IP2 and IP3 at the control algorithm level has the benefit of simplifying the design of  transformation functions and the OT system as a whole.
+Unlike GOTO-ANYUNDO, the basic COT algorithm does not use ET (Exclusion Transformation) functions [21], thus avoiding the requirement of the Reversibility Property (RP) between IT and ET functions [21].
+Given any operation Ox and a pair of operations [O, O], it must be: IT(IT(Ox, O), O) = IT(Ox, I) = Ox, which means that [O, O] and I are equivalent with  respect to the effect in transformation.
+Different OT  systems may have different control algorithms, different  transformation functions, and different divisions of  responsibilities among these components.
+In the  following section, we extend the basic COT algorithm to provide simple and efficient solutions to CP2, IP2 and IP3 at the control algorithm level.
+Convergence Property 1 (CP1)3 .
+[Oa, Ob] = DS ?

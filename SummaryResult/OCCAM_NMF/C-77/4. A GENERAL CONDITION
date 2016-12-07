@@ -1,0 +1,24 @@
+theorem 2. when a process pi sends m to a process pj, the condition k(m, k) is both necessary and sufficient not to transmit the triple (k, send(m).v ci[k], send(m).ipi[k]). 
+(necessity) if k(m, k) is false, then the triple (k, m.v c[k], m.ip[k]) is necessary to ensure the correct  management of ipj[k] and v cj [k].
+lemma 5.
+(sufficiency) if k(m, k) is true, then the triple (k, m.v c[k], m.ip[k]) is useless with respect to the correct management of ipj[k] and v cj [k].
+214 lemma 4.
+(the proof of theorem 2 follows directly from these lemmas.)
+due to space limitations, the proofs of lemma 4 and lemma 5 are given in [1].
+a triple attached to m will also be denoted (k, m.v c[k], m.ip[k]).
+4.2 a necessary and sufficient condition we show here that the condition k(m, k) is both  necessary and sufficient to decide which triples of the form (k, send(m).v ci[k], send(m).ipi[k]) can be omitted in an outgoing message m sent by pi to pj.
+these observations lead to the definition of the condition k(m, k) that characterizes which entries of vectors v ci and ipi can be omitted from the control information attached to a message m sent by a process pi to a process pj: definition 5. k(m, k) ≡ (send(m).v ci[k] = 0) ∨ (send(m).v ci[k] < pred(receive(m)).v cj[k]) ∨ ; (send(m).v ci[k] = pred(receive(m)).v cj[k]) ∧(send(m).ipi[k] = 1) .
+differently, some other entries are systematically reset to 0 (this occurs when 0 < v cj [k] = m.v c[k] ∧ m.ip[k] = 0).
+this occurs when 0 < v cj[k] = m.v c[k] ∧ m.ip[k] = 1, or when v cj [k] > m.v c[k], or when m.v c[k] = 0 (in the latest case, as m.ip[k] = ipi[k] = 0 then no update of ipj[k] is necessary).
+similarly, some entries ipj[k] are not updated when a message m from pi is received by pj.
+in such a case, the value m.v c[k] is useless, and could be omitted from the control information transmitted with m by pi to pj.
+rule r3 shows that a process pj does not systematically update each entry v cj[k] each time it receives a message m from a process pi: there is no update of v cj[k] when v cj[k] ≥ m.v c[k].
+4.1 to transmit or not to transmit control information let us consider the previous ipt protocol (section 3.3).
+this issue is addressed in section 5.
+in that sense, the general condition defines a family of ipt  protocols, that solve the previously open problem.
+to each approximation corresponds a  protocol, implemented with additional local data structures.
+thus, locally evaluable approximations of this general condition must be defined.
+however, this general condition cannot be locally  evaluated by a process that is about to send a message.
+it is then shown (section 4.2) that this condition is both sufficient and necessary.
+first, a general condition that characterizes which entries of vectors v ci and ipi can be omitted from the control information attached to a message sent in the computation, is defined (section 4.1).
+this section addresses a previously open problem,  namely, how to solve the ipt problem without requiring each application message to piggyback a whole vector clock and a whole boolean array?.

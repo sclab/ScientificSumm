@@ -1,0 +1,42 @@
+this is no surprise, since finding the leader"s optimal strategy in a bayesian stackelberg game is np-hard [5]. 
+using this method for a bayesian game thus requires running |σ2||θ2|  separate linear programs.
+note that while this method is polynomial in the number of rows in the transformed, normal-form game, the number of rows  increases exponentially with the number of robber types.
+the pxi variables give the optimal strategy for the security agent.
+∀j ∈ q, p i∈σ1 pxicij ≥ p i∈σ1 pxicij p i∈x pxi = 1 ∀i∈x , pxi >= 0 (1) then, for all feasible follower strategies j, choose the one that  maximizes p i∈x pxirij, the reward for the security agent (leader).
+for every possible pure strategy j by the follower (the set of all robber types), max p i∈x pxirij s.t.
+the optimal mixed strategy for the security agent can be found in time polynomial in the number of rows in the normal form game using the following linear program formulation from [5].
+, px|x|), where pxi ≥ 0 and p pxi = 1. here, pxi is the probability that the security agent will choose its ith pure strategy.
+rij is the reward of the security agent and cij is the reward of the  robbers when the security agent takes pure strategy i and the robbers take pure strategy j. a mixed strategy for the security agent is a probability distribution over its set of pure strategies and will be represented by a vector x = (px1, px2, .
+therefore, we denote x = σθ1 1 = σ1 and q = σθ2 2 as the index sets of the security agent and robbers" pure strategies  respectively, with r and c as the corresponding payoff matrices.
+from the bayesian game in table 2, we constructed the harsanyi transformed bimatrix in table 3. the strategies for each player  (security agent or robber) in the transformed game correspond to all combinations of possible strategies taken by each of that player"s types.
+given the common  assumption, taken in [5], in the case where followers are indifferent, they will choose the strategy that benefits the leader, there must exist a guaranteed optimal strategy for the leader [5].
+since the followers (the robbers) will know the leader"s strategy, the optimal response for the followers will be a pure strategy.
+3.2 finding an optimal strategy although a nash equilibrium is the standard solution concept for games in which agents choose strategies simultaneously, in our  security domain, the security agent (the leader) can gain an advantage by committing to a mixed strategy in advance.
+then, the security agent and the robber receive an expected payoff corresponding to their payoffs from the agent encountering robber a at house 1 with probability α and robber b at house 2 with probability 1 − α.
+suppose that robber type a robs house 1 and robber type b robs house 2, while the  security agent chooses patrol {1,2}.
+the transformed, normal-form game is shown in table 3. in the  transformed game, the security agent is the column player, and the set of all robber types together is the row player.
+the bayesian equilibrium of the game is then  precisely the nash equilibrium of the imperfect information game.
+security agent: {1,2} {2,1} robber a 1a -1, .5 -.375, .125 2a -.125, -.125 -1, .5 robber b 1b -.9, .6 -.275, .225 2b -.025, -.025 -.9, .6 table 2: payoff tables: security agent vs robbers a and b using the harsanyi technique involves introducing a chance node, that determines the robber"s type, thus transforming the security agent"s incomplete information regarding the robber into imperfect information [3].
+the payoffs for the game against robber type b are constructed using different values.
+using these values we construct a base payoff table as the payoff for the game against robber type a. for example, if the security agent chooses route {1,2} when robber a is active, and robber a chooses house 1, the robber receives a reward of -1 (for being caught) and the agent receives a reward of 0.5 for catching the robber.
+since there are two types assumed (denoted as a and b), we construct two payoff tables (shown in table 2) corresponding to the security agent playing a separate game with each of the two robber types with probabilities α and 1 − α. first, consider robber type a. borrowing the notation from the domain section, we assign the following values to the variables: v1,x = v1,q = 3/4, v2,x = v2,q = 1/4, cx = 1/2, cq = 1, p1 = 1, p2 = 1/2.
+the robber can rob either house 1 or house 2 and hence he has two strategies (denoted as 1l, 2l for robber type l).
+assume that there are two houses in the world (1 and 2) and hence there are two patrol routes (pure strategies) for the agent: {1,2} and {2,1}.
+robber a will be active with probability α, and robber b will be active with probability 1 − α. the rules described in section 2 allow us to construct simple payoff tables.
+let us assume there are two robber types a and b in the bayesian game.
+given that the harsanyi transformation is a standard concept in game theory, we explain it briefly through a simple  example in our patrolling domain without introducing the  mathematical formulations.
+3.1 harsanyi transformation the first step in solving bayesian games is to apply the harsanyi transformation [8] that converts the bayesian game into a normal form game.
+the next two subsections elaborate on how this is done.
+however, these techniques do require a normal-form game, and so to compare the policies given by asap against the optimal policy, as well as against the highest-reward nash equilibrium, we must apply these techniques to the harsanyi-transformed matrix.
+recent work [17] has led to efficient mixed-integer linear program techniques to find the best nash equilibrium for a given agent.
+on autonomous agents and multi-agent systems (aamas 07) single equilibrium in the general case, which may not be of high reward.
+while methods exist for finding bayes-nash equilibria  directly, without the harsanyi transformation [10], they find only a 312 the sixth intl.
+joint conf.
+once this is done, new, linear-program (lp)-based methods for finding high-reward  strategies for normal-form games [5] can be used to find a strategy in the transformed game; this strategy can then be used for the bayesian game.
+a bayesian game can be transformed into a normal-form game using the harsanyi transformation [8].
+for each agent (the security agent or the robber) n, there is a set of strategies σn and a utility function un : θ1 × θ2 × σ1 × σ2 → .
+during the game, the robber knows its type but the security agent does not know the robber"s type.
+since there is only one type of security agent, θ1 contains only one element.
+θ1 is the set of security agent types and θ2 is the set of robber types.
+for our patrolling domain, we have two agents, the security agent and the robber.
+a bayesian game contains a set of n agents, and each agent n must be one of a given set of types θn.

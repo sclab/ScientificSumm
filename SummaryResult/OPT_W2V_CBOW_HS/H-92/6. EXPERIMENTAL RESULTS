@@ -1,0 +1,53 @@
+We first present the results over all 1000 test queries (i.e., including queries for which there are no implicit measures so we use the original web rankings).
+Incorporating all user feedback (either in reranking framework or as features to the learner directly) results in significant improvements (using two-tailed t-test with p=0.01) over both the original BM25F ranking as well as over reranking with clickthrough alone.
+Figure 6.6 reports NDCG for the subset of the test queries with the implicit feedback features.
+Figure 6.4 reports NDCG at K and Figure 6.5 reports Precision at K. Interestingly, while the original RN rankings are significantly more accurate than BM25F alone, incorporating implicit feedback features (BM25F+All) results in ranking that significantly outperforms the original RN rankings.
+We compare alternative methods of exploiting implicit feedback, both by re-ranking the top results (i.e., the BM25F-RerankCT and BM25F-RerankAll methods that reorder BM25F results), as well as by integrating the implicit features directly into the ranking process (i.e., the RN+ALL and BM25F+All methods which learn to rank results over the implicit feedback and other features).
+One possible explanation is that these easy queries tend to be navigational (i.e., having a single, highly-ranked most appropriate answer), and user interactions with lower-ranked results may indicate divergent information needs that are better served by the less popular results (with correspondingly poor overall relevance ratings).
+0.6 0.65 0.7 0.75 0.8 1 3 5 10K NDCG RN RN+All BM25 BM25+All Figure 6.6: NDCG at K for BM25F, BM25F+All, RN, and RN+All on test queries with user interactions Similarly, gains on precision at top 1 are substantial (Figure 6.7), and are likely to be apparent to web search users.
+0 50 100 150 200 250 300 350 0.1 0.2 0.3 0.4 0.5 0.6 -0.4 -0.35 -0.3 -0.25 -0.2 -0.15 -0.1 -0.05 0 0.05 0.1 0.15 0.2 Frequency Average Gain Figure 6.8: Gain of BM25F+All over original BM25F ranking To summarize our experimental results, incorporating implicit feedback in real web search setting resulted in significant improvements over the original rankings, using both BM25F and RN baselines.
+The improvements observed over large test sets of queries (1,000 total, between 466 and 495 with implicit feedback available) are both substantial and statistically significant. 
+0.5 0.52 0.54 0.56 0.58 0.6 0.62 0.64 0.66 0.68 1 2 3 4 5 6 7 8 9 10K NDCG BM25 BM25-Rerank-CT BM25-Rerank-All BM25+All Figure 6.1: NDCG at K for BM25F, BM25F-RerankCT, BM25F-Rerank-All, and BM25F+All for varying K 0.35 0.4 0.45 0.5 0.55 0.6 0.65 1 3 5 10 K Precision BM25 BM25-Rerank-CT BM25-Rerank-All BM25+All Figure 6.2: Precision at K for BM25F, BM25F-RerankCT, BM25F-Rerank-All, and BM25F+All for varying K Interestingly, using clickthrough alone, while giving significant benefit over the original BM25F ranking, is not as effective as considering the full set of features in Table 4.1.
+0.5 0.52 0.54 0.56 0.58 0.6 0.62 0.64 0.66 0.68 0.7 1 2 3 4 5 6 7 8 9 10K NDCG RN RN+All BM25 BM25+All Figure 6.4: NDCG at K for BM25F, BM25F+All, RN, and RN+All for varying K Furthermore, enriching the RN features with implicit feedback set exhibits significant gain on all measures, allowing RN+All to outperform all other methods.
+As we will see, learning over a richer behavior feature set, results in substantial accuracy improvement over clickthrough alone.
+The improvement is consistent across the top 10 results and largest for the top result: NDCG at 1 for BM25F+All is 0.622 compared to 0.518 of the original results, and precision at 1 similarly increases from 0.5 to 0.63.
+So far we reported results averaged across all queries in the test set.
+Users often click on results above the relevant one presumably because the short summaries do not provide enough information to make accurate relevance assessments and they have learned that on average  topranked items are relevant.
+0.45 0.5 0.55 0.6 0.65 0.7 1 3 5 10K Precision RN RN+All BM25 BM25+All Figure 6.7: Precision at K NDCG at K for BM25F, BM25F+All, RN, and RN+All on test queries with user interactions We summarize the results on the MAP measure for attempted queries in Table 6.2.
+When implicit feedback is available, the BM25F+All system returns relevant document at top 1 almost 70% of the time, compared 53% of the time when implicit feedback is not considered by the original BM25F system.
+Figure 6.3 shows relative clickthrough frequencies for queries with known relevant items at positions other than the first position; the position of the top relevant result (PTR) ranges from 2-10 in the figure.
+Our rich set of implicit features, such as time on page and deviations from the average behavior, provides advantages over using clickthrough alone as an indicator of interest.
+Figure 6.8 reports the MAP improvements over the baseline BM25F run for each query with MAP under 0.6.
+For example, for queries with first relevant result at position 5 (PTR=5), there are more clicks on the non-relevant results in higher ranked positions than on the first relevant result at position 5.
+We first experimented with different methods of re-ranking the output of the BM25F search results.
+Furthermore, incorporating implicit feedback features directly into the learned ranking function is more effective than using implicit feedback for reranking.
+Based on these results we will use the direct feature combination (i.e., BM25F+All) ranker for subsequent comparisons involving implicit feedback.
+0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 1 2 3 5 Result position Relativeclickfrequency PTR=2 PTR=3 PTR=5 Figure 6.3: Relative clickthrough frequency for queries with varying Position of Top Relevant result (PTR).
+We now consider the performance on the queries for which user interactions were available.
+Method MAP Gain P(1) Gain RN 0.269 0.632 RN+All 0.321 0.051 (19%) 0.693 0.061(10%) BM25F 0.236 0.525 BM25F+All 0.292 0.056 (24%) 0.687 0.162 (31%) Table 6.2: Mean Average Precision (MAP) on attempted queries for best performing methods We now analyze the cases where implicit feedback was shown most helpful.
+While we analyze user behavior (and most effective component features) in a separate paper [1], it is worthwhile to give a concrete example of the kind of noise inherent in real user feedback in web search setting.
+The NDCG at 1 of BM25F+All increases from 0.6 to 0.75 (a 31% relative gain), achieving performance comparable to RN+All operating over a much richer feature set.
+Implicit feedback for web search ranking can be exploited in a number of ways.
+0.4 0.45 0.5 0.55 0.6 0.65 1 3 5 10 K Precision RN RN+All BM25 BM25+All Figure 6.5: Precision at K for BM25F, BM25F+All, RN, and RN+All for varying K We summarize the performance of the different ranking methods in Table 6.1.
+This demonstrates the complementary nature of implicit feedback with other features available to a state of the art web search engine.
+Interestingly, incorporating user behavior information degrades accuracy for queries with high original MAP score.
+If users considered only the relevance of a result to their query, they would click on the topmost relevant results.
+Figures 6.1 and 6.2 report NDCG and Precision for BM25F, as well as for the strategies reranking results with user feedback (Section 3.1).
+We now consider incorporating user behavior into a much richer feature set, RN (Section 5.3) used by a major web search engine.
+We then drill down to examine the effects on reranking for the attempted queries in more detail, analyzing where implicit feedback proved most beneficial.
+MAP improvements are both substantial and significant, with improvements over the BM25F ranker most pronounced.
+Out of the 1000 queries in test, between 46% and 49%, depending on the train-test split, had sufficient interaction information to make predictions (i.e., there was at least 1 search session in which at least 1 result URL was clicked on by the user).
+Note that most of the improvement is for poorly performing queries (i.e., MAP < 0.1).
+In other words, implicit feedback incorporates sufficient information to replace the hundreds of other features available to the RankNet learner trained on the RN feature set.
+Unfortunately, as Joachims and others have shown, presentation also influences which results users click on quite dramatically.
+We report the Mean Average Precision (MAP) score for each system.
+We compare our methods over strong baselines (BM25F and RN) over the NDCG, Precision at K, and MAP measures defined in Section 5.2.
+The gains at top 1 are dramatic.
+The results were averaged over three random splits of the overall dataset.
+While not intuitive to interpret, MAP allows quantitative comparison on a single metric.
+The gains marked with * are significant at p=0.01 level using two tailed t-test.
+This is not surprising: web search is heavy-tailed, and there are many unique queries.
+RN incorporates BM25F, link-based features, and hundreds of other features.
+Unfortunately, less than half had sufficient interactions to attempt reranking.
+Each split contained 1500 training, 500 validation, and 1000 test queries, all query sets disjoint.
+MAP Gain P(1) Gain BM25F 0.184 -  0.503BM25F-Rerank-CT 0.215 0.031* 0.577 0.073* BM25F-RerankImplicit 0.218 0.003 0.605 0.028* BM25F+Implicit 0.222 0.004 0.620 0.015* RN 0.215 -  0.597RN+All 0.248 0.033* 0.629 0.032* Table 6.1: Mean Average Precision (MAP) for all strategies.

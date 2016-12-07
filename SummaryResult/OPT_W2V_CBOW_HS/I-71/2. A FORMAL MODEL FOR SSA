@@ -1,0 +1,136 @@
+Specifically, if E is in a concrete state e, we assume that agents can convey to each other which types are satisfied by their respective perceptions of e and which are not.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) C}i∈{1,2} and Th(Log(C)) contains the constraints among agents" types justified by the fact that agents have observed e. Now, if E turns to another state e and agents proceed as before, another channel C = {fi : Ai → C }i∈{1,2} gives account of the new situation considering also the previous information.
+Th(Log(C )) comprises the constraints among agents" types justified by the fact that agents have observed e and e .
+We state that meaningfulness must be in accord with E. The sum operation (see appendix A) gives us a way of putting the two agents" classifications of channel E together into a single classification, namely A1 +A2, and also the two infomorphisms together into a single infomorphism, f1 +f2 : A1 + A2 → E. A1 + A2 assembles agents" classifications in a very coarse way.
+On the other hand, the set of normal tokens, NLog(E), is equal to the range of function ˇf: NLog(E) = ˇf[tok(E)] = { see1(e), see2(e) | e ∈ tok(E)} Therefore, a normal token is a pair of agents" perceptions that are restricted by coming from the same environment state (unlike A1 + A2 tokens).
+typ(E) typ(A1) ˆf1 99ttttttttt typ(A2) ˆf2 eeJJJJJJJJJ tok(E) |=E        ˇf1yyttttttttt ˇf2 %%JJJJJJJJJ tok(A1) |=A1        tok(A2) |=A2        Figure 1: Channel E E explains the information flow of our scenario by virtue of agents A1 and A2 being situated and perceiving the same environment E. We want to obtain meaningful relations among agents" syntactic entities, that is, agents" types.
+Hence they can compute separately theory Th(C1 ) = typ(C1 ), C1 which contains the constraints among agents" types justified by the fact that agents have observed e1 .
+On the one hand, C∗ is defined by: • tok(C∗ ) = {cn | n ∈ N} • typ(C∗ ) = typ(A1 + A2) • cn |=C∗ i, α if fi(en ) |=Ai α (for n ∈ N and i, α ∈ typ(A1 + A2)) On the other hand, f∗ i , with i ∈ {1, 2}, is defined by: • f∗ i (α) = i, α (for α ∈ typ(Ai)) • f∗ i (cn ) = fi(en ) (for n ∈ N) Theorem below constitutes the cornerstone of the model exposed in this paper.
+The significant point is that C is a refinement of C (see appendix A).
+2.1 The Logic of SSA Consider a scenario with two agents A1 and A2 situated in an environment E (the generalization to any numerable set of agents is straightforward).
+As we stated above, meaningfulness must be in accord with channel E. Classifications A1 + A2 and E are connected via the sum infomorphism, f = f1 + f2, where: • ˆf( i, α ) = ˆfi(α) = {e ∈ tok(E) | seei(e) |=Ai α} for each i, α ∈ typ(A1 + A2) • ˇf(e) = ˇf1(e), ˇf2(e) = see1(e), see2(e) for each e ∈ tok(E) Meaningful constraints among agents" types are in accord with channel E because they are computed making use of f as we expound below.
+Given a channel C and a logic L on its core, DLogC(L) represents the reasoning about relations among the components of C justified by L. If L = Log(C), the distributed logic, we denoted by Log(C), captures in a logical fashion the information flow inherent in the channel.
+typ(A1 + A2) is the disjoint union of typ(A1) and typ(A2), and p1, p2 is of type i, α if pi is of type α.
+Now, with the aim of associating environment E with a classification E we choose the power classification of S as E, which is the classification whose set of types is equal to 2S , whose tokens are the elements of S, and for which a token e is of type ε if e ∈ ε.
+For each i ∈ {1, 2}, we consider a classification Ai that models Ai"s viewpoint of E. First, tok(Ai) is composed of Ai"s perceptions of E states, that is, tok(Ai) = Pi.
+The information flow of the scenario under consideration is accurately described by channel E = {fi : Ai → E}i∈{1,2} defined as follows: • ˆfi(α) = {e ∈ tok(E) | seei(e) |=Ai α} for each α ∈ typ(Ai) • ˇfi(e) = seei(e) for each e ∈ tok(E) where i ∈ {1, 2}.
+In this particular case, this condition is also sufficient (the proof is straightforward); as alternative to (1) we have: Γ Log(E) Δ iff for all e ∈ tok(E), if (∀ i, γ ∈ Γ)[seei(e) |=Ai γ] then (∃ j, δ ∈ Δ)[seej(e) |=Aj δ] (2) where Γ, Δ ⊆ typ(A1 + A2).
+C1 A1 f1 1 ==|||||||| A2 f1 2 aaCCCCCCCC Figure 2: The first communication stage On the one hand, C1 is defined by: • tok(C1 ) = {c1 } • typ(C1 ) = typ(A1 + A2) • c1 |=C1 i, α if fi(e1 ) |=Ai α (for every i, α ∈ typ(A1 + A2)) On the other hand, f1 i , with i ∈ {1, 2}, is defined by: • f1 i (α) = i, α (for every α ∈ typ(Ai)) • f1 i (c1 ) = fi(e1 ) Log(C1 ) represents the reasoning about the first stage of communication.
+Th(Log(E)) comprises the most meaningful constraints among agents" types in accord with channel E. In other words, the logic of SSA contains and also justifies the most meaningful relations among those syntactic entities that agents use in order to describe their own environment perceptions.
+On the one hand, constraints of Th(Log(E)) are defined by: Γ Log(E) Δ if ˆf[Γ] Log(E) ˆf[Δ] (1) where Γ, Δ ⊆ typ(A1 + A2).
+tok(A1 + A2) is the cartesian product of tok(A1) and tok(A2), that is, tok(A1 + A2) = { p1, p2 | pi ∈ Pi}, so a token of A1 + A2 is a pair of agents" perceptions with no restrictions.
+The second equality is straightforward; the first one follows directly from: cn |=C∗ i, α iff ˇfi(en ) |=Ai α (by definition of |=C∗ ) iff en |=E ˆfi(α) (because fi is infomorphim) iff en |=E ˆf( i, α ) (by definition of ˆf) E C∗ gn  A1 fn 1 99OOOOOOOOOOOOO f∗ 1 UUooooooooooooo f1 cc A2 f∗ 2 ggOOOOOOOOOOOOO fn 2 wwooooooooooooo f2 ?????????????????
+Since C is a refinement of C then there exists a refinement infomorphism r from C to C; so fi = r ◦ fi .
+Definition of ˇfi seems natural while ˆfi is defined in such a way that the fundamental property of the infomorphisms is fulfilled: ˇfi(e) |=Ai α iff seei(e) |=Ai α (by definition of ˇfi) iff e ∈ ˆfi(α) (by definition of ˆfi) iff e |=E ˆfi(α) (by definition of |=E) The Sixth Intl.
+In our case, Log(E) explains the relationship between the agents" viewpoints of the environment in a logical fashion.
+If Log(E) is also sound then Log(E) = Log(A1 +A2) (see appendix B).
+Therefore: c |=C ˆf(γ) iff c |=C ˆr( ˆfi (α)) iff ˇr(c) |=C ˆfi (α) iff ˇr(c) |=C ˆf ( i, α ) iff ˇr(c) |=C ˆf (γ) Consequently, ˇr(c) |=C ˆf (γ) for all γ ∈ Γ.
+It is easy to prove that for each n ∈ N, gn defined as the identity function on types and the inclusion function on tokens is a refinement infomorphism from C∗ to Cn .
+We attach importance to take the disjoint union because A1 and A2 could use identical types with the purpose of describing their respective perceptions of E. Classification A1 + A2 seems to be the natural place in which to search for relations among agents" types.
+Now, let us assume that E turns to a new state e2 .
+We take for granted that A1 can communicate A2 those types that are and are not satisfied by f1(e1 ) according to its classification A1.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1281 • typ(C2 ) = typ(A1 + A2) • ck |=C2 i, α if fi(ek ) |=Ai α (for every k ∈ {1, 2} and i, α ∈ typ(A1 + A2)) On the other hand, f2 i , with i ∈ {1, 2}, is defined by: • f2 i (α) = i, α (for every α ∈ typ(Ai)) • f2 i (ck ) = fi(ek ) (for every k ∈ {1, 2}) Log(C2 ) represents the reasoning about the former and the later communication stages.
+It ensures, together with Theorem 2.1, that at each communication stage agents obtain a theory that approximates more closely to the theory generated by the logic of SSA.
+We have that γ = i, α for some α ∈ typ(Ai) and i ∈ {1, 2}.
+That means there is no significant relation between agents" points of view of the environment according to E. It is just the fact that Log(E) is unsound what allows a significant relation between the agents" viewpoints.
+We further assume that each agent is able to observe the environment and has its own perception of it.
+A1"s perception of e1 is f1(e1 ) and A2"s perception of e1 is f2(e1 ).
+Let Γ and Δ be subsets of typ(A) and assume that Γ Log(C ) Δ, which means ˆf [Γ] C ˆf [Δ].
+Cn definition is  similar to the previous ones and analogous remarks can be made (see at the top of Figure 3).
+Let C = {fi : Ai → C}i∈{1,2} and C = {fi : Ai → C }i∈{1,2} be two channels.
+Agents communication starts from the observation of E. Let us suppose that E is in state e1 ∈ S = tok(E).
+, en−1 (n ≥ 2) have been observed and a new state en appears, channel Cn = {fn i : Ai → Cn }i∈{1,2} informs about agents communication up to that moment.
+Th(Log(E)) comprehends the most meaningful constraints among agents" types according to E. The problem is that neither agent can make use of this theory because they do not know E completely.
+This exchange generates a channel C = {fi : Ai → 1280 The Sixth Intl.
+Thus tok(E) = S, typ(E) = 2S and e |=E ε if and only if e ∈ ε.
+It is therefore unpractical to let communication finish when all environment states have been observed by A1 and A2.
+The theory generated by the sum classification, Th(A1 + A2), and hence its logic generated, Log(A1 + A2), involve all those constraints among agents" types valid according to A1 +A2.
+Let a1, a2 ∈ tok(A) and assume a1, a2 ∈ NLog(C).
+Theorem 2.1 and Theorem 2.2 assure that applying the method agents can obtain approximations to Th(Log(E)) gradually more reliable.
+A sequence of equivalences similar to the above one justifies c |=C ˆf(δ∗ ), contradicting that c is a counterexample to ˆf[Γ], ˆf[Δ] .
+Let us assume that typ(Ai) is finite for i ∈ {1, 2} and S is infinite numerable, though the finite case can be treated in a similar form.
+Theory Th(Log(Cn )) = Th(Cn ) = typ(Cn ), Cn contains the constraints among agents" types justified by the fact that agents have observed e1 , e2 , .
+The information flow among the components of a distributed system is modelled in terms of a channel and the relationships among these components are expressed via infomorphisms (see appendix A) which provide a way of moving information between them.
+All constraints of Th(Log(E)) are satisfied by all normal tokens (because of being a logic).
+Types are usually denoted by greek letters and tokens by latin letters so if f is an infomorphism, f(α) ≡ ˆf(α) and f(a) ≡ ˇf(a).
+At that point, the family of channels {Cn }n∈N would inform of all the communication stages.
+From a theoretical point of view, however, we can consider the channel C∗ = {f∗ i : Ai → C∗ }i∈{1,2} which informs of the end of the communication after observing all environment states.
+ C2 f1  C1 Figure 3: Agents communication Remember we have assumed that S is infinite numerable.
+In this section, we present a method by which agents obtain approximations to Th(Log(E)).
+So in order to be within the framework of Channel Theory, we must associate classifications to the components of our system.
+The reason for taking the power classification is because there are no syntactic entities that may play the role of types for E since, in general, there is no global conceptualisation of the environment.
+In the general situation, once the states e1 , e2 , .
+We have to prove Γ Log(C) Δ, or equivalently, ˆf[Γ] C ˆf[Δ].
+Hence a1, a2 = ˇf (ˇr(c)) and a1, a2 ∈ NLog(C ).
+We associate a numerable set S of states to E and, at any given instant, we suppose E to be in one of these states.
+Suppose c ∈ tok(C) does not satisfy the sequent ˆf[Γ], ˆf[Δ] .
+Since both typ(A1) and typ(A2) are finite, this process eventually finishes.
+Finally, |=Ai synthesizes how Ai relates its perceptions with these syntactic entities.
+Agents can obtain approximations to Th(Log(E)) through communication.
+Therefore, there exists c token in C such that a1, a2 = ˇf(c).
+The notion of channel (see appendix A) is fundamental in Barwise and Seligman"s theory.
+This relation is expressed at the type level in terms of constraints by Th(Log(E)) and at the token level by NLog(E).
+According to Channel Theory, information is only viable where there is a systematic way of classifying some range of things as being this way or that, in other words, where there is a classification (see appendix A).
+On the one hand, C2 is defined by: • tok(C2 ) = {c1 , c2 } 1 We write these symbols with superindices because we limit the use of subindices for what concerns to agents.
+The significant point is that both agents know C1 as the result of the communication.
+Then c |=C ˆf(γ) for all γ ∈ Γ and c |=C ˆf(δ) for all δ ∈ Δ.
+Agents can proceed as before, exchanging this time information about their perceptions of e2 .
+Then we have ai = ˇfi(c) = ˇfi ◦ ˇr(c) = ˇfi (ˇr(c)), for i ∈ {1, 2}.
+2.2 Approaching the logic of SSA through communication We have dubbed Log(E) the logic of SSA.
+Let A =def A1 + A2, f =def f1 + f2 and f =def f1 + f2.
+It is easy to check that f1 defined as the identity function on types and the inclusion function on tokens is a refinement infomorphism (see at the bottom of Figure 3).
+Th(Log(C2 )) is equal to Th(C2 ) = typ(C2 ), C2 , then it contains the constraints among agents" types justified by the fact that agents have observed e1 and e2 .
+We also choose an infinite numerable set of symbols {cn | n ∈ N}1 .
+A1 and A2 communicate by exchanging information about their perceptions of environment states.
+In the remainder of the section, we explicitly describe the process of communication and we conclude with the proof of Theorem 2.2.
+This ability is faithfully captured by a surjective function seei : S → Pi, where i ∈ {1, 2}, and typically see1 and see2 are different.
+Consequently, NLog(C ) ⊇ NLog(C) which concludes the proof.
+We define C2 so as to take also into account the information provided by the previous stage of communication.
+After this communication a channel C1 = {f1 i : Ai → C1 }i=1,2 arises (see Figure 2).
+As important as the notion of channel is the concept of distributed logic (see appendix A).
+Second, typ(Ai) contains the syntactic entities by which Ai describes its perceptions, the ones constituting the ontology of Ai.
+It is easy to prove that Th(Log(C1 )) = Th(C1 ).
+Log(E) is the logic of SSA.
+Again this situation can be modeled by a channel, call it C∗ = {f∗ i : Ai → C∗ }i∈{1,2}.
+Now, Channel Theory provides a way to make all these relations explicit in a logical fashion by means of theories and local logics (see appendix A).
+If C is a refinement of C then: 1.
+Thus ˆf(γ) = ˆf( i, α ) = ˆfi(α) = ˆr ◦ ˆfi (α) = ˆr( ˆfi (α)).
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1279 Consequently, E is the core of channel E and a state e ∈ tok(E) connects agents" perceptions ˇf1(e) and ˇf2(e) (see Figure 1).
+Since ˆf [Γ] C ˆf [Δ] then there exists δ∗ ∈ Δ such that ˇr(c) |=C ˆf (δ∗ ).
+The communication supposedly ends when agents have observed all the environment states.
+Cn fn−1  A1 fn−1 1 99PPPPPPPPPPPPP fn 1 UUnnnnnnnnnnnnn f2 1 %%44444444444444444444444444 f1 1 "",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, A2 fn 2 ggPPPPPPPPPPPPP fn−1 2 wwnnnnnnnnnnnnn f2 2 ÕÕ                           f1 2 ØØ Cn−1  .
+The key point is that channel C2 is a refinement of C1 .
+Another channel C2 = {f2 i : Ai → C2 }i∈{1,2} comes up.
+Hence Γ Log(C) Δ as we wanted to prove.
+Theorem 2.1 below ensures that the refined channel involves more reliable information.
+But the study of possible termination criteria is outside the scope of this paper and left for future work.
+Th(Log(C )) ⊆ Th(Log(C)) 2.
+Note this set is chosen with the same cardinality of S. The Sixth Intl.
+Log(E) is complete since Log(E) is complete but it is not necessarily sound because although Log(E) is sound, ˇf is not surjective in general (see appendix B).
+However, the set of types of the power classification includes all possible token configurations potentially described by types.
+Theorem 2.1 asserts that the more refined channel gives more reliable information.
+Theorem 2.2 states that Th(Log(C∗ )) = Th(Log(E)).
+A1 and A2 knows C2 so they can use these constraints.
+The following statements hold: 1.
+It is therefore up to the agents to decide when to stop communicating should a good enough approximation have been reached for the purposes of their respective tasks.
+For all n ∈ N, C∗ is a refinement of Cn .
+So can A2 do.
+Let us choose an arbitrary γ ∈ Γ.
+NLog(C ) ⊇ NLog(C) Proof.
+This information is expressed in terms of their own  classification relations.
+Even though its theory has less constraints, it has more normal tokens to which they apply.
+Cn 1282 The Sixth Intl.
+We omit informorphisms superscripts when no confusion arises.
+By Theorem 2.1, C2 constraints are more reliable than C1 constraints.
+We proceed by reductio ad absurdum.
+We also prove these approximations gradually become more reliable as the method is applied.
+Notice however that these constraints are obvious.
+Joint Conf.
+Joint Conf.
+Joint Conf.
+Joint Conf.
+Th(Log(E)) = Th(C∗ ) = Th(Log(C∗ )).
+Theorem 2.1.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 
+Theorem 2.2.
+Remark 2.1.

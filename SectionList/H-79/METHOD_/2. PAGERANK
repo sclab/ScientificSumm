@@ -1,0 +1,46 @@
+The basic idea behind PageRank is simple: a link from a Web
+page to another can be seen as an endorsement of that page. In
+general, links are made by people. As such, they are indicative of
+the quality of the pages to which they point - when creating a
+page, an author presumably chooses to link to pages deemed to be
+of good quality. We can take advantage of this linkage
+information to order Web pages according to their perceived
+quality.
+Imagine a Web surfer who jumps from Web page to Web page,
+choosing with uniform probability which link to follow at each
+step. In order to reduce the effect of dead-ends or endless cycles
+the surfer will occasionally jump to a random page with some
+small probability α, or when on a page with no out-links. If
+averaged over a sufficient number of steps, the probability the
+surfer is on page j at some point in time is given by the formula:
+∑∈
++
+−
+=
+ji i
+iP
+N
+jP
+B F
+)()1(
+)( α
+α (1)
+Where Fi is the set of pages that page i links to, and Bj is the set of
+pages that link to page j. The PageRank score for node j is defined
+as this probability: PR(j)=P(j). Because equation (1) is recursive,
+it must be iteratively evaluated until P(j) converges (typically, the
+initial distribution for P(j) is uniform). The intuition is, because a
+random surfer would end up at the page more frequently, it is
+likely a better page. An alternative view for equation (1) is that
+each page is assigned a quality, P(j). A page gives an equal
+share of its quality to each page it points to.
+PageRank is computationally expensive. Our collection of 5
+billion pages contains approximately 370 billion links. Computing
+PageRank requires iterating over these billions of links multiple
+times (until convergence). It requires large amounts of memory
+(or very smart caching schemes that slow the computation down
+even further), and if spread across multiple machines, requires
+significant communication between them. Though much work has
+been done on optimizing the PageRank computation (see e.g.,
+[25] and [6]), it remains a relatively slow, computationally
+expensive property to compute.

@@ -1,0 +1,55 @@
+As the service-oriented event correlation has to use  dependencies of a service from subservices and resources, the model is used in the following to derive the needed  information for service events.
+Derived from the MNM Service Model we define the  information necessary for a service event.
+Subservice service event identification: In the service hierarchy (Realization View) the service, for which this service event has been issued, may depend on  subservices.
+The possible issuers refer to the basic roles (customer, provider) in the Service Model.
+Issuer"s identification: This field can either contain an identification of the customer who reported the  problem, an identification of a service provider"s employee 189 (in case the failure has been detected by the provider"s own service active probing) or a link to a parent  service event.
+For the service implementation a service logic uses internal resources (devices, knowledge, staff) and external subservices to provide the service.
+customer domain supplies supplies provider domain «role» provider accesses uses concludes accesses implements observesrealizes provides directs substantiates usesuses manages implementsrealizes manages service concludes QoS parameters usage functionality service access point management functionality service implementation service management implementation service agreement customersideprovidersidesideindependent «role» user «role» customer CSM access point service client CSM client Figure 5: Service View The Service View contains the service for which the  functionality is defined for usage as well as for management.
+The service as a whole is divided into usage which is accessed by the role user and management which is used by the role customer.
+provider domain implements observesrealizes provides directs implementsrealizes accesses uses concludes accesses usesuses manages side independent side independent manages manages concludes acts as service implementation service management implementation manages uses acts as service logic sub-service client service client CSM client uses resources usesuses service  management logic sub-service management client basic  management functionality «role» customer «role» provider «role» user Figure 6: Realization View In the Realization View the service implementation and the service management implementation are described in detail.
+There are two access points (service access point and CSM access point) where user and customer can access the usage and management functionality, respectively.
+Dates: This field contains key dates in the processing of the service event such as initial date, problem  identification date, resolution date.
+Service: As a service event shall represent the problems of a single service, a unique identification of the affected service is contained here.
+Depending on the interactions at the service access point (Service View) a classification of the problem into different categories should be defined.
+This is a  specialization of the provider role in the Service Model.
+Analogous, the service management implementation includes a service management logic using basic management functionalities [8] and external management subservices.
+The customer side contains the  basic roles customer and user, while the provider side contains the role provider.
+The fields date, status, and other service events are not derived directly from the Service Model, but are necessary for the event correlation process. 
+Associated to each service is a list of QoS parameters which have to be met by the service at the service access point.
+The provider makes the service available to the customer side.
+These events can be generated from the  provider"s own service surveillance or from customer reports at the CSM interface.
+To perform a service-oriented event correlation it is necessary to define events which are related to services.
+Resource event and service event inherit from this superclass.
+In this section we use a generic model for IT service  management to derive the information necessary for the event correlation process.
+If there is a suspicion that one of these  subservices causes the problem, child service events are issued from this service event for the subservices.
+This field represents a list of these QoS  parameters and agreed service levels.
+QoS parameters: For each service QoS parameters  (Service View) are defined between the provider and the customer.
+The identification is needed, if there are ambiguities in the service event or the issuer should be informed (e.g., that the service is available again).
+5) shows a common perspective of the service for customer and provider.
+Resource list: This list contains the resources (Realization View) which are needed to provide the service.
+5.2 Information Modeling for Service Events Today"s event correlation deals mainly with events which are originated from resources.
+5.1 MNM Service Model The MNM Service Model [5] is a generic model for IT  service management.
+This list is used by the provider to check if one of these resources causes the problem.
+Other event identifications: In the event correlation process the service event can be correlated with other service events or with resource events.
+The list can help the provider to set the priority of a problem with  respect to the service levels agreed.
+Everything that is only important 188 for the service realization is not contained in this view.
+This field then contains links to other events which have been  correlated to this service event.
+For both there are provider-internal resources and  subservices.
+This is useful to, e.g., send a common message to all affected customers when their subscribed services are available again.
+Assignee: To keep track of the processing the name and address of the provider"s employee who is solving or solved the problem is also noted.
+The  importance is derived from the service agreement, especially the agreed QoS parameters (Service View).
+Event description: This field has to contain a description of the problem.
+Priority: The priority shows which importance the service event has from the provider"s perspective.
+It should also be possible to add an informal  description of the problem.
+The MNM Service Model can be used for a similar  modeling of the used subservices, i.e., the model can be applied recursively.
+The Service View (see Fig.
+Beside a resource identifier these events contain information about the resource status, e.g., SNMP variables.
+In our information  modeling we define an event superclass which contains common attributes (e.g., time stamp).
+Status: This field represents the service event"s actual  status (e.g., active, suspended, solved).
+The QoS surveillance is performed by the management.
+A distinction is made between customer side and provider side.
+They contain information about the problems with the agreed QoS.
+In such a case this field contains links to the  corresponding events.
+For these details another perspective, the Realization View, is defined (see Fig.
+These dates are important to keep track how quick the problems have been solved.
+The model consists of two main views.

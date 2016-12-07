@@ -1,0 +1,30 @@
+We notice that most of the keywords selected by  advertisers are also present in the ads associated with those  keywords.
+Given our triggering page p and a set A of ads, a simple way of ranking ai ∈ A with regard to p is by matching the contents of p to the contents of ai.
+In our second method, we use other source of evidence provided by the advertisers: the keywords.
+The ranking of the query q with regard to the document dj is computed by the cosine similarity 497 formula, that is, the cosine of the angle between the two corresponding vectors: sim(q, dj) = q • dj |q| × |dj| = Pn i=1 wiq · wij qPn i=1 w2 iq qPn i=1 w2 ij (1) By considering p as the query and ai as the document, we can rank the ads with regard to the Web page p. This is our first matching strategy.
+In such schemes, weights are taken as the product between factors that  quantify the importance of a term in a document (given by the term frequency, or tf, factor) and its rarity in the whole  collection (given by the inverse document factor, or idf, factor), see [2] for details.
+This leads to two extra matching strategies as follows: ANDKW(p, ai) =  sim(p, ai) if ki p 0 if otherwise AD ANDKW(p, ai) = AAK(p, ai) =  sim(p, ai ∪ ki) if ki p 0 if otherwise where (ai, ki) ∈ K, ANDKW stands for match the ad keywords and force their appearance, and AD ANDKW (or AAK for ads and keywords) stands for match the ad, its keywords, and force their appearance.
+In here, we use them to match ads to the Web page p. This provides our second method for ad matching given by: KW(p, ai) = sim(p, ki) where (ai, ki) ∈ K and KW stands for match the ad  keywords.
+In the case of keyword targeted advertising, such keywords are used to match the ads to the user queries.
+However, if we assume that ki summarizes the main topic of ai according to an  advertiser viewpoint, it can be interesting to assure its presence in p. This reasoning suggests that requiring the occurrence of the keyword ki in the triggering page p as a condition to associate ai with p might lead to improved results.
+To illustrate, for the first ad by Google shown in Figure 1, the title is Star Wars Trilogy Full, the description is Get this popular DVD free.
+Let wiq be the weight associated with term ti in the query q and wij be the weight associated with term ti in the  document dj.
+Context-based  advertising, which we address here, relies on matching ads and its associated keywords to the text of a Web page.
+For instance, in our advertisement test collection, this is true for 90% of the ads.
+Given a certain Web page p, which we call triggering page, our task is to select advertisements related to the contents of p. Without loss of generality, we consider that an  advertisement ai is composed of a title, a textual description, and a hyperlink.
+With each  advertisement ai an advertiser associates a keyword ki, which may be composed of one or more terms.
+In the vector space model, queries and documents are  represented as weighted vectors in an n-dimensional space.
+It is represented by the function AD given by: AD(p, ai) = sim(p, ai) where AD stands for direct match of the ad, composed by title and description and sim(p, ai) is computed according to Eq.
+Thus, instead of using the keywords as matching devices, we can use them to emphasize the main concepts in an ad, in an attempt to improve our AD strategy.
+Finally, it is important to notice that the keyword ki  associated with ai could not appear at all in the triggering page p, even when ai is highly ranked.
+Then, q = (w1q, w2q, ..., wiq, ..., wnq) and dj = (w1j, w2j, ..., wij, ..., wnj) are the weighted vectors used to represent the query q and the document dj.
+Keyword advertising relies on matching search queries to ads and its associated keywords.
+Thus, it will be used as baseline for our impedance coupling strategies which we now discuss. 
+This leads to our third method of ad matching given by: AD KW(p, ai) = sim(p, ai ∪ ki) where (ai, ki) ∈ K and AD KW stands for match the ad and its keywords.
+We denote the association between an advertisement ai and a keyword ki as the pair (ai, ki) ∈ K, where K is the set of associations made by the advertisers.
+Advertisements can be grouped by advertisers in groups called campaigns, such that a  campaign can have one or more advertisements.
+For this, we use the vector space model [2], as discussed in the immediately following.
+Sign up now, and the hyperlink points to the site www.freegiftworld.com.
+As we will see in our results, the best among these simple methods is AAK.
+These weights can be computed using classic tf-idf schemes.
+Free w/ free shopping.

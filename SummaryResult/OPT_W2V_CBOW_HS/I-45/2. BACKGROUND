@@ -1,0 +1,51 @@
+An interaction is defined by specifying the entities involved, the possible contents of the interaction state (both fluents and  commitments), and (most importantly) the actions that each entity can  perform along with the preconditions and effects of each action,  specified as add and delete lists.
+We define a basic configuration S = Q, N, B, P where Q is a (global) message queue (modelled as a sequence5 where messages are added at one end and removed from the other end), N is the name of the agent, B is the beliefs of the agent and P is the plan body being executed (i.e.
+dMARS, JAM, PRS, UM-PRS, JACK, AgentSpeak(L), Jason, 3APL, CAN, Jadex) define agent behaviour in terms of event-triggered plans, where each plan specifies what it is triggered by, under what  situations it can be considered to be applicable (defined using a so-called context condition), and a plan body: a sequence of steps that can include posting events which in turn triggers further plans.
+A conditional social commitment is an undertaking by debtor A to creditor B that should condition q become true, A will then  commit to bringing about condition p. This is denoted by CC(A, B, q, p), and, where the identity of the entities involved is unimportant (or obvious), is abbreviated to CC(q p) where the arrow is a  reminder of the causal link between q becoming true and the creation of a commitment to make p true.
+One way of visualising the interactions that are  possible with a given commitment machine is to generate the finite state machine corresponding to the CM.
+An agent program (denoted by Π) consists of a collection of plan clauses of the form e : C ← P where e is an event, C is a context condition (a logical formula over the agent"s beliefs), and P is the plan body.
+A final state is one that has no base-level commitments.
+In brief, these semantics deal with a number of more complex cases, such as where commitments are created when conditions already hold: if p holds when CC(p q) is meant to be created, then C(q) is created instead of CC(p q).
+The commitment accept is the customer"s promise to pay once goods have been sent, promiseGoods is the merchant"s promise to send the goods once the customer accepts, and promiseReceipt is the merchant"s promise to send a receipt once payment has been made.
+For example, figure 1 gives the FSM2 corresponding to the NetBill [18] commitment machine: a simple CM where a customer (C) and merchant (M) attempt to trade using the following actions3 : 1 Unlike standard interaction protocols, or finite state machines, there is no designated initial state for the interaction.
+3 We use the notation A(X) : P ⇒ E to indicate that action A is performed by entity X, has precondition P (with : P omitted if empty) and effect E. • sendRequest(C) ⇒ request • sendQuote(M) ⇒ offer where offer ≡ promiseGoods ∧ promiseReceipt and promiseGoods ≡ CC(M, C, accept, goods) and promiseReceipt ≡ CC(M, C, pay, receipt) • sendAccept(C) ⇒ accept where accept ≡ CC(C, M, goods, pay) • sendGoods(M) ⇒ promiseReceipt ∧ goods where promiseReceipt ≡ CC(M, C, pay, receipt) • sendEPO(C) : goods ⇒ pay • sendReceipt(M) : pay ⇒ receipt.
+The  semantics is in the style of Plotkin"s Structural Operational Semantics, and assumes that operations exist that check whether a condition 4 We use ↓N m as short hand for the event corresponding to  receiving message m from agent N. 874 The Sixth Intl.
+This is resolved by using selection functions: SO selects one of the applicable plan instances to handle a given event, SI selects which of the plan  instances that can be executed should be executed next, and SA  selects which agent should execute (a step) next. 
+This is sometimes abbreviated to C(p), where it is not important to specify the identities of the entities in question.
+The transition relation is defined using rules of the form S −→ S or of the form S −→ Sr S −→ Sr ; the latter are  conditional with the top (numerator) being the premise and the bottom (denominator) being the conclusion.
+The semantics of commitments (both base-level and conditional) is defined with rules that specify how commitments change over time.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) Figure 1: Finite State Machine for NetBill (shaded = final states) follows from a belief set, that add a belief to a belief set, and that delete a belief from a belief set.
+Given a collection of plans and an event e that has been posted the agent first collects all plans types that are triggered by that event (the  relevant plans), then evaluates the context conditions of these plans to obtain a set of applicable plan instances.
+One of these is chosen and is executed.
+For example, the commitment C(p) (or CC(q p)) is  discharged when p becomes true; and the commitment CC(q p) is replaced by C(p) when q becomes true.
+This interact state consists of fluents (predicates that change value over time), but also social commitments, both base-level and conditional.
+In the case of beliefs being a set of ground atoms these operations are respectively consequence  checking (B |= C), and set addition (B ∪ {b}) and deletion (B \ {b}).
+agents, services,  processes) in terms of actions that change the interaction state.
+We also define an agent configuration, where instead of a single plan body P there is a set of plan instances, Γ.
+We have the empty step which always succeeds and does nothing, operations to add (+b) and delete (−b) beliefs, sending a message m to agent N (↑N m), and posting an event4 (e).
+the choice of plan to execute from a set of applicable plans.
+A commitment machine (CM) defines a range of possible  interactions that each start in some state1 , and perform actions until reaching a final state.
+Finally, a complete MAS is a pair Q, As of a global message queue Q and a set of agent configurations (without the queue, Q).
+Thus, it is intentionally incomplete in some areas, for instance it doesn"t commit to a particular mechanism for dealing with plan failure, since different mechanisms are used by different AOPLs.
+We annotate the arrow with an indication of whether the configuration in question is basic, an agent configuration, or a MAS configuration.
+A base-level social commitment is an undertaking by debtor A to creditor B to bring about condition p, denoted C(A, B, p).
+The plan body is built up from the following constructs.
+As seen in figure 1, commitment machines can support a range of interaction sequences.
+This  semantics is based on the semantics for AgentSpeak given by [12], which in turn is based on the semantics for CAN [16].
+C ::= b | C ∧ C | C ∨ C | ¬C | ∃x.C P ::= | +b | −b | e | ↑N m | P; P Formal semantics for this language is given in figure 2.
+2.1 Commitment Machines The aim of the commitment machine framework is to allow for the definition of interactions that are more flexible than traditional message-centric approaches.
+A Commitment Machine (CM) [19] specifies an interaction between entities (e.g.
+2.2 An Abstract Agent ProgrammingLanguage Agent programming languages in the BDI tradition (e.g.
+For example, a  commitment by customer C to merchant M to make the fluent paid true would be written as C(C, M, paid).
+We now briefly define the formal syntax and semantics of a  Simple Abstract (BDI) Agent Programming Language (SAAPL).
+For example, a commitment to make the fluent paid true once goods have been received would be written CC(goods paid).
+The global message queue is a sequence of triplets of the form sender:recipient:message.
+This language is intended to be an abstraction that is in the common subset of such languages as Jason [1, Chapter 1], 3APL [1,  Chapter 2], and CAN [16].
+Note that there is non-determinism in SAAPL, e.g.
+2 The finite state machine is software-generated: the nodes and  connections were computed by an implementation of the axioms  (available from http://www.winikoff.net/CM) and were then laid out by graphviz (http://www.graphviz.org/).
+A transition S0 −→ S1 specifies that executing S0 a single step yields S1.
+More sophisticated belief management methods may be used, but are not considered here.
+These can be sequenced (P; P).
+In this paper we use the more symmetric semantics proposed by [15] and subsequently  reformalised by [14].
+the intention).
+Joint Conf.

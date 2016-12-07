@@ -1,0 +1,14 @@
+therefore our system provides only weak consistency guarantees - specifically eventual  consistency as defined in [38]. 
+finally, note that for a large-scale system, it is difficult or  impossible to insist that the aggregation value returned by a probe corresponds to the function computed over the current values at the leaves at the instant of the probe.
+instead, if an attribute stores values as tuples (sum,count), the attribute satisfies the  hierarchical computation property while still allowing the applications to compute the average from the aggregate sum and count values.
+although sdims allows arbitrary aggregation functions, it is  often desirable that these functions satisfy the hierarchical  computation property [21]: f(v1,...,vn)= f(f(v1,...,vs1 ), f(vs1+1,...,vs2 ), ..., f(vsk+1,...,vn)), where vi is the value of an attribute at node i. for example, the average operation, defined as avg(v1,...,vn) = 1/n.∑n i=0 vi, does not satisfy the property.
+then the aggregate value for a level-i subtree ti is the aggregation  function for the type, ftype computed across the aggregate values of each of ti"s k children: vi,type,name = ftype(v0 i−1,type,name,v1 i−1,type,name,...,vk−1 i−1,type,name).
+for a (physical) leaf node t0 at level 0, v0,type,name is the locally stored value for the  attribute type and name or null if no matching tuple exists.
+the system associates an aggregation function ftype with each attribute type, and for each level-i subtree ti in the  system, the system defines an aggregate value vi,type,name for each  (at380 tributetype, attributename) pair as follows.
+each physical node has local data stored as a set of (attributetype, attributename, value) tuples such as (configuration, numcpus, 16), (mcast membership, session foo, yes), or (file stored, foo,  myipaddress).
+an internal non-leaf node, which we call virtual node, is simulated by one or more physical nodes at the leaves of the subtree for which the virtual node is the root.
+we describe how to form such trees in a later section.
+note that logical groups can correspond to administrative domains (e.g., department or university) or groups of nodes within a domain (e.g., 10  workstations on a lan in cs department).
+each physical node in the system is a leaf and each subtree represents a logical group of nodes.
+our aggregation abstraction is defined across a tree spanning all nodes in the system.
+aggregation is a natural abstraction for a large-scale distributed information system because aggregation provides scalability by  allowing a node to view detailed information about the state near it and progressively coarser-grained summaries about progressively larger subsets of a system"s data [38].

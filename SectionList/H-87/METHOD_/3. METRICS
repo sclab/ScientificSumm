@@ -1,0 +1,248 @@
+To make our results comparable to the literature, we decided to
+use both TREC-conventional and TDT-conventional metrics in
+our evaluation.
+3.1 TREC11 metrics
+Let A, B, C and D be, respectively, the numbers of true
+positives, false alarms, misses and true negatives for a specific
+topic, and DCBAN +++= be the total number of test
+documents. The TREC-conventional metrics are defined as:
+Precision )/( BAA += , Recall )/( CAA +=
+)(2
+)21(
+CABA
+A
+F
++++
++
+=
+β
+β
+β
+( )
+η
+ηηβ
+ηβ
+−
+−+−
+=
+1
+),/()(max
+11 ,
+CABA
+SUT
+where parameters β and η were set to 0.5 and -0.5 respectively
+in TREC10 (2001) and TREC11 (2002). For evaluating the
+performance of a system, the performance scores are computed
+for individual topics first and then averaged over topics 
+(macroaveraging).
+3.2 TDT metrics
+The TDT-conventional metric for topic tracking is defined as:
+famisstrk PTPwPTPwTC ))(1()()( 21 −+=
+where P(T) is the percentage of documents on topic T, missP is
+the miss rate by the system on that topic, faP is the false alarm
+rate, and 1w and 2w are the costs (pre-specified constants) for a
+miss and a false alarm, respectively. The TDT benchmark
+evaluations (since 1997) have used the settings
+of 11 =w , 1.02 =w and 02.0)( =TP for all topics. For evaluating
+the performance of a system, Ctrk is computed for each topic
+first and then the resulting scores are averaged for a single
+measure (the topic-weighted Ctrk).
+To make the intuition behind this measure transparent, we
+substitute the terms in the definition of Ctrk as follows:
+N
+CA
+TP
++
+=)( ,
+N
+DB
+TP
++
+=− )(1 ,
+CA
+C
+Pmiss
++
+= ,
+DB
+B
+Pfa
++
+= ,
+)(
+1
+)(
+21
+21
+BwCw
+N
+DB
+B
+N
+DB
+w
+CA
+C
+N
+CA
+wTCtrk
++⋅=
++
+⋅
++
+⋅+
++
+⋅
++
+⋅=
+Clearly, trkC is the average cost per error on topic T, with 1w
+and 2w controlling the penalty ratio for misses vs. false alarms.
+In addition to trkC , TDT2004 also employed 1.011 =βSUT as a
+utility metric. To distinguish this from the 5.011 =βSUT in
+TREC11, we call former TDT5SU in the rest of this paper.
+Corpus #Topics N(tr) N(ts) Avg
+n+ (tr)
+Avg
+n+ (ts)
+Max
+n+ (ts)
+Min
+n+ (ts)
+#Topics per
+doc (ts)
+TREC10 84 20,307 783,484 2 9795.3 39,448 38 1.57
+TREC11 50 80.664 726,419 3 378.0 597 198 1.12
+TDT3 53 18,738* 37,770* 4 79.3 520 1 1.06
+TDT5 111 199,419* 207,991* 1 71.3 710 1 1.01
+3.3 The correlations and the differences
+From an optimization point of view, TDT5SU and T11SU are
+both utility functions while Ctrk is a cost function. Our objective
+is to maximize the former or to minimize the latter on test
+documents. The differences and correlations among these
+objective functions can be analyzed through the shared counts
+of A, B, C and D in their definitions. For example, both
+TDT5SU and T11SU are positively correlated to the values of A
+and D, and negatively correlated to the values of B and C; the
+only difference between them is in their penalty ratios for
+misses vs. false alarms, i.e., 10:1 in TDT5SU and 2:1 in T11SU.
+The Ctrk function, on the other hand, is positively correlated to
+the values of C and B, and negatively correlated to the values of
+A and D; hence, it is negatively correlated to T11SU and
+TDT5SU.
+More importantly, there is a subtle and major difference
+between Ctrk and the utility functions: T11SU and TDT5SU.
+That is, Ctrk has a very different penalty ratio for misses vs.
+false alarms: it favors recall-oriented systems to an extreme. At
+first glance, one would think that the penalty ratio in Ctrk is
+10:1 since 11 =w and 1.02 =w . However, this is not true if
+02.0)( =TP is an inaccurate estimate of the on-topic documents
+on average for the test corpus. Using TDT3 as an example, the
+true percentage is:
+002.0
+37770
+3.79
+)( ≈=
++
+=
+N
+n
+TP
+where N is the average size of the test sets in TDT3, and n+ is
+the average number of positive examples per topic in the test
+sets. Using 02.0)(ˆ =TP as an (inaccurate) estimate of 0.002
+enlarges the intended penalty ratio of 10:1 to 100:1, roughly
+speaking. To wit:
+)1.010(
+1
+1.010
+)3.7937770(37770
+3.79
+1011.0101
+1011.0101
+))(1(2)(1
+)02.01(202.01)(
+BC
+NN
+B
+N
+C
+B
+N
+C
+DB
+B
+N
+CA
+N
+C
+faPTPwmissPTPw
+faPwmissPwTtrkC
+×+×=×+×≈
+−
+×−×+××=
++
++
+×−×+××=
+×−⋅+××=
+−×+××=
+⎟
+⎠
+⎞
+⎜
+⎝
+⎛
+⎟
+⎠
+⎞
+⎜
+⎝
+⎛
+ρρ
+where 10
+002.0
+02.0
+)(
+)(ˆ
+===
+TP
+TP
+ρ is the factor of enlargement in the
+estimation of P(T) compared to the truth. Comparing the above
+result to formula 2, we can see the actual penalty ratio for
+misses vs. false alarms was 100:1 in the evaluations on TDT3
+using Ctrk. Similarly, we can compute the enlargement factor
+for TDT5 using the statistics in Table 1 as follows:
+3.58
+991,207/3.71
+02.0
+)(
+)(ˆ
+===
+TP
+TP
+ρ
+which means the actual penalty ratio for misses vs. false alarms
+in the evaluation on TDT5 using Ctrk was approximately 583:1.
+The implications of the above analysis are rather significant:
+• Ctrk defined in the same formula does not necessarily
+mean the same objective function in evaluation; instead,
+the optimization criterion depends on the test corpus.
+• Systems optimized for Ctrk would not optimize TDT5SU
+(and T11SU) because the former favors high-recall
+oriented to an extreme while the latter does not.
+• Parameters tuned on one corpus (e.g., TDT3) might not
+work for an evaluation on another corpus (say, TDT5)
+unless we account for the previously-unknown subtle
+dependency of Ctrk on data.
+• Results in Ctrk in the past years of TDT evaluations may
+not be directly comparable to each other because the
+evaluation collections changed most years and hence the
+penalty ratio in Ctrk varied.
+Although these problems with Ctrk were not originally
+anticipated, it offered an opportunity to examine the ability of
+systems in trading off precision for extreme recall. This was a
+challenging part of the TDT2004 evaluation for AF.
+Comparing the metrics in TDT and TREC from a utility or cost
+optimization point of view is important for understanding the
+evaluation results of adaptive filtering methods. This is the first
+time this issue is explicitly analyzed, to our knowledge.

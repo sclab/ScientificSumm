@@ -1,0 +1,31 @@
+in the  following section, we extend the basic cot algorithm to provide simple and efficient solutions to cp2, ip2 and ip3 at the control algorithm level.
+clearly, solving cp2, ip2 and ip3 at the control algorithm level has the benefit of simplifying the design of  transformation functions and the ot system as a whole.
+it functions capable of preserving ip2 and ip3 had been devised in the context of anyundo [21], but our experience in implementing these functions revealed that those solutions are quick intricate and inefficient (more analysis can be found in section 7).
+counterexamples illustrating the violation of these properties in some early published transformation functions can be found in [23, 21, 8, 11].
+past research has shown that it is relatively easy to  design transformation functions capable of preserving cp1, but non-trivial to design and formally prove transformation functions capable of preserving cp2, ip2 and ip3.
+284 there are generally two ways to achieve ot correctness with respect to these transformation properties: one is to design transformation functions capable of preserving these properties; the other is to design control algorithms capable of breaking the pre-conditions for requiring these properties.
+4 there is another inverse property 1 (ip1) that is required in an ot system for achieving the correct undo effect [21], but ip1 is not related to it functions.
+3 convergence property 1 & 2 in this paper (and in [21]) are the same as transformation property 1 & 2 in [19].
+4. pc-ip3: ip3 is required only if the ot system allows an inverse operation oa to be transformed against  another operation ob that is context-independent of oa.
+3. pc-ip2: ip2 is required only if the ot system allows an operation ox to be transformed against a pair of do and undo operations (o and o) one-by-one.
+2. pc-cp2: cp2 is required only if the ot system  allows an operation to be transformed against the same group of context-independent operations in different orders.
+to explore alternative solutions to these properties, we explicitly state the pre-conditions (pc) for cp1, cp2, ip2, and ip3 as follows: 1. pc-cp1: cp1 is required only if the ot system  allows the same group of context-independent operations to be executed in different orders.
+the pre-conditions for requiring them, however, were never explicitly stated in their specifications, which has unfortunately caused quite some misconceptions in ot  literature.
+the above transformation properties are important  discoveries of past research, but they are not unconditionally required.
+given two operations oa and ob, if oa := it(oa, ob), ob := it(ob, oa), and oa := it(oa, ob), then it must be: oa = oa, which means the transformed inverse operation oa is equal to the inverse of the transformed operation oa.
+4. inverse property 3 (ip3).
+given any operation ox and a pair of operations [o, o], it must be: it(it(ox, o), o) = it(ox, i) = ox, which means that [o, o] and i are equivalent with  respect to the effect in transformation.
+3. inverse property 2 (ip2)4 .
+given three  operations o, oa and ob, if oa = it(oa, ob) and ob = it(ob, oa), then it must be: it(it(o, oa), ob) = it(it(o, ob), oa), which means that [oa, ob] and [ob, oa] are equivalent with respect to the effect in transformation.
+2. convergence property 2 (cp2).
+[ob, oa], which means that [oa, ob] and [ob, oa] are equivalent with respect to the effect on the document state ds.
+[oa, ob] = ds ?
+given a  document state ds, and operations oa, ob, if oa = it(oa, ob), and ob = it(ob, oa), then it must be: ds ?
+1. convergence property 1 (cp1)3 .
+the makeinverse(o) procedure directly  follows these definitions.
+similar to goto-anyundo, the basic cot algorithm assumes that underlying transformation functions are  capable of preserving the following properties [4, 15, 19, 23, 21]: 2 the reader is referred to [25] for precise definitions of three primitive operations insert, delete and update and their  corresponding inverses.
+unlike goto-anyundo, the basic cot algorithm does not use et (exclusion transformation) functions [21], thus avoiding the requirement of the reversibility property (rp) between it and et functions [21].
+different ot  systems may have different control algorithms, different  transformation functions, and different divisions of  responsibilities among these components.
+past research has identified a range of  transformation properties/conditions that must be maintained for ensuring the correctness of an ot system.
+another important component of an ot system is the low-level transformation functions  responsible for transforming operations according to their types and parameters.
+cot is a high-level control algorithm responsible for  determining which operation should be transformed against other operations and in which order according to  contextbased conditions.

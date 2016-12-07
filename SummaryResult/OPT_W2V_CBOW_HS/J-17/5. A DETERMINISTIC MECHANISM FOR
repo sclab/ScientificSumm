@@ -1,0 +1,207 @@
+So suppose OPT(p) ≥ H. By Claim 5.5, we know that T∗ (p) ≤ OPT(p) + L. If there are no unassigned jobs after step 2 of the algorithm, then the makespan is at most T∗ (p) and we are done.
+As shown by (11), this will indeed result in a non-negative utility for i (since n(H,p−i),T L i (p−i) ≤ n(pi,p−i),T L i (p−i) for any type pi of player i).
+If pij = L, then we must have ni p,T ∗(p) = T∗ (p), otherwise we could have assigned j to i in step 2 to obtain a flow of larger value.
+If T is a threshold such that np,T > np ,T , then every maximum flow x for (p , T) must assign all jobs j such that pij = L. Proof.
+If OPT(p) < H, it must be that the optimal schedule assigns all jobs to low machines, so np,OPT(p) = n. Thus, we have T∗ (p) = L · H L .
+We remark that for the {Lj, Hj}-case where there is a common ratio r = Hj Lj for all jobs (this generalizes the restricted-machines setting) one can obtain a fractional  truthful mechanism (with efficiently computable prices) that  returns a schedule of makespan at most OPT(p) for every p. One can view each job j as consisting of Lj sub-jobs of size 1 on a machine i if pij = Lj, and size r if pij = Hj.
+Now consider the point in the execution of the algorithm on instance p2 just before the last high job is assigned to i in Step 3 (there must be such a job since n2,1 L > 0).
+Proposition 5.1 Cycle monotonicity in the two-values  scheduling domain is equivalent to the condition that, for every player i, every p−i, every integer K, and every p1 i , .
+We will assume that L, H are integers, which is without loss of generality.
+The size of the max-flow for (p1 , TL ) is no smaller, and the claim follows.
+The payment Pi to player i is defined as: Pi(p) = −L · n−i p,T ∗(p) − H · H−i (p) − (H − L) ` np,T ∗(p) − np,T L i (p−i) ´ (10) We can interpret our payments as equating the player"s cost to a careful modification of the total load (in the spirit of VCG prices).
+Clearly any integer flow in this network corresponds to a valid integer partial assignment x of makespan at most T, where xij = 1 iff there is a flow of 1 on the edge from j to i.
+In the sequel, we will often say that j is assigned to a  lowmachine to denote that j is assigned to a machine i where pij = L. We will call a job j a low job of machine i if pij = L; the low-load of i is the load on i due to its low jobs, i.e., P j:pij =L xijpij.
+Notice that this immediately implies cycle  monotonicity, since if we take p1 = pk and p2 = pk+1 , then (7) implies that npk,T L ≥ npk+1,T L − nk+1,k H + nk+1,k L ; summing this over all k = 1, .
+Since x is prefix-maximal, we know that this constitutes a max-flow for (p, TL ).
+So at the point just before j is assigned in step 3, the load of each machine must be at least T∗ (p).
+Also, for any assignment of jobs to machines in step 3, the total load is at most np,T ∗(p) · L + (n − np,T ∗(p)) · H since there are np,T ∗(p) jobs assigned to low machines.
+Take the prefix-maximal flow x2 for (p2 , T2 ), truncate it at TL , and remove all the jobs from this assignment that are counted in n2,1 H , that is, all jobs j such that x2 ij = 1, p2 ij = L, p1 ij = H. Denote this flow by x.
+Observe that node i must be included in P, otherwise P would also be an augmenting path in the residual graph Gp contradicting the fact that x is a  maxflow.
+A core component of our algorithm will be a procedure that takes an integer load threshold T and computes an integer partial assignment x of jobs to machines such that (a) a job is only assigned to a low machine; (b) the load on any machine is at most T; and (c) the number of jobs assigned is maximized.
+Thus, the size of this max-flow is at least (size of x) + n2,1 L , that is, np1,T L ≥ np2,T L − n2,1 H + n2,1 L , as claimed.
+Using these properties, we will prove the following key inequality: for any p1 = (p−i, p1 i ) and p2 = (p−i, p2 i ), np1,T L ≥ np2,T L − n2,1 H + n2,1 L (7) where n2,1 H and n2,1 L are as defined in (4) and (5),  respectively.
+Note that np,T ·L+(n−np,T )·H −m·T is a decreasing function of T, so T∗ (p) can be computed in polynomial time via binary search.
+This modification also ensures the additionally desired normalization property that if a player receives no jobs then she receives zero payment: if player i receives the empty set for some type pi then she will also receive the empty set for the type H (this is easy to verify for our  specific algorithm), and for the type H, her utility equals zero; thus, by truthfulness this must also be the utility of every other declaration that results in i receiving the empty set.
+5.2.2 Proof of cycle monotonicity Lemma 5.8 Consider any two instances p = (pi, p−i) and p = (pi, p−i) where pi ≥ pi, i.e., pij ≥ pij ∀j.
+All the edges of P are also present as edges in Gp - all reverse edges (i , j +1) are present since such an edge implies that xi j +1 = 1; all forward edges (j , i ) are present since i = i so pi j = pi j = L, and xi j +1 = 0.
+But the total load is also at most np,T ∗(p) · L + (n − np,T ∗(p)) · H ≤ m · T∗ (p), yielding a contradiction.
+Machine II lowers jobs 6, 7 to L and increases 1-5 to H. An optimal schedule has makespan 2L + H, where machine II gets jobs 6, 7 and one of the jobs 1-5.
+The true load of i when she declares her true type p1 i is L · ni p1,T ∗(p1) + H · Hi (p1 ), and therefore c1 i = L · np1,T ∗(p1) + H · (n − np1,T ∗(p1)) + (H − L) ` np1,T ∗(p1) − np1,T L i ´ = n · H − (H − L)np1,T L i (11) On the other hand, i"s true load when she declares p2 i is L · (ni p2,T ∗(p2) − n2,1 H + n2,1 L ) + H · (Hi + n2,1 H − n2,1 L ) (since i"s true processing time vector is p1 i ), and thus c2 i = n · H − (H − L)np2,T L i + (H − L)n2,1 H − (H − L)n2,1 L .
+But if r > OPT(p) (as in the restricted-machines setting), this condition does hold, so we get a 2-approximation truthful mechanism.
+Such an assignment can be computed by solving a max-flow problem: we construct a directed bipartite graph with a node for every job j and every machine i, and an edge (j, i) of infinite capacity if pij = L. We also add a source node s with edges (s, j) having capacity 1, and sink node t with edges (i, t) having capacity T/L .
+Therefore, we must have m · T < np,T ∗(p) · L + (n − np,T ∗(p)) · H. But we will argue that m · T ≥ np,T ∗(p) ·L+(n−np,T ∗(p))·H, which yields a contradiction.
+Let c1 i , c2 i denote i"s total cost, defined as the negative of her utility, when she declares p1 , and p2 ,  respectively (and the others declare p−i).
+We first compute a max-flow for threshold 1, use simple augmenting paths to augment it to a max-flow for threshold 2, and repeat, each time augmenting the max-flow for the previous threshold t to a max-flow for threshold t + 1 using simple augmenting paths.
+But the left-hand-side is exactly M · L + (n − M) · H. On the other hand, since T1 = TL , we have m · ˆT ≥ m · TL ≥ np1,T L · L + (n − np1,T L ) · H. (9) Combining (8) and (9), we get that np1,T L > M = np2,T 2 − n2,1 H + n2,1 L ≥ np2,T L − n2,1 H + n2,1 L .
+For convenience, we will first specify negative payments (i.e., the Pis will actually be prices charged to the players) and then show that these can be modified so that players have non-negative utilities (if they act truthfully).
+Thus, any truthful mechanism must return a sub-optimal makespan in at least one scenario, and therefore its approximation ratio is at least min ˘Second1 OPT1 , Second2 OPT2 ¯ ≥ 1.14 for α = 2.364.
+Taking p1 II , p2 II to be machine II"s  processingtime vectors for scenarios 1, 2 respectively, we get P j(p1 II ,j − p2 II ,j)(x2 II ,j −x1 II ,j) = (L−H)(1−0) < 0.
+Fix some max-flow.
+Let S = {j : x2 ij = 1 and p2 ij = L} and S = {j : x2 ij = 1 and p1 ij = L}.
+Define nk, H = ˛ ˛{j : xk ij = 1, pk ij = L, pij = H} ˛ ˛ (4) nk, L = ˛ ˛{j : xk ij = 1, pk ij = H, pij = L} ˛ ˛.
+So if we augment x to a max-flow for (p1 , TL ), then by Lemma 5.8 (with p = pL and p = p1 ), all the jobs corresponding to n2,1 L must be assigned in this max-flow.
+Let ni p,T be the amount of flow on edge (i, t) (or equivalently the number of jobs assigned to i in the corresponding schedule), and let np,T be the total size of the max-flow, i.e., np,T = P i ni p,T .
+If T = OPT(p), then letting nOPT(p) denote the number of jobs assigned to low machines in an optimum schedule, we have np,T ∗(p) ≥ nOPT(p).
+We define a prefix-maximal flow or assignment for T as follows.
+So the total load after j is assigned, is at least H + m · li > m · T (since pij = H by Claim 5.6).
+Also none of the jobs that are counted in n2,1 L are assigned by x since each such job j is high on i in p2 .
+Note that T∗ (p) ≥ TL for every instance p = (pi, p−i).
+THE TWO-VALUES CASE We now present a deterministic 2-approximation truthful mechanism for the case where pij ∈ {L, H} for all i, j.
+Compute a prefix-maximal flow for threshold T∗ (p) and the corresponding partial assignment (i.e., j is  assigned to i iff there is 1 unit of flow on edge (j, i)).
+Suppose by contradiction that there exists a job j∗ with pij∗ = L that is unassigned by x .
+Let j be the last job assigned to i in step 3, and consider the point just before it is assigned to i.
+The term np,T ∗(p) − np,T L i (p−i) is in fact equal to n−i p,T ∗(p) − n−i p,T ∗(p)|T L i (p−i) since the low-load on i is at most TL i (p−i) (by Claim 5.9).
+Adding these inequalities for all i = i, and the earlier inequality for i, we get that |S | · L + (N − |S |) · H + P i =i P j p2 i jx2 i j > m ˆT.
+An elementary fact about flows is that if an  assignment/flow x is not a maximum flow for (p, T) then there must be an augmenting path P = (s, j1, i1, .
+The interpretation is that in the current assignment, j1 is unassigned, xi j = 0, which is denoted by the  forward edges (j , i ), and xi j +1 = 1, which is denoted by the reverse edges (i , j +1).
+A simple augmenting path does not decrease the load of any machine; thus, one can argue that a prefix-maximal flow for a threshold T always exists.
+Taking p1 = pk and p2 = pk+1 in (7), we get that npk,T L ≥ npk+1,T L −nk+1,k H +nk+1,k L .
+Every job has the same processing time on both machines: jobs 1-5, are L, and jobs 6, 7 are H. Any optimal schedule assigns jobs 1-5 to one machine and jobs 6, 7 to the other, and has makespan OPT1 = 5L.
+We first obtain a simplification of condition (3) for our two-values {L, H} scheduling domain (Proposition 5.1) that will be convenient to work with.
+Compute T∗ (p) = min ˘ T ≥ H, T multiple of L : np,T · L + (n − np,T ) · H ≤ m · T ¯ .
+Then, under the payments defined in (10), i"s utility when she declares her true type p1 i is at least her utility when she declares any other type p2 i .
+But notice that the max-flow remains the same for any T ≥ T = n · L. So a prefix-maximal flow for T is also prefix-maximal for any T ≥ T .
+By the greedy property, every i = i also has at least this load at this point, so P j p2 i jx2 i j ≥ ˆT.
+In our case, for example, letting H denote the vector of all H"s, we can add the term n·H −(H −L)n(H,p−i),T L i (p−i) to (10).
+This is a valid flow for (p1 , TL ) since the load on i is T ≤ TL .
+Price specifications are commonly required to satisfy, in addition to truthfulness, individual rationality, i.e., a player"s utility should be non-negative if she reveals her true value.
+Theorem 5.3 One can efficiently compute payments that when combined with Algorithm 2 yield a deterministic  2approximation truthful mechanism for the two-values  scheduling domain.
+So in this case the makespan is at most (and hence exactly) OPT(p).
+Let Hi denote the number of jobs assigned to machine i in step 3.
+The assignment x need not however satisfy the condition that xij > 0  implies pij ≤ OPT(p) for arbitrary r, therefore, the rounding procedure of Lemma 4.2 does not yield a 2-approximation truthful-in-expectation mechanism.
+, jK , iK , t) in Gp which contradicts the maximality of x .
+So there exists an augmenting path P in the residual graph for (p, T) and flow x .
+Thus, the new payments are Pi (p) = n · H − L · n−i p,T ∗(p) − H · H−i (p) − (H −L) ` np,T ∗(p) −np,T L i (p−i) +n(H,p−i),T L i (p−i) ´ .
+Lemma 5.7 The above algorithm returns a schedule with makespan at most OPT(p)+max ˘ L, H(1− 1 m ) ¯ ≤ 2·OPT(p).
+Let ˆT = T − L ≥ TL since T , TL are both multiples of L. Let M = np2,T 2 − n2,1 H + n2,1 L = |S | + P i =i ni p2,T 2 .
+Lemma 5.12 Algorithm 2 satisfies cycle monotonicity.
+The proof showing the  existence of a prefix-maximal flow only yields a  pseudopolynomial time algorithm for computing it.
+Thus, if we use Algorithm 2 to  obtain a schedule for the instance ˜p, equation (6) translates precisely to (3) for the assignment x; moreover, the prices for ˜p translate to prices for the instance p. The number of sub-jobs assigned to low-machines in the flow-phase is  simply the total work assigned to low-machines.
+Hence, there cannot be a job j with pij = L that is assigned to i after the TL -threshold since then j would not be assigned by this truncated flow.
+Observe that x is a valid flow for (p1 , TL ), and the size of this flow is exactly np2,T 2 |T L −n2,1 H = np2,T L −n2,1 H .
+Hence, the total load after j is assigned is at least m · T∗ (p) + L > m · T∗ (p).
+Since pi ≥ pi, all edges (j, i) that are present in the network for (p , T) are also present in the network for (p, T).
+Instead of analyzing the allocation graph, we will leverage our proof of cycle monotonicity, in particular, inequality (7), and simply spell out the payments.
+Also since j is assigned to i, by our greedy rule, the load on all the other machines must be at least li.
+This is exactly the total load in an optimum schedule, which is at most m · OPT(p).
+Summing this over all k = 1, .
+(5) Then, P j xk+1 ij (pk ij − pk+1 ij ) = (nk+1,k H − nk+1,k L )(H − L).
+In particular, this implies that there is a path P ⊂ P from i to the sink t. Let P = (i, j1, i1, .
+So taking T = L · OPT(p) L ≥ H, since np,T ≥ nOPT(p) we have that np,T ·L+(n−np,T )·H ≤ m·T.
+5.2 Analysis Let OPT(p) denote the optimal makespan for p. We now prove that Algorithm 2 is a 2-approximation algorithm that satisfies cycle monotonicity.
+Its size is equal to P i =i ni p2,T 2 |T L +|S | = np2,T 2 |T L −n2,1 H +n2,1 L = np2,T L −n2,1 H +n2,1 L .
+Consider the following flow for (p1 , TL ): assign to every machine other than i the  lowassignment of x2 truncated at TL , and assign the jobs in S to machine i.
+Furthermore, since we compute a prefix-maximal flow for threshold T∗ (p) we have np,T ∗(p)|OPT(p) = np,OPT(p) = n, which implies that the load on each machine is at most OPT(p).
+Thus, we can implement the above reduction by setting up a max-flow problem that seems to maximize the total work assigned to low machines.
+Corollary 5.9 Let p = (pi, p−i) be any instance and let x be any prefix-maximal flow for (p, T∗ (p)).
+Let i be the machine with the maximum load, so li > T + H ` 1 − 1 m ´ .
+So by Lemma 5.8, this truncated flow must assign all the low jobs of i.
+Note that this is a constant for player i.
+Suppose the claim is false.
+If T = T∗ (p), this follows from the definition of T∗ (p).
+We will show that the makespan after step 3 is at most T +H ` 1− 1 m ´ where T = min ˘ T∗ (p), OPT(p) ¯ .
+That is, in a prefix-maximal flow for (p, T), if we truncate the flow at some T ≤ T, we are left with a max-flow for (p, T ).
+We first argue that a cycle-monotone algorithm cannot choose the optimal schedule in both scenarios.
+Hence, T∗ (p), the smallest such T, is at most L · OPT(p) L .
+Moreover, since we have a fractional  domain, we can use a more efficient greedy rule for packing the unassigned portions of jobs and argue that the fractional  assignment has makespan at most OPT(p).
+Thus the last term in equation (10) implies that we treat the low jobs that were assigned beyond the TL i (p−i) threshold (to machines other than i) effectively as high jobs for the total utility calculation from i"s point of view.
+260 5.4 Impossibility of exact implementation We now show that irrespective of computational  considerations, there does not exist a cycle-monotone algorithm for the L-H case with an approximation ratio better than 1.14.
+So assume that there are some unassigned jobs after step 2.
+The total load on all machines is exactly nOPT(p) · L + (n − nOPT(p)) · H, and is at most m · OPT(p), since every machine has load at most OPT(p).
+So li > T − H/m at this point.
+, pK i , KX k=1 ` nk+1,k H − nk+1,k L ´ ≥ 0.
+For any T ≤ T, define ni p,T |T = min(ni p,T , T ), that is, we truncate the flow/assignment on i so that the total load on i is at most T .
+Since |S| · L ≤ TL (by  Corollary 5.9), it follows that n2,1 L > n2,1 H ≥ 0.
+It is not clear, if the procedure outlined in Section 3 based on computing shortest paths in the allocation graph yields a polynomial time algorithm, since the allocation graph has an  exponential number of nodes (one for each output assignment).
+There could potentially be many max-flows and we will be interested in the most balanced ones, which we formally define as follows.
+Thus, we only need to compute a prefix-maximal flow for T = min{T∗ (p), T }.
+Augmenting x using P changes the assignment so that each j is assigned to i in the new assignment, which increases the value of the flow by 1.
+By Corollary 5.6, we know that all these jobs are assigned to high machines (according to the declared pis).
+Our algorithm needs to compute a prefix-maximal  assignment for the threshold T∗ (p).
+Let T = |S | · L. We consider two cases.
+We first show that m · ˆT < M · L + (n − M) · H. (8) Let N be the number of jobs assigned to machine i in x2 .
+The load on machine i is |S|·L+(N −|S|)·H ≥ |S |·L−n2,1 L · L+(N−|S|)·H which is at least |S |·L > ˆT since n2,1 L ≤ N− |S|.
+, K gives (6).
+This can be be done in  polynomial time by using the iterative-augmenting-paths  algorithm in the existence proof to compute iteratively the  maxflow for the polynomially many multiples of L up to (and including) T .
+Definition 5.2 (Prefix-maximal flow) A flow for the above network with threshold T is prefix-maximal if for every  integer T ≤ T, we have np,T |T = np,T .
+Theorem 5.14 No deterministic truthful mechanism for the two-value scheduling problem can obtain an approximation ratio better than 1.14.
+Notice also that any assignment ˜x for the instance ˜p translates to a fractional assignment x for p, where pijxij =P j : sub-job of j ˜pij ˜xij .
+Suppose j is assigned to machine i in step 3.
+Thus, x is a valid flow for (p, T).
+Define TL i (p−i) = T∗ (L, p−i).
+5.3 Computation of prices Lemmas 5.7 and 5.12 show that our algorithm is a  2approximation algorithm that satisfies cycle monotonicity.
+Therefore, |S | = |S| − n2,1 H + n2,1 L and |S| = ni p2,T 2 = ni p2,T 2 |T L (by Corollary 5.9).
+The load on i at this point is |S| · L + (N − |S| − 1) · H which is least |S | · L − L = ˆT by a similar argument as above.
+Let x1 , x2 be the complete assignment, i.e., the assignment after both steps 2 and 3, computed by our algorithm for p1 , p2 respectively.
+Then, the low-load on machine i is at most TL .
+For this new instance ˜p, note that ˜pij ∈ {1, r} for every i, j.
+Then (7) holds.
+Let H−i = P i =i Hi and n−i p,T = P i =i ni p,T .
+Since we are focusing on machine i, and p−i is fixed throughout, we abbreviate TL i (p−i) to TL .
+Assign the remaining jobs, i.e., the jobs unassigned in the flow-phase, in a greedy manner as follows.
+Also, let pL = (L, p−i).
+Thus, the low-load of i is at most TL .
+Recall that the utility of a player is ui = Pi − li, where Pi is the payment made to player i.
+Thus, by the discussion in Section 3, there exist prices that yield a truthful mechanism.
+Algorithm 2 Given a vector of processing times p,  construct an assignment of jobs to machines as follows.
+Moreover, there is always an integral max-flow (since all capacities are integers).
+Let Gp denote the residual graph for (p , T) and flow x .
+Claim 5.5 If OPT(p) ≥ H, then T∗ (p) ≤ L · OPT(p) L ≤ OPT(p) + L. Proof.
+Claim 5.6 Each job assigned in step 3 of the algorithm is assigned to a high machine.
+Define np,T |T = P i ni p,T |T .
+The following lemma explicitly verifies that the  payments defined above do indeed give a truthful mechanism.
+Suppose first that T ≤ TL .
+If T∗ = TL , then this is clearly true.
+, jK , iK , t).
+If the algorithm chooses an optimal schedule for scenario 1, assume without loss of generality that jobs 6, 7 are assigned to machine II.
+It is not clear how one could have conjured up these payments a priori in order to prove the truthfulness of our algorithm.
+5.2.1 Proof of approximation Claim 5.4 If OPT(p) < H, the makespan is at most OPT(p).
+But it is not a max-flow, since np,T > np ,T .
+Lemma 5.13 Fix a player i and the other players"  declarations p−i.
+Let nOPT(p) be the number of jobs assigned to low machines in an optimum schedule.
+Lemma 5.10 If T∗ (p1 ) > TL , then (7) holds.
+Also, np,T L < npL,T L because T∗ > TL .
+So np,T ∗(p) ·L+(n−np,T ∗(p))·H ≤ nOPT(p) ·L+(n−nOPT(p))·H.
+We need one additional concept before describing the  algorithm.
+In Section 5.2, we bound its approximation guarantee and prove that it satisfies cycle-monotonicity.
+We will often refer to such a max-flow as the max-flow for (p, T).
+Thus we get the inequality |S |·L+(N −|S |)·H > ˆT.
+As in Section 4, our goal is to obtain an approximation algorithm that satisfies cycle monotonicity.
+This follows because otherwise cycle monotonicity is violated for machine II.
+Consider these jobs in an arbitrary order and assign each job to the machine with the current lowest load (where the load includes the jobs assigned in the flow-phase).
+Otherwise, consider the assignment x truncated at TL .
+Since T1 > TL , we must have np1,T L < npL,T L .
+, jK , iK , t) in the residual graph that allows us to increase the size of the flow.
+Finally, in Section 5.4 we show that no deterministic  mechanism can achieve the optimum makespan.
+Consider the following two scenarios: Scenario 1.
+The first and second terms in (10), when  subtracted from i"s load li equate i"s cost to the total load.
+Plugging this into (3) and dividing by (H − L), we get the following.
+The  secondbest schedule has makespan at least Second1 = 2H + L. Scenario 2.
+But then there is an augmenting path (j∗ , i, j1, i1, .
+(6) 257 5.1 Acycle-monotone approximation algorithm We now describe an algorithm that satisfies condition (6) and achieves a 2-approximation.
+Lemma 5.11 Suppose T∗ (p1 ) = TL .
+In scenario 2, machine I has the same processing-time vector.
+To obtain a polynomial-time mechanism, we also need to show how to compute these prices (or payments) in polynomial-time.
+Let L denote the all-low processing time vector.
+We will therefore use the terms assignment and flow interchangeably.
+Again let T1 = T∗ (p1 ) = TL and T2 = T∗ (p2 ).
+This completes the proof of Theorem 5.3.
+Let i"s true type be p1 i .
+The second-best schedule for this scenario has makespan at least Second2 = 5L.
+There are two machines I, II and seven jobs.
+If OPT(p) < H, then by Claim 5.4, we are done.
+This will then allow us to  compute payments in Section 5.3 and prove Theorem 5.3.
+Let T1 = T∗ (p1 ) and T2 = T∗ (p2 ).
+Since p−i is fixed, we omit p−i from the expressions below for notational clarity.
+Let H = α·L for some 2 < α < 2.5 that we will choose later.
+However, by relying on cycle monotonicity, we were not only able to argue the existence of payments, but also our proof paved the way for actually inferring these  payments.
+Let T∗ = T∗ (p).
+However, it is well-known that this problem can be easily solved by adding a large-enough constant to the price definition.
+259 Now suppose T > TL .
+In Section 5.3, we compute explicit payments giving a truthful mechanism.
+Thus, (7) implies that c1 i ≤ c2 i .
+The payments given by (10) are not individually rational as they actually charge a player a certain amount.
+258 Proof.
+, K (where K + 1 ≡ 1) yields (6).
+We describe our algorithm in Section 5.1.
+Acknowledgments We thank Elias Koutsoupias for his help in refining the  analysis of the lower bound in Section 5.4, and the reviewers for their helpful comments. 

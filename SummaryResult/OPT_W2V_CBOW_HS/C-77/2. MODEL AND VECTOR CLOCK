@@ -1,0 +1,69 @@
+If e is the first event produced by Pi, then pred(e) is denoted by ⊥ (meaning that there is no such event), and ∀e ∈ Hi : ⊥ < e. The partial order bH = (H, hb →)  constitutes a formal model of the distributed computation it is associated with.
+When a process Pi produces a (relevant) event e, it associates with e a vector timestamp whose value (denoted e.V C) is equal to the current value of V Ci.
+Vector Clock Implementation The following  implementation of vector clocks [5, 16] is based on the observation that ∀i, ∀e ∈ Hi, ∀j : e.V Ci[j] = y ⇔ lastr(e, j) = ey j where e.V Ci is the value of V Ci just after the occurrence of e (this relation results directly from the properties LR0, LR1, and LR2).
+This set is structured as a partial order by Lamport"s happened before relation [14] (denoted hb →) and defined as follows: ex i hb → ey j if and only if (i = j ∧ x + 1 = y) (local precedence) ∨ (∃m : ex i = send(m) ∧ ey j = receive(m)) (msg prec.)
+Let ex i be the x-th event produced by process Pi.
+A vector clock system is a mechanism that associates timestamps with events in such a way that the  comparison of their timestamps indicates whether the  corresponding events are or are not causally related (and, if they are, which one is the first).
+VC2 When a process Pi sends a message m, it attaches to m the current value of V Ci.
+Another example is the checkpointing problem where a relevant event is the definition of a local checkpoint [10, 12, 20].
+In the computation described in Figure 1, we have, for the event e identified (2, 2): ↑ (e) = {(1, 1), (1, 2), (2, 1), (3, 1)}.
+max(ex i , ey j ) is a partial function defined only when ex i and ey j are ordered.
+Let e ∈ H. CP1 If e is not a receive event then ↑ (e) = 8 < : ∅ if pred(e) = ⊥, ↑ (pred(e)) ∪ {pred(e)} if pred(e) ∈ R, ↑ (pred(e)) if pred(e) ∈ R. CP2 If e is a receive event (of a message m) then ↑ (e) = 8 >>< >>: ↑ (send(m)) if pred(e) = ⊥, ↑ (pred(e))∪ ↑ (send(m)) ∪ {pred(e)} if pred(e) ∈ R, ↑ (pred(e))∪ ↑ (send(m)) if pred(e) ∈ R. 2 Those events are sometimes called observable events.
+LR0 ∀e ∈ Hi: lastr(e, i) = 8 < : ⊥ if pred(e) = ⊥, pred(e) if pred(e) ∈ R, lastr(pred(e),i) if pred(e) ∈ R. LR1 If e is not a receipt event: ∀j = i : lastr(e, j) = lastr(pred(e),j).
+211 P1 P2 P3 [1, 1, 2] [1, 0, 0] [3, 2, 1] [1, 1, 0] (2, 1) [0, 0, 1] (3, 1) [2, 0, 1] (1, 1) (1, 3)(1, 2) (2, 2) (2, 3) (3, 2) [2, 2, 1] [2, 3, 1] (1, 1) (1, 2) (1, 3) (2, 1) (2, 2) (2, 3) (3, 1) (3, 2) Figure 1: Timestamped Relevant Events and Immediate Predecessors Graph (Hasse Diagram) 2.2 Relevant Events For a given observer of a distributed computation, only some events are relevant2 [7, 9, 15].
+Moreover, without loss of generality we consider that the set of relevant events is a subset of the internal events (if a  communication event has to be observed, a relevant internal event can be generated just before a send and just after a receive communication event occurred).
+Throughout the paper, we will use the following notation: if e ∈ Hi is not the first event produced by Pi, then pred(e) denotes the event immediately preceding e in the sequence Hi.
+More precisely, each process Pi has a vector of integers V Ci[1..n] such that V Ci[j] is the number of relevant events produced by Pj, that belong to the  current relevant causal past of Pi.
+Note that V Ci[i] counts the number of relevant events produced so far by Pi.
+When ↑ (e) ∩ Rj = ∅, lastr(e, j) is denoted by ⊥ (meaning that there is no such event).
+For every j such that ↑ (e) ∩ Rj = ∅, the last relevant event of Pj with respect to e is: lastr(e, j) = max{f | f ∈↑ (e) ∩ Rj}.
+Each ordered pair of communicating processes (Pi, Pj ) is connected by a reliable channel cij through which Pi can send messages to Pj.
+We have lastr(e, 1) = (1, 2), lastr(e, 2) = (2, 1), lastr(e, 3) = (3, 1).
+It is defined as follows: max(ex i , ey j ) = ex i if ey j hb → ex i , max(ex i , ey j ) = ey i if ex i hb → ey j .
+The sequence of relevant events produced by process Pi is denoted by Ri, and R = ∪n i=1Ri ⊆ H denotes the set of all relevant events.
+2.3 Vector Clock System Definition As a fundamental concept associated with the causality theory, vector clocks have been introduced in 1988, simultaneously and independently by Fidge [5] and Mattern [16].
+The following properties relate the events lastr(e, j) and lastr(f, j) for all the predecessors f of e in the relation hb →.
+Clearly the restriction of hb → to Hi, for a given i, is a total order.
+Note that, if e ∈ R then ↑ (e) = {f ∈ R | f → e}.
+LR2 If e is a receive event of m: ∀j = i : lastr(e, j) = max(lastr(pred(e),j), lastr(send(m),j)).
+The relevant causal past of an event e ∈ H is the (partially ordered) subset of relevant events f such that f hb → e. It is denoted ↑ (e).
+VC1 Each time it produces a relevant event e, Pi increments its vector clock entry V Ci[i] (V Ci[i] := V Ci[i] + 1) to 212 indicate it has produced one more relevant event, then Pi associates with e the timestamp e.V C = V Ci.
+Let H = ∪n i=1Hi be the set of events produced by a distributed computation.
+Thus we will use the notation ex i < ey i iff x < y.
+An interesting example of what an observation is, is the detection of predicates on consistent global states of a distributed computation [3, 6, 8, 9, 13, 15].
+Let e ∈ Hi.
+We have ↑ (e) = {f ∈ R | f hb → e}.
+Let → be the relation on R defined in the following way: ∀ (e, f) ∈ R × R : (e → f) ⇔ (e hb → f).
+Each process Pi manages its vector clock V Ci[1..n] according to the following rules: VC0 V Ci[1..n] is initialized to [0, .
+Let e ∈ Hi.
+VC3 When Pi receives a message m, it updates its vector clock as follows: ∀k : V Ci[k] := max(V Ci[k], m.V C[k]). 
+∨ (∃ ez k : ex i hb → ez k ∧ e z k hb → ey j ) (transitive closure).
+In that case, a relevant event corresponds to the modification of a local variable involved in the global predicate.
+The local program associated with Pi can include send, receive and internal statements.
+Let us consider the event e identified (2,2) in Figure 1.
+constitutes the history of Pi, denoted Hi.
+Let m.V C denote this value.
+We assume that each message is unique and a process does not send messages to itself1 .
+The execution of such a statement produces a corresponding send/receive/internal event.
+Each relevant event is  identified by a pair (process id, sequence number) (see Figure 1).
+The following properties are immediate consequences of the previous definitions.
+The poset (R, →) constitutes an abstraction of the  distributed computation [7].
+The sequence hi = e1 i e2 i .
+In this figure, only relevant events are represented.
+In the following we consider a distributed computation at such an abstraction level.
+, Pn} be the finite set of sequential processes of the distributed computation.
+These properties follow directly from the definitions.
+1 This assumption is only in order to get simple protocols.
+These events are called primitive events.
+ex i .
+Process speeds are positive but arbitrary.
+A distributed computation describes the  execution of a distributed program.
+The execution of a local program gives rise to a sequential process.
+Moreover, channels are not necessarily fifo.
+In other words, the underlying computation model is asynchronous.
+2.1 Distributed Computation A distributed program is made up of sequential local  programs which communicate and synchronize only by  exchanging messages.
+The left part of Figure 1 depicts a distributed computation using the classical space-time diagram.
+Definition 1.
+Let {P1, P2, .
+Definition 2.
+Message transmission delays are finite but unpredictable.

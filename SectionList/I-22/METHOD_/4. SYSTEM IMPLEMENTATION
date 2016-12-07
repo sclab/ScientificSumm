@@ -1,0 +1,153 @@
+SMMall (Shared Mental Models for all) is a cognitive
+agent architecture developed for supporting human-centric
+collaborative computing. It stresses human"s role in team
+activities by means of novel collaborative concepts and 
+multiple representations of context woven through all aspects of
+team work. Here we describe two components pertinent to
+the experiment reported in Section 5: multi-party 
+communication and shared mental maps (a complete description of
+the SMMall system is beyond the scope of this paper).
+4.1 Multi-Party Communication
+Multi-party communication refers to conversations 
+involving more than two parties. Aside from the speaker, the 
+listeners involved in a conversation can be classified into 
+various roles such as addressees (the direct listeners), auditors
+(the intended listeners), overhearers (the unintended but 
+anticipated listeners), and eavesdroppers (the unanticipated
+listeners). Multi-party communication is one of the 
+characteristics of human teams. SMMall agents, which can form
+Human-Agent-Pairs with human partners, support 
+multiparty communication with the following features.
+1. SMMall supports a collection of multi-party 
+performatives such as MInform (multi-party inform), MAnnounce
+(multi-party announce), and MAsk (multi-party ask). The
+listeners of a multi-party performative can be addressees, 
+auditors, and overhearers, which correspond to ‘to", ‘cc", and
+‘bcc" in e-mail terms, respectively.
+2. SMMall supports channelled-communication. There
+398 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+are three built-in channels: agentTalk channel (inter-agent
+activity-specific communication), control channel (meta 
+communication for team coordination), and world channel 
+(communication with the external world). An agent can fully
+tune to a channel to collect messages sent (or cc, bcc)
+to it. An agent can also partially tune to a channel to get
+statistic information about the messages communicated over
+the channel. This is particularly useful if an agent wants to
+know the communication load imposed on a teammate.
+4.2 Shared Belief Map & Load Display
+A concept shared belief map has been proposed and 
+implemented into SMMall; this responds to the need to seek
+innovative perspectives or concepts that allow group 
+members to effectively represent and reason about shared mental
+models at different levels of abstraction. As described in 
+Section 5, humans and agents interacted through shared belief
+maps in the evaluation of HMM-based load models.
+A shared belief map is a table with color-coded 
+info-cellscells associated with information. Each row captures the
+belief model of one team member, and each column 
+corresponds to a specific information type (all columns together
+define the boundary of the information space being 
+considered). Thus, info-cell Cij of a map encodes all the beliefs
+(instances) of information type j held by agent i. Color
+coding applies to each info-cell to indicate the number of
+information instances held by the corresponding agent.
+The concept of shared belief map helps maintain and
+present a human partner with a synergy view of the shared
+mental models evolving within a team. Briefly, SMMall has
+implemented the concept with the following features:
+1. A context menu can be popped up for each info-cell
+to view and share the associated information instances. It
+allows selective (selected subset) or holistic info-sharing.
+2. Mixed-initiative info-sharing: both agents and human
+partners can initiate a multi-party conversation. It also 
+allows third-party info-sharing, say, A shares the information
+held by B with C.
+3. Information types that are semantically related (e.g.,
+by inference rules) can be closely organized. Hence, nearby
+info-cells can form meaningful plateaus (or contour lines) of
+similar colors. Colored plateaus indicate those sections of a
+shared mental model that bear high overlapping degrees.
+4. The perceptible color (hue) difference manifested from
+a shared belief map indicates the information difference among
+team members, and hence visually represents the potential
+information needs of each team member (See Figure 3).
+SMMall has also implemented the HMM-based models
+(Section 3) to allow an agent to estimate its human 
+partner"s and other team members" cognitive/processing loads.
+As shown in Fig. 3, below the shared belief map there is
+a load display for each team member. There are 2 curves in
+a display: the blue (dark) one plots human"s instantaneous
+cognitive loads and the red one plots the processing loads of
+a HAP as a whole. If there are n team members, each agent
+needs to maintain 2n HMM-based models to support the
+load displays. The human partner of a HAP can adjust her
+cognitive load at runtime, as well as monitor another HAP"s
+agent processing load and its probability of processing the
+information she sends at the current time step. Thus, the
+more closely a HAP can estimate the actual processing loads
+of other HAPs, the better information sharing performance
+the HAP can achieve.
+Figure 3: Shared Mental Map Display
+In sum, shared belief maps allow the inference of who
+needs what, and load displays allow the judgment of when
+to share information. Together they allow us to investigate
+the impact of sharing the right info. with the right party at
+the right time on the evolving of shared mental models.
+4.3 Metrics for Shared Mental Models
+We here describe how we measure team performance in
+our experiment. We use mental model overlapping 
+percentage (MMOP) as the base to measure shared mental
+models. MMOP of a group is defined as the intersection of
+all the individual mental states relative to the union of 
+individual mental states of the group. Formally, given a group
+of k agents G = {Ai|1 ≤ i ≤ k}, let Bi = {Iim|1 ≤ m ≤ n}
+be the beliefs (information) held by agent Ai, where each
+Iim is a set of information of the same type, and n (the size
+of information space) is fixed for the agents in G, then
+MMOP(G) =
+100
+n
+1≤m≤n
+(
+| ∩1≤i≤k Iim|
+| ∪1≤i≤k Iim|
+). (3)
+First, a shared mental model can be measured in terms of
+the distance of averaged subgroup MMOPs to the MMOP
+of the whole group. Without losing generality, we define
+paired SMM distance (subgroups of size 2) D2 as:
+D2 (G) =
+1≤i<j≤k
+(MMOP({Ai, Aj}) − MMOP(G))2
+. (4)
+The MMOP of a subgroup is always larger than the MMOP
+of the whole group. Intuitively, the larger distance from the
+MMOP of a subgroup to that of the whole group, the more
+overlapping mental models the subgroup shares. This 
+notion can be used to measure the tightness of an emerging
+subgroup or guide the process of team coalition.
+Second, due to communication or information processing
+limits, each individual"s subjective measure of the group"s
+MMOP can be very different from the group"s MMOP 
+measured objectively from external. A shared mental model can
+thus be measured in terms of the closeness of individuals"
+measure of the group"s MMOP to the objective measure. Let
+MMOP(G) and M MOPi(G) be the objective measure and
+agent Ai"s subjective measure of the group"s shared mental
+models, respectively. We define SMM deviation D⊥ as:
+D⊥(G) =
+1≤i≤k
+(MMOPi(G) − MMOP(G))2
+. (5)
+Obviously, D⊥ measures the coherency of the whole group:
+the smaller the better.
+Third, shared mental models evolve over time. A shared
+mental model can be measured in terms of the 
+stableness of the instantaneous measures of MMOP, D , or D⊥
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 399
+over time. High performing teams can often maintain their
+shared mental models such that the MMOP is stable at an
+acceptable level as activities proceed, while the MMOP 
+measure of the shared mental models of a low-performing teams
+can fluctuate or decrease notably over time.

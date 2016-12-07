@@ -1,0 +1,143 @@
+In our experiments, we explore several models for predicting
+user preferences. These models range from using no implicit
+user feedback to using all available implicit user feedback.
+Ranking search results to predict user preferences is a
+fundamental problem in information retrieval. Most traditional
+IR and web search approaches use a combination of page and
+link features to rank search results, and a representative 
+state-ofthe-art ranking system will be used as our baseline ranker
+(Section 4.1). At the same time, user interactions with a search
+engine provide a wealth of information. A commonly considered
+type of interaction is user clicks on search results. Previous work
+[9], as described above, also examined which results were
+skipped (e.g., ‘skip above" and ‘skip next") and other related
+strategies to induce preference judgments from the users"
+skipping over results and not clicking on following results. We
+have also added refinements of these strategies to take into
+account the variability observed in realistic web scenarios.. We
+describe these strategies in Section 4.2.
+As clickthroughs are just one aspect of user interaction, we
+extend the relevance estimation by introducing a machine
+learning model that incorporates clicks as well as other aspects
+of user behavior, such as follow-up queries and page dwell time
+(Section 4.3). We conclude this section by briefly describing our
+baseline - a state-of-the-art ranking algorithm used by an
+operational web search engine.
+4.1 Baseline Model
+A key question is whether browsing behavior can provide
+information absent from existing explicit judgments used to train
+an existing ranker. For our baseline system we use a 
+state-of-theart page ranking system currently used by a major web search
+engine. Hence, we will call this system Current for the
+subsequent discussion. While the specific algorithms used by the
+search engine are beyond the scope of this paper, the algorithm
+ranks results based on hundreds of features such as query to
+document similarity, query to anchor text similarity, and
+intrinsic page quality. The Current web search engine rankings
+provide a strong system for comparison and experiments of the
+next two sections.
+4.2 Clickthrough Model
+If we assume that every user click was motivated by a rational
+process that selected the most promising result summary, we can
+then interpret each click as described in Joachims et al.[10]. By
+studying eye tracking and comparing clicks with explicit
+judgments, they identified a few basic strategies. We discuss the
+two strategies that performed best in their experiments, Skip
+Above and Skip Next.
+Strategy SA (Skip Above): For a set of results for a query
+and a clicked result at position p, all unclicked results
+ranked above p are predicted to be less relevant than the
+result at p.
+In addition to information about results above the clicked
+result, we also have information about the result immediately
+following the clicked one. Eye tracking study performed by
+Joachims et al. [10] showed that users usually consider the result
+immediately following the clicked result in current ranking. Their
+Skip Next strategy uses this observation to predict that a result
+following the clicked result at p is less relevant than the clicked
+result, with accuracy comparable to the SA strategy above. For
+better coverage, we combine the SA strategy with this extension to
+derive the Skip Above + Skip Next strategy:
+Strategy SA+N (Skip Above + Skip Next): This strategy
+predicts all un-clicked results immediately following a
+clicked result as less relevant than the clicked result, and
+combines these predictions with those of the SA strategy
+above.
+We experimented with variations of these strategies, and found
+that SA+N outperformed both SA and the original Skip Next
+strategy, so we will consider the SA and SA+N strategies in the
+rest of the paper. These strategies are motivated and empirically
+tested for individual users in a laboratory setting. As we will
+show, these strategies do not work as well in real web search
+setting due to inherent inconsistency and noisiness of individual
+users" behavior.
+The general approach for using our clickthrough models
+directly is to filter clicks to those that reflect higher-than-chance
+click frequency. We then use the same SA and SA+N strategies,
+but only for clicks that have higher-than-expected frequency
+according to our model. For this, we estimate the relevance
+component rel(q,r,f) of the observed clickthrough feature f as the
+deviation from the expected (background) clickthrough
+distribution )( fC .
+Strategy CD (deviation d): For a given query, compute the
+observed click frequency distribution o(r, p) for all results r
+in positions p. The click deviation for a result r in position p,
+dev(r, p) is computed as:
+)(),(),( pCproprdev −=
+where C(p) is the expected clickthrough at position p. If
+dev(r,p)>d, retain the click as input to the SA+N strategy
+above, and apply SA+N strategy over the filtered set of click
+events.
+The choice of d selects the tradeoff between recall and
+precision. While the above strategy extends SA and SA+N, it still
+assumes that a (filtered) clicked result is preferred over all
+unclicked results presented to the user above a clicked position.
+However, for informational queries, multiple results may be
+clicked, with varying frequency. Hence, it is preferable to
+individually compare results for a query by considering the
+difference between the estimated relevance components of the
+click distribution of the corresponding query results. We now
+define a generalization of the previous clickthrough interpretation
+strategy:
+Strategy CDiff (margin m): Compute deviation dev(r,p) for
+each result r1...rn in position p. For each pair of results ri and
+rj, predict preference of ri over rj iff dev(ri,pi)-dev(ri,pj)>m.
+As in CD, the choice of m selects the tradeoff between recall
+and precision. The pairs may be preferred in the original order or
+in reverse of it. Given the margin, two results might be effectively
+indistinguishable, but only one can possibly be preferred over the
+other. Intuitively, CDiff generalizes the skip idea above to include
+cases where the user skipped (i.e., clicked less than expected)
+on uj and preferred (i.e., clicked more than expected) on ui.
+Furthermore, this strategy allows for differentiation within the set
+of clicked results, making it more appropriate to noisy user
+behavior.
+CDiff and CD are complimentary. CDiff is a generalization of
+the clickthrough frequency model of CD, but it ignores the
+positional information used in CD. Hence, combining the two
+strategies to improve coverage is a natural approach:
+Strategy CD+CDiff (deviation d, margin m): Union
+of CD and CDiff predictions.
+Other variations of the above strategies were considered, but
+these five methods cover the range of observed performance.
+4.3 General User Behavior Model
+The strategies described in the previous section generate
+orderings based solely on observed clickthrough frequencies. As
+we discussed, clickthrough is just one, albeit important, aspect
+of user interactions with web search engine results. We now
+present our general strategy that relies on the automatically
+derived predictive user behavior models (Section 3).
+The UserBehavior Strategy: For a given query, each
+result is represented with the features in Table 3.1.
+Relative user preferences are then estimated using the
+learned user behavior model described in Section 3.4.
+Recall that to learn a predictive behavior model we used the
+features from Table 3.1 along with explicit relevance judgments
+as input to RankNet which learns an optimal weighting of
+features to predict preferences.
+This strategy models user interaction with the search engine,
+allowing it to benefit from the wisdom of crowds interacting
+with the results and the pages beyond. As our experiments in the
+subsequent sections demonstrate, modeling a richer set of user
+interactions beyond clickthroughs results in more accurate
+predictions of user preferences.

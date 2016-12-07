@@ -1,0 +1,81 @@
+Clemen and Winkler [12] classify opinion pooling 
+methods into two broad categories: mathematical approaches
+and behavioral approaches. In mathematical approaches,
+the opinions of individual experts are expressed as 
+subjective probability distributions over outcomes of an 
+uncertain event. They are combined through various 
+mathematical methods to form an aggregated probability 
+distribution. Genest and Zidek [24] and French [20] provide 
+comprehensive reviews of mathematical approaches. Mathematical
+approaches can be further distinguished into axiomatic 
+approaches and Bayesian approaches. Axiomatic approaches
+apply prespecified functions that map expert opinions, 
+expressed as a set of individual probability distributions, to
+a single aggregated probability distribution. These 
+pooling functions are justified using axioms or certain desirable
+properties. Two of the most common pooling functions are
+the linear opinion pool (LinOP) and the logarithmic opinion
+pool (LogOP). Using LinOP, the aggregate probability 
+distribution is a weighted arithmetic mean of individual 
+probability distributions:
+p(θ) =
+n
+i=1
+wipi(θ), (1)
+where pi(θ) is expert i"s probability distribution of uncertain
+event θ, p(θ) represents the aggregate probability 
+distribution, wi"s are weights for experts, which are usually 
+nonnegative and sum to 1, and n is the number of experts. Using
+LogOP, the aggregate probability distribution is a weighted
+geometric mean of individual probability distributions:
+p(θ) = k
+n
+i=1
+pi(θ)wi
+, (2)
+where k is a normalization constant to ensure that the pooled
+opinion is a probability distribution. Other axiomatic 
+pooling methods often are extensions of LinOP [22], LogOP [23],
+or both [13]. Winkler [39] and Morris [29, 30] establish the
+early framework of Bayesian aggregation methods. Bayesian
+approaches assume as if there is a decision maker who has a
+prior probability distribution over event θ and a likelihood
+function over expert opinions given the event. This decision
+maker takes expert opinions as evidence and updates its 
+priors over the event and opinions according to Bayes rule. The
+resulted posterior probability distribution of θ is the pooled
+opinion.
+Behavioral approaches have been widely studied in the
+field of group decision making and organizational 
+behavior. The important assumption of behavioral approaches is
+that, through exchanging opinions or information, experts
+can eventually reach an equilibrium where further 
+interaction won"t change their opinions. One of the best known
+behavioral approaches is the Delphi technique [28]. 
+Typically, this method and its variants do not allow open 
+discussion, but each expert has chance to judge opinions of other
+experts, and is given feedback. Experts then can reassess
+their opinions and repeat the process until a consensus or a
+smaller spread of opinions is achieved. Some other 
+behavioral methods, such as the Nominal Group technique [14],
+promote open discussions in controlled environments.
+Each approach has its pros and cons. Axiomatic 
+approaches are easy to use. But they don"t have a normative
+basis to choose weights. In addition, several impossibility
+results (e.g., Genest [21]) show that no aggregation 
+function can satisfy all desired properties of an opinion pool,
+unless the pooled opinion degenerates to a single individual
+opinion, which effectively implies a dictator. Bayesian 
+approaches are nicely based on the normative Bayesian 
+framework. However, it is sometimes frustratingly difficult to 
+apply because it requires either (1) constructing an obscenely
+complex joint prior over the event and opinions (often 
+impractical even in terms of storage / space complexity, not
+to mention from an elicitation standpoint) or (2) making
+strong assumptions about the prior, like conditional 
+independence of experts. Behavior approaches allow experts to
+dynamically improve their information and revise their 
+opinions during interactions, but many of them are not fixed or
+completely specified, and can"t guarantee convergence or 
+repeatability.
+59

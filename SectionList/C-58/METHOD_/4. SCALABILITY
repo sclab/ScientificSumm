@@ -1,0 +1,217 @@
+Our design achieves scalability with respect to both nodes and 
+attributes through two key ideas. First, it carefully defines the 
+aggregation abstraction to mesh well with its underlying scalable DHT
+system. Second, it refines the basic DHT abstraction to form an
+Autonomous DHT (ADHT) to achieve the administrative isolation
+properties that are crucial to scaling for large real-world systems.
+In this section, we describe these two ideas in detail.
+4.1 Leveraging DHTs
+In contrast to previous systems [4, 15, 38, 39, 45], SDIMS"s 
+aggregation abstraction specifies both an attribute type and attribute
+name and associates an aggregation function with a type rather than
+just specifying and associating a function with a name. Installing a
+single function that can operate on many different named attributes
+matching a type improves scalability for sparse attribute types
+with large, sparsely-filled name spaces. For example, to construct
+a file location service, our interface allows us to install a single
+function that computes an aggregate value for any named file. A
+subtree"s aggregate value for (FILELOC, name) would be the ID of
+a node in the subtree that stores the named file. Conversely, 
+Astrolabe copes with sparse attributes by having aggregation functions
+compute sets or lists and suggests that scalability can be improved
+by representing such sets with Bloom filters [6]. Supporting sparse
+names within a type provides at least two advantages. First, when
+the value associated with a name is updated, only the state 
+associ382
+001 010100
+000
+011 101
+111
+110
+011 111 001 101 000 100 110010
+L0
+L1
+L2
+L3
+Figure 2: The DHT tree corresponding to key 111 (DHTtree111)
+and the corresponding aggregation tree.
+ated with that name needs to be updated and propagated to other
+nodes. Second, splitting values associated with different names
+into different aggregation values allows our system to leverage 
+Distributed Hash Tables (DHTs) to map different names to different
+trees and thereby spread the function"s logical root node"s load and
+state across multiple physical nodes.
+Given this abstraction, scalably mapping attributes to DHTs is
+straightforward. DHT systems assign a long, random ID to each
+node and define an algorithm to route a request for key k to a
+node rootk such that the union of paths from all nodes forms a tree
+DHTtreek rooted at the node rootk. Now, as illustrated in Figure 2,
+by aggregating an attribute along the aggregation tree 
+corresponding to DHTtreek for k =hash(attribute type, attribute name), 
+different attributes will be aggregated along different trees.
+In comparison to a scheme where all attributes are aggregated
+along a single tree, aggregating along multiple trees incurs lower
+maximum node stress: whereas in a single aggregation tree 
+approach, the root and the intermediate nodes pass around more 
+messages than leaf nodes, in a DHT-based multi-tree, each node acts as
+an intermediate aggregation point for some attributes and as a leaf
+node for other attributes. Hence, this approach distributes the onus
+of aggregation across all nodes.
+4.2 Administrative Isolation
+Aggregation trees should provide administrative isolation by 
+ensuring that for each domain, the virtual node at the root of the
+smallest aggregation subtree containing all nodes of that domain is
+hosted by a node in that domain. Administrative isolation is 
+important for three reasons: (i) for security - so that updates and probes
+flowing in a domain are not accessible outside the domain, (ii) for
+availability - so that queries for values in a domain are not affected
+by failures of nodes in other domains, and (iii) for efficiency - so
+that domain-scoped queries can be simple and efficient.
+To provide administrative isolation to aggregation trees, a DHT
+should satisfy two properties:
+1. Path Locality: Search paths should always be contained in
+the smallest possible domain.
+2. Path Convergence: Search paths for a key from different
+nodes in a domain should converge at a node in that domain.
+Existing DHTs support path locality [18] or can easily support it
+by using the domain nearness as the distance metric [7, 17], but they
+do not guarantee path convergence as those systems try to optimize
+the search path to the root to reduce response latency. For example,
+Pastry [32] uses prefix routing in which each node"s routing table
+contains one row per hexadecimal digit in the nodeId space where
+the ith row contains a list of nodes whose nodeIds differ from the
+current node"s nodeId in the ith digit with one entry for each 
+possible digit value. Given a routing topology, to route a packet to
+an arbitrary destination key, a node in Pastry forwards a packet to
+the node with a nodeId prefix matching the key in at least one more
+digit than the current node. If such a node is not known, the 
+current node uses an additional data structure, the leaf set containing
+110XX
+010XX
+011XX
+100XX
+101XX
+univ
+dep1 dep2
+key = 111XX
+011XX 100XX 101XX 110XX 010XX
+L1
+L0
+L2
+Figure 3: Example shows how isolation property is violated
+with original Pastry. We also show the corresponding 
+aggregation tree.
+110XX
+010XX
+011XX
+100XX
+101XX
+univ
+dep1 dep2
+key = 111XX
+X
+011XX 100XX 101XX 110XX 010XX
+L0
+L1
+L2
+Figure 4: Autonomous DHT satisfying the isolation property.
+Also the corresponding aggregation tree is shown.
+L immediate higher and lower neighbors in the nodeId space, and
+forwards the packet to a node with an identical prefix but that is
+numerically closer to the destination key in the nodeId space. This
+process continues until the destination node appears in the leaf set,
+after which the message is routed directly. Pastry"s expected 
+number of routing steps is logn, where n is the number of nodes, but
+as Figure 3 illustrates, this algorithm does not guarantee path 
+convergence: if two nodes in a domain have nodeIds that match a key
+in the same number of bits, both of them can route to a third node
+outside the domain when routing for that key.
+Simple modifications to Pastry"s route table construction and
+key-routing protocols yield an Autonomous DHT (ADHT) that 
+satisfies the path locality and path convergence properties. As Figure 4
+illustrates, whenever two nodes in a domain share the same prefix
+with respect to a key and no other node in the domain has a longer
+prefix, our algorithm introduces a virtual node at the boundary of
+the domain corresponding to that prefix plus the next digit of the
+key; such a virtual node is simulated by the existing node whose id
+is numerically closest to the virtual node"s id. Our ADHT"s routing
+table differs from Pastry"s in two ways. First, each node maintains
+a separate leaf set for each domain of which it is a part. Second,
+nodes use two proximity metrics when populating the routing tables
+- hierarchical domain proximity is the primary metric and network
+distance is secondary. Then, to route a packet to a global root for a
+key, ADHT routing algorithm uses the routing table and the leaf set
+entries to route to each successive enclosing domain"s root (the 
+virtual or real node in the domain matching the key in the maximum
+number of digits). Additional details about the ADHT algorithm
+are available in an extended technical report [44].
+Properties. Maintaining a different leaf set for each 
+administrative hierarchy level increases the number of neighbors that each
+node tracks to (2b)∗lgb n+c.l from (2b)∗lgb n+c in unmodified
+Pastry, where b is the number of bits in a digit, n is the number of
+nodes, c is the leaf set size, and l is the number of domain levels.
+Routing requires O(lgbn + l) steps compared to O(lgbn) steps in
+Pastry; also, each routing hop may be longer than in Pastry because
+the modified algorithm"s routing table prefers same-domain nodes
+over nearby nodes. We experimentally quantify the additional 
+routing costs in Section 7.
+In a large system, the ADHT topology allows domains to 
+im383
+A1 A2 B1
+((B1.B.,1),
+(B.,1),(.,1))
+((B1.B.,1),
+(B.,1),(.,1))
+L2
+L1
+L0
+((B1.B.,1),
+(B.,1),(.,3))
+((A1.A.,1),
+(A.,2),(.,2))
+((A1.A.,1),
+(A.,1),(.,1))
+((A2.A.,1),
+(A.,1),(.,1))
+Figure 5: Example for domain-scoped queries
+prove security for sensitive attribute types by installing them only
+within a specified domain. Then, aggregation occurs entirely within
+the domain and a node external to the domain can neither observe
+nor affect the updates and aggregation computations of the attribute
+type. Furthermore, though we have not implemented this feature
+in the prototype, the ADHT topology would also support 
+domainrestricted probes that could ensure that no one outside of a domain
+can observe a probe for data stored within the domain.
+The ADHT topology also enhances availability by allowing the
+common case of probes for data within a domain to depend only on
+a domain"s nodes. This, for example, allows a domain that becomes
+disconnected from the rest of the Internet to continue to answer
+queries for local data.
+Aggregation trees that provide administrative isolation also 
+enable the definition of simple and efficient domain-scoped 
+aggregation functions to support queries like what is the average load
+on machines in domain X? For example, consider an 
+aggregation function to count the number of machines in an example 
+system with three machines illustrated in Figure 5. Each leaf node
+l updates attribute NumMachines with a value vl containing a set
+of tuples of form (Domain, Count) for each domain of which the
+node is a part. In the example, the node A1 with name A1.A. 
+performs an update with the value ((A1.A.,1),(A.,1),(.,1)). An 
+aggregation function at an internal virtual node hosted on node N with
+child set C computes the aggregate as a set of tuples: for each 
+domain D that N is part of, form a tuple (D,∑c∈C(count|(D,count) ∈
+vc)). This computation is illustrated in the Figure 5. Now a query
+for NumMachines with level set to MAX will return the 
+aggregate values at each intermediate virtual node on the path to the
+root as a set of tuples (tree level, aggregated value) from which
+it is easy to extract the count of machines at each enclosing 
+domain. For example, A1 would receive ((2, ((B1.B.,1),(B.,1),(.,3))),
+(1, ((A1.A.,1),(A.,2),(.,2))), (0, ((A1.A.,1),(A.,1),(.,1)))). Note that
+supporting domain-scoped queries would be less convenient and
+less efficient if aggregation trees did not conform to the system"s
+administrative structure. It would be less efficient because each 
+intermediate virtual node will have to maintain a list of all values at
+the leaves in its subtree along with their names and it would be less
+convenient as applications that need an aggregate for a domain will
+have to pick values of nodes in that domain from the list returned
+by a probe and perform computation.

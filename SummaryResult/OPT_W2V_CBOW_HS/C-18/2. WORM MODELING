@@ -1,0 +1,148 @@
+2.10.3 Distributed Control Control in the ZachiK worm is distributed in the sense that each instance of the worm performs a set of actions  independently of every other instance while at the same time benefiting from the learning achieve by its immediate  neighbors.
+The worm would also need a way of finding these servers, either hard-coded or through scanning.
+It could also provide a list of other worms this host is now susceptible to or a list of  vulnerabilities this host now has.
+In algorithm form: propagate() { host := acquire_target() success := send_scan(host) if( success ) then infect(host) endif } In the case of a simple worm which does not first check to see if the host is available or susceptible (such as Slammer), the scan method is dropped: propagate() { host := acquire_target() infect(host) } Each of these actions may have an associated cost to its inclusion and execution, such as increased worm size and CPU or network load.
+Once, a host is infected, the worm will create communication channels with both its known neighbors at that time, as well as with any offsprings that it  successfully generates.
+Within this context then, a worm like Slammer cannot be categorized as a swarm worm due to the fact that new  instances of the worm do not coordinate their actions or share information.
+The passwords messages inform instances of newly discovered passwords, and by informing all instances, the swarm as whole collects this information, which allows it to infect new instances more effectively.
+325 Structure Function/Example Infection, Infection Vector Executable is run Protection & Stealthiness Disable McAfee (Staying Alive) Propagation Send email to everyone in address book Goal Based Action (GBA) DDoS www.sco.com Everything else, often called payload Figure 1: General Worm Model In this work we aggregate all of these attributes under the general title of Learning, Communication, and  Distributed Control.
+In the next  section we expand the model to include such mechanisms, and hence, arrive at the general model of a swarm worm.
+Specifically, to choose an address, the instance may either: • Generate a new random address • Generate an address on the local network • Pick an address from a handoff list The choice is made randomly among these options, and can be varied to test the dependency of propagation on  particular choices.
+The infection and propagation threads do the following set of activities repeatedly: • Choose an address • Check the validity of the address • Choose a set of passwords • Try infecting the selected host with this set of  passwords As described earlier, choosing an address makes use of a combination of random selection, local bias, and target lists.
+The  objective of this worm simply is to infect a host by sequentially attempting to login into the host using well known  passwords (dictionary attack), passwords that have been  discovered previously by any member of the swarm, and random passwords.
+In this context, this simply means restricting the number of passwords that an offspring inherits, masquerading worm messages as common http requests, and restricting the  number of neighbors to a maximum of five-(5).
+For this reason, we selected as the first instance Structure Function/Example Infection, Infection Vector Executable is run Protection & Stealthiness Disable McAfee (Staying Alive) Propagation Send email to everyone in address book Learning, Communication, Pheromones/Flags (Test and Distributed Control if Worm is already present) Time bombs, Learning Algorithms, IRC channel Goal Based Action (GBA) DDoS www.sco.com Everything else, often called payload Figure 2: General Model of a Swarm Worm of the swarm a simple password cracking worm.
+They have also been seen to attempt  disabling of other worms which may be contending for the same system.
+Infecting the target is the actual method used to send the worm code to the new host.
+This will involve either servers that are normally publicly available, such as gaming meta-servers, or ones explicitly setup by the worm or worm author.
+In a non-specific sense, it is dependent on the transport protocol chosen to use and the message size to be sent.
+These  include: strictly random selection of a potential vulnerable host; target lists of vulnerable hosts; locally biased random selection (select a host target at random from a local  subnet); and a combination of some or all of the above.
+For example, they speculate on new worms which employ direct worm-to-worm communication, and  employ programmable updates.
+2.6 Swarm Worm: the details In considering the creation of what we believed to be the first Swarm Worm in existence, we wanted to adhere as close as possible to the general model presented in section ??
+This method could  parameterize the choice of how much info is on the host, such as all machines in subnet, all windows boxes in subnet,  particular servers, number of internal/external, or some  combination.
+It then runs the modified script on the newly infected hosts, which spawns the  communications server, notifies the neighbors and starts looking for new targets.
+In our test and simulation environments, we will apply a  combination of locally biased and totally random selection of potential vulnerable hosts.
+The main thread then spawns a few infection threads, and continues to handle incoming messages (registering neighbors, adding new passwords,  receiving addresses and relaying these messages).
+explore modifications to CrV1, Code Red I, II with a swarm like type of  behavior.
+The worm creates a new directory in the target host, copies the modified ssh client, the script, the communications servers, and the  updated versions of data files (list of known passwords and a list of current neighbors).
+Externally Generated Target Lists: Externally  generated target lists depend on one or more external sources that can be queried for host data.
+The sending of a scan before attempted infection can increase‘ the scanning rate if the cost for failing an infection is greater than the cost of failing a scan or sending a scan plus infection; and failures are more frequent than successes.
+Different methods may require the worm to be large, such as the extra bytes  required by a hit-list, or to take more processing time, such as by searching the host for addresses of other vulnerable hosts.
+The importance of ZachiK is that it incorporates all of the behaviors of a swarm worm including, but not restricted to,  distributed control, communication amongst agents, and learning; 3.
+This could carry with it the options of which IP to start with (user chosen value, random, or based on IP of infected host) and 324 how many times to increment (continuous, chosen value, or subnet-based).
+The costs could then be used in determining design  tradeoffs that worm authors engage at.
+2.10 Learning, CommunicationandDistributed Control 2.10.1 Communication The concept of a swarm is based on transfer of  information amongst neighbors, which relay their new incoming messages to their neighbors, and so on until every worm  instance in the swarm is aware of these messages.
+It could be argued, correctly, that the ZachiK worm can be easily defeated by current countermeasure techniques present on most systems today, such as disallowing direct root logins from the network.
+When a password is found for an appropriate target, the infection process begins.
+However, due to the fact that the ZachiK worm is a swarm worm, address discovery (that is when non-existent addresses are discovered) information will be shared amongst members of the swarm.
+ZachiK can be easily modified to include a variety of  infection vectors.
+We call this swarm worm the ZachiK worm in honor of one of its creators.
+The command messages are meant for an  external user (a.k.a., hackers and/or crackers) to control the actions of the instances, and are currently not implemented.
+The opening of a back-door can make the host susceptible to more attacks.
+A modified client which is capable of  receiving passwords from the command line was written, and integrated with a script that supplies it with various  passwords: known and random.
+ZachiK is composed of a large collection of agents  operating independently which lends itself naturally to parallel algorithms such as a parallel search of the IPV4 address space.
+2.1 Propagation The propagation function itself may be broken down into three actions: acquire target, send scan, and infect target.
+Passive: Passive methods are determined by normal interactions between hosts.
+These are messages that form the multi-connectivity of the swarm, and without them, the topology will be a  treelike structure, where eliminating a single node would cause the instances beneath it to be inaccessible.
+In order to study the behavior of swarm worms in general, it is necessary to create a model that realistically reflects the structure of worms and it is not necessarily tied to a specific instance.
+In this context a successful generation of an offspring means simply infecting a new host and replicating an exact copy of itself in such a host.
+We also believe that a time-based throttled  scanning may help the worm to slip under the radar.
+For example, the a worm may begin with an initial hit-list of 100 different hosts or subnets.
+?, the generic model of a worm is expanded to included these set of actions.
+Any type of equation may be used to arrive at an IP address, but there are three main types seen thus far: sequential, random, and local  preference.
+For example, it could be programmed to guess common user names and their passwords; gain 326 access to a system, then guess the root password or use other well know vulnerabilities to gain root privileges; 2.
+The presence of these attributes  distinguishes swarm worms from otherwise regular worms, or other types of malware such as Zombies.
+Acquiring the target simply means picking a host to attack next.
+while at the same time facilitating large scale analysis, both empirical and through simulations, of the behavior of the swarm.
+2.2.1 Sending a Scan The send scan function tests to see if the host is available for infection.
+When an infection of a valid address fails, it is added to a list of handoffs, which is sent to the neighbors to try to work on.
+We also propose that the other functionality of a worm may be more appropriately categorized as Goal-Based Actions (GBA), as whatever functionality included in a worm will naturally be dependent on whatever goals (and subgoals) the author has.
+For this reasons, and many others, one should not discard the potential of this new class of worms but rather embrace its study.
+• Staniford & Paxson in How to Own the Internet in Your Spare Time?
+2.2.2 Infection Vector (IV) The particular infection vector used to access the remote host is mainly dependent on the particular vulnerability  chosen to exploit.
+In a way, this is a simple instance of coordinated activity of a swarm.
+The information messages are currently of three kinds: new member, passwords and exploitable addresses (handoffs).
+Each server could also have a maximum queries/second that it would be able to handle.
+Data damage would have an associated probability that the host dies because of the damage.
+This can be as simple as checking if the host is up on the network or as complex as checking if the host is vulnerable to the exploit which will be used.
+2.7 Infection Vector The infection vector used for ZachiK worm is the secure shell protocol SSH.
+Depending on the authors needs or requirements, these become limiting factors in what may be included in the worm"s actions.
+As it can be seen from this description, the ZachiK worm  exhibits all of the elements described before.
+2.10.2 Coordination When a worm instance is born, it relays its existence to all neighbors on its list.
+Scanning: Scanning may be considered an equation-based method for choosing a host.
+However, unlike ZachiK, the knowledge discovered by the search is never shared amongst the agents.
+By definition, a worm is a  selfcontained, self propagating program.
+After the root password of a host is discovered, the worm infects the target host and replicates itself.
+Finally, when one considers the majority of recent disruptions to the  Internet Infrastructure, and in light of our description of swarm attacks, then said disruptions can be easily categorized as precursors to truly swarm behavior.
+This module could contain parameters for: probability of success in disabling anti-virus or other software updates, probability of being noticed and thus removed, or  hardening of the host against other worms.
+This may involve a simple ping to check if the host is alive or a full out vulnerability assessment.
+We propose that there is a third broad functionality of a worm, that of self-preservation.
+The handoffs messages inform instances of valid addresses that could not be compromised (fail at breaking the password for the root account).
+2.3 Self Preservation The Self Preservation actions of a worm may take many forms.
+It is important to note, however, that the resource  consumption of each method is not the same.
+It has also been proposed [5] that a worm cause damage to its host if, and only if, it is disturbed in some way.
+many trials) to discover a valid address.
+One important parameter to this would be the choice of transport protocol (TCP/UDP) or just simply the time for one successful scan and time for one failed scan.
+Internet DoS attacks would have a set time of  activation, a target, and a traffic pattern.
+Thus, in simple terms, it has two main functions: that which propagates and that which does other things.
+On the other hand, Zombies and many other forms of DDoS, which at first glance may be consider swarm worms are not.
+2.8 Self-Preservation In the case of ZachiK worm, the main self-preservation techniques used are simply keeping the payload small.
+For example the Warhol worm, and Permutation-Scanning (self coordinating) worms.
+Sending a scan involves checking to see if that host is receptive to an infection attempt, since IP-space is sparsely populated.
+There are two classes of messages: data or information messages and commands.
+2.5 Swarms - General Model As described in section 1, the basic characteristics that distinguished swarm behavior from simply what appears to be collective coordinated behaviors are four basic attributes.
+Password are either chosen from the list of known passwords or newly generated.
+Internal Target Lists: Internal Target Lists are highly dependent on the infected host.
+Please note that in this model there is no learning, no, or very little, sharing of information between worm instances, and certainly no coordination of actions.
+Once it has exhausted its search using the hit-list, it may then proceed to perform random scanning with a 50% local bias.
+2.11 Goal Based Actions The first instantiation of the ZachiK worm has two basic goals.
+This is discussed further after expanding upon these actions below.
+The normally available meta-servers could have  parameters for rates of change, such as many popping up at night or leaving in the morning.
+Also, whether or not it tests for the host to be up or if it is a full test for the vulnerability (or for multiple vulnerabilities).
+Local preference scanning is a variance of either Sequential or Random, whereby it has a greater probability of  choosing a local IP address over a remote one (for example, the traditional 80/20 split).
+Any of these methods may also be combined to produce different types of target acquisition strategies.
+The new member messages are messages that a new instance sends to the neighbors on its (short) list of initial neighbors.
+Within this context, SLAMMER, does incorporate a parallel search capability of  potentially susceptible addresses.
+In the wild, worms have been observed to disable anti-virus software or prevent sending itself to certain  antivirusknown addresses.
+Implicit to this type is the fact that the list is divided among a parent and its children, avoiding the problem of every instance hitting the exact same machines.
+In the past, known and proposed worms, see [5], have applied propagation techniques that varied.
+2.4 Goal-Based Actions A worm"s GBA functionality depends on the author"s goal list.
+Within this context ZachiK can quickly be discarded as very simple and harmless worm that does not require further study.
+These are: (1) propagate, and (2) discover and share with members of th swarm new root passwords. 
+The Payloads section of [5] provides some useful  suggestions for such a module.
+For example, hit lists provide a high rate of infection, but at a high cost of worm payload size.
+Further research and analysis should be performed in this area to determine associated costs for using each method.
+Since the  address space is rather sparse, it takes a relatively long time (i.e.
+We also propose a decoy method, whereby a worm will release a few children that cause a lot of noise so that the parent is not noticed.
+This would  involve a probability of the back-door being used and any  associated traffic utilization.
+in [5] provides us with mainly an action and technique based taxonomy of computer worms, which we utilize and further extend here.
+The latter, the potential emergence of intelligence or new behaviors is what makes swarm worms so potentially dangerous.
+Here, we further extend their work through parameterization.
+2.2 Target Acquisition: The Target Acquisition phase of our worm algorithm is built directly off of the Target Discovery section in [5].
+2.9 Propagation Choosing the next target(s) in an efficient matter requires thought.
+The neighbors then register these instances in their neighbor list.
+DDoS attacks are the early precursors to Swarm  Attacks due to the large number of agents involved.
+ZachiK is a proof of concept worm.
+Parameters may include a rate of interaction with particular machines, internal/external rate of interaction, or subnet-based rate of interaction.
+Sequential scanning is exactly as it sounds: start at an IP address and increment through all the IP space.
+Therefore, by handing off discovered valid addresses, the swarm is (a)  conserving energy by not re-discovering the same addresses (b) attacking more effectively.
+• Code Red CrV1, Code Red II, Nimbda - Exhibit early notions of swarm attacks, including a backdoor  communication channel.
+In this section, we described such a model where a general worm is describe as having four-(4) basic components or subfunctions.
+Random scanning is completely at random (depending on the chosen PRNG method and its seed value).
+In the following sections, we described in detail each one of the elements of the ZachiK worm.
+This is simply due to fact that in the case of Zombies, control is not distributed but rather centralized, and no emergent behaviors arise.
+Pre-generated Target Lists: Pre-generated Target Lists, or so called hit-lists, could include the options for  percentage of total population and percentage wrong, or just  number of IPs to include.
+Spam relays and HTTP-Proxies of course have an associated bandwidth consumption or traffic pattern.
+Emergent Intelligence, including self-organization.
+In Figure 1, this general model of a worm is summarized.
+However, the reader should  consider the following: 1.
+Section 3 of [5] also proposes three particular classes of IV: Self-carried, second channel, and embedded.
+Specifically, • DDOS - Large number of compromised hosts send  useless packets requiring processing (Stacheldraht, http : //www.cert.org/ incidentnotes/IN − 99 − 04.html).
+Local Communication Mechanisms; 3.
+taxonomize this task into 5 separate categories.
+Distributed control; and 4.
+Simplicity of logic & actions; 2.
+These are: 1.
+The work presented by Weaver et.
+In figure ?
+Weaver et.

@@ -1,0 +1,34 @@
+"s fhc and our approach both retain failure-handling logic within an agent. 
+in both cases, failure-handling logic and knowledge are decoupled from the agents; by contrast, while separating exception handling from domain-specific knowledge, unruh et al.
+other work on multi-agent exception handling includes aoex"s distributed exception handling agents [5], and the similar sentinels of [8].
+the resulting architecture embeds their failure handling approach within a pair processing architecture for agent crash recovery.
+this approach, together with state  checkpointing, is used for multi-agent systems in [22].
+on autonomous agents and multi-agent systems (aamas 07) a state-based protocol.
+joint conf.
+thus no formal semantics are developed in [21]; the fhc"s operation is given as 14 the sixth intl.
+the fhc approach is independent of the architecture of the agent itself, in contrast to our work that is dedicated to the bdi  formalism (although not tied to any one agent system).
+fhc"s failure-handling strategy rules (e.g., whether to retry a failed goal) are replaced by instructions in our pf and pa plans, together with meta-level default failure handlers according to the agent"s nature (e.g., blindly committed).
+we leverage the existing execution structures and self-reflective ability of a bdi agent to accomplish both aborting and failure handling without additional overhead.
+further, the fhc explicitly maintains data structures to track agent execution.
+while our approach is  defined at the plan level, our extended bdi semantics provides for the separation of execution and failure handling.
+this contrasts with  simplistic plan-level failure handling in which the what and how are intermingled in domain task knowledge.
+the fhc approach is defined at the goal level in order to  facilitate abstract specification of failure-handling knowledge; the fhc decides when to address a failure and what to do (i.e., what  failurehandling goals to invoke), separating this knowledge from the how of implementing corrective actions (i.e., what plan to execute to meet the adopted failure-handling goal).
+compensation goals are triggered on aborting a goal, and so not necessarily on goal failure (i.e., if the fhc directs the agent to retry the failed goal and the retry is successful).
+their failure-handling goals may consist of stabilization goals that perform localized, immediate clean-up to restore the agent"s state to a known, stable state, and  compensation goals that perform undo actions.
+these goals are  specified by the agent programmer and attached to tasks, much like our fab(p, pf , pa) construct associates failure and abort  methods with a plan p. note, however, that in contrast to both [6] and our semantics, [21] attach the failure-handling knowledge at the goal, not plan, level.
+failure-handling goals are invoked according to  failurehandling strategy rules, by a dedicated agent failure handling  component (fhc) that tracks task execution.
+[21], who define goal-based semantic compensation for an agent.
+such meta level facilities are also required by the approach of unruh et al.
+all three allow meta level methods that are cued by meta events such as goal adoption or plan failure, and offer  introspective capabilities over goal and intention states.
+suitable  implementations of the bdi formalism are jack [2], jadex [14], and spark [9].
+a requirement for implementing our approach is a  reflective capability in the bdi agent implementation.
+[6] requires jason"s internal actions.
+the implementation of h¨ubner et al.
+further, the informal semantics of [6] do not consider parallel sub-goals (i.e., the can construct), since such execution is not part of jason"s language.
+failure  handling is applied only to plans triggered by addition of an  achievement or test goal; in particular, goal deletion events are not posted for failure of a goal deletion plan.
+if no goal deletion plan is provided, jason"s default behaviour is to not reattempt the goal.
+in a goal deletion plan, the programmer can specify any undo actions and whether to attempt the goal again.
+[6]  provide an informal description of how a jason agent modifies its  intention structure when a goal failure event occurs.
+such plans, similar to our failure methods, are designed for the agent to effect state changes (act to undo its earlier actions) prior to possibly attempting  another plan to achieve the failed goal g. given jason"s constructs for dropping a goal with an indication of whether or not to try an alternate plan for it, h¨ubner et al.
+failure clean-up plans are  triggered from goal deletion events −!g.
+plan failure is handled in the extended version of agentspeak found in the jason system [6].

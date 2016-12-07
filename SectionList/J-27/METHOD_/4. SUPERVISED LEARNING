@@ -1,0 +1,231 @@
+In a supervised learning problem, a learning algorithm is
+given a finite sample of labeled observations as input and
+is required to return a model of the functional relationship
+underlying the labeling. This model, referred to as a 
+hypothesis, is usually a computable function that is used to
+forecast the labels of future observations. The labels are
+usually binary values indicating the membership of the 
+observed points in the set that is being learned. However, we
+are not limited to binary values and, indeed, in the demand
+functions we are studying the labels are real vectors.
+The learning problem has three major components: 
+estimation, approximation and complexity. The estimation
+problem is concerned with the tradeoff between the size of
+the sample given to the algorithm and the degree of 
+confidence we have in the forecast it produces. The 
+approximation problem is concerned with the ability of hypotheses
+from a certain class to approximate target functions from
+a possibly different class. The complexity problem is 
+concerned with the computational complexity of finding a 
+hypothesis that approximates the target function.
+A parametric paradigm assumes that the underlying 
+functional relationship comes from a well defined family, such as
+the Cobb-Douglas production functions; the system must
+learn the parameters characterizing this family. Suppose
+that a learning algorithm observes a finite set of production
+data which it assumes comes from a Cobb-Douglas 
+production function and returns a hypothesis that is a polynomial
+of bounded degree. The estimation problem in this case
+would be to assess the sample size needed to obtain a good
+estimate of the coefficients. The approximation problem
+would be to assess the error sustained from approximating a
+rational function by a polynomial. The complexity problem
+would be the assessment of the time required to compute
+the polynomial coefficients.
+In the probably approximately correct (PAC) paradigm,
+the learning of a target function is done by a class of 
+hypothesis functions, that does or does not include the 
+target function itself; it does not necessitate any parametric
+assumptions on this class. It is also assumed that the 
+observations are generated independently by some distribution
+on the domain of the relation and that this distribution is
+fixed. If the class of target functions has finite 
+"dimensionality" then a function in the class is characterized by its values
+on a finite number of points. The basic idea is to observe
+the labeling of a finite number of points and find a 
+function from a class of hypotheses which tends to agree with
+this labeling. The theory tells us that if the sample is large
+enough then any function that tends to agree with the 
+labeling will, with high probability, be a good approximation
+of the target function for future observations. The prime
+objective of PAC theory is to develop the relevant notion
+of dimensionality and to formalize the tradeoff between 
+dimensionality, sample size and the level of confidence in the
+forecast.
+In the revealed preference setting, our objective is to use
+a set of observations of prices and demand to forecast 
+demand for unobserved prices. Thus the target function is a
+mapping from prices to bundles, namely f : Rd
++ → Rd
++. The
+theory of PAC learning for real valued functions is concerned
+predominantly with functions from Rd
+to R. In this section
+we introduce modifications to the classical notions of PAC
+learning to vector valued functions and use them to prove
+a lower bound for sample complexity. An upper bound on
+the sample complexity can also be proved for our definition
+of fat shattering, but we do not bring it here as the proof is
+much more tedious and analogous to the proof of theorem 4.
+Before we can proceed with the formal definition, we must
+clarify what we mean by forecast and tend to agree. In the
+case of discrete learning, we would like to obtain a 
+function h that with high probability agrees with f. We would
+then take the probability Pσ(f(x) = h(x)) as the measure
+of the quality of the estimation. Demand functions are real
+vector functions and we therefore do not expect f and h
+to agree with high probability. Rather we are content with
+having small mean square errors on all coordinates. Thus,
+our measure of estimation error is given by:
+erσ(f, h) =
+Z
+(||f − h||∞)2
+dσ.
+For given observations S = {(p1, x1), . . . , (pn, xn)} we 
+measure the agreement by the sample error
+erS(S, h) =
+X
+j
+(||xj − h(pj)||∞)2
+.
+A sample error minimization (SEM) algorithm is an 
+algorithm that finds a hypothesis minimizing erS(S, h). In the
+case of revealed preference, there is a function that takes the
+sample error to zero. Nevertheless, the upper bounds 
+theorem we use does not require the sample error to be zero.
+Definition 1. A set of demand functions C is probably
+approximately correct (PAC) learnable by hypotheses set H
+if for any ε, δ > 0, f ∈ C and distribution σ on the prices
+39
+there exists an algorithm L that for a set of observations of
+length mL = mL(ε, δ) = Poly(1
+δ
+, 1
+ε
+) finds a function h from
+H such that erσ(f, h) < ε with probability 1 − δ.
+There may be several learning algorithms for C with different
+sample complexities. The minimal mL is called the sample
+complexity of C.
+Note that in the definition there is no mention of the time
+complexity to find h in H and evaluating h(p). A set C is
+efficiently PAC-learnable if there is a Poly(1
+δ
+, 1
+ε
+) time 
+algorithm for choosing h and evaluating h(p).
+For discrete function sets, sample complexity bounds may
+be derived from the VC-dimension of the set (see [19, 8]).
+An analog to this notion of dimension for real functions is
+the fat shattering dimension. We use an adaptation of this
+notion to real vector valued function sets. Let Γ ⊂ Rd
++ and
+let C be a set of real functions from Γ to Rd
++.
+Definition 2. For γ > 0, a set of points p1, . . . , pn ∈ Γ
+is γ-shattered by a class of real functions C if there exists
+x1, . . . , xn ∈ Rd
++ and parallel affine hyperplanes H0, H1 ⊂ Rd
+such that 0 ∈ H−
+0 ∩ H+
+1 , dist(H0, H1) > γ and for each
+b = (b1, . . . , bn) ∈ {0, 1}n
+there exists a function fb ∈ C such
+that fb(pi) ∈ xi + H+
+0 if bi = 0 and f(pi) ∈ xi + H−
+1 if
+bi = 1.
+We define the γ-fat shattering dimension of C, denoted fatC(γ)
+as the maximal size of a γ-shattered set in Γ. If this size is
+unbounded then the dimension is infinite.
+To demonstrate the usefulness of the this notion we use it
+to derive a lower bound on the sample complexity.
+Lemma 2. Suppose the functions {fb : b ∈ {0, 1}n
+} 
+witness the shattering of {p1, . . . , pn}. Then, for any x ∈ Rd
++
+and labels b, b ∈ {0, 1}n
+such that bi = bi either ||fb(pi) −
+x||∞ > γ
+2d
+or ||fb (pi) − x||∞ > γ
+2d
+.
+Proof : Since the max exceeds the mean, it follows that if
+fb and fb correspond to labels such that bi = bi then
+||fb(pi) − fb (pi)||∞ ≥
+1
+d
+||fb(pi) − fb (pi)||2 >
+γ
+d
+.
+This implies that for any x ∈ Rd
++ either ||fb(pi) − x||∞ > γ
+2d
+or ||fb (pi) − x||∞ > γ
+2d ✷
+Theorem 3. Suppose that C is a class of functions 
+mapping from Γ to Rd
++. Then any learning algorithm L for C
+has sample complexity satisfying
+mL(ε, δ) ≥
+1
+2
+fatC(4dε)
+An analog of this theorem for real valued functions with a
+tighter bound can be found in [2], this version will suffice
+for our needs.
+Proof : Suppose n = 1
+2
+fatC(4dε) then there exists a set
+ΓS = {p1, . . . , p2n} that is shattered by C. It suffices to
+show that at least one distribution requires large sample.
+We construct such a distribution. Let σ be the uniform
+distribution on ΓS and CS = {fb : b ∈ {0, 1}2n
+} be the set
+of functions that witness the shattering of {p1. . . . , pn}.
+Let fb be a function chosen uniformly at random from CS.
+It follows from lemma 2 (with γ = 2d ) that for any fixed
+function h the probability that ||fb(p) − h(p)||∞ > 2ε for
+p ∈ ΓS is at least as high as getting heads on a fair coin
+toss. Therefore Eb(||fb(p) − h(p)||∞) > 2ε.
+Suppose for a sequence of observations z = ((pi1 , x1), . . . ,
+(pin , xn)) a learning algorithm L finds a function h. The 
+observation above and Fubini imply Eb(erσ(h, fb)) > ε. 
+Randomizing on the sample space we get Eb,z(erσ(h, fb)) > ε.
+This shows Eh,z(erσ(h, fb0 )) > ε for some fb0 . W.l.g we
+may assume the error is bounded (since we are looking at
+what is essentially a finite set) therefore the probability that
+erσ(h, fb0 ) > ε cannot be too small, hence fb0 is not 
+PAClearnable with a sample of size n ✷
+The following theorem gives an upper bound on the 
+sample complexity required for learning a set of functions with
+finite fat shattering dimension. The theorem is proved in [2]
+for real valued functions, the proof for the real vector case
+is analogous and so omitted.
+Theorem 4. Let C be a set of real-valued functions from
+X to [0, 1] with fatC(γ) < ∞. Let A be approximate-SEM
+algorithm for C and define L(z) = A(z, ε0
+6
+) for z ∈ Zm
+and
+ε0 = 16√
+m
+. Then L is a learning algorithm for C with sample
+complexity given by:
+mL(ε, δ) = O
+„
+1
+ε2
+(ln2
+(
+1
+ε
+)fatC(ε) + ln(
+1
+δ
+))
+«
+for any ε, δ > 0.

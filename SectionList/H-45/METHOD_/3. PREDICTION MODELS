@@ -1,0 +1,399 @@
+3.1 Weighted Information Gain (WIG)
+This section introduces a weighted information gain approach that
+incorporates both single term and proximity features for
+predicting performance for both content-based and Named-Page
+(NP) finding queries.
+Given a set of queries Q={Qs} (s=1,2,..N) which includes all
+possible user queries and a set of documents D={Dt} (t=1,2…M),
+we assume that each query-document pair (Qs,Dt) is manually
+judged and will be put in a relevance list if Qs is found to be
+relevant to Dt. The joint probability P(Qs,Dt) over queries Q and
+documents D denotes the probability that pair (Qs,Dt) will be in
+the relevance list. Such assumptions are similar to those used in
+[8]. Assuming that the user issues query Qi ∈Q and the retrieval
+results in response to Qi is a ranked list L of documents, we
+calculate the amount of information contained in P(Qs,Dt) with
+respect to Qi and L by Eq.1 which is a variant of entropy called
+the weighted entropy[13]. The weights in Eq.1 are solely
+determined by Qi and L.
+)1(),(log),(),(
+,
+, ∑−=
+ts
+tststsLQ DQPDQweightDQH i
+In this paper, we choose the weights as follows:
+LindocumentsKtopthecontainsLTwhere
+otherwise
+LTDandisifK
+DQweight
+K
+Kt
+ts
+)(
+)2(
+,0
+)(,/1
+),(
+⎩
+⎨
+⎧ ∈=
+=
+The cutoff rank K is a parameter in our model that will be
+discussed later. Accordingly, Eq.1 can be simplified as follows:
+)3(),(log
+1
+),(
+)(
+, ∑∈
+−=
+LTD
+titsLQ
+Kt
+i
+DQP
+K
+DQH
+Unfortunately, weighted entropy ),(, tsLQ DQH i
+computed by Eq.3,
+which represents the amount of information about how likely the
+top ranked documents in L would be relevant to query Qi on
+average, cannot be compared across different queries, making it
+inappropriate for directly predicting query performance. To
+mitigate this problem, we come up with a background distribution
+P(Qs,C) over Q and D by imagining that every document in D is
+replaced by the same special document C which represents
+average language usage. In this paper, C is created by
+concatenating every document in D. Roughly speaking, C is the
+collection (the document set) {Dt} without document boundaries.
+Similarly, weighted entropy ),(, CQH sLQi
+calculated by Eq.3
+represents the amount of information about how likely an average
+document (represented by the whole collection) would be relevant
+to query Qi.
+Now we introduce our performance predictor WIG which is the
+weighted information gain [13] computed as the difference
+between ),(, tsLQ DQH i
+and ),(, CQH sLQi
+.Specifically, given query
+Qi, collection C and ranked list L of documents, WIG is
+calculated as follows:
+)4(
+),(
+),(
+log
+1
+),(
+),(
+log),(
+),(),(),,(
+)(,
+,,
+∑∑ ∈
+==
+−=
+LTD i
+ti
+ts s
+ts
+ts
+tsLQsLQi
+Kt
+ii
+CQP
+DQP
+KCQP
+DQP
+DQweight
+DQHCQHLCQWIG
+WIG computed by Eq.4 measures the change in information about
+the quality of retrieval (in response to query Qi) from an
+imaginary state that only an average document is retrieved to a
+posterior state that the actual search results are observed. We
+hypothesize that WIG is positively correlated with retrieval
+effectiveness because high quality retrieval should be much more
+effective than just returning the average document.
+The heart of this technique is how to estimate the joint
+distribution P(Qs,Dt). In the language modeling approach to IR, a
+variety of models can be applied readily to estimate this
+distribution. Although most of these models are based on the 
+bagof-words assumption, recent work on modeling term dependence
+under the language modeling framework have shown consistent
+and significant improvements in retrieval effectiveness over 
+bagof-words models. Inspired by the success of incorporating term
+proximity features into language models, we decide to adopt a
+good dependence model to estimate the probability P(Qs,Dt). The
+model we chose for this paper is Metzler and Croft"s Markov
+Random Field (MRF) model, which has already demonstrated
+superiority over a number of collections and different retrieval
+tasks [8,9].
+According to the MRF model, log P(Qi, Dt) can be written as
+)5()|(loglog),(log
+)(
+1 ∑∈
++−=
+iQF
+tti DPZDQP
+ξ
+ξ ξλ
+where Z1 is a constant that ensures that P(Qi, Dt) sums up to 1.
+F(Qi) consists of a set of features expanded from the original
+query Qi . For example, assuming that query Qi is talented
+student program, F(Qi) includes features like program and
+talented student. We consider two kinds of features: single
+term features T and proximity features P. Proximity features
+include exact phrase (#1) and unordered window (#uwN) features
+as described in [8]. Note that F(Qi) is the union of T(Qi) and
+P(Qi). For more details on F(Qi) such as how to expand the
+original query Qi to F(Qi), we refer the reader to [8] and [9].
+P(ξ|Dt) denotes the probability that feature ξ will occur in Dt.
+More details on P(ξ|Dt) will be provided later in this section. The
+choice of λξ is somewhat different from that used in [8] since λξ
+plays a dual role in our model. The first role, which is the same as
+in [8], is to weight between single term and proximity features.
+The other role, which is specific to our prediction task, is to
+normalize the size of F(Qi).We found that the following weight
+strategy for λξ satisfies the above two roles and generalizes well
+on a variety of collections and query types.
+)6(
+)(,
+|)(|
+1
+)(,
+|)(|
+⎪
+⎪
+⎩
+⎪
+⎪
+⎨
+⎧
+∈
+−
+∈
+=
+i
+i
+T
+i
+i
+T
+QP
+QP
+QT
+QT
+ξ
+λ
+ξ
+λ
+λξ
+where |T(Qi)| and |P(Qi)| denote the number of single term and
+proximity features in F(Qi) respectively. The reason for choosing
+the square root function in the denominator of λξ is to penalize a
+feature set of large size appropriately, making WIG more
+comparable across queries of various lengths. λT is a fixed
+parameter and set to 0.8 according to [8] throughout this paper.
+Similarly, log P(Qi,C) can be written as:
+)7()|(loglog),(log
+)(
+2 ∑∈
++−=
+iQF
+i CPZCQP
+ξ
+ξ ξλ
+When constant Z1 and Z2 are dropped, WIG computed in Eq.4 can
+be rewritten as follows by plugging in Eq.5 and Eq.7 :
+)8(
+)|(
+)|(
+log
+1
+),,(
+)( )(
+∑ ∑∈ ∈
+=
+LTD QF
+t
+i
+Kt i
+CP
+DP
+K
+LCQWIG
+ξ
+ξ
+ξ
+ξ
+λ
+One of the advantages of WIG over other techniques is that it can
+handle well both content-based and NP queries. Based on the type
+(or the predicted type) of Qi, the calculation of WIG in Eq. 8
+differs in two aspects: (1) how to estimate P(ξ|Dt) and P(ξ|C), and
+(2) how to choose K.
+For content-based queries, P(ξ|C) is estimated by the relative
+frequency of feature ξ in collection C as a whole. The estimation
+of P(ξ|Dt) is the same as in [8]. Namely, we estimate P(ξ|Dt) by
+the relative frequency of feature ξ in Dt linearly smoothed with
+collection frequency P(ξ|C). K in Eq.8 is treated as a free
+parameter. Note that K is the only free parameter in the
+computation of WIG for content-based queries because all
+parameters involved in P(ξ|Dt) are assumed to be fixed by taking
+the suggested values in [8].
+Regarding NP queries, we make use of document structure to
+estimate P(ξ|Dt) and P(ξ|C) by the so-called mixture of language
+models proposed in [10] and incorporated into the MRF model for
+Named-Page finding retrieval in [9]. The basic idea is that a
+document (collection) is divided into several fields such as the
+title field, the main-body field and the heading field. P(ξ|Dt) and
+P(ξ|C) are estimated by a linear combination of the language
+models from each field. Due to space constraints, we refer the
+reader to [9] for details. We adopt the exact same set of
+parameters as used in [9] for estimation. With regard to K in Eq.8,
+we set K to 1 because the Named-Page finding task heavily
+focuses on the first ranked document. Consequently, there are no
+free parameters in the computation of WIG for NP queries.
+3.2 Query Feedback
+In this section, we introduce another technique called query
+feedback (QF) for prediction. Suppose that a user issues query Q
+to a retrieval system and a ranked list L of documents is returned.
+We view the retrieval system as a noisy channel. Specifically, we
+assume that the output of the channel is L and the input is Q.
+After going through the channel, Q becomes corrupted and is
+transformed to ranked list L.
+By thinking about the retrieval process this way, the problem of
+predicting retrieval effectiveness turns to the task of evaluating
+the quality of the channel. In other words, prediction becomes
+finding a way to measure the degree of corruption that arises
+when Q is transformed to L. As directly computing the degree of
+the corruption is difficult, we tackle this problem by
+approximation. Our main idea is that we measure to what extent
+information on Q can be recovered from L on the assumption that
+only L is observed. Specifically, we design a decoder that can
+accurately translate L back into new query Q" and the similarity S
+between the original query Q and the new query Q" is adopted as
+a performance predictor. This is a sketch of how the QF technique
+predicts query performance. Before filling in more details, we
+briefly discuss why this method would work.
+There is a relation between the similarity S defined above and
+retrieval performance. On the one hand, if the retrieval has
+strayed from the original sense of the query Q, the new query Q"
+extracted from ranked list L in response to Q would be very
+different from the original query Q. On the other hand, a query
+distilled from a ranked list containing many relevant documents is
+likely to be similar to the original query. Further examples in
+support of the relation will be provided later.
+Next we detail how to build the decoder and how to measure the
+similarity S.
+In essence, the goal of the decoder is to compress ranked list L
+into a few informative terms that should represent the content of
+the top ranked documents in L. Our approach to this goal is to
+represent ranked list L by a language model (distribution over
+terms). Then terms are ranked by their contribution to the
+language model"s KL (Kullback-Leibler) divergence from the
+background collection model. Top ranked terms will be chosen to
+form the new query Q". This approach is similar to that used in
+Section 4.1 of [11].
+Specifically, we take three steps to compress ranked list L into
+query Q" without referring to the original query.
+1. We adopt the ranked list language model [14], to estimate a
+language model based on ranked list L. The model can be written
+as:
+)9()|()|()|( ∑∈
+=
+LD
+LDPDwPLwP
+where w is any term, D is a document. P(D|L) is estimated by a
+linearly decreasing function of the rank of document D.
+2. Each term in P(w|L) is ranked by the following KL-divergence
+contribution:
+)10(
+)|(
+)|(
+log)|(
+CwP
+LwP
+LwP
+where P(w|C) is the collection model estimated by the relative
+frequency of term w in collection C as a whole.
+3. The top N ranked terms by Eq.10 form a weighted query
+Q"={(wi,ti)} i=1,N. where wi denotes the i-th ranked term and
+weight ti is the KL-divergence contribution of wi in Eq. 10.
+Term cruise ship vessel sea passenger
+KL
+contribution
+0.050 0.040 0.012 0.010 0.009
+Table 1: top 5 terms compressed from the ranked list in
+response to query Cruise ship damage sea life
+Two representative examples, one for a poorly performing query
+Cruise ship damage sea life (TREC topic 719; average
+precision: 0.08) and the other for a high performing query
+prostate cancer treatments( TREC topic 710; average precision:
+0.49), are shown in Table 1 and 2 respectively. These examples
+indicate how the similarity between the original and the new
+query correlates with retrieval performance. The parameter N in
+step 3 is set to 20 empirically and choosing a larger value of N is
+unnecessary since the weights after the top 20 are usually too
+small to make any difference.
+Term prostate cancer treatment men therapy
+KL
+contribution
+0.177 0.140 0.028 0.025 0.020
+Table 2: top 5 terms compressed from the ranked list in
+response to query prostate cancer treatments
+To measure the similarity between original query Q and new
+query Q", we first use Q" to do retrieval on the same collection. A
+variant of the query likelihood model [15] is adopted for retrieval.
+Namely, documents are ranked by:
+)11()|()|'(
+'),(
+∑∈
+=
+Qtw
+t
+i
+ii
+i
+DwPDQP
+where wi is a term in Q" and ti is the associated weight. D is a
+document.
+Let L" denote the new ranked list returned from the above
+retrieval. The similarity is measured by the overlap of documents
+in L and L". Specifically, the percentage of documents in the top
+K documents of L that are also present in the top K documents in
+L". the cutoff K is treated as a free parameter.
+We summarize here how the QF technique predicts performance
+given a query Q and the associated ranked list L. We first obtain a
+weighted query Q" compressed from L by the above three steps.
+Then we use Q" to perform retrieval and the new ranked list is L".
+The overlap of documents in L and L" is used for prediction.
+3.3 First Rank Change (FRC)
+In this section, we propose a method called the first rank change
+(FRC) for performance prediction for NP queries. This method is
+derived from the ranking robustness technique [1] that is mainly
+designed for content-based queries. When directly applied to NP
+queries, the robustness technique will be less effective because it
+takes the top ranked documents as a whole into account while NP
+queries usually have only one single relevant document. Instead,
+our technique focuses on the first rank document while the main
+idea of the robustness method remains. Specifically, the 
+pseudocode for computing FRC is shown in figure 1.
+Input: (1) ranked list L={Di} where i=1,100. Di denotes the i-th
+ranked document. (2) query Q
+1 initialize: (1) set the number of trials J=100000 (2) counter c=0;
+2 for i=1 to J
+3 Perturb every document in L, let the outcome be a set F={Di"}
+where Di" denotes the perturbed version of Di.
+4 Do retrieval with query Q on set F
+5 c=c+1 if and only if D1" is ranked first in step 4
+6 end of for
+7 return the ratio c/J
+Figure 1: pseudo-code for computing FRC
+FRC approximates the probability that the first ranked document
+in the original list L will remain ranked first even after the
+documents are perturbed. The higher the probability is, the more
+confidence we have in the first ranked document. On the other
+hand, in the extreme case of a random ranking, the probability
+would be as low as 0.5. We expect that FRC has a positive
+association with NP query performance. We adopt [1] to
+implement the document perturbation step (step 4 in Fig.1) using
+Poisson distributions. For more details, we refer the reader to [1].

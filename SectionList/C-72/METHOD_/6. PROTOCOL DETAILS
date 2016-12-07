@@ -1,0 +1,133 @@
+Using incremental routing protocols to disseminate 
+incremental FM aggregates is a natural fit for the problem of
+coordinated spectrum sensing. Here we outline the 
+implementation of such techniques for a cognitive radio network.
+We continue with the example from Section 5.1, where we
+wish to perform coordination between a group of wireless
+devices to compute the average signal level in a particular
+frequency band.
+Using either incremental random walk or incremental 
+gossip, each device proceeds through three phases, in order to
+determine the global average signal level for a particular
+frequency band. Figure 3 shows a state diagram of these
+phases.
+Susceptible: Each device starts in the susceptible state
+and becomes infectious only when its locally measured signal
+level changes, or if it receives an update message from a
+neighboring device. If a local change is observed, the device
+updates either the original or delete bit vector, as described
+in Section 5.1, and moves into the infectious state. If it
+receives an update message, it ORs the received original
+and delete bit vectors with its local bit vectors and moves
+into the infectious state.
+Note, because signal level measurements may change 
+sporadically over time, a smoothing function, such as an 
+exponentially weighted moving average, should be applied to
+these measurements.
+Infectious: Once a device is infectious it continues to
+send its up-to-date bit vectors, using either incremental 
+random walk or incremental gossip, to neighboring nodes. Due
+to FM"s order and duplicate insensitive (ODI) properties, 
+simultaneously occurring updates are handled seamlessly by
+the protocol.
+Update messages contain a time stamp indicating when
+the update was generated, and each device maintains a 
+lo15
+0
+200
+400
+600
+800
+1000
+1 10 100
+Number of Measured Signal Changes
+Executiontime(ms)
+Incremental Gossip Uniform Gossip
+(a) Incremental Gossip and Uniform 
+Gossip on Clique
+0
+200
+400
+600
+800
+1000
+1 10 100
+Number of Measured Signal Changes
+ExecutionTime(ms).
+Incremental Random Walk Random Walk
+(b) Incremental Random Walk and 
+Random Walk on Clique
+0
+400
+800
+1200
+1600
+2000
+1 10 100
+Number of Measured Signal Changes
+ExecutionTime(ms).
+Random Walk Incremental Random Walk
+(c) Incremental Random Walk and 
+Random Walk on Power-Law Random Graph
+Figure 4: Execution times of Incremental Protocols
+0.9
+1.4
+1.9
+2.4
+2.9
+1 10 100
+Number of Measured Signal Changes
+OverheadImprovementRatio.
+(NormalizedtoUniformGossip)
+Incremental Gossip Uniform Gossip
+(a) Incremental Gossip and Uniform 
+Gossip on Clique
+0.9
+1.4
+1.9
+2.4
+2.9
+1 10 100
+Number of Measured Signal Changes
+OverheadImprovementRatio.
+(NormalizedtoRandomWalk) Incremental Random Walk Random Walk
+(b) Incremental Random Walk and 
+Random Walk on Clique
+0.9
+1.1
+1.3
+1.5
+1.7
+1.9
+1 10 100
+Number of Measured Signal Changes
+OverheadImprovementRatio.
+(NormalizedtoRandomWalk)
+Random Walk Incremental Random Walk
+(c) Incremental Random Walk and 
+Random Walk on Power-Law Random Graph
+Figure 5: Network overhead of Incremental Protocols
+cal time stamp of when it received the most recent update.
+Using this information, a device moves into the recovered
+state once enough time has passed for the most recent 
+update to have converged. As discussed in Section 4.2, this
+happens after O(log(N)) time steps.
+Recovered: A recovered device ceases to propagate any
+update information. At this point, it performs clean-up and
+prepares for the next infection by entering the susceptible
+state. Once all devices have entered the recovered state, the
+system will have converged, and with high probability, all
+devices will have the up-to-date average signal level. Due
+to the cumulative nature of FM, even if all devices have not
+converged, the next update will include all previous updates.
+Nevertheless, the probability that gossip fails to converge is
+small, and has been shown to be O(1/N) [10].
+For coordinated spectrum sensing, non-incremental 
+routing protocols can be implemented in a similar fashion. 
+Random walk would operate by having devices periodically drop
+the aggregate and re-run the protocol. Each device would
+perform a coin toss (biased on the number of walks) to 
+determine whether or not it is a designated node. This is
+different from the protocol discussed above where only 
+updated nodes initiate random walks. Similar techniques can
+be used to implement standard gossip.

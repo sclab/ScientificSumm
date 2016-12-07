@@ -1,0 +1,15 @@
+The system associates an aggregation function ftype with each attribute type, and for each level-i subtree Ti in the  system, the system defines an aggregate value Vi,type,name for each  (at380 tributeType, attributeName) pair as follows.
+Our aggregation abstraction is defined across a tree spanning all nodes in the system.
+Then the aggregate value for a level-i subtree Ti is the aggregation  function for the type, ftype computed across the aggregate values of each of Ti"s k children: Vi,type,name = ftype(V0 i−1,type,name,V1 i−1,type,name,...,Vk−1 i−1,type,name).
+Each physical node in the system is a leaf and each subtree represents a logical group of nodes.
+Instead, if an attribute stores values as tuples (sum,count), the attribute satisfies the  hierarchical computation property while still allowing the applications to compute the average from the aggregate sum and count values.
+Finally, note that for a large-scale system, it is difficult or  impossible to insist that the aggregation value returned by a probe corresponds to the function computed over the current values at the leaves at the instant of the probe.
+Although SDIMS allows arbitrary aggregation functions, it is  often desirable that these functions satisfy the hierarchical  computation property [21]: f(v1,...,vn)= f(f(v1,...,vs1 ), f(vs1+1,...,vs2 ), ..., f(vsk+1,...,vn)), where vi is the value of an attribute at node i.
+For a (physical) leaf node T0 at level 0, V0,type,name is the locally stored value for the  attribute type and name or NULL if no matching tuple exists.
+An internal non-leaf node, which we call virtual node, is simulated by one or more physical nodes at the leaves of the subtree for which the virtual node is the root.
+Therefore our system provides only weak consistency guarantees - specifically eventual  consistency as defined in [38]. 
+We describe how to form such trees in a later section.
+Each physical node has local data stored as a set of (attributeType, attributeName, value) tuples such as (configuration, numCPUs, 16), (mcast membership, session foo, yes), or (file stored, foo,  myIPaddress).
+For example, the average operation, defined as avg(v1,...,vn) = 1/n.∑n i=0 vi, does not satisfy the property.
+Aggregation is a natural abstraction for a large-scale distributed information system because aggregation provides scalability by  allowing a node to view detailed information about the state near it and progressively coarser-grained summaries about progressively larger subsets of a system"s data [38].
+Note that logical groups can correspond to administrative domains (e.g., department or university) or groups of nodes within a domain (e.g., 10  workstations on a LAN in CS department).

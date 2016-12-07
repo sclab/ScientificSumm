@@ -1,0 +1,23 @@
+our experiments also confirm that exploiting the structure present in database results is crucial to this performance improvement. 
+even when bandwidth was not a constraint, ganesh had low overhead and did not hurt performance.
+for workloads that were not data-intensive, throughput improvements of up to twofold were observed.
+on benchmarks modeling  multitiered web applications, the throughput improvement was as high as tenfold for data-intensive workloads.
+our experiments show that ganesh, while conceptually simple, can improve performance significantly at bandwidths  representative of today"s commercial internet.
+this is in contrast to previous work which presumed availability of source code.
+third, the source code of commercial databases is typically not available.
+second, relational databases have very tight integrity and consistency constraints that must not be compromised by the use of hash-based techniques.
+in contrast, relational databases have rich internal structure that may not be as amenable to hash-based similarity  detection.
+this allows hash-based  techniques to operate on long, contiguous runs of data for maximum effectiveness.
+first, previous work in this space has traditionally viewed storage content as uninterpreted bags of bits with no internal structure.
+one faces at least three challenges in applying hash-based  similarity detection to back-end databases.
+unlike previous approaches that use generic methods to detect similarity, ganesh exploits the structure of relational database results to yield superior performance improvement.
+however, these techniques have not been used for relational databases.
+hash-based similarity detection has seen increasing use in distributed file systems [26, 36, 37] for  improving performance on low-bandwidth networks.
+instead, it relies exclusively on cryptographic hashing to detect  similarities with previous results.
+ganesh makes no effort to semantically interpret the contents of queries or their results.
+we report on a new solution that takes the form of a  databaseagnostic middleware layer called ganesh.
+previous attempts in caching  dynamic database content have generally weakened transactional  semantics [3, 4] or required application modifications [15, 34].
+this causes user  experience to be highly variable because there is no caching to  insulate the client from bursty loads.
+in a  multitiered architecture, each web request can stress the wan link  between the web server and the database.
+even when database content remains unchanged, temporal locality of access cannot be exploited because dynamic content is not cacheable by web browsers or by intermediate caching servers such as akamai mirrors.
+an increasing fraction of web content is dynamically generated from back-end relational databases.

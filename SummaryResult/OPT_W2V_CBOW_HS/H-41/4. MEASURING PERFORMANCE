@@ -1,0 +1,26 @@
+The reciprocal rank (RR) of the ranked result set of a query is defined to be the reciprocal value of the rank of the highest-ranking relevant document in the result set.
+the fraction of the relevant results among the j highest-ranking results.
+This introduces a bias into our evaluation: features that bring new documents to the top of the rank may be penalized.
+Similarly, we  computed NDCG, MAP, and MRR values for a wide range of rank-thresholds; we report results here at rank 10; again, changing the rank-threshold never led us to different  conclusions.
+The precision P(j) at rank j is defined to be 1 j Pj i=1 rel(i), i.e.
+The mean reciprocal rank (MRR) of a query set is the average reciprocal rank of all queries in the query set.
+Finally, the NDGCs of all queries in the query set are averaged to produce a mean NDCG.
+This will be more acute for features less correlated to the pre-existing commercial ranking algorithms used to select documents for judgment.
+We chose to treat all these documents as irrelevant to the query.
+NDCG values are  normalized to be between 0 and 1, with 1 being the NDCG of a perfect ranking scheme that completely agrees with the assessment of the human judges.
+In this study, we quantify the effectiveness of various  ranking algorithms using three measures: NDCG, MRR, and MAP.
+The average precision (AP) at rank-threshold k is defined to be Pk i=1 P (i)rel(i) Pn i=1 rel(i) .
+We investigated two definitions of  relevance: One where all documents rated fair or better were deemed relevant, and one were all documents rated good or better were deemed relevant.
+The above definitions of MRR and MAP rely on the notion of a relevant result.
+The mean average precision (MAP) of a query set is the mean of the average precisions of all queries in the query set.
+The NDCG is computed by dividing the DCG of a ranking by the highest possible DCG that can be obtained for that query.
+For reasons of space, we only report MAP and MRR values computed using the  latter definition; using the former definition does not change the qualitative nature of our findings.
+The discounted  cumulative gain at a particular rank-threshold T (DCG@T) is  defined to be PT j=1 1 log(1+j)  2r(j) − 1  , where r(j) is the  rating (0=detrimental, 1=bad, 2=fair, 3=good, 4=excellent, and 5=definitive) at rank j.
+The normalized discounted cumulative gains (NDCG)  measure [13] discounts the contribution of a document to the overall score as the document"s rank increases (assuming that the best document has the lowest rank).
+For some queries, however, not all relevant documents have been judged.
+Given a ranked set of n results, let rel(i) be 1 if the result at rank i is relevant and 0 otherwise.
+Such a  measure is particularly appropriate for search engines, as studies have shown that search engine users rarely consider anything beyond the first few results [12].
+On the other hand, most queries have few perfect relevant documents (i.e.
+The RR at rank-threshold T is defined to be 0 if none of the  highestranking T documents is relevant.
+Recall that over 99% of documents are unlabeled.
+home page or item searches) and they will most often be within the judged set. 

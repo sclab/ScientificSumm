@@ -1,0 +1,62 @@
+A PAUSE auction for m items has m stages. Stage 1 
+consists of having simultaneous ascending price open-cry 
+auctions and during this stage the bidders can only place bids on
+individual items. At the end of this state we will know what
+the highest bid for each individual item is and who placed
+that bid. Each successive stage k = 2, 3, . . . , m consists of
+an ascending price auction where the bidders must submit
+bidsets that cover all items but each one of the bids must be
+for k items or less. The bidders are allowed to use bids that
+other agents have placed in previous rounds when building
+their bidsets, thus allowing them to find better solutions.
+Also, any new bidset has to have a sum of bid prices which
+is bigger than that of the currently winning bidset. At the
+end of each stage k all agents know the best bid for every
+subset of size k or less. Also, at any point in time after stage
+1 has ended there is a standing bidset whose value increases
+monotonically as new bidsets are submitted. Since in the
+final round all agents consider all possible bidsets, we know
+that the final winning bidset will be one such that no agent
+can propose a better bidset. Note, however, that this 
+bidset is not guaranteed to be the one that maximizes revenue
+since we are using an ascending price auction so the 
+winning bid for each set will be only slightly bigger than the
+second highest bid for the particular set of items. That is,
+the final prices will not be the same as the prices in a 
+traditional combinatorial auction where all the bidders bid their
+true valuation. However, there remains the open question
+of whether the final distribution of items to bidders found
+in a PAUSE auction is the same as the revenue maximizing
+solution. Our test results provide an answer to this question.
+The PAUSE auction makes the job of the auctioneer very
+easy. All it has to do is to make sure that each new 
+bidset has a revenue bigger than the current winning bidset, as
+well as make sure that every bid in an agent"s bidset that
+is not his does indeed correspond to some other agents" 
+previous bid. The computational problem shifts from one of
+winner determination to one of bid generation. Each agent
+must search over the space of all bidsets which contain at
+least one of its bids. The search is made easier by the fact
+that the agent needs to consider only the current best bids
+and only wants bidsets where its own utility is higher than
+in the current winning bidset. Each agent also has a clear
+incentive for performing this computation, namely, its 
+utility only increases with each bidset it proposes (of course, it
+might decrease with the bidsets that others propose). 
+Finally, the PAUSE auction has been shown to be envy-free in
+that at the conclusion of the auction no bidder would prefer
+to exchange his allocation with that of any other bidder [2].
+We can even envision completely eliminating the 
+auctioneer and, instead, have every agent perform the task of the
+auctioneer. That is, all bids are broadcast and when an
+agent receives a bid from another agent it updates the set
+of best bids and determines if the new bid is indeed better
+than the current winning bid. The agents would have an 
+incentive to perform their computation as it will increase their
+expected utility. Also, any lies about other agents" bids are
+easily found out by keeping track of the bids sent out by 
+every agent (the set of best bids). Namely, the only one that
+can increase an agent"s bid value is the agent itself. 
+Anyone claiming a higher value for some other agent is lying.
+The only thing missing is an algorithm that calculates the
+utility-maximizing bidset for each agent.

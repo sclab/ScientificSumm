@@ -1,0 +1,18 @@
+the second factor widf (v, t), which we refer to as the idf-score in the remainder, conveys the inverse document frequency of term v in the collection at time t and is defined as widf (v, t) = log n(t) − df(v, t) + 0.5 df(v, t) + 0.5 where n(t) = |dt | is the collection size at time t and df(v, t) gives the number of documents in the collection that contain the term v at time t. while the idf-score depends on the whole corpus as of the query time t, the tf-score is specific to each version. 
+the length-normalization parameter b and the tf-saturation parameter k1 are inherited from the original okapi bm25 and are commonly set to  values 1.2 and 0.75 respectively.
+it considers the plain term frequency tf(v, dti ) of term v in version dti normalizing it, taking into account both the length dl(dti ) of the version and the average document length avdl(ti) in the collection at time ti.
+the first factor wtf (v, dti ) in the summation, further referred to as the  tfscore is defined as wtf (v, dti ) = (k1 + 1) · tf(v, dti ) k1 · ((1 − b) + b · dl(d ti ) avdl(ti) ) + tf(v, dti ) .
+we reiterate that q t is evaluated over dt so that only the version dti valid at time t is considered.
+in the above formula, the relevance w(q t , dti ) of a  document version dti to the time-travel query q t is defined.
+for our considered setting, we slightly adapt okapi bm25 as w(q t , dti ) = x v∈q wtf (v, dti ) · widf (v, t) .
+as a retrieval model in this work we adopt okapi bm25 [27], but note that the proposed techniques are not dependent on this choice and are applicable to other retrieval models like tf-idf [4] or language models [26] as well.
+as mentioned earlier, we want to enrich a keyword query q with a timestamp t, so that q be evaluated over dt , i.e., the state of the collection at time t. the enriched time-travel query is written as q t for brevity.
+putting all this together, we define the state dt of the collection at time t (i.e., the set of versions valid at t that are not deletions) as dt = [ d∈d {dti ∈ d | t ∈ val(dti ) ∧ dti = ⊥} .
+the validity time-interval val(dti ) of a version dti is [ti, ti+1), if a newer version with associated timestamp ti+1 exists, and [ti, now) otherwise where now points to the greatest possible value of a timestamp (i.e., ∀t : t < now).
+the deletion of a document at time ti, i.e., its disappearance from the current state of the collection, is modeled as the insertion of a special tombstone version ⊥.
+we employ a discrete definition of time, so that timestamps are non-negative integers.
+any modification to a  document version results in the insertion of a new version with corresponding timestamp.
+each version is a vector of searchable terms or features.
+each version dti has an associated timestamp ti reflecting when the version was created.
+each document d ∈ d is a sequence of its versions d = dt1 , dt2 , .
+in the present work, we deal with a temporally versioned document collection d that is modeled as described in the following.

@@ -1,0 +1,75 @@
+The scenarios considered in this work consist of a finite set
+of agents where each agent has a task that can be carried
+out by any element of a set of identical resources (service
+providers). The agents simultaneously choose a subset of
+the resources in order to perform their tasks, and their aim
+is to maximize their own expected payoff, as described in
+the sequel.
+Let N be a set of n agents (n ∈ N), and let M be a set
+of m resources (m ∈ N). Agent i ∈ N chooses a 
+strategy σi ∈ Σi which is a (potentially empty) subset of the
+resources. That is, Σi is the power set of the set of 
+resources: Σi = P(M). Given a subset S ⊆ N of the agents,
+the set of strategy combinations of the members of S is
+denoted by ΣS = ×i∈SΣi, and the set of strategy 
+combinations of the complement subset of agents is denoted by
+Σ−S (Σ−S = ΣN S = ×i∈N SΣi). The set of pure strategy
+profiles of all the agents is denoted by Σ (Σ = ΣN ).
+Each resource is associated with a cost, c(·), and a 
+failure probability, f(·), each of which depends on the 
+number of agents who use this resource. We assume that the
+failure probabilities of the resources are independent. Let
+σ = (σ1, . . . , σn) ∈ Σ be a pure strategy profile. The
+(m-dimensional) congestion vector that corresponds to σ is
+hσ
+= (hσ
+e )e∈M , where hσ
+e =
+˛
+˛{i ∈ N : e ∈ σi}
+˛
+˛. The 
+failure probability of a resource e is a monotone nondecreasing
+function f : {1, . . . , n} → [0, 1) of the congestion 
+experienced by e. The cost of utilizing resource e is a function
+c : {1, . . . , n} → R+ of the congestion experienced by e.
+The outcome for agent i ∈ N is denoted by xi ∈ {S, F},
+where S and F, respectively, indicate whether the task 
+execution succeeded or failed. We say that the execution of
+agent"s i task succeeds if the task of agent i is successfully
+completed by at least one of the resources chosen by him.
+The benefit of agent i from his outcome xi is denoted by
+Vi(xi), where Vi(S) = vi, a given (nonnegative) value, and
+Vi(F) = 0.
+The utility of agent i from strategy profile σ and his 
+outcome xi, ui(σ, xi), is the difference between his benefit from
+the outcome (Vi(xi)) and the sum of the costs of the 
+resources he has used:
+ui(σ, xi) = Vi(xi) −
+X
+e∈σi
+c(hσ
+e ) .
+The expected utility of agent i from strategy profile σ, Ui(σ),
+is, therefore:
+Ui(σ) = 1 −
+Y
+e∈σi
+f(hσ
+e )
+!
+vi −
+X
+e∈σi
+c(hσ
+e ) ,
+where 1 −
+Q
+e∈σi
+f(hσ
+e ) denotes the probability of successful
+completion of agent i"s task. We use the convention thatQ
+e∈∅ f(hσ
+e ) = 1. Hence, if agent i chooses an empty set
+σi = ∅ (does not assign his task to any resource), then his
+expected utility, Ui(∅, σ−i), equals zero.

@@ -1,0 +1,23 @@
+On this testbed, we inserted queries and events from a  single designated node.
+Our next step in the implementation is to port DIMs to the Mica motes, and integrate them into the TinyDB [17] sensor database engine on motes.
+For the DIM subsystem, the GPSR module 0 2 4 6 8 10 12 14 16 0.25x0.25 0.50x0.50 0.75x0.75 1.0x1.0 Query size Average#ofreceivedresponses perquery Figure 17: Number of events received for different query sizes 0 2 4 6 8 10 12 14 16 0.25x0.25 0.50x0.50 0.75x0.75 1.0x1.0 Query sizeTotalnumberofmessages onlyforsendingthequery Figure 18: Query distribution cost provides several extensions: it exports information about neighbors, and provides callbacks during packet forwarding and perimeter-mode termination.
+While these experiments do not reveal as much about the performance range of DIMs as our simulations do, they  nevertheless serve as proof-of-concept for DIMs.
+Finally, Figure 18 shows the total number of messages required for different query sizes on our testbed.
+Each of these boxes runs Linux and uses a Mica mote (attached through a serial cable) for  communication.
+We manually measured the locations of these nodes relative to some coordinate system and configured the nodes with their location.
+We tested our implementation on a testbed consisting of 8 PC-104 class machines.
+The GPSR system is  implemented as user-level daemon process.
+These boxes are laid out in an office building with a total spatial separation of over a hundred feet.
+It might appear that we received fewer events than expected, but this graph doesn"t count the events that were already stored at the querier.
+We have implemented DIMs on a Linux platform suitable for experimentation on PDAs and PC-104 class machines.
+Figure 17 plots the number of events received for different sized queries.
+To implement DIMs, we had to develop and test an  independent implementation of GPSR.
+The software architecture of DIM/GPSR system is shown in Figure 16.
+Our GPSR implementation is full-featured, while our DIM implementation has most of the algorithms discussed in Section 3; some of the robustness extensions have only simpler variants implemented.
+The entire system (about 5000 lines of code) is event-driven and multi-threaded.
+The DIM subsystem consists of six logical components: zone management, event maintenance, event routing, query routing, query  processing, and GPSR interactions.
+Our queries span four sizes, returning 1, 4, 9 and 16 events respectively.
+With that adjustment, the number of responses matches our expectation.
+Our events have two attributes which span all combinations of the four values [0, 0.25, 0.75, 1]  (sixteen events in all).
+Applications are  executed as clients.
+The network topology is approximately a chain.

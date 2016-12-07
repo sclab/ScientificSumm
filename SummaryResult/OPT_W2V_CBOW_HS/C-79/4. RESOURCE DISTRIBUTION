@@ -1,0 +1,27 @@
+4.1 Resource Replication Multiple replicas of a resource in the network help prevent a  single node, as well as nodes surrounding it, from being overloaded by a large number of requests and data transfers.
+Furthermore, in MANETs, we should consider not only the amount of load handled by a resource provider, but also the load on those intermediate nodes that are located on the communication paths between the provider and other nodes as well.
+To realize this feature, the hybrid resource distribution scheme employs a different type of control packet, called resource  replication packet, which is responsible for finding an appropriate place to create a replica of a resource.
+This type of pheromone, called request pheromone, is setup by query packets that are in their exploring phases (not returning ones) to guide a resource to a new location.
+For example, a node may no longer want to possess a file due to the shortage of storage space, but it cannot simply delete the file since other nodes may still need it in the future.
+In certain situations, it is also beneficial to make a resource readily available at multiple nodes when the  resource can be relocated and/or replicated, such as data files.
+For  instance, to help nodes find a resource quickly, we could replicate the resource so that it becomes reachable by random walk for a specific number of hops from any node with some probability, as depicted in Figure 2(a).
+Therefore, each of these sub-resources will be seen by the other mechanisms as one single resource which can be  independently discovered, replicated, and relocated.
+Specifically, by following the same pheromone maintenance concept, the hybrid resource  distribution scheme introduces another type of pheromone which  corresponds to user requests, instead of resources.
+4.2 Resource Relocation In certain situations, a resource may be required to transfer from one node to another.
+An example is when a node has obtained a data file from another node, the  requesting node and the intermediate nodes can cache the file and start sharing that file with other surrounding nodes right away.
+Hence, we describe a cross-layer, hybrid resource distribution scheme to achieve load balancing by incorporating the functionalities of resource  relocation, resource replication, and resource division.
+Unlike a query packet which follows higher pheromone upstream toward a resource it is looking for, a  resource replication packet tends to be propelled away from similar resources by moving itself downstream toward weaker  pheromone.
+If the resource R is relocatable, it is preferred to be relocated to another area that is closer to those nodes, similar to the bottom of the same figure.
+The 3rd Conference on Mobile Technology, Applications and Systems - Mobility 2006 3 The hybrid resource distribution scheme incorporates resource relocation algorithms that are adaptive to user requests and aim to reduce communication overhead.
+Let us consider a situation where a  majority of nodes requesting for a resource are located far away from a resource provider, as shown on the top of Figure 2(b).
+In addition, replicable resources can also be proactively replicated at other nodes which are located in certain strategic areas.
+In this case, the node can choose to create replicas of the file by the aforementioned resource replication mechanism and then delete its own copy.
+4.3 Resource Division Certain types of resources can be divided into smaller  subresources (e.g., a large file being broken into smaller files) and distributed to multiple locations to avoid overloading a single node, as depicted in Figure 2(c).
+A resource replication packet of type R is deployed by a node that is providing the  resource R itself.
+In addition to resource discovery, a querying node usually  attempts to access and retrieve the contents of a resource after a successful discovery.
+The resource division mechanism is also responsible for combining data from these  subresources together (e.g., merging pieces of a file) and delivering the final result to the application. 
+When a resource replication packet finds itself in an area with sufficiently low pheromone, it makes a decision whether it should continue exploring or turn back.
+The decision depends on conditions such as current workload and/or remaining energy of the node being visited, as well as popularity of the resource itself.
+The hybrid resource distribution scheme incorporates a resource division mechanism that operates at a thin layer right above all the other mechanisms described earlier.
+The resource division mechanism is responsible for  decomposing divisible resources into sub-resources, and then adds an extra keyword to distinguish each sub-resource from one  another.
+Hence network bandwidth is more efficiently  utilized.

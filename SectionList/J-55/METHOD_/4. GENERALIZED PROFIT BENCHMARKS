@@ -1,0 +1,119 @@
+In this section, we widen our focus beyond auctions that compete
+with F(2)
+to consider other benchmarks for an auction"s profit. We
+will show that, for three bidders, the form of the optimal auction
+is essentially independent of the benchmark profit used. This 
+results strongly corroborates the worst-case competitive analysis of
+auctions by showing that our techniques allow us to derive auctions
+which are competitive against a broad variety of reasonable 
+benchmarks rather than simply against F(2)
+.
+Previous work in competitive analysis of auctions has focused on
+the question of designing the auction with the best competitive 
+ratio against F(2)
+, the profit of the optimal omniscient single-priced
+mechanism that sells at least two items. However, it is reasonable to
+consider other benchmarks. For instance, one might wish to 
+compete against V∗
+, the profit of the k-Vickrey auction with 
+optimal-inhindsight choice of k.2
+Alternatively, if an auction is being used as
+a subroutine in a larger mechanism, one might wish to choose the
+auction which is optimally competitive with a benchmark specific
+to that purpose.
+Recall that F(2)
+(b) = max2≥k≥n kb(k). We can generalize this
+definition to Gs, parameterized by s = (s2, . . . , sn) and defined as:
+Gs(b) = max
+2≤k≤n
+skb(k).
+When considering Gs we assume without loss of generality that
+si < si+1 as otherwise the constraint imposed by si+1 is irrelevant.
+Note that F(2)
+is the special case of Gs with si = i, and that V∗
+=
+Gs with si = i − 1.
+2
+Recall that the k-Vickrey auction sells a unit to each of the 
+highest k bidders at a price equal to the k + 1st highest bid, b(k+1),
+achieving a profit of kb(k+1).
+178
+Competing with Gs
+We will now design a three-bidder auction Υs,t
+3 that achieves the
+optimal competitive ratio against Gs,t. As before, we will first find
+a lower bound on the competitive ratio and then design an auction
+to meet that bound.
+We can lower bound the competitive ratio of Υs,t
+3 using the same
+worst-case distribution from [8] that we used against F(2)
+. 
+Evaluating the performance of any auction competing against Gs,t on
+this distribution will yield the following theorem. We denote the
+optimal auction for three bidders against Gs,t as Υs,t
+3 .
+THEOREM 4. The optimal three-bidder auction, Υs,t
+3 , 
+competing against Gs,t(b) = max(sb(2), tb(3)) has a competitive ratio of
+at least s2
++t2
+2t
+.
+The proof can be found in the appendix.
+Similarly, we can find the optimal auction against Gs,t using the
+same technique we used to solve for the three bidder auction with
+the best competitive ratio against F(2)
+.
+DEFINITION 6. Υs,t
+3 is scale-invariant and symmetric and given
+by the bid-independent function with density function
+ρ1,x(z) =
+⎧
+⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎨
+⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎩
+For x ≤ t
+s
+1 with probability t2
+s2+t2
+z with probability density g(z) for z > t
+s
+For x > t
+s⎧
+⎪⎪⎨
+⎪⎪⎩
+1 with probability t2
+s2+t2 −
+x
+t
+s
+zg(z)dz
+x with probability
+x
+t
+s
+(z + 1)g(z)dz
+z with probability density g(z) for z > x
+where g(x) = 2(t−s)2
+/(s2
++t2
+)
+(x−1)3 .
+THEOREM 5. Υs,t
+3 is s2
++t2
+2t
+-competitive with Gs,t.
+This auction, like Υ3, can be derived by reducing the optimization
+problem to a feasibility problem, guessing that the optimal solution
+has the same form as Υs,t
+3 , and solving. The auction is optimal 
+because it matches the lower bound found above. Note that the form
+of Υs,t
+3 is essentially the same as for Υ3, but that the probability of
+each price is scaled depending on the values of s and t.
+That our auction for three bidders matches the lower bound 
+computed by the input distribution used in [8] is strong evidence that
+this input distribution is the worst-case input distribution for any
+number of bidders and any generalized profit benchmark. 
+Furthermore, we strongly suspect that for any number of bidders, the form
+of the optimal auction will be independent of the benchmark used.

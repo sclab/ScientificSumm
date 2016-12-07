@@ -1,0 +1,246 @@
+MARKET
+In this section, we will show that the clearing problem is
+completely inapproximable, even when every bidder"s utility
+function is linear (with slope 0 or 1 in each charity"s 
+payments), each bidder cares either about at most two charities
+or about all charities equally, and each bidder"s payment
+willingness function is a step function. We will reduce from
+MAX2SAT (given a formula in conjunctive normal form
+(where each clause has two literals) and a target number of
+satisfied clauses T, does there exist an assignment of truth
+values to the variables that makes at least T clauses true?),
+which is NP-complete [7].
+Theorem 1. There exists a reduction from MAX2SAT
+instances to DONATION-CLEARING instances such that
+1. If the MAX2SAT instance has no solution, then the
+only valid outcome is the zero outcome (no bidder pays 
+anything and no charity receives anything); 2. Otherwise, there
+exists a solution with positive surplus. Additionally, the
+DONATION-CLEARING instances that we reduce to have
+the following properties: 1. Every ui
+j is a line; that is, the
+utility that each bidder derives from any charity is linear; 2.
+All the ui
+j have slope either 0 or 1; 3. Every bidder either
+has at most 2 charities that affect her utility (with slope 1),
+or all charities affect her utility (with slope 1); 4. Every bid
+is a threshold bid; that is, every bidder"s payment willingness
+function wj is a step function.
+Proof. The problem is in NP because we can 
+nondeterministically choose the payments to be made and received,
+and check the validity and objective value of this outcome.
+In the following, we will represent bids as follows:
+({(ck, ak)}, s, t) indicates that uk
+j (πck ) = akπck (this 
+function is 0 for ck not mentioned in the bid), and wj(uj) = t
+for uj ≥ s, wj(uj) = 0 otherwise.
+To show NP-hardness, we reduce an arbitrary MAX2SAT
+instance, given by a set of clauses K = {k} = {(l1
+k, l2
+k)}
+over a variable set V together with a target number of 
+satisfied clauses T, to the following DONATION-CLEARING
+instance. Let the set of charities be as follows. For every
+literal l ∈ L, there is a charity cl. Then, let the set of
+bids be as follows. For every variable v, there is a bid bv =
+({(c+v, 1), (c−v, 1)}, 2, 1 − 1
+4|V |
+). For every literal l, there is
+a bid bl = ({(cl, 1)}, 2, 1). For every clause k = {l1
+k, l2
+k} ∈ K,
+there is a bid bk = ({(cl1
+k
+, 1), (cl2
+k
+, 1)}, 2, 1
+8|V ||K|
+). Finally,
+there is a single bid that values all charities equally: b0 =
+({(c1, 1), (c2, 1), . . . , (cm, 1)}, 2|V |+ T
+8|V ||K|
+, 1
+4
++ 1
+16|V ||K|
+). We
+show the two instances are equivalent.
+First, suppose there exists a solution to the MAX2SAT
+instance. If in this solution, l is true, then let πcl = 2 +
+T
+8|V |2|K|
+; otherwise πcl = 0. Also, the only bids that are
+not accepted (meaning the threshold is not met) are the bl
+where l is false, and the bk such that both of l1
+k, l2
+k are false.
+First we show that no bidder whose bid is accepted pays
+more than she is willing to. For each bv, either c+v or c−v
+receives at least 2, so this bidder"s threshold has been met.
+54
+For each bl, either l is false and the bid is not accepted, or l
+is true, cl receives at least 2, and the threshold has been met.
+For each bk, either both of l1
+k, l2
+k are false and the bid is not
+accepted, or at least one of them (say li
+k) is true (that is, k
+is satisfied) and cli
+k
+receives at least 2, and the threshold has
+been met. Finally, because the total amount received by the
+charities is 2|V | + T
+8|V ||K|
+, b0"s threshold has also been met.
+The total amount that can be extracted from the accepted
+bids is at least |V |(1− 1
+4|V |
+)+|V |+T 1
+8|V ||K|
++ 1
+4
++ 1
+16|V ||K|
+) =
+2|V |+ T
+8|V ||K|
++ 1
+16|V ||K|
+> 2|V |+ T
+8|V ||K|
+, so there is positive
+surplus. So there exists a solution with positive surplus to
+the DONATION-CLEARING instance.
+Now suppose there exists a nonzero outcome in the
+DONATION-CLEARING instance. First we show that it
+is not possible (for any v ∈ V ) that both b+v and b−v are
+accepted. For, this would require that πc+v + πc−v ≥ 4.
+The bids bv, b+v, b−v cannot contribute more than 3, so
+we need another 1 at least. It is easily seen that for any
+other v , accepting any subset of {bv , b+v , b−v } would 
+require that at least as much is given to c+v and c−v as
+can be extracted from these bids, so this cannot help. 
+Finally, all the other bids combined can contribute at most
+|K| 1
+8|V ||K|
++ 1
+4
++ 1
+16|V ||K|
+< 1. It follows that we can 
+interpret the outcome in the DONATION-CLEARING instance
+as a partial assignment of truth values to variables: v is set
+to true if b+v is accepted, and to false if b−v is accepted. All
+that is left to show is that this partial assignment satisfies
+at least T clauses.
+First we show that if a clause bid bk is accepted, then
+either bl1
+k
+or bl2
+k
+is accepted (and thus either l1
+k or l2
+k is set
+to true, hence k is satisfied). If bk is accepted, at least one
+of cl1
+k
+and cl2
+k
+must be receiving at least 1; without loss of
+generality, say it is cl1
+k
+, and say l1
+k corresponds to variable
+v1
+k (that is, it is +v1
+k or −v1
+k). If cl1
+k
+does not receive at
+least 2, bl1
+k
+is not accepted, and it is easy to check that
+the bids bv1
+k
+, b+v1
+k
+, b−v1
+k
+contribute (at least) 1 less than is
+paid to c+v1
+k
+and c+v1
+k
+. But this is the same situation that
+we analyzed before, and we know it is impossible. All that
+remains to show is that at least T clause bids are accepted.
+We now show that b0 is accepted. Suppose it is not; then
+one of the bv must be accepted. (The solution is nonzero by
+assumption; if only some bk are accepted, the total payment
+from these bids is at most |K| 1
+8|V ||K|
+< 1, which is not
+enough for any bid to be accepted; and if one of the bl is
+accepted, then the threshold for the corresponding bv is also
+reached.) For this v, bv1
+k
+, b+v1
+k
+, b−v1
+k
+contribute (at least)
+1
+4|V |
+less than the total payments to c+v and c−v. Again,
+the other bv and bl cannot (by themselves) help to close this
+gap; and the bk can contribute at most |K| 1
+8|V ||K|
+< 1
+4|V |
+.
+It follows that b0 is accepted.
+Now, in order for b0 to be accepted, a total of 2|V |+ T
+8|V ||K|
+must be donated. Because is not possible (for any v ∈ V )
+that both b+v and b−v are accepted, it follows that the total
+payment by the bv and the bl can be at most 2|V | − 1
+4
+.
+Adding b0"s payment of 1
+4
++ 1
+16|V ||K|
+to this, we still need
+T − 1
+2
+8|V ||K|
+from the bk. But each one of them contributes at
+most 1
+8|V ||K|
+, so at least T of them must be accepted.
+Corollary 1. Unless P=NP, there is no polynomial-time
+algorithm for approximating DONATION-CLEARING (with
+either the surplus or the total amount donated as the 
+objective) within any ratio f(n), where f is a nonzero function of
+the size of the instance. This holds even if the 
+DONATIONCLEARING structures satisfy all the properties given in
+Theorem 1.
+Proof. Suppose we had such a polynomial time 
+algorithm, and applied it to the DONATION-CLEARING 
+instances that were reduced from MAX2SAT instances in 
+Theorem 1. It would return a nonzero solution when the
+MAX2SAT instance has a solution, and a zero solution 
+otherwise. So we can decide whether arbitrary MAX2SAT 
+instances are satisfiable this way, and it would follow that
+P=NP.
+(Solving the problem to optimality is NP-complete in many
+other (noncomparable or even more restricted) settings as
+well-we omit such results because of space constraint.)
+This should not be interpreted to mean that our approach is
+infeasible. First, as we will show, there are very expressive
+families of bids for which the problem is solvable in 
+polynomial time. Second, NP-completeness is often overcome in
+practice (especially when the stakes are high). For instance,
+even though the problem of clearing combinatorial auctions
+is NP-complete [20] (even to approximate [21]), they are
+typically solved to optimality in practice.

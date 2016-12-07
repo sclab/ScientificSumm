@@ -1,0 +1,42 @@
+We introduced the ordered game isomorphic abstraction
+transformation and gave an algorithm, GameShrink, for 
+abstracting the game using the isomorphism exhaustively. We
+proved that in games with ordered signals, any Nash 
+equilibrium in the smaller abstracted game maps directly to a
+Nash equilibrium in the original game.
+The complexity of GameShrink is ˜O(n2
+), where n is the
+number of nodes in the signal tree. It is no larger than the
+game tree, and on nontrivial games it is drastically smaller,
+so GameShrink has time and space complexity sublinear in
+8
+Bridge is also a game of imperfect information, and
+partition search does not find the equilibrium for that
+game either. Instead, partition search is used in 
+conjunction with statistical sampling to simulate the uncertainty
+in bridge. There are also other bridge programs that use
+search techniques for perfect information games in 
+conjunction with statistical sampling and expert-defined 
+abstraction [48]. Such (non-game-theoretic) techniques are unlikely
+to be competitive in poker because of the greater importance
+of information hiding and bluffing.
+168
+the size of the game tree. Using GameShrink, we found
+a minimax equilibrium to Rhode Island Hold"em, a poker
+game with 3.1 billion nodes in the game tree-over four
+orders of magnitude more than in the largest poker game
+solved previously.
+To further improve scalability, we introduced an 
+approximation variant of GameShrink, which can be used as an
+anytime algorithm by varying a parameter that controls
+the coarseness of abstraction. We also discussed how (in
+a two-player zero-sum game), linear programming can be
+used in an anytime manner to generate approximately 
+optimal strategies of increasing quality. The method also yields
+bounds on the suboptimality of the resulting strategies. We
+are currently working on using these techniques for full-scale
+2-player limit Texas Hold"em poker, a highly popular card
+game whose game tree has about 1018
+nodes. That game
+tree size has required us to use the approximation version of
+GameShrink (as well as round-based abstraction) [16, 15].

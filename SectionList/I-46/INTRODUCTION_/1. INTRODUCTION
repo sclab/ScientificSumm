@@ -1,0 +1,53 @@
+The logical foundations of multi-agent systems have received
+much attention in recent years. Logic has been used to represent
+and reason about, e.g., knowledge [7], time [6], cooperation and
+strategic ability [3]. Lately, an increasing amount of research has
+focused on higher level representation languages for models of such
+logics, motivated mainly by the need for compact representations,
+and for representations that correspond more closely to the actual
+systems which are modeled. Multi-agent systems are open systems,
+in the sense that agents interact with an environment only partially
+known in advance. Thus, we need representations of models of
+multi-agent systems which are modular, in the sense that a 
+component, such as an agent, can be replaced, removed, or added, without
+major changes to the representation of the whole model. However,
+as we argue in this paper, few existing representation languages are
+both modular, compact and computationally grounded on the one
+hand, and allow for representing properties of both knowledge and
+strategic ability, on the other.
+In this paper we present a new class of representations for 
+models of open multi-agent systems, which are modular, compact and
+come with an implicit methodology for modeling and designing
+actual systems.
+The structure of the paper is as follows. First, in Section 2, we
+present the background of our work - that is, logics that combine
+time, knowledge, and strategies. More precisely: modal logics that
+combine branching time, knowledge, and strategies under 
+incomplete information. We start with computation tree logic CTL, then
+we add knowledge (CTLK), and then we discuss two variants of
+alternating-time temporal logic (ATL): one for the perfect, and one
+for the imperfect information case. The semantics of logics like the
+ones presented in Section 2 are usually defined over explicit models
+(Kripke structures) that enumerate all possible (global) states of the
+system. However, enumerating these states is one of the things one
+mostly wants to avoid, because there are too many of them even
+for simple systems. Thus, we usually need representations that are
+more compact. Another reason for using a more specialized class of
+models is that general Kripke structures do not always give enough
+help in terms of methodology, both at the stage of design, nor at 
+implementation. This calls for a semantics which is more grounded, in
+the sense that the correspondence between elements of the model,
+and the entities that are modeled, is more immediate. In Section 3,
+we present an overview of representations that have been used for
+modeling and model checking systems in which time, action (and
+possibly knowledge) are important; we mention especially 
+representations used for theoretical analysis. We point out that the 
+compact and/or grounded representations of temporal models do not
+play their role in a satisfactory way when agents" strategies are
+considered. Finally, in Section 4, we present our framework of
+modular interpreted systems (MIS), and show where it fits in the
+picture. We conclude with a somewhat surprising hypothesis, that
+model checking ability under imperfect information for MIS can be
+computationally cheaper than model checking perfect information.
+Until now, almost all complexity results were distinctly in favor of
+perfect information strategies (and the others were indifferent).

@@ -1,0 +1,24 @@
+we would like to thank the anonymous reviewers for their insightful comments and suggestions. 
+relaxing the assumption about deterministic arrival and departure times of the agents is a focus of our future work.
+as such, this work takes a step in the direction of  designing an online mechanism for agents with combinatorial resource preferences induced by stochastic planning  problems.
+this result extends previous work ([6, 7]) on static one-shot resource allocation under mdp-induced preferences to resource-scheduling problems with a temporal aspect.
+in summary, we have presented an milp formulation for the combinatorial resource-scheduling problem where agents" values for possible resource assignments are defined by  finitehorizon mdps.
+in particular, in the case of self-interested agents, this becomes an interesting version of an online-mechanism-design problem [11, 12].
+while there are many domains where this  assumption is valid, in many cases agents arrive and  depart dynamically and their arrival and departure times can only be predicted probabilistically, leading to online resource-allocation problems.
+this assumption is fundamental to our solution method.
+finally, we have assumed that agents" arrival and  departure times (τa m and τd m) are deterministic and known a priori.
+• known, deterministic arrival and departure times.
+in fact, all the results of [7] about the properties of the auction and information privacy directly carry over to the scheduling domain discussed in this  paper, requiring only slight modifications to deal with  finitehorizon mdps.
+this optimization procedure can be embedded in a  vickreyclarke-groves auction, completely analogously to the way it was done in [7].
+the optimization procedure  discussed in this paper was developed in the context of  cooperative agents, but it can also be used to design a  mechanism for scheduling resources among self-interested agents.
+• cooperative agents.
+for simplicity, we have assumed that resource costs are binary: ϕm(a, ω) = {0, 1}, but our results generalize in a straightforward manner to non-binary resource mappings, analogously to the  procedure used in [5].
+• binary resource requirements.
+this is a consequence of our mdp-augmentation procedure from section 4.1. it is easy to extend the model so that the agents incur an explicit penalty for idling by assigning a non-zero negative reward to the start state sb .
+we used a reward model where agents" rewards depend only on the time horizon of their mdps and not the global start time.
+• indifference to start time.
+all that is required is to include an additional pause action which transitions from a given state back to itself, and has zero reward.
+it is easy to relax this assumption for domains where agents" mdps can be paused and restarted.
+we assume that once an agent stops executing its mdp (transitions into state sf ), it exits the system and cannot return.
+• continual execution.
+throughout the paper, we have made a number of  assumptions in our model and solution algorithm; we discuss their implications below.

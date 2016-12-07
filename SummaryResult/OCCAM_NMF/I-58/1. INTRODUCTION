@@ -1,0 +1,46 @@
+experimental results showing higher reward and faster  policy computation over existing nash methods are shown in section 6, and we conclude with a discussion of related work in section 7. 
+then, in section 4 the asap algorithm is presented for normal-form games, and in section 5 we show how it can be adapted to the structure of bayesian games with uncertain  adversaries.
+section 3 introduces the bayesian game, the harsanyi transformation, and existing methods for finding an optimal leader"s strategy in a  stackelberg game.
+in section 2 we fully describe the patrolling domain and its properties.
+the rest of the paper is organized as follows.
+third, the method allows for a bayes-nash game to be expressed compactly without conversion to a normal-form game, allowing for large speedups over existing nash methods such as [17] and [11].
+this allows for policies that are simple to understand and represent [12], as well as a tunable parameter (the size of the multiset) that controls the simplicity of the policy.
+second, it generates policies with a support which can be expressed as a uniform distribution over a multiset of fixed size as proposed in [12].
+first, it directly searches for an optimal  strategy, rather than a nash (or bayes-nash) equilibrium, thus allowing it to find high-reward non-equilibrium strategies like the one in the above example.
+this method has three key advantages.
+this paper introduces an efficient heuristic method for  approximating the optimal leader strategy for security domains, known as asap (agent security via approximate policies).
+in addition, since the nash equilibrium assumes a simultaneous choice of strategies, the advantages of being the leader are not considered.
+however, by transforming the game, the  compact structure of the bayesian game is lost.
+if, on the other hand, we wish to compute the highest-reward nash  equilibrium, new methods using mixed-integer linear programs (milps) [17] may be used, since the highest-reward bayes-nash  equilibrium is equivalent to the corresponding nash equilibrium in the transformed game.
+methods for finding optimal leader strategies for non-bayesian games [5] can be applied to this problem by converting the bayesian game into a normal-form game by the harsanyi transformation [8].
+thus, efficient heuristic techniques for choosing  highreward strategies in these games is an important open issue.
+the problem of choosing an optimal strategy for the leader to commit to in a stackelberg game is analyzed in [5] and found to be np-hard in the case of a bayesian game with multiple types of followers.
+thus, by committing to a strategy that is observed by the follower, and by avoiding the temptation to deviate, the leader manages to obtain a reward higher than that of the best nash equilibrium.
+however, this would cause the follower to deviate to strategy 2 as well, resulting in the nash equilibrium.
+in this case, the leader now has an  incentive to deviate and choose a pure strategy of 2 (to get a payoff of 5).
+the leader"s payoff would then be 4 (3 and 5 with equal probability).
+311 978-81-904262-7-5 (rps) c 2007 ifaamas however, if the leader commits to a uniform mixed strategy of playing 1 and 2 with equal (0.5) probability, the follower"s best response is to play 3 to get an expected payoff of 5 (10 and 0 with equal probability).
+the only nash equilibrium for this game is when the leader plays 2 and the follower plays 2 which gives the leader a payoff of 2.
+1 2 3 1 5,5 0,0 3,10 2 0,0 2,2 5,0 table 1: payoff table for example normal form game.
+here, the leader"s payoff is listed first.
+to see the advantage of being the leader in a stackelberg game, consider a simple game with the payoff table as shown in table 1. the leader is the row player and the follower is the column player.
+often, the leader in a stackelberg game can attain a higher  reward than if the strategies were chosen simultaneously.
+the robbers, after observing the pattern of patrols over time, can then choose their strategy (which location to rob).
+this strategy could be a mixed strategy in order to be unpredictable to the  robbers (followers).
+for example, the security agent (leader) must first commit to a strategy for patrolling various areas.
+in a stackelberg game, a leader commits to a strategy first, and then a follower (or group of  followers) selfishly optimize their own rewards, considering the action chosen by the leader.
+these scenarios are known as stackelberg games [6].
+in some settings, one player can (or must) commit to a strategy before the other players choose their strategies.
+however, in many settings, a nash or bayes-nash  equilibrium is not an appropriate solution concept, since it assumes that the agents" strategies are chosen simultaneously [5].
+usually, these games are analyzed according to the solution concept of a bayes-nash equilibrium, an extension of the nash equilibrium for bayesian games.
+the distribution of adversary types that an agent will face may be known or inferred from historical data.
+a bayesian game is a game in which agents may belong to one or more types; the type of an agent determines its possible actions and payoffs.
+a common approach for choosing a policy for agents in such scenarios is to model the scenarios as bayesian games.
+however, in both cases, the security robot or uav team will not know exactly which kinds of adversaries may be active on any given day.
+it may indeed be possible to model the motivations of types of adversaries the agent or agent team is likely to face in order to target these  adversaries more closely.
+they must make this decision without knowing in advance whether terrorists or other adversaries may be waiting to disrupt the mission at a given location.
+a team of unmanned aerial vehicles (uavs) [1] monitoring a region undergoing a humanitarian crisis may also need to choose a patrolling policy.
+however, it will not know in advance exactly where a robber will choose to strike.
+for example, a security robot may need to make a choice about which areas to patrol, and how often [16].
+a common issue that agents face in such security domains is uncertainty about the  adversaries they may be facing.
+in many multiagent domains, agents must act in order to  provide security against attacks by adversaries.

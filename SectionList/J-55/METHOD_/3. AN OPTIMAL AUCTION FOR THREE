@@ -1,0 +1,168 @@
+BIDDERS
+In this section we define the optimal auction for three bidders,
+Υ3, and prove that it indeed matches the known lower bound of
+13/6. We follow the definition and proof with a discussion of how
+this auction was derived.
+DEFINITION 5. Υ3 is scale-invariant and symmetric and given
+by the bid-independent function with density function
+ρ1,x(z) =
+⎧
+⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎨
+⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎩
+For x ≤ 3/2
+1 with probability 9/13
+z with probability density g(z) for z > 3/2
+For x > 3/2⎧
+⎪⎨
+⎪⎩
+1 with probability 9/13 −
+x
+3/2
+zg(z)dz
+x with probability
+x
+3/2
+(z + 1)g(z)dz
+z with probability density g(z) for z > x
+where g(x) = 2/13
+(x−1)3 .
+THEOREM 3. The Υ3 auction has a competitive ratio of 13/6 ≈
+2.17, which is optimal. Furthermore, the auction raises exactly
+6
+13
+F(2)
+on every input with non-identical bids.
+PROOF. Consider the bids 1, x, y, with 1 < x < y. There are
+three cases.
+CASE 1 (x < y ≤ 3/2): F(2)
+= 3. The auction must raise
+expected revenue of at least 18/13 on these bids. The bidder with
+valuation x will pay 1 with 9/13, and the bidder with valuation y
+will pay 1 with probability 9/13. Therefore Υ3 raises 18/13 on
+these bids.
+CASE 2 (x ≤ 3/2 < y): F(2)
+= 3. The auction must raise 
+expected revenue of at least 18/13 on these bids. The bidder with
+177
+valuation x will pay 9/13 −
+y
+3/2
+zg(z)dz in expectation. The 
+bidder with valuation y will pay 9/13 +
+y
+3/2
+zg(z)dz in expectation.
+Therefore Υ3 raises 18/13 on these bids.
+CASE 3 (3/2 < x ≤ y): F(2)
+= 2x. The auction must raise
+expected revenue of at least 12x/13 on these bids. Consider the
+revenue raised from all three bidders:
+E[Υ3(b)] = p(1, x, y) + p(x, 1, y) + p(y, 1, x)
+= 0 + 9/13 −
+y
+3/2
+zg(z)dz + 9/13 −
+x
+3/2
+zg(z)dz
++ x
+x
+3/2
+(z + 1)g(z)dz +
+y
+x
+zg(z)dz
+= 18/13 + (x − 2)
+x
+3/2
+zg(z)dz + x
+x
+3/2
+g(z)dz
+= 12x/13.
+The final equation comes from substituting in g(x) = 2/13
+(x−1)3 and
+expanding the integrals. Note that the fraction of F(2)
+raised on
+every input is identical. If any of the inequalities 1 ≤ x ≤ y
+are not strict, the same proof applies giving a lower bound on the
+auction"s profit; however, this bound may no longer be tight.
+Motivation for Υ3
+In this section, we will conjecture that a particular input distribution
+is worst-case, and show, as a consequence, that all inputs are 
+worstcase in the optimal auction. By applying this consequence, we will
+derive an optimal auction for three bidders.
+A truthful, randomized auction on n bidders can be represented
+by a randomized function f : Rn−1
+× n → R that maps masked
+bid vectors to prices in R. By normalization, we can assume that
+the lowest possible bid is 1. Recall that ρb-i (z) = Pr[f(b-i) = z].
+The optimal auction for the finite auction problem can be found
+by the following optimization problem in which the variables are
+ρb-i (z):
+maximize r
+subject to
+n
+i=1
+bi
+z=1
+zρb-i (z)dz ≥ rF(2)
+(b)
+∞
+z=1
+ρb-i (z)dz = 1
+ρb-i (z) ≥ 0
+This set of integral inequalities is difficult to maximize over.
+However, by guessing which constraints are tight and which are
+slack at the optimum, we will be able to derive a set of differential
+equations for which any feasible solution is an optimal auction.
+As we discuss in Section 2.4, in [8], the authors define a 
+distribution and use it to find a lower bound on the competitive ratio of
+the optimal auction. For two bidders, this bid distribution is the
+worst-case input distribution. We guess (and later verify) that this
+distribution is the worst-case input distribution for three bidders as
+well. Since this distribution has full support over the set of all bid
+vectors and a worst-case distribution puts positive probability only
+on worst-case inputs, we can therefore assume that all but a 
+measure zero set of inputs is worst-case for the optimal auction. In the
+optimal two-bidder auction, all inputs with non-identical bids are
+worst-case, so we will assume the same for three bidders.
+The guess that these constraints are tight allows us to transform
+the optimization problem into a feasibility problem constrained by
+differential equations. If the solution to these equations has value
+matching the lower bound obtained from the worst-case 
+distribution, then this solution is the optimal auction and that our 
+conjectured choice of worst-case distribution is correct.
+In Section 6 we show that the optimal auction must sometimes
+place probability mass on sale prices above the highest bid. This
+motivates considering symmetric scale-invariant auctions for three
+bidders with probability density function, ρ1,x(z), of the following
+form:
+ρ1,x(z) =
+⎧
+⎪⎨
+⎪⎩
+1 with discrete probability a(x)
+x with discrete probability b(x)
+z with probability density g(z) for z > x
+In this auction, the sale price for the first bidder is either one
+of the latter two bids, or higher than either bid with a probability
+density which is independent of the input.
+The feasibility problem which arises from the linear optimization
+problem by assuming the constraints are tight is as follows:
+a(y) + a(x) + xb(x) +
+y
+x
+zg(z)dz = r max(3, 2x) ∀x < y
+a(x) + b(x) +
+∞
+x
+g(z)dz = 1
+a(x) ≥ 0
+b(x) ≥ 0
+g(z) ≥ 0
+Solving this feasibility problem gives the auction Υ3 proposed
+above. The proof of its optimality validates its proposed form.
+Finding a simple restriction on the form of n-bidder auctions for
+n > 3 under which the optimal auction can be found analytically
+as above remains an open problem.

@@ -1,0 +1,80 @@
+We approach the experimental aspect of this work with two 
+objectives. First, we seek a general idea of the sizes and types of 
+clearing problems that can be solved under given time constraints. We
+also look to compare the performance of a straightforward integer
+program as in (4) with an integer program that is based on the 
+network formulations developed here. Since we used CPLEX, a 
+commercial optimization tool, the second objective could be achieved
+to the extent that CPLEX can take advantage of network structure
+present in a model.
+We found that in addition to the problem size (in terms of number
+of traders), the number of aggregating traders plays a crucial role in
+determining complexity. When most of the traders are aggregating,
+problems of larger sizes can be solved quickly. For example, our
+IP model solved instances with 600 buyers and 500 sellers, where
+90% of them are aggregating, in less than two minutes. When the
+aggregating ratio was reduced to 80% for the same data, solution
+time was just under five minutes.
+These results motivated us to develop a new network model.
+Rather than treat non-aggregating traders as a special case, the new
+model takes advantage of the single-unit nature of non-aggregating
+trades (treating the aggregating traders as a special case). This new
+model outperformed our other models on most problem instances,
+exceptions being those where aggregating traders constitute a vast
+majority (at least 80%).
+This new model (Figure 4) has a single node for each non 
+aggregating trader, with a single-unit arc designating a match to another
+non-aggregating trader. An aggregating trader has a node for each
+potential match, connected (via y arcs) to a mutual source node.
+Unlike the previous model we allow fractional flow for this case,
+representing the traded fraction of the buyer"s total quantity.7
+We tested all three models on random data in the form of 
+bipartite graphs encoding MMP solutions. In our experiments, each
+trader has a maximum quantity uniformly distributed over [30, 70],
+and minimum quantity uniformly distributed from zero to maximal
+quantity. Each buyer/seller pair is selected as matching with 
+probability 0.75, with matches assigned a surplus uniformly distributed
+over [10, 70]. Whereas the size of the problem is defined by the
+number of traders on each side, the problem complexity depends
+on the product |B| × |S|. The tests depicted in Figures 5-7 are
+for the worst case |B| = |S|, with each data point averaged over
+six samples. In the figures, the direct IP (4) is designated SW,
+our first network model (Figure 2) NW, and our revised network
+model (Figure 4) NW 2.
+7
+Traded quantity remains integer.
+117
+Aggregation Hom. attr. Divisibility linear pricing Technique Complexity
+No aggregation N/A Any Not required Assignment problem Polynomial
+All aggregate None Down to 0 Required Transpor. problem Polynomial
+One side None Aggr side div. Aggr. side GAP NP-hard
+Optional None Down to q, batch Required Generalized ntwrk flow NP-hard
+Optional Bounded Down to q, batch Bounded size schdl. Generalized ntwrk flow NP-hard
+Optional Not bounded Down to q, batch Not required Nonlinear opt Depends on ˆu(x, q)
+Table 1: Mapping from combinations of allocation constraints to the solution methods of GMAP. One Side means that one side
+aggregates and divisible, and the other side is restrictive. Batch means that traders may submit batch sizes.
+Figure 4: Generalized network flow model. B1 is a buyer in
+AD, B2 ∈ AI, B3 ∈ NI, B4 ∈ ND. V 1 is a seller in AD,
+V 2 ∈ AI, V 4 ∈ ND. The g values represent arc gains, and W
+values represent weights.
+Figure 5: Average performance of models when 30% of traders
+aggregate.
+Figure 6: Average performance of models when 50% of traders
+aggregate.
+Figure 7: Average performance of models when 70% of traders
+aggregate.
+118
+Figure 8: Performance of models when varying percentage of
+aggregating traders
+Figure 8 shows how the various models are affected by a change
+in the percentage of aggregating traders, holding problem size fixed.8
+Due to the integrality constraints, we could not test available 
+algorithms specialized for network-flow problems on our test 
+problems. Thus, we cannot fully evaluate the potential gain attributable
+to network structure. However, the model we built based on the
+insight from the network structure clearly provided a significant
+speedup, even without using a special-purpose algorithm. Model
+NW 2 provided speedups of a factor of 4-10 over the model SW.
+This was consistent throughout the problem sizes, including the
+smaller sizes for which the speedup is not visually apparent on the
+chart.

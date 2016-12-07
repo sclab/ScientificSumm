@@ -1,0 +1,49 @@
+Notice also that our value generation algorithm (Figure 5) generates a number of bids that is exponential on the number of items, as might be expected in many situations.
+When we compared the solutions of our algorithms to the revenue-maximizing solution, we realized that they do not always find the same distribution of items as the revenue-maximizing solution (as shown in Figure 6).
+However, we found that cachedpausebid generates a higher revenue than pausebid (4.3% higher in average) except for auctions with 2 items where both have about the same percentage.
+We fixed the number of agents to be 5 and we  experimented with different number of items, namely from 2 to 10.
+For example, the average number of nodes expanded when 2 items is zero for cachedpausebid while for pausebid is 2; and in the other extreme (10 items) cachedpausebid  expands in average only 633 nodes while pausebid expands in average 1672 nodes, a difference of more than 1000 nodes.
+Note, however, that the revenue from the PAUSE auction on all the auctions is always smaller than the revenue of the revenue-maximizing solution when the agents bid their true valuations.
+For this we count the number of times that pbsearch gets invoked for each time that pausebid is called and the  number of times that fastpausebidsearch gets invoked for each time that cachedpausebid, respectively for each of our  algorithms.
+ordering of the bids in the bids list which makes them search in different order.
+For example, for 10 items we expand slightly more than 103 nodes for the case of pausebid and less than that for the case of  cachedpause0.1 1 10 100 1000 2 3 4 5 6 7 8 9 10 Number of Items CachedPauseBid 3 3 3 3 3 3 3 3 3 3 PauseBid + + + + + + + + + + Figure 9: Average time in seconds that takes to  finish an auction (y-axis) as function of the number of items in the auction.
+The cases where our algorithms failed to arrive at the  distribution of the revenue-maximizing solution are those where there was a large gap between the first and second  valuation for a set (or sets) of items.
+We then compared the  solutions found by both of them to the revenue-maximizing solution as found by CASS when given a set of bids that corresponds to the agents" true valuation.
+In the case of 2 items both algorithms produce in average a revenue proportion of 67.4%, while in the other extreme (10 items), cachedpausebid produced in average a revenue proportion of 91.5% while pausebid produced in average a revenue proportion of 87.7%.
+Again, this difference is produced by the order of the search.
+If the revenue-maximizing solution contains the bid (or bids) using these higher  valuation then it is impossible for the PAUSE auction to find this solution because that bid (those bids) is never placed.
+Since PAUSE uses English auctions the final prices (roughly)  represent the second-highest valuation, plus , for that set of items.
+We also found that average percentage of times that our  algorithms converges to the revenue-maximizing solution  decreases as the number of items increases.
+The first experiment we performed simply ensured the proper 1 Note that we could not use CATS [6] because it generates sets of bids for an indeterminate number of agents.
+0 20 40 60 80 100 2 3 4 5 6 7 8 9 10 Number of Items CachedPauseBid 3 3 3 3 3 3 3 3 3 3 PauseBid + + + + + + + + + + Figure 7: Average percentage of revenue from our algorithms relative to maximum revenue (y-axis) as function of the number of items in the auction.
+As shown in Figure 9, cachedpausebid is faster than  pausebid, the difference in execution speed is even more clear as the number of items increases. 
+In a few instances our algorithms find different solutions this is due to the different The Sixth Intl.
+It is as if you were told the set of bids placed in a combinatorial auction but not who placed each bid or even how many people placed bids, and then asked to determine the value function of every participant in the auction.
+Although the number of nodes expanded by our algorithms increases as function of the number of items, the actual  number of nodes is a much smaller than the worst-case scenario of nn where n is the number of items.
+That is, for each agent i and each set of items S for which vi(S) > 0 we  generated a bid.
+We have implemented both algorithms and performed a series of experiments in order to determine how their  solution compares to the revenue-maximizing solution and how their times compare with each other.
+We found that the percentage of revenue of our algorithms increases in average 2.7% as the number of items increases, as shown in Figure 7.
+In order to do our tests we had to generate value functions for the agents1 .
+For example, if agent i has vi(1) = 1000 and the second highest valuation for (1) is only 10 then i only needs to place a bid of 11 in order to win that item.
+As such, these results do not support the conclusion that time grows  exponentially with the number of items when the number of bids is independent of the number of items.
+Their costs for the item bundles are subadditive, which means that their preferences are superadditive.
+We know that the revenue generated by the PAUSE  auction is generally lower than the revenue of the  revenuemaximizing solution, but how much lower?
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 699 1 10 100 1000 10000 2 3 4 5 6 7 8 9 10 Number of Items CachedPauseBid 3 3 3 3 3 3 3 3 3 PauseBid + + + + + + + + + + Figure 8: Average number of expanded nodes (y-axis) as function of items in the auction.
+However, we found that cachedpausebid outperforms pausebid, since it expands in average less than half the number of nodes.
+As expected since this is an NP-Hard problem, the number of expanded nodes does grow exponentially with the number of items (as shown in Figure 8).
+If the revenue-maximizing solution requires that 1 be sold for 1000 then that solution will never be found because that bid will never be placed.
+The scalability of our algorithms can be determined by counting the number of nodes expanded in the search tree.
+Since each robot is at a different location and has different  abilities, each one will have different preferences over how to bundle.
+To answer this question we calculated percentage representing the  proportion of the revenue given by our algorithms relative to the revenue given by CASS.
+For 2 items is almost 100% but decreases a little bit less than 1 percent as the items increase, so that this average percentage of  convergence is around 90% for 10 items.
+We expect that both algorithms will grow exponentially as a function the number of bids, but stay roughly constant as the number of items grows.
+bid which are much smaller numbers than 1010 .
+We thus ran the same experiment with all the agents in the same machine, an Intel Centrino 2.0 GHz laptop PC with 1 GB of RAM and a 7200 RMP 60 GB hard drive, and calculated the average time that takes to finish an auction for each algorithm.
+This set of bids was fed to CASS which  implements a centralized winner determination algorithm to find the solution which maximizes revenue.
+We wanted to make sure that less expanded nodes does indeed correspond to faster execution, especially since our algorithms execute different operations.
+For example, imagine a set of robots which must pick up and deliver items to different locations.
+We ran both algorithms 100 times for each  combination.
+The type of valuations it generates correspond to domains where a set of agents must perform a set of tasks but there are cost  savings for particular agents if they can bundle together certain subsets of tasks.
+The algorithm we used is shown in Figure 5.
+functioning of our algorithms.
+Joint Conf.

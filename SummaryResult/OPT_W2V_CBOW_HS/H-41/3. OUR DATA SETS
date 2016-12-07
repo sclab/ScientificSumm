@@ -1,0 +1,18 @@
+Our evaluation is based on two data sets: a large web graph and a substantial set of queries with associated results, some of which were labeled by human judges.
+Results were selected for judgment based on their commercial search engine placement; in other words, the subset of  labeled results is not random, but biased towards documents considered relevant by pre-existing ranking algorithms.
+Our web graph is based on a web crawl that was  conducted in a breadth-first-search fashion, and successfully retrieved 463,685,607 HTML pages.
+This is so  because no document features have been found yet that can effectively estimate the relevance of a document to a user query.
+485,656 of the results in the query set (about 0.73% of all results, or about 17.3 results per query) were rated by human judges as to their relevance to the given query, and labeled on a six-point scale (the labels being definitive, excellent, good, fair, bad and detrimental).
+It is important to point out that our 2.9 billion URL web graph does not cover all these result URLs.
+Since content-match features are very unreliable (and even more so link features, as we will see) we need to ask a human to evaluate the results in order to compare the quality of features.
+Our query set was produced by sampling 28,043 queries from the MSN Search query log, and retrieving a total of 66,846,214 result URLs for these queries (using commercial search engine technology), or about 2,838 results per query on average.
+Evaluating the retrieval results from document scores and human judgments is not trivial and has been the subject of many investigations in the IR community.
+Also, it is worth pointing out that there is a lot more variance in in-degrees than in out-degrees; some popular pages have millions of incoming links.
+The mean out-degree of crawled web pages is 38.11; the mean in-degree of discovered pages (whether crawled or not) is 6.10.
+A good  performance measure should correlate with user satisfaction,  taking into account that users will dislike having to delve deep in the results to find relevant documents.
+In fact, only 9,525,566 of the result URLs (about 14.25%) were covered by the graph.
+Involving a human in the evaluation process is extremely cumbersome and expensive; however, human judgments are crucial for the evaluation of search engines.
+Thus, at the end of the crawl there were 2,433,985,395 URLs in the frontier set of the crawler that had been discovered, but not yet  downloaded.
+These pages contain 17,672,011,890 hyperlinks (after eliminating duplicate  hyperlinks embedded in the same web page), which refer to a total of 2,897,671,002 URLs.
+For this reason, standard correlation measures (such as the correlation  coefficient between the score and the judgment of a document), or order correlation measures (such as Kendall tau between the score and judgment induced orders) are not adequate. 
+As we will see, this property affects the computational cost of HITS.

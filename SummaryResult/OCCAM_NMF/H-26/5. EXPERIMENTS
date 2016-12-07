@@ -1,0 +1,48 @@
+(w/o best) 
+trec 9 trec 10 model map w/l map w/l svm∆ map 0.284 -  0.288svm∆ roc 0.274 31/19 ** 0.272 38/12 ** svmacc 0.215 49/1 ** 0.211 50/0 ** svmacc2 0.267 35/15 ** 0.258 44/6 ** svmacc3 0.133 50/0 ** 0.174 46/4 ** svmacc4 0.228 46/4 ** 0.234 45/5 ** table 11: trained on trec subm.
+the performance of most models degraded by a small amount, with svm∆ map still having the best performance.
+table 11 shows the performance of the models when trained on the trec submissions with the best submission removed.
+however, table 10 shows that svm∆ map did significantly  outperform svm∆ roc when trained on the trec submissions.
+when trained on indri retrieval functions (see table 9), the performance of svm∆ roc was slight, though not significantly, worse than the performances of svm∆ map.
+for example, assume for query q that f outputs scores in the range 0.2 to 0.7. then for document d, if f(d|q) = 0.6, the converted score would be f (d|q) = (0.6 − 0.2)/(0.7 − 0.2) = 0.8. each kf contains 50 evenly spaced values between 0 and 1. again, tables 9, 10 and 11 show that svmacc4 was not competitive with svm∆ map 5.2.2 map vs rocarea svm∆ roc performed much better than svmacc in our  experiments.
+the second method, svmacc4, normalizes the scores given by f for each query.
+for example, for document d, query q and  retrieval function f, if the score f(d|q) is in the top 90% of the scores f(·|q) for query q, then the converted score is f (d|q) = 0.9. each kf contains 50 evenly spaced values between 0 and 1. tables 9, 10 and 11 show that the  performance of svmacc3 was also not competitive with svm∆ map.
+the first method, svmacc3, converts the retrieval function scores into percentiles.
+we took two approaches to address this issue.
+it may be that different queries require different values of b. having the learning method trying to find a good b value (when one does not exist) may be detrimental.
+another possible issue is that svmacc attempts to find just one discriminating threshold b that is query-invariant.
+tables 9, 10 and 11 indicate that svmacc2 still performs significantly worse than svm∆ map.
+for each dataset, the ratio of the false negative to false positive penalties is equal to the ratio of the number non-relevant and relevant documents in that dataset.
+svmacc2 addresses this problem by assigning more penalty to false negative errors.
+the vast majority of the documents are not  relevant.
+5.2.1 alternate svmacc methods one issue which may cause svmacc to underperform is the severe imbalance between relevant and non-relevant  doctrec 9 trec 10 model map w/l map w/l svm∆ map 0.242 -  0.236svm∆ roc 0.237 29/21 0.234 24/26 svmacc 0.147 47/3 ** 0.155 47/3 ** svmacc2 0.219 39/11 ** 0.207 43/7 ** svmacc3 0.113 49/1 ** 0.153 45/5 ** svmacc4 0.155 48/2 ** 0.155 48/2 ** table 9: trained on indri functions trec 9 trec 10 model map w/l map w/l svm∆ map 0.290 -  0.287svm∆ roc 0.282 29/21 0.278 35/15 ** svmacc 0.213 49/1 ** 0.222 49/1 ** svmacc2 0.270 34/16 ** 0.261 42/8 ** svmacc3 0.133 50/0 ** 0.182 46/4 ** svmacc4 0.233 47/3 ** 0.238 46/4 ** table 10: trained on trec submissions uments.
+as such, we tried several  approaches to improve the performance of svmacc.
+to start with, our results indicate that svmacc was not competitive with svm∆ map and svm∆ roc, and at times  underperformed dramatically.
+table 11 contains the corresponding results when trained on the trec submissions without the best submission.
+tables 9 and 10 present the results of svm∆ map, svm∆ roc, and svmacc when trained on the indri retrieval functions and trec  submissions, respectively.
+5.2 comparison w/ previous svm methods the next question to answer is, does svm∆ map produce higher map scores than previous svm methods?
+notice that while the  performance of svm∆ map degraded slightly, the performance was still comparable with that of the best submission.
+table 8 shows the results (note that we are still comparing against the best submission though we are not using it for training).
+hence, we ran the same experiments using a modified dataset where the features computed using the best  submission were removed.
+as a result, svm∆ map would not be able to learn a hypothesis which can  significantly out-perform the best submission.
+given that many of these submissions use scoring functions which are carefully crafted to achieve high map, it is possible that the best performing submissions use techniques which subsume the techniques of the other submissions.
+while achieving a higher map score than the best base functions, the performance difference between svm∆ map the base functions is not significant.
+table 7 shows the comparison when trained on trec  submissions.
+here, we find that svm∆ map significantly  outperforms the best base functions.
+two stars indicate a significance level of 0.95. all tables displaying our experimental results are structured identically.
+significance tests were performed using the two-tailed wilcoxon signed rank test.
+the w/l columns show the number of queries where svm∆ map achieved a higher map score.
+each column group contains the macro-averaged map performance of svm∆ map or a base function.
+table 6 presents the comparison of svm∆ map with the best indri base functions.
+(w/o best) functions?
+0.280 27/23 0.283 31/19 2nd best 0.269 30/20 0.251 36/14 ** 3rd best 0.266 30/20 0.233 35/15 ** table 8: comparison with trec subm.
+0.280 28/22 0.283 29/21 2nd best 0.269 30/20 0.251 36/14 ** 3rd best 0.266 30/20 0.233 36/14 ** table 7: comparison with trec submissions trec 9 trec 10 model map w/l map w/l svm∆ map 0.284 -  0.288best func.
+5.1 comparison with base functions in analyzing our results, the first question to answer is, can svm∆ map learn a model which outperforms the best base trec 9 trec 10 model map w/l map w/l svm∆ map 0.290 -  0.287best func.
+we reported the average performance of all models over the 50 trials.
+all svm methods used a linear kernel.
+using this setup, we performed the same experiments while using our method (svm∆ map), an svm optimizing for rocarea (svm∆ roc) [13], and a conventional classification svm (svmacc) [20].
+all queries were selected to be in the training, validation and test sets the same number of times.
+the model which performed best on the validation set was selected and tested on the remaining 35 queries.
+models were trained using a wide range of c values.
+for each trial, we train on 10 randomly selected queries, and  select another 5 queries at random for a validation set.
+for each dataset in table 5, we performed 50 trials.

@@ -1,0 +1,25 @@
+in the next section, we formally define the problem and give efficient algorithms. 
+of course, the main challenge here is in selecting which set of k nodes to crawl next.
+since the pageranks are computed in each iteration of the algorithm, which is an o(n) operation, we will also assume that the number of iterations t is a constant.
+given our  computation, bandwidth, and memory restrictions, we will assume that the algorithm will crawl at most o(n) pages.
+finally, the pagerank vector ˆp, which is restricted to pages within the original local domain, is returned.
+these steps are repeated for each of t iterations.
+these selected nodes are then crawled to expand the local subgraph, f , and the pageranks of this expanded graph are then recomputed.
+first, the selectnodes algorithm (which we discuss in the next section) is called and it returns a set of k nodes to crawl next from the set of nodes in the current crawl frontier, fout.
+the  algorithm then proceeds as follows.
+initially, f is set to the local subgraph l, and the pagerank f of this graph is computed.
+we propose a greedy framework, given in algorithm 2, for constructing ˆf .
+(3) we choose the l1 norm for measuring the error as it does not place excessive weight on outliers (as the l2 norm does, for example), and also because it is the most commonly used distance measure in the literature for comparing pagerank vectors, as well as for detecting convergence of the  algorithm [3].
+formally, we seek to minimize globaldiff( ˆf) = el ˆf el ˆf 1 − p∗ 1 .
+output: ˆp: an improved estimate of the global  pagerank of l. f ← l fout ← lout f ← computepr(f ) for (i = 1 to t) {determine which pages to crawl next} pages ← selectnodes(f , fout, f, k) crawl pages, augment f and modify fout {update pageranks for new local domain} f ← computepr(f ) end {extract pageranks of original local domain & normalize} ˆp ← elf elf 1 is to find such a supergraph ˆf with pagerank ˆf, so that ˆf when restricted to l is close to p∗ .
+findglobalpr(l, lout, t, k) input: l: zero-one adjacency matrix for the local  domain, lout: zero-one outlink matrix from l to global subgraph as in (2), t: number of iterations, k: number of pages to crawl per iteration.
+our goal algorithm 2: the findglobalpr algorithm.
+we instead seek a  supergraph ˆf of our local subgraph l with size o(n).
+therefore, crawling all global pages will quickly exhaust all local resources (computational, storage, and bandwidth) available to create the local search engine.
+typically, however, n n , i.e., the number of global pages is much larger than the number of local pages.
+thus, one approach to estimating the global pagerank is to crawl the entire global domain, compute its pagerank, and extract the pageranks of the local domain.
+one would expect that as the size of local matrix l approaches the size of global matrix g, the global pagerank and the  observed local pagerank will become more similar.
+as defined in equation (1), pg is the pagerank matrix formed from the global graph g, and we define the global pagerank vector of this graph to be g. let the n-length vector p∗ be the l1-normalized vector corresponding to the global pagerank of the pages in the local domain l: p∗ = el g elg 1 , where el = [ i | 0 ] is the restriction matrix that selects the components from g corresponding to nodes in l. let p denote the pagerank vector constructed from the local  domain subgraph l. in practice, the observed local pagerank p and the global pagerank p∗ will be quite different.
+we assume that when building a localized search engine, only pages inside the  local domain are crawled, and the links between these pages are represented by the subgraph l. the links in lout are also known, as these point from crawled pages in the local domain to uncrawled pages in the global domain.
+without loss of generality, we will partition g as: g = l gout lout gwithin , (2) where l is the n × n local subgraph corresponding to links inside the local domain, lout is the subgraph that  corresponds to links from the local domain pointing out to the global domain, gout is the subgraph containing links from the global domain into the local domain, and gwithin  contains links within the global domain.
+given a local domain l, let g be an n × n adjacency matrix for the entire connected component of the web that contains l, such that gji = 1 if page i links to page j and gji = 0 otherwise.

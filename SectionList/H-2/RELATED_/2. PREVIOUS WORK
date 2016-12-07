@@ -1,0 +1,117 @@
+This paper brings together two IR areas: Search Personalization
+and Automatic Query Expansion. There exists a vast amount of
+algorithms for both domains. However, not much has been done
+specifically aimed at combining them. In this section we thus
+present a separate analysis, first introducing some approaches to
+personalize search, as this represents the main goal of our research,
+and then discussing several query expansion techniques and their
+relationship to our algorithms.
+2.1 Personalized Search
+Personalized search comprises two major components: (1) User
+profiles, and (2) The actual search algorithm. This section splits
+the relevant background according to the focus of each article into
+either one of these elements.
+Approaches focused on the User Profile. Sugiyama et al. [32]
+analyzed surfing behavior and generated user profiles as features
+(terms) of the visited pages. Upon issuing a new query, the search
+results were ranked based on the similarity between each URL and
+the user profile. Qiu and Cho [26] used Machine Learning on the
+past click history of the user in order to determine topic preference
+vectors and then apply Topic-Sensitive PageRank [13]. User 
+profiling based on browsing history has the advantage of being rather
+easy to obtain and process. This is probably why it is also employed
+by several industrial search engines (e.g., Yahoo! MyWeb2
+). 
+However, it is definitely not sufficient for gathering a thorough insight
+into user"s interests. More, it requires to store all personal 
+information at the server side, which raises significant privacy concerns.
+Only two other approaches enhanced Web search using Desktop
+data, yet both used different core ideas: (1) Teevan et al. [34] 
+modified the query term weights from the BM25 weighting scheme to
+incorporate user interests as captured by their Desktop indexes; (2)
+In Chirita et al. [6], we focused on re-ranking the Web search 
+output according to the cosine distance between each URL and a set of
+Desktop terms describing user"s interests. Moreover, none of these
+investigated the adaptive application of personalization.
+Approaches focused on the Personalization Algorithm. 
+Effectively building the personalization aspect directly into 
+PageRank [25] (i.e., by biasing it on a target set of pages) has 
+received much attention recently. Haveliwala [13] computed a 
+topicoriented PageRank, in which 16 PageRank vectors biased on each
+of the main topics of the Open Directory were initially calculated
+off-line, and then combined at run-time based on the similarity 
+between the user query and each of the 16 topics. More recently,
+Nie et al. [24] modified the idea by distributing the PageRank of
+a page across the topics it contains in order to generate topic 
+oriented rankings. Jeh and Widom [16] proposed an algorithm that
+avoids the massive resources needed for storing one Personalized
+PageRank Vector (PPV) per user by precomputing PPVs only for
+a small set of pages and then applying linear combination. As the
+computation of PPVs for larger sets of pages was still quite 
+expensive, several solutions have been investigated, the most important
+ones being those of Fogaras and Racz [12], and Sarlos et al. [30],
+the latter using rounding and count-min sketching in order to fastly
+obtain accurate enough approximations of the personalized scores.
+2.2 Automatic Query Expansion
+Automatic query expansion aims at deriving a better formulation
+of the user query in order to enhance retrieval. It is based on 
+exploiting various social or collection specific characteristics in order
+to generate additional terms, which are appended to the original 
+in2
+http://myWeb2.search.yahoo.com
+put keywords before identifying the matching documents returned
+as output. In this section we survey some of the representative
+query expansion works grouped according to the source employed
+to generate additional terms: (1) Relevance feedback, (2) 
+Collection based co-occurrence statistics, and (3) Thesaurus information.
+Some other approaches are also addressed in the end of the section.
+Relevance Feedback Techniques. The main idea of Relevance
+Feedback (RF) is that useful information can be extracted from the
+relevant documents returned for the initial query. First approaches
+were manual [28] in the sense that the user was the one choosing
+the relevant results, and then various methods were applied to 
+extract new terms, related to the query and the selected documents.
+Efthimiadis [11] presented a comprehensive literature review and
+proposed several simple methods to extract such new keywords
+based on term frequency, document frequency, etc. We used some
+of these as inspiration for our Desktop specific techniques. Chang
+and Hsu [5] asked users to choose relevant clusters, instead of 
+documents, thus reducing the amount of interaction necessary. RF has
+also been shown to be effectively automatized by considering the
+top ranked documents as relevant [37] (this is known as Pseudo
+RF). Lam and Jones [21] used summarization to extract 
+informative sentences from the top-ranked documents, and appended them
+to the user query. Carpineto et al. [4] maximized the divergence 
+between the language model defined by the top retrieved documents
+and that defined by the entire collection. Finally, Yu et al. [38]
+selected the expansion terms from vision-based segments of Web
+pages in order to cope with the multiple topics residing therein.
+Co-occurrence Based Techniques. Terms highly co-occurring
+with the issued keywords have been shown to increase precision
+when appended to the query [17]. Many statistical measures have
+been developed to best assess term relationship levels, either 
+analyzing entire documents [27], lexical affinity relationships [3] (i.e.,
+pairs of closely related words which contain exactly one of the 
+initial query terms), etc. We have also investigated three such 
+approaches in order to identify query relevant keywords from the rich,
+yet rather complex Personal Information Repository.
+Thesaurus Based Techniques. A broadly explored method is to
+expand the user query with new terms, whose meaning is closely
+related to the input keywords. Such relationships are usually 
+extracted from large scale thesauri, as WordNet [23], in which 
+various sets of synonyms, hypernyms, etc. are predefined. Just as for
+the co-occurrence methods, initial experiments with this approach
+were controversial, either reporting improvements, or even 
+reductions in output quality [36]. Recently, as the experimental 
+collections grew larger, and as the employed algorithms became more
+complex, better results have been obtained [31, 18, 22]. We also
+use WordNet based expansion terms. However, we base this 
+process on analyzing the Desktop level relationship between the 
+original query and the proposed new keywords.
+Other Techniques. There are many other attempts to extract
+expansion terms. Though orthogonal to our approach, two works
+are very relevant for the Web environment: Cui et al. [8] 
+generated word correlations utilizing the probability for query terms to
+appear in each document, as computed over the search engine logs.
+Kraft and Zien [19] showed that anchor text is very similar to user
+queries, and thus exploited it to acquire additional keywords.

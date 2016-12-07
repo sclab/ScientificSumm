@@ -1,0 +1,416 @@
+We now extend the description above, to consider contracts 
+between suppliers and agents that are represented by multiple 
+dimensions, and hence the success or failure of a contract can be
+decomposed into the success or failure of each separate 
+dimension. Consider again the example of the supply chain that 
+specifies the timeliness, quantity, and quality of the goods that are to
+be delivered. Thus, within our trust model oa = 1 now 
+indicates a successful outcome over dimension a of the contract and
+oa = 0 indicates an unsuccessful one. A contract outcome, X,
+is now composed of a vector of individual contract part outcomes
+(e.g. X = {oa = 1, ob = 0, oc = 0, . . .}).
+Given a multi-dimensional contract whose outcome is described
+by the vector X, we again consider that in order for an agent to
+make a rational decision, it should consider the utility that it will
+derive from this contract. To this end, we can make the general
+statement that the expected utility of a contract is given by:
+E[U] = p(X)U(X)T
+(4)
+where p(X) is a joint probability distribution over all possible 
+contract outcomes:
+p(X) =
+⎛
+⎜
+⎜
+⎜
+⎝
+p(oa = 1, ob = 0, oc = 0, . . .)
+p(oa = 1, ob = 1, oc = 0, . . .)
+p(oa = 0, ob = 1, oc = 0, . . .)
+...
+⎞
+⎟
+⎟
+⎟
+⎠
+(5)
+and U(X) is the utility derived from these possible outcomes:
+U(X) =
+⎛
+⎜
+⎜
+⎜
+⎝
+u(oa = 1, ob = 0, oc = 0, . . .)
+u(oa = 1, ob = 1, oc = 0, . . .)
+u(oa = 0, ob = 1, oc = 0, . . .)
+...
+⎞
+⎟
+⎟
+⎟
+⎠
+(6)
+As before, whilst U(X) is known to the agent, the probability 
+distribution p(X) is not. Rather, given the agent"s direct experience
+of the supplier, the agent can determine a distribution over possible
+values for p(X). In the single dimensional case, a beta distribution
+was the natural choice over possible values of p(o = 1). In the
+multi-dimensional case, where p(X) itself is a vector of 
+probabilities, the corresponding natural choice is the Dirichlet distribution,
+since this is a conjugate prior for multinomial proportions [3].
+Given this distribution, the agent is then able to calculate an 
+estimate of the expected utility of a contract. As before, this estimate
+is itself represented by an expected value given by:
+E[E[U]] = ˆp(X)U(X)T
+(7)
+and a variance, describing the uncertainty in this expected utility:
+Var(E[U]) = U(X)Cov(p(X))U(X)T
+(8)
+where:
+Cov(p(X)) E[(p(X) − ˆp(X))(p(X) − ˆp(X))T
+] (9)
+Thus, whilst the single dimensional case naturally leads to a trust
+model in which the agents attempt to derive an estimate of 
+probability that a contract will be successfully fulfilled, ˆp(o = 1), along
+with a scalar variance that describes the uncertainty in this 
+probability, Var(p(o = 1)), in this case, the agents must derive an 
+estimate of a vector of probabilities, ˆp(X), along with a covariance
+matrix, Cov(p(X)), that represents the uncertainty in p(X) given
+the observed contractual outcomes. At this point, it is interesting
+to note that the estimate in the single dimensional case, ˆp(o = 1),
+has a clear semantic meaning in relation to trust; it is the agent"s
+belief in the probability of a supplier successfully fulfilling a 
+contract. However, in the multi-dimensional case the agent must 
+determine ˆp(X), and since this describes the probability of all possible
+contract outcomes, including those that are completely un-fulfilled,
+this direct semantic interpretation is not present. In the next 
+section, we describe the exemplar utility function that we shall use in
+the remainder of this paper.
+4.1 Exemplar Utility Function
+The approach described so far is completely general, in that it 
+applies to any utility function of the form described above, and also
+applies to the estimation of any joint probability distribution. In
+the remainder of this paper, for illustrative purposes, we shall limit
+the discussion to the simplest possible utility function that exhibits
+a dependence upon the correlations between the contract 
+dimensions. That is, we consider the case that expected utility is 
+dependent only on the marginal probabilities of each contract dimension
+being successfully fulfilled, rather than the full joint probabilities:
+U(X) =
+⎛
+⎜
+⎜
+⎜
+⎝
+u(oa = 1)
+u(ob = 1)
+u(oc = 1)
+...
+⎞
+⎟
+⎟
+⎟
+⎠
+(10)
+Thus, ˆp(X) is a vector estimate of the probability of each contract
+dimension being successfully fulfilled, and maintains the clear 
+semantic interpretation seen in the single dimensional case:
+ˆp(X) =
+⎛
+⎜
+⎜
+⎜
+⎝
+ˆp(oa = 1)
+ˆp(ob = 1)
+ˆp(oc = 1)
+...
+⎞
+⎟
+⎟
+⎟
+⎠
+(11)
+The correlations between the contract dimensions affect the 
+uncertainty in the expected utility. To see this, consider the covariance
+1072 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+matrix that describes this uncertainty, Cov(p(X)), is now given by:
+Cov(p(X)) =
+⎛
+⎜
+⎜
+⎜
+⎝
+Va Cab Cac . . .
+Cab Vb Cbc . . .
+Cac Cbc Vc . . .
+...
+...
+...
+⎞
+⎟
+⎟
+⎟
+⎠
+(12)
+In this matrix, the diagonal terms, Va, Vb and Vc, represent the
+uncertainties in p(oa = 1), p(ob = 1) and p(oc = 1) within
+p(X). The off-diagonal terms, Cab, Cac and Cbc, represent the
+correlations between these probabilities. In the next section, we use
+the Dirichlet distribution to calculate both ˆp(X) and Cov(p(X))
+from an agent"s direct experience of previous contract outcomes.
+We first illustrate why this is necessary by considering an 
+alternative approach to modelling multi-dimensional contracts whereby
+an agent na¨ıvely assumes that the dimensions are independent, and
+thus, it models each individually by separate beta distributions (as
+in the single dimensional case we presented in section 3). This
+is actually equivalent to setting the off-diagonal terms within the
+covariance matrix, Cov(p(X)), to zero. However, doing so can
+lead an agent to assume that its estimate of the expected utility of
+the contract is more accurate than it actually is. To illustrate this,
+consider a specific scenario with the following values: u(oa =
+1) = u(ob = 1) = 1 and Va = Vb = 0.2. In this case,
+Var(E[U]) = 0.4(1 + Cab), and thus, if the correlation Cab is
+ignored then the variance in the expected utility is 0.4. However, if
+the contract outcomes are completely correlated then Cab = 1 and
+Var(E[U]) is actually 0.8. Thus, in order to have an accurate 
+estimate of the variance of the expected contract utility, and to make
+a rational decision, it is essential that the agent is able to 
+represent and calculate these correlation terms. In the next section, we
+describe how an agent may do so using the Dirichlet distribution.
+4.2 The Dirichlet Distribution
+In this section, we describe how the agent may use its direct 
+experience of previous contracts, and the standard results of the Dirichlet
+distribution, to determine an estimate of the probability that each
+contract dimension will be successful fulfilled, ˆp(X), and a 
+measure of the uncertainties in these probabilities that expresses the
+correlations between the contract dimensions, Cov(p(X)).
+We first consider the calculation of ˆp(X) and the diagonal terms
+of the covariance matrix Cov(p(X)). As described above, the
+derivation of these results is identical to the case of the single 
+dimensional beta distribution, where out of N contract outcomes,
+n are successfully fulfilled. In the multi-dimensional case, 
+however, we have a vector {na, nb, nc, . . .} that represents the number
+of outcomes for which each of the individual contract dimensions
+were successfully fulfilled. Thus, in terms of the standard Dirichlet
+parameters where αa = na + 1 and α0 = N + 2, the agent can 
+estimate the probability of this contract dimension being successfully
+fulfilled:
+ˆp(oa = 1) =
+αa
+α0
+=
+na + 1
+N + 2
+and can also calculate the variance in any contract dimension:
+Va =
+αa(α0 − αa)
+α2
+0(1 + α0)
+=
+(na + 1)(N − na + 1)
+(N + 2)2(N + 3)
+However, calculating the off-diagonal terms within Cov(p(X)) is
+more complex since it is necessary to consider the correlations 
+between the contract dimensions. Thus, for each pair of dimensions
+(i.e. a and b), we must consider all possible combinations of 
+contract outcomes, and thus we define nab
+ij as the number of contract
+outcomes for which both oa = i and ob = j. For example, nab
+10
+represents the number of contracts for which oa = 1 and ob = 0.
+Now, using the standard Dirichlet notation, we can define αab
+ij
+nab
+ij + 1 for all i and j taking values 0 and 1, and then, to calculate
+the cross-correlations between contract pairs a and b, we note that
+the Dirichlet distribution over pair-wise joint probabilities is:
+Prob(pab) = Kab
+i∈{0,1} j∈{0,1}
+p(oa = i, ob = j)αab
+ij −1
+where:
+i∈{0,1} j∈{0,1}
+p(oa = i, ob = j) = 1
+and Kab is a normalising constant [3]. From this we can derive
+pair-wise probability estimates and variances:
+E[p(oa = i, ob = j)] =
+αab
+ij
+α0
+(13)
+V [p(oa = i, ob = j)] =
+αab
+ij (α0 − αab
+ij )
+α2
+0(1 + α0)
+(14)
+where:
+α0 =
+i∈{0,1} j∈{0,1}
+αab
+ij (15)
+and in fact, α0 = N + 2, where N is the total number of contracts
+observed. Likewise, we can express the covariance in these 
+pairwise probabilities in similar terms:
+C[p(oa = i, ob = j), p(oa = m, ob = n)] =
+−αab
+ij αab
+mn
+α2
+0(1 + α0)
+Finally, we can use the expression:
+p(oa = 1) =
+j∈{0,1}
+p(oa = 1, ob = j)
+to determine the covariance Cab. To do so, we first simplify the
+notation by defining V ab
+ij V [p(oa = i, ob = j)] and Cab
+ijmn
+C[p(oa = i, ob = j), p(oa = m, ob = n)]. The covariance for the
+probability of positive contract outcomes is then the covariance 
+between j∈{0,1} p(oa = 1, ob = j) and i∈{0,1} p(oa = i, ob =
+1), and thus:
+Cab = Cab
+1001 + Cab
+1101 + Cab
+1011 + V ab
+11 .
+Thus, given a set of contract outcomes that represent the agent"s
+previous interactions with a supplier, we may use the Dirichlet 
+distribution to calculate the mean and variance of the probability of
+any contract dimension being successfully fulfilled (i.e. ˆp(oa = 1)
+and Va). In addition, by a somewhat more complex procedure we
+can also calculate the correlations between these probabilities (i.e.
+Cab). This allows us to calculate an estimate of the probability that
+any contract dimension will be successfully fulfilled, ˆp(X), and
+also represent the uncertainty and correlations in these probabilities
+by the covariance matrix, Cov(p(X)). In turn, these results may be
+used to calculate the estimate and uncertainty in the expected 
+utility of the contract. In the next section we present empirical results
+that show that in practise this formalism yields significant 
+improvements in these estimates compared to the na¨ıve approximation 
+using multiple independent beta distributions.
+4.3 Empirical Comparison
+In order to evaluate the effectiveness of our formalism, and show
+the importance of the off-diagonal terms in Cov(p(X)), we 
+compare two approaches:
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1073
+−1 −0.5 0 0.5 1
+0.2
+0.4
+0.6
+0.8
+Correlation (ρ)
+Var(E[U])
+Dirichlet Distribution
+Indepedent Beta Distributions
+−1 −0.5 0 0.5 1
+0.5
+1
+1.5
+2
+2.5
+x 10
+4
+Correlation (ρ)
+Information(I)
+Dirichlet Distribution
+Indepedent Beta Distributions
+Figure 1: Plots showing (i) the variance of the expected contract
+utility and (ii) the information content of the estimates 
+computed using the Dirichlet distribution and multiple independent
+beta distributions. Results are averaged over 106
+runs, and the
+error bars show the standard error in the mean.
+• Dirichlet Distribution: We use the full Dirichlet 
+distribution, as described above, to calculate ˆp(X) and Cov(p(X))
+including all its off-diagonal terms that represent the 
+correlations between the contract dimensions.
+• Independent Beta Distributions: We use independent beta
+distributions to represent each contract dimension, in order
+to calculate ˆp(X), and then, as described earlier, we 
+approximate Cov(p(X)) and ignore the correlations by setting all
+the off-diagonal terms to zero.
+We consider a two-dimensional case where u(oa = 1) = 6 and
+u(ob = 1) = 2, since this allows us to plot ˆp(X) and Cov(p(X))
+as ellipses in a two-dimensional plane, and thus explain the 
+differences between the two approaches. Specifically, we initially 
+allocate the agent some previous contract outcomes that represents its
+direct experience with a supplier. The number of contracts is drawn
+uniformly between 10 and 20, and the actual contract outcomes are
+drawn from an arbitrary joint distribution intended to induce 
+correlations between the contract dimensions. For each set of 
+contracts, we use the approaches described above to calculate ˆp(X)
+and Cov(p(X)), and hence, the variance in the expected contract
+utility, Var(E[U]). In addition, we calculate a scalar measure of the
+information content, I, of the covariance matrix Cov(p(X)), which
+is a standard way of measuring the uncertainty encoded within the
+covariance matrix [1]. More specifically, we calculate the 
+determinant of the inverse of the covariance matrix:
+I = det(Cov(p(X))−1
+) (16)
+and note that the larger the information content, the more precise
+ˆp(X) will be, and thus, the better the estimate of the expected 
+utility that the agent is able to calculate. Finally, we use the results
+0.3 0.4 0.5 0.6 0.7 0.8
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+p(o =1)
+p(o=1)
+a
+b
+Dirichlet Distribution
+Indepedent Beta Distributions
+Figure 2: Examples of ˆp(X) and Cov(p(X)) plotted as second
+standard error ellipses.
+presented in section 4.2 to calculate the actual correlation, ρ, 
+associated with this particular set of contract outcomes:
+ρ =
+Cab
+√
+VaVb
+(17)
+where Cab, Va and Vb are calculated as described in section 4.2.
+The results of this analysis are shown in figure 1. Here we show
+the values of I and Var(E[U]) calculated by the agents, plotted
+against the correlation of the contract outcomes, ρ, that constituted
+their direct experience. The results are averaged over 106
+
+simulation runs. Note that as expected, when the dimensions of the 
+contract outcomes are uncorrelated (i.e. ρ = 0), then both approaches
+give the same results. However, the value of using our formalism
+with the full Dirichlet distribution is shown when the correlation
+between the dimensions increases (either negatively or positively).
+As can be seen, if we approximate the Dirichlet distribution with
+multiple independent beta distributions, all of the correlation 
+information contained within the covariance matrix, Cov(p(X)), is
+lost, and thus, the information content of the matrix is much lower.
+The loss of this correlation information leads the variance of the
+expected utility of the contract to be incorrect (either over or under
+estimated depending on the correlation)5
+, with the exact amount of
+mis-estimation depending on the actual utility function chosen (i.e.
+the values of u(oa = 1) and u(ob = 1)).
+In addition, in figure 2 we illustrate an example of the estimates
+calculated through both methods, for a single exemplar set of 
+contract outcomes. We represent the probability estimates, ˆp(X), and
+the covariance matrix, Cov(p(X)), in the standard way as an 
+ellipse [1]. That is, ˆp(X) determines the position of the center of
+the ellipse, Cov(p(X)) defines its size and shape. Note that whilst
+the ellipse resulting from the full Dirichlet formalism accurately 
+reflects the true distribution (samples of which are plotted as points),
+that calculated by using multiple independent Beta distributions
+(and thus ignoring the correlations) results in a much larger ellipse
+that does not reflect the true distribution. The larger size of this
+ellipse is a result of the off-diagonal terms of the covariance matrix
+being set to zero, and corresponds to the agent miscalculating the
+uncertainty in the probability of each contract dimension being 
+fulfilled. This, in turn, leads it to miscalculate the uncertainty in the
+expected utility of a contract (shown in figure 1 as Var(E[U]).

@@ -1,0 +1,76 @@
+2.2 A generic Hidden Web crawling algorithm Given that the only entry to the pages in a Hidden-Web site is its search from, a Hidden-Web crawler should follow the three steps described in the previous section.
+For simplicity, we assume that the Hidden-Web crawler issues single-term queries only.3 The crawler first decides which query term it is going to use (Step (2)), issues the query, and  retrieves the result index page (Step (3)).
+(2) Here, we use Pnew(qi) to represent the fraction of the new  documents from qi that have not been retrieved from previous queries.
+In the most common case, the query cost consists of a number of factors, including the cost for submitting the query to the site, retrieving the result index page (Figure 3(a)) and downloading the actual pages (Figure 3(b)).
+Our algorithm leverages the observation that although we do not know which pages will be returned by each query qi that we issue, we can predict how many pages will be returned.
+Every potential query qi that we may issue can be viewed as a subset of S, containing all the points (pages) that are returned when we issue qi to the site.
+Typically, the users need to take the following steps in order to access pages in a Hidden-Web database: 1.
+Given this algorithm, we can see that the most critical decision that a crawler has to make is what query to issue next.
+In Figure 4 we show the generic algorithm for a Hidden-Web crawler.
+In the next section, we formalize this query selection problem.
+We also use Cost(qi) to represent the cost of issuing the query qi.
+Since  plaintext documents do not usually have well-defined structure, most textual databases provide a simple search interface where users type a list of keywords in a single search box (Figure 1).
+Crawling a Hidden Web site Procedure (1) while ( there are available resources ) do // select a term to send to the site (2) qi = SelectTerm() // send query and acquire result index page (3) R(qi) = QueryWebSite( qi ) // download the pages of interest (4) Download( R(qi) ) (5) done Figure 4: Algorithm for crawling a Hidden Web site.
+Similarly, we use P(q1 ∨ q2) to represent the fraction of pages that are returned from either q1 or q2 (i.e., the union of P(q1) and P(q2)).
+, qn that maximizes P(q1 ∨ · · · ∨ qn) under the constraint n i=1 Cost(qi) ≤ t. Here, t is the maximum download resource that the crawler has. 
+2.3 Problem formalization Theoretically, the problem of query selection can be formalized as follows: We assume that the crawler downloads pages from a Web site that has a set of pages S (the rectangle in Figure 5).
+Shortly after the user issues the query, she is presented with a result index page.
+That is, the crawler has to generate a query, issue it to the Web site, download the result index page, and follow the links to download the actual pages.
+Given a query qi, we use P(qi) to denote the fraction of pages that we will get back if we issue query qi to the site.
+The cost for downloading the result index page is proportional to the number of matching documents to the query, while the cost cd for downloading a matching document is also fixed.
+In this case, the crawler may skip downloading these documents and the cost of qi can be Cost(qi) = cq + crP(qi) + cdPnew(qi).
+In Section 2.1, we describe our assumptions on Hidden-Web sites and explain how users interact with the sites.
+First, in a practical situation, the crawler does not know which Web pages will be returned by which queries, so the subsets of S are not known in advance.
+Find the set of queries q1, .
+As we will see later, our proposed algorithms are independent of the exact cost function.
+A textual database is a site that Figure 2: A multi-attribute search interface mainly contains plain-text documents, such as PubMed and  LexisNexis (an online database of legal documents [1]).
+Each subset is associated with a weight that represents the cost of issuing the query.
+Based on this  information our query selection algorithm can then select the best queries that cover the content of the Web site.
+We use P(q1 ∧ q2) to represent the fraction of pages that are returned from both q1 and q2 (i.e., the intersection of P(q1) and P(q2)).
+Based on this interaction model, we present a  highlevel algorithm for a Hidden-Web crawler in Section 2.2.
+Under this formalization, our goal is to find which subsets (queries) cover the maximum number of points (Web pages) with the minimum total weight (cost).
+If the crawler can issue successful queries that will return many matching pages, the crawler can finish its crawling early on using minimum resources.
+For example, if a Web site has 10,000 pages in total, and if 3,000 pages are returned for the query qi = medicine, then P(qi) = 0.3.
+Later in Section 3.1 we will study how we can estimate P(qi) and Pnew(qi) to estimate the cost of qi.
+Since our algorithms are independent of the exact cost function, we will assume a generic cost function Cost(qi) in this paper.
+In contrast, if the crawler issues completely irrelevant queries that do not return any matching pages, it may waste all of its resources simply issuing queries without ever retrieving  actual pages.
+Depending on the type of  information, we may categorize a Hidden-Web site either as a textual database or a structured database.
+3 For most Web sites that assume AND for multi-keyword queries, single-term queries return the maximum number of results.
+We represent each Web page in S as a point (dots in Figure 5).
+Figure 3: Pages from the PubMed Web site.
+In this paper, we will mainly focus on  textual databases that support single-attribute keyword queries.
+From the list in the result index page, the user identifies the pages that look interesting and follows the links.
+We assume that submitting a query  incurs a fixed cost of cq.
+When we need a concrete cost function, however, we will use Equation 2.
+In  contrast, a structured database often contains multi-attribute relational data (e.g., a book on the Amazon Web site may have the fields title=‘Harry Potter", author=‘J.K.
+Extending our work to multi-keyword queries is straightforward.
+In most cases, a crawler has limited time and network resources, so the crawler repeats these steps until it uses up its resources.
+Given the notation, we can formalize the goal of a Hidden-Web crawler as follows: 102 PROBLEM 1.
+(1) In certain cases, some of the documents from qi may have already been downloaded from previous queries.
+In this paper, we will present an approximation algorithm that can find a near-optimal solution at a reasonable computational cost.
+Depending on the scenario, the cost can be measured either in time, network bandwidth, the number of interactions with the site, or it can be a function of all of these.
+2.3.1 Performance Metric Before we present our ideas for the query selection problem, we briefly discuss some of our notation and the cost/performance  metrics.
+2.1 Hidden-Web database model There exists a variety of Hidden Web sources that provide  information on a multitude of topics.
+Finally, based on the links found on the result index page, it downloads the Hidden Web pages from the site (Step (4)).
+S q1 q qq 2 34 Figure 5: A set-formalization of the optimal query selection problem.
+Then the overall cost of query qi is Cost(qi) = cq + crP(qi) + cdP(qi).
+We present our  prediction method and our query selection algorithm in Section 3.
+First, the user issues a query, say liver, through the search interface provided by the Web site (such as the one shown in Figure 1).
+101 (a) List of matching pages for query liver.
+That is, the Web site returns a list of links to potentially relevant Web pages, as shown in Figure 3(a).
+There are two main difficulties that we need to address in this formalization.
+We discuss how we can extend our ideas for the textual databases to multi-attribute structured databases in Section 6.1.
+This same process is repeated until all the available resources are used up (Step (1)).
+In this section, we present a formal framework for the study of the Hidden-Web crawling problem.
+Clicking on a link leads the user to the actual Web page, such as the one shown in Figure 3(b), that the user wants to look at.
+(b) The first matching page for liver.
+Therefore, how the crawler selects the next query can greatly affect its effectiveness.
+Finally in Section 2.3, we formalize the Hidden-Web crawling problem.
+Second, the set-covering problem is known to be NP-Hard [16], so an efficient algorithm to solve this problem optimally in polynomial time has yet to be found.
+Without knowing these subsets the crawler cannot decide which queries to pick to  maximize the coverage.
+Rowling" and isbn=‘0590353403") and supports multi-attribute search  interfaces (Figure 2).
+This problem is equivalent to the set-covering problem in graph theory [16].
+ALGORITHM 2.1.
+Step 3.
+Step 2.
+Step 1.

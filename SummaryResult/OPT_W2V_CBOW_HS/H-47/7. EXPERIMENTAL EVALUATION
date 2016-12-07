@@ -1,0 +1,53 @@
+As the set of ads per page is relatively small, the evaluation reports precision that is higher than it would be with a larger set of negative ads.
+We then used these judgments to evaluate how well our methods distinguish the positive and the negative ad assignments for each page.
+This means that when there is somewhat of a match  between the ad and the page, the restriction to the right classes provides a better scope for selecting the ads.
+Again, the purely syntactic method has clearly the lowest score by individual positions and the total number of correctly placed ads.
+Each different method was applied to this set and the ads were ranked by the score.
+inter-editor agreement 84% unique ads 2680 unique ads per page 25.5 page classification precision 70% ad classification precision 86% Table 1: Dataset statistics To obtain a score for a page-ad pair we average all the scores and then round to the closest integer.
+7.2 Results Figure 3 shows the precision recall curves for the  syntactic matching (keywords only used) vs. a syntactic-semantic matching with the optimal value of α = 0.8 (judged by the 11-point score [1]).
+We see that in most cases precision grows or is flat when we increase α, except at the low level of recall where due to small number of data points there is a bit of jitter in the results.
+The relative effectiveness of the algorithms were judged by comparing how well the methods separated the ads with positive judgment from the ads with negative judgment.
+when the ad is almost contained within the page) the precision 0.4 0.5 0.6 0.7 0.8 0.9 1 0 0.2 0.4 0.6 0.8 1 Recall Precision Alpha=.9, no phrase Alpha=0, no phrase Alpha=0, phrase Alpha=.9, phrase Figure 3: Data Set 2: Precision vs. Recall of  syntactic match (α = 0) vs. syntactic-semantic match (α = 0.8) α Kendall"s τ α = 0 0.086 α = 0.25 0.155 α = 0.50 0.166 α = 0.75 0.158 α = 1 0.136 Table 2: Kendall"s τ for different α values of the syntactic keyword match is comparable with that of the semantic-syntactic match.
+If almost all the words in an ad appear in the page, this ad is Precision Vs Alpha for Different Levels of Recall (Data Set 2) 0.45 0.55 0.65 0.75 0.85 0.95 0 0.2 0.4 0.6 0.8 1 Alpha Precision 80% Recall 60% Recall 40% Recall 20% Recall Figure 4: Impact of α on precision for different levels of recall α #1 #3 #5 sum α = 0 80 70 68 218 α = 0.25 89 76 73 238 α = 0.5 89 74 73 236 α = 0.75 89 78 73 240 α = 1 86 79 74 239 Table 3: Precision at position 1, 3 and 5 likely to be relevant for this page.
+Instead, in our evaluation for each page we consider only those ads for which we have judgment.
+We calculated the values by ranking all the judged ads for each page and averaging the values over all the pages.
+The semantic components provides largest lift in  precision at the mid range of recall where 25% improvement is achieved by using the class information for ad placement.
+The original experiments that paired the pages and the ads are loosely related to the syntactic keyword based  matching and classification based assignment but used different taxonomies and keyword extraction techniques.
+We also examined counting only the pairs judged with 1 as positive examples and did not find a significant change in the relative performance of the tested methods.
+The ads with tied judgment were given the rank of the middle position.
+However, these numbers still establish the relative performance of the algorithms and we can use it to evaluate performance at different score thresholds.
+Somewhat relevant The ad is related to the  secondary subject of the page, or is related to the main topic of the page in a general way.
+Ads for each of these pages have been selected from a larger pool of ads (tens of millions) by previous experiments conducted by Yahoo!
+For this test we ranked the judged ads by the scores assigned by the judges and then compared this order to the order assigned by our algorithms.
+Note however that the two methods might produce different ads and could be used as a complement at level of recall.
+The results show that when we take into account all the ad-page pairs, the optimal value of α is around 0.5.
+This set of pages was selected by a random sample of a larger set of around 20 million pages with contextual advertising.
+In addition to the precision-recall over the judged ads, we also present Kendall"s τ rank correlation coefficient to establish how far from the perfect ordering are the orderings produced by our ranking algorithms.
+In this figure, we assume that the  adpage pairs judged with 1 or 2 are positive examples and the 3s are negative examples.
+We present precision on various levels of recall within this set.
+Therefore we could not use standard pooling as an evaluation method since we did not control the way the pairs were selected and could not precisely establish the set of ads from which the placed ads were selected.
+This indicates that when the keyword match is really strong (i.e.
+The graphs show significant impact of the class  information, especially in the mid range of recall values.
+This also indicates that for those ads that have a very high keyword score, the semantic information is somewhat less important.
+The statistics of the page dataset is given in Table 1.
+We see that these additional features do not change the relative performance of the algorithm.
+7.1 Data and Methodology We quantify the effect of the semantic-syntactic matching using a set of 105 pages.
+Overlaid are also results using phrases in the keyword match.
+Finally we also examined the precision at position 1, 3 and 5.
+Relevant The ad is semantically directly related to the main subject of the page.
+Figure 4 shows the effect of the parameter α in the scoring.
+For example if the page is about the National Football League and the ad is about tickets for NFL games, it would be scored as 1.
+The numbers are close due to the small number of the ads considered, but there are still some noticeable trends.
+In the low recall part of the chart the curves meet.
+Irrelevant The ad is unrelated to the page.
+For  example a mention of the NFL player John Maytag triggers washing machine ads on a NFL page.
+Each page-ad pair has been judged by three or more human judges on a 1 to 3 scale: 1.
+In the NFL page example, an ad about NFL branded products would be judged as 2.
+Table 2 shows the Kendall"s τ values for different values of α.
+For position 1 the optimal α is in the range of 0.25 to 0.75.
+Note that purely syntactic match (α = 0) is by far the  weakest method.
+Table 3 shows the precision at positions 1, 3 and 5.
+pages 105 words per page 868 judgments 2946 judg.
+US for other purposes.
+For positions 3 and 5 the optimum is at α = 1.
+However when there is no such clear affinity, the class information becomes a dominant factor. 

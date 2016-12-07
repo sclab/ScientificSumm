@@ -1,0 +1,72 @@
+In the content analysis part, our approach is closely related to
+Latent Semantic Indexing (LSI) [8]. LSI maps documents into a
+lower dimensional latent space. The latent space implicitly 
+captures a large portion of information of documents, therefore it is
+called the latent semantic space. The similarity between documents
+could be defined by the dot products of the corresponding vectors
+of documents in the latent space. Analysis tasks, such as 
+classification, could be performed on the latent space. The commonly
+used singular value decomposition (SVD) method ensures that the
+data points in the latent space can optimally reconstruct the original
+documents. Though our approach also uses latent space to 
+represent web pages (documents), we consider the link structure as well
+as the content of web pages.
+In the link analysis approach, the framework of hubs and 
+authorities (HITS) [12] puts web page into two categories, hubs and
+authorities. Using recursive notion, a hub is a web page with many
+outgoing links to authorities, while an authority is a web page with
+many incoming links from hubs. Instead of using two categories,
+PageRank [17] uses a single category for the recursive notion, an
+authority is a web page with many incoming links from authorities.
+He et al. [9] propose a clustering algorithm for web document 
+clustering. The algorithm incorporates link structure and the co-citation
+patterns. In the algorithm, all links are treated as undirected edge of
+the link graph. The content information is only used for weighing
+the links by the textual similarity of both ends of the links. Zhang
+et al. [23] uses the undirected graph regularization framework for
+document classification. Achlioptas et al[2] decompose the web
+into hub and authority attributes then combine them with content.
+Zhou et al. [25] and [24] propose a directed graph regularization
+framework for semi-supervised learning. The framework combines
+the hub and authority information of web pages. But it is difficult
+to combine the content information into that framework. Our 
+approach consider the content and the directed linkage between topics
+of source and destination web pages in one step, which implies the
+topic combines the information of web page as authorities and as
+hubs in a single set of factors.
+Cohn and Hofmann [6] construct the latent space from both 
+content and link information, using content analysis based on 
+probabilistic LSI (PLSI) [10] and link analysis based on PHITS [5]. The
+major difference between the approach of [6] (PLSI+PHITS) and
+our approach is in the part of link analysis. In PLSI+PHITS, the
+link is constructed with the linkage from the topic of the source
+web page to the destination web page. In the model, the outgoing
+links of the destination web page have no effect on the source web
+page. In other words, the overall link structure is not utilized in
+PHITS. In our approach, the link is constructed with the linkage
+between the factor of the source web page and the factor of the 
+destination web page, instead of the destination web page itself. The
+factor of the destination web page contains information of its 
+outgoing links. In turn, such information is passed to the factor of the
+source web page. As the result of matrix factorization, the factor
+forms a factor graph, a miniature of the original graph, preserving
+the major structure of the original graph.
+Taskar et al. [19] propose relational Markov networks (RMNs)
+for entity classification, by describing a conditional distribution of
+entity classes given entity attributes and relationships. The model
+was applied to web page classification, where web pages are 
+entities and hyperlinks are treated as relationships. RMNs apply 
+conditional random fields to define a set of potential functions on cliques
+of random variables, where the link structure provides hints to form
+the cliques. However the model does not give an off-the-shelf 
+solution, because the success highly depends on the arts of designing
+the potential functions. On the other hand, the inference for RMNs
+is intractable and requires belief propagation.
+The following are some work on combining documents and
+links, but the methods are loosely related to our approach. The
+experiments of [21] show that using terms from the linked 
+document improves the classification accuracy. Chakrabarti et al.[3] use
+co-citation information in their classification model. Joachims et
+al.[11] combine text kernels and co-citation kernels for 
+classification. Oh et al [16] use the Naive Bayesian frame to combine link
+information with content.

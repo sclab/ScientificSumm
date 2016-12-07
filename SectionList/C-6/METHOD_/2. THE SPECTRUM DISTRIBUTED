@@ -1,0 +1,242 @@
+CONTENT MANAGEMENT SYSTEM 
+ARCHITECTURE
+The Spectrum architecture consists of three distinct management
+layers that may or may not be distributed across multiple machines,
+as shown in Figure 1. The three layers are:
+content manager: contains application specific information that
+is used to manage all of an application"s content according to
+user preferences. For example, in a personal video recorder
+(PVR) application the content manager receives requests for
+content from a user interface and interacts with the lower 
+layers of the Spectrum architecture to store and manage content
+on the device.
+policy manager: implements and enforces various storage polices
+that the content manager uses to refer to content. The policy
+manager exports an interface to the content manager that 
+allows the content manager to request that a piece content be
+treated according to a specific policy. Spectrum allows for
+arbitrary policies to be realized by providing a fixed set of
+base-policy templates that can easily be parameterized. It is
+our belief that for most implementations this will be adequate
+(if not, Spectrum can easily be extended to dynamically load
+new base-policy template code at run time). A key aspect
+of the policy manager is that it allows different policies to
+be simultaneously applied to the same content (or parts of
+the same content). Furthermore content can only exist in the
+system so long as it is referenced by at least one existing
+policy. Policy conflicts are eliminated by having the policy
+manager deal exclusively with retention policies rather than
+with a mix of retention and eviction policies. This means that
+content with no policy associated with it is immediately and
+automatically removed from the system. This approach 
+allows us to naturally support sharing of content across 
+different policies which is critical to the efficient storage of large
+objects.
+Note that a key difference between the content manager and
+the policy manager is that the content manager manages 
+references to multiple pieces of content, i.e. it has an 
+applicationview of content. On the other hand, the policy manager
+is only concerned with the policy used to manage 
+standalone pieces of content. For example, in a PVR 
+application, the content manager layer would know about the 
+different groups of managed content such as keep-indefinitely,
+keep for one day, and keep if available diskspace. 
+However, at the policy manager level, each piece of content has
+5
+Content Manager
+Policy Manager
+Storage Manager
+Content Manager Content Manager Content Manager
+Policy Manager Policy Manager
+Policy Manager
+Storage Manager
+Storage Manager
+Storage Manager
+Remote Invocation
+Figure 1: The components of the Spectrum architecture and the four ways they can be configured
+its own policy (or policies) applied to it and is independent
+from other content.
+storage manager: stores content in an efficient manner while 
+facilitating the objectives of the higher layers. Specifically the
+storage manager stores content in sub-object chunks. This
+approach has advantages for the efficient retrieval of content
+but more importantly allows policies to be applied at a 
+subobject level which is critically important when dealing with
+very large objects such as parts of continuous media, e.g. 
+selected pieces of TV content being stored on a PVR. Note that
+the storage manager has no knowledge of the policies being
+used by the content and policy managers.
+Another unique part of our approach is that the interfaces 
+between the layers can either be local or distributed. Figure 1 shows
+the four possible cases. The case on the far left of the Figure shows
+the simplest (non-distributed) case where all the layers are 
+implemented on a single box. This configuration would be used in 
+selfcontained applications such as PVRs.
+The next case over corresponds to the case where there is a 
+centralized content manager that controls distributed storage devices
+each of which is responsible for implementing policy based 
+storage. In this case although the remote devices are controlled by the
+central manager they operate much more independently. For 
+example, once they receive instructions from the central manager they
+typically operate in autonomous fashion. An example of this type
+of configuration is a content distribution network (CDN) that 
+distributes and stores content based on a schedule determined by some
+centralized controller. For example, the CDN could pre-populate
+edge devices with content that is expected to be very popular or
+distribute large files to branch offices during off-peak hours in a
+bandwidth constrained enterprise environment.
+Allowing a single policy manager to control several storage 
+managers leads to the next combination of functions and the most 
+distributed case. The need for this sort of separation might occur for
+scalability reasons or when different specialized storage devices or
+appliances are required to be controlled by a single policy manager.
+The final case shows a content manager combined with a 
+policy manager controlling a remote storage manager. This separation
+would be possible if the storage manager is somewhat autonomous
+and does not require continuous fine grained control by the policy
+manager.
+We now examine the function of the three layers in detail.
+2.1 Content Manager
+The content manager layer is the primary interface through which
+specific applications use the Spectrum architecture. As such the
+content manager layer provides an API for the application to 
+manipulate all aspects of the Spectrum architecture at different levels
+of granularity. The content manager API has functions that handle:
+Physical devices: This set of functions allows physical storage 
+devices to be added to Spectrum thereby putting them under
+control of the content manager and making the storage 
+available to the system. Physical devices can be local or remote
+- this is the only place in the architecture where the 
+application is required to be aware of this distinction. Once a
+device is mapped into the application through this interface,
+the system tracks its type and location. Users simply refer to
+the content through an application-provided label.
+Stores: Stores are subsets of physical storage devices. Through
+these functions an application can create a store on a physical
+device and assign resources (e.g. disk space) to it. Stores can
+only be created in physical devices that are mapped into the
+system.
+Policy Groups: Policy groups are the means whereby an 
+application specifies, instantiates, and modifies the policies that are
+applied to Spectrum content. Typical usage of this set of
+functions is to select one of a small set of base policies and
+to parameterize this specific instance of the policy. Policy
+groups are created within existing stores in the system. The
+Spectrum architecture has policies that are normally 
+associated with storage that aim to optimize disk usage. In addition
+a set of policies that take a sophisticated time specification
+enable storage that is cognizant of time. For example, a 
+simple time-based policy could evict content from the system
+at a certain absolute or relative time. A slightly more 
+involved time-based policy enabled by the Spectrum 
+architecture could allow content to be stored in rolling window of
+a number of hours (for example, the most recent N-number
+of hours is kept in the system). Time-based polices are of
+particular use when dealing with continuous content like a
+live broadcast.
+6
+Content: At the finest level of granularity content can be added
+to or removed from the system. Content is specified to the
+system by means of a uniform resource locator (URL) which
+concisely indicates the location of the content as well as the
+protocol to be used to retrieve it. Optionally a time 
+specification can be associated with content. This allows content to
+be fetched into the system at some future time, or at future
+time intervals. Again, this is particularly useful for dealing
+with the storage and management of live content.
+2.2 Policy Manager
+The policy manager layer of the Spectrum architecture has two
+main types of API functions. First, there are functions that operate
+on managed storage areas and policy-based references (prefs) to
+content stored there. Second, there are sets of functions used to
+implement each management policy. The first class of functions is
+used by the content manager layer to access storage. Operations
+include:
+create, open, and close: These operations are used by the content
+manager to control its access to storage. The policy 
+manager"s create operation is used to establish contact with a
+store for the first time. Once this is done, the store can be
+open and closed using the appropriate routines. Note that the
+parameters used to create a store contain information on how
+to reach it. For example, local stores have a path associated
+with them, while remote stores have a remote host and 
+remote path associated with them. The information only needs
+to be passed to the policy manager once at create time. For
+open operations, the policy manager will use cached 
+information to contact the store.
+lookup: The lookup operation provides a way for the content 
+manager to query the policy manager about what content is 
+currently present for a given URL. For continuous media time
+ranges of present media will be returned.
+resource: The resource routines are used to query the policy 
+manager about its current resource usage. There are two resource
+routines: one that applies to the store as a whole and another
+that applies to a particular policy reference. The resource
+API is extensible, we currently support queries on disk usage
+and I/O load.
+pref establish/update: The pref establish operation is used by the
+content manager to reference content on the store. If the 
+content is not present, this call will result in the content being
+fetched (or being scheduled to be fetched if the content is
+not currently available). Parameters of this function include
+the URL to store it under, the URL to fetch data from if it
+is not present, the policy to store the content under, and the
+arguments used to parameterize the policy. The result of a
+successful pref establish operation is a policy reference ID
+string. This ID can be used with the update operation to 
+either change the storage policy parameters or delete the 
+reference entirely.
+The second group of policy manager functions are used to 
+implement all the polices supported by Spectrum. We envision a small
+set of base-level policy functions that can be parameterized to 
+produce a wide range of storage polices. For example, a policy that
+implements recording a repeating time window can be 
+parameterized to function daily, weekly, or monthly. Note that the policy
+manager is only concerned with executing a specific policy. The
+higher-level reasons for choosing a given policy are handled by the
+content and application manager.
+A base policy is implemented using six functions:
+establish: called when a pref is established with the required URLs
+and base policy"s parameters. The establish routine 
+references any content already present in the store and then 
+determines the next time it needs to take action (e.g. start a
+download) and schedules a callback for that time. It can also
+register to receive callbacks if new content is received for a
+given URL.
+update: called to change the parameters of a pref, or to discard the
+policy reference.
+newclip: called when a chunk of new content is received for a
+URL of interest. The base policy typically arranges for 
+newclip to be called for a given URL when the pref is established.
+When newclip is called, the base policy checks its 
+parameters to determine if it wishes to add a reference to the clip
+just received.
+callback: called when the pref schedules a timer-based callback.
+This is a useful wakeup mechanism for prefs that need to be
+idle for a long period of time (e.g. between programs).
+boot/shutdown: called when the content management system is
+booting or shutting down. The boot operation is typically
+used to schedule initial callbacks or start I/O operations. The
+shutdown operation is used to gracefully shutdown I/O streams
+and save state.
+2.3 Storage Manager
+The role of Spectrum"s storage manager is to control all I/O 
+operations associated with a given store. Spectrum"s storage manager
+supports storing content both on a local filesystem and on a remote
+fileserver (e.g. a storage appliance). For continuous media, at the
+storage manager level content is stored as a collection of time-based
+chunks. Depending on the underlying filesystem, a chunk could
+correspond to a single file or a data node in a storage database.
+The two main storage manager operations are input and output.
+The input routine is used to store content in a store under a given
+name. The output routine is used to send data from the store to a
+client. For streaming media both the input and output routines take
+time ranges that schedule when the I/O operation should happen,
+and both routines return an I/O handle that can be used to modify
+or cancel the I/O request in the future.
+Much like the policy manager, the storage manager also provides
+API functions to create, open, and close stores. It also supports 
+operations to query the resource usages and options supported by the
+store. Finally, the storage manager also has a discard routine that
+may be used by the policy manager to inform the store to remove
+content from the store.

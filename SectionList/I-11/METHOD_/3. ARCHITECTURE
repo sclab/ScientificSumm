@@ -1,0 +1,384 @@
+BEE predicts the future by observing the emergent behavior
+of agents representing the entities of interest in a fine-grained
+agent simulation. Key elements of the BEE 
+architecture include the model of an individual
+agent, the pheromone infrastructure through
+which agents interact, the information sources
+that guide them, and the overall evolutionary
+cycle that they execute.
+3.1 Agent Model
+The agents in BEE are inspired by two 
+bodies of work: our previous work on fine-grained
+agents that coordinate their actions through 
+digital pheromones in a shared environment [2, 13,
+17, 18, 21], and the success of previous 
+agentbased combat modeling.
+Digital pheromones are scalar variables that
+agents deposit and sense at their current location
+a
+c
+b
+d
+a
+c
+b
+d
+Figure 1: Tracking a 
+nonlinear dynamical system. a =
+system state space; b = system
+trajectory over time; c = recent
+measurements of system state;
+d = short-range prediction.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1427
+in the environment. Agents respond to local concentrations of
+these variables tropistically, climbing or descending local 
+gradients. Their movements change the deposit patterns. This feedback
+loop, together with processes of evaporation and propagation in
+the environment, support complex patterns of interaction and 
+coordination among the agents [15]. Table 1 shows the BEE"s 
+current pheromone flavors. For example, a living member of the 
+adversary emits a RED-ALIVE pheromone, while roads emit a
+MOBILITY pheromone.
+Our soldier agents are inspired by EINSTein and MANA.
+EINSTein [6] represents an agent as a set of six weights, each in
+[-1, 1], describing the agent"s response to six kinds of 
+information. Four of these describe the number of alive friendly, alive
+enemy, injured friendly, and injured enemy troops within the
+agent"s sensor range. The other two weights relate to the agent"s
+distance to its own flag and that of the adversary, representing
+objectives that it seeks to protect and attack, respectively. A 
+positive weight indicates attraction to the entity described by the
+weight, while a negative weight indicates repulsion.
+MANA [9] extends the concepts in EINSTein. Friendly and
+enemy flags are replaced by the waypoints pursued by each side.
+MANA includes low, medium, and high threat enemies. In 
+addition, it defines a set of triggers (e.g., reaching a waypoint, being
+shot at, making contact with the enemy, being injured) that shift
+the agent from one personality vector to another. A default state
+defines the personality vector when no trigger state is active.
+The personality vectors in MANA and EINSTein reflect both
+rational and emotive aspects of decision-making. The notion of
+being attracted or repelled by friendly or adversarial forces in
+various states of health is an important component of what we
+informally think of as emotion (e.g., fear, compassion, 
+aggression), and the use of the term personality in both EINSTein and
+MANA suggests that the system designers are thinking 
+anthropomorphically, though they do not use emotion to describe the
+effect they are trying to achieve. The notion of waypoints to
+which an agent is attracted reflects goal-oriented rationality.
+BEE uses an integrated rational-emotive personality model.
+A BEE agent"s rationality is a vector of seven desires, which
+are values in [-1, +1]: ProtectRed (the adversary), ProtectBlue
+(friendly forces), ProtectGreen (civilians), ProtectKeySites,
+AvoidCombat, AvoidDetection, and Survive. Negative values
+reverse the sense suggested by the label. For example, a negative
+value of ProtectRed indicates a desire to harm Red, and an agent
+with a high positive desire to ProtectRed will be attracted to 
+REDALIVE, RED-CASUALTY, and MOBILITY pheromone, and
+will move at maximum speed.
+The emotive component of a BEE"s personality is based on
+the Ortony-Clore-Collins (OCC) framework [11], and is described
+in detail elsewhere [12]. OCC define emotions as valanced 
+reactions to agents, states, or events in the environment. This notion
+of reaction is captured in MANA"s trigger states. An important
+advance in BEE"s emotional model is the recognition that agents
+may differ in how sensitive they are to triggers. For example,
+threatening situations tend to stimulate the emotion of fear, but a
+given level of threat will produce more fear in a new recruit than
+in a seasoned veteran. Thus our model includes not only 
+Emotions, but Dispositions. Each Emotion has a corresponding 
+Disposition. Dispositions are relatively stable, and considered constant
+over the time horizon of a run of the BEE, while Emotions vary
+based on the agent"s disposition and the stimuli to which it is 
+exposed.
+Interviews with military domain experts identified the two
+most crucial emotions for combat behavior as Anger (with the
+corresponding disposition Irritability) and Fear (whose disposition
+is Cowardice). Table 2 shows which pheromones trigger which
+emotions. For example, RED-CASUALTY pheromone stimulates
+both Anger and Fear in a Red agent, but not in a Blue agent. 
+Emotions are modeled as agent hormones (internal pheromones) that
+are augmented in the presence of the triggering environmental
+condition and evaporate over time.
+A non-zero emotion modifies the agent"s actions. Elevated
+level Anger increases movement likelihood, weapon firing 
+likelihood, and tendency toward an exposed posture. Elevated Fear
+decreases these likelihoods.
+Figure 2 summarizes the BEE"s personality model. The left
+side is a straightforward BDI model (we prefer the term goal to
+intention). The right side is the emotive component, where an
+appraisal of the agent"s beliefs, moderated by the disposition,
+leads to an emotion that in turn influences the BDI analysis.
+Table 1. Pheromone flavors in BEE
+Pheromone
+Flavor
+Description
+RedAlive
+RedCasualty
+BlueAlive
+BlueCasualty
+GreenAlive
+GreenCasualty
+Emitted by a living or dead entity of the 
+appropriate group (Red = enemy, Blue = friendly,
+Green = neutral)
+WeaponsFire Emitted by a firing weapon
+KeySite
+Emitted by a site of particular importance to
+Red
+Cover Emitted by locations that afford cover from fire
+Mobility
+Emitted by roads and other structures that 
+enhance agent mobility
+RedThreat
+BlueThreat
+Determined by external process (see Section
+3.3)
+Table 2: Interactions of pheromones and dispositions/emotions
+Dispositions/Emotions
+Red
+Perspective
+Blue
+Perspective
+Green
+Perspective
+Pheromone
+Irritability
+/Anger
+Cowardice
+/Fear
+Irritability
+/Anger
+Cowardice
+/Fear
+Irritability
+/Anger
+Cowardice
+/FearRedAlive X X
+RedCasualty X X
+BlueAlive X X X X
+BlueCasualty X X
+GreenCasualty X X X X
+WeaponsFire X X X X X X
+KeySites X X
+1428 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+3.2 The BEE Cycle
+BEE"s major innovation is 
+extending the nonlinear systems technique of
+Section 2.2 to agent behaviors. This
+section describes this process at a high
+level, then details the multi-page
+pheromone infrastructure that 
+implements it.
+3.2.1 Overview
+Figure 3 is an overview of 
+Behavior Evolution and Extrapolation. Each
+active entity in the battlespace has an
+persistent avatar that continuously 
+generates a stream of ghost agents 
+representing itself. We call the combined
+modeling entity consisting of avatar and ghosts a polyagent [14].
+Ghosts live on a timeline indexed by that begins in the past
+and runs into the future. is offset with respect to the current time
+t. The timeline is divided into discrete pages, each representing
+a successive value of . The avatar inserts the ghosts at the 
+insertion horizon. In our current system, the insertion horizon is at - t
+= -30, meaning that ghosts are inserted into a page representing
+the state of the world 30 minutes ago. At the insertion horizon,
+each ghost"s behavioral parameters (desires and dispositions) are
+sampled from distributions to explore alternative personalities of
+the entity it represents.
+Each page between the insertion horizon and = t (now)
+records the historical state of the world at the point in the past to
+which it corresponds. As ghosts move from page to page, they
+interact with this past state, based on their behavioral parameters.
+These interactions mean that their fitness depends not just on their
+own actions, but also on the behaviors of the rest of the 
+population, which is also evolving. Because advances faster than real
+time, eventually = t (actual time). At this point, each ghost is
+evaluated based on its location compared with the actual location
+of its corresponding real-world entity.
+The fittest ghosts have three functions.
+1. The personality of each entity"s fittest ghost is reported to the
+rest of the system as the likely personality of that entity. This
+information enables us to characterize individual warriors as
+unusually cowardly or brave.
+2. The fittest ghosts breed genetically and their offspring return
+to the insertion horizon to continue the fitting process.
+3. The fittest ghosts for each entity form the basis for a
+population of ghosts that run past the avatar's present into the
+future. Each ghost that runs into the future explores a
+different possible future of the battle, analogous to how some
+people plan ahead by mentally simulating different ways that
+a situation might unfold. Analysis of the behaviors of these
+different possible futures yields predictions.
+Thus BEE has three distinct notions of time, all of which
+may be distinct from real-world time.
+1. Domain time t is the current time in the domain being
+modeled. If BEE is applied to a real-world situation, this time
+is the same as real-world time. In our experiments, we apply
+BEE to a simulated battle, and domain time is the time stamp
+published by the simulator. During actual runs, the simulator
+is often paused, so domain time runs slower than real time.
+When we replay logs from simulation runs, we can speed
+them up so that domain time runs faster
+than real time.
+2. BEE time for a page records the
+domain time corresponding to the state
+of the world represented on that page,
+and is offset from the current domain
+time.
+3. Shift time is incremented every time the
+ghosts move from one page to the next.
+The relation between shift time and real
+time depends on the processing
+resources available.
+3.2.2 Pheromone Infrastructure
+BEE must operate very rapidly, to
+keep pace with the ongoing battle. Thus
+we use simple agents coordinated using pheromone mechanisms.
+We have described the basic dynamics of our pheromone 
+infrastructure elsewhere [2]. This infrastructure runs on the nodes of a
+graph-structured environment (in the case of BEE, a rectangular
+lattice). Each node maintains a scalar value for each flavor of
+pheromone, and provides three functions:
+It aggregates deposits from individual agents, fusing
+information across multiple agents and through time.
+It evaporates pheromones over time, providing an innovative
+alternative to traditional truth maintenance. Traditionally,
+knowledge bases remember everything they are told unless
+they have a reason to forget. Pheromone-based systems
+immediately begin to forget everything they learn, unless it is
+continually reinforced. Thus inconsistencies automatically
+remove themselves within a known period.
+It diffuses pheromones to nearby places, disseminating
+information for access by nearby agents.
+The distribution of each pheromone flavor over the 
+environment forms a field that represents some aspect of the state of the
+world at an instant in time. Each page of the timeline is a 
+complete pheromone field for the world at the BEE time represented
+by that page. The behavior of the pheromones on each page 
+depends on whether the page represents the past or the future.
+Environment
+Beliefs
+Desires
+Goal Emotion
+Disposition
+State Process
+Analysis
+Action
+Perception
+Appraisal
+Rational Emotive
+Figure 2: BEE"s Integrated Rational and
+Emotive Personality Model
+Ghost time
+=t(now)
+Avatar
+Insertion Horizon
+Measure Ghost fitness
+Prediction Horizon
+Observe Ghost prediction
+Ghosts
+ReadPersonality
+ReadPrediction
+Entity
+Ghost time
+=t(now)
+Avatar
+Insertion Horizon
+Measure Ghost fitness
+Prediction Horizon
+Observe Ghost prediction
+Ghosts
+ReadPersonality
+ReadPrediction
+Entity
+Figure 3: Behavioral Emulation and Extrapolation. Each avatar
+generates a stream of ghosts that sample the personality space of its
+entity. They evolve against the entity"s recent observed behavior, and
+the fittest ghosts run into the future to generate predictions.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1429
+In pages representing the future ( > t), the usual pheromone
+mechanisms apply. Ghosts deposit pheromone each time they
+move to a new page, and pheromones evaporate and propagate
+from one page to the next.
+In pages representing the past ( t), we have an observed
+state of the real world. This has two consequences for pheromone
+management. First, we can generate the pheromone fields directly
+from the observed locations of individual entities, so there is no
+need for the ghosts to make deposits. Second, we can adjust the
+pheromone intensities based on the changed locations of entities
+from page to page, so we do not need to evaporate or propagate
+the pheromones. Both of these simplifications reflect the fact that
+in our current system, we have complete knowledge of the past.
+When we introduce noise and uncertainty, we will probably need
+to introduce dynamic pheromones in the past as well as the future.
+Execution of the pheromone infrastructure proceeds on two
+time scales, running in separate threads.
+The first thread updates the book of pages each time the 
+domain time advances past the next page boundary. At each step,
+The former now + 1page is replaced with a new current page,
+whose pheromones correspond to the locations and strengths of
+observed units;
+An empty page is added at the prediction horizon;
+The oldest page is discarded, since it has passed the insertion
+horizon.
+The second thread moves the ghosts from one page to the
+next, as fast as the processor allows. At each step,
+Ghosts reaching the = t page are evaluated for fitness and
+removed or evolved;
+New ghosts from the avatars and from the evolutionary process
+are inserted at the insertion horizon;
+A population of ghosts based on the fittest ghosts are inserted at
+= t to run into the future;
+Ghosts that have moved beyond the prediction horizon are
+removed;
+All ghosts plan their next actions based on the pheromone field
+in the pages they currently occupy;
+The system computes the next state of each page, including
+executing the actions elected by the ghosts, and (in future
+pages) evaporating pheromones and recording new deposits
+from the recently arrived ghosts.
+Ghost movement based on pheromone gradients is a simple
+process, so this system can support realistic agent populations
+without excessive computer load. In our current system, each 
+avatar generates eight ghosts per shift. Since there are about 50 
+entities in the battlespace (about 20 units each of Red and Blue and
+about 5 of Green), we must support about 400 ghosts per page, or
+about 24000 over the entire book.
+How fast a processor do we need? Let p be the real-time 
+duration of a page in seconds. If each page represents 60 seconds of
+domain time, and we are replaying a simulation at 2x domain
+time, p = 30. Let n be the number of pages between the insertion
+horizon and = t. In our current system, n = 30. Then a shift rate
+of n/p shifts per second will permit ghosts to run from the 
+insertion horizon to the current time at least once before a new page is
+generated. Empirically, this level is a lower bound for reasonable
+performance, and easily achievable on stock WinTel platforms.
+3.3 Information sources
+The flexibility of the BEE"s pheromone infrastructure 
+permits the integration of numerous information sources as input to
+our characterizations of entity personalities and predictions of
+their future behavior. Our current system draws on three sources
+of information, but others can readily be added.
+Real-world observations.-Observations from the real
+world are encoded into the pheromone field each increment of
+BEE time, as a new current page is generated. Table 1 identifies
+the entities that generate each flavor of pheromone.
+Statistical estimates of threat regions.-Statistical 
+techniques1 estimate the level of threat to each force (Red or Blue),
+based on the topology of the battlefield and the known disposition
+of forces. For example, a broad open area with no cover is 
+threatening, especially if the opposite force occupies its margins. The
+results of this process are posted to the pheromone pages as
+RedThreat pheromone (representing a threat to red) and
+BlueThreat pheromone (representing a threat to Blue).
+AI-based plan recognition.-While plan recognition is not
+sufficient for effective prediction, it is a valuable input. We 
+dynamically configure a Bayes net based on heuristics to identify
+the likely goals that each entity may hold.2 The destinations of
+these goals function as virtual pheromones. Ghosts include their
+distance to such points in their action decisions, achieving the 
+result of gradient following without the computational expense of
+maintaining a pheromone field.

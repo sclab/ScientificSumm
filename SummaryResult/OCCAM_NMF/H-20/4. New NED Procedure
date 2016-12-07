@@ -1,0 +1,32 @@
+but we will give the number of comparing times needed by the new procedure in our experiments in section7.
+therefore, we cannot give the complexity of this indexing-tree based procedure.
+hence we add no constraints on the maximum of tree"s height and degree of a node.
+the more the stories in a cluster similar to each other, the better the cluster represents the stories in it.
+here h is the length between n and the root of s-tree.
+c1 2. if s is smaller than θ init+(h-1)δ , then add di to the tree as a direct child of r. otherwise, if n is a terminal node, then create a cluster node instead of n, and add both n and di as its direct children; if n is an non-terminal node, then repeat this procedure and insert di to the sub-tree with n as root recursively.
+inserting di to the s-tree with r as root: find the node n which is direct child of r in the path from r to the terminal node with highest similarity s, e.g.
+s5, and the similarity value (0.20).
+step 3: record the terminal node with the highest similarty to di, e.g.
+repeat step 2 for all non-terminal nodes.
+c2 2 and d8.
+c1 2, compare di to all its direct child nodes, and select λ nodes with highest similarities, e.g.
+an example is shown by figure 1 and figure 2. figure 1. comparison procedure figure 2. inserting procedure comparison procedure: step 1: compare di to all the direct child nodes of r and select λ nodes with highest similarities, e.g., c1 2 and c1 3 in figure 1. step 2: for each selected node in the last step, e.g.
+, is represented as the centroid of its desendantsc i i in∀ ∈ → for a news story di, the comparison procedure and inserting procedure based on indexing-tree are defined as follows.
+, out degree of is at least 2c i i n i∀ ∈ → ⅳ .
+, is a terminal node in the trees i i n i∀ ∈ → ⅲ .
+, is an non-terminal node in the treec i i n i∀ ∈ → ⅱ .
+we define a set of constraints for a s-tree: ⅰ .
+the news indexing-tree is defined formally as follows: s-tree = {r, nc , ns , e} where r is the root of s-tree, nc is the set of all cluster nodes, ns is the set of all story nodes, and e is the set of all edges in s-tree.
+after the new event decision is made, the current story is inserted to the indexing-tree for the following detection.
+when a story is coming, we use comparisons between the current story and previous hierarchical clusters to help find the most similar story which is useful for new event decision.
+dissimilar stories are indexed in different clusters.
+we index similar stories together by their common ancestor (a cluster node).
+the new procedure creates a news indexing-tree dynamically, in which similar stories are put together to form a hierarchy of clusters.
+therefore, we can get both the accuracy of s-s type methods and the efficiency of s-c type methods.
+we propose a new detection procedure which uses comparisons with previous clusters to help find the most similar story in less comparing times, and the final new event decision is made according to the most similar story.
+nevertheless, the first manner needs much more comparing times which means the first manner is low efficient.
+so using similarities between stories for determining new story is better than using similarities between story and clusters.
+since sometimes stories within a topic drift far away from each other, a story may have very low similarity with its topic.
+previous work show that the first manner is more accurate than the second one [4][5].
+if the highest similarity exceeds thresholdθ new, then it is an old story, and put it into the most similar cluster; otherwise it is a new story and create a new cluster.
+traditional ned systems can be classified into two main types on the aspect of detection procedure: (1) s-s type, in which the story on hand is compared to each story received previously, and use the highest similarity to determine whether current story is about a new event; (2) s-c type, in which the story on hand is compared to all previous clusters each of which representing a topic, and the highest similarity is used for final decision for current story.

@@ -1,0 +1,40 @@
+An  inverse O is IP3-safe with respect to CD if it is made from a transformed version of O, which has included all operations in CD that are context-independent of O.
+285 {O}; (2) select all operations from CD which are  contextindependent of O and create a new context difference NCD; (3) transform O against operations in NCD (by recursively invoking transform()); (4) create a new inverse from the transformed O; and (5) create a new CD by subtracting NCD from the old CD (the new CD must maintain the  total order as required for solving CP2).
+C(O) in Step 2(a) of transform(O, CD)  (Procedure 1), so this condition is no longer explicitly specified in Procedure 2.
+The make IP3safe Inverse procedure works as follows: (1) create operation O (the inverse of O) and C(O) = C(O) ?
+Ensure CP2-safety: sort operations in CD in a total order that respects their context-dependency order.
+It should be noted that CD becomes an ordered set after the sorting.
+C(Ox)); (c) If Ox is a do-undo-pair, then C(O) := C(O) ∪ {org(Ox), org(Ox)}; else O := IT(O, Ox); C(O) := C(O) ∪ {org(Ox)}.
+6.4 Breaking the pre-condition for IP3 The COT solution to IP3 is encapsulated in the procedure make IP3safe Inverse(O, CD), which makes O an IP3-safe inverse with respect to the context difference CD.
+This solution consists of two parts: (1) Step 2 of ensure TPsafety(CD) couples operations with their  corresponding inverses if they are all included in the context  difference CD, and remove these inverses from CD; (2) In Step 2-(c) of transform(), if Ox is found to be a do-undo-pair, the IT-transformation of O against Ox is skipped (effectively treating this pair as an identity operation) and the context of O is updated by adding two operations: {org(Ox), org(Ox)}.
+There have been several prior OT systems capable of  breaking PC-CP2, including the GOT system (by an undo/redo scheme based on total ordering) [23], the SOCT4 system (by a control strategy based on global sequencing) [26], the NICE system (by a central transformation-based notifier) [20], and the TIBOT system (by a distributed synchronization protocol based on time-internal) [12].
+Repeat until CD = { }: (a) Remove the first operation Ox from CD; (b) transform(Ox, C(O) ?
+6.2 Breaking the pre-condition for CP2 The COT solution to CP2 is to sort all operations in CD in a total order which respects their context-dependency  order (in Step 1 of ensure TPsafety()).
+The first Ox in CD must meet the condition C(Ox) ?
+O := makeInverse(O); C(O) := C(O) ?
+If an operation O is transformed against the same group of context-independent operations in multiple invocations to transform(O, CD), this group of operations must be included in CD and sorted in the same total order.
+Ensure IP3-safety: if O is inverse, the invoke make IP3safe Inverse(O, CD).
+6.1 Extended transform() procedure We extend the core procedure transform(O, CD) to take advantage of the global knowledge of operations in the  contextdifference parameter CD for breaking PC-CP2, PC-IP2 and PC-IP3.
+{O}; 2.
+an invocation of transform(O, CD)), the whole set of transformation target operations are  determined in advance, and available in the context-difference  parameter CD (calculated by using context-based conditions CC2 and CC5).
+O := makeInverse(O); C(O) := C(O) ∪ {O}; 5.
+Procedure 4. make IP3safe Inverse(O, CD) 1.
+Under the control of COT, the IP3-safe inverse O shall never be transformed against operations that are context-independent of O, thus breaking PC-IP3.
+The extended transform(), as shown in  Procedure 2, retains the structure and main elements of  Procedure 1, but adds solutions to CP2, IP2, and IP3 in Step 1 (ensure TPsafety()) and in Step 2-(c) (the if-then part).
+If CD = { }, ensure TPsafety(O, CD); 2.
+CD and Ox c O}; 3. transform(O, NCD); 4.
+The IP3-safe inverse O shall never be transformed against the operations in NCD since these operations have been removed from the new CD in Step (5).
+Procedure 2. transform(O, CD) 1.
+CD, then mark Ox as a do-undo-pair, remove Ox from CD.
+Therefore, O can never be transformed against the same group of operations in different orders, thus breaking PC-CP2.
+Procedure 3. ensure TPsafety(O, CD) 1.
+﻿A distinctive feature of COT is that in every  transformation process (i.e.
+This new inverse O must be IP3-safe because it is created from a  transformed operation whose context has included all operations in NCD.
+Ensure IP2-safety: for any Ox ?
+A correct total order for breaking  PCCP2 can be conveniently determined by using the  contextdependency relations among all operations plus the site  identifiers of context-independent operations.
+The COT solution to CP2 is unique and avoids the use of any undo/redo or global sequencing/synchronization.
+6.3 Breaking the pre-condition for IP2 The basic idea of the COT solution to IP2 is to make sure that an operation is never transformed against a pair of do and undo operations one by one, thus breaking  PCIP2.
+With the knowledge of all operations  involved in the transformation process, we are able to  properly arrange these operations to break the pre-conditions for CP2, IP2, and IP3.
+CD, if Ox ?
+CD := CD ?
+NCD := {Ox | Ox ?

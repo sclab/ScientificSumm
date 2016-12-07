@@ -1,0 +1,37 @@
+A justification built by a CBR method after determining that the solution of a particular problem P was Sk is a description that  contains the relevant information from the problem P that the CBR method has considered to predict Sk as the solution of P. In  particular, CBR methods work by retrieving similar cases to the problem at hand, and then reusing their solutions for the current problem, expecting that since the problem and the cases are similar, the  solutions will also be similar.
+In general, the meaning of a justification is that all (or most of) the cases in the case base of an agent that satisfy the justification (i.e.
+For that purpose, we will benefit from the ability of some machine learning methods to provide justifications.
+However, in order to do so, an agent has to be able to justify its prediction to the other agents (i.e.
+We are interested in justifications since they can be used as arguments.
+A Multi-Agent Case Based Reasoning System (MAC) M = {(A1, C1), ..., (An, Cn)} is a multi-agent system composed of A = {Ai, ..., An}, a set of CBR agents, where each agent Ai ∈ A possesses an individual case base Ci.
+In the figure, a problem has two  attributes (Traffic_light, and Cars_passing), the retrieval mechanism of the CBR system notices that by considering only the attribute Traffic_light, it can retrieve two cases that predict the same  solution: wait.
+generate an argument for its predicted solution that can be examined and  critiqued by the other agents).
+Thus, if a CBR method has retrieved a set of cases C1, ..., Cn to solve a particular problem P the justification built will contain the relevant information from the problem P that made the CBR system retrieve that particular set of cases, i.e.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) Problem Traffic_light: red Cars_passing: no Case 1 Traffic_light: red Cars_passing: no Solution: wait Case 3 Traffic_light: red Cars_passing: yes Solution: wait Case 4 Traffic_light: green Cars_passing: yes Solution: wait Case 2 Traffic_light: green Cars_passing: no Solution: cross Retrieved cases Solution: wait Justification Traffic_light: red Figure 1: An example of justification generation in a CBR system.
+In this paper, we are going to use justifications as arguments, in order to allow learning agents to engage in argumentation processes. 
+In the rest of the paper, we will use to denote the subsumption relation.
+Each individual agent Ai in a MAC is completely autonomous and each agent Ai has  access only to its individual and private case base Ci.
+Therefore, we say a group of agents perform joint deliberation, when they collaborate to find a joint solution by means of an  argumentation process.
+When an agent provides a justification for a prediction, the agent generates a justified prediction: DEFINITION 3.1.
+In this framework, we will restrict ourselves to analytical tasks, i.e.
+Thus, since only this attribute has been used, it is the only one appearing in the justification.
+However, in our approach we use explanations (or justifications) as a tool for  improving communication and coordination among agents.
+Agents in a MAC system are able to individually solve problems, but they can also collaborate with other agents to solve problems.
+all the cases that are subsumed by the justification) belong to the predicted solution class.
+976 The Sixth Intl.
+The line of reasoning of the system can then be examined by a human expert, thus increasing the reliability of the system.
+Notice that, since the only relevant feature to decide is Traffic_light (the only one used to retrieve cases), it is the only one appearing in the justification.
+The values of the rest of  attributes are irrelevant, since whatever their value the solution class would have been the same.
+3.1 Justified Predictions Both expert systems and CBR systems may have an explanation component [14] in charge of justifying why the system has  provided a specific answer to the user.
+A Justified Prediction is a tuple J = A, P, S, D where agent A considers S the correct solution for problem P, and that prediction is justified a symbolic description D such that J.D J.P. Justifications can have many uses for CBR systems [8, 9].
+it will contain the relevant information that P and C1, ..., Cn have in common.
+Most of the existing work on explanation generation focuses on generating explanations to be provided to the user.
+For example, Figure 1 shows a justification build by a CBR  system for a toy problem (in the following sections we will show  justifications for real problems).
+In our work, we use LID [2], a CBR method capable of building symbolic justifications such as the one exemplified in Figure 1.
+tasks like classification, where the solution of a problem is achieved by selecting a solution class from an enumerated set of solution classes.
+The next section addresses this issue.
+Therefore, a case c = P, S is a tuple containing a case description P and a solution class S ∈ S. In the following, we will use the terms problem and case  description indistinctly.
+Moreover, we will use the dot notation to refer to elements inside a tuple; e.g., to refer to the solution class of a case c, we will write c.S.
+In the following we will note the set of all the  solution classes by S = {S1, ..., SK }.
+Joint Conf.
+A case base Ci = {c1, ..., cm} is a collection of cases.

@@ -1,0 +1,69 @@
+In the context of service assignment and scheduling, [11] maps
+web service calls to potential servers using linear programming, but
+their work is concerned with mapping only single workflows; our
+principal focus is on scalably scheduling multiple workflows (up
+30
+Service Type
+SuperHotels.com
+Business
+Process
+Business
+Process
+Workflow
+...
+Business
+Process
+Business
+Process
+...
+HostileHostels.com
+IncredibleInns.com
+Business
+Process
+Business
+Process
+Business
+Process
+...
+Business
+Process
+Service
+Provider
+SkyHighAirlines.com
+SuperCrazyFlights.com
+Business
+Process
+.
+.
+.
+.
+.
+.
+Advertised QoS
+Service Agreement
+CarRentalService.com
+Figure 1: An example scenario demonstrating the interaction between business processes in workflows and web service providers.
+Each business process accesses a service type and is then mapped to a service provider for that type.
+to one thousand as we show later) using different business 
+metrics and a search heuristic. [10] presents a dynamic 
+provisioning approach that uses both predictive and reactive techniques for
+multi-tiered Internet application delivery. However, the 
+provisioning techniques do not consider the challenges faced when there are
+alternative query execution plans and replicated data sources. [8]
+presents a feedback-based scheduling mechanism for multi-tiered
+systems with back-end databases, but unlike our work, it assumes
+a tighter coupling between the various components of the system.
+Our work also builds upon prior scheduling research. The classic
+job-shop scheduling problem, shown to be NP-complete [4] [3], is
+similar to ours in that tasks within a job must be scheduled onto 
+machinery (c.f. our scenario is that business processes within a 
+workflow must be scheduled onto web service providers). The salient
+differences are that the machines can process only one job at a time
+(we assume servers can multi-task but with degraded performance
+and a maximum concurrency level), tasks within a job cannot 
+simultaneously run on different machines (we assume business 
+processes can be assigned to any available server), and the principal
+metric of performance is the makespan, which is the time for the
+last task among all the jobs to complete (and as we show later, 
+optimising on the makespan is insufficient for scheduling the business
+processes, necessitating different metrics).

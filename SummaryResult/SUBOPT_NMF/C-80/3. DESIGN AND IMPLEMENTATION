@@ -1,0 +1,5 @@
+This proxy, which can be shared by multiple front-end nodes, consists of two parts: code to detect similarity in result fragments and the original native JDBC driver that  communicates with the database.
+At the database, we add a new process called the Ganesh proxy.
+The JDBC driver thus becomes the natural module to exploit for code interposition.
+However, in cases where there is little overlap with previous results, the Ganesh driver will have to make many calls to the proxy during reconstruction to fetch missing  result fragments.
+This cache is only used as a source of result fragments in reconstructing 

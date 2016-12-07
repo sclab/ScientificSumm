@@ -1,0 +1,118 @@
+When O is an original inverse operation, C(O) must include the operation to be undone by O (see Definition 4-Item 2), so CC1 preserves the do-undo ordering among normal and inverse operations [21].
+To achieve the undo effect in [21], an original inverse operation O should be defined on the document state DS = C(O) ∪ {O}, which is the state  after executing the original operation O on the state C(O).
+Since every transformed operation must come from an original operation, we use the notation org(O) to denote the original operation of O.
+When O is an original normal  operation, DS ?
+2 It should be noted that the context-dependency relation is defined only between an original (either normal or inverse) operation and another operation of any type (original or transformed).
+For an original normal operation O, C(O) = DS, where DS is the representation of the document state from which O was generated.
+C(O)1 is the set of operations that O must be transformed against before O is executed on the  document state DS.
+All original normal operations in a context can be partitioned into N groups according to their generation sites, so N integers are needed for representing original normal operations in a context.
+It can be shown that, for any Ox in C(Ob) ?
+For an original inverse operation O, C(O) = C(O) ∪ {O}, where O is the operation to be undone.
+3.5.3 Representing normal and inverse operations To represent an operation context with both original  normal and inverse operations, an N-dimensional context  vector is defined below.
+2 In the absence of inverse operations in the operation  context, all ici, 0 ?
+Based on Definition 7, it is straightforward to derive the scheme for maintaining the vector representation for the document state after executing each operation (according to Definition 3).
+In general, an inverse can be identified by a triple (sid, ns, is), where sid and ns are the site identifier and sequence  number of the corresponding normal operation, and is is the inverse sequence number within the group.
+The significance of operation context is twofold: (1) an operation can be  correctly executed only if its context and the current document state are the same; and (2) an operation can be correctly  ITtransformed against another operation only if the contexts of these two operations are the same.
+In Figure 1, both O1 and O2 are defined on the same  initial document so they are associated with the same context; O3 is defined on the document state which includes the effect of O2, so C(O3) is different from C(O1) or C(O2).
+2 This presentation does not specify what execution forms the original operations in DS should take to bring the  document to the current state, but it captures essential and sufficient information for detecting whether two document states are the same and for deriving their differences in terms of original operations.
+As discussed in Section 2, Undo(O2) should be interpreted as an inverse O2 defined on the document state with the effect of O2 only.
+C(Oa) is the set of operations that Oa must be transformed against before IT-transformed against Ob.
+Context-dependency relation  c → Given an original operation Oa and an operation Ob of any type, Ob is context-dependent on Oa, denoted by Oa c → Ob, iff: (1) Oa ?
+When O3 arrives at site 0, it cannot be executed as-is either since C(O3) does not match the current document state at site 0 which includes the effects of both O1 and O2.
+Since Undo(O2) is interpreted as an inverse O2 (see Section 4.2), the  document state after executing (the transformed) O2 shall be DS = {O1, O2, O3, O2}.
+Context-independency relation  c  Given two original operations Oa and Ob, Oa and Ob are context-independent, denoted by Oa c Ob, iff neither Oa c → Ob, nor Ob c → Oa.
+When O is an original  normal operation, all operations which are causally before O must be included in C(O) (according to Definition 1 and Definition 5), so CC1 preserves the causal  ordering among original normal operations [4, 22].
+The context of an operation 1.
+﻿3.1 Basic concept Conceptually, each operation O is associated with a  context, denoted by C(O), which corresponds to the document 280 state on which the operation is defined.
+For any operation O, its inverse is denoted by O.
+According to the definition of the IT function [23], a  transformed operation O , where O = IT(O, Ox), should be  defined on the document state DS = C(O)∪{org(Ox)}, which is the state achievable by executing Ox on the state C(O).
+DS is a necessary condition for an original operation O to be transformed to the document state DS for execution.
+Based on this observation, all original inverse operations in an operation context can be grouped by their corresponding original  normal operations: one inverse group for each undone original normal operation.
+For example, O and O are in the same inverse group corresponding to O, so O has the sequence number 1, and O has the sequence number 2.
+3.3 Context-dependency/-independency We define the context-dependency/-independency relation among operations in terms of whether an original operation is included in the context of another operation of any type.
+Based on the document state representation, the context of an original normal operation should be the same as the representation of the document state from which this  operation was generated.
+, (nsk?1, isk?1)]  represents all inverse operations for undoing normal  operations generated at site i, where (nsj, isj), 0 ?
+3.5.1 Representing original normal operations Original normal operations generated at each site are strictly sequential, so each of them can be uniquely identified by a pair of integers (sid, ns), where sid is the site identifier and ns is the local sequence number of this operation.
+j < k, represents an inverse group with isj inverses related to the normal operation with sequence number nsj.
+If Oij is included in a  context C(O), then Oi1, Oi2, .
+These original operations may be executed in different orders or in different (original or transformed) forms at  different sites, but the same document state must be achieved (according to the convergence requirement [23]).
+C(Ob) is a necessary condition for Oa to be IT-transformable to the new context given by C(Ob).
+2 According to the above definition, the context of any type of operation can be represented as a set of original operations.
+When O is an inverse operation, CC2 covers the condition that O should be transformed against all operations which are executed after the operation to be undone by O [21].
+When O2 arrives at site 0, it cannot be executed as-is since C(O2) does not match the current document state at site 0 which includes the effect of O1.
+After executing an operation O of any type on the document state represented by DS, the new document state is represented by DS = DS ∪ {org(O)}.
+3.5.2 Representing original inverse operations An original inverse operation can be generated to undo an original normal operation, or to redo an undone  operation.
+In OT systems, there are two different kinds of operation: original operations which are generated by users, and  transformed operations which are the outcomes of some  transformations.
+Context Vector Given an operation O, its context C(O) can be represented by the following context vector CV (O): CV (O) = [ (ns0, ic0), (ns1, ic1), .
+3.5 Context vector An important element of the operation context theory is the context vector, which represents the set of operations of a context in an efficient way.
+, Oij?1 must also be included in C(O) according to Definition 3 and Definition 4.
+We use original (normal and inverse) operations, rather than their transformed versions, to represent a document state.
+Let Oij be an original normal operation generated at site i with a sequence number j.
+In other words, for any original operation Ox, if Ox c → O, then Ox must be executed before O.
+2 It can be shown that if both Oa and Ob are original normal operations, then Oa c → Ob is equivalent to Oa → Ob; and Oa c Ob is equivalent to Oa Ob.
+C(Ob), then there must be an operation Ox ?
+For the scenario in Figure 1, we have C(O1) = {}, C(O2) = {}, and C(O3) = {O2} according to Definition 4-Item 1.
+C(Ob); or (2) there exists an original operation Ox, such that Oa ?
+C(Oa), it must be that Ox c Oa, CC6: C(Oa) = C(Ob) is a necessary condition for Oa to be IT-transformed against Ob.
+This document state cannot be represented by a state vector but can be represented as a context vector as follows: CV (DS) = [(1, [ ]), (2, [(1, 1)]].
+Original operations can be further divided into two classes: normal operations which are generated to do something, and inverse operations which are generated to undo some executed operations.
+C(O) must include all executed  operations which are concurrent with O, so CC2 covers the condition that O should be transformed against concurrent operations [4, 22].
+Since the context of an operation corresponds to the  document state on which the operation is defined, the problem of context representation can be reduced into the problem of document state representation.
+j < k, represents an inverse group with isj inverse operations corresponding to the  original normal operation with sequence number nsj at site i.
+CC1 ensures that O is always executed after the  contextdependent operations included in C(O).
+1, would be empty and a Context Vector would be reduced to a State Vector [4].
+The inverse cluster at site i -  icican be expressed as follows: ici = [(ns0, is0), (ns1, is1), .
+CC2 ensures that O is transformed against all  contextindependent operations in DS before its execution.
+For a transformed operation O , C(O ) = C(O) ∪ {org(Ox)}, where O = IT(O, Ox).
+CC5 ensures that Oa is transformed against  contextindependent operations in C(Ob) before IT-transformed against Ob.
+Therefore, all normal operations generated at the same site can be sufficiently characterized by the largest sequence  number of these operations.
+It can be shown that, for any Ox in DS ?
+CC3: C(O) = DS is a necessary condition for O to be  executed on the document state DS.
+The vector representation of operation context can also be used as the vector representation of the document state.
+For example, inverse operation O may be generated to undo O, and O may be generated to undo O.
+Document state representation A document state can be represented by DS as follows: 1.
+1, 1. nsi represents all original normal operations generated at site i, and 2. ici = [(ns0, is0), (ns1, is1), .
+3.2 Set representation of operation context To facilitate comparison and manipulation of operation contexts for correct execution and transformation, it is  necessary to explicitly represent operation context.
+Inverse groups can be further partitioned into N inverse clusters according to the site identifiers of their  corresponding normal operations.
+3.4 Context-based conditions The following Context-based Conditions (CC) capture  essential requirements for operation execution and  transformation in OT systems: 281 CC1: C(O) ?
+Both O and O  correspond to the same normal operation O.
+C(Ob), which means Oa cannot be IT-transformed to the new context C(Ob) since IT-transformation cannot remove this Ox from C(Oa) (see Definition 4-item3).
+More precisely, the context of an operation is defined blow.
+Inverse operations in the same inverse group can be  further differentiated by a sequence number based on their  execution order within this group.
+As an example, consider the document state after interpreting the undo command Undo(O2) in Figure 1.
+This is because any operation has a context, but only original operations can be included in a context.
+According to Definition 4-Item 2, we have C(O2) = {O2}.
+CC3 is required for correctly executing operations.
+Each original inverse operation directly or indirectly corresponds to exactly one original normal operation.
+In summary, CC1 and CC4 are required for ensuring  correct ordering of operation execution/transformation; CC2 and CC5 are required for selecting correct transformation target operations; and CC3 and CC6 are required for  ensuring correct operation execution/transformation.
+If O is an original operation, then org(O) = O.
+O3 cannot be correctly IT-transformed against O1 since their contexts are different, which is the root of the dOPT-puzzle.
+If no normal operation at site i has been undone, ici is empty.
+Since inverses are sequentially executed, the largest sequence number in the group can be used to represent all inverses in the group.
+C(O) is the set difference between DS and C(O).
+O2 can be correctly IT-transformed against O1 since their contexts corresponds to the same  initial document state.
+Moreover, the vector representation of  operation context can also be used to efficiently detect  contextdependency/-independency relations.
+C(Ox) and Ox ?
+The initial document state is represented by DS = {}.
+In an OT-based group editor, each document state can be uniquely represented by the set of original operations executed so far on the  document.
+From O2 = IT(O2, O1), we have C(O2) = {O1} according to Definition 4-Item 3.
+C(O), it must be that Ox c O.
+CC6 is required for correctly applying IT functions.
+In other words, the causal-dependency/-independency relation is a special case of the context-dependency/-independency relation.
+For notational convenience, we assume that a collaborative editing session consists of N collaborating sites, identified by 0, 1, .
+CC4 is required because if C(Oa) ?
+These context-based conditions form the foundation for the COT algorithm to be presented in Section 4 and Section 6.
+1 DS ?
+, (nsk?1, isk?1)], where each pair (nsj, isj), 0 ?
+C(Oa) but Ox ?
+CC2: DS ?
+C(Ob).
+CC5: C(Ob) ?
+Due to space  limitation, these technical details are omitted in this paper.
+CC4: C(Oa) ?
+, (nsN?1, icN?1) ], where, for 0 ?
+Definition 3.
+Definition 5.
+Definition 4.
+Definition 6.
+282 Definition 7.

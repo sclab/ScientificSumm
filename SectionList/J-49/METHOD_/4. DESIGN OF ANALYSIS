@@ -1,0 +1,244 @@
+4.1 Data Sets
+Our data sets cover 210 NFL games held between 
+September 28th, 2003 and December 28th, 2003. NFL games are
+very suitable for our purposes because: (1) two online 
+exchanges and one online prediction contest already exist that
+provide data on both information markets and the 
+opinions of self-identified experts for the same set of games; (2)
+the popularity of NFL games in the United States provides
+natural incentives for people to participate in information
+markets and/or the contest, which increases liquidity of 
+information markets and improves the quality and number
+of opinions in the contest; (3) intense media coverage and
+analysis of the profiles and strengths of teams and 
+individual players provide the public with much information so that
+participants of information markets and the contest can be
+viewed as knowledgeable regarding to the forecasting goal.
+Information market data was acquired, by using a 
+specially designed crawler program, from TradeSports.com"s
+Football-NFL markets [7] and NewsFutures.com"s Sports
+Exchange [1]. For each NFL game, both TradeSports and
+NewsFutures have a winner-takes-all information market to
+predict the game outcome. We introduce the design of the
+two markets according to Spann and Skiera"s three steps for
+designing an information market [37] as below.
+• Choice of forecasting goal: Markets at both 
+TradeSports and NewsFutures aim at predicting which one
+of the two teams will win a NFL football game. They
+trade similar winner-takes-all securities that pay off
+100 if a team wins the game and 0 if it loses the game.
+Small differences exist in how they deal with ties. In
+the case of a tie, TradeSports will unwind all trades
+that occurred and refund all exchange fees, but the
+security is worth 50 in NewsFutures. Since the 
+probability of a tie is usually very low (much less the 1%),
+prices at both markets effectively represent the market
+participants" consensus assessment of the probability
+that the team will win.
+• Incentive for participation and information 
+revelation: TradeSports and NewsFutures use different
+incentives for participation and information revelation.
+TradeSports is a real-money exchange. A trader needs
+to open and fund an account with a minimum of $100
+to participate in the market. Both profits and losses
+can occur as a result of trading activity. On the 
+contrary, a trader can register at NewsFutures for free and
+get 2000 units of Sport Exchange virtual money at the
+time of registration. Traders at NewsFutures will not
+incur any real financial loss. They can accumulate 
+virtual money by trading securities. The virtual money
+can then be used to bid for a few real prizes at 
+NewsFutures" online shop.
+• Financial market design: Both markets at 
+TradeSports and NewsFutures use the continuous double
+auction as their trading mechanism. TradeSports charges
+a small fee on each security transaction and expiry,
+while NewsFutures does not.
+We can see that the main difference between two information
+markets is real money vs. virtual money. Servan-Schreiber
+60
+et. al [36] have compared the effect of money on the 
+performance of the two information markets and concluded that
+the prediction accuracy of the two markets are at about the
+same level. Not intending to compare these two markets,
+we still use both markets in our analysis to ensure that our
+findings are not accidental.
+We obtain the opinions of 1966 self-identified experts for
+NFL games from the ProbabilityFootball online contest [5],
+one of several ProbabilitySports contests [6]. The contest is
+free to enter. Participants of the contest are asked to enter
+their subjective probability that a team will win a game
+by noon on the day of the game. Importantly, the contest
+evaluates the participants" performance via the quadratic
+scoring rule:
+s = 100 − 400 × Prob Lose2
+, (3)
+where s represents the score that a participant earns for the
+game, and Prob Lose is the probability that the participant
+assigns to the actual losing team. The quadratic score is
+one of a family of so-called proper scoring rules that have
+the property that an expert"s expected score is maximized
+when the expert reports probabilities truthfully. For 
+example, for a game team A vs. team B, if a player assigns 0.5 to
+both team A and B, his/her score for the game is 0 no matter
+which team wins. If he/she assigns 0.8 to team A and 0.2 to
+team B, showing that he is confident in team A"s winning,
+he/she will score 84 points for the game if team A wins, and
+lose 156 points if team B wins. This quadratic scoring rule
+rewards bold predictions that are right, but penalizes bold
+predictions that turn out to be wrong. The top players, 
+measured by accumulated scores over all games, win the prizes
+of the contest. The suggested strategy at the contest 
+website is to make picks for each game that match, as closely
+as possible, the probabilities that each team will win. This
+strategy is correct if the participant seeks to maximize 
+expected score. However, as prizes are awarded only to the top
+few winners, participants" goals are to maximize the 
+probability of winning, not maximize expected score, resulting in a
+slightly different and more risk-seeking optimization.1
+Still,
+as far as we are aware, this data offer the closest thing 
+available to true subjective probability judgments from so many
+people over so many public events that have corresponding
+information markets.
+4.2 Methods of Analysis
+In order to compare the prediction accuracy of 
+information markets and that of opinion pools, we proceed to derive
+predictions from market data of TradeSports and 
+NewsFutures, form pooled opinions using expert data from 
+ProbabilityFootball contest, and specify the performance measures
+to be used.
+4.2.1 Deriving Predictions
+For information markets, deriving predictions is 
+straightforward. We can take the security price and divide it by
+100 to get the market"s prediction of the probability that
+a team will win. To match the time when participants at
+the ProbabilityFootball contest are required to report their
+probability assessments, we derive predictions using the last
+trade price before noon on the day of the game. For more
+1
+Ideally, prizes would be awarded by lottery in proportion
+to accumulated score.
+than half of the games, this time is only about an hour 
+earlier than the game starting time, while it is several hours
+earlier for other games. Two sets of market predictions are
+derived:
+• NF: Prediction equals NewsFutures" last trade price
+before noon of the game day divided by 100.
+• TS: Prediction equals TradeSports" last trade price 
+before noon of the game day divided by 100.
+We apply LinOP and LogOP to ProbabilityFootball data
+to obtain aggregate expert predictions. The reason that we
+do not consider other aggregation methods include: (1) data
+from ProbabilityFootball is only suitable for mathematical
+pooling methods-we can rule out behavioral approaches,
+(2) Bayesian aggregation requires us to make assumptions
+about the prior probability distribution of game outcomes
+and the likelihood function of expert opinions: given the
+large number of games and participants, making reasonable
+assumptions is difficult, and (3) for axiomatic approaches,
+previous research has shown that simpler aggregation 
+methods often perform better than more complex methods [12].
+Because the output of LogOP is indeterminate if there are
+probability assessments of both 0 and 1 (and because 
+assessments of 0 and 1 are dictatorial using LogOP), we add
+a small number 0.01 to an expert opinion if it is 0, and
+subtract 0.01 from it if it is 1.
+In pooling opinions, we consider two influencing factors:
+weights of experts and number of expert opinions to be
+pooled. For weights of experts, we experiment with equal
+weights and performance-based weights. The 
+performancebased weights are determined according to previous 
+accumulated score in the contest. The score for each game is
+calculated according to equation 3, the scoring rule used in
+the ProbabilityFootball contest. For the first week, since no
+previous scores are available, we choose equal weights. For
+later weeks, we calculate accumulated past scores for each
+player. Because the cumulative scores can be negative, we
+shift everyone"s score if needed to ensure the weights are
+non-negative. Thus,
+wi =
+cumulative scorei + shift
+n
+j=1(cumulative scorej + shift)
+. (4)
+where shift equals 0 if the smallest cumulative scorej is
+non-negative, and equals the absolute value of the 
+smallest cumulative scorej otherwise. For simplicity, we call
+performance-weighted opinion pool as weighted, and equally
+weighted opinion pool as unweighted. We will use them 
+interchangeably in the remaining of the paper.
+As for the number of opinions used in an opinion pool,
+we form different opinion pools with different number of 
+experts. Only the best performing experts are selected. For
+example, to form an opinion pool with 20 expert opinions,
+we choose the top 20 participants. Since there is no 
+performance record for the first week, we use opinions of all 
+participants in the first week. For week 2, we select opinions of
+20 individuals whose scores in the first week are among the
+top 20. For week 3, 20 individuals whose cumulative scores
+of week 1 and 2 are among the top 20s are selected. Experts
+are chosen in a similar way for later weeks. Thus, the top
+20 participants can change from week to week.
+The possible opinion pools, varied in pooling functions,
+weighting methods, and number of expert opinions, are shown
+61
+Table 1: Pooled Expert Predictions
+# Symbol Description
+1 Lin-All-u Unweighted (equally weighted) LinOP
+of all experts.
+2 Lin-All-w Weighted (performance-weighted)
+LinOP of all experts.
+3 Lin-n-u Unweighted (equally weighted) LinOP
+with n experts.
+4 Lin-n-w Weighted (performance-weighted)
+LinOP with n experts.
+5 Log-All-u Unweighted (equally weighted) LogOP
+of all experts.
+6 Log-All-w Weighted (performance-weighted) 
+LogOP of all experts.
+7 Log-n-u Unweighted (equally weighted) LogOP
+with n experts.
+8 Log-n-w Weighted (performance-weighted) 
+LogOP with n experts.
+in Table 1. Lin represents linear, and Log represents
+Logarithmic. n is the number of expert opinions that are
+pooled, and All indicates that all opinions are combined.
+We use u to symbolize unweighted (equally weighted) 
+opinion pools. w is used for weighted (performance-weighted)
+opinion pools. Lin-All-u, the equally weighted LinOP with
+all participants, is basically the arithmetic mean of all 
+participants" opinions. Log-All-u is simply the geometric mean
+of all opinions.
+When a participant did not enter a prediction for a 
+particular game, that participant was removed from the opinion
+pool for that game. This contrasts with the 
+ProbabilityFootball average reported on the contest website and used
+by Servan-Schreiber et. al [36], where unreported 
+predictions were converted to 0.5 probability predictions.
+4.2.2 Performance Measures
+We use three common metrics to assess prediction 
+accuracy of information markets and opinion pools. These 
+measures have been used by Servan-Schreiber et. al [36] in 
+evaluating the prediction accuracy of information markets.
+1. Absolute Error = Prob Lose,
+where Prob Lose is the probability assigned to the
+eventual losing team. Absolute error simply measures
+the difference between a perfect prediction (1 for 
+winning team) and the actual prediction. A prediction
+with lower absolute error is more accurate.
+2. Quadratic Score = 100 − 400 × (Prob Lose2
+).
+Quadratic score is the scoring function that is used in
+the ProbabilityFootball contest. It is a linear 
+transformation of squared error, Prob Lose2
+, which is one of
+the mostly used metrics in evaluating forecasting 
+accuracy. Quadratic score can be negative. A prediction
+with higher quadratic score is more accurate.
+3. Logarithmic Score = log(Prob W in),
+where Prob W in is the probability assigned to the
+eventual winning team. The logarithmic score, like
+the quadratic score, is a proper scoring rule. A 
+prediction with higher (less negative) logarithmic score is
+more accurate.

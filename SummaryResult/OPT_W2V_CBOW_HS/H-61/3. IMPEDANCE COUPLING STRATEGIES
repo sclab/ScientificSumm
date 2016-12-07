@@ -1,0 +1,68 @@
+By using α = 0, we simply consider the terms originally in page p. By increasing α, we relax the context of the page p, adding terms from neighbor pages, turning page p into its new representation r. This is important because, sometimes, a topic apparently not important in the triggering page offers a good opportunity for advertising.
+In our model, the observation of the pages in N leads to the observation of a new representation of the triggering page p and to a set of terms describing the main topics associated with p and its neighbors.
+(3) is the general equation to compute the probability that a term ti is related to the  triggering page.
+As a consequence, many specific terms that appear in the triggering page find no match in the advertisements.
+Thus, in our sixth method we match r, the set of new expansion terms, directly to the ads, as follows: AAK T(p, ai) = AAK(r, ai) where AAK T stands for match the ad and keywords to the set r of expansion terms.
+Given that the  advertisement ai points to the landing page hi, we denote this association as the pair (ai, hi) ∈ H, where H is the set of associations between the ads and the pages they point to.
+Node R represents the page r, a new  representation for the triggering page p. Let N be the set of the k most similar documents to the triggering page, including the triggering page p itself, in a large enough Web collection C. Root nodes D0 through Dk represent the documents in N, that is, the triggering page D0 and its k nearest neighbors, D1 through Dk, among all pages in C. There is an edge from node Dj to node R if document dj is in N. Nodes T1 through Tm represent the terms in the vocabulary of C. There is an edge from node Dj to a node Ti if term ti occurs in document dj.
+To facilitate the matching between this ad and our triggering page p, we need to associate new general terms with p. For this, we assume that Web documents similar to the triggering page p share common topics.
+(6) to determine the set of terms that will compose r, as illustrated in Figure 2.
+Given that (ai, hi) ∈ H and (ai, ki) ∈ K, we have our last two methods: AAK H(p, ai) =  sim(p, ai ∪ hi ∪ ki) if ki p 0 if otherwise AAK EXP H(p, ai) =  sim(p ∪ r, ai ∪ hi ∪ ki) if ki (p ∪ r) 0 if otherwise where AAK H stands for match ads and keywords also  considering the page pointed by the ad and AAH EXP H stands for match ads and keywords with expanded triggering page, also considering the page pointed by the ad.
+This translates into the following equation1 : P(Ti|R) = 1 P(R) X d P(Ti|d)P(R|d)P(d) (2) where d represents the set of states of the document nodes.
+We now define the probabilities P(Ti|dj) and P(R|dj) as follows: P(Ti|dj) = η wij (4) P(R|dj) =  (1 − α) j = 0 α sim(r, dj) 1 ≤ j ≤ k (5) where η is a normalizing constant, wij is the weight  associated with term ti in the document dj, and sim(p, dj) is given by Eq.
+(3), we obtain: P(Ti|R) = ρ ((1 − α) wi0 + α kX j=1 wij sim(r, dj)) (6) where ρ = η ν is a normalizing constant.
+This suggests using α > 0, that is, preserving the contents of p and using the terms in r to expand p. In this paper, we examine both approaches.
+Given these definitions, we can now use the network to determine the probability that a term ti is a good term for representing a topic of the triggering page p. In other words, we are interested in the probability of observing the final evidence regarding a term ti, given that the new  representation of the page p has been observed, P(Ti = 1|R = 1).
+For this, we propose to expand the triggering pages with new terms.
+Our eighth method consists of matching the triggering page p to the landing pages pointed to by the advertisements, as follows: H(p, ai) = sim(p, hi) where (ai, hi) ∈ H and H stands for match the hyperlink pointed to by the ad.
+In our seventh method, we match an expanded page p to the ads as follows: AAK EXP(p, ai) = AAK(p ∪ r, ai) where AAK EXP stands for match the ad and keywords to the expanded triggering page.
+Let ttop be the top ranked term according to Eq.
+(2) as: P(Ti|R) = ν P(R) kX j=0 P(Ti|dj)P(R|dj) (3) where dj represents the state of the document nodes in which only document dj is observed and ν is a constant 1 To simplify our notation we represent the probabilities P(X = 1) as P(X) and P(X = 0) as P(X).
+Since we are interested just in the states in which only a single document dj is observed and P(d) can be regarded as a constant, we can rewrite Eq.
+We already know that the addition of keywords (selected by the  advertiser) to the ads leads to improved results.
+A consequence of these two issues is that vocabularies of pages and ads have low intersection, even when an ad is related to a page.
+R D0 D1 Dj Dk T1 T2 T3 Ti Tm ... ... ... ...
+By defining the constant α, it is possible to determine how important should be the influence of the triggering page p to its new representation r. By substituting Eq.
+Second, the association between a good  advertisement and the triggering page might depend on a topic that is not mentioned explicitly in the triggering page.
+(1), i.e., is the cosine similarity between p and dj.
+First, the triggering page  normally belongs to a broader contextual scope than that of the advertisements.
+Therefore, 498 by inspecting the vocabulary of these similar documents we might find good terms for better characterizing the main topics in the page p. We now describe this idea using a Bayesian network model [10,11,13] depicted in Figure 3.
+An advertiser trying to describe a certain topic in a concise way probably will choose general terms to characterize that topic.
+With each node is associated a binary random variable, which takes the value 1 to mean that the corresponding  entity (a page or terms) is observed and, thus, relevant in our computations.
+For this, we proceed as follows.
+499 To improve our ad placement methods, other external source that we can use is the content of the page h pointed to by the advertisement"s hyperlink, that is, its landing page.
+The first issue is due to the fact that Web pages can be about any subject and that advertisements are concise in nature.
+Our idea is to add new terms (words) to the Web page p to also reduce the vocabulary impedance by providing a second alternative matching path.
+Although London is probably not an important topic in this page, advertisements about hotels in London would be appropriate.
+The set r is composed of the terms ti such that P (Ti|R) P (Ttop|R) ≥ β, where β is a given threshold.
+Notice that the set r might contain terms that already occur in p. That is, while we will refer to the set r as expansion terms, it should be clear that p ∩ r = ∅.
+The second issue is related to the fact that, as we later discuss, most advertisers place a small number of advertisements.
+After all, this page comprises the real target of the ad and perhaps could present a more detailed description of the product or service being advertised.
+We use Eq.
+expansion terms keyword vocabulary impedance triggering page p ad Figure 2: Addition of new terms to a Web page to reduce the vocabulary impedance.
+Thus, adding hotels to page p is important.
+associated with P(dj).
+The weight wij is computed using a classic tf-idf scheme and is zero if term ti does not occur in document dj.
+We say that a keyword reduces the vocabulary impedance by providing an alternative matching path.
+To make matters worst, a page might refer to an entity or subject of the world through a label that is distinct from the label selected by an advertiser to refer to the same entity.
+For example, consider a triggering page that describes a congress in London about digital photography.
+We cite this problem from now on as the vocabulary impedance problem.
+As a result, we have few terms describing their interest areas.
+In this case, we say that the information was observed.
+(5) into Eq.
+That is, ads tend to be more topic restricted than Web pages.
+We can also combine this information with the more  promising methods previously described, AAK and AAK EXP as  follows.
+Consequently, these terms tend to be of a more general nature.
+In our experiments, we have used β = 0.05.
+Therefore, we studied alternatives to reduce the referred vocabulary impedance.
+In our experiments, we realized that this problem limits the final quality of direct matching strategies.
+In our model, which is based on the belief network in [11], the nodes represent pieces of information in the domain.
+Figure 2 illustrates our intuition.
+Two key issues become clear as one plays with the  contenttargeted advertising problem.
+We refer to our expansion technique as impedance coupling.
+Notice that other combinations were not considered in this study due to space restrictions.
+(4) and Eq.
+These other combinations led to poor results in our experimentation and for this reason were discarded. 
+For instance, a car shop probably would prefer to use car instead of super sport to describe its core business topic.
+Figure 3: Bayesian network model for our  impedance coupling technique.
+Notice that P(Ti|dj) = 1 − P(Ti|dj) and P(R|dj) = 1 − P(R|dj).

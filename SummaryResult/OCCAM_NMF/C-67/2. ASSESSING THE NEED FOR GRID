@@ -1,0 +1,17 @@
+this does not require that members be on the same subnet as the controller, but if they are not, any intervening firewalls and routers must be configured to allow grid traffic. 
+the controller must be able to see members on the network.
+2.2 integration into the existing infrastructure the grid requires a controller that recognizes when grid members are available, and parses out job to available members.
+our resolution of this issue will be discussed in a later section.
+how many licenses will be required?
+by its nature, the size of the grid may change as the number of idle computers changes.
+this is an important concern if we install a commercial application such as maya on all members of our grid.
+our interest is in using the alias maya application [3] with apple"s xgrid [4] on mac os x. commercial applications usually have strict license requirements.
+of course, the applications must also run on the computing platform that hosts the grid.
+applications heavily dependent on data handling rather than processing power are generally more suitable to run on a traditional environment than on a grid platform.
+in other words, the best candidates for grid computing are applications that run the same or very similar computations on a large number of pieces of data without any dependencies on the previous calculated results.
+2.1 applications appropriate for grid computing the applications used in grid computing must either be specifically designed for grid use, or scriptable in such a way that they can receive data from the grid, process the data, and then return results.
+this paper is concerned with the last example.
+examples of parallelizable computations are the mandelbrot set of fractals, the monte carlo calculations used in disciplines such as solid state physics, and the individual frames of a rendered animation.
+once the tasks have been completed, the results can be assembled into the solution.
+the results of each task cannot depend on the results of any other task, and so the members of the grid can solve the tasks in parallel.
+computing effective use of a grid requires a computation that can be divided into independent (i.e., parallel) tasks.

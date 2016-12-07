@@ -1,0 +1,368 @@
+While the analytic results provide us with worst-case 
+analysis for the infinite parallelism model, in this section we 
+employ simulations to study the properties of the Nash 
+equilibria in more realistic scenarios and for the finite parallelism
+model. First, we determine whether the user bidding process
+converges, and if so, what the rate of convergence is. 
+Second, in cases of convergence, we look at the performance at
+equilibrium, using the efficiency and fairness metrics defined
+above.
+Iterative Method. In our simulations, each user starts
+with an initial bid vector and then iteratively updates his
+bids until a convergence criterion (described below) is met.
+The initial bid is set proportional to the user"s weights on
+the machines. We experiment with two update methods, the
+best response methods, as described in Section 4.1 and 4.2,
+and the local greedy adjustment method, as described in
+Section 4.3.
+Convergence Criteria. Convergence time measures how
+quickly the system reaches equilibrium. It is particularly
+important in the highly dynamic environment of distributed
+shared clusters, in which the system"s conditions may change
+before reaching the equilibrium. Thus, a high convergence
+rate may be more significant than the efficiency at the 
+equilibrium.
+There are several different criteria for convergence. The
+strongest criterion is to require that there is only negligible
+change in the bids of each user. The problem with this 
+criterion is that it is too strict: users may see negligible change
+in their utilities, but according to this definition the 
+system has not converged. The less strict utility gap criterion
+requires there to be only negligible change in the users" 
+utility. Given users" concern for utility, this is a more natural
+definition. Indeed, in practice, the user is probably not 
+willing to re-allocate their bids dramatically for a small utility
+gain. Therefore, we use the utility gap criterion to measure
+convergence time for the best response update method, i.e.
+we consider that the system has converged if the utility gap
+of each user is smaller than (0.001 in our experiments).
+However, this criterion does not work for the local greedy
+adjustment method because users of that method will 
+experience constant fluctuations in utility as they move money
+around. For this method, we use the marginal utility gap
+criterion. We compare the highest and lowest utility 
+margins on the machines. If the difference is negligible, then we
+consider the system to be converged.
+In addition to convergence to the equilibrium, we also
+consider the criterion from the system provider"s view, the
+social welfare stabilization criterion. Under this criterion,
+a system has stabilized if the change in social welfare is
+≤ . Individual users" utility may not have converged. This
+criterion is useful to evaluate how quickly the system as a
+whole reaches a particular efficiency level.
+User preferences. We experiment with two models of
+user preferences, random distribution and correlated 
+distribution. With random distribution, users" weights on the
+different machines are independently and identically 
+distributed, according the uniform distribution. In practice,
+users" preferences are probably correlated based on factors
+like the hosts" location and the types of applications that
+users run. To capture these correlations, we associate with
+each user and machine a resource profile vector where each
+dimension of the vector represents one resource (e.g., CPU,
+memory, and network bandwidth). For a user i with a 
+profile pi = (pi1, . . . , pi ), pik represents user i"s need for 
+resource k. For machine j with profile qj = (qj1, . . . , qj ),
+qjk represents machine j"s strength with respect to resource
+k. Then, wij is the dot product of user i"s and machine
+j"s resource profiles, i.e. wij = pi · qj =
+P
+k=1 pikqjk. By
+using these profiles, we compress the parameter space and
+introduce correlations between users and machines.
+In the following simulations, we fix the number of 
+machines to 100 and vary the number of users from 5 to 250
+(but we only report the results for the range of 5 − 150
+users since the results remain similar for a larger number of
+users). Sections 5.1 and 5.2 present the simulation results
+when we apply the infinite parallelism and finite parallelism
+models, respectively. If the system converges, we report the
+number of iterations until convergence. A convergence time
+of 200 iterations indicates non-convergence, in which case
+we report the efficiency and fairness values at the point we
+terminate the simulation.
+5.1 Infinite parallelism
+In this section, we apply the infinite parallelism model,
+which assumes that users can use an unlimited number of
+machines. We present the efficiency and fairness at the 
+equilibrium, compared to two baseline allocation methods: 
+social optimum and weight-proportional, in which users 
+distribute their bids proportionally to their weights on the 
+machines (which may seem a reasonable distribution method
+intuitively).
+We present results for the two user preference models.
+With uniform preferences, users" weights for the different
+machines are independently and identically distributed 
+according to the uniform distribution, U ∼ (0, 1) (and are 
+normalized thereafter). In correlated preferences, each user"s
+and each machine"s resource profile vector has three 
+dimensions, and their values are also taken from the uniform 
+distribution, U ∼ (0, 1).
+Convergence Time. Figure 2 shows the convergence
+time, efficiency and fairness of the infinite parallelism model
+under uniform (left) and correlated (right) preferences. Plots
+(a) and (b) show the convergence and stabilization time
+of the best-response and local greedy adjustment methods.
+132
+0
+50
+100
+150
+200
+0 20 40 60 80 100 120 140 160
+Convergencetime(#iterations)
+Number of Users
+Uniform preferences
+(a)
+Best-Response
+Greedy (convergence)
+Greedy (stabilization)
+0
+50
+100
+150
+200
+0 20 40 60 80 100 120 140 160
+Number of Users
+Correlated preferences
+(b)
+Best-response
+Greedy (convergence)
+Greedy (stabilization)
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 20 40 60 80 100 120 140 160
+Efficiency
+Number of Users
+(c)
+Nash equilibrium
+Weight-proportional
+Social Optimum
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 20 40 60 80 100 120 140 160
+Number of Users
+(d)
+Nash equilibrium
+Weight-proportional
+Social optimum
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0 20 40 60 80 100 120 140 160
+Utilityuniformity
+Number of Users
+(e)
+Nash equilibrium
+Weight-proportional
+Social optimum
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0 20 40 60 80 100 120 140 160
+Number of Users
+(f)
+Nash equilibrium
+Weight proportional
+Social optimum
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 20 40 60 80 100 120 140 160
+Envy-freeness
+Number of Users
+(g)
+Nash equilibrium
+Weight proportional
+Social optimum
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 20 40 60 80 100 120 140 160
+Number of Users
+(h)
+Nash equilibrium
+Weight proportional
+Social optimum
+Figure 2: Efficiency, utility uniformity, enviness and convergence time as a function of the number of users under the
+infinite parallelism model, with uniform and correlated preferences. n = 100.
+133
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 20 40 60 80 100
+Efficiency
+Iteration number
+Best-Response
+Greedy
+Figure 3: Efficiency level over time under the infinite
+parallelism model. number of users = 40. n = 100.
+The best-response algorithm converges within a few number
+of iterations for any number of users. In contrast, the local
+greedy adjustment algorithm does not converge even within
+500 iterations when the number of users is smaller than 60,
+but does converge for a larger number of users. We believe
+that for small numbers of users, there are dependency cycles
+among the users that prevent the system from converging
+because one user"s decisions affects another user, whose 
+decisions affect another user, etc. Regardless, the local greedy
+adjustment method stabilizes within 100 iterations.
+Figure 3 presents the efficiency over time for a system
+with 40 users. It demonstrates that while both adjustment
+methods reach the same social welfare, the best-response
+algorithm is faster.
+In the remainder of this paper, we will refer to the (Nash)
+equilibrium, independent of the adjustment method used to
+reach it.
+Efficiency. Figure 2 (c) and (d) present the efficiency as
+a function of the number of users. We present the efficiency
+at equilibrium, and use the social optimum and the 
+weightproportional static allocation methods for comparison. 
+Social optimum provides an efficient allocation by definition.
+For both user preference models, the efficiency at the 
+equilibrium is approximately 0.9, independent of the number of
+users, which is only slightly worse than the social optimum.
+The efficiency at the equilibrium is ≈ 50% improvement over
+the weight-proportional allocation method for uniform 
+preferences, and ≈ 30% improvement for correlated preferences.
+Fairness. Figure 2(e) and (f) present the utility 
+uniformity as a function of the number of users, and figures (g)
+and (h) present the envy-freeness. While the social optimum
+yields perfect efficiency, it has poor fairness. The 
+weightproportional method achieves the highest fairness among the
+three allocation methods, but the fairness at the equilibrium
+is close.
+The utility uniformity is slightly better at the equilibrium
+under uniform preferences (> 0.7) than under correlated
+preferences (> 0.6), since when users" preferences are more
+aligned, users" happiness is more likely going to be at the
+expense of each other. Although utility uniformity decreases
+in the number of users, it remains reasonable even for a large
+number of users, and flattens out at some point. At the
+social optimum, utility uniformity can be infinitely poor, as
+some users may be allocated no resources at all. The same is
+true with respect to envy-freeness. The difference between
+uniform and correlated preferences is best demonstrated in
+the social optimum results. When the number of users is
+small, it may be possible to satisfy all users to some extent
+if their preferences are not aligned, but if they are aligned,
+even with a very small number of users, some users get no
+resources, thus both utility uniformity and envy-freeness go
+to zero. As the number of users increases, it becomes almost
+impossible to satisfy all users independent of the existence
+of correlation.
+These results demonstrate the tradeoff between the 
+different allocation methods. The efficiency at the equilibrium is
+lower than the social optimum, but it performs much 
+better with respect to fairness. The equilibrium allocation is
+completely envy-free under uniform preferences and almost
+envy-free under correlated preferences.
+5.2 Finite parallelism
+0
+50
+100
+150
+200
+0 10 20 30 40 50 60 70 80 90
+Convergencetime(#iterations)
+Number of Users
+5 machines/user
+20 machines/user
+Figure 4: Convergence time under the finite parallelism
+model. n = 100.
+0.6
+0.7
+0.8
+0.9
+1
+0 20 40 60 80 100
+Efficiency
+Iteration number
+5-machines/user (40 users)
+20-machines/user (10 users)
+Figure 5: Efficiency level over time under the finite 
+parallelism model with local search algorithm. n = 100.
+We also consider the finite parallelism model and use the
+local search algorithm, as described in Section 4.2, to 
+adjust user"s bids. We again experimented with both the 
+uniform and correlated preferences distributions and did not
+find significant differences in the results so we present the
+simulation results for only the uniform distribution.
+In our experiments, the local search algorithm stops quickly
+- it usually discovers a local maximum within two 
+iterations. As mentioned before, we cannot prove that a local
+maximum is the global maximum, but our experiments 
+indicate that the local search heuristic leads to high efficiency.
+134
+Convergence time. Let ∆ denote the parallelism bound
+that limits the maximum number of machines each user can
+bid on. We experiment with ∆ = 5 and ∆ = 20. In both
+cases, we use 100 machines and vary the number of users.
+Figure 4 shows that the system does not always converge,
+but if it does, the convergence happens quickly. The 
+nonconvergence occurs when the number of users is between 20
+and 40 for ∆ = 5, between 5 and 10 for ∆ = 20. We 
+believe that the non-convergence is caused by moderate 
+competition. No competition allows the system to equilibrate
+quickly because users do not have to change their bids in
+reaction to changes in others" bids. High competition also
+allows convergence because each user"s decision has only a
+small impact on other users, so the system is more stable
+and can gradually reach convergence. However, when there
+is moderate competition, one user"s decisions may cause 
+dramatic changes in another"s decisions and cause large 
+fluctuations in bids. In both cases of non-convergence, the ratio of
+competitors per machine, δ = m×∆/n for m users and n
+machines, is in the interval [1, 2]. Although the system does
+not converge in these bad ranges, the system nontheless
+achieves and maintains a high level of overall efficiency after
+a few iterations (as shown in Figure 5).
+Performance. In Figure 6, we present the efficiency,
+utility uniformity, and envy-freeness at the Nash 
+equilibrium for the finite parallelism model. When the system does
+not converge, we measure performance by taking the 
+minimum value we observe after running for many iterations.
+When ∆ = 5, there is a performance drop, in particular
+with respect to the fairness metrics, in the range between
+20 and 40 users (where it does not converge). For a larger
+number of users, the system converges and achieves a lower
+level of utility uniformity, but a high degree of efficiency and
+envy-freeness, similar to those under the infinite parallelism
+model. As described above, this is due the competition ratio
+falling into the head-to-head range. When the parallelism
+bound is large (∆ = 20), the performance is closer to the
+infinite parallelism model, and we do not observe this drop
+in performance.

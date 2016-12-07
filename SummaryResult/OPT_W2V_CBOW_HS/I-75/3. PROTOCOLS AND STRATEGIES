@@ -1,0 +1,115 @@
+This and the CONS  property ensures that at least one of the agents must change its 1 Strictly speaking, the transitivity of MCons only ensure that ak and al are inconsistent at a time t ≥ t0 that can be different from the time t at which they can  communicate.
+The SOLVE property ensures that either ak or al will send a communication request to the other agent at time t .
+We first show that, if two agents are not mutually consistent at some time, then there will be necessarily a time in the future such that an agent will learn a new observation, being it because it is new for the system, or by learning it from another agent.
+Now the protocol structure, together with the properties COMM+REQU, ensure that a request can only be rejected if its target agent engages in communication with another agent.
+The CONS property of the protocol ensures that MCons(ak, ap) at that time.
+The latter case would ensure the existence of a time t > t0 and an agent aq s.t.
+Suppose indeed that agent ai wants to communicate with aj by sending a request with weight w. COMM  guarantees that an agent receiving a weighted request will either accept this communication, accept a communication with a greater weight or wait for the answer to a request with a greater weight.
+By iterating the reasoning with t (but keeping t0 as the time reference for mt0 ), we can eliminate the third case (mt0 is integer and bounded by n2 , which means that  after a maximum of n2 iterations, we necessarily will be in one of two other cases.)
+Let S be a  system populated by n agents a1, a2, ..., an, temporaly connex, and involving bounded perceptions for these agents.
+As the protocol ensures that ai can resend its request while aj is not engaged in a conversation, there will be a turn in which aj must engage in a  conversation, either with ai or another agent.
+After reception of all the context requests, agents will either reply with a deny, iff they are already engaged in a conversation (in which case, the requesting agent will not consider communication with them anymore in this turn), or an inform giving the requester information about the requests it has sent and  received.
+To further illustrate how such  protocol can be used by agents, we give some details on a  possible strategy: upon receiving a hypothesis h1 (propose(h1) or counterpropose(h1)) from a1, agent a2 is in state 2 and has the following possible replies: counterexample (if the agent knows an example contradicting the hypothesis, or not  explained by this hypothesis), challenge (if the agents lacks evidence to accept this hypothesis), counterpropose (if the agent agrees with the hypothesis but prefers another one), or accept (if it is indeed as good as its favourite  hypothesis).
+As shown before, this in turn ensures that at least one of these agents will be involved in a communication.
+Sending such a request is a kind of conditional commitment for the agent.
+If some agent aq already knew this observation before, then either Op ∩ Oq or Ok ∩ Oq  increases of 1 at time t (which implies that n1(t ) > n1(t0)).
+What the previous result essentially shows is that, in a system where no agent will be isolated from the rest of the agents for ever, only very mild assumptions on the protocols and strategies used by agents suffice to guarantee  convergence towards system consistency in a finite amount of time (although it might take very long).
+This weight is a value measuring the agent"s willingness to converse with the targeted agent (in practice, this can be based on different heuristics, but we shall make some assumptions on agents" strategies, see below).
+One of these sub-sequences has to be infinite.
+It does so by substracting from the weight of its request the weight of all requests concerning either it or its target (that is, the  final weight of the request from ai to aj is Wi,j = wi,j +wj,i − ( P k∈R(i)−{j} wi,k + P k∈S(i)−{j} wk,i + P k∈R(j)−{i} wj,k + P k∈S(j)−{i} wk,j) where wi,j is the weight of the request of ai to aj, R(i) is the set of indice of agents having received a request from ai and S(i) is the set of indice of agents  having send a request to ai).
+Clearly, if MCons(ai, ak1 ), MCons(akm , aj) and ∀p, MCons(akp , akp+1 ), we have MCons(ai, aj) which contradicts our hypothesis (MCons being transitive, MCons(ai, ak1 )∧MCons(ak1 , ak2 ) implies that MCons(ai, ak2 ) and so on till MCons(ai, akm )∧ MCons(akm , aj) which implies MCons(ai, aj) ).
+We will use mt0 = P (k,l)∈[1,n]2 εComm(ak, al, t0) where εComm(ak, al, t0) = 1 if ak and al have  communicated at least once since t0, and 0 otherwise.
+By  successive iterations we can then construct a sequence t0, t1, ..., tn, which can be divided in two sub-sequences t0, t1, ...tn and t0 , t1 , ..., tn s.t.
+As distributed approaches as the one advocated in this paper are precisely often presented as a good way to tackle problems of reliability or problems of  dependence to a center that are of utmost importance in these critical applications, it is certainly interesting to further  explore how such a system would behave when we relax this assumption. 
+The former case means that the agent gets a new perception o at time t .
+In the simplest case, this weight will be 1 for all agent with whom the agent is not sure of being mutually consistent (ensuring SOLVE), other agent being not considered for communication (ensuring  FOCUS).
+Therefore, it can only send one accept in a given round, as an agent can only participate in one conversation per time step.
+These requirements concern request sending and  acceptation, but agents also need some strategy of weight  attribution.
+This ensures that the request with  maximal weight will be accepted and not cancelled (as REQU ensures that an agent sending a request can only cancel it if he accepts another request with greater weight).
+As a result, we have proven that if ¬MCons(ai, aj) at time t0, there is necessarily a time t s.t.
+Therefore at least two agents will engage in conversation per round of the global protocol.
+If that observation was unknown in the system before, then n2(t ) > n2(t0).
+But if they become consistent between t and t (or inconsistent between t and t ), it means that at least one of them have changed its hypothesis between t and t , that is, after t0.
+Let S be a system populated by n agents a1, a2, ..., an, temporaly connex, and involving bounded  perceptions for these agents.
+To clarify the presentation, we distinguish two  levels: the local level, which is concerned with the regulation of bilateral exchanges; and the global level,which essentially regulates the way agents can actually engage into a  conversation.
+We can then apply the reasoning of case iib.
+(CONDITIONAL) CONVERGENCE TO GLOBAL CONSISTENCY In this section we will show that the requirements  regarding protocols and strategies just discussed will be sufficient to ensure that the system will eventually converge towards global consistency, under some conditions.
+When all replies have been received, each agent can calculate the weight of all requests concerning it.
+The fact that agents are autonomous implies in turn that a new observation  (perceived or received from another agent) necessarily provoked this change.
+The agent then sends a context request to all agents with whom communication is considered.
+We then have again two possibilities: (case iia) ak and ap did not communicate since t0.
+At the end of all the bilateral exchanges, the agents  engaged in conversation are discarded from the protocol.
+If ¬MCons(ai, aj) at time t0, there is necessarily a time t > t0 s.t.
+Global Strategy We now define four requirements for the strategies used by agents, depending on their role in the protocol: two are concerned with the requestee role (how to decide who the 1000 The Sixth Intl.
+n1(t0) < n1(t1) < ... < n1(tn) and n2(t0 ) < n2(t1 ) < ... < n2(tn).
+When all response have been received, each agent receiving an accept can either initiate a conversation using the local protocol or send a cancel if it has accepted another request.
+either |Op ∩Oq| or |Ok ∩Oq| increases of 1 at that time (implying n1(t ) > n1(t0)).
+Hence mt0 increases.
+By answering with an accept, an agent makes a full commitment to engage in conversation with the sender.
+Local Protocol and Strategies We start by inspecting local protocols and strategies that will regulate the communication between the agents of the system.
+Then there are two possibilities: (case i) ak and al communicate at time t .
+Before sending their chosen weighted request, agents attribute a weight to all agents they are prepared to communicate with, according to some internal factors.
+An agent sending a weighted request commits to engage in conversation with the target if he does not receive and accept himself another request.
+But we can apply the same reasoning taking t = t , which would give us t1 > t > t0 s.t.
+At each level, we separate what is specified by the protocol, and what is left to agents" strategies.
+• consistency (CONS)- a local protocol has to  guarantee the mutual consistency of agents upon termination (which implies termination of course).
+However, n1(ti) and n2(ti ) are strictly growing, integer, and bounded, which implies that both are finite.
+At least two agents are then necessarily  inconsistent (¬MCons(ai, ak1 ), or ¬MCons(akm , aj), or ∃p0 t.q.
+either n1 or n2 will increase.
+Being cooperative, an agent may want to know more of the communication wishes of other agents in order to improve the overall allocation of exchanges to agents.
+Now the fact that they  communicate and FOCUS implies that at least one of them did change its hypothesis in the meantime.
+Then each of the remaining agents resends a request and the  process iterates until no more requests are sent.
+But then |Ok ∩Ol| is bound to increase: n1(t ) > n1(t0).
+(case ii) ak communicates with ap at time t .
+either n1 or n2 will increase.
+• Willingness to solve inconsistancies (SOLVE)-agents want to communicate with any other agents unless they know they are mutually consistent.
+Suppose that there exist a time t0 and indices (i, j) s.t.
+At each turn, agents will concurrently send one weighted request to communicate to other agents.
+Hence, ¬MCons(ai, aj) at time t0 guarantees that, either: −∃t > t0 t.q.
+), the other two with the responder role (how to decide which communication request to accept or not?).
+This strategy guarantees, among other properties, the eventual mutual logical consistency of the involved agents [1].
+Let Cons(ai, aj) be a transitive consistency property.
+Once all request have been received, each agent replies with either an acccept or a reject.
+mt0 increases of 1 at time t .
+It then finally sends a weighted request to the agents who maximise this weight (or wait for a request) as described in the global protocol.
+(n1 = P (i,j)∈[1,n]2 |Oi ∩ Oj|) Let n2 be the cardinality of the union of all agents" observations sets.
+• Focus on solving inconsistencies (FOCUS)-agents do not request communication with an agent with whom they know they are mutually consistent.
+Let ak and al be these two  neighbours at a time t > t0 1 .
+Such protocol will have to meet one basic requirement to be satisfying.
+n2(t ) > n2(t0); or −∃t > t0 t.q.
+Therefore, they will not cancel their request unless they have received a communicational request with greater weight.
+(case iib) ak and ap did communicate at some time t0 > t0.
+This request also provides information about the sender (list of considered communications along with their weight).
+The Sixth Intl.
+n1(t ) > n1(t0); or −∃t > t0 t.q.
+• Commitment to communication request  (REQU)agents cannot accept a weighted communication  request if they have themselves sent a communication request with a greater weight.
+As we limit ourselves to bilateral communication, these protocols will simply involve two agents.
+In this case, we know that ¬MCons(ak, al).
+A  context request step is then added to the global protocol.
+either n1(t ) > n1(t0) or n2(t ) > n2(t0).
+• Willingness to communicate (COMM)-agents cannot refuse a weighted communication request, unless they have just received or send a request with a greater weight.
+¬Cons(aI , aJ , t1), which gives us t > t1 s.t.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1001 hypothesis, which in turn, since agents are autonomous,  implies at least one exchange of observation.
+But then εComm(ak, ap, t0) had value 0 and takes value 1.
+Global Protocol The global protocol regulates the way bilateral exchanges will be initiated between agents.
+Then any protocol and strategies satisfying properties CONS, SOLVE, FOCUS, COMM and REQU guarantees that the system will converge towards global consistency.
+¬Cons(aI , aJ , t0).
+Unfortunately, in many critical situations, it will not be possible to assume this temporal connexity.
+either n1(t ) > n1(t1) or n2(t ) > n2(t1).
+Let n1 be the sum of  cardinalities of the intersection of pairwise observation sets.
+In this section, we discuss the requirements of the  interaction protocols that govern the exchange of messages between agents, and provide some example instantiation of such  protocols.
+Using the lemma, this implies that ∃t > t0 s.t.
+C(ai, ak1 , t1), C(akm , aj, tm+1), and ∀p ∈ [1, m], C(akp , akp+1 , tp).
+For the sake of contradiction, let us assume ∃I, J ∈ [1, N] s.t.
+Figure 1: A Hypotheses Exchange Protocol [1] One example such protocol is the protocol described in [1] that is pictured in Fig.
+¬MCons(ai, aj).
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) agent wishes to communicate with?
+∀t, ∃t0 > t, t.q.
+Temporal connexity guarantees that there exist t1, ..., tm+1 and k1, ..., km s.t.
+We describe below an altruist strategy, used in our experiments.
+Theorem 1 (Global consistency).
+(n2 = | ∪N i=1 Oi|).
+Joint Conf.
+Joint Conf.
+Lemma 1.
+¬MCons(akp0 , akp0+1 )).

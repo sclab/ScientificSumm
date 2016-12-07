@@ -1,0 +1,204 @@
+We now analyze the performance of the algorithm presented in
+subsection 6.3, i.e., the one taking care of the exchange of audio
+packets between the different domains. Note that the packets that
+are transiting within the LAN take advantage of the higher
+capacity (generally coupled with multicast capabilities) and
+therefore do not require a performance analysis.
+Thus we have to look only at the RTP packets over the WAN, i.e.,
+between participating M-CSs. As each M-CS from a domain will
+be sending only NMax out of
+d
+M packets to the other CSs
+( MaxN
+d
+M
+>> ), the bandwidth used by the application over a
+WAN is upper-bounded by the following expression.
+The total number of audio packets transiting over the WAN for
+each time slot is ∑ ∑= ≠=
+
+
+
+
+
+
+
+d
+i
+d
+ijj
+MaxN
+1 ,1
+which is quadratic in the
+number of domains (i.e., O(d2
+)).
+However, it is independent of the total number of active clients.
+This would not have been the case had all packets been sent over
+the network in each time slot.
+The saving is tremendous. Yet, one may contend that sending
+three packets to and from all domains is a waste of resources, as
+most of these streams will not be selected. If just one client is
+active, selecting a subset of clients in that domain is unnecessary.
+Pessimistic and optimistic algorithms as presented in the sequel
+aim at reducing the traffic further by harnessing the slow varying
+nature of the LN.
+8.1 Pessimistic algorithm
+Consider a scenario wherein the lowest LN (called LNt) of the
+three globally selected streams (set F of Section 6.1) exceeds the
+LN of the most dominant stream of a domain. Evidently, the
+chances that the next two dominant streams of that domain being
+selected to F in the next packet period are less. Here, we send this
+most dominant stream and withhold the other two. There may be
+an error in unique selection across all domains for one packet
+period only. As LN varies slowly, the error would get
+automatically rectified in a subsequent packet period (slot). In this
+algorithm, there is at least one stream in each period. The net
+network traffic in a packet period in the best case is )1( −⋅ dd ,
+i.e., )( 2
+dO using unicast, instead of MaxNdd ⋅−⋅ )1( .
+Considerable valuable bandwidth can be saved using this
+heuristic. The resulting traffic complexity reduces from O(d2
+) to
+O(d) in multicast-enabled networks.
+Initialize LNt = 0 at an M-CS/S-CS
+A. In the first time slot (packet time), each CS
+sends the top NMax streams (based on their LN)
+to all other CSs.
+At each M-CS/S-CS and for each packet time:
+B. Find the value of lowest LN of the NMax
+globally selected streams (set F) from the
+previous time slot. Set LNt with this value.
+C. At each CS domain, select the NMax local
+streams that have maximum value of LN
+(ToOtherCSs set).
+D. Select streams that have LN > LNt.
+IF there are >= NMax streams with LN > LNt
+then send top NMax to other CSs.
+ELSE IF there are (NMax-1) streams with LN>LNt
+then send top (NMax-1) plus the one lower
+than LNt (i.e., top NMax) to other CSs.
+ELSE IF there are (NMax-2) streams with LN>LNt
+then send top (NMax-2) plus the one lower
+than LNt (i.e. top (NMax -1)) to other CSs.
+……
+ELSE IF there are NO streams with LN> LNt
+then send top 1 stream to other CSs.
+E. Packets sent in step D form DB1. Packets
+received from other CSs form DB2.
+F. For this time slot, find global NMax streams
+based on LN from DB1 U DB2 (set F)
+G. Send set F to the clients in its domain.
+Update LNt for the next period.
+Algorithm 2. Pessimistic algorithm to reduce the number of
+packets sent over the Internet.
+Fig. 6. Example of a 2-level hierarchy of Conference Servers; the shaded Clients are the one selected by the M-CS and
+will be sent to other domains" CSs.
+In this algorithm the saving in traffic is at the cost of relaxing the
+condition of formation of globally unique set F. However, the
+discrepancies in selected streams at different domains remain for a
+short period of time depending on the transportation delay
+between any two domains. Even for a total delay of 400ms, for
+only 10 packet time slots the uniqueness is lost. This duration in a
+real-time interactive conversation is non-perceivable by the
+listener. In the case that there is a joke and every one laughs, then
+there would be sudden rise in the number of packets and it would
+be upper bounded by MaxN)d(O 2
+for a short period.
+8.2 Optimistic Algorithm
+The traffic can be reduced further. The scheme in the following
+algorithm (Algorithm. 3) is withholding all the streams that have
+less value of LN compared to the least of the three in the set F.
+We can find the correct and unique three streams after a few time
+slots depending on the transportation delay between the domains.
+As the packet period is of the order of 40ms, the error in the
+selection is unnoticeable. The number of streams on network in
+this case is always restricted to NMax (=3). Even without Voice
+Activity Detection (VAD), there will be no more than three
+streams in the network in the best case, thus the total traffic is
+constant. A sudden burst of traffic, as described in 8.1, is a
+particular case. These advantages are due to exploitation of the
+characteristics of LN.
+Initialize LNt = 0 at an M-CS/S-CS
+A. In the first time slot (packet time), each CS
+sends the top NMax streams (based on their LN)
+to all other CSs.
+At each M-CS/S-CS and for each packet time:
+B. Find the value of lowest LN of the NMax
+globally selected streams (set F) from the
+previous time slot. Set LNt with this value.
+C. At each CS domain, select the NMax local
+streams that have maximum value of LN
+(ToOtherCSs set)
+D. Select streams that have LN > LNt
+IF there are >= NMax streams with LN > LNt
+then send top NMax to other CSs.
+ELSE IF there are (NMax-1) streams with LN>LNt
+then send top (NMax-1) and see E.
+ELSE IF there are (NMax-2) streams with LN>LNt
+then send top (NMax-2) and see E.
+……
+ELSE IF there are NO streams with LN> LNt
+then don"t send any stream.
+E. Exceptions:
+IF the stream that was in F in the last
+interval belongs to this CS then select and
+send that stream even if its LN is now < LNt.
+(Note this occurs only at that CS which had
+the stream that was the last of the three in
+the previous packet period.)
+F. Packets sent in step D and E form DB1. Packets
+received from other CSs form DB2.
+G. For this time slot, find global NMax streams
+based on LN from DB1 U DB2 (set F).
+H. Send set F to the clients in its domain.
+Update LNt for the next period.
+Algorithm 3. Optimistic algorithm to reduce the number of
+packets sent over the Internet
+Furthermore, when VAD is used [13], it would further reduce the
+traffic by sending the header part of the RTP packet only and not
+the whole packet, thus in order to keep updating the LN across.
+The traffic here in this case is O(NMax) for multicast and O(d) for
+unicast.
+We see that the above algorithms save bandwidth and
+computation at each CS, and leads to a scalable architecture with
+multiple CSs mainly because clients are grouped in domains. The
+necessary bandwidth is not dependent on the total number of
+active clients. As the CS always chooses the best three clients out
+of all the clients assigned to it in the domain, addition of new
+clients to the existing conference will not cause any scalability
+problem.
+8.3 Availability of Multicasting
+In the architecture that has been proposed, no assumption was
+made about the availability of multicasting support from the
+network. The traffic will be further reduced if multicasting is
+available over WAN. It is simple to show that the order of traffic
+would tend to become O(d) from O(d2
+). This is an approximation
+as saving in multicasting depends also on the topology. The
+analysis was done for the case wherein multicast is not available
+(a realistic assumption in today"s Internet). The advantage of this
+set up is that we can use it even if multicasting is partially
+available. We can instruct CSs during the set-up phase to send
+unicast packets to those CSs that cannot receive multicast packets
+whereas CSs on multicast enabled routers can exchange packets
+on a multicast address. The data structures and conference objects
+inside a CS is given in [14].
+Fig. 7. User Interface for setting the weight for NMax audio
+streams (setting Self-bar to zero avoids echo).
+8.4 Quality Improvement
+The observed improvement in the perceived quality of the
+conference service is due to: (1) limiting the number of concurrent
+speakers to a low number such as three. Generally, in a
+conference if more than two participants speak the intelligibility is
+lost. The conversational analysis demonstrates that there would be
+a repair mechanism [15] in such a case. (2) Delay: The audio
+stream between any two clients will pass through at most two CSs
+thus reducing the end-to-end delay. For a large conference there
+might be three CSs however, one hop is within the domain
+incurring negligible delay. (3) As the streams are mixed only at
+the clients, there can be a customized mix of the streams. The
+individual tuning of mixing with weights the spatialism is
+preserved. Fig. 7 shows the user interface for the same. The echo
+when self-stream is selected can be avoided by reducing the
+weight. Nonetheless, feedback helps in reassuring speaker that
+he/she is heard by all.

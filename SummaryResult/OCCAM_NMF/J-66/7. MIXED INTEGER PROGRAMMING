@@ -1,0 +1,31 @@
+even if some of these functions are not concave, we can simply replace each such function by the smallest upper bounding concave function, and use the linear programming formulation to obtain an upper bound on the  objectivewhich may be useful in a search formulation of the general problem. 
+thus: theorem 2. if all functions ui j and wj are concave (and piecewise linear), the donation-clearing problem can be solved in polynomial time using linear programming.
+because we only use binary variables when either a  utility function ui j or a payment willingness function wj is not concave, it follows that if all of these are concave, our mip formulation is simply a linear program-which can be solved in polynomial time.
+(again we will need binary variables only if the function is not concave.)
+representing this function is entirely analogous to how we  represented ui j as a function of πci .
+finally, each πbj is bounded by a function of uj by the (piecewise linear) function provided by the bidder (wj).
+(this is a standard mip technique [16].)
+then, we can set ui j = k+1 l=0 ti,j l λi,j l .
+now we add the constraint πci = k+1 l=0 si,j l λi,j l , and now the λi,j l must be set correctly.
+we add the constraint k+1 l=0 λi,j l = 1. also, for 0 ≤ l ≤ k + 1, we add the constraint λi,j l ≤ xl−1 +xl (where x−1 and xk+1 are defined to be zero), so that indeed only the two neighboring si,j l have nonzero weight.
+for 0 ≤ l ≤ k + 1, let λi,j l be the weight on si,j l .
+to effect this, first add a constraint k l=0 xi,j l = 1. now, we aim to represent πci as a weighted average of its two neighboring si,j l .
+now, let xi,j l be an indicator variable that should be 1 if πci is below the lth segment of the function, and 0 otherwise.
+this has the effect that we will never be on the infinite segment again.
+first, we define another point on the function: (sk+1, tk+1) = (sk + m, tk + dm), where d is the slope of the infinite segment and m is any upper bound on the πcj .
+using the fact that the function is concave, for each value of πci , the tightest upper bound on ui j is the one corresponding to the segment above that value of πci , and therefore these constraints are sufficient to force the correct value of ui j. when the function is not concave, we require (for the first time) some binary variables.
+if the final (infinite) segment starts at (sk, tk) and has slope d, we add the constraint that ui j ≤ tk + d(πci − sk).
+in the case where the ui j are concave, this is easy: if (sl, tl) and (sl+1, tl+1) are endpoints of a finite linear segment in the function, we add the constraint that ui j ≤ tl + πci −sl sl+1−sl (tl+1 − tl).
+the mip solver can then push the ui j variables all the way up to the constraint, in order to extract as much payment from this bidder as possible.
+in order to  represent this function in the mip formulation, we will merely place upper bounding constraints on ui j, so that it cannot exceed the given functions.
+the bidder"s total 55 utility is given by another variable uj, with the constraint that uj = m i=1 ui j. each ui j is given as a function of πci by the (piecewise linear) function provided by the bidder.
+for every bidder, for every charity, we define an additional utility variable ui j indicating the utility that this bidder  derives from the payment to this charity.
+the constraint that the outcome should be valid (no deficit) is given simply by: n j=1 πbj ≥ m i=1 πci .
+the objectives we have discussed earlier are both linear: surplus is given by n j=1 πbj − m i=1 πci , and total amount  donated is given by m i=1 πci (coefficients can be added to  represent different weights on the different charities in the  objective).
+the rest of the mip can be phrased in terms of the πci and πbj .
+additionally, there is a constraint πci,bj = 0 whenever bidder bj is unwilling to pay charity ci.
+in the case where we try to avoid direct payments and let the bidders pay the charities directly, we add variables πci,bj indicating how much bj pays to ci, with the constraints that for each ci, πci ≤ bj πci,bj ; and for each bj, πbj ≥ ci πci,bj .
+the variables of the mip defining the final outcome are the payments made to the charities, denoted by πci , and the payments extracted from the bidders, πbj .
+in such cases, the problem is solvable in polynomial time, because linear programs can be solved in polynomial time [11].
+we also discuss in which special cases this formulation reduces to a linear programming (lp) formulation.
+formulation in this section, we give a mixed integer programming (mip) formulation for the general problem.

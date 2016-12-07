@@ -1,0 +1,33 @@
+our algorithm has been evaluated on a real news stream to show its effectiveness. 
+• we come up with an unsupervised event detection  algorithm to detect both aperiodic and periodic events.
+• we propose a simple and effective mixture  densitybased approach to model and detect feature bursts.
+specifically, every word feature is categorized into one of the following five feature types based on its power spectrum strength and periodicity: 1) hh (high power and high/long periodicity): important aperiodic events, 2) hl (high power and low periodicity): important  periodic events, 3) lh (low power and high periodicity): unimportant aperiodic events, 4) ll (low power and low periodicity): non-events, and 5) sw (stopwords), a higher power and periodicity subset of ll comprising stopwords, which contains no information.
+1.1 contributions this paper has three main contributions: • to the best of our knowledge, our approach is the first to categorize word features for heterogenous events.
+in this  paper, we focus on the latter, i.e., how correlated features can be uncovered to form an event in an unsupervised manner.
+based on these observations, we can  either mine representative features given an event or detect an event from a list of highly correlated features.
+a periodic event has a list of periodic features and an aperiodic event has a list of aperiodic  features; 2) representative features from the same event share similar distributions over time and are highly correlated; 3) an important event has a set of active (largely reported) representative features, whereas an unimportant event has a set of inactive (less-reported) representative features; 4) a feature may be included by several events with overlaps in time frames.
+to summarize, we postulate that: 1) an event is described by its  representative features.
+in particular, it indicates the significance of mining correlating features for detecting corresponding events.
+if a large number of them can be uncovered, it could significantly aid tdt tasks.
+these two examples are but the tip of the iceberg among all word trends and correlations hidden in a news stream like reuters.
+other observations drawn from figure 1 are: 1) the bursty period of april is much longer than easter, which suggests that april may exist in other events during the same period; 2) unaudited has a higher average dfidf value than ended, which indicates unaudited to be more representative for the underlying event.
+these two words actually originated from the same periodic event, net income-loss reports, which are released quarterly by  publicly listed companies.
+exhibit similar behaviour over periods of 3 months.
+another example is given by figure 1(b), where both the words unaudited and ended 1 reuters corpus is the default dataset for all examples.
+in this  example, the hidden event easter feast is a typical important aperiodic event over 1-year data.
+from the plot of their normalized dfidf in figure 1(a), we observe the heavy overlap between the two words circa 04/1997, which means they probably both belong to the same event during that time (easter feast).
+as an illustrative example, consider the correlation  between the words easter and april from the reuters  corpus1 .
+0 0.2 0.4 0.6 0.8 8/20/1996 12/8/1996 3/28/1997 7/16/1997 easter april (a) aperiodic event 0 0.1 0.2 0.3 0.4 8/20/1996 12/8/1996 3/28/1997 7/16/1997 unaudited ended (b) periodic event figure 1: feature correlation (dfidf:time)  between a) easter and april b) unaudited and ended.
+to evaluate our method, we subsequently propose an unsupervised event detection algorithm for news streams.
+in particular, we study the novel problem of analyzing feature trajectories for event detection,  borrowing a well-known technique from signal processing:  identifying distributional correlations among all features by spectral analysis.
+of these features, often only a small number are expected to be useful.
+however, in many predictive event detection tasks (i.e., retrospective event detection), there is a vast set of potential features only for a fixed set of observations (i.e., the obvious bursts).
+previous work like [9] has attempted to  reconstruct an event with its representative features.
+thus in this paper, we look at news stories and  feature trends from the perspective of analyzing a time-series word signal.
+instead of attacking the problem with variations of the same hammer (cosine similarity and tfidf), a  fundamental understanding of the characteristics of news stream data is necessary before any major breakthroughs can be made in tdt.
+as further proof, portals like yahoo take a more pragmatic approach by requiring all machine generated news alerts to go through a human operator for confirmation before sending them out to subscribers.
+the ineffectiveness of current tdt  technologies can be easily illustrated by subscribing to any of the many online news alerts services such as the  industryleading google news alerts [2], which generates more than 50% false alarms [10].
+unfortunately, the holy grail is still elusive, because the vast majority of tdt solutions proposed for event detection [20, 5, 17, 4, 21, 7, 14, 10] are either too simplistic (based on cosine similarity [5]) or impractical due to the need to tune a large number of parameters [9].
+in fact, the topic detection and tracking (tdt) community has for many years been trying to come up with a practical solution to help people monitor news effectively.
+manually monitoring all of them for important events has become difficult or practically impossible.
+there are more than 4,000 online news sources in the world.

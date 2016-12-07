@@ -1,0 +1,65 @@
+Figure 3 shows the NDCG, MRR, and MAP measures of these feature combinations, together with a baseline BM25F score (the right-most bar in each graph), which was computed using the same subset of 23,045 queries that were used as the test set for the  feature combinations.
+In principle, we could do this by sorting the documents in each result set by their feature value, and compare the resulting NDCGs.
+Having compared different parameterizations of HITS, we will now fix the number of sampled back-links at 100 and compare the three link selection schemes against other  isolated features: PageRank, in-degree and out-degree  counting links of all pages, of different hosts only and of different domains only (all, ih and id datasets respectively), and a text retrieval algorithm exploiting anchor text: BM25F[24].
+Our hypothesis is that good features should be able to rank relevant documents in this set higher than non-relevant ones, and this should result in an increase in each performance measure over the query set.
+In order to keep the graphs readable, we will not show the performance of all the features, but rather restrict ourselves to the four most interesting ones: PageRank, id HITS authority scores, id in-degree, and BM25F.
+We broke down our query set into 13 buckets, each bucket associated with an interval of query IDF values, and we  computed performance metrics for all ranking functions applied (in isolation) to the queries in each bucket.
+Likewise, it is surprising that simple query-independent features such as in-degree, which might estimate global quality but cannot capture relevance to a query, would outperform query-dependent features such as HITS authority scores.
+Each graph is  associated with one performance measure.
+The inverse document frequency (IDF) of a term t with respect to a corpus C is defined to be logN/doc(t), where doc(t) is the number of documents in C containing t and N is the total number of documents in C. By summing up the IDFs of the query terms, we make the (flawed)  assumption that the individual query terms are independent of each other.
+All feature  combinations were done by considering the linear combination of two features as a document score, using the formula score(d) =Pn i=1 wiTi(Fi(d)), where d is a document (or  documentquery pair, in the case of BM25F), Fi(d) (for 1 ≤ i ≤ n) is a feature extracted from d, Ti is a transform, and wi is a free scalar weight that needs to be tuned.
+The performance differences between the various  combinations of BM25F with features based on incoming links is comparatively small, and the relative ordering of feature combinations is fairly stable across the  0.00 0.02 0.04 0.06 0.08 0.10 0.12 0.14 0 2 4 6 8 10 12 14 16 18 20 22 24 MAP@10 26 374 1640 2751 3768 4284 3944 3001 2617 1871 1367 771 1629 bm25fnorm pagerank degree-in-id hits-aut-id-100 Figure 4: Effectiveness measures for selected  isolated features, broken down by query specificity.
+Second, link-based features can be strongly correlated with textual features for several reasons, mainly the correlation between in-degree and  numFeature Transform function bm25f T(s) = s pagerank T(s) = log(s + 3 · 10−12 ) degree-in-* T(s) = log(s + 3 · 10−2 ) degree-out-* T(s) = log(s + 3 · 103 ) hits-aut-* T(s) = log(s + 3 · 10−8 ) hits-hub-* T(s) = log(s + 3 · 10−1 ) Table 1: Near-optimal feature transform functions.
+We are specifically interested in evaluating the  usefulness of HITS and other link-based features.
+The better-performing group consists of the features that are based on the number and/or quality of incoming links (in-degree, PageRank, and HITS authority scores); and the worse-performing group consists of the features that are based on the number and/or quality of outgoing links  (outdegree and HITS hub scores).
+Figure 1 shows the impact of the number of sampled back-links on the retrieval performance of HITS authority scores.
+We tuned the weights by selecting a random  subset of 5,000 queries from the query set, used an iterative refinement process to find weights that maximized a given performance measure on that training set, and used the  remaining 23,043 queries to measure the performance of the thus derived scoring functions.
+We call this ranking with isolated features.
+However, the  combination of BM25F with any in-degree variant, and in particular with id in-degree, consistently outperforms the combination of BM25F with PageRank or HITS authority scores, and can be computed much easier and faster.
+Otherwise, we may find a link-based feature that is very good in isolation but is strongly correlated with textual features and results in no overall improvement; and vice versa, we may find a link-based feature that is weak in isolation but significantly improves overall performance.
+Therefore, we chose to  approximate the specificity of Q by summing up the inverse document frequencies of the individual query terms  comprising Q.
+Particularly, we are  interested in the relationship between the specificity of a query and the performance of different ranking features.
+The performance of the all scheme increases as more back-links of each root set vertex are sampled, while the performance of the id and ih schemes peaks at between 10 and 25 samples and then plateaus or even declines,  depending on the performance measure.
+Recall that we computed HITS for each combination of three link section schemes - all links (all), inter-host links only (ih), and inter-domain links only (id) - with back-link sampling values ranging from 1 to 100.
+The combination of BM25F with features based on  incoming links (PageRank, in-degree, and HITS  authority scores) performs substantially better than the  combination with features based on outgoing links (HITS hub scores and out-degree).
+The most straightforward measure of the specificity of a query Q would be the number of documents in a search engine"s corpus that satisfy Q.
+Regardless of the performance measure applied, we can make the following general observations: 1.
+The fact that features based on outgoing links  underperform those based on incoming links matches our  expectations; if anything, it is mildly surprising that outgoing links provide a useful signal for ranking at all.
+First, features based on the textual  content of documents (as opposed to link-based features) are the best predictors of relevance.
+Let us first examine the relative performance of the  different parameterizations of the HITS algorithm we  examined.
+A possible  explanation is that link-spammers have been targeting the published PageRank algorithm for many years, and that this has led to anomalies in the web graph that affect PageRank, but not other link-based features that explore only a distance-1 neighborhood of the result set.
+.341 .340 .339 .337 .336 .336 .334 .311 .311 .310 .310 .310 .310 .231 0.22 0.24 0.26 0.28 0.30 0.32 0.34 0.36 degree-in-id degree-in-ih degree-in-all hits-aut-ih-100 hits-aut-all-100 pagerank hits-aut-id-10 degree-out-all hits-hub-all-100 degree-out-ih hits-hub-ih-100 degree-out-id hits-hub-id-10 bm25f NDCG@10 .152 .152 .151 .150 .150 .149 .149 .137 .136 .136 .128 .127 .127 .100 0.09 0.10 0.11 0.12 0.13 0.14 0.15 0.16 degree-in-ih degree-in-id degree-in-all hits-aut-ih-100 hits-aut-all-100 hits-aut-id-10 pagerank hits-hub-all-100 degree-out-ih hits-hub-id-100 degree-out-all degree-out-id hits-hub-ih-100 bm25f MAP@10 .398 .397 .394 .394 .392 .392 .391 .356 .356 .356 .356 .356 .355 .273 0.25 0.30 0.35 0.40 degree-in-id degree-in-ih degree-in-all hits-aut-ih-100 hits-aut-all-100 pagerank hits-aut-id-10 degree-out-all hits-hub-all-100 degree-out-ih hits-hub-ih-100 degree-out-id hits-hub-id-10 bm25f MRR@10 Figure 3: Effectiveness measures for linear combinations of link-based features with BM25F.
+For a given query Q, we need to rank the set of documents satisfying Q (the result set of Q).
+Therefore, one must consider the effect of link-based  features in combination with textual features.
+The figures on the  upper x axis of each graph show the number of queries in each bucket (e.g.
+Finally, we investigated whether certain features are  better for some queries than for others.
+For this reason, we have studied the combination of the link-based features above with BM25F.
+The horizontal axis of each graph represents the number of sampled back-links, the vertical axis represents performance under the  appropriate measure, and each curve depicts a link selection scheme.
+Again all performance measures (and for all rank-thresholds we explored) agree.
+Combining any of the link-based features with BM25F results in a substantial performance improvement over BM25F in isolation.
+BM25F performs best for medium-specific queries, peaking at the buckets representing the IDF sum interval [12,14).
+This type of linear combination is appropriate if we  assume features to be independent with respect to relevance and an exponential model for link features, as discussed in [8].
+Figure 2 shows the NDCG, MRR, and MAP measures of these features.
+Buckets on the far left of each graph represent very general queries; buckets on the far right represent very specific queries.
+We explored the pairwise combination of BM25F with  every link-based scoring function.
+However, we cannot investigate the effect of these features in isolation, without regard to the overall ranking function, for several reasons.
+BM25F has a number of free  parameters (2 per field, 6 in our case); we used the parameter values described in [24].
+In the group of features based on incoming links, features that ignore nepotistic links  perform better than their counterparts using all links.
+By comparison, HITS peaks at the bucket representing the IDF sum interval [4,6), and PageRank and in-degree peak at the bucket representing the interval [6,8), i.e.
+As expected, BM25F outperforms all link-based features by a large  margin.
+We chose transform functions that we empirically determined to be well-suited.
+The link-based features are divided into two groups, with a noticeable performance drop between the groups.
+ferent performance measures used.
+BM25F is a state-of-the art ranking function solely based on textual content of the documents and their associated  anchor texts.
+more general queries. 
+On the other hand, the fact that in-degree features outperform PageRank under all measures is quite surprising.
+Figure 4 shows the MAP@10 for all 13 query specificity buckets.
+BM25F is a descendant of BM25 that combines the different textual fields of a document, namely title, body and anchor text.
+Unfortunately, the query set available to us did not contain this information.
+Moreover, using only inter-domain (id) links seems to be marginally better than using inter-host (ih) links.
+the right-most bucket contains 1,629 queries).
+This model has been shown to be one of the best-performing web search scoring functions over the last few years [8, 24].
+Table 1 shows the chosen transform functions.
+The id scheme slightly outperforms ih, and both vastly  outperform the all scheme - eliminating nepotistic links pays off.
+ber of textual anchor matches.
+However, while not perfect, this approximation is at least directionally correct.

@@ -1,0 +1,270 @@
+We conducted experiments to test the performances of AdaRank
+using four benchmark datasets: OHSUMED, WSJ, AP, and .Gov.
+Table 2: Features used in the experiments on OHSUMED,
+WSJ, and AP datasets. C(w, d) represents frequency of word
+w in document d; C represents the entire collection; n denotes
+number of terms in query; | · | denotes the size function; and
+id f(·) denotes inverse document frequency.
+1 wi∈q d ln(c(wi, d) + 1) 2 wi∈q d ln( |C|
+c(wi,C)
++ 1)
+3 wi∈q d ln(id f(wi)) 4 wi∈q d ln(c(wi,d)
+|d|
++ 1)
+5 wi∈q d ln(c(wi,d)
+|d|
+· id f(wi) + 1) 6 wi∈q d ln(c(wi,d)·|C|
+|d|·c(wi,C)
++ 1)
+7 ln(BM25 score)
+0.2
+0.3
+0.4
+0.5
+0.6
+MAP NDCG@1 NDCG@3 NDCG@5 NDCG@10
+BM25
+Ranking SVM
+RarnkBoost
+AdaRank.MAP
+AdaRank.NDCG
+Figure 2: Ranking accuracies on OHSUMED data.
+4.1 Experiment Setting
+Ranking SVM [13, 16] and RankBoost [8] were selected as 
+baselines in the experiments, because they are the state-of-the-art 
+learning to rank methods. Furthermore, BM25 [24] was used as a 
+baseline, representing the state-of-the-arts IR method (we actually used
+the tool Lemur1
+).
+For AdaRank, the parameter T was determined automatically
+during each experiment. Specifically, when there is no 
+improvement in ranking accuracy in terms of the performance measure, the
+iteration stops (and T is determined). As the measure E, MAP and
+NDCG@5 were utilized. The results for AdaRank using MAP and
+NDCG@5 as measures in training are represented as AdaRank.MAP
+and AdaRank.NDCG, respectively.
+4.2 Experiment with OHSUMED Data
+In this experiment, we made use of the OHSUMED dataset [14]
+to test the performances of AdaRank. The OHSUMED dataset 
+consists of 348,566 documents and 106 queries. There are in total
+16,140 query-document pairs upon which relevance judgments are
+made. The relevance judgments are either ‘d" (definitely relevant),
+‘p" (possibly relevant), or ‘n"(not relevant). The data have been
+used in many experiments in IR, for example [4, 29].
+As features, we adopted those used in document retrieval [4].
+Table 2 shows the features. For example, tf (term frequency), idf
+(inverse document frequency), dl (document length), and 
+combinations of them are defined as features. BM25 score itself is also a
+feature. Stop words were removed and stemming was conducted in
+the data.
+We randomly divided queries into four even subsets and 
+conducted 4-fold cross-validation experiments. We tuned the 
+parameters for BM25 during one of the trials and applied them to the other
+trials. The results reported in Figure 2 are those averaged over four
+trials. In MAP calculation, we define the rank ‘d" as relevant and
+1
+http://www.lemurproject.com
+Table 3: Statistics on WSJ and AP datasets.
+Dataset # queries # retrieved docs # docs per query
+AP 116 24,727 213.16
+WSJ 126 40,230 319.29
+0.40
+0.45
+0.50
+0.55
+0.60
+MAP NDCG@1 NDCG@3 NDCG@5 NDCG@10
+BM25
+Ranking SVM
+RankBoost
+AdaRank.MAP
+AdaRank.NDCG
+Figure 3: Ranking accuracies on WSJ dataset.
+the other two ranks as irrelevant. From Figure 2, we see that both
+AdaRank.MAP and AdaRank.NDCG outperform BM25, Ranking
+SVM, and RankBoost in terms of all measures. We conducted 
+significant tests (t-test) on the improvements of AdaRank.MAP over
+BM25, Ranking SVM, and RankBoost in terms of MAP. The 
+results indicate that all the improvements are statistically significant
+(p-value < 0.05). We also conducted t-test on the improvements
+of AdaRank.NDCG over BM25, Ranking SVM, and RankBoost
+in terms of NDCG@5. The improvements are also statistically
+significant.
+4.3 Experiment with WSJ and AP Data
+In this experiment, we made use of the WSJ and AP datasets
+from the TREC ad-hoc retrieval track, to test the performances of
+AdaRank. WSJ contains 74,520 articles of Wall Street Journals
+from 1990 to 1992, and AP contains 158,240 articles of 
+Associated Press in 1988 and 1990. 200 queries are selected from the
+TREC topics (No.101 ∼ No.300). Each query has a number of 
+documents associated and they are labeled as ‘relevant" or ‘irrelevant"
+(to the query). Following the practice in [28], the queries that have
+less than 10 relevant documents were discarded. Table 3 shows the
+statistics on the two datasets.
+In the same way as in section 4.2, we adopted the features listed
+in Table 2 for ranking. We also conducted 4-fold cross-validation
+experiments. The results reported in Figure 3 and 4 are those 
+averaged over four trials on WSJ and AP datasets, respectively. From
+Figure 3 and 4, we can see that AdaRank.MAP and AdaRank.NDCG
+outperform BM25, Ranking SVM, and RankBoost in terms of all
+measures on both WSJ and AP. We conducted t-tests on the 
+improvements of AdaRank.MAP and AdaRank.NDCG over BM25,
+Ranking SVM, and RankBoost on WSJ and AP. The results 
+indicate that all the improvements in terms of MAP are statistically 
+significant (p-value < 0.05). However only some of the improvements
+in terms of NDCG@5 are statistically significant, although overall
+the improvements on NDCG scores are quite high (1-2 points).
+4.4 Experiment with .Gov Data
+In this experiment, we further made use of the TREC .Gov data
+to test the performance of AdaRank for the task of web retrieval.
+The corpus is a crawl from the .gov domain in early 2002, and
+has been used at TREC Web Track since 2002. There are a total
+0.40
+0.45
+0.50
+0.55
+MAP NDCG@1 NDCG@3 NDCG@5 NDCG@10
+BM25
+Ranking SVM
+RankBoost
+AdaRank.MAP
+AdaRank.NDCG
+Figure 4: Ranking accuracies on AP dataset.
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+MAP NDCG@1 NDCG@3 NDCG@5 NDCG@10
+BM25
+Ranking SVM
+RankBoost
+AdaRank.MAP
+AdaRank.NDCG
+Figure 5: Ranking accuracies on .Gov dataset.
+Table 4: Features used in the experiments on .Gov dataset.
+1 BM25 [24] 2 MSRA1000 [27]
+3 PageRank [21] 4 HostRank [30]
+5 Relevance Propagation [23] (10 features)
+of 1,053,110 web pages with 11,164,829 hyperlinks in the data.
+The 50 queries in the topic distillation task in the Web Track of
+TREC 2003 [6] were used. The ground truths for the queries are
+provided by the TREC committee with binary judgment: relevant
+or irrelevant. The number of relevant pages vary from query to
+query (from 1 to 86).
+We extracted 14 features from each query-document pair. 
+Table 4 gives a list of the features. They are the outputs of some
+well-known algorithms (systems). These features are different from
+those in Table 2, because the task is different.
+Again, we conducted 4-fold cross-validation experiments. The
+results averaged over four trials are reported in Figure 5. From the
+results, we can see that AdaRank.MAP and AdaRank.NDCG 
+outperform all the baselines in terms of all measures. We conducted 
+ttests on the improvements of AdaRank.MAP and AdaRank.NDCG
+over BM25, Ranking SVM, and RankBoost. Some of the 
+improvements are not statistically significant. This is because we have only
+50 queries used in the experiments, and the number of queries is
+too small.
+4.5 Discussions
+We investigated the reasons that AdaRank outperforms the 
+baseline methods, using the results of the OHSUMED dataset as examples.
+First, we examined the reason that AdaRank has higher 
+performances than Ranking SVM and RankBoost. Specifically we 
+com0.58
+0.60
+0.62
+0.64
+0.66
+0.68
+d-n d-p p-n
+accuracy
+pair type
+Ranking SVM
+RankBoost
+AdaRank.MAP
+AdaRank.NDCG
+Figure 6: Accuracy on ranking document pairs with
+OHSUMED dataset.
+0
+2
+4
+6
+8
+10
+12
+numberofqueries
+number of document pairs per query
+Figure 7: Distribution of queries with different number of 
+document pairs in training data of trial 1.
+pared the error rates between different rank pairs made by 
+Ranking SVM, RankBoost, AdaRank.MAP, and AdaRank.NDCG on the
+test data. The results averaged over four trials in the 4-fold cross
+validation are shown in Figure 6. We use ‘d-n" to stand for the pairs
+between ‘definitely relevant" and ‘not relevant", ‘d-p" the pairs 
+between ‘definitely relevant" and ‘partially relevant", and ‘p-n" the
+pairs between ‘partially relevant" and ‘not relevant". From 
+Figure 6, we can see that AdaRank.MAP and AdaRank.NDCG make
+fewer errors for ‘d-n" and ‘d-p", which are related to the tops of
+rankings and are important. This is because AdaRank.MAP and
+AdaRank.NDCG can naturally focus upon the training on the tops
+by optimizing MAP and NDCG@5, respectively.
+We also made statistics on the number of document pairs per
+query in the training data (for trial 1). The queries are clustered into
+different groups based on the the number of their associated 
+document pairs. Figure 7 shows the distribution of the query groups. In
+the figure, for example, ‘0-1k" is the group of queries whose 
+number of document pairs are between 0 and 999. We can see that the
+numbers of document pairs really vary from query to query. Next
+we evaluated the accuracies of AdaRank.MAP and RankBoost in
+terms of MAP for each of the query group. The results are reported
+in Figure 8. We found that the average MAP of AdaRank.MAP
+over the groups is two points higher than RankBoost. Furthermore,
+it is interesting to see that AdaRank.MAP performs particularly
+better than RankBoost for queries with small numbers of document
+pairs (e.g., ‘0-1k", ‘1k-2k", and ‘2k-3k"). The results indicate that
+AdaRank.MAP can effectively avoid creating a model biased 
+towards queries with more document pairs. For AdaRank.NDCG,
+similar results can be observed.
+0.2
+0.3
+0.4
+0.5
+MAP
+query group
+RankBoost
+AdaRank.MAP
+Figure 8: Differences in MAP for different query groups.
+0.30
+0.31
+0.32
+0.33
+0.34
+trial 1 trial 2 trial 3 trial 4
+MAP
+AdaRank.MAP
+AdaRank.NDCG
+Figure 9: MAP on training set when model is trained with MAP
+or NDCG@5.
+We further conducted an experiment to see whether AdaRank has
+the ability to improve the ranking accuracy in terms of a measure
+by using the measure in training. Specifically, we trained ranking
+models using AdaRank.MAP and AdaRank.NDCG and evaluated
+their accuracies on the training dataset in terms of both MAP and
+NDCG@5. The experiment was conducted for each trial. Figure
+9 and Figure 10 show the results in terms of MAP and NDCG@5,
+respectively. We can see that, AdaRank.MAP trained with MAP
+performs better in terms of MAP while AdaRank.NDCG trained
+with NDCG@5 performs better in terms of NDCG@5. The results
+indicate that AdaRank can indeed enhance ranking performance in
+terms of a measure by using the measure in training.
+Finally, we tried to verify the correctness of Theorem 1. That is,
+the ranking accuracy in terms of the performance measure can be
+continuously improved, as long as e−δt
+min 1 − ϕ(t)2 < 1 holds. As
+an example, Figure 11 shows the learning curve of AdaRank.MAP
+in terms of MAP during the training phase in one trial of the cross
+validation. From the figure, we can see that the ranking accuracy
+of AdaRank.MAP steadily improves, as the training goes on, until
+it reaches to the peak. The result agrees well with Theorem 1.

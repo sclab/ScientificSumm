@@ -1,0 +1,73 @@
+When we arrange agents so that each aircraft is typically only affected by a single agent, each agent"s impact of the counts of the number of aircraft in a sector, kt,s, will be mostly independent of the other agents.
+3.4.2 Estimates of Difference Rewards Though providing a good compromise between aiming for system performance and removing the impact of other agents from an agent"s reward, one issue that may plague D is computational cost.
+The first and most direct approach is to let each agent receive the system  performance as its reward.
+However, due to our agent selection and agent action set, the air traffic congestion domain modeled in this paper only needs to utilize immediate rewards.
+We will  therefore also set up a second set of reward structures based on agent-specific rewards.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 345 In addition, we assume that Gf is much easier to compute than f(z), or that we may not be able to even compute f(z) directly and must sample it from a black box  computation.
+These values of kt,s are the f(z)s in our formulation and the penalty functions form Gf .
+By increasing the value of d, an agent can limit the amount of air traffic downstream of its fix, reducing congestion at the expense of increasing the delays upstream.
+However, if agents take actions  independently (it does not observe how other agents act before taking its own action) we can take advantage of the linear form of f(z) in the fis with the following equality: E(f−i(z−i)|zi) = E(f−i(z−i)|ci) (12) where E(f−i(z−i)|zi) is the expected value of all of the fs other than fi given the value of zi and E(f−i(z−i)|ci) is the expected value of all of the fs other than fi given the value of zi is changed to ci.
+At every time step the agent chooses the action with the highest table value with  probability 1 − and chooses a random action with probability .
+Let us focus on G functions in the following form: G(z) = Gf (f(z)), (8) where Gf () is non-linear with a known functional form and, f(z) = X i fi(zi) , (9) where each fi is an unknown non-linear function.
+To improve our estimates, we can set ci = E(z) and if we make the mean squared approximation of f(E(z)) ≈ E(f(z)) then we can estimate G(z) − G(z − zi + ci) as: Dest2 i = Gf (f(z)) − Gf (f(z) − E(f(z)|zi) + E(f(z))) .
+To compute our counterfactual G(z − zi + ci) we need to compute: Gf (f(z − zi + ci)) = Gf 0 @ X j=i fj(zj) + fi(ci) 1 A (10) = Gf (f(z) − fi(zi) + fi(ci)) .
+3.3 Agent Learning The objective of each agent is to learn the best values of d that will lead to the best system performance, G. In this paper we assume that each agent will have a reward  function and will aim to maximize its reward using its own  reinforcement learner [15] (though alternatives such as  evolving neuro-controllers are also effective [1]).
+We can then estimate f(z − zi + ci): f(z) − fi(zi) + fi(ci) = f(z) − fi(zi) + fi(ci) + E(f−i(z−i)|ci) − E(f−i(z−i)|zi) = f(z) − E(fi(zi)|zi) + E(fi(ci)|ci) + E(f−i(z−i)|ci) − E(f−i(z−i)|zi) = f(z) − E(f(z)|zi) + E(f(z)|ci) .
+In many situations it is possible to use a ci that is  equivalent to taking agent i out of the system.
+That selection has the advantage that agent actions can be intuitive (e.g., change of flight plan, increase or decrease speed and altitude) and offer a high level of granularity, in that each agent can have its own policy.
+These estimates can be computed by  keeping a table of averages where we average the values of the  observed f(z) for each value of zi that we have seen.
+Because it relies on the computation of the counterfactual term G(z − zi + ci) (i.e., the system performance without agent i) it may be difficult or  impossible to compute, particularly when the exact mathematical form of G is not known.
+Their number can vary depending on need.
+The multi agent approach to air traffic flow management we present is predicated on adaptive agents taking  independent actions that maximize the system evaluation function discussed above.
+When there are many aircraft going through a fix, the effect of issuing higher MIT values is to slow down the rate of aircraft that go through the fix.
+After taking action a and receiving reward R an agent updates its Q table (which contains its estimate of the value for taking that action [15]) as follows: Q (a) = (1 − l)Q(a) + l(R), (6) where l is the learning rate.
+Second, because the second term does not depend on the actions of agent i, any action by agent i that improves D, also improves G. This term which measures the amount of alignment between two rewards has been dubbed factoredness in previous work [2, 17].
+3.4.1 Difference Rewards Consider difference rewards of the form [2, 17, 18]: Di ≡ G(z) − G(z − zi + ci) , (7) where zi is the action of agent i.
+3.2 Agent Actions The second issue that needs to be addressed, is  determining the action set of the agents.
+The agents corresponding to fixes surrounding a  possible congestion become live and start setting new separation times.
+Note that given aircraft counts, the penalty functions (Gf ) can be easily computed in microseconds, while aircraft counts (f) can only be  computed by running FACET taking on the order of seconds.
+Again, an obvious choice may be for fixes to bid on aircraft, affecting their flight plans.
+When an agent sets the MIT value to d, aircraft going towards its fix are instructed to line up and keep d miles of separation (though aircraft will always keep a safe distance from each other regardless of the value of d).
+There are two advantages to using D: First, because the second term removes a significant portion of the impact of other agents in the system, it provides an agent with a cleaner signal than G. This benefit has been dubbed learnability (agents have an easier time learning) in  previous work [2, 17].
+Therefore we can evaluate Di = G(z) − G(z − zi + ci) as: Dest1 i = Gf (f(z)) − Gf (f(z) − E(f(z)|zi) + E(f(z)|ci)) , (13) leaving us with the task of estimating the values of E(f(z)|zi) and E(f(z)|ci)).
+3.4 Agent Reward Structure The final issue that needs to be addressed is selecting the reward structure for the learning agents.
+The Sixth Intl.
+All the components of z that are affected by agent i are replaced with the fixed constant ci 2 .
+Intuitively this causes the second term of the difference reward to  evaluate the performance of the system without i and therefore D evaluates the agent"s contribution to the system  performance.
+Though appealing from a free flight perspective, that approach makes the flight plans too unreliable and  significantly complicates the scheduling problem (e.g., arrival at airports and the subsequent gate assignment process).
+Instead, we set the actions of an agent to determining the separation (distance between aircraft) that aircraft have 344 The Sixth Intl.
+However, in many domains such a reward structure leads to slow learning.
+(11) Unfortunately, we cannot compute this directly as the values of fi(zi) are unknown.
+In this work we focus on difference rewards which aim to provide a reward that is both sensitive to that agent"s actions and aligned with the overall system reward [2, 17, 18].
+3.1 Agent Selection Selecting the aircraft as agents is perhaps the most  obvious choice for defining an agent.
+Because aircraft flight plans consist of fixes, agent will have the ability to affect traffic flow patterns.
+Each agent is then responsible for any aircraft going through its fix.
+Given that agents aim to maximize their own rewards, a critical task is to create good agent rewards, or rewards that when pursued by the agents lead to good overall system performance.
+At every episode an agent takes an action and then receives a reward evaluating that action.
+We  assume that we can sample values from f(z), enabling us to compute G, but that we cannot sample from each fi(zi).
+Because fixes are stationary, collecting data and  matching behavior to reward is easier.
+Agents surrounding a congestion or weather condition affect the flow of traffic to reduce the burden on particular regions.
+(14) This formulation has the advantage in that we have more samples at our disposal to estimate E(f(z)) than we do to estimate E(f(z)|ci)). 
+To that end, there are four critical  decisions that need to be made: agent selection, agent action set selection, agent learning algorithm selection and agent reward structure selection.
+As an alternative, we assign agents to individual ground  locations throughout the airspace called fixes.
+They can be deployed within the current air traffic routing procedures, and can be used as tools to help air traffic controllers rather than compete with or replace them.
+As a  consequence, simple table-based immediate reward reinforcement learning is used.
+Second, as the agents would not be able to sample their state space sufficiently, learning would be prohibitively slow.
+This  estimate should improve as the number of samples increases.
+The vector zi in our notation would be ziei in standard vector notation, where ei is a vector with a value of 1 in the ith component and is zero everywhere else.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) to maintain, when going through the agent"s fix.
+Fixes offer many advantages as agents: 1.
+2 This notation uses zero padding and vector addition rather than concatenation to form full state vectors from partial state vectors.
+This form of G matches our system evaluation in the air traffic domain.
+The  system can have as many agents as required for a given situation (e.g., agents coming live around an area with developing weather conditions).
+Our reinforcement learner is equivalent to an -greedy Q-learner with a discount rate of 0 [15].
+First, there are in excess of 40,000 aircraft in a given day, leading to a massively large multi-agent  system.
+For complex delayed-reward problems, relatively sophisticated  reinforcement learning systems such as temporal difference may have to be used.
+In the experiments described in this paper, α is equal to 0.5 and is equal to 0.25.
+The parameters were chosen experimentally, though system performance was not overly sensitive to these parameters.
+Figure 2 shows a schematic of this agent based system.
+This is known as setting the Miles in Trail or MIT.
+However, there are several problems with that approach.
+Joint Conf.
+Joint Conf.
+Figure 2: Schematic of agent architecture.

@@ -1,0 +1,218 @@
+In this section we show the benefit of using our GA-based 
+scheduler. Because we wanted to scale the scenarios up to a large number
+of workflows (up to 1000 in our experiments), we implemented a
+simulation program that allowed us to vary parameters and to 
+measure the results with different metrics. The simulator was written
+in standard C++ and was run on a Linux (Fedora Core) desktop
+computer running at 2.8 GHz with 1GB of RAM.
+We compared our algorithm against alternative candidates:
+• A well-known round-robin algorithm that assigns each 
+business process in circular fashion to the service providers for a
+particular service type. This approach provides the simplest
+scheme for load-balancing.
+• A random-proportional algorithm that proportionally assigns
+business processes to the service providers; that is, for a
+given service type, the service providers are ranked by their
+guaranteed completion time, and business processes are 
+assigned proportionally to the providers based on their 
+completion time. (We also tried a proportionality scheme based
+on both the completion times and maximum concurrency but
+attained the same results, so only the former scheme"s results
+are shown here.)
+• A strawman greedy algorithm that always assigns business
+processes to the service provider that has the fastest 
+guaranteed completion time. This algorithm represents a naive 
+approach based on greedy, local observations of each workflow
+without taking into consideration all workflows.
+In the experiments that follow, all results were averaged across
+20 trials, and to help normalise the effects of randomisation used
+during the GA, each trial started by reading in pre-initialised data
+from disk. In Table 1 we list our experimental parameters.
+In Figure 3 we show the results of running our GA against the
+three candidate alternatives. The x-axis shows the number for 
+workflows scaled up to 1000, and the y-axis shows the aggregate 
+business value for all workflows. As can be seen, the GA consistently
+produces the highest business value even as the number of 
+workflows grows; at 1000 workflows, the GA produces a 115% 
+improvement over the next-best alternative. (Note that although we
+are optimising against the business value metric we defined earlier,
+genetic algorithms are able to converge towards the optimal value
+of any metric, as long as the evaluation function can consistently
+measure a chromosome"s value with that metric.)
+As expected, the greedy algorithm performs very poorly because
+it does the worst job at balancing load: all business processes for
+a given service type are assigned to only one server (the one 
+advertised to have the fastest completion time), and as more 
+business processes arrive, the provider"s performance degrades linearly.
+The round-robin scheme is initially outperformed by the 
+randomproportional scheme up to around 120 workflows (as shown in the
+magnified graph of Figure 4), but as the number of workflows 
+increases, the round-robin scheme consistently wins over 
+randomproportional. The reason is that although the random-proportional
+scheme assigns business processes to providers proportionally 
+according to the advertised completion times (which is a measure of
+the power of the service provider), even the best providers will
+eventually reach a real-world maximum concurrency for the large
+-2000
+-1000
+0
+1000
+2000
+3000
+4000
+5000
+6000
+7000
+0 200 400 600 800 1000
+Aggregatebusinessvalueacrossallworkflows
+Total number of workflows
+Business value scores of scheduling algorithms
+Genetic algorithm
+Round robin
+Random proportional
+Greedy
+Figure 3: Net business value scores of different scheduling algorithms.
+-500
+0
+500
+1000
+1500
+2000
+2500
+3000
+3500
+4000
+0 50 100 150 200Aggregatebusinessvalueacrossallworkflows
+Total number of workflows
+Business value scores of scheduling algorithms
+Genetic algorithm
+Round robin
+Random proportional
+Greedy
+Figure 4: Magnification of the left-most region in Figure 3.
+number of workflows that we are considering. For a very large
+number of workflows, the round-robin scheme is able to better 
+balance the load across all service providers.
+To better understand the behaviour resulting from the scheduling
+assignments, we show the workflow completion results in Figures
+5, 6, and 7 for 100, 500, and 900 workflows, respectively. These
+figures show the percentage of workflows that are successful (can
+complete with their QoS limit), acceptable (can complete within
+κ=3 times their QoS limit), and failed (cannot complete within κ=3
+times their QoS limit). The GA consistently produces the highest
+percentage of successful workflows (resulting in higher business
+values for the aggregate set of workflows). Further, the round-robin
+scheme produces better results than the random-proportional for a
+large number of workflows but does not perform as well as the GA.
+In Figure 8 we graph the makespan resulting from the same
+experiments above. Makespan is a traditional metric from the job
+scheduling community measuring elapsed time for the last job to
+complete. While useful, it does not capture the high-level business
+value metric that we are optimising against. Indeed, the makespan
+is oblivious to the fact that we provide multiple levels of 
+completion (successful, acceptable, and failed) and assign business value
+scores accordingly. For completeness, we note that the GA 
+provides the fastest makespan, but it is matched by the round robin
+algorithm. The GA produces better business values (as shown in
+Figure 3) because it is able to search the solution space to find 
+better mappings that produce more successful workflows (as shown in
+Figures 5 to 7).
+We also looked at the effect of the scheduling algorithms on
+balancing the load. Figure 9 shows the percentage of services
+providers that were accessed while the workflows ran. As expected,
+the greedy algorithm always hits one service provider; on the other
+hand, the round-robin algorithm is the fastest to spread the business
+33
+Experimental parameter Comment
+Workflows 5 to 1000
+Business processes per workflow uniform random: 1 - 10
+Service types 10
+Service providers per service type uniform random: 1 - 10
+Workflow QoS goal uniform random: 10-30 seconds
+Service provider completion time (α) uniform random: 1 - 12 seconds
+Service provider maximum concurrency (β) uniform random: 1 - 12
+Service provider degradation coefficient (γ) uniform random: 0.1 - 0.9
+Business value for successful workflows uniform random: 10 - 50 points
+Business value for acceptable workflows uniform random: 0 - 10 points
+Business value for failed workflows uniform random: -10 - 0 points
+GA: number of parents 20
+GA: number of children 80
+GA: number of generations 1000
+Table 1: Experimental parameters
+Failed
+Acceptable (completed but not within QoS)
+Successful (completed within QoS)
+0%
+20%
+40%
+60%
+80%
+100%
+RoundRobinRandProportionalGreedyGeneticAlg
+Percentageofallworkflows
+Workflow behaviour, 100 workflows
+Figure 5: Workflow behaviour for 100 workflows.
+Failed
+Acceptable (completed but not within QoS)
+Successful (completed within QoS)
+0%
+20%
+40%
+60%
+80%
+100%
+RoundRobinRandProportionalGreedyGeneticAlg
+Percentageofallworkflows
+Workflow behaviour, 500 workflows
+Figure 6: Workflow behaviour for 500 workflows.
+Failed
+Acceptable (completed but not within QoS)
+Successful (completed within QoS)
+0%
+20%
+40%
+60%
+80%
+100%
+RoundRobinRandProportionalGreedyGeneticAlg
+Percentageofallworkflows
+Workflow behaviour, 500 workflows
+Figure 7: Workflow behaviour for 900 workflows.
+0
+50
+100
+150
+200
+250
+300
+0 200 400 600 800 1000
+Makespan[seconds]
+Number of workflows
+Maximum completion time for all workflows
+Genetic algorithm
+Round robin
+Random proportional
+Greedy
+Figure 8: Maximum completion time for all workflows. This value
+is the makespan metric used in traditional scheduling research. 
+Although useful, the makespan does not take into consideration the 
+business value scoring in our problem domain.
+processes. Figure 10 is the percentage of accessed service providers
+(that is, the percentage of service providers represented in Figure
+9) that had more assigned business processes than their advertised
+maximum concurrency. For example, in the greedy algorithm only
+one service provider is utilised, and this one provider quickly 
+becomes saturated. On the other hand, the random-proportional 
+algorithm uses many service providers, but because business processes
+are proportionally assigned with more assignments going to the
+better providers, there is a tendency for a smaller percentage of
+providers to become saturated.
+For completeness, we show the performance of the genetic 
+algorithm itself in Figure 11. The algorithm scales linearly with an
+increasing number of workflows. We note that the round-robin,
+random-proportional, and greedy algorithms all finished within 1
+second even for the largest workflow configuration. However, we
+feel that the benefit of finding much higher business value scores
+justifies the running time of the GA; further we would expect that
+the running time will improve with both software tuning as well as
+with a computer faster than our off-the-shelf PC.

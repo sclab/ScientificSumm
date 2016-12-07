@@ -1,0 +1,44 @@
+The semantics of ATLir formulae can be defined as follows: M, q |= A ir fϕ iff there is a uniform collective strategy SA such that, for every a ∈ A, q such that q ∼a q , and λ ∈ out(SA, q ), we have M, λ[1] |= ϕ; 2 This is a deviation from the original semantics of ATL [3], where strategies assign agents" choices to sequences of states, which  suggests that agents can by definition recall the whole history of each game.
+It is required that agents have the same choices in indistinguishable states: q ∼a q implies d(a, q) = d(a, q ).
+Let Agt = {1, ..., k} be a set of agents with a typical element a. Epistemic logic uses operators for representing agents" knowledge: Kaϕ is read as agent a knows that ϕ.
+We assume that all ∼a are equivalences.
+The semantics of epistemic operators is defined as follows: M, q |= Kaϕ iff M, q |= ϕ for every q such that q ∼a q .
+Formally, the recursive definition of ATLir formulae is: ϕ ::= p | ¬ϕ | ϕ ∧ ϕ | A ir fϕ | A ir2ϕ | A irϕ U ϕ Models of ATLir, concurrent epistemic game structures (CEGS), can be defined as tuples M = Agt, St, Act, d, o, ∼1, ..., ∼k, Π, π , where Agt, St, Act, d, o, Π, π is a CGS, and ∼1, ..., ∼k are  epistemic (equivalence) relations.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) M, q |= A ir2ϕ iff there exists SA such that, for every a ∈ A, q such that q ∼a q , and λ ∈ out(SA, q ), we have M, λ[i] for every i ≥ 0; M, q |= A irϕ U ψ iff there exist SA such that, for every a ∈ A, q such that q ∼a q , and λ ∈ out(SA, q ), there is i ≥ 0 for which M, λ[i] |= ψ, and M, λ[j] |= ϕ for every 0 ≤ j < i.
+Interpretation of a formula in a state q in model M is defined as follows: M, q |= p iff q ∈ π(p); M, q |= ¬ϕ iff M, q |= ϕ; M, q |= ϕ ∧ ψ iff M, q |= ϕ and M, q |= ψ; M, q |= E fϕ iff there is a q-path λ such that M, λ[1] |= ϕ; M, q |= E2ϕ iff there is a q-path λ such that M, λ[i] |= ϕ for every i ≥ 0; M, q |= Eϕ U ψ iff there is a q-path λ and i ≥ 0 such that M, λ[i] |= ψ and M, λ[j] |= ϕ for every 0 ≤ j < i.
+That is, A irϕ holds iff A have a uniform collective strategy, such that for every path that can possibly result from execution of the strategy according to at least one agent from A, ϕ is the case. 
+While the choice of one or another notion of strategy affects the semantics of the full ATL ∗ , and most ATL extensions (e.g.
+A CGS is a tuple M = Agt, St, Act, d, o, Π, π , 1 Additional operators A (for every path) and 3 (sometime in the future) are defined in the usual way.
+The language of ATL consists of the following formulae: ϕ ::= p | ¬ϕ | ϕ ∧ ϕ | A fϕ | A 2ϕ | A ϕ U ϕ. where A ⊆ Agt.
+The semantics of cooperation modalities is as follows: M, q |= A fϕ iff there is a collective strategy SA such that, for every λ ∈ out(q, SA), we have M, λ[1] |= ϕ; M, q |= A 2ϕ iff there exists SA such that, for every λ ∈ out(q, SA), we have M, λ[i] for every i ≥ 0; M, q |= A ϕ U ψ iff there exists SA such that for every λ ∈ out(q, SA) there is a i ≥ 0, for which M, λ[i] |= ψ, and M, λ[j] |= ϕ for every 0 ≤ j < i.
+Finally, the outcome of strategy SA in state q is defined as the set of all computations that may result from executing SA from q on: out(q, SA) = {λ = q0q1q2... | q0 = q and for every i = 1, 2, ... there exists αi−1 1 , ..., αi−1 k such that αi−1 a = SA(a)(qi−1) for each a ∈ A, αi−1 a ∈ d(a, qi−1) for each a /∈ A, and o(qi−1, αi−1 1 , ..., αi−1 k ) = qi}.
+Again, the function out(q, SA) returns the set of all paths that may result from agents A executing collective strategy SA from state q.
+Informally, A ϕ says that agents A have a  collective strategy to enforce ϕ.
+Let Π be a set of atomic propositions with a typical element p. CTL formulae ϕ are defined as follows: ϕ ::= p | ¬ϕ | ϕ ∧ ϕ | E fϕ | E2ϕ | Eϕ U ϕ.
+2.1 Branching Time: CTL Computation tree logic CTL [6] includes operators for temporal properties of systems: i.e., path quantifier E (there is a path),  together with temporal operators: f(in the next state), 2 (always from now on) and U (until).1 Every occurrence of a temporal operator is immediately preceded by exactly one path quantifier (this variant of the language is sometimes called vanilla CTL).
+A (memoryless) strategy of agent a is a function sa : St → Act such that sa(q) ∈ d(a, q).2 A collective strategy SA for a team A ⊆ Agt specifies an individual strategy for each agent a ∈ A.
+A q-path is a path that starts in q.
+Note that, when talking about agents" knowledge, we  implicitly assume that agents may have imperfect information about the actual current state of the world (otherwise the notion of  knowledge would be trivial).
+Finally, o is a  deterministic transition function which maps a state q ∈ St and an action profile α1, .
+for games with imperfect information), it should be pointed out that both types of strategies yield equivalent semantics for pure ATL (cf.
+A path λ in M refers to a possible behavior (or computation) of system M, and can be represented as an infinite sequence of states q0q1q2... such that qiRqi+1 for every i = 0, 1, 2, .... We denote the ith state in λ by λ[i].
+ATLir [21] includes the same formulae as ATL, except that the  cooperation modalities are presented with a subscript: A ir indicates that they address agents with imperfect information and imperfect recall.
+The semantics of ATL is defined in so called concurrent game structures (CGSs).
+, k} of agents; set St of states; valuation of propositions π : Π → P(St); set Act of atomic  actions.
+ATLir restricts the strategies that can be used by agents to uniform strategies, i.e.
+2.4 Agents with Imperfect Information: ATLir As ATL does not include incomplete information in its scope, it can be seen as a logic for reasoning about agents who always have complete knowledge about the current state of the whole system.
+The semantics of CTL is based on Kripke models M = St, R, π , which include a nonempty set of states St, a state transition relation R ⊆ St × St, and a valuation of propositions π : Π → P(St).
+It should be noted that the CTL path quantifiers A, E can be expressed with ∅ , Agt respectively.
+Function d : Agt × St → P(Act) indicates the actions available to agent a ∈ Agt in state q ∈ St.
+This does not have influence on the way we model evolution of a system as a single unit, but it will become important when particular agents and their strategies come to the fore.
+consisting of: a set Agt = {1, .
+functions sa : St → Act, such that: (1) sa(q) ∈ d(a, q), and (2) if q ∼a q then sa(q) = sa(q ).
+2.3 Agents and Their Strategies: ATL Alternating-time temporal logic ATL [3] is a logic for  reasoning about temporal and strategic properties of open computational systems (multi-agent systems in particular).
+A collective strategy is uniform if it contains only uniform individual strategies.
+, αk ∈ Actk , αi ∈ d(i, q), to another state q = o(q, α1, .
+Models of CTLK extend models of CTL with epistemic indistinguishability relations ∼a⊆ St × St (one per agent).
+STRATEGIC ABILITY First, we present the logics CTL, CTLK, ATL and ATLir that are the starting point of our study.
+898 The Sixth Intl.
+2.2 Adding Knowledge: CTLK CTLK [19] is a straightforward combination of CTL and standard epistemic logic [10, 7].
+Joint Conf.
+DEFINITION 1.

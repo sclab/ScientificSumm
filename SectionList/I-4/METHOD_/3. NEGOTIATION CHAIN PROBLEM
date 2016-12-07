@@ -1,0 +1,117 @@
+Negotiation chain problem occurs in a multi-agent system, where
+each agent represents an individual, a company, or an organization,
+and there is no absolute authority in the system. Each agent has
+its own utility function for defining the implications of achieving
+its goals. The agent is designed to optimize its expected utility
+given its limited information, computational and communication
+resources. Dynamic tasks arrive to individual agents, most tasks
+requiring the coordination of multiple agents. Each agent has the
+scheduling and planning ability to manage its local activities, some
+of these activities are related to other agents" activities. Negotiation
+is used to coordinate the scheduling of these mutual related 
+activities. The negotiation is tightly connected with the agent"s local
+scheduling/planning processes and is also related to other 
+negotiations. An agent may be involved in multiple related negotiations
+with multiple other agents, and each of the other agents may be
+involved in related negotiations with others too.
+Figure 1 describes a complex negotiation chain scenario. The
+Store, the PC manufacturer, the Memory Producer and the 
+Distribution Center are all involved in multi-linked negotiation 
+problems. Figure 2 shows a distributed model of part of the negotiation
+chain described in Figure 1. Each agent has a local optimization
+problem - the multi-linked negotiation problem (represented as an
+and-or tree), which can be solved using the model and procedures
+described in Section 2. However, the local optimal solution may
+not be optimal in the global context given the local model is neither
+complete or accurate. The dash line in Figure 2 represents the 
+connection of these local optimization problem though the common
+negotiation subject.
+Negotiation chain problem O is a group of tightly-coupled local
+optimization problems:
+O = {O1, O2, ....On}, Oi denotes the local optimization problem
+(multi-linked negotiation problem) of agent Ai
+Agent Ai"s local optimal solution Slo
+i maximizes the expected 
+local utility based on an incomplete information and assumptions
+about other agents" local strategies - we defined such incomplete
+information and imperfect assumptions of agent i as Ii):
+Uexp
+i (Slo
+i , Ii) ≥ Uexp
+i (Sx
+i , Ii) for all x = lo.
+However, the combination of these local optimal solutions {Slo
+i } :
+< Slo
+1 , Slo
+2 , ....Slo
+n > can be sub-optimal to a set of better local
+optimal solutions {Sblo
+i } : < Sblo
+1 , Sblo
+2 , ....Sblo
+n > if the global
+utility can be improved without any agent"s local utility being 
+decreased by using {Sblo
+i }. In other words, {Slo
+i } is dominated by
+{Sblo
+i } ({Slo
+i } ≺ {Sblo
+i }) iff:
+Ui(< Slo
+1 , Slo
+2 , ....Slo
+n >) ≤ Ui(< Sblo
+1 , Sblo
+2 , ....Sblo
+n >) for
+i = 1, ...n and
+Pn
+i=1 Ui(< Slo
+1 , Slo
+2 , ....Slo
+n >) <
+Pn
+i=1 Ui(< Sblo
+1 , Sblo
+2 , ....Sblo
+n >)
+There are multiple sets of better local optimal solutions: {Sblo1
+i },
+{Sblo2
+i }, ... {Sblom
+i }. Some of them may be dominated by others.
+A set of better local optimal solutions {S
+blog
+i } that is not 
+dominated by any others is called best local optimal. If a set of best
+local optimal solutions {S
+blog
+i } dominates all others, {S
+blog
+i } is
+called globally local optimal. However, sometimes the globally
+local optimal set does not exist, instead, there exist multiple sets
+of best local optimal solutions. Even if the globally local optimal
+solution does exist in theory, finding it may not be realistic given
+the agents are making decision concurrently, to construct the 
+perfect local information and assumptions about other agents (Ii) in
+this dynamic environment is a very difficult and sometimes even
+impossible task.
+The goal of this work is to improve each agent"s local model
+about other agents (Ii) through meta-level coordination. As Ii 
+become more accurate, the agent"s local optimal solution to its local
+multi-linked negotiation problem become a better local optimal 
+solution in the context of the global negotiation chain problem. We
+are not arguing that this statement is a universal valid statement
+that holds in all situations, but our experimental work shows that
+the sum of the agents" utilities in the system has been improved by
+95% on average when meta-level coordination is used to improve
+each agent"s local model Ii. In this work, we focus on improving
+the agent"s local model through two directions. One direction is
+to build a better function to describe the relationship between the
+success probability of the negotiation and the flexibility allocated
+to the negotiation. The other direction is to find how to allocate
+time more efficiently for each negotiation in the negotiation chain
+context.

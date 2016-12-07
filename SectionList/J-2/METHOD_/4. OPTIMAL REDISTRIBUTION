@@ -1,0 +1,132 @@
+MECHANISMS
+Among all linear VCG redistribution mechanisms, we would
+like to be able to identify the one that redistributes the
+greatest percentage of the total VCG payment.2
+This is not
+a well-defined notion: it may be that one mechanism 
+redistributes more on some bid vectors, and another more on
+other bid vectors. We emphasize that we do not assume that
+a prior distribution over bidders" valuations is available, so
+we cannot compare them based on expected redistribution.
+Below, we study three well-defined ways of comparing 
+redistribution mechanisms: best-case performance, dominance,
+and worst-case performance.
+Best-case performance. One way of evaluating a 
+mechanism is by considering the highest redistribution 
+percentage that it achieves. Consider the previous two examples.
+For the first example, the total redistribution payment is
+(m + 1)m
+n
+ˆvm+2 + (n − m − 1)m
+n
+ˆvm+1. When ˆvm+2 = ˆvm+1,
+this is equal to the total VCG payment mˆvm+1. Thus, this
+mechanism redistributes 100% of the total VCG payment in
+the best case. For the second example, the total 
+redistribution payment is mˆvm+1 − m(m+1)(m+2)
+(n−m−1)(n−m−2)
+ˆvm+3. When
+ˆvm+3 = 0, this is equal to the total VCG payment mˆvm+1.
+Thus, this mechanism also redistributes 100% of the total
+VCG payment in the best case.
+Moreover, there are actually infinitely many mechanisms
+that redistribute 100% of the total VCG payment in the best
+case-for example, any convex combination of the above two
+will redistribute 100% if both ˆvm+2 = ˆvm+1 and ˆvm+3 = 0.
+Dominance. Inside the family of linear VCG 
+redistribution mechanisms, we say one mechanism dominates another
+mechanism if the first one redistributes at least as much as
+the other for any bid vector. For the previous two examples,
+neither dominates the other, because they each redistribute
+100% in different cases. It turns out that there is no 
+mechanism in the family that dominates all other mechanisms in
+the family. For suppose such a mechanism exists. Then,
+it should dominate both examples above. Consider the 
+remaining VCG payment (the VCG payment failed to be 
+redistributed). The remaining VCG payment of the dominant
+mechanism should be 0 whenever ˆvm+2 = ˆvm+1 or ˆvm+3 = 0.
+Now, the remaining VCG payment is a linear function of the
+ˆvi (linear redistribution), and therefore also a polynomial
+function. The above implies that this function can be 
+written as (ˆvm+2 − ˆvm+1)(ˆvm+3)P(ˆv1, ˆv2, . . . , ˆvn), where P is a
+2
+The percentage redistributed seems the natural criterion to
+use, among other things because it is scale-invariant: if we
+multiply all bids by the same positive constant (for example,
+if we change the units by re-expressing the bids in euros
+instead of dollars), we would not want the behavior of our
+mechanism to change.
+32
+polynomial function. But since the function must be linear
+(has degree at most 1), it follows that P = 0. Thus, a 
+dominant mechanism would always redistribute all of the VCG
+payment, which is not possible. (If it were possible, then our
+worst-case optimal redistribution mechanism would also 
+always redistribute all of the VCG payment, and we will see
+later that it does not.)
+Worst-case performance. Finally, we can evaluate a
+mechanism by considering the lowest redistribution 
+percentage that it guarantees. For the first example, the total 
+redistribution payment is (m+1)m
+n
+ˆvm+2 +(n−m−1)m
+n
+ˆvm+1,
+which is greater than or equal to (n−m−1) m
+n
+ˆvm+1. So in the
+worst case, which is when ˆvm+2 = 0, the percentage 
+redistributed is n−m−1
+n
+. For the second example, the total 
+redistribution payment is mˆvm+1 − m(m+1)(m+2)
+(n−m−1)(n−m−2)
+ˆvm+3, which
+is greater than or equal to mˆvm+1(1− (m+1)(m+2)
+(n−m−1)(n−m−2)
+). So
+in the worst case, which is when ˆvm+3 = ˆvm+1, the 
+percentage redistributed is 1 − (m+1)(m+2)
+(n−m−1)(n−m−2)
+. Since we 
+assume that the number of agents n and the number of units
+m are known, we can determine which example mechanism
+has better worst-case performance by comparing the two
+quantities. When n = 6 and m = 1, for the first example
+(Bailey-Cavallo mechanism), the percentage redistributed in
+the worst case is 2
+3
+, and for the second example, this 
+percentage is 1
+2
+, which implies that for this pair of n and m,
+the first mechanism has better worst-case performance. On
+the other hand, when n = 12 and m = 1, for the first 
+example, the percentage redistributed in the worst case is 5
+6
+, and
+for the second example, this percentage is 14
+15
+, which implies
+that this time the second mechanism has better worst-case
+performance.
+Thus, it seems most natural to compare mechanisms by
+the percentage of total VCG payment that they redistribute
+in the worst case. This percentage is undefined when the
+total VCG payment is 0. To deal with this, technically, we
+define the worst-case redistribution percentage as the largest
+k so that the total amount redistributed is at least k times
+the total VCG payment, for all bid vectors. (Hence, as long
+as the total amount redistributed is at least 0 when the total
+VCG payment is 0, these cases do not affect the worst-case
+percentage.) This corresponds to the following optimization
+problem:
+Maximize k (the percentage redistributed in the
+worst case)
+Subject to:
+For every bid vector ˆv1 ≥ ˆv2 ≥ . . . ≥ ˆvn ≥ 0
+zn ≥ 0 (individual rationality)
+z1 + z2 + . . . + zn ≤ mˆvm+1 (non-deficit)
+z1 + z2 + . . . + zn ≥ kmˆvm+1 (worst-case constraint)
+We recall that zi = c0 + c1ˆv1 + c2ˆv2 + . . . + ci−1ˆvi−1 +
+ciˆvi+1 + . . . + cn−1ˆvn.

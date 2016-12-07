@@ -1,0 +1,74 @@
+By this normalization, we can  compare the results on graphs with different sizes since the  average rank value is one for any graph after such normalization.
+After these investigations, we find that in all the graphs we tested, DiffusionRank (when γ = 1) is most robust to  manipulation both in value difference and order difference.
+5 (b), in which we choose three different settings-the number of manipulated nodes are 2,000, 5,000, and 10,000 respectively.
+The total number of pages found are 18,542 in the middle-size graph, and 607,170 in the large-size graph respectively.
+In each sub-figure, the trusted sets are  computed below.
+4 (a), we choose four trusted sets (L = 1), on which we test DiffusionRank and TrustRank, the results are denoted by DiffusionRanki and TrustRanki (i = 0, 1, 2, 3 denotes the four trusted set); in Fig.
+According to the discussions in Section 4.3 and Section 4.4, we set the iteration number to be MB = 100 in DiffusionRank, and for accuracy consideration, the iteration number in all the algorithms is set to be 100.
+The middle-size graph is a subgraph of the large-size graph, and they were obtained by the same crawler: one is recorded by the crawler in its earlier time, and the other is obtained when the crawler stopped.
+It is interesting to point out that as γ increases, the order difference will increase first; after reaching a maximum value, it will decrease, and finally it tends to the PageRank results.
+0 1000 2000 3000 4000 5000 6000 7000 8000 9000 10000 0 0.5 1 1.5 2 2.5 3 x 10 5 Number of New Added Points PairwiseOrderDifference PageRank DiffusionRank−Gamma=1 DiffusionRank−Gamma=2 DiffusionRank−Gamma=3 DiffusionRank−Gamma=4 DiffusionRank−Gamma=5 DiffusionRank−Gamma=15 TrustRank 0 5 10 15 20 0 0.5 1 1.5 2 2.5 x 10 5 Gamma PairwiseOrderDifference DiffusionRank: when added 2000 nodes DiffusionRank: when added 5000 nodes DiffusionRank: when added 10000 nodes PageRank (a) (b) Figure 5: (a) Pairwise order difference on the middle-size graph, the least it is, the more stable the algorithm; (b) The tendency of varying γ 
+A 1 B C ... 2 5 6 3 4 1 2 5 6 3 4 0 1 2 3 4 5 6 0 2 4 6 8 10 12 Gamma ValueDifference Trust set={1} Trust set={2} Trust set={3} Trust set={4} Trust set={5} Trust set={6} (a) (b) Figure 2: (a) The toy graph consisting of six nodes, and node 1 is being manipulated by adding new nodes A, B, C, .
+The pair (A[i], A[j]) and (B[i], B[j]) is considered as a significant order difference if one of the following cases happens: both A[i] > [ <]A[j]+0.1 and B[i] ≤ [ ≥]A[j]; both A[i] ≤ [ ≥]A[j] and B[i] > [ < ]A[j] + 0.1.
+2 (a) is manipulated respectively, and its 0 50 100 0 10 20 30 40 50 RankoftheManipulatdNode−1 DiffusionRank−Trust 4 PageRank TrustRanl−Trust 4 0 50 100 0 10 20 30 40 50 RankoftheManipulatdNode−2 DiffusionRank−Trust 4 PageRank TrustRanl−Trust 4 0 50 100 0 10 20 30 40 50 RankoftheManipulatdNode−3 DiffusionRank−Trust 4 PageRank TrustRanl−Trust 4 0 50 100 0 10 20 30 40 50 Number of New Added Nodes RankoftheManipulatdNode−4 DiffusionRank−Trust 3 PageRank TrustRanl−Trust 3 0 50 100 0 10 20 30 40 50 Number of New Added Nodes RankoftheManipulatdNode−5 DiffusionRank−Trust 4 PageRank TrustRanl−Trust 4 0 50 100 0 10 20 30 40 50 Number of New Added Nodes RankoftheManipulatdNode−6 DiffusionRank−Trust 4 PageRank TrustRanl−Trust 4 Figure 3: The rank values of the manipulated nodes on the toy graph 200040006000800010000 0 1000 2000 3000 4000 5000 6000 7000 8000 Number of New Added Points RankoftheManipulatdNode PageRank DiffusionRank−uniform DiffusionRank0 DiffusionRank1 DiffusionRank2 DiffusionRank3 TrustRank0 TrustRank1 TrustRank2 TrustRank3 2000 4000 6000 8000 10000 0 20 40 60 80 100 120 140 160 180 Number of New Added Points RankoftheManipulatdNode PageRank DiffusionRank TrustRank DiffusionRank−uniform (a) (b) Figure 4: (a) The rank values of the manipulated nodes on the middle-size graph; (b) The rank values of the manipulated nodes on the large-size graph corresponding values for PageRank, TrustRank (TR),  DiffusionRank (DR) are shown in the one of six sub-figures in Fig.
+The value difference between A = {Ai}n i=1 and B = {Bi}n i=1 is measured as n i=1 |Ai − Bi|.
+3 stand for the numbers of newly added points, and vertical axes show the corresponding rank values of the  manipulated nodes.
+The less the order  difference, the stabler the algorithm, in the sense that only a smaller part of the order relations is affected by the  manipulation.
+The graph below it shows node 1 is being manipulated by adding new nodes A, B, C, .
+(b) The approximation tendency to PageRank by DiffusionRank 5.3 Experimental Set-up The experiments on the middle-size graph and the  largesize graphs are conducted on the workstation, whose  hardware model is Nix Dual Intel Xeon 2.2GHz with 1GB RAM and a Linux Kernel 2.4.18-27smp (RedHat7.3).
+The trust set selection algorithm proposed in [7] is effective for both TrustRank and DiffusionRank.
+We observe that in all the cases, rank values of the manipulated node for DiffusionRank grow slowest as the number of the newly added nodes increases.
+The order difference between A and B is measured as the number of significant order differences between A and B.
+On the middle-size graph and the large-size graph, this conclusion is also true, see Fig.
+The toy graph is shown in Fig.
+All the possible trusted sets with L = 1 are considered.
+Figure 5 (a) shows that the order difference values change when we add new nodes that point to the  manipulated node.
+We find that when γ = 1, the least order difference is achieved by  DiffusionRank.
+The vertical axes show which node is being  manipulated.
+Moreover, in both Fig.
+4 (b), we show the results for DiffusionRank when we have no trusted set, and we trust all the pages before some of them are manipulated.
+5.1 Data Preparation Our input data consist of a toy graph, a middle-size  realworld graph, and a large-size real-world graph.
+Because after  manipulation, the number of pages changes, we only compare the common part of A and PA.
+While in the toy graph, we employ the continuous diffusion kernel in Eq.
+On other graphs, the situations are similar.
+All the rank values are multiplied by the number of nodes so that the sum of the rank values is equal to the number of nodes.
+For L > 1, the results should be the linear combination of some of these curves because of the  linearity of the solutions to heat equations.
+2 (b) shows the approximation property of  DiffusionRank, as proved in Theorem 1, on the toy graph.
+We show this tendency in Fig.
+We measure the  intensity of manipulation by the number of newly added points that point to the manipulated point.
+5.5 Results of Anti-manipulation In this section, we show how the rank values change as the intensity of manipulation increases.
+If the  manipulated node is not 4, then the trusted set is {4}, and  otherwise {3}.
+This experiment is used to test the stability of all these algorithms.
+For nodes that have zero out-degree (dangling nodes), we employ the method in the modified PageRank algorithm [8], in which dangling nodes of are considered to have random links uniformly to each node.
+From these figures, we can see that when γ < 2, the values are less than those for PageRank, and that when γ > 20, the difference between PageRank and DiffusionRank is very small.
+2 (b) marks the γ value, and vertical axis corresponds to the value difference between DiffusionRank and PageRank.
+Note that, in Fig.
+We also test the order difference between the ranking  order A before the page is manipulated and the ranking order PA after the page is manipulated.
+We also set g to be the uniform distribution in both PageRank and DiffusionRank.
+The data of two real Web graph were obtained from the domain in our institute in October, 2004.
+4 (a) and Fig.
+5.4 Approximation of PageRank We show that when γ tends to infinity, the value  differences between DiffusionRank and PageRank tend to zero.
+The horizontal axes of Fig.
+In this section, we show the experimental data, the  methodology, the setting, and the results.
+Every node in Fig.
+We will need value difference and pairwise order difference as comparison measures.
+(4) for such graphs.
+such that they all point to node 1, and node 1 points to them all.
+(6) and the discrete approximation of Eq.
+To be clear, we consider all six situations.
+We give several γ settings.
+The  horizontal axis of Fig.
+4 (b), we choose one trusted set (L = 1).
+For DiffusionRank, we set γ = 1.
+Their definitions are listed as follows.
+2 (a).
+In  calculating DiffusionRank, we employ Eq.
+Value Difference.
+We set α = αI = αB = 0.85 in all algorithms.
+Pairwise Order Difference.
+5.2 Methodology The algorithms we run include PageRank, TrustRank and DiffusionRank.
+(4) and Eq.
+Let L = 1.
+The related tasks are implemented using C language.
+(5), and implement related tasks using Matlab.
+Since the inverse PageRank yields the results [1.26, 0.85, 1.31, 1.36, 0.51, 0.71].

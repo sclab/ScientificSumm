@@ -1,0 +1,166 @@
+In this section, we will briefly review the basics of 
+coalitional game theory and its two primary solution concepts,
+the Shapley value and the core.1
+We will also review 
+previous work on coalitional game representation in more detail.
+Throughout this paper, we will assume that the payoff to
+a group of agents can be freely distributed among its 
+members. This assumption is often known as the transferable
+utility assumption.
+2.1 Technical Background
+We can represent a coalition game with transferable utility
+by the pair N, v , where
+• N is the set of agents; and
+• v : 2N
+→ R is a function that maps each group of
+agents S ⊆ N to a real-valued payoff.
+This representation is known as the characteristic form. As
+there are exponentially many subsets, it will take space 
+exponential in the number of agents to describe a coalitional
+game.
+An outcome in a coalitional game specifies the utilities
+the agents receive. A solution concept assigns to each 
+coalitional game a set of reasonable outcomes. Different 
+solution concepts attempt to capture in some way outcomes
+that are stable and/or fair. Two of the best known solution
+concepts are the Shapley value and the core.
+The Shapley value is a normative solution concept. It
+prescribes a fair way to divide the gains from cooperation
+when the grand coalition (i.e., N) is formed. The division
+of payoff to agent i is the average marginal contribution of
+agent i over all possible permutations of the agents. 
+Formally, let φi(v) denote the Shapley value of i under 
+characteristic function v, then2
+φi(v) =
+S⊂N
+s!(n − s − 1)!
+n!
+(v(S ∪ {i}) − v(S)) (1)
+The Shapley value is a solution concept that satisfies many
+nice properties, and has been studied extensively in the 
+economic and game theoretic literature. It has a very useful
+axiomatic characterization.
+Efficiency (EFF) A total of v(N) is distributed to the
+agents, i.e., i∈N φi(v) = v(N).
+Symmetry (SYM) If agents i and j are interchangeable,
+then φi(v) = φj(v).
+1
+The materials and terminology are based on the textbooks
+by Mas-Colell et al. [9] and Osborne and Rubinstein [11].
+2
+As a notational convenience, we will use the lower-case 
+letter to represent the cardinality of a set denoted by the 
+corresponding upper-case letter.
+194
+Dummy (DUM) If agent i is a dummy player, i.e., his
+marginal contribution to all groups S are the same,
+φi(v) = v({i}).
+Additivity (ADD) For any two coalitional games v and
+w defined over the same set of agents N, φi(v + w) =
+φi(v) + φi(w) for all i ∈ N, where the game v + w is
+defined as (v + w)(S) = v(S) + w(S) for all S ⊆ N.
+We will refer to these axioms later in our proof of correctness
+of the algorithm for computing the Shapley value under our
+representation in section 4.
+The core is another major solution concept for coalitional
+games. It is a descriptive solution concept that focuses on
+outcomes that are stable. Stability under core means that
+no set of players can jointly deviate to improve their payoffs.
+Formally, let x(S) denote i∈S xi. An outcome x ∈ Rn
+is
+in the core if
+∀S ⊆ N x(S) ≥ v(S) (2)
+The core was one of the first proposed solution concepts
+for coalitional games, and had been studied in detail. An
+important question for a given coalitional game is whether
+the core is empty. In other words, whether there is any
+outcome that is stable relative to group deviation. For a
+game to have a non-empty core, it must satisfy the property
+of balancedness, defined as follows. Let 1S ∈ Rn
+denote the
+characteristic vector of S given by
+(1S)i =
+1 if i ∈ S
+0 otherwise
+Let (λS)S⊆N be a set of weights such that each λS is in the
+range between 0 and 1. This set of weights, (λS)S⊆N , is a
+balanced collection if for all i ∈ N,
+S⊆N
+λS(1S)i = 1
+A game is balanced if for all balanced collections of weights,
+S⊆N
+λSv(S) ≤ v(N) (3)
+By the Bondereva-Shapley theorem, the core of a 
+coalitional game is non-empty if and only if the game is 
+balanced. Therefore, we can use linear programming to 
+determine whether the core of a game is empty.
+maximize
+λ∈R2n S⊆N λSv(S)
+subject to S⊆N λS1S = 1 ∀i ∈ N
+λS ≥ 0 ∀S ⊆ N
+(4)
+If the optimal value of (4) is greater than the value of the
+grand coalition, then the core is empty. Unfortunately, this
+program has an exponential number of variables in the 
+number of players in the game, and hence an algorithm that 
+operates directly on this program would be infeasible in practice.
+In section 5.4, we will describe an algorithm that answers
+the question of emptiness of core that works on the dual of
+this program instead.
+2.2 Previous Work Revisited
+Deng and Papadimitriou looked into the complexity of
+various solution concepts on coalitional games played on
+weighted graphs in [4]. In their representation, the set of
+agents are the nodes of the graph, and the value of a set of
+agents S is the sum of the weights of the edges spanned by
+them. Notice that this representation is concise since the
+space required to specify such a game is O(n2
+). However,
+this representation is not general; it will not be able to 
+represent interactions among three or more agents. For example,
+it will not be able to represent the majority game, where a
+group of agents S will have value of 1 if and only if s > n/2.
+On the other hand, there is an efficient algorithm for 
+computing the Shapley value of the game, and for determining
+whether the core is empty under the restriction of positive
+edge weights. However, in the unrestricted case, 
+determining whether the core is non-empty is coNP-complete.
+Conitzer and Sandholm in [2] considered coalitional games
+that are superadditive. They described a concise 
+representation scheme that only states the value of a coalition if the
+value is strictly superadditive. More precisely, the semantics
+of the representation is that for a group of agents S,
+v(S) = max
+{T1,T2,...,Tn}∈Π
+i
+v(Ti)
+where Π is the set of all possible partitions of S. The value
+v(S) is only explicitly specified for S if v(S) is greater than
+all partitioning of S other than the trivial partition ({S}).
+While this representation can represent all games that are
+superadditive, there are coalitional games that it cannot 
+represent. For example, it will not be able to represent any
+games with substitutability among the agents. An 
+example of a game that cannot be represented is the unit game,
+where v(S) = 1 as long as S = ∅. Under this 
+representation, the authors showed that determining whether the core
+is non-empty is coNP-complete. In fact, even determining
+the value of a group of agents is NP-complete.
+In a more recent paper, Conitzer and Sandholm described
+a representation that decomposes a coalitional game into a
+number of subgames whose sum add up to the original game
+[3]. The payoffs in these subgames are then represented by
+their respective characteristic functions. This scheme is fully
+general as the characteristic form is a special case of this
+representation. For any given game, there may be multiple
+ways to decompose the game, and the decomposition may
+influence the computational complexity. For computing the
+Shapley value, the authors showed that the complexity is
+linear in the input description; in particular, if the largest
+subgame (as measured by number of agents) is of size n and
+the number of subgames is m, then their algorithm runs
+in O(m2n
+) time, where the input size will also be O(m2n
+).
+On the other hand, the problem of determining whether a
+certain outcome is in the core is coNP-complete.

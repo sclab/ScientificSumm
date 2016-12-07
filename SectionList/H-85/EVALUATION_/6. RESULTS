@@ -1,0 +1,167 @@
+We now turn to experimental evaluation of predicting
+relevance preference of web search results. Figure 6.1 shows the
+recall-precision results over the Q1 query set (Section 5.2). The
+results indicate that previous click interpretation strategies, SA
+and SA+N perform suboptimally in this setting, exhibiting
+precision 0.627 and 0.638 respectively. Furthermore, there is no
+mechanism to do recall-precision trade-off with SA and SA+N,
+as they do not provide prediction confidence. In contrast, our
+clickthrough distribution-based techniques CD and CD+CDiff
+exhibit somewhat higher precision than SA and SA+N (0.648
+and 0.717 at Recall of 0.08, maximum achieved by SA or
+SA+N).
+SA+N
+SA
+0.6
+0.62
+0.64
+0.66
+0.68
+0.7
+0.72
+0.74
+0.76
+0.78
+0.8
+0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45
+Recall
+Precision
+SA SA+N
+CD CDiff
+CD+CDiff UserBehavior
+Current
+Figure 6.1: Precision vs. Recall of SA, SA+N, CD, CDiff,
+CD+CDiff, UserBehavior, and Current relevance prediction
+methods over the Q1 dataset.
+Interestingly, CDiff alone exhibits precision equal to SA
+(0.627) at the same recall at 0.08. In contrast, by combining CD
+and CDiff strategies (CD+CDiff method) we achieve the best
+performance of all clickthrough-based strategies, exhibiting
+precision of above 0.66 for recall values up to 0.14, and higher at
+lower recall levels. Clearly, aggregating and intelligently
+interpreting clickthroughs, results in significant gain for realistic
+web search, than previously described strategies. However, even
+the CD+CDiff clickthrough interpretation strategy can be
+improved upon by automatically learning to interpret the
+aggregated clickthrough evidence.
+But first, we consider the best performing strategy,
+UserBehavior. Incorporating post-search navigation history in
+addition to clickthroughs (Browsing features) results in the
+highest recall and precision among all methods compared. Browse
+exhibits precision of above 0.7 at recall of 0.16, significantly
+outperforming our Baseline and clickthrough-only strategies.
+Furthermore, Browse is able to achieve high recall (as high as
+0.43) while maintaining precision (0.67) significantly higher than
+the baseline ranking.
+To further analyze the value of different dimensions of implicit
+feedback modeled by the UserBehavior strategy, we consider each
+group of features in isolation. Figure 6.2 reports Precision vs.
+Recall for each feature group. Interestingly, Query-text alone has
+low accuracy (only marginally better than Random). Furthermore,
+Browsing features alone have higher precision (with lower
+maximum recall achieved) than considering all of the features in
+our UserBehavior model. Applying different machine learning
+methods for combining classifier predictions may increase
+performance of using all features for all recall values.
+0.5
+0.55
+0.6
+0.65
+0.7
+0.75
+0.8
+0.01 0.05 0.09 0.13 0.17 0.21 0.25 0.29 0.33 0.37 0.41 0.45
+Recall
+Precision
+All Features
+Clickthrough
+Query-text
+Browsing
+Figure 6.2: Precision vs. recall for predicting relevance with
+each group of features individually.
+0.65
+0.67
+0.69
+0.71
+0.73
+0.75
+0.77
+0.79
+0.81
+0.83
+0.85
+0.01 0.05 0.09 0.13 0.17 0.21 0.25 0.29 0.33 0.37 0.41 0.45 0.49
+Recall
+Precision
+CD+CDiff:Q1 UserBehavior:Q1
+CD+CDiff:Q10 UserBehavior:Q10
+CD+CDiff:Q20 UserBehavior:Q20
+Figure 6.3: Recall vs. Precision of CD+CDiff and
+UserBehavior for query sets Q1, Q10, and Q20 (queries with
+at least 1, at least 10, and at least 20 clicks respectively).
+Interestingly, the ranker trained over Clickthrough-only
+features achieves substantially higher recall and precision than
+human-designed clickthrough-interpretation strategies described
+earlier. For example, the clickthrough-trained classifier achieves
+0.67 precision at 0.42 Recall vs. the maximum recall of 0.14
+achieved by the CD+CDiff strategy.
+Our clickthrough and user behavior interpretation strategies
+rely on extensive user interaction data. We consider the effects
+of having sufficient interaction data available for a query before
+proposing a re-ranking of results for that query. Figure 6.3
+reports recall-precision curves for the CD+CDiff and
+UserBehavior methods for different test query sets with at least
+1 click (Q1), 10 clicks (Q10) and 20 clicks (Q20) available per
+query. Not surprisingly, CD+CDiff improves with more clicks.
+This indicates that accuracy will improve as more user
+interaction histories become available, and more queries from
+the Q1 set will have comprehensive interaction histories.
+Similarly, the UserBehavior strategy performs better for queries
+with 10 and 20 clicks, although the improvement is less dramatic
+than for CD+CDiff. For queries with sufficient clicks, CD+CDiff
+exhibits precision comparable with Browse at lower recall.
+0
+0.05
+0.1
+0.15
+0.2
+7 12 17 21
+Days of user interaction data harvested
+Recall
+CD+CDiff
+UserBehavior
+Figure 6.4: Recall of CD+CDiff and UserBehavior strategies
+at fixed minimum precision 0.7 for varying amounts of user
+activity data (7, 12, 17, 21 days).
+Our techniques often do not make relevance predictions for
+search results (i.e., if no interaction data is available for the
+lower-ranked results), consequently maintaining higher precision
+at the expense of recall. In contrast, the current search engine
+always makes a prediction for every result for a given query. As
+a consequence, the recall of Current is high (0.627) at the
+expense of lower precision As another dimension of acquiring
+training data we consider the learning curve with respect to
+amount (days) of training data available. Figure 6.4 reports the
+Recall of CD+CDiff and UserBehavior strategies for varying
+amounts of training data collected over time. We fixed minimum
+precision for both strategies at 0.7 as a point substantially higher
+than the baseline (0.625). As expected, Recall of both strategies
+improves quickly with more days of interaction data examined.
+We now briefly summarize our experimental results. We
+showed that by intelligently aggregating user clickthroughs
+across queries and users, we can achieve higher accuracy on
+predicting user preferences. Because of the skewed distribution
+of user clicks our clickthrough-only strategies have high
+precision, but low recall (i.e., do not attempt to predict relevance
+of many search results). Nevertheless, our CD+CDiff
+clickthrough strategy outperforms most recent state-of-the-art
+results by a large margin (0.72 precision for CD+CDiff vs. 0.64
+for SA+N) at the highest recall level of SA+N.
+Furthermore, by considering the comprehensive UserBehavior
+features that model user interactions after the search and beyond
+the initial click, we can achieve substantially higher precision
+and recall than considering clickthrough alone. Our
+UserBehavior strategy achieves recall of over 0.43 with precision
+of over 0.67 (with much higher precision at lower recall levels),
+substantially outperforms the current search engine preference
+ranking and all other implicit feedback interpretation methods.

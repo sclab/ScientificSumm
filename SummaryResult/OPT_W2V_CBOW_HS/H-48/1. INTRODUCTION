@@ -1,0 +1,18 @@
+Because we are purposely inducing term mismatch between the queries and known relevant documents in our test  collections, the proposed evaluation framework is able to measure the effectiveness of QE in a way that testing on the whole collection is not.
+In order to measure that a particular IR system is able to overcome query-document term mismatch by retrieving documents that are relevant to a user"s query, but that do not necessarily contain the query terms themselves, we  systematically introduce term mismatch into the test collection by removing query terms from known relevant documents.
+Often, the terms chosen by users in their queries are different than those appearing in the documents relevant to their information needs.
+While this approach shows which system may have performed better overall with respect to a particular test collection, it does not directly or systematically measure the effectiveness of IR systems in overcoming query-document term mismatch.
+In our domain,1 and unlike web search, it is very  important for attorneys to find all documents (e.g., cases) that are relevant to an issue.
+This query-document term mismatch arises from two sources: (1) the synonymy found in natural language, both at the term and the phrasal level, and (2) the degree to which the user is an expert at searching and/or has expert knowledge in the domain of the collection being searched.
+Attorneys are especially concerned about missing relevant documents when researching a legal topic that is new to them, as they may not be aware of all language  variations in such topics.
+Therefore, it is important to develop information retrieval systems that are robust with respect to language variations or term mismatch between queries and relevant documents.
+An effective evaluation method should  measure the performance of IR systems under varying degrees of query-document term mismatch, not just in terms of overall performance on a collection relative to another system.
+Generally, IR evaluations show how System A did in  relation to System B on the same test collection based on various precision- and recall-based metrics.
+Missing relevant documents may have non-trivial consequences on the outcome of a court  proceeding.
+If the goal of QE is to increase search performance by  mitigating the effects of query-document term mismatch, then the degree to which a system does so should be measurable in evaluation.
+Similarly, IR systems with QE capabilities are typically evaluated by executing each search twice, once with and once without query  expansion, and then comparing the two result sets.
+If a QE search method finds a document that is known to be relevant but that is nonetheless missing query terms, it shows that QE technique is indeed robust with respect to query-document term mismatch. 
+During our work on developing such systems, we concluded that current evaluation methods are not sufficient for this purpose.
+IR evaluations are comparative in nature (cf.
+{Whooping cough, pertussis}, {heart attack, myocardial infarction}, {car wash, automobile cleaning}, {attorney,  legal counsel, lawyer} are all examples of things that share the same meaning.
+1 Thomson Corporation builds information based solutions to the professional markets including legal, financial, health care, scientific, and tax and accounting.

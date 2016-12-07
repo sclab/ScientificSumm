@@ -1,0 +1,30 @@
+strategies are more useful on highly constrained problems such as scenario 2. although agents constrain themselves on the number of observations, the average cost is widely reduce. 
+using strategies on little constrained problems such as scenario 1 constrains the agents too much and causes an additional cost increase.
+it is not the case with isolated agents.
+in the general case, using communication and strategies allows to reduce redundancies and saves resources but  increases the average cost: if a request is realized, agents that know it do not plan it even if its cost can be reduce  afterwards.
+we can notice that the informed simulations, that communicate only requests, allow a higher reduction.
+these numbers are much higher than the number of messages that are actually  exchanged.
+consequently, 3864 messages are exchanged in the worst case for the 40-request simulations and 7128 messages for the 74-request simulations.
+in the worst case, at each meeting each agent sends n pieces of information on the requests plus 3n pieces of information on the agents" intentions plus 1 message for the end of communication, where n is the total number of  requests.
+as far as the number of exchanged messages is concerned, there are 12 meetings between 2 agents during the  simulations.
+the drastic  politics is interesting because not only does it allow to perform more observations than isolated agents do but it allows to highly reduce the average cost with the lowest number of redundancies.
+likewise, we can notice that all politics reduce the average cost contrary to the first scenario.
+we can notice that all informed simulations (with or without strategies) allow to perform more observations than isolated agents do with less  redundancies.
+in the case of high mutual exclusion and conflict rate  (table 2), noteworthy differences exist between the centralized and isolated simulations.
+nevertheless each avoided redundancy corresponds to saved resources to realize on-board generated requests during the simulation.
+furthermore, the average cost is increased too.
+on autonomous agents and multi-agent systems (aamas 07) simulation observations redundancies messages average priority average cost centralized 34 0 0 2.76 176.06 isolated 34 21 0 2.76 160.88 informed 34 6 457 2.65 165.21 neutral politics 31 4 1056 2.71 191.16 drastic politics 24 1 1025 2.71 177.42 lax politics 33 5 1092 2.7 172.88 table 1: scenario 1 - the 40-request simulation results simulation observations redundancies messages average priority average cost centralized 59 0 0 2.95 162.88 isolated 37 37 0 3.05 141.62 informed 55 27 836 2.93 160.56 neutral politics 48 25 1926 3.13 149.75 drastic politics 43 21 1908 3.19 139.7 lax politics 53 28 1960 3 154.02 table 2: scenario 2 - the 74-request simulation results collaboration strategies allows the number of redundancies to be much more reduced but the number of observations decreases owing to the constraint created by commitments.
+joint conf.
+292 the sixth intl.
+so the cost has increased by 2 in the worst case.
+we can notice that the use of 5 for instance, the rank-1-expert agent withdraws due to the altruist strategy and the cost increases by in the worst case, then rank-2-expert agent withdraws due to the altruist strategy and the cost increases by in the worst case.
+the informed simulation reduces the number of redundancies but sligthly increases the  average cost for the same reason.
+isolation leading to a lower cost is due to the high  number of redundancies: many agents carry out the same  request at different costs.
+in the case of low mutual exclusion and conflict rate  (table 1), centralized and isolated simulations lead to the same number of observations, with the same average priorities.
+redundancies are more frequent.
+agents will ensure redundancy only if the priorities are high and, in case of a hard conflict, if the cost payoff is much higher; - lax politics: α is set to a lower value, i.e.
+for each scenario, six simulations have been performed: one with centralized planning (all requests are planned by the ground station before the simulation), one where agents are isolated (they cannot communicate nor coordinate with one another), one informed simulation (agents only  communicate requests) and three other simulations implementing the instanciated collaboration strategies (politics): - neutral politics: α, and λ are set to average values; - drastic politics: α and λ are set to higher values, i.e.
+two scenarios have been considered: the first one with a set of 40 requests with low mutual exclusion and conflict rate and the second one with a set of 74 requests with high mutual exclusion and conflict rate.
+the simulation scenario implements 3 satellites on  6hour orbits.
+the on-board planner is implemented with linear programming using ilog cplex [1].
+satellite swarm simulations have been implemented in  java with the jade platform [3].

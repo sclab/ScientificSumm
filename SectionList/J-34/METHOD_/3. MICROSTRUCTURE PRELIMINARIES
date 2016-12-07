@@ -1,0 +1,251 @@
+The following expository background material is adapted
+from [9]. The market mechanism we examine in this paper
+is driven by the simple and standard concept of a limit 
+order. Suppose we wish to purchase 1000 shares of Microsoft
+(MSFT) stock. In a limit order, we specify not only the
+desired volume (1000 shares), but also the desired price.
+Suppose that MSFT is currently trading at roughly $24.07
+a share (see Figure 1, which shows an actual snapshot of an
+MSFT order book on INET), but we are only willing to buy
+the 1000 shares at $24.04 a share or lower. We can choose to
+submit a limit order with this specification, and our order
+will be placed in a queue called the buy order book, which
+is ordered by price, with the highest offered unexecuted buy
+price at the top (often referred to as the bid). If there are
+multiple limit orders at the same price, they are ordered
+by time of arrival (with older orders higher in the book).
+In the example provided by Figure 1, our order would be
+placed immediately after the extant order for 5,503 shares
+at $24.04; though we offer the same price, this order has
+arrived before ours. Similarly, a sell order book for sell limit
+orders is maintained, this time with the lowest sell price
+offered (often referred to as the ask) at its top.
+Thus, the order books are sorted from the most 
+competitive limit orders at the top (high buy prices and low sell
+prices) down to less competitive limit orders. The bid and
+ask prices together are sometimes referred to as the inside
+market, and the difference between them as the spread. By
+definition, the order books always consist exclusively of 
+unexecuted orders - they are queues of orders hopefully 
+waiting for the price to move in their direction.
+Figure 1: Sample INET order books for MSFT.
+How then do orders get (partially) executed? If a buy
+(sell, respectively) limit order comes in above the ask 
+(below the bid, respectively) price, then the order is matched
+with orders on the opposing books until either the incoming
+order"s volume is filled, or no further matching is possible,
+in which case the remaining incoming volume is placed in
+the books.
+For instance, suppose in the example of Figure 1 a buy
+order for 2000 shares arrived with a limit price of $24.08.
+This order would be partially filled by the two 500-share
+sell orders at $24.069 in the sell books, the 500-share sell
+order at $24.07, and the 200-share sell order at $24.08, for
+a total of 1700 shares executed. The remaining 300 shares
+of the incoming buy order would become the new bid of
+the buy book at $24.08. It is important to note that the
+prices of executions are the prices specified in the limit orders
+already in the books, not the prices of the incoming order
+that is immediately executed. Thus in this example, the
+1700 executed shares would be at different prices. Note that
+this also means that in a pure limit order exchange such as
+INET, market orders can be simulated by limit orders
+with extreme price values. In exchanges such as INET, any
+order can be withdrawn or canceled by the party that placed
+it any time prior to execution.
+Every limit order arrives atomically and instantaneously
+- there is a strict temporal sequence in which orders arrive,
+and two orders can never arrive simultaneously. This gives
+rise to the definition of the last price of the exchange, which
+is simply the last price at which the exchange executed an
+order. It is this quantity that is usually meant when people
+casually refer to the (ticker) price of a stock.
+3.1 Formal Definitions
+We now provide a formal model for the limit order 
+pro122
+cess described above. In this model, limit orders arrive in a
+temporal sequence, with each order specifying its limit price
+and an indication of its type (buy or sell). Like the actual
+exchanges, we also allow cancellation of a standing 
+(unexecuted) order in the books any time prior to its execution.
+Without loss of generality we limit attention to a model in
+which every order is for a single share; large order volumes
+can be represented by 1-share sequences.
+Definition 3.1. Let Σ = σ1, ...σn be a sequence of limit
+orders, where each σi has the form ni, ti, vi . Here ni is an
+order identifier, ti is the order type (buy, sell, or cancel), and
+vi is the limit order value. In the case that ti is a cancel, ni
+matches a previously placed order and vi is ignored.
+We have deliberately called vi in the definition above the
+limit order value rather than price, since our two models
+will differ in their interpretation of vi (as being absolute or
+relative). In the absolute model, we do indeed interpret vi
+as simply being the price of the limit order. In the 
+relative model, if the current order book configuration is (A, B)
+(where A is the sell and B the buy book), the price of the
+order is ask(A) + vi if ti is sell, and bid(B) + vi if ti is buy,
+where by ask(X) and bid(X) we denote the price of the
+order at the top of the book X. (Note vi can be negative.)
+Our main interest in this paper is the effects that the 
+modification of a small number of limit orders can have on the
+resulting dynamics. For simplicity we consider only 
+modifications to the limit order values, but our results generalize
+to any modification.
+Definition 3.2. A k-modification of Σ is a sequence Σ
+such that for exactly k indices i1, ..., ik vij = vij
+, tij = tij
+,
+and nij = nij
+. For every = ij , j ∈ {1, . . . , k} σ = σ .
+We now define the various quantities whose stability 
+properties we examine in the absolute and relative models. All of
+these are standard quantities of common interest in financial
+markets.
+• volume(Σ): Number of shares executed (traded) in the
+sequence Σ.
+• average(Σ): Average execution price.
+• close(Σ): Price of the last (closing) execution.
+• lastbid(Σ): Bid at the end of the sequence.
+• lastask(Σ): Ask at end of the sequence.
+4. THE 1-MODIFICATION THEOREM
+In this section we provide our most important technical
+result. It shows that in the absolute model, the effects that
+the modification of a single order has on the resulting 
+evolution of the order books is extremely limited. We then apply
+this result to derive strong stability results for all of the
+aforementioned quantities in the absolute model.
+Throughout this section, we consider an arbitrary order
+sequence Σ in the absolute model, and any 1-modification
+Σ of Σ. At any point (index) i in the two sequences we shall
+use (A1, B1) to denote the sell and buy books (respectively)
+in Σ, and (A2, B2) to denote the sell and buy books in Σ ;
+for notational convenience we omit explicitly superscripting
+by the current index i. We will shortly establish that at all
+times i, (A1, B1) and (A2, B2) are very close.
+Although the order books are sorted by price, we will use
+(for example) A1 ∪ {a2} = A2 to indicate that A2 contains
+an order at some price a2 that is not present in A1, but that
+otherwise A1 and A2 are identical; thus deleting the order
+at a2 in A2 would render the books the same. Similarly,
+B1 ∪ {b2} = B2 ∪ {b1} means B1 contains an order at price
+b1 not present in B2, B2 contains an order at price b2 not
+present in B1, and that otherwise B1 and B2 are identical.
+Using this notation, we now define a set of stable system
+states, where each state is composed from the order books
+of the original and the modified sequences. Shortly we show
+that if we change only one order"s value (price), we remain
+in this set for any sequence of limit orders.
+Definition 4.1. Let ab be the set of all states (A1, B1)
+and (A2, B2) such that A1 = A2 and B1 = B2. Let ¯ab be
+the set of states such that A1 ∪ {a2} = A2 ∪ {a1}, where
+a1 = a2, and B1 = B2. Let a¯b be the set of states such that
+B1∪{b2} = B2∪{b1}, where b1 = b2, and A1 = A2. Let ¯a¯b be
+the set of states in which A1 = A2∪{a1} and B1 = B2∪{b1},
+or in which A2 = A1 ∪ {a2} and B2 = B1 ∪ {b2}. Finally
+we define S = ab ∪ ¯ab ∪ ¯ba ∪ ¯a¯b as the set of stable states.
+Theorem 4.1. (1-Modification Theorem) Consider any
+sequence of orders Σ and any 1-modification Σ of Σ. Then
+the order books (A1, B1) and (A2, B2) determined by Σ and
+Σ lie in the set S of stable states at all times.
+ab
+¯a¯b
+a¯b¯ab
+Figure 2: Diagram representing the set S of stable
+states and the possible movements transitions in it
+after the change.
+The idea of the proof of this theorem is contained in 
+Figure 2, which shows a state transition diagram labeled by the
+categories of stable states. This diagram describes all 
+transitions that can take place after the arrival of the order on
+which Σ and Σ differ. The following establishes that 
+immediately after the arrival of this differing order, the state lies
+in S.
+Lemma 4.2. If at any time the current books (A1, B1) and
+(A2, B2) are in the set ab (and thus identical), then 
+modifying the price of the next order keeps the state in S.
+Proof. Suppose the arriving order is a sell order and we
+change it from a1 to a2; assume without loss of generality
+that a1 > a2. If neither order is executed immediately, then
+we move to state ¯ab; if both of them are executed then we
+stay in state ab; and if only a2 is executed then we move to
+state ¯a¯b. The analysis of an arriving buy order is similar.
+Following the arrival of their only differing order, Σ and
+Σ are identical. We now give a sequence of lemmas showing
+123
+Executed with two orders
+Not executed in both
+Arrivng buy order
+Arriving buy order
+Arriving buy order
+Arriving sell order
+¯ab
+ab
+¯a¯b
+Executed only with a1
+(not a1 and a2)
+Executed with a1 and a2
+Figure 3: The state diagram when starting at state
+¯ab. This diagram provides the intuition of Lemma
+4.3
+that following the initial difference covered by Lemma 4.2,
+the state remains in S forever on the remaining (identical)
+sequence. We first show that from state ¯ab we remain in
+S regardless the next order. The intuition of this lemma is
+demonstrated in Figure 3.
+Lemma 4.3. If the current state is in the set ¯ab, then for
+any order the state will remain in S.
+Proof. We first provide the analysis for the case of an 
+arriving sell order. Note that in ¯ab the buy books are identical
+(B1 = B2). Thus either the arriving sell order is executed
+with the same buy order in both buy books, or it is not
+executed in both buy books. For the first case, the buy
+books remain identical (the bid is executed in both) and the
+sell books remain unchanged. For the second case, the buy
+books remain unchanged and identical, and the sell books
+have the new sell order added to both of them (and thus
+still differ by one order).
+Next we provide an analysis of the more subtle case where
+the arriving item is a buy order. For this case we need to
+take care of several different scenarios. The first is when the
+top of both sell books (the ask) is identical. Then 
+regardless of whether the new buy order is executed or not, the
+state remains in ¯ab (the analysis is similar to an arriving
+sell order).
+We are left to deal with case where ask(A1) and ask(A2)
+are different. Here we discuss two subcases: (a) ask(A1) =
+a1 and ask(A2) = a2, and (b) ask(A1) = a1 and ask(A2) =
+a . Here a1 and a2 are as in the definition of ¯ab in 
+Definition 4.1, and a is some other price. For subcase (a), by our
+assumption a1 < a2, then either (1) both asks get executed,
+the sell books become identical, and we move to state ab;
+(2) neither ask is executed and we remain in state ¯ab; or (3)
+only ask(A1) = a1 is executed, in which case we move to
+state ¯a¯b with A2 = A1 ∪ {a2} and B2 = B1 ∪ {b2}, where
+b2 is the arriving buy order price. For subcase (b), either
+(1) buy order is executed in neither sell book we remain in
+state ¯ab; or (2) the buy order is executed in both sell books
+and stay in state ¯ab with A1 ∪ {a } = A2 ∪ {a2}; or (3) only
+ask(A1) = a1 is executed and we move to state ¯a¯b.
+Lemma 4.4. If the current state is in the set a¯b, then for
+any order the state will remain in S.
+Lemma 4.5. If the current configuration is in the set ¯a¯b,
+then for any order the state will remain in S
+The proofs of these two lemmas are omitted, but are 
+similar in spirit to that of Lemma 4.3. The next and final lemma
+deals with cancellations.
+Lemma 4.6. If the current order book state lies in S, then
+following the arrival of a cancellation it remains in S.
+Proof. When a cancellation order arrives, one of the 
+following possibilities holds: (1) the order is still in both sets of
+books, (2) it is not in either of them and (3) it is only in one
+of them. For the first two cases it is easy to see that the 
+cancellation effect is identical on both sets of books, and thus
+the state remains unchanged. For the case when the order
+appears only in one set of books, without loss of generality
+we assume that the cancellation cancels a buy order at b1.
+Rather than removing b1 from the book we can change it to
+have price 0, meaning this buy order will never be executed
+and is effectively canceled. Now regardless the state that we
+were in, b1 is still only in one buy book (but with a different
+price), and thus we remain in the same state in S.
+The proof of Theorem 4.1 follows from the above lemmas.

@@ -1,0 +1,177 @@
+INFORMATION FILTERING
+We identify three main abstract entities participating in
+an information filtering process within a distributed system:
+A user entity, a provider entity, and a filter entity. Whereas
+in some applications the provider and filter entities 
+explicitly trust each other, because they are deployed by the same
+party, our solution is applicable more generically because it
+does not require any trust between the main abstract 
+entities. In this paper, we focus on aspects related to the
+information filtering process itself, and omit all aspects 
+related to information collection and processing, i.e. the stages
+in which profiles are generated and maintained, mainly 
+because these stages are less critical with regard to privacy, as
+they involve fewer different entities.
+3.1 Requirements
+Our solution aims at meeting the following requirements
+with regard to privacy:
+• User Privacy: No linkable information about user 
+profiles should be acquired permanently by any other 
+entity or external party, including other user entities.
+Single user profile items, however, may be acquired
+permanently if they are unlinkable, i.e. if they 
+cannot be attributed to a specific user or linked to other
+user profile items. Temporary acquisition of private
+information is permitted as well. Sets of 
+recommendations may be acquired permanently by the provider,
+but they should not be linkable to a specific user.
+These concessions simplify the resulting protocol and
+allow the provider to obtain recommendations and 
+single unlinkable user profile items, and thus to determine
+frequently requested information and optimize the 
+offered information accordingly.
+• Provider Privacy: No information about provider 
+profiles, with the exception of the recommendations,
+should be acquired permanently by other entities or
+external parties. Again, temporary acquisition of 
+private information is permitted. Additionally, the 
+propagation of provider information is entirely under the
+control of the provider. Thus, the provider is enabled
+to prevent misuse such as the automatic large-scale
+extraction of information.
+• Filter Privacy: Details of the algorithms applied by
+the filtering techniques should not be acquired 
+permanently by any other entity or external party. General
+information about the algorithm may be provided by
+the filter entity in order to help other entities to reach
+a decision on whether to apply the respective filtering
+technique.
+In addition, general requirements regarding the quality
+of the recommendations as well as security aspects, 
+performance and broadness of the resulting system have to be 
+addressed as well. While minor trade-offs may be acceptable,
+the resulting system should reach a level similar to regular
+Recommender Systems with regard to these requirements.
+3.2 Outline of the Solution
+The basic idea for realizing a protocol fulfilling these
+privacy-related requirements in Recommender Systems is
+implied by allowing the temporary acquisition of private
+information (see [8] for the original approach): User and
+provider entity both propagate the respective profile data to
+the filter entity. The filter entity provides the 
+recommendations, and subsequently deletes all private information, thus
+fulfilling the requirement regarding permanent acquisition
+of private information.
+320 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+The entities whose private information is propagated have
+to be certain that the respective information is actually 
+acquired temporarily only. Trust in this regard may be 
+established in two main ways:
+• Trusted Software: The respective entity itself is trusted
+to remove the respective information as specified.
+• Trusted Environment: The respective entity operates
+in an environment that is trusted to control the 
+communication and life cycle of the entity to an extent
+that the removal of the respective information may
+be achieved regardless of the attempted actions of the
+entity itself. Additionally, the environment itself is
+trusted not to act in a malicious manner (e.g. it is
+trusted not to acquire and propagate the respective
+information itself).
+In both cases, trust may be established in various ways.
+Reputation-based mechanisms, additional trusted third 
+parties certifying entities or environments, or trusted 
+computing mechanisms may be used. Our approach is based on a
+trusted environment realized via trusted computing 
+mechanisms, because we see this solution as the most generic
+and realistic approach. This decision is discussed briefly in
+Section 5.
+We are now able to specify the abstract information 
+filtering protocol as shown in Figure 1: The filter entity deploys a
+Temporary Filter Entity (TFE) operating in a trusted 
+environment. The user entity deploys an additional relay entity
+operating in the same environment. Through mechanisms
+provided by this environment, the relay entity is able to 
+control the communication of the TFE, and the provider entity
+is able to control the communication of both relay entity
+and the TFE. Thus, it is possible to ensure that the 
+controlled entities are only able to propagate recommendations,
+but no other private information. In the first stage (steps
+1.1 to 1.3 of Figure 1), the relay entity establishes control of
+the TFE, and thus prevents it from propagating user profile
+information. User profile data is propagated without 
+participation of the provider entity from the user entity to the
+TFE via the relay entity. In the second stage (steps 2.1 to
+2.3 of Figure 1), the provider entity establishes control of
+both relay and TFE, and thus prevents them from 
+propagating provider profile information. Provider profile data is
+propagated from the provider entity to the TFE via the 
+relay entity. In the third stage (steps 3.1 to 3.5 of Figure 1),
+the TFE returns the recommendations via the relay entity,
+and the controlled entities are terminated. Taken together,
+these steps ensure that all private information is acquired
+temporarily only by the other main entities. The problems
+of determining acceptable queries on the provider profile and
+ensuring unlinkability of the recommendations are discussed
+in the following section.
+Our approach requires each entity in the distributed 
+architecture to have the following five main abilities: The ability
+to perform certain well-defined tasks (such as carrying out a
+filtering process) with a high degree of autonomy, i.e. largely
+independent of other entities (e.g. because the respective 
+entity is not able to communicate in an unrestricted manner),
+the ability to be deployable dynamically in a well-defined 
+environment, the ability to communicate with other entities,
+the ability to achieve protection against external 
+manipulation attempts, and the ability to control and restrict the
+communication of other entities.
+Figure 1: The abstract privacy-preserving 
+information filtering protocol. All communication across
+the environments indicated by dashed lines is 
+prevented with the exception of communication with
+the controlling entity.
+MAS architectures are an ideal solution for realizing a
+distributed system characterized by these features, because
+they provide agents constituting entities that are actually
+characterized by autonomy, mobility and the ability to 
+communicate [26], as well as agent platforms as environments
+providing means to realize the security of agents. In this
+context, the issue of malicious hosts, i.e. hosts attacking
+agents, has to be addressed explicitly. Furthermore, existing
+MAS architectures generally do not allow agents to control
+the communication of other agents. It is possible, however,
+to expand a MAS architecture and to provide designated
+agents with this ability. For these reasons, our solution is
+based on a FIPA[11]-compliant MAS architecture. The 
+entities introduced above are mapped directly to agents, and
+the trusted environment in which they exist is realized in
+the form of agent platforms.
+In addition to the MAS architecture itself, which is 
+assumed as given, our solution consists of the following five
+main modules:
+• The Controller Module described in Section 4.1 
+provides functionality for controlling the communication
+capabilities of agents.
+• The Transparent Persistence Module facilitates
+the use of different data storage mechanisms, and 
+provides a uniform interface for accessing persistent 
+information, which may be utilized for monitoring critical
+interactions involving potentially private information
+e.g. as part of queries. Its description is outside the
+scope of this paper.
+• The Recommender Module, details of which are 
+described in Section 4.2, provides Recommender System
+functionality.
+• The Matchmaker Module provides Matchmaker
+System functionality. It additionally utilizes social 
+aspects of MAS technology. Its description is outside the
+scope of this paper.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 321
+• Finally, a separate module described in Section 4.4
+provides Exemplary Filtering Techniques in order
+to show that various restrictions imposed on filtering
+techniques by our approach may actually be fulfilled.
+The trusted environment introduced above encompasses
+the MAS architecture itself and the Controller Module,
+which have to be trusted to act in a non-malicious manner
+in order to rule out the possibility of malicious hosts.

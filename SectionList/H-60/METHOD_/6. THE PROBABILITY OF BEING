@@ -1,0 +1,254 @@
+INFORMATIVE
+We showed in the previous sections that the disjointness
+assumption leads to frequency-based probabilities and that
+the independence assumption leads to Poisson probabilities.
+In this section, we formulate a frequency-based definition
+and a Poisson-based definition of the probability of being
+informative and then we compare the two definitions.
+Definition 5. The frequency-based probability of 
+being informative:
+Pfreq (t is informative|c) :=
+− ln n(t)
+N
+− ln 1
+N
+= − logN
+n(t)
+N
+= 1 − logN n(t) = 1 −
+ln n(t)
+ln N
+We define the Poisson-based probability of being 
+informative analogously to the frequency-based probability of being
+informative (see definition 5).
+Definition 6. The Poisson-based probability of 
+being informative:
+Ppoi (t is informative|c) :=
+− ln e−λ
+·
+Èn(t)
+k=1
+λk
+k!
+− ln(e−λ · λ)
+=
+λ − ln
+Èn(t)
+k=1
+λk
+k!
+λ − ln λ
+For the sum expression, the following limit holds:
+lim
+n(t)→∞
+n(t)
+k=1
+λk
+k!
+= eλ
+− 1
+For λ >> 1, we can alter the noise and informativeness 
+Poisson by starting the sum from 0, since eλ
+>> 1. Then, the
+minimal Poisson informativeness is poisson(0, λ) = e−λ
+. We
+obtain a simplified Poisson probability of being informative:
+Ppoi (t is informative|c) ≈
+λ − ln
+Èn(t)
+k=0
+λk
+k!
+λ
+= 1 −
+ln
+Èn(t)
+k=0
+λk
+k!
+λ
+The computation of the Poisson sum requires an 
+optimisation for large n(t). The implementation for this paper
+exploits the nature of the Poisson density: The Poisson 
+density yields only values significantly greater than zero in an
+interval around λ.
+Consider the illustration of the noise and 
+informativeness definitions in figure 1. The probability functions 
+displayed are summarised in figure 2 where the simplified 
+Poisson is used in the noise and informativeness graphs. The
+frequency-based noise corresponds to the linear solid curve
+in the noise figure. With an independence assumption, we
+obtain the curve in the lower triangle of the noise figure. By
+changing the parameter p := λ/N of the independence 
+probability, we can lift or lower the independence curve. The
+noise figure shows the lifting for the value λ := ln N ≈
+9.2. The setting λ = ln N is special in the sense that the
+frequency-based and the Poisson-based informativeness have
+the same denominator, namely ln N, and the Poisson sum
+converges to λ. Whether we can draw more conclusions from
+this setting is an open question.
+We can conclude, that the lifting is desirable if we know
+for a collection that terms that occur in relatively few 
+doc232
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 2000 4000 6000 8000 10000
+Probabilityofbeingnoisy
+n(t): Number of documents with term t
+frequency
+independence: 1/N
+independence: ln(N)/N
+poisson: 1000
+poisson: 2000
+poisson: 1000,2000
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 2000 4000 6000 8000 10000
+Probabilityofbeinginformative
+n(t): Number of documents with term t
+frequency
+independence: 1/N
+independence: ln(N)/N
+poisson: 1000
+poisson: 2000
+poisson: 1000,2000
+Figure 1: Noise and Informativeness
+Probability function Noise Informativeness
+Frequency Pfreq Def n(t)/N ln(n(t)/N)/ ln(1/N)
+Interval 1/N ≤ Pfreq ≤ 1.0 0.0 ≤ Pfreq ≤ 1.0
+Independence Pin Def 1 − (1 − p)n(t)
+ln(1 − (1 − p)n(t)
+)/ ln(p)
+Interval p ≤ Pin < 1 − e−λ
+ln(p) ≤ Pin ≤ 1.0
+Poisson Ppoi Def e−λ Èn(t)
+k=1
+λk
+k!
+(λ − ln
+Èn(t)
+k=1
+λk
+k!
+)/(λ − ln λ)
+Interval e−λ
+· λ ≤ Ppoi < 1 − e−λ
+(λ − ln(eλ
+− 1))/(λ − ln λ) ≤ Ppoi ≤ 1.0
+Poisson Ppoi simplified Def e−λ Èn(t)
+k=0
+λk
+k!
+(λ − ln
+Èn(t)
+k=0
+λk
+k!
+)/λ
+Interval e−λ
+≤ Ppoi < 1.0 0.0 < Ppoi ≤ 1.0
+Figure 2: Probability functions
+uments are no guarantee for finding relevant documents,
+i. e. we assume that rare terms are still relatively noisy. On
+the opposite, we could lower the curve when assuming that
+frequent terms are not too noisy, i. e. they are considered as
+being still significantly discriminative.
+The Poisson probabilities approximate the independence
+probabilities for large n(t); the approximation is better for
+larger λ. For n(t) < λ, the noise is zero whereas for n(t) > λ
+the noise is one. This radical behaviour can be smoothened
+by using a multi-dimensional Poisson distribution. Figure 1
+shows a Poisson noise based on a two-dimensional Poisson:
+poisson(k, λ1, λ2) := π · e−λ1
+·
+λk
+1
+k!
++ (1 − π) · e−λ2
+·
+λk
+2
+k!
+The two dimensional Poisson shows a plateau between λ1 =
+1000 and λ2 = 2000, we used here π = 0.5. The idea 
+behind this setting is that terms that occur in less than 1000
+documents are considered to be not noisy (i.e. they are 
+informative), that terms between 1000 and 2000 are half noisy,
+and that terms with more than 2000 are definitely noisy.
+For the informativeness, we observe that the radical 
+behaviour of Poisson is preserved. The plateau here is 
+approximately at 1/6, and it is important to realise that this
+plateau is not obtained with the multi-dimensional Poisson
+noise using π = 0.5. The logarithm of the noise is 
+normalised by the logarithm of a very small number, namely
+0.5 · e−1000
++ 0.5 · e−2000
+. That is why the informativeness
+will be only close to one for very little noise, whereas for a
+bit of noise, informativeness will drop to zero. This effect
+can be controlled by using small values for π such that the
+noise in the interval [λ1; λ2] is still very little. The setting
+π = e−2000/6
+leads to noise values of approximately e−2000/6
+in the interval [λ1; λ2], the logarithms lead then to 1/6 for
+the informativeness.
+The indepence-based and frequency-based informativeness
+functions do not differ as much as the noise functions do.
+However, for the indepence-based probability of being 
+informative, we can control the average informativeness by the
+definition p := λ/N whereas the control on the 
+frequencybased is limited as we address next.
+For the frequency-based idf , the gradient is monotonously
+decreasing and we obtain for different collections the same
+distances of idf -values, i. e. the parameter N does not affect
+the distance. For an illustration, consider the distance 
+between the value idf(tn+1) of a term tn+1 that occurs in n+1
+documents, and the value idf(tn) of a term tn that occurs in
+n documents.
+idf(tn+1) − idf(tn) = ln
+n
+n + 1
+The first three values of the distance function are:
+idf(t2) − idf(t1) = ln(1/(1 + 1)) = 0.69
+idf(t3) − idf(t2) = ln(1/(2 + 1)) = 0.41
+idf(t4) − idf(t3) = ln(1/(3 + 1)) = 0.29
+For the Poisson-based informativeness, the gradient decreases
+first slowly for small n(t), then rapidly near n(t) ≈ λ and
+then it grows again slowly for large n(t).
+In conclusion, we have seen that the Poisson-based 
+definition provides more control and parameter possibilities than
+233
+the frequency-based definition does. Whereas more control
+and parameter promises to be positive for the 
+personalisation of retrieval systems, it bears at the same time the 
+danger of just too many parameters. The framework presented
+in this paper raises the awareness about the probabilistic
+and information-theoretic meanings of the parameters. The
+parallel definitions of the frequency-based probability and
+the Poisson-based probability of being informative made
+the underlying assumptions explicit. The frequency-based
+probability can be explained by binary occurrence, constant
+containment and disjointness of documents. Independence
+of documents leads to Poisson, where we have to be aware
+that Poisson approximates the probability of a disjunction
+for a large number of events, but not for a small number.
+This theoretical result explains why experimental 
+investigations on Poisson (see [7]) show that a Poisson estimation
+does work better for frequent (bad, noisy) terms than for
+rare (good, informative) terms.
+In addition to the collection-wide parameter setting, the
+framework presented here allows for document-dependent
+settings, as explained for the independence probability. This
+is in particular interesting for heterogeneous and structured
+collections, since documents are different in nature (size,
+quality, root document, sub document), and therefore, 
+binary occurrence and constant containment are less 
+appropriate than in relatively homogeneous collections.

@@ -1,0 +1,128 @@
+Figure 4: Ratio gain of local broadcast over  hypotheses exchange Note to begin with that the ratio gain is 0 when the  proportion of agents is 5%, which is easily explained by the fact that it corresponds to situations involving only two agents.
+69-1 69,23 4,5 0,69 69-2 68,88 4,38 0,65 69-3 69,80 4,25 0,67 53-1 53,19 5,6 0,59 53-2 53,53 6,38 0,54 53-3 53,92 6,08 0,61 38-1 38,56 8,19 0,50 38-2 38,56 7,3 0,50 38-3 38,23 8,13 0,50 Table 1: Topological Characteristics of the Maps • Initial positions of the agents- Initial positions of the agents have a significant influence on the overall  behavior of an instance of our system: being close from an exit will (in general) ease the escape.
+In this case, the local protocol is different (note in  particular that it does not guarantee mutual consistency), but the global protocol remains the same (at the only exception that agents" motivation to communicate is to synchronise their list of observations, not their hypothesis).
+This illustrates that the design of the global protocol cannot be ignored, especially when the proportion of agents is high.
+If this protocol is at best as effective as HE, it has the advantage of being more efficient (this is obvious wrt the number of messages which will be limited to 2, less straightforward as far as the size of messages is concerned, but the rough observation that the exchange of observations can be viewed as a flat version of the challenge is helpful to see this).
+This is explained by the fact that in these cases only a very few agents have relevant informations in their possession, and that they will need to communicate a lot in order to come up with a common view of the  situation.
+We analysis here the mean size of the totality of the messages that are  exchanged by agents (mean size of exchanges, for short) using the following protocols: HE, OE, and two variant  protocols.
+In a round, an agent can move of one cell in any of the four cardinal directions, provided it is not blocked by a wall.
+The perception skills of the agents depend on the openness of the environment.
+This may be explained as follows: when a map is open, agents have many potential explanation candidates, and argumentation becomes useful to  discriminate between those.
+We will assume here that the  efficiency of a given protocol is characterised by the data flow induced by this protocol.
+If one compares this with the improvement reported in the previous experiment, it appears to be of the same magnitude.
+The topological index (TI) is the ratio of the number of cells that can be perceived by agents summed up from all possible positions, divided by the number of cells that would be perceived from the same positions but without any walls.
+1002 The Sixth Intl.
+For instance, the more agents, the more potential communications there is.
+However, we also note that the  effectiveness ratio gain curves have very different shapes in both cases: the gain induced by the accuracy of the local protocol increases very quickly with the proportion of agents, while the curve is really smooth for the global one.
+4 characterising the isolation degree of a region of an  environment in terms of acessibility (number of roads still usable to reach this region).
+The second map has the same enclosure, exits and fire origin as the first one, but the number and location of walls are different (wall  locations are designed by an heuristic which randomly creates walls on the spatial grid such that no fully closed rooms are created and that no exit is closed).
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) • Eh takes O as argument and returns min≤p of the  coherent and complete hypothesis for O 5.1 Experimental Evaluation We will classically (see e.g.
+The resulting relation is a total order, hence minimality implies that there will be a single h s.t.Cons(O, h) for a given O.
+- minimality : For all h ∈ H, if h is coherent and complete for O, then h is prefered to h according to the preference relation (h ≤p h ).2 2 Selects first the minimal number of origins, then the most recent (least preemptive strategy [6]), then uses some  arbitrary fixed ranking to discriminate ex-aequo.
+5.3 Experimental environments We choose to realize experiments on three very  different topological indexes (69% for open environments, 53% for mixed environments, and 38% for labyrinth-like  environments).
+This in turn means that MCons(ai, aj) iff Cons(ai), Cons(aj), and hi = hj.
+• Cons(h, O) consistency relation satisfies: - coherence : ∀o ∈ N(O), h |= ¬o.
+Effectiveness of a protocol The proportion of agents surviving the fire over the initial number of agents involved in the experiment will determine the effectiveness of a given protocol.
+When the number of agents increases, this knowledge is distributed over more agents which need shorter  discussions to get to mutual consistency.
+The main measure that we shall then use here is the mean total size of messages that are exchanged by agents per exchange (hence taking into  account both the number of messages and the actual size of the messages, because it could be that messages happen to be very big, containing e.g.
+The second lesson that we learn here is that  closeness relatively makes communication more effective over non communication.
+In this application, agents communicate with any other agent (but, recall, a single one) given that this agent is in view, and that they have not yet exchanged their current favoured hypothesis.
+Figure 3: Comparative effectiveness ratio gain of protocols when the proportion of agents augments The first observation that needs to be made is that  communication improves the effectiveness of the process, and this ratio increases as the number of agents grows in the system.
+Efficiency of the Protocols The final experiment reported here is concerned with the analysis of the efficiency of the protocols.
+However, by communicating hypotheses before eventually giving observation to support it (HE) instead of directly  giving the most crucial observations (OE), the argumentation process doubles the size of data exchanges.
+HE being more efficient than COE proves that the argumentation process gains efficiency by  selecting when it is needed to provide negative example, which have less impact that positive ones in our specific testbed.
+If the fire propagates in a case where an agent is positioned, that agent burns and is considered dead.
+However the CPL and CC allows to further refine the difference between the maps, e.g.
+Thus, we propose a topological index (see below) as a common basis to charaterize the environments (maps) used during experimentations.
+These agents can move and communicate with other agents.
+a large number of observations, which could counter-balance a low number of messages).
+In order to do so, we have computed the ratio of improvement offered by that protocol over a situation where agents could simply not communicate (no comm).
+3 The CPL is the median of the means of the shortest path lengths connecting each node to all other nodes.
+More precisely, this protocol requires that each agent stores any unexpected observation that it perceives, and agents simply exchange their respective lists of observations when they discuss.
+With a large number of walls the perceptions of agents are limited, and also the number of possible inter-agent communications, whereas an open environment will provide optimal possibilities of perception and  information propagation.
+Effectiveness of Communication and Argumentation The first experiment that we set up aims at testing how  effective is hypotheses exchange (HE), and in particular how the topological aspects will affect this effectiveness.
+Importance of the Global Protocol The second set of experiments seeks to evaluate the  importance of the design of the global protocol.
+We first observe that all classes of maps witness a ratio gain increasing when the proportion of agents augments: the gain reaches 10 to 20%, depending on the class of maps  considered.
+This is so because the more open a map, the more opportunities to communicate with more than one agent (and hence benefits from broadcast).
+As a consequence, the relative gain in efficiency of using RHE appears to be better when the number of agents is small: when it is high, they will hardly argue anyway.
+The third map is  characterised by geometrical enclosure in wich walls location is also designed with the aforementioned heuristic.
+• O = {Fire(x, y, t), NoFire(x, y, t), Agent(ai, x, y, t)} Observations can then be positive (o ∈ P(O) iff ∃h ∈ H s.t.
+(The closer to 1, the more open the environment).
+Now let us observe more carefully the results reported here: the curve corresponding to a TI of 53% is above that corresponding to 38%.
+When a map is labyrinth-like, there are fewer possible explanations to an unexpected event.
+Figure 5: Mean size of exchanges First we can observe the fact that the ordering of the  protocols, from the least efficient to the most efficient, is COE, HE, RHE and then OE.
+If this value is high, the protocol has been effective to propagate the information and/or for the agents to refine their hypotheses and  determine the best way to the exit.
+COE uses the same principles as OE, but includes in addition all critical negative examples (nofire) in the exchange (thus giving all examples used as arguments by the hypotheses exchanges protocol), hence improving  effectiveness.
+For each of those different locations we execute the system one time for each different interaction protocol.
+They also locally perceive this environment, but cannot see  further than 3 cases away, in any direction.
+with a maximum density of one agent per cell, the same number of exits and a similar fire origin (e.g.
+This is explained as follows: in the case of 69%, the potential gain to be made in terms of surviving agents is much lower, because our protocols already give rather  efficient outcomes anyway (quickly reaching 90%, see Fig.
+Again, we evaluated the ratio gain induced by that LB over our classical HE, for the three different classes of maps.
+The three differents maps of a given index are designed as follows.
+A simple rule of thumb could be that when the number of agents is small, special attention should be put on the local 1004 The Sixth Intl.
+• Number of agents- The propagation of information also depends on the initial number of agents involved during an experimentation.
+This gives us a rough upper bound upon the possible ratio gain in the system (for a given local protocol).
+Local broadcast means that all the neighbours agents perceived by an agent will be involved in a communication with that agent in a given round -we alleviate the constraint of a  single communication by agent.
+For each map and each initial proportion, The Sixth Intl.
+Finally, it is worth noticing that the standard deviation for these experiments is rather high, which means that the conversation do not converge to any stereotypic pattern. 
+Note that this means that the autonomy of the agent is not preserved here (as an agent will essentially accept any hypothesis it cannot undermine), with the hope that the gain in efficiency will be significant enough to compensate a loss in effectiveness.
+The second variant protocol is a complete observation exchange protocol (COE).
+Each round, for each cases where there is fire, the fire propagates in the four directions.
+To get further insights as to what extent the hypotheses exchange was really crucial, we also tested a much less elaborated protocol consisting of mere observation exchanges (OE).
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) protocol, whereas when that number is large, one should carefully design the global one (unless the map is so open that the protocol is already almost optimally efficient).
+We shall also use two additional, more classical [10], measures: the characteristic path length3 (CPL) and the clustering coefficient4 (CC).
+Within their sight, they can see other agents and whether or not the cases they see are on fire.
+This initial proportion represents the percentage of involved agents with regards to the possible maximum number of agents.
+It is the cost for ensuring consistency at the end of the exchange (a property that OE does not support).
+[3, 4]) assess the effectiveness and efficiency of different interaction protocols.
+Efficiency of a protocol Typically, the use of supporting information will involve a communication overhead.
+The first one is an intermediary restricted hypotheses exchange protocol (RHE).
+RHE is as follows: it does not  involve any challenge nor counter-propose, which means that agents cannot switch their role during the protocol (this  differs from RE in that respect).
+Agents know the environment and the rules governing the  dynamics of this environment, that is, they know the map as well as the rules of fire propagation previously described.
+This means that there will be more potential for  propagation, but also that the bilateral exchange restriction will be more crucial.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1003 we select randomly 100 different initial agents" locations.
+Also significant is the fact the the mean size of exchanges is slightly higher when the  number of agents is small.
+Walls also block the line of view, preventing agents from seeing behind them.
+2 shows two of them), containing the same maximum number of agents (36 agents max.)
+If an agent gets to an exit, it is considered saved, and can no longer be burned.
+The results of these experiments are reported in Fig.
+In each experiment, the society differs in terms of its initial proportion of involved agents, from 1% to 100%.
+The first map is a model of an existing building floor.
+However, these curves also suggest, perhaps surprisingly, that HE outperforms OE in precisely those situations where the ratio gain is less  important (the only noticeable difference occurs for rather open maps where T.I.
+However, the fire cannot propagate through a wall.
+All these perceptions are memorised.
+However, we also observe that curve for 69% is below that for 53%.
+In short, RHE allows an agent to exhaust its partner"s criticism, and eventually this  partner will come to adopt the agent"s hypothesis.
+5.2 Experimental Settings The chosen experimental settings are the following: • Environmental topology- Performances of  information propagation are highly constrained by the  environment topology.
+The results are reported in Fig.
+It can of course no longer move nor communicate.
+It is worth pointing out that the values confirm the relevance of TI (maps with a high TI have a low CPL and a high CC.
+5.4 Experimental Results For each triple of maps defined as above we conduct the same experiments.
+Agents are localised by their position on the spatial grid.
+Results for map 69-1 are shown on Fig.
+The environment is described as a spatial grid with a set of walls and (thankfully) some exits.
+- completeness : ∀o ∈ P(O), h |= o.
+Table 1 summarizes the different topological measures  characterizing these different maps.
+Time and space are considered discrete.
+This experiment involves agents trying to escape from a burning building.
+of 38% are  constantly above the two others, and 53% are still slightly but significantly better than 69%.
+Suddenly, a fire erupts in these premises.
+Figure 2: Two maps (left: TI=69%, right TI=38%) We designed three different maps for each index (Fig.
+In this paper we will only discuss this aspect wrt.
+From this moment, the fire propagates.
+starting time and position).
+We now show how this instantiates the abstract  framework presented the paper.
+between 53-1 and 53-2).
+This relation is then transitive and symmetric.
+h |= o) or negative (o ∈ N(O) iff ∃h ∈ H s.t.
+We tested our protocol against a local broadcast (LB) protocol.
+Time is divided in rounds.
+Maps exhibiting a T.I.
+local protocols.
+Joint Conf.
+Joint Conf.
+Joint Conf.
+Map T.I.
+is 69%).
+h |= ¬o).
+• H={FireOrigin(x1, y1, t1)∧...∧FireOrigin(xl, yl, tl)} Hypotheses are conjunctions of FireOrigins.

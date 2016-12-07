@@ -1,0 +1,50 @@
+section 7 concludes. 
+sections 5 and 6 present our experimental results for resource selection and document retrieval.
+section 4 explains our experimental methodology.
+section 3 describes the new unified utility maximization model.
+the next section discusses related work.
+empirical studies show the new model to be at least as accurate as the state-of-the-art algorithms in a variety of configurations.
+the unified utility framework is not only more theoretically solid but also very effective.
+this is a large advantage over previous research, which required the amount of human effort to be linear with the number of databases [7,15].
+the human effort (relevance judgment) required to train the single centralized logistic model does not scale with the number of databases.
+specifically, the framework builds logistic models on the centralized sample database to transform centralized retrieval scores to the corresponding probabilities of relevance and uses the centralized sample database as the bridge between individual databases and the logistic model.
+two key features make it a more solid model for distributed information retrieval: i) it formalizes the resource selection problems of different applications as various utility functions, and optimizes the utility functions to achieve the optimal results accordingly; and ii) it shows an effective and efficient way to estimate the probabilities of relevance of all documents across databases.
+the unified utility framework makes very few assumptions and works in uncooperative environments.
+furthermore, the semi-supervised learning (ssl) [20,22] algorithm is applied to merge the returned documents into a final ranked list.
+this selection criterion meets the high-precision goal of distributed document retrieval application.
+for resource selection for a distributed document retrieval system, databases containing a small number of documents with large probabilities of relevance are favored over databases containing many documents with small probabilities of relevance.
+for the task of resource selection for a database recommendation system, the databases can be ranked by the expected number of relevant documents to meet the high-recall goal.
+then, the probabilities of relevance of all the (mostly unseen) documents among the available databases can be estimated using the probabilities of relevance of the documents in the centralized sample database and the database size estimates.
+the probability of relevance for each document in the centralized sample database can be estimated by applying the logistic model to each document"s score.
+second, after a new query is submitted, the query can be used to search the centralized sample database which produces a score for each sampled document.
+a logistic transformation model is learned off line with a small amount of training queries to map the centralized document scores in the centralized sample database to the corresponding probabilities of relevance.
+first, a centralized sample database is built by randomly sampling a small amount of documents from each database with query-based sampling [1]; database size statistics are also estimated [21].
+this paper presents a unified utility maximization framework to integrate the resource selection problem of both database recommendation and distributed document retrieval together by treating them as different optimization goals.
+however, most previous solutions simply use effective resource selection algorithm of database recommendation system for distributed document retrieval system or solve the inconsistency with heuristic methods [1,4,21].
+prior research indicated that these two goals are related but not identical [4,21].
+on the other side, the effectiveness of distributed document retrieval is often measured by the precision of the final merged document result list, which we call a high-precision goal.
+the goal of a database recommendation system is to select a small set of resources that contain as many relevant documents as possible, which we call a high-recall goal.
+furthermore, users" queries are forwarded to the corresponding selected databases and the returned individual ranked lists are merged into a single list to present to the users.
+it selects relevant information sources for users" queries as the database recommendation system does.
+distributed document retrieval is a more sophisticated task.
+this solution is useful when the users want to browse the selected databases by themselves instead of asking the system to retrieve relevant documents automatically.
+it is composed of the resource description and the resource selection components.
+a database recommendation system goes a step further than a browsing system like invisible-web.net by recommending most relevant information sources to users" queries.
+invisible-web.net1 provides guided browsing of hidden web databases by collecting the resource descriptions of these databases and building hierarchies of classes that group them by similar topics.
+many types of solutions exist for distributed information retrieval.
+third, the results retrieved from all the selected resources have to be merged into a single final list before it can be presented to the end user (retrieval and results merging) [1,5,20,22].
+second, given a query, a set of resources must be selected to do the search (resource selection) [5,7,21].
+first, information about the contents of each individual database must be acquired (resource representation) [1,8,21].
+there are three important sub-problems in distributed information retrieval.
+in this paper, we focus mainly on uncooperative environments that contain multiple types of independent search engines.
+many applications fall into the latter type of uncooperative environments such as the mind project [16] which integrates non-cooperating digital libraries or the qprober system [9] which supports browsing and searching of uncooperative hidden web databases.
+even if they are willing to cooperate in these environments, it may be hard to enforce a single solution for all the information providers or to detect whether information sources provide the correct information as they are required.
+on the other side, in a wide area network such as very large corporate environments or on the web there are many types of search engines and it is difficult to assume that all the information providers can cooperate as they are required.
+early distributed information retrieval research focused on this type of cooperative environments [1,8].
+in a small local area network such as small company environments, the information providers may cooperate to provide corpus statistics or use the same type of search engines.
+the architecture of distributed search solution is highly influenced by different environmental characteristics.
+therefore, it is very important to search this type of valuable information.
+hidden web contents have been estimated to be 2-50 [19] times larger than the contents that can be searched by conventional search engines.
+for example, hidden web contents (also called invisible or deep web contents) are information on the web that cannot be accessed by the conventional search engines.
+distributed information retrieval, also known as federated search [1,4,7,11,14,22] is different from ad-hoc information retrieval as it addresses the cases when documents cannot be acquired and stored in a single database.
+conventional search engines such as google or altavista use ad-hoc information retrieval solution by assuming all the searchable documents can be copied into a single centralized database for the purpose of indexing.

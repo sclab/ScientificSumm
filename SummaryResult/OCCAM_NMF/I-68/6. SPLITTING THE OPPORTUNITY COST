@@ -1,0 +1,42 @@
+such situation (figure 4, heuristic h 1,0 ) occurs because the mean f+g 2 of two functions f, g is not smaller than f nor g only if f = g. this is why we have proposed the bh 1,1 heuristic, which by definition avoids the overestimation, underestimation and starvation problems. 
+however, the sum of split opportunity cost functions for the h 1/2,1/2 heuristic can be smaller than the non-zero split  opportunity cost function for the h 1,0 heuristic, which is clearly  undesirable.
+starvation can be avoided if opportunity cost functions are split  using heuristic h 1/2,1/2 , that provides reward to all enabling  methods.
+however, heuristic h 1,0 leaves k − 1 methods that  precede the method mj0 without any reward which leads to starvation.
+on autonomous agents and multi-agent systems (aamas 07) 835 the reason why we have introduced all three new heuristics is the following: since h 1,1 overestimates the opportunity cost, one has to choose which method mik will receive the reward from  enabling the method mj0 , which is exactly what the heuristic h 1,0 does.
+joint conf.
+the sixth intl.
+consequently, we have proved, that our new heuristics h 1,0 , h 1/2,1/2 and bh 1,1 avoid the overestimation of the opportunity cost.
+for heuristic bh 1,1 , the opportunity cost function vj0 is by  definition split in such manner, that pk k=0 vik (t) ≤ vj0 (t).
+for heuristic h 1/2,1/2 we similarly have: kx k=0 vik (t) ≤ kx k=0 z δ−t 0 pik (t ) 1 k vj0 (t + t ) y k ∈{0,...,k} k =k pjk (t + t )dt ≤ 1 k kx k=0 z δ−t 0 pik (t )vj0 (t + t )dt ≤ 1 k · k · vj0 (t) = vj0 (t).
+thus: kx k =0 vik (t) = z δ−t 0 pik (t )vj0,ik (t + t )dt (6) and since vj0 is non-increasing ≤ z δ−t 0 pik (t )vj0 (t + t ) · y k ∈{0,...,k} k =k pjk (t + t )dt ≤ z δ−t 0 pik (t )vj0 (t + t )dt ≤ vj0 (t) the last inequality is also a consequence of the fact that vj0 is non-increasing.
+mik ) gets the opportunity cost for enabling method mj0 .
+when heuristic h 1,0 is used to split the opportunity cost function vj0 , only one method (e.g.
+for the new heuristics, we now prove, that: theorem 3. heuristics h 1,0 , h 1/2,1/2 and bh 1,1 do not overestimate the opportunity cost.
+formally: v j0,ik (t) = 8 >< >: v h 1,1 j0,ik (t) if pk k=0 v h 1,1 j0,ik (t) < vj0 (t) vj0 (t) v h 1,1 j0,ik (t) pk k=0 v h 1,1 j0,ik (t) otherwise where v h 1,1 j0,ik (t) = (vj0 · q k ∈{0,...,k} k =k pjk )(t).
+to avoid  opportunity cost overestimation, we normalize the split  functions when their sum exceeds the opportunity cost function to be split.
+• heuristic bh 1,1 : this is a normalized version of the h 1,1 heuristic in that each method [mik ]k k=0 initially gets the full opportunity cost for enabling the method mj0 .
+• heuristic h 1/2,1/2 : each method [mik ]k k=0 gets the full opportunity cost for enabling method mj0 divided by the number k of methods enabling the method mj0 , i.e., v j0,ik (t) = 1 k (vj0 · q k ∈{0,...,k} k =k pik )(t) for k ∈ {0, ..., k}.
+to remedy the problem of opportunity cost overestimation, we  propose three alternative heuristics that split the opportunity cost  functions: • heuristic h 1,0 : only one method, mik gets the full  expected reward for enabling method mj0 , i.e., v j0,ik (t) = 0 for k ∈ {0, ..., k}\{k} and v j0,ik (t) = (vj0 · q k ∈{0,...,k} k =k pik )(t).
+since  decreasing the upper limit of the integral over positive function also decreases the integral, we have: kx k=0 vik (t0) > c kx k=0 z t1 t0 pik (t − t0)vj0 (t )dt and since vj0 (t ) is non-increasing we have: kx k=0 vik (t0) > c · vj0 (t1) kx k=0 z t1 t0 pik (t − t0)dt (5) = c · vj0 (t1) kx k=0 z t1−t0 0 pik (t )dt > c · vj0 (t1) vj(t0) c · vj(t1) = vj(t0) 4 assuming let0 t consequently, the opportunity cost pk k=0 vik (t0) of starting the execution of methods [mik ]k k=0 at time t ∈ [0, .., δ] is greater than the opportunity cost vj0 (t0) which proves the theorem.figure 4 shows that the overestimation of opportunity cost is easily  observable in practice.
+now, suppose there exists t1 ∈ (t0, δ], such that pk k=0 r t1−t0 0 pik (t )dt > vj0 (t0) c·vj0 (t1) .
+from equation (1) we have: vik (t) = z δ−t 0 pik (t )vj0,ik (t + t )dt summing over all methods [mik ]k k=0 we obtain: kx k=0 vik (t) = kx k=0 z δ−t 0 pik (t )vj0,ik (t + t )dt (4) ≥ kx k=0 z δ−t 0 pik (t )v j0,ik (t + t )dt = kx k=0 z δ−t 0 pik (t )vj0 (t + t ) y k ∈{0,...,k} k =k pik (t + t )dt let c ∈ (0, 1] be a constant and t0 ∈ [0, δ] be such that ∀t>t0 and ∀k=0,..,k we have q k ∈{0,...,k} k =k pik (t) > c. then: kx k=0 vik (t0) > kx k=0 z δ−t0 0 pik (t )vj0 (t0 + t ) · c dt because pjk is non-decreasing.
+also, assume that methods [mik ]k k=0 provide no local reward and have the same time windows, i.e., rik = 0; estik = 0, letik = δ for k = 0, ..., k. to prove the overestimation of opportunity cost, we must identify t0 ∈ [0, ..., δ] such that the opportunity cost pk k=0 vik (t) for methods [mik ]k k=0 at time t ∈ [0, .., δ] is greater than the opportunity cost vj0 (t).
+for the mission plan from figure (3), let h 1,1 split vj0 into [v j0,ik = vj0 · q k ∈{0,...,k} k =k pik ]k k=0 sent to methods [mik ]k k=0 respectively.
+we prove the theorem by showing a case where the overestimation occurs.
+we now prove that: theorem 2. heuristic h 1,1 can overestimate the  opportunity cost.
+that short discussion shows the importance of splitting the opportunity cost function vj0 in such a way, that overestimation, underestimation, and starvation problem is avoided.
+we call such  problem a starvation of method mk.
+finally, if vj0 is split in a way, that for some k, vj0,ik = 0, it is the method mik that underestimates the opportunity cost of enabling method mj0 , and the similar reasoning applies.
+since this chance is increased when agent a0 waits4 , it will consider at time t to be more profitable to wait, instead of starting the  execution of m0, which can have similarly disastrous consequences.
+on autonomous agents and multi-agent systems (aamas 07) maximizing the chance of obtaining its immediate reward r0.
+similarly, if pk k=0 vik,0(t) is underestimated, agent a0 might loose interest in enabling the future methods [mik ]k k=0 and just focus on 834 the sixth intl.
+as a result, it will choose at time t to start executing method m0 instead of waiting, which can have disastrous consequences.
+if this cost is overestimated, then an agent a0 at method m0 will have too much incentive to finish the execution of m0 at time t. consequently, although the  probability p(t) that m0 will be enabled by other agents by time t is low, agent a0 might still find the expected utility of starting the  execution of m0 at time t higher than the expected utility of doing it later.
+if m0 is the only methods that precedes method mk, then v ik,0 = vik is propagated to method m0, and consequently the opportunity cost for completing the method m0 at time t is equal to pk k=0 vik,0(t).
+for each k = 0, ..., k, equation (1) derives the  opportunity cost function vik from immediate reward rk and  opportunity cost function vj0,ik .
+(3) when value function propagation for methods [mik ]k k=0 is  performed.
+consider the situation in figure figure 3: splitting the value function of method mj0 among methods [mik ]k k=0.
+before we prove that this heuristic overestimates the opportunity cost, we discuss three problems that might occur when splitting the opportunity cost functions: (i) overestimation, (ii)  underestimation and (iii) starvation.
+we refer to this approach, as  heuristic h 1,1 .
+so far, we have taken the same  approach as in [4] and [5] in that the opportunity cost function vj0,ik that the method mik sends back to the method mj0 is a  minimal, non-increasing function that dominates function v j0,ik (t) = (vj0 · q k ∈{0,...,k} k =k pik )(t).
+functions in section 5 we left out the discussion about how the  opportunity cost function vj0 of method mj0 is split into opportunity cost functions [vj0,ik ]k k=0 sent back to methods [mik ]k k=0 , that  directly enable method mj0 .

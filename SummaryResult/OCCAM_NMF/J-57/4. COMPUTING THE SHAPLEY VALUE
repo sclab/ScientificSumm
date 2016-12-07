@@ -1,0 +1,22 @@
+in terms of computational complexity, given that the  shapley value of any agent in a given rule can be computed in time linear in the pattern of the rule, the total running time of the algorithm for computing the shapley value of the game is linear in the size of the input. 
+but this is because the presence of such rules is to define the values of coalitions smaller than the grand coalition.
+the fact that these rules have no effect on the grand coalition may appear odd at first.
+note that the sum over all agents in rules with mixed literals is 0. this is to be expected as these rules contribute 0 to the grand coalition.
+(−v) = −v n p+n p by the (sym) axiom, all positive literals will have the value of φi and all negative literals will have the value of φj.
+(p + n)!
+(n − 1)!
+therefore, φj = p!
+v = v p p+n n for a given negative literal j, j will be responsible for  cancelling the application of the rule if all positive literals come before the negative literals in the ordering, and j is the first among the negative literals.
+formally, let φi denote the shapley value of i, p denote the cardinality of the positive set, and n denote the cardinality of the negative set, then φi = (p − 1)!n!
+for a given positive literal i, the rule will apply only if i occurs in a given permutation after the rest of the positive literals but before any of the negative literals.
+for rules that have both positive and negative literals, we can consider the positive and the negative literals separately.
+this is a direct consequence of the (sym) axiom of the shapley value, as the agents in a rule are indistinguishable from each other.
+for rules that have only positive literals, the shapley value of the agents is v/m, where v is the value of the rule and m is the number of agents in the rule.
+we can separate the analysis into two cases, one for rules with only positive literals and one for rules with mixed literals.
+the remaining question is how to compute the shapley values of the rules.
+for any group s, under the mc-nets  representation, v(s) is defined to be the sum over the values of all the rules that apply to s. therefore, considering each rule as a game, by the (add) axiom discussed in section 2, the  shapley value of the game created from aggregating all the rules is equal to the sum of the shapley values over the rules.
+proposition 5. the shapley value of an agent in a marginal contribution network is equal to the sum of the shapley  values of that agent over each rule.
+we first show that this final summing process correctly computes the shapley value of the agents.
+for each agent, we then sum up the shapley values of that agent over all the rules.
+considering each rule as a separate game, we start by computing the shapley value of the agents for each rule.
+given a mc-net, we have a simple algorithm to compute the shapley value of the game.

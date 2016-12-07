@@ -1,0 +1,108 @@
+An interesting feature of the arbitrary-npv distribution is that optimal solutions can become more brittle as the number of bids increases.
+The revenues of repair  solutions are bounded by at least 90% of the optimum in our  experiments thereby allowing a direct comparison with robust solutions already found using the same revenue constraint but not providing for backtracking.
+It is somewhat  counterintuitive to expect a reduction in reparability of auction solutions as the number of bids increases because there tends to be an increased number of solutions above a revenue threshold in larger auctions.
+This improves the reparability of all  possible solutions thus increasing the revenue of the optimal robust solution on average.
+We assumed that all bids were brittle, thus a repair solution is required for every bid in the solution.
+Figure 3(a) illustrates how the paths distribution is inherently the most robust distribution since when any winning bid is  withdrawn the solution can be repaired to achieve over 98.5% of the 4 The CATS flags included int prices with the bid alpha parameter set to 1000.
+5.2 Robust Solutions using WSS In this section we focus upon both the arbitrary-npv and regions-npv distributions because the sensitivity analysis  indicated that these types of auctions produce optimal solutions that tend to be most brittle, and therefore stand to benefit most from  solution robustness.
+Thirdly, we allowed backtracking by the bid-taker on winning bids using mutual bid bonds but  maintaining the revenue constraint at 90% of optimum.
+We use the product of the solution of the LP relaxation and the degree of a variable to determine the likelihood of its participation in a robust solution.
+We then simulated a single bid withdrawal and re-solved the problem with the other winning bids remaining fixed, i.e.
+Figure 4 shows the increase in revenue of robust solutions in such instances.
+The optimal repair solution was then determined.
+High values in the LP solution are a strong indication of variables most likely to form a high revenue solution whilst the a variable"s degree reflects the number of other bids that overlap in terms of desired items.
+If we relax this constraint so that bids can partially win, this corresponds to the linear relaxation of the problem and is solvable in polynomial time.
+At each node of the search tree we can quickly solve the linear relaxation of the remaining problem in the subtree below the current node to establish an upper bound on remaining revenue.
+It is possible to use an incremental algorithm to 100 98 96 94 92 250 500 750 1000 1250 1500 1750 2000 Revenue(%ofoptimum) Bids Repair Revenue: Min 90% Optimal Repair Revenue: Min 85% Optimal MBB: Repair Revenue: Min 90% Optimal (a) regions-npv 100 98 96 94 92 250 500 750 1000 1250 1500 1750 2000 Revenue(%ofoptimum) Bids Repair Revenue: Min 90% Optimal Repair Revenue: Min 85% Optimal MBB: Repair Revenue: Min 90% Optimal (b) arbitrary-npv Figure 4: Revenue of optimal robust solutions.
+The LP formulation is as follows: max xi∈V aixi 188 100 95 90 85 80 75 250 500 750 1000 1250 1500 1750 2000 Revenue(%ofoptimum) Bids Average Repair Solution Revenue Worst-case Repair Solution Revenue (a) paths 100 95 90 85 80 75 250 500 750 1000 1250 1500 1750 2000 Revenue(%ofoptimum) Bids Average Repair Solution Revenue Worst-case Repair Solution Revenue (b) matching 100 95 90 85 80 75 250 500 750 1000 1250 1500 1750 2000 Revenue(%ofoptimum) Bids Average Repair Solution Revenue Worst-case Repair Solution Revenue (c) regions-npv 100 95 90 85 80 75 250 500 750 1000 1250 1500 1750 2000 Revenue(%ofoptimum) Bids Average Repair Solution Revenue Worst-case Repair Solution Revenue (d) arbitrary-npv Figure 3: Sensitivity of bid distributions to single bid withdrawal.
+#Bids Solution 100 250 500 1000 2000 arbitrary-npv Optimal 3.31 5.60 7.17 9.31 10.63 Repair ≥ 90% 1.40 2.18 6.10 9.03 (≈ 10.63) Repair ≥ 85% 1.65 3.81 6.78 9.31 (10.63) MBB (≥ 90%) 2.33 5.49 7.33 9.34 (≈ 10.63) regions-npv Optimal 4.34 7.05 9.10 10.67 12.76 Repair ≥ 90% 3.03 5.76 8.67 10.63 (≈ 12.76) Repair ≥ 85% 3.45 6.75 9.07 (10.67) (12.76) MBB (≥ 90%) 3.90 6.86 9.10 10.68 (≈ 12.76) bility, the number of bids in the solutions increases on average.
+These distributions were chosen  because they describe a broad array of bidding patterns in different application domains.
+#Bids Min Revenue 100 250 500 1000 arbitrary-npv repair ≥ 90% 58 39 51 98 repair ≥ 85% 86 88 94 99 MBB & repair ≥ 90% 78 86 98 100 regions-npv repair ≥ 90% 61 70 97 100 repair ≥ 85% 89 99 99 100 MBB & repair ≥ 90% 83 96 100 100 a withdrawing bidder cannot participate in a repair solution.
+#Bids Min Revenue 100 250 500 1000 2000 arbitrary-npv repair ≥ 90% 21 5 3 37 93 repair ≥ 85% 26 15 40 87 100 MBB & repair ≥ 90% 41 35 60 94 ≥ 93 regions-npv repair ≥ 90% 30 33 61 91 98 repair ≥ 85% 50 71 95 100 100 MBB & repair ≥ 90% 60 78 96 99 ≥ 98 Table 3: Occurrence of Robust Solutions (%).
+It can be clearly seen from Table 4 that when revenue constraints on repair solutions are tight, there are fewer winning bids in the optimal robust solution on average.
+As the number of bids increases, more of the optimal overall solutions are robust.
+We can therefore infer that the average number of winning bids in  revenuemaximizing robust solutions converges towards that of the optimal overall solutions.
+If this bid is  withdrawn it is usually easy to find a new repair solution within 90% of the previous optimal revenue.
+As the number of bids in the auction increases however, there is an increase in the inherent robustness of solutions so the degree of a variable loses significance as the auction size increases.
+When backtracking on winning bids by the bid-taker is disallowed, this can only happen when the repair solution includes two or more bids that were not in the original.
+Figure 3(b) shows how the matching distribution is more brittle on average than paths and also has an inferior worst-case revenue on average.
+Initially we  assume that no backtracking was permitted on assignments of items to other winning bids given a bid withdrawal elsewhere in the  solution.
+To motivate the research presented in this paper we use sensitivity analysis to  examine the brittleness of optimal solutions and hence determine the types of auctions most likely to benefit from a robust solution.
+In some auctions, a robust  solution may not exist.
+A pure CP approach needs to be augmented with global  constraints that incorporate operations research techniques to increase pruning sufficiently so that thousands of bids may be examined.
+If this upper bound plus revenue in the parent tree is less than the current lower bound on revenue, search at that node can cease.
+We first of all determined the optimal solution using lp_solve, a mixed integer linear program solver [3].
+The MBB auction model performs very well however, and ensures that robust solutions are achievable for such inherently brittle  auctions without sacrificing over 10% of optimal revenue to achieve repair solutions.
+A notable side-effect of robust solutions is that fewer bids  participate in the solutions.
+This process is repeated for all winning bids in the overall optimal solution, thus assuming that all bids are brittle.
+Even in auctions with as many as 2000 bids there are occasions when a single bid withdrawal can result in a drop in revenue of over 5%, although the average worst-case drop in revenue is only 1%.
+determine an optimal repair solution following a break, whilst safe in the knowledge that in advance of any possible bid withdrawal we can establish a lower bound on the revenue of a repair.
+These distributions are clearly sensitive to bid withdrawal when no other winning bids in the solution may be involuntarily withdrawn by the bid-taker.
+Table 3 shows the percentage of auctions that support robust solutions for the arbitrary-npv and regions -npv distributions.
+Prior to finding a robust solution we solved the WDP optimally using lp_solve [3].
+The (continuous) LP relaxation thus provides a  vital speed-up in the search for weighted super solutions, which we have exploited in our implementation.
+We also conducted experiments on the same auctions in which backtracking by the bid-taker is permitted using mutual bid bonds.
+The numbers in brackets are derived from the  sensitivity analysis of optimal solutions that reveals the fact that almost all optimal solutions for auctions of 2000 bids are robust.
+A mitigating factor is that such bids form a smaller percentage of the revenue of the optimal solution on average.
+m}, xj ≥ 0, xj ∈ R. Additional techniques, that are outlined in [25], can aid the  scalability of a CP approach but our main aim in these experiments is to examine the robustness of various auction distributions and  consider the tradeoff between robustness and revenue.
+Otherwise the repair bids would participate in the optimal robust solution in place of the bid that was withdrawn.
+The first is that no winning bids are withdrawn by the bid-taker and a repair solution must return a revenue of at least 90% of the optimal overall solution.
+We ignore the auctions with 2000 bids because the sensitivity analysis has indicated that these auctions are  inherently robust with a very low average drop in revenue following a bid withdrawal.
+5.1 Sensitivity Analysis for the WDP We have performed sensitivity analysis of the following four  distributions: airport take-off/landing slots (matching), electronic components (arbitrary), property/spectrum-rights (regions) and transportation (paths).
+Figure 3 shows the average revenue of such repair solutions as a percentage of the optimum.
+Although MBBs aid solution  repara190 Table 4: Number of winning bids.
+Relaxing the revenue constraint helps increase the percentage of auctions in which robust solutions are achievable to 88% and 94%, respectively.
+We also implemented an auction rule that disallows bids from the reneging bidder participate in a repair5 .
+Note that in some instances it is possible for a repair solution to have higher revenue than the original solution.
+The reason for this is that optimal solutions for larger auctions have more  winning bids.
+There are a number of ways to speed up the search for a weighted super solution in a CA, although this is not the main focus of our current work.
+Figure 4 shows the average revenue of the optimal robust  solution as a percentage of the overall optimum.
+It is clear that finding robust solutions for the former distribution is particularly difficult for auctions with 250 and 500 bids when revenue constraints are 90% of optimum.
+This is particularly pronounced for smaller auctions in both distributions.
+Repair solutions found for a WSS provide a lower bound on possible revenue following a bid withdrawal.
+5 We assumed that all bids in a given XOR bid with the same dummy item were from the same bidder.
+This  difficulty was previously alluded to by the low percentage of optimal solutions that were robust for these auctions.
+Table 4 shows the number of winning bids participating in  optimal and optimal robust solutions given the three different  constraints on repairing solutions listed at the beginning of this  section.
+Secondly, we relaxed the revenue constraint to 85% of optimum.
+We also implemented a rule stipulating that any losing bids from 189 Table 2: Optimal Solutions that are Inherently Robust (%).
+Bids for large numbers of items tend to be more robust, which is why we weight our robust solution search in this manner.
+This complements our dynamic variable ordering heuristic that selects the most promising unassigned variable as the next one in the search tree.
+This  improves the reparability of all solutions thereby increasing the  average revenue of the optimal robust solution.
+Polynomial matching algorithms may be used in auctions whose bid length is short, such as those for airport landing/take-off slots for example.
+Also shown is the average worst-case scenario over 100 auctions.
+Some of the optimal solutions for the smallest auctions with 100 bids have only one winning bidder.
+This leads to a convergence in the number of winning bids.
+Relaxing the revenue constraint on  repair solutions to 85% of the optimum revenue greatly increases the number of optimal solutions that are robust.
+5.3 Results Our experiments simulate three different constraints on repair solutions.
+optimal revenue on average for auctions with more than 250 bids.
+Such dominated bids can participate in repair solutions although they do not feature in optimal solutions.
+The WSS solver we have developed is an extension of the super solution solver  presented in [9, 10].
+We then set the minimum tolerable revenue for a solution to be 90% (then 85%) of the revenue of this  optimal solution.
+There are some cases however when such withdrawals result in  solutions whose revenue is significantly lower than optimum.
+Mutual bid bonds facilitate backtracking by the bid-taker on  already assigned items.
+This significantly improves the reparability of optimal solutions whilst still  maintaining repair solutions of 90% of optimum.
+Also, repair solutions for bids that contain a small number of items may be made difficult by the fact that a reduced number of bids cover only a subset of those items.
+Combinatorial auctions are easily modeled as a constraint  optimization problems.
+Table 2 shows the percentage of optimal solutions that are robust for minimum revenue constraints for repair solutions of 90% and 85% of optimal revenue.
+This is to be expected because a greater fraction of these solutions are in fact optimal, as we saw in Table 2. 
+A WSS guarantees minimum levels of revenue for repair solutions but this is not to say that repair solutions cannot be improved upon.
+We generated 100 instances of problems in which there are 20 items for sale and 100-2000 bids that may be dominated in some instances4 .
+All variables are binary and our search mechanism uses a  reverse lexicographic value ordering heuristic.
+It is immediately obvious that such a mechanism can significantly increase revenue whilst still maintaining solution robustness.
+This acts as a disincentive for strategic withdrawal and was also used previously in the sensitivity analysis.
+We have chosen the branch-on-bids  formulation because in tests it worked faster than a branch-on-items  formulation for the arbitrary-npv and regions-npv  distributions.
+We have used the Combinatorial Auction Test Suite (CATS) [16] to generate sample auction data.
+This trend continues as the regions-npv (Figure 3(c)) and arbitrary-npv (Figure 3(d)) distributions are more  brittle still.
+The integer programming formulation of the WDP stipulates that a bid either loses or wins.
+This can win benefits for the bid-taker such as reduced overheads in dealing with fewer suppliers.
+We then establish robust solutions for CAs using the WSS framework.
+They would also be very computationally expensive, given the extra complexity of finding robust solutions.
+CATS uses economically motivated bidding  patterns to generate auction data in various scenarios.
+This solver is, in turn, based upon the EFC  constraint solver [2].
+We found this heuristic to be slightly more effective than the LP solution alone.
+Global constraints exploit special-purpose filtering algorithms to improve performance [21].
+have provided such an incremental ILP formulation [15].
+The method used is as follows.
+there were no involuntary dropouts.
+Kastner et al.
+j|i∈Sj xj ≤ 1, ∀i ∈ {1 .

@@ -1,0 +1,29 @@
+the gradients are ∂js ∂u = ∂j ∂u , ∂js ∂v = ∂j ∂v , ∂js ∂z = ∂j ∂z + λgw, ∂js ∂w =λg z + νw, ∂js ∂b =λg 1, where g is an n×c matrix, whose ik-th element is yikg (yikhik), and g (x) = 8 >< >: 0 when x ≥ 2, −1 when x ≤ 0, 1 2 (x − 2) when 0 < x < 2. once we obtain w, b, and z, we can apply h on the vertices with unknown class labels, or apply traditional classification algorithms on z to get the classification results. 
+(8).
+we can also use gradient methods to solve the problem of eq.
+then the supervised matrix factorization problem becomes min u,v,z,w,b js(u, v, z, w, b) (8) where js(u, v, z, w, b) = j (u, v, z) + ly (w, b, z) + ωw (w).
+to derive a robust solution, we also use tikhonov regularization for w, ωw (w) = ν 2 w 2 f , where ν is the parameter to scale the term.
+(6) over all labeled data points and the classes, ly (w, b, z) = λ x i:vi∈t ,j∈c g(yijhij), where λ is the parameter to scale the term.
+(5) form a matrix h = zw + 1b , (7) where 1 is a vector of size n, whose elements are all one, w is a c × l parameter matrix, and b is a parameter vector of size c. the total loss is proportional to the sum of eq.
+then the values of eq.
+therefore, y is a matrix of n × c, where c is the number of classes, |c|.
+let y be the label matrix, each column of which is a label vector.
+the element of a label vector is 1 if the data point  belongs the corresponding class, −1, if the data point does not belong the corresponding class, 0, if the data point is not labeled.
+in the one-against-rest scheme, we assign a label vector for each class label.
+one simple scheme of reduction is the one-against-rest coding scheme.
+to overcome the difficulty, we use a smoothed version of hinge loss for each data point, g(yih(vi)), (6) where g(x) = 8 >< >: 0 when x ≥ 2, 1 − x when x ≤ 0, 1 4 (x − 2)2 when 0 < x < 2. we reduce a multiclass problem into multiple binary ones.
+similar to support vector machines (svms) [7], we can use the hinge loss to measure the loss, x i:vi∈t [1 − yih(vi)]+ , where [x]+ is x if x ≥ 0, 0 if x < 0. however, the hinge loss is not smooth at the hinge point, which makes it difficult to apply gradient methods on the problem.
+here, w is the norm of the decision boundary.
+faculty other project staff student total cornell 44 1 34 581 18 21 128 827 texas 36 1 46 561 20 2 148 814 washington 77 1 30 907 18 10 123 1166 wisconsin 85 0 38 894 25 12 156 1210 table 1: dataset of webkb where w and b are parameters to estimate.
+h(vi) = w φ(vi) + b = w zi + b, (5) school course dept.
+we assume a transform from the latent space to r is linear, i.e.
+assume we know the  labels {yi} for vertices in t ⊂ v. we want to find a hypothesis h : v → r, such that we assign vi to 1 when h(vi) ≥ 0, −1  otherwise.
+c = {−1, 1}.
+for simplicity, we first consider  binary class problem, i.e.
+let c be the set of classes.
+because some data used in the matrix factorization have no label  information, the supervised matrix factorization falls into the category of semi-supervised learning.
+believing that using data labels improves the accuracy by obtaining a better z for the  classification, we consider to use the data labels to guide the matrix factorization, called supervised matrix factorization [22].
+however, this approach does not take data labels into account in the first step.
+(4) to obtain z as section 3, then use a traditional classifier to perform classification.
+we can solve eq.
+factorization consider a web page classification problem.

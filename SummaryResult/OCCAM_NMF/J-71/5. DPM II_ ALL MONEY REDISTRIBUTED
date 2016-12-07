@@ -1,0 +1,33 @@
+sell orders in the aftermarket might still come in below the market maker"s price, but in this way the system could ensure that every wager on the correct outcome at least breaks even. 
+at this point, the market maker could artificially stop lowering the price.
+one potential fix would be for the market maker to keep track of when the price is going too low, endangering an investor on the correct outcome.
+from informal experiments, i don"t believe this eventuality would be common, but nonetheless it requires care in  communicating to traders the possible risks.
+traders must be aware that if they buy in at an excessively high price that later tumbles allowing many others to get in at a much lower price, they may lose money in the end regardless of the outcome.
+because shares are homogenous, the  implementation of an aftermarket is straightforward, as we shall see in section 7. on the other hand, because initial prices paid are not refunded for winning bets, there is a chance that, if prices swing wildly enough, a wager on the correct outcome might actually lose money.
+this complicates the implementation of an aftermarket to cash out of the market early, which we will examine below in section 7. when all money is redistributed (dpm ii), shares are homogeneous: each share entitles its owner to an equal slice of the final payoff.
+the main disadvantage of  refunding winning wagers is that shares are not homogenous: each share of a, for example, is actually composed of two distinct parts: (1) the refund, or a lottery ticket that pays $p if a occurs, where p is the price paid per share, and (2) one share of the final payoff ($p1) if a occurs.
+5.3 comparing dpm i and ii the main advantage of refunding winning wagers (dpm i) is that every bet on the winning outcome is guaranteed to at least break even.
+that is, e[$1 of a + $1 of b] = 0. the derivation is omitted.
+if one uses the above price function, then the market dynamics will be such that the ratio of the (instantaneous) prices of a and b always equals the ratio of the amounts wagered on a and b. this price function has another desirable property: it acts such that the expected value of wagering $1 on a and  simultaneously wagering $1 on b equals zero, assuming (3).
+from n(m) we can also compute the price function: p1(m) = dm dn = (m1 + m)m2t denom , (18) where denom = (m1 + m)m2n1 + (m2 − m)m2n2 +t(m1 + m)n2 ln » t(m1 + m) m1(t + m)  note that, as required, p1(0)/p2(0) = m1/m2.
+still, n(m) can be used to determine how many shares can be purchased for m dollars, and the inverse function can be approximated to any degree  numerically.
+i could not find a closed-form solution for m(n), as was derived for the two other cases above.
+note that we solved for n(m) rather than m(n).
+the instantaneous price per share for an infinitesimal  quantity of shares is: p1 = (m1)2 + m1m2 m1n1 + m2n2 = m1 + m2 n1 + m2 m1 n2 working from the above instantaneous price, we can  derive the number of shares n that can be purchased for m dollars, as follows: dm dn = m1 + m2 + m n1 + n + m2 m1+m n2 dn dm = n1 + n + m2 m1+m n2 m1 + m2 + m (17) · · · n = m(n1 − n2) t + n2(t + m) m2 ln » t(m1 + m) m1(t + m)  .
+176 using equations 3, 8, and 15 we can derive the implied market probability: m1 m2 = p1 p2 = mpr(a) mpr(b) · t n1 · n2 t = mpr(a) mpr(b) · n2 n1 mpr(a) mpr(b) = m1n1 m2n2 mpr(a) = m1n1 m1n1 + m2n2 (16) interestingly, this is the same market probability derived in section 4.2.1 for the case of losing-money redistribution with the constraints that the price of a equal the payoff of b and vice versa.
+in other words, the price of a is proportional to the amount of money wagered on a, and similarly for b.
+that is, p1/p2 = m1/m2.
+a reasonable price function can be derived from the  constraint (8) employed in section 4.2.2, where we require that the ratio of prices to be equal to the ratio of money wagered.
+5.2 price functions for the case where all money is distributed, the  constraints (4) that keep the price of a equal to the payoff of b, and vice versa, do not lead to the derivation of a coherent price function.
+the assumption is critical for our analysis, but may not be required for a practical implementation.
+(15) as before, we make the simplifying assumption (3) that the expected final payoff per share equals the current payoff per share.
+solving we get mpr(a) = p1 e[p1|a] .
+5.1 market probability in this case mpr(a), the aggregate probability of a as judged by the market as a whole, is the solution to 0 = mpr(a) · e[p1|a] − p1.
+that is, find n ≥ 0 satisfying 0 = pr(a) · e [p1|a] − p1(n), if such a n exists, otherwise n = 0.
+(13) a risk-neutral trader optimizes by choosing a number of shares n ≥ 0 of a to purchase, in order to maximize e[n shares] = pr(a) · n · e [p1|a] − z n 0 p1(n)dn = pr(a) · n · e [p1|a] − m (14) the same value of n can be solved for by finding the number of shares required to drive e[ shares]/ to zero.
+in this case, the trader"s per-share expected value for  purchasing an infinitesimal quantity of shares of a is e[ shares] = pr(a) · e [p1|a] − p1.
+similarly, if b occurs, shareholders of b lose their initial price paid, but receive p2 dollars per share owned; shareholders of a lose all money wagered.
+so, if a occurs, shareholders of a lose their initial price paid, but receive p1 dollars per share owned; shareholders of b simply lose all money wagered.
+for the case where all money is redistributed, the  respective payoffs per share are: p1 = m1 + m2 n1 = t n1 p2 = m1 + m2 n2 = t n2 , where t = m1 + m2 is the total amount of money wagered on both sides.
+in this section we consider the second policy mentioned in section 3.3: all money from all wagers are collected and redistributed to winning wagers.
+above we examined the policy of refunding winning  wagers and redistributing only losing wagers.

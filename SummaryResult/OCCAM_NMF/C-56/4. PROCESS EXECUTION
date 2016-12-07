@@ -1,0 +1,27 @@
+at this point, the process coordinator verifies that there is no other process element to execute and finishes the process. 
+then, the controller waits until all  activities that have been started are finished, and it ends.
+in parallel, whenever an activity finishes, its result is sent back to the process coordinator, which records it in the parfor controller.
+else, if no activity manager is available, then the controller enters in a wait state until an activity manager is made available, or is created.
+if there is any am available in this group or in an external one, the process coordinator sends the activity class and initial parameters to this activity manager and requests its execution.
+in each  iteration of this controller, the process coordinator requests to the group manager (gm) an available activity manager (am) in order to execute a new instance of the findprimes activity.
+a findprimes process  instance is created in an available process coordinator (pc), which begins executing the parfor controller.
+figure 4 shows an instance of this process type executing over the proposed infrastructure.
+each activity, then, finds primes in a determined part of the range of numbers.
+in order to solve this problem, it creates a number of activities using the parfor controller.
+4.2 process execution example revisiting the example shown in section 2.2, a process type is specified to find prime numbers in a certain range of numbers.
+besides, it supports easy monitoring and steering, due to its structured controllers, which maintain state and control over its inner elements.
+the advantage of this distribution model is wide area  execution, which takes advantage of potentially all grid  resources; and localized communication of process elements, because strong dependent elements, which are under the same controller, are placed in the same or near groups.
+therefore, because processes are structured by  nesting process elements, the process execution is automatically distributed hierarchically through one or more grid groups according to the availability and locality of computing  resources.
+such procedure is followed recursively by all process  cogm findprimes activity am findprimes activity am findprimes activity am findprimes process pc figure 4: findprimes process execution ordinators that execute subprocesses or controllers of a  process.
+obeying this rule, group managers try to find process servers in the same group of the available workers.
+it returns an external worker (activity manager machine) if there are no available workers in the local group; and, it returns an  external process server (process coordinator machine), if there are no available process servers or workers in the local group.
+then, it can return a local  machine, a machine in another group or none, depending on the availability of such resource in the grid.
+process coordinators request the local group manager to find available machines that contain the required service, process coordinator or activity manager, in order to  execute a process element.
+else, if the element is an activity, it passes to an activity manager of an available machine.
+if the element is a process or a controller, the process  coordinator can choose to execute it in the same machine or to pass it to another process coordinator in a remote machine, if available.
+the process coordinator carries out the process by  executing the process elements included in its body sequentially.
+also, the initial parameters must be passed to it, and then it can be started.
+4.1 dynamic model to execute a specified process, it must be instantiated by referencing its type on a process coordinator service of a specific group.
+at this time, it can be instantiated and executed by a process coordinator.
+after specified, the process is compiled in a set of classes, which represent specific process, activity and controller types.
+in the proposed grid architecture, a process is specified in xml, using controllers to determine control flow;  referencing other processes and activities; and passing objects to their parameters in order to define data flow.

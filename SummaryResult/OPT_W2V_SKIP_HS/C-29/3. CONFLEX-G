@@ -1,0 +1,5 @@
+We implemented the worker program of CONFLEX-G to receive data, such as evaluation parameters of energy, from a client program and to be initialized by the Initialize function.
+To call the structure optimization function in a worker program from the client program, we use the OmniRpcCallAsync API, which is  intended for asynchronous RPC.
+It is necessary for the application without the OmniRPC AIM facility to initialize at each RPC.
+The user can define an  initialization procedure in the remote executable in order to send and store data automatically in advance of actual remote procedure calls.
+When the agent and the 

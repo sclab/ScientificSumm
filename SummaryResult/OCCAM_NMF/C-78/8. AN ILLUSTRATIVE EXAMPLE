@@ -1,0 +1,39 @@
+the sentient object controlling the actuation of the follower is aware of the increased latency and higher probability of omission. 
+these quality  attributes are reflected in the event channel description.
+for the follower robot, the information comes also via an event channel but with different quality attributes.
+in the case of the guide robot, this information is directly  delivered as a body event with a low latency and a high reliability over the internal network.
+the respective sentient object controlling the actuation of the robot receives as input the position and orientation of the white line to be tracked.
+the proposed system  provides the architectural framework for such a  cooperation.
+because it knows the  distance to the guide and the speed as well, it can foresee the necessary movements.
+thus it can see through the eye of the guide.
+the blind robot subscribes to the events of the line tracking camera.
+3. cooperative sensing.
+the  unavailability of the remote events will decrease the quality of interaction and probably and slow down the robots, but will not affect safety properties.
+because there may be longer latencies and omissions, this check occasionally will not be possible.
+additionally, the robots have remote subscriptions to the respective  distance events which are used to check it with the local sensor readings to validate that they really follow the guide which they detect with their local sensors.
+the follower may not crash into the guide and the guide may not loose the follower.
+thus, the interaction through the  environment will secure the safety properties of the  application, i.e.
+the respective reaction time can be  calculated as function of the speed and the distance of the robots and define a dynamic dissemination deadline for events.
+the local distance sensors produce events which are  disseminated through a low latency, highly predictable event channel.
+respectively, if the blind robot comes too close it reduces its speed.
+if the guide detects that the distance grows, it slows down.
+the  cooperation between the robots is controlled by sensing the distance between the robots.
+2. interaction through the environment.
+a suitable wireless protocol which uses proximity to filter events has been proposed by meier and cahill [22] in the cortex project.
+rather, the position of the event generation entity which is captured in the respective attributes can be evaluated to filter the relevant event out of the event stream.
+a robot identity does not help much to solve this problem.
+a problem will be to receive only the events of the robot which is closest.
+all what publishers and subscribers have to know to dynamically interact in this  environment is the subject of the respective event class.
+in principle, any two a priori unknown robots can cooperate.
+the demo application highlights the following properties of the system: 1. dynamic interaction of robots which is not known in advance.
+to follow the guide.
+also subscribes to the event channels of the tracking camera and the speed sensors 37 figure 5: cooperating robots.
+now n.n.
+if the distance is approximately the same it infers that it is really behind a guide.
+for this purpose, it dynamically  subscribes to the event channel disseminating distance events from rear distance sensors of the guide(s) and compares these with the distance events from its local front sensors.
+whenever the blind robot detects (by its front distance sensors) an obstacle, it checks whether this may be the guide.
+is  searching the guide randomly.
+the blind robot (n.n.)
+cosmic provides the event layer for seamless interaction.
+the robots form a wan-of-cans system in which their local cans are interconnected via a wireless 802.11 network.
+a simple example for many important properties of the proposed system showing the coordination through the  environment and events disseminated over the network is the demo of two cooperating robots depicted in figure 5. each robot is equipped with smart distance sensors, speed sensors, acceleration sensors and one of the robots (the guide (kurt2) in front (figure 5)) has a tracking camera  allowing to follow a white line.

@@ -1,0 +1,152 @@
+A common feature of many online distributed systems is
+that individuals provide services for each other. 
+Peer-topeer (P2P) networks (such as Kazaa [25] or BitTorrent [3])
+have proved popular as mechanisms for file sharing, and 
+applications such as distributed computation and file storage
+are on the horizon; systems such as Seti@home [24] provide
+computational assistance; systems such as Slashdot [21] 
+provide content, evaluations, and advice forums in which people
+answer each other"s questions. Having individuals provide
+each other with service typically increases the social welfare:
+the individual utilizing the resources of the system derives a
+greater benefit from it than the cost to the individual 
+providing it. However, the cost of providing service can still be
+nontrivial. For example, users of Kazaa and BitTorrent may
+be charged for bandwidth usage; in addition, in some 
+filesharing systems, there is the possibility of being sued, which
+can be viewed as part of the cost. Thus, in many systems
+there is a strong incentive to become a free rider and 
+benefit from the system without contributing to it. This is not
+merely a theoretical problem; studies of the Gnutella [22]
+network have shown that almost 70 percent of users share
+no files and nearly 50 percent of responses are from the top
+1 percent of sharing hosts [1].
+Having relatively few users provide most of the service 
+creates a point of centralization; the disappearance of a small
+percentage of users can greatly impair the functionality of
+the system. Moreover, current trends seem to be leading
+to the elimination of the altruistic users on which these
+systems rely. These heavy users are some of the most 
+expensive customers ISPs have. Thus, as the amount of traffic has
+grown, ISPs have begun to seek ways to reduce this traffic.
+Some universities have started charging students for 
+excessive bandwidth usage; others revoke network access for it
+[5]. A number of companies have also formed whose service
+is to detect excessive bandwidth usage [19].
+These trends make developing a system that encourages
+a more equal distribution of the work critical for the 
+continued viability of P2P networks and other distributed online
+systems. A significant amount of research has gone into
+designing reputation systems to give preferential treatment
+to users who are sharing files. Some of the P2P networks
+currently in use have implemented versions of these 
+techniques. However, these approaches tend to fall into one of
+two categories: either they are barter-like or reputational.
+By barter-like, we mean that each agent bases its decisions
+only on information it has derived from its own interactions.
+Perhaps the best-known example of a barter-like system is
+BitTorrent, where clients downloading a file try to find other
+clients with parts they are missing so that they can trade,
+thus creating a roughly equal amount of work. Since the
+barter is restricted to users currently interested in a 
+single file, this works well for popular files, but tends to have
+problems maintaining availability of less popular ones. An
+example of a barter-like system built on top of a more 
+traditional file-sharing system is the credit system used by eMule
+140
+[8]. Each user tracks his history of interactions with other
+users and gives priority to those he has downloaded from in
+the past. However, in a large system, the probability that
+a pair of randomly-chosen users will have interacted before
+is quite small, so this interaction history will not be 
+terribly helpful. Anagnostakis and Greenwald [2] present a more
+sophisticated version of this approach, but it still seems to
+suffer from similar problems.
+A number of attempts have been made at providing 
+general reputation systems (e.g. [12, 13, 17, 27]). The basic idea
+is to aggregate each user"s experience into a global number
+for each individual that intuitively represents the system"s
+view of that individual"s reputation. However, these 
+attempts tend to suffer from practical problems because they
+implicitly view users as either good or bad, assume that
+the good users will act according to the specified protocol,
+and that there are relatively few bad users. Unfortunately,
+if there are easy ways to game the system, once this 
+information becomes widely available, rational users are likely to
+make use of it. We cannot count on only a few users being
+bad (in the sense of not following the prescribed protocol).
+For example, Kazaa uses a measure of the ratio of the 
+number of uploads to the number of downloads to identify good
+and bad users. However, to avoid penalizing new users, they
+gave new users an average rating. Users discovered that they
+could use this relatively good rating to free ride for a while
+and, once it started to get bad, they could delete their stored
+information and effectively come back as a new user, thus
+circumventing the system (see [2] for a discussion and [11]
+for a formal analysis of this whitewashing). Thus Kazaa"s
+reputation system is ineffective.
+This is a simple case of a more general vulnerability of
+such systems to sybil attacks [6], where a single user 
+maintains multiple identities and uses them in a coordinated 
+fashion to get better service than he otherwise would. Recent
+work has shown that most common reputation systems are
+vulnerable (in the worst case)to such attacks [4]; however,
+the degree of this vulnerability is still unclear. The 
+analyses of the practical vulnerabilities and the existence of such
+systems that are immune to such attacks remains an area of
+active research (e.g., [4, 28, 14]).
+Simple economic systems based on a scrip or money seem
+to avoid many of these problems, are easy to implement and
+are quite popular (see, e.g., [13, 15, 26]). However, they
+have a different set of problems. Perhaps the most common
+involve determining the amount of money in the system.
+Roughly speaking, if there is too little money in the system
+relative to the number of agents, then relatively few users
+can afford to make request. On the other hand, if there is
+too much money, then users will not feel the need to 
+respond to a request; they have enough money already. A
+related problem involves handling newcomers. If newcomers
+are each given a positive amount of money, then the system
+is open to sybil attacks. Perhaps not surprisingly, scrip 
+systems end up having to deal with standard economic woes
+such as inflation, bubbles, and crashes [26].
+In this paper, we provide a formal model in which to
+analyze scrip systems. We describe a simple scrip system
+and show that, under reasonable assumptions, for each fixed
+amount of money there is a nontrivial Nash equilibrium 
+involving threshold strategies, where an agent accepts a request
+if he has less than $k for some threshold k.1
+An interesting
+aspect of our analysis is that, in equilibrium, the 
+distribution of users with each amount of money is the distribution
+that maximizes entropy (subject to the money supply 
+constraint). This allows us to compute the money supply that
+maximizes efficiency (social welfare), given the number of
+agents. It also leads to a solution for the problem of 
+dealing with newcomers: we simply assume that new users come
+in with no money, and adjust the price of service (which is
+equivalent to adjusting the money supply) to maintain the
+ratio that maximizes efficiency. While assuming that new
+users come in with no money will not work in all settings,
+we believe the approach will be widely applicable. In 
+systems where the goal is to do work, new users can acquire
+money by performing work. It should also work in 
+Kazaalike system where a user can come in with some resources
+(e.g., a private collection of MP3s).
+The rest of the paper is organized as follows. In Section 2,
+we present our formal model and observe that it can be used
+to understand the effect of altruists. In Section 3, we 
+examine what happens in the game under nonstrategic play, if all
+agents use the same threshold strategy. We show that, in
+this case, the system quickly converges to a situation where
+the distribution of money is characterized by maximum 
+entropy. Using this analysis, we show in Section 4 that, under
+minimal assumptions, there is a nontrivial Nash equilibrium
+in the game where all agents use some threshold strategy.
+Moreover, we show in Section 5 that the analysis leads to
+an understanding of how to choose the amount of money
+in the system (or, equivalently, the cost to fulfill a request)
+so as to maximize efficiency, and also shows how to handle
+new users. In Section 6, we discuss the extent to which our
+approach can handle sybils and collusion. We conclude in
+Section 7.

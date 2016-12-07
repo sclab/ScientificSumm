@@ -1,0 +1,89 @@
+ALGORITHM FOR SENSOR-GROUPING
+PROBLEM
+Before we process to introduce algorithms to solve the sensor
+grouping problem, let us define the margin (denoted by θ) of an
+area φ monitored by the network as the band-like marginal area
+of φ and all the points on the outer perimeter of θ is ρ distance
+away from all the points on the inner perimeter of θ. ρ is called the
+margin length.
+In a practical network, sensor nodes are usually evenly deployed
+in the network area. Obviously, the number of sensor nodes that
+can sense an event occurring in the margin of the network is smaller
+than the number of sensor nodes that can sense an event occurring
+in other area of the network. Based on this consideration, in our
+algorithm design, we ensure the coverage quality of the network
+area except the margin. The information on φ and ρ is 
+networkbased. Each in-network sensor node can be pre-programmed or
+on-line informed about φ and ρ, and thus calculate whether a point
+in its sensing area is in the margin or not.
+4.1 Maximizing-ι Node-Deduction Algorithm
+The node-deduction process of our Maximizing-ι Node-Deduction
+Algorithm (MIND) is simple. A node i greedily maximizes ι of the
+sub-network composed by itself, its ungrouped sensing neighbors,
+and the neighbors that are in the same group of itself. Under the
+constraint that the coverage quality of its sensing area should be
+ensured, node i deletes nodes in this sub-network one by one. The
+candidate to be pruned satisfies that:
+• It is an ungrouped node.
+• The deletion of the node will not result in uncovered-points
+inside the sensing area of i.
+A candidate is deleted if the deletion of the candidate results in
+largest ι of the sub-network compared to the deletion of other 
+candidates. This node-deduction process continues until no candidate
+can be found. Then all the ungrouped sensing neighbors that are
+not deleted are grouped into the same group of node i. We call the
+sensing neighbors that are in the same group of node i the group
+sensing neighbors of node i. We then call node i a finished node,
+meaning that it has finished the above procedure and the sensing
+area of the node is covered. Those nodes that have not yet finished
+this procedure are called unfinished nodes.
+The above procedure initiates at a random-selected node that is
+not in the margin. The node is grouped to the first group. It 
+calculates the resulting group sensing neighbors of it based on the above
+procedure. It informs these group sensing neighbors that they are
+selected in the group. Then it hands over the above procedure to
+an unfinished group sensing neighbors that is the farthest from 
+itself. This group sensing neighbor continues this procedure until no
+unfinished neighbor can be found. Then the first group is formed
+(Algorithmic description of this procedure can be found at [19]).
+After a group is formed, another random-selected ungrouped
+node begins to group itself to the second group and initiates the
+above procedure. In this way, groups are formed one by one. When
+a node that involves in this algorithm found out that the coverage
+quality if its sensing area, except what overlaps the network margin,
+cannot be ensured even if all its ungrouped sensing neighbors are
+grouped into the same group as itself, the algorithm stops. MIND
+is based on locally obtainable information of sensor nodes. It is
+a distributed algorithm that serves as an approximate solution of
+Problem 1.
+4.2 Incremental Coverage Quality Algorithm:
+A Benchmark for MIND
+To evaluate the effectiveness of introducing ι in the sensor-group
+problem, another algorithm for sensor-group problem called 
+Incremental Coverage Quality Algorithm (ICQA) is designed. Our aim
+1174
+is to evaluate how an idea, i.e., MIND, based on locally maximize
+ι performs.
+In ICQA, a node-selecting process is as follows. A node i 
+greedily selects an ungrouped sensing neighbor in the same group as 
+itself one by one, and informs the neighbor it is selected in the group.
+The criterion is:
+• The selected neighbor is responsible to provide surveillance
+work for some uncovered parts of node i"s sensing area. (i.e.,
+the coverage quality requirement of the parts is not fulfilled
+if this neighbor is not selected.)
+• The selected neighbor results in highest improvement of the
+coverage quality of the neighbor"s sensing area.
+The improvement of the coverage quality, mathematically, should
+be the integral of the the improvements of all points inside the
+neighbor"s sensing area. A numerical approximation is employed
+to calculate this improvement. Details are presented in our 
+simulation study.
+This node-selecting process continues until the sensing area of
+node i is entirely covered. In this way, node i"s group sensing
+neighbors are found. The above procedure is handed over as what
+MIND does and new groups are thus formed one by one. And
+the condition that ICQA stops is the same as MIND. ICQA is also
+based on locally obtainable information of sensor nodes. ICQA is
+also a distributed algorithm that serves as an approximate solution
+of Problem 1.

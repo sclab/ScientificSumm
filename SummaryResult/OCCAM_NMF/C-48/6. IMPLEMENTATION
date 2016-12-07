@@ -1,0 +1,22 @@
+our next step in the implementation is to port dims to the mica motes, and integrate them into the tinydb [17] sensor database engine on motes.
+while these experiments do not reveal as much about the performance range of dims as our simulations do, they  nevertheless serve as proof-of-concept for dims.
+finally, figure 18 shows the total number of messages required for different query sizes on our testbed.
+with that adjustment, the number of responses matches our expectation.
+it might appear that we received fewer events than expected, but this graph doesn"t count the events that were already stored at the querier.
+figure 17 plots the number of events received for different sized queries.
+our queries span four sizes, returning 1, 4, 9 and 16 events respectively.
+our events have two attributes which span all combinations of the four values [0, 0.25, 0.75, 1]  (sixteen events in all).
+on this testbed, we inserted queries and events from a  single designated node.
+the network topology is approximately a chain.
+we manually measured the locations of these nodes relative to some coordinate system and configured the nodes with their location.
+these boxes are laid out in an office building with a total spatial separation of over a hundred feet.
+each of these boxes runs linux and uses a mica mote (attached through a serial cable) for  communication.
+we tested our implementation on a testbed consisting of 8 pc-104 class machines.
+for the dim subsystem, the gpsr module 0 2 4 6 8 10 12 14 16 0.25x0.25 0.50x0.50 0.75x0.75 1.0x1.0 query size average#ofreceivedresponses perquery figure 17: number of events received for different query sizes 0 2 4 6 8 10 12 14 16 0.25x0.25 0.50x0.50 0.75x0.75 1.0x1.0 query sizetotalnumberofmessages onlyforsendingthequery figure 18: query distribution cost provides several extensions: it exports information about neighbors, and provides callbacks during packet forwarding and perimeter-mode termination.
+applications are  executed as clients.
+the gpsr system is  implemented as user-level daemon process.
+the dim subsystem consists of six logical components: zone management, event maintenance, event routing, query routing, query  processing, and gpsr interactions.
+the software architecture of dim/gpsr system is shown in figure 16. the entire system (about 5000 lines of code) is event-driven and multi-threaded.
+our gpsr implementation is full-featured, while our dim implementation has most of the algorithms discussed in section 3; some of the robustness extensions have only simpler variants implemented.
+to implement dims, we had to develop and test an  independent implementation of gpsr.
+we have implemented dims on a linux platform suitable for experimentation on pdas and pc-104 class machines.

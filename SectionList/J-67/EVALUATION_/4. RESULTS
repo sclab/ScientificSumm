@@ -1,0 +1,714 @@
+In this section, we first present our main positive result: a
+(1+
+√
+k)2
++1 -competitive mechanism (Γ1). After providing
+some intuition as to why Γ1 satisfies individual rationality
+and incentive compatibility, we formally prove first these two
+properties and then the competitive ratio. We then consider
+a special case in which k = 1 and agents cannot lie about the
+length of their job, which allows us to alter this mechanism
+so that it no longer requires either knowledge of ρmin or the
+collection of payments from agents.
+Unlike TD1 (version 2) and Dover
+, Γ1 gives no 
+preference to the active job. Instead, it always executes the 
+available job with the highest priority: (ˆvi +
+√
+k · ei(ˆθ, t) · ρmin).
+Each agent whose job is completed is then charged the 
+lowest value that it could have declared such that its job still
+would have been completed, holding constant the rest of its
+declaration.
+By the use of a payment rule similar to that of a 
+secondprice auction, Γ1 satisfies both IC with respect to values
+and IR. We now argue why it satisfies IC with respect to
+the other three characteristics. Declaring an improved job
+(i.e., declaring an earlier release time, a shorter length, or
+a later deadline) could possibly decrease the payment of an
+agent. However, the first two lies are not possible in our 
+setting, while the third would cause the job, if it is completed,
+to be returned to the agent after the true deadline. This is
+the reason why it is important to always return a completed
+job at its declared deadline, instead of at the point at which
+it is completed.
+5
+Another possibility is to allow only the agents to know
+their types at time 0, and to force Γoffline to be incentive
+compatible so that agents will truthfully declare their types
+at time 0. However, this would not affect our results, since
+executing a VCG mechanism (see, e.g., [17]) at time 0 both
+satisfies incentive compatibility and always maximizes social
+welfare.
+64
+Mechanism 1 Γ1
+Execute S(ˆθ, ·) according to Algorithm 1
+for all i do
+if ei(ˆθ, ˆdi) ≥ ˆli {Agent i"s job is completed} then
+pi(ˆθ) ← arg minvi≥0(ei(((ˆri, ˆdi, ˆli, vi), ˆθ−i), ˆdi) ≥ ˆli)
+else
+pi(ˆθ) ← 0
+Algorithm 1
+for all t do
+Avail ← {i|(t ≥ ˆri)∧(ei(ˆθ, t) < ˆli)∧(ei(ˆθ, t)+ ˆdi−t ≥ ˆli)}
+{Set of all released, non-completed, non-abandoned jobs}
+if Avail = ∅ then
+S(ˆθ, t) ← arg maxi∈Avail(ˆvi +
+√
+k · ei(ˆθ, t) · ρmin)
+{Break ties in favor of lower ˆri}
+else
+S(ˆθ, t) ← 0
+It remains to argue why an agent does not have incentive
+to worsen its job. The only possible effects of an inflated
+length are delaying the completion of the job and causing it
+to be abandoned, and the only possible effects of an earlier
+declared deadline are causing to be abandoned and causing
+it to be returned earlier (which has no effect on the agent"s
+utility in our setting). On the other hand, it is less obvious
+why agents do not have incentive to declare a later release
+time. Consider a mechanism Γ1 that differs from Γ1 in that
+it does not preempt the active job i unless there exists 
+another job j such that (ˆvi +
+√
+k·li(ˆθ, t)·ρmin) < ˆvj. Note that
+as an active job approaches completion in Γ1, its condition
+for preemption approaches that of Γ1.
+However, the types in Table 2 for the case of k = 1 show
+why an agent may have incentive to delay the arrival of its
+job under Γ1. Job 1 becomes active at time 0, and job 2
+is abandoned upon its release at time 6, because 10 + 10 =
+v1 +l1 > v2 = 13. Then, at time 8, job 1 is preempted by job
+3, because 10 + 10 = v1 + l1 < v3 = 22. Job 3 then executes
+to completion, forcing job 1 to be abandoned. However, job
+2 had more weight than job 1, and would have prevented
+job 3 from being executed if it had been the active job at
+time 8, since 13 + 13 = v2 + l2 > v3 = 22. Thus, if agent
+1 had falsely declared ˆr1 = 20, then job 3 would have been
+abandoned at time 8, and job 1 would have completed over
+the range [20, 30].
+Job ri di li vi
+1 0 30 10 10
+2 6 19 13 13
+3 8 30 22 22
+0 6 10 20 30
+6
+?
+6
+?
+6
+?
+Table 2: Jobs used to show why a slightly altered
+version of Γ1 would not be incentive compatible with
+respect to release times.
+Intuitively, Γ1 avoids this problem because of two 
+properties. First, when a job becomes active, it must have a greater
+priority than all other available jobs. Second, because a job"s
+priority can only increase through the increase of its elapsed
+time, ei(ˆθ, t), the rate of increase of a job"s priority is 
+independent of its characteristics. These two properties together
+imply that, while a job is active, there cannot exist a time
+at which its priority is less than the priority that one of
+these other jobs would have achieved by executing on the
+processor instead.
+4.1 Proof of Individual Rationality and
+Incentive Compatibility
+After presenting the (trivial) proof of IR, we break the
+proof of IC into lemmas.
+Theorem 1. Mechanism Γ1 satisfies individual 
+rationality.
+Proof. For arbitrary i, θi, ˆθ−i, if job i is not completed,
+then agent i pays nothing and thus has a utility of zero;
+that is, pi(θi, ˆθ−i) = 0 and ui(g(θi, ˆθ−i), θi) = 0. On the
+other hand, if job i is completed, then its value must 
+exceed agent i"s payment. Formally, ui(g(θi, ˆθ−i), θi) = vi −
+arg minvi≥0(ei(((ri, di, li, vi), ˆθ−i), di) ≥ li) ≥ 0 must hold,
+since vi = vi satisfies the condition.
+To prove IC, we need to show that for an arbitrary agent
+i, and an arbitrary profile ˆθ−i of declarations of the other
+agents, agent i can never gain by making a false declaration
+ˆθi = θi, subject to the constraints that ˆri ≥ ri and ˆli ≥ li.
+We start by showing that, regardless of ˆvi, if truthful 
+declarations of ri, di, and li do not cause job i to be completed,
+then worse declarations of these variables (that is, 
+declarations that satisfy ˆri ≥ ri, ˆli ≥ li and ˆdi ≤ di) can never
+cause the job to be completed. We break this part of the
+proof into two lemmas, first showing that it holds for the
+release time, regardless of the declarations of the other 
+variables, and then for length and deadline.
+Lemma 2. In mechanism Γ1, the following condition holds
+for all i, θi, ˆθ−i: ∀ ˆvi, ˆli ≥ li, ˆdi ≤ di, ˆri ≥ ri,
+ei ((ˆri, ˆdi, ˆli, ˆvi), ˆθ−i), ˆdi ≥ ˆli =⇒
+ei ((ri, ˆdi, ˆli, ˆvi), ˆθ−i), ˆdi ≥ ˆli
+Proof. Assume by contradiction that this condition does
+not hold- that is, job i is not completed when ri is truthfully
+declared, but is completed for some false declaration ˆri ≥
+ri. We first analyze the case in which the release time is
+truthfully declared, and then we show that job i cannot be
+completed when agent i delays submitting it to the center.
+Case I: Agent i declares ˆθi = (ri, ˆdi, ˆli, ˆvi).
+First, define the following three points in the execution of
+job i.
+• Let ts
+= arg mint S((ˆθi, ˆθ−i), t) = i be the time that
+job i first starts execution.
+• Let tp
+= arg mint>ts S((ˆθi, ˆθ−i), t) = i be the time
+that job i is first preempted.
+• Let ta
+= arg mint ei((ˆθi, ˆθ−i), t) + ˆdi − t < ˆli be the
+time that job i is abandoned.
+65
+If ts
+and tp
+are undefined because job i never becomes
+active, then let ts
+= tp
+= ta
+.
+Also, partition the jobs declared by other agents before ta
+into the following three sets.
+• X = {j|(ˆrj < tp
+) ∧ (j = i)} consists of the jobs (other
+than i) that arrive before job i is first preempted.
+• Y = {j|(tp
+≤ ˆrj ≤ ta
+)∧(ˆvj > ˆvi +
+√
+k·ei((ˆθi, ˆθ−i), ˆrj)}
+consists of the jobs that arrive in the range [tp
+, ta
+] and
+that when they arrive have higher priority than job i
+(note that we are make use of the normalization).
+• Z = {j|(tp
+≤ ˆrj ≤ ta
+)∧(ˆvj ≤ ˆvi +
+√
+k ·ei((ˆθi, ˆθ−i), ˆrj)}
+consists of the jobs that arrive in the range [tp
+, ta
+] and
+that when they arrive have lower priority than job i.
+We now show that all active jobs during the range (tp
+, ta
+]
+must be either i or in the set Y . Unless tp
+= ta
+(in which case
+this property trivially holds), it must be the case that job i
+has a higher priority than an arbitrary job x ∈ X at time tp
+,
+since at the time just preceding tp
+job x was available and job
+i was active. Formally, ˆvx +
+√
+k · ex((ˆθi, ˆθ−i), tp
+) < ˆvi +
+√
+k ·
+ei((ˆθi, ˆθ−i), tp
+) must hold.6
+We can then show that, over the
+range [tp
+, ta
+], no job x ∈ X runs on the processor. Assume
+by contradiction that this is not true. Let tf
+∈ [tp
+, ta
+] be
+the earliest time in this range that some job x ∈ X is active,
+which implies that ex((ˆθi, ˆθ−i), tf
+) = ex((ˆθi, ˆθ−i), tp
+). We
+can then show that job i has a higher priority at time tf
+as
+follows: ˆvx+
+√
+k·ex((ˆθi, ˆθ−i), tf
+) = ˆvx+
+√
+k·ex((ˆθi, ˆθ−i), tp
+) <
+ˆvi +
+√
+k · ei((ˆθi, ˆθ−i), tp
+) ≤ ˆvi +
+√
+k · ei((ˆθi, ˆθ−i), tf
+), 
+contradicting the fact that job x is active at time tf
+.
+A similar argument applies to an arbitrary job z ∈ Z,
+starting at it release time ˆrz > tp
+, since by definition job i
+has a higher priority at that time. The only remaining jobs
+that can be active over the range (tp
+, ta
+] are i and those in
+the set Y .
+Case II: Agent i declares ˆθi = (ˆri, ˆdi, ˆli, ˆvi), where ˆri > ri.
+We now show that job i cannot be completed in this case,
+given that it was not completed in case I. First, we can
+restrict the range of ˆri that we need to consider as follows.
+Declaring ˆri ∈ (ri, ts
+] would not affect the schedule, since
+ts
+would still be the first time that job i executes. Also,
+declaring ˆri > ta
+could not cause the job to be completed,
+since di − ta
+< ˆli holds, which implies that job i would be
+abandoned at its release. Thus, we can restrict consideration
+to ˆri ∈ (ts
+, ta
+].
+In order for declaring ˆθi to cause job i to be completed, a
+necessary condition is that the execution of some job yc
+∈ Y
+must change during the range (tp
+, ta
+], since the only jobs
+other than i that are active during that range are in Y .
+Let tc
+= arg mint∈(tp,ta][∃yc
+∈ Y, (S((ˆθi, ˆθ−i), t) = yc
+) ∧
+(S((ˆθi, ˆθ−i), t) = yc
+)] be the first time that such a change
+occurs. We will now show that for any ˆri ∈ (ts
+, ta
+], there
+cannot exist a job with higher priority than yc
+at time tc
+,
+contradicting (S((ˆθi, ˆθ−i), t) = yc
+).
+First note that job i cannot have a higher priority, since
+there would have to exist a t ∈ (tp
+, tc
+) such that ∃y ∈
+6
+For simplicity, when we give the formal condition for a job x
+to have a higher priority than another job y, we will assume
+that job x"s priority is strictly greater than job y"s, because,
+in the case of a tie that favors x, future ties would also be
+broken in favor of job x.
+Y, (S((ˆθi, ˆθ−i), t) = y) ∧ (S((ˆθi, ˆθ−i), t) = i), contradicting
+the definition of tc
+.
+Now consider an arbitrary y ∈ Y such that y = yc
+. In case
+I, we know that job y has lower priority than yc
+at time tc
+;
+that is, ˆvy +
+√
+k·ey((ˆθi, ˆθ−i), tc
+) < ˆvyc +
+√
+k·eyc ((ˆθi, ˆθ−i), tc
+).
+Thus, moving to case II, job y must replace some other job
+before tc
+. Since ˆry ≥ tp
+, the condition is that there must 
+exist some t ∈ (tp
+, tc
+) such that ∃w ∈ Y ∪{i}, (S((ˆθi, ˆθ−i), t) =
+w) ∧ (S((ˆθi, ˆθ−i), t) = y). Since w ∈ Y would contradict the
+definition of tc
+, we know that w = i. That is, the job that y
+replaces must be i. By definition of the set Y , we know that
+ˆvy > ˆvi +
+√
+k · ei((ˆθi, ˆθ−i), ˆry). Thus, if ˆry ≤ t, then job i
+could not have executed instead of y in case I. On the other
+hand, if ˆry > t, then job y obviously could not execute at
+time t, contradicting the existence of such a time t.
+Now consider an arbitrary job x ∈ X. We know that
+in case I job i has a higher priority than job x at time
+ts
+, or, formally, that ˆvx +
+√
+k · ex((ˆθi, ˆθ−i), ts
+) < ˆvi +
+√
+k ·
+ei((ˆθi, ˆθ−i), ts
+). We also know that ˆvi +
+√
+k·ei((ˆθi, ˆθ−i), tc
+) <
+ˆvyc +
+√
+k · eyc ((ˆθi, ˆθ−i), tc
+). Since delaying i"s arrival will
+not affect the execution up to time ts
+, and since job x
+cannot execute instead of a job y ∈ Y at any time t ∈
+(tp
+, tc
+] by definition of tc
+, the only way for job x"s 
+priority to increase before tc
+as we move from case I to II
+is to replace job i over the range (ts
+, tc
+]. Thus, an 
+upper bound on job x"s priority when agent i declares ˆθi is:
+ˆvx+
+√
+k· ex((ˆθi, ˆθ−i), ts
+)+ei((ˆθi, ˆθ−i), tc
+)−ei((ˆθi, ˆθ−i), ts
+) <
+ˆvi +
+√
+k· ei((ˆθi, ˆθ−i), ts
+)+ei((ˆθi, ˆθ−i), tc
+)−ei((ˆθi, ˆθ−i), ts
+) =
+ˆvi +
+√
+k · ei((ˆθi, ˆθ−i), tc
+) < ˆvyc +
+√
+k · eyc ((ˆθi, ˆθ−i), tc
+).
+Thus, even at this upper bound, job yc
+would execute
+instead of job x at time tc
+. A similar argument applies to
+an arbitrary job z ∈ Z, starting at it release time ˆrz. Since
+the sets {i}, X, Y, Z partition the set of jobs released before
+ta
+, we have shown that no job could execute instead of job
+yc
+, contradicting the existence of tc
+, and completing the
+proof.
+Lemma 3. In mechanism Γ1, the following condition holds
+for all i, θi, ˆθ−i: ∀ ˆvi, ˆli ≥ li, ˆdi ≤ di,
+ei ((ri, ˆdi, ˆli, ˆvi), ˆθ−i), ˆdi ≥ ˆli =⇒
+ei ((ri, di, li, ˆvi), ˆθ−i), ˆdi ≥ li
+Proof. Assume by contradiction there exists some 
+instantiation of the above variables such that job i is not
+completed when li and di are truthfully declared, but is
+completed for some pair of false declarations ˆli ≥ li and
+ˆdi ≤ di.
+Note that the only effect that ˆdi and ˆli have on the 
+execution of the algorithm is on whether or not i ∈ Avail.
+Specifically, they affect the two conditions: (ei(ˆθ, t) < ˆli)
+and (ei(ˆθ, t) + ˆdi − t ≥ ˆli). Because job i is completed when
+ˆli and ˆdi are declared, the former condition (for 
+completion) must become false before the latter. Since truthfully
+declaring li ≤ ˆli and di ≥ ˆdi will only make the former 
+condition become false earlier and the latter condition become
+false later, the execution of the algorithm will not be 
+affected when moving to truthful declarations, and job i will
+be completed, a contradiction.
+We now use these two lemmas to show that the payment
+for a completed job can only increase by falsely declaring
+worse ˆli, ˆdi, and ˆri.
+66
+Lemma 4. In mechanism Γ1, the following condition holds
+for all i, θi, ˆθ−i: ∀ ˆli ≥ li, ˆdi ≤ di, ˆri ≥ ri,
+arg min
+vi≥0
+ei ((ˆri, ˆdi, ˆli, vi), ˆθ−i), ˆdi ≥ ˆli ≥
+arg min
+vi≥0
+ei ((ri, di, li, vi), ˆθ−i), di ≥ li
+Proof. Assume by contradiction that this condition does
+not hold. This implies that there exists some value vi such
+that the condition (ei(((ˆri, ˆdi, ˆli, vi), ˆθ−i), ˆdi) ≥ ˆli) holds,
+but (ei(((ri, di, li, vi), ˆθ−i), di) ≥ li) does not. Applying
+Lemmas 2 and 3: (ei(((ˆri, ˆdi, ˆli, vi), ˆθ−i), ˆdi) ≥ ˆli) =⇒
+(ei(((ri, ˆdi, ˆli, vi), ˆθ−i), ˆdi) ≥ ˆli) =⇒
+(ei(((ri, di, li, vi), ˆθ−i), di) ≥ li), a contradiction.
+Finally, the following lemma tells us that the completion
+of a job is monotonic in its declared value.
+Lemma 5. In mechanism Γ1, the following condition holds
+for all i, ˆθi, ˆθ−i: ∀ ˆvi ≥ ˆvi,
+ei ((ˆri, ˆdi, ˆli, ˆvi), ˆθ−i), ˆdi ≥ ˆli =⇒
+ei ((ˆri, ˆdi, ˆli, ˆvi), ˆθ−i), ˆdi ≥ ˆli
+The proof, by contradiction, of this lemma is omitted 
+because it is essentially identical to that of Lemma 2 for ˆri. In
+case I, agent i declares (ˆri, ˆdi, ˆli, ˆvi) and the job is not 
+completed, while in case II he declares (ˆri, ˆdi, ˆli, ˆvi) and the job
+is completed. The analysis of the two cases then proceeds as
+before- the execution will not change up to time ts
+because
+the initial priority of job i decreases as we move from case
+I to II; and, as a result, there cannot be a change in the
+execution of a job other than i over the range (tp
+, ta
+].
+We can now combine the lemmas to show that no 
+profitable deviation is possible.
+Theorem 6. Mechanism Γ1 satisfies incentive 
+compatibility.
+Proof. For an arbitrary agent i, we know that ˆri ≥ ri
+and ˆli ≥ li hold by assumption. We also know that agent
+i has no incentive to declare ˆdi > di, because job i would
+never be returned before its true deadline. Then, because
+the payment function is non-negative, agent i"s utility could
+not exceed zero. By IR, this is the minimum utility it would
+achieve if it truthfully declared θi. Thus, we can restrict
+consideration to ˆθi that satisfy ˆri ≥ ri, ˆli ≥ li, and ˆdi ≤ di.
+Again using IR, we can further restrict consideration to ˆθi
+that cause job i to be completed, since any other ˆθi yields a
+utility of zero.
+If truthful declaration of θi causes job i to be completed,
+then by Lemma 4 any such false declaration ˆθi could not
+decrease the payment of agent i. On the other hand, if
+truthful declaration does not cause job i to be completed,
+then declaring such a ˆθi will cause agent i to have negative
+utility, since vi < arg minvi≥0 ei(((ri, di, li, vi), ˆθ−i), ˆdi) ≥
+li ≤ arg minvi≥0 ei(((ˆri, ˆdi, ˆli, vi), ˆθ−i), ˆdi) ≥ ˆli holds by
+Lemmas 5 and 4, respectively.
+4.2 Proof of Competitive Ratio
+The proof of the competitive ratio, which makes use of
+techniques adapted from those used in [15], is also broken
+into lemmas. Having shown IC, we can assume truthful
+declaration (ˆθ = θ). Since we have also shown IR, in order
+to prove the competitive ratio it remains to bound the loss
+of social welfare against Γoffline.
+Denote by (1, 2, . . . , F) the sequence of jobs completed by
+Γ1. Divide time into intervals If = (topen
+f , tclose
+f ], one for
+each job f in this sequence. Set tclose
+f to be the time at
+which job f is completed, and set topen
+f = tclose
+f−1 for f ≥ 2,
+and topen
+1 = 0 for f = 1. Also, let tbegin
+f be the first time
+that the processor is not idle in interval If .
+Lemma 7. For any interval If , the following inequality
+holds: tclose
+f − tbegin
+f ≤ (1 + 1√
+k
+) · vf
+Proof. Interval If begins with a (possibly zero length)
+period of time in which the processor is idle because there is
+no available job. Then, it continuously executes a sequence
+of jobs (1, 2, . . . , c), where each job i in this sequence is 
+preempted by job i + 1, except for job c, which is completed
+(thus, job c in this sequence is the same as job f is the global
+sequence of completed jobs). Let ts
+i be the time that job i
+begins execution. Note that ts
+1 = tbegin
+f .
+Over the range [tbegin
+f , tclose
+f ], the priority (vi+
+√
+k·ei(θ, t))
+of the active job is monotonically increasing with time, 
+because this function linearly increases while a job is active,
+and can only increase at a point in time when preemption
+occurs. Thus, each job i > 1 in this sequence begins 
+execution at its release time (that is, ts
+i = ri), because its priority
+does not increase while it is not active.
+We now show that the value of the completed job c 
+exceeds the product of
+√
+k and the time spent in the interval
+on jobs 1 through c−1, or, more formally, that the following
+condition holds: vc ≥
+√
+k c−1
+h=1(eh(θ, ts
+h+1) − eh(θ, ts
+h)). To
+show this, we will prove by induction that the stronger 
+condition vi ≥
+√
+k i−1
+h=1 eh(θ, ts
+h+1) holds for all jobs i in the
+sequence.
+Base Case: For i = 1, v1 ≥
+√
+k 0
+h=1 eh(θ, ts
+h+1) = 0,
+since the sum is over zero elements.
+Inductive Step: For an arbitrary 1 ≤ i < c, we assume
+that vi ≥
+√
+k i−1
+h=1 eh(θ, ts
+h+1) holds. At time ts
+i+1, we
+know that vi+1 ≥ vi +
+√
+k · ei(θ, ts
+i+1) holds, because ts
+i+1 =
+ri+1. These two inequalities together imply that vi+1 ≥√
+k i
+h=1 eh(θ, ts
+h+1), completing the inductive step.
+We also know that tclose
+f − ts
+c ≤ lc ≤ vc must hold, by the
+simplifying normalization of ρmin = 1 and the fact that job
+c"s execution time cannot exceed its length. We can thus
+bound the total execution time of If by: tclose
+f − tbegin
+f =
+(tclose
+f −ts
+c)+ c−1
+h=1(eh(θ, ts
+h+1)−eh(θ, ts
+h)) ≤ (1+ 1√
+k
+)vf .
+We now consider the possible execution of uncompleted
+jobs by Γoffline. Associate each job i that is not completed
+by Γ1 with the interval during which it was abandoned. All
+jobs are now associated with an interval, since there are no
+gaps between the intervals, and since no job i can be 
+abandoned after the close of the last interval at tclose
+F . Because
+the processor is idle after tclose
+F , any such job i would 
+become active at some time t ≥ tclose
+F , which would lead to the
+completion of some job, creating a new interval and 
+contradicting the fact that IF is the last one.
+67
+The following lemma is equivalent to Lemma 5.6 of [15],
+but the proof is different for our mechanism.
+Lemma 8. For any interval If and any job i abandoned
+in If , the following inequality holds: vi ≤ (1 +
+√
+k)vf .
+Proof. Assume by contradiction that there exists a job
+i abandoned in If such that vi > (1 +
+√
+k)vf . At tclose
+f ,
+the priority of job f is vf +
+√
+k · lf < (1 +
+√
+k)vf . Because
+the priority of the active job monotonically increases over
+the range [tbegin
+f , tclose
+f ], job i would have a higher priority
+than the active job (and thus begin execution) at some time
+t ∈ [tbegin
+f , tclose
+f ]. Again applying monotonicity, this would
+imply that the priority of the active job at tclose
+f exceeds
+(1 +
+√
+k)vf , contradicting the fact that it is (1 +
+√
+k)vf .
+As in [15], for each interval If , we give Γoffline the 
+following gift: k times the amount of time in the range
+[tbegin
+f , tclose
+f ] that it does not schedule a job. Additionally,
+we give the adversary vf , since the adversary may be able
+to complete this job at some future time, due to the fact
+that Γ1 ignores deadlines. The following lemma is Lemma
+5.10 in [15], and its proof now applies directly.
+Lemma 9. [15] With the above gifts the total net gain 
+obtained by the clairvoyant algorithm from scheduling the jobs
+abandoned during If is not greater than (1 +
+√
+k) · vf .
+The intuition behind this lemma is that the best that
+the adversary can do is to take almost all of the gift of
+k ·(tclose
+f −tbegin
+f ) (intuitively, this is equivalent to executing
+jobs with the maximum possible value density over the time
+that Γ1 is active), and then begin execution of a job 
+abandoned by Γ1 right before tclose
+f . By Lemma 8, the value of
+this job is bounded by (1 +
+√
+k) · vf . We can now combine
+the results of these lemmas to prove the competitive ratio.
+Theorem 10. Mechanism Γ1 is (1+
+√
+k)2+1 -competitive.
+Proof. Using the fact that the way in which jobs are 
+associated with the intervals partitions the entire set of jobs,
+we can show the competitive ratio by showing that Γ1 is
+(1+
+√
+k)2
++1 -competitive for each interval in the sequence
+(1, . . . , F). Over an arbitrary interval If , the oﬄine 
+algorithm can achieve at most (tclose
+f −tbegin
+f )·k+vf +(1+
+√
+k)vf ,
+from the two gifts and the net gain bounded by Lemma
+9. Applying Lemma 7, this quantity is then bounded from
+above by (1+ 1√
+k
+)·vf ·k+vf +(1+
+√
+k)vf = ((1+
+√
+k)2
++1)·vf .
+Since Γ1 achieves vf , the competitive ratio holds.
+4.3 Special Case: Unalterable length and k=1
+While so far we have allowed each agent to lie about all
+four characteristics of its job, lying about the length of the
+job is not possible in some settings. For example, a user
+may not know how to alter a computational problem in a
+way that both lengthens the job and allows the solution of
+the original problem to be extracted from the solution to
+the altered problem. Another restriction that is natural in
+some settings is uniform value densities (k = 1), which was
+the case considered by [4]. If the setting satisfies these two
+conditions, then, by using Mechanism Γ2, we can achieve a
+competitive ratio of 5 (which is the same competitive ratio
+as Γ1 for the case of k = 1) without knowledge of ρmin and
+without the use of payments. The latter property may be
+necessary in settings that are more local than grid 
+computing (e.g., within a department) but in which the users are
+still self-interested.7
+Mechanism 2 Γ2
+Execute S(ˆθ, ·) according to Algorithm 2
+for all i do
+pi(ˆθ) ← 0
+Algorithm 2
+for all t do
+Avail ← {i|(t ≥ ˆri)∧(ei(ˆθ, t) < li)∧(ei(ˆθ, t)+ ˆdi−t ≥ li)}
+if Avail = ∅ then
+S(ˆθ, t) ← arg maxi∈Avail(li + ei(ˆθ, t))
+{Break ties in favor of lower ˆri}
+else
+S(ˆθ, t) ← 0
+Theorem 11. When k = 1, and each agent i cannot
+falsely declare li, Mechanism Γ2 satisfies individual 
+rationality and incentive compatibility.
+Theorem 12. When k = 1, and each agent i cannot
+falsely declare li, Mechanism Γ2 is 5-competitive.
+Since this mechanism is essentially a simplification of Γ1,
+we omit proofs of these theorems. Basically, the fact that
+k = 1 and ˆli = li both hold allows Γ2 to substitute the
+priority (li +ei(ˆθ, t)) for the priority used in Γ1; and, since ˆvi
+is ignored, payments are no longer needed to ensure incentive
+compatibility.

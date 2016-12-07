@@ -1,0 +1,379 @@
+In this section, we study the power of iterative auctions
+that use demand queries (not necessarily ascending). We
+start by comapring demand queries to other types of queries.
+Then, we discuss how well can one approximate the optimal
+welfare using a polynomial number of demand queries. We
+also initiate the study of the representation of bundle-price
+demand queries, and finally, we show how demand queries
+help solving the linear-programming relaxation of 
+combinatorial auctions in polynomial time.
+4.1 The Power of Different Types of Queries
+In this section we compare the power of the various types
+of queries defined in Section 2. We will present 
+computationally -efficient simulations of these query types using
+item-price demand queries. In Section 5.1 we show that
+these simulations can also be done using item-price 
+ascending auctions.
+Lemma 4.1. A value query can be simulated by m 
+marginalvalue queries. A marginal-value query can be simulated by
+two value queries.
+Lemma 4.2. A value query can be simulated by mt 
+demand queries (where t = log L is the number of bits needed
+to represent a single bundle value).18
+As a direct corollary we get that demand auctions can
+always fully elicit the bidders" valuations by simulating all
+possible 2m
+− 1 queries and thus elicit enough information
+for determining the optimal allocation. Note, however, that
+this elicitation may be computationally inefficient.
+The next lemma shows that demand queries can be 
+exponentially more powerful than value queries.
+Lemma 4.3. An exponential number of value queries may
+be required for simulating a single demand query.
+Indirect utility queries are, however, equivalent in power
+to demand queries:
+Lemma 4.4. An indirect-utility query can be simulated by
+mt + 1 demand queries. A demand query can be simulated
+by m + 1 indirect-utility queries.
+Demand queries can also simulate relative-demand queries:19
+18
+Note that t bundle-price demand queries can easily 
+simulate a value query by setting the prices of all the bundles
+except S (the bundle with the unknown value) to be L, and
+performing a binary search on the price of S.
+19
+Note: although in our model values are integral (our 
+multiples of δ), we allow the query prices to be arbitrary real 
+numV MV D IU RD
+V 1 2 exp exp exp
+MV m 1 exp exp exp
+D mt poly 1 mt+1 poly
+IU 1 2 m+1 1 poly
+RD - - - - 1
+Figure 4: Each entry in the table specifies how many
+queries of this row are needed to simulate a query from
+the relevant column.
+Abbreviations: V (value query), MV (marginal-value
+query), D (demand query), IU (Indirect-utility query),
+RD (relative demand query).
+Lemma 4.5. Relative-demand queries can be simulated by
+a polynomial number of demand queries.
+According to our definition of relative-demand queries,
+they clearly cannot simulate even value queries. Figure 4
+summarizes the relations between these query types.
+4.2 Approximating the Social Welfare with
+Value and Demand Queries
+We know from [32] that iterative combinatorial auctions
+that only use a polynomial number of queries can not find
+an optimal allocation among general valuations and in fact
+can not even approximate it to within a factor better than
+min{n, m1/2−
+}. In this section we ask how well can this 
+approximation be done using demand queries with item prices,
+or using the weaker value queries. We show that, using 
+demand queries, the lower bound can be matched, while value
+queries can only do much worse.
+Figure 5 describes a polynomial-time algorithm that achieves
+a min(n, O(
+√
+m)) approximation ratio. This algorithm 
+greedily picks the bundles that maximize the bidders" per-item
+value (using relative-demand queries, see Section 4.1). As
+a final step, it allocates all the items to a single bidder if
+it improves the social welfare (this can be checked using
+value queries). Since both value queries and relative-demand
+queries can be simulated by a polynomial number of 
+demand queries with item prices (Lemmas 4.2 and 4.5), this
+algorithm can be implemented by a polynomial number of
+demand queries with item prices.20
+Theorem 4.6. The auction described in Figure 5 can be
+implemented by a polynomial number of demand queries and
+achieves a min{n, 4
+√
+m}-approximation for the social 
+welfare.
+We now ask how well can the optimal welfare be 
+approximated by a polynomial number of value queries. First we
+note that value queries are not completely powerless: In
+[19] it is shown that if the m items are split into k fixed
+bundles of size m/k each, and these fixed bundles are 
+auctioned as though each was indivisible, then the social welfare
+bers, thus we may have bundles with arbitrarily close 
+relative demands. In this sense the simulation above is only up
+to any given (and the number of queries is O(log L+log 1
+)).
+When the relative-demand query prices are given as rational
+numbers, exact simulation is implied when log is linear in
+the input length.
+20
+In the full paper [8], we observe that this algorithm can be
+implemented by two descending item-price auctions (where
+we allow removing items along the auction).
+36
+generated by such an auction is at least m√
+k
+-approximation
+of that possible in the original auction. Notice that such
+an auction can be implemented by 2k
+− 1 value queries to
+each bidder - querying the value of each bundle of the fixed
+bundles. Thus, if we choose k = log m bundles we get an
+m√
+log m
+-approximation while still using a polynomial number
+of queries.
+The following lemma shows that not much more is possible
+using value queries:
+Lemma 4.7. Any iterative auction that uses only value
+queries and distinguishes between k-tuples of 0/1 valuations
+where the optimal allocation has value 1, and those where the
+optimal allocation has value k requires at least 2
+m
+k queries.
+Proof. Consider the following family of valuations: for
+every S, such that |S| > m/2, v(S) = 1, and there exists a
+single set T, such that for |S| ≤ m/2, v(S) = 1 iff T ⊆ S
+and v(S) = 0 otherwise. Now look at the behavior of the
+protocol when all valuations vi have T = {1...m}. Clearly
+in this case the value of the best allocation is 1 since no set
+of size m
+2
+or lower has non-zero value for any player. Fix the
+sequence of queries and answers received on this k-tuple of
+valuations.
+Now consider the k-tuple of valuations chosen at random
+as follows: a partition of the m items into k sets T1...Tk
+each of size m
+k
+each is chosen uniformly at random among
+all such partitions. Now consider the k-tuple of valuations
+from our family that correspond to this partition - clearly
+Ti can be allocated to i, for each i, getting a total value of k.
+Now look at the protocol when running on these valuations
+and compare its behavior to the original case. Note that the
+answer to a query S to player i differs between the case of
+Ti and the original case of T = {1...m} only if |S| ≤ m
+2
+and
+Ti ⊆ S. Since Ti is distributed uniformly among all sets of
+size exactly m
+k
+, we have that for any fixed query S to player
+i, where |S| ≤ m
+2
+,
+Pr[Ti ⊆ S] ≤
+„
+|S|
+m
+«|Ti|
+≤ 2− m
+k
+Using the union-bound, if the original sequence of queries
+was of length less than 2
+m
+k , then with positive probability
+none of the queries in the sequence would receive a different
+answer than for the original input tuple. This is forbidden
+since the protocol must distinguish between this case and
+the original case - which cannot happen if all queries receive
+the same answer. Hence there must have been at least 2
+m
+k
+queries for the original tuple of valuations.
+We conclude that a polynomial time protocol that uses
+only value queries cannot obtain a better than O( m
+log m
+) 
+approximation of the welfare:
+Theorem 4.8. An iterative auction that uses a 
+polynomial number of value queries cannot achieve better than
+O( m
+log m
+)-approximation for the social welfare.
+Proof. Immediate from Lemma 4.7: achieving any 
+approximation ratio k which is asymptotically greater than
+m
+log m
+needs an exponential number of value queries.
+An Approximation Algorithm:
+Initialization: Let T ← M be the current items for sale.
+Let K ← N be the currently participating bidders.
+Let S∗
+1 ← ∅, ..., S∗
+n ← ∅ be the provisional allocation.
+Repeat until T = ∅ or K = ∅:
+Ask each bidder i in K for the bundle Si that maximizes
+her per-item value, i.e., Si ∈ argmaxS⊆T
+vi(S)
+|S|
+.
+Let i be the bidder with the maximal per-item value,
+i.e., i ∈ argmaxi∈K
+vi(Si)
+|Si|
+.
+Set: s∗
+i = si, K = K \ i, M = M \ Si
+Finally: Ask the bidders for their values vi(M) for the
+grand bundle. If allocating all the items to some bidder i
+improves the social welfare achieved so far
+(i.e., ∃i ∈ N such that vi(M) >
+P
+i∈N vi(S∗
+i )),
+then allocate all items to this bidder i.
+Figure 5: This algorithm achieves a min{n, 4
+√
+
+m}approximation for the social welfare, which is 
+asymptotically the best worst-case approximation possible with
+polynomial communication. This algorithm can be 
+implemented with a polynomial number of demand queries.
+4.3 The Representation of Bundle Prices
+In this section we explicitly fix the language in which 
+bundle prices are presented to the bidders in bundle-price 
+auctions. This language requires the algorithm to explicitly list
+the price of every bundle with a non-trivial price. 
+Trivial in this context is a price that is equal to that of one of
+its proper subsets (which was listed explicitly). This 
+representation is equivalent to the XOR-language for expressing
+valuations. Formally, each query q is given by an 
+expression: q = (S1 : p1) ⊕ (S2 : p2) ⊕ ... ⊕ (Sl : pl). In this
+representation, the price demanded for every set S is simply
+p(S) = max{k=1...l|Sk⊆S}pk.
+Definition 4. The length of the query q = (S1 : p1) ⊕
+(S2 : p2) ⊕ ... ⊕ (Sl : pl) is l. The cost of an algorithm is the
+sum of the lengths of the queries asked during the operation
+of the algorithm on the worst case input.
+Note that under this definition, bundle-price auctions are
+not necessarily stronger than item-price auctions. An 
+itemprice query that prices each item for 1, is translated to an
+exponentially long bundle-price query that needs to specify
+the price |S| for each bundle S. But perhaps bundle-price
+auctions can still find optimal allocations whenever 
+itemprice auction can, without directly simulating such queries?
+We show that this is not the case: indeed, when the 
+representation length is taken into account, bundle price auctions
+are sometimes seriously inferior to item price auctions.
+Consider the following family of valuations: Each item is
+valued at 3, except that for some single set S, its value is a
+bit more: 3|S| + b, where b ∈ {0, 1, 2}. Note that an item
+price auction can easily find the optimal allocation between
+any two such valuations: Set the prices of each item to 3+ ;
+if the demand sets of the two players are both empty, then
+b = 0 for both valuations, and an arbitrary allocation is fine.
+If one of them is empty and the other non-empty, allocate
+the non-empty demand set to its bidder, and the rest to the
+other. If both demand sets are non-empty then, unless they
+form an exact partition, we need to see which b is larger,
+which we can do by increasing the price of a single item in
+each demand set.
+37
+We will show that any bundle-price auction that uses only
+the XOR-language to describe bundle prices requires an 
+exponential cost (which includes the sum of all description
+lengths of prices) to find an optimal allocation between any
+two such valuations.
+Lemma 4.9. Every bundle-price auction that uses 
+XORexpressions to denote bundle prices requires 2Ω(
+√
+m)
+cost in
+order to find the optimal allocation among two valuations
+from the above family.
+The complication in the proof stems from the fact that
+using XOR-expressions, the length of the price description
+depends on the number of bundles whose price is strictly
+larger than each of their subsets - this may be significantly
+smaller than the number of bundles that have a non-zero
+price. (The proof becomes easy if we require the protocol
+to explicitly name every bundle with non-zero price.) We
+do not know of any elementary proof for this lemma 
+(although we believe that one can be found). Instead we 
+reduce the problem to a well known lower bound in boolean
+circuit complexity [18] stating that boolean circuits of depth
+3 that compute the majority function on m variables require
+2Ω(
+√
+m)
+size.
+4.4 Demand Queries and Linear Programming
+Consider the following linear-programming relaxation for
+the generalized winner-determination problem in 
+combinatorial auctions (the primal program):
+Maximize
+X
+i∈N,S⊆M
+wi xi,S vi(S)
+s.t.
+X
+i∈N, S|j∈S
+xi,S ≤ qj ∀j ∈ M
+X
+S⊆M
+xi,S ≤ di ∀i ∈ N
+xi,S ≥ 0 ∀i ∈ N, S ⊆ M
+Note that the primal program has an exponential number
+of variables. Yet, we will be able to solve it in polynomial
+time using demand queries to the bidders. The solution will
+have a polynomial size support (non-zero values for xi,S),
+and thus we will be able to describe it in polynomial time.
+Here is its dual:
+Minimize
+X
+j∈M
+qjpj +
+X
+i∈N
+diui
+s.t. ui +
+X
+j∈S
+pj ≥ wivi(S) ∀i ∈ N, S ⊆ M
+pi ≥ 0, uj ≥ 0 ∀i ∈ M, j ∈ N
+Notice that the dual problem has exactly n + m variables
+but an exponential number of constraints. Thus, the dual
+can be solved using the Ellipsoid method in polynomial time
+- if a separation oracle can be implemented in polynomial
+time. Recall that a separation oracle, when given a possible
+solution, either confirms that it is a feasible solution, or
+responds with a constraint that is violated by the possible
+solution.
+We construct a separation oracle for solving the dual 
+program, using a single demand query to each of the bidders.
+Consider a possible solution (u, p) for the dual program. We
+can re-write the constraints of the dual program as:
+ui/wi ≥ vi(S) −
+X
+j∈S
+pj/wi
+Now a demand query to bidder i with prices pj/wi reveals
+exactly the set S that maximizes the RHS of the previous
+inequality. Thus, in order to check whether (u, p) is 
+feasible it suffices to (1) query each bidder i for his demand
+Di under the prices pj/wi; (2) check only the n constraints
+ui +
+P
+j∈Di
+pj ≥ wivi(Di) (where vi(Di) can be simulated
+using a polynomial sequence of demand queries as shown in
+Lemma 4.2). If none of these is violated then we are assured
+that (u, p) is feasible; otherwise we get a violated constraint.
+What is left to be shown is how the primal program can
+be solved. (Recall that the primal program has an 
+exponential number of variables.) Since the Ellipsoid algorithm
+runs in polynomial time, it encounters only a polynomial
+number of constraints during its operation. Clearly, if all
+other constraints were removed from the dual program, it
+would still have the same solution (adding constraints can
+only decrease the space of feasible solutions). Now take the
+reduced dual where only the constraints encountered 
+exist, and look at its dual. It will have the same solution as the
+original dual and hence of the original primal. However, look
+at the form of this dual of the reduced dual. It is just a
+version of the primal program with a polynomial number of
+variables - those corresponding to constraints that remained
+in the reduced dual. Thus, it can be solved in polynomial
+time, and this solution clearly solves the original primal 
+program, setting all other variables to zero.

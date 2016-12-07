@@ -1,0 +1,79 @@
+We now define the required properties for a revision  mechanism M updating an agent ri when it gets a piece of  information k. In the following, we will suppose that: • Update is always possible, that is, an agent can  always modify its belief set Bi in order to regain its a-consistency.
+That is, a-consistency of the agents is additive.
+We will first define the  consistency of an agent ri with respect to its belief set Bi and its own information set Ki together with all information sets K1...Kn from the other agents of the MAS.
+We shall note M(Bi) the belief set of the learner agent ri after an update, BC the common part modified by ri, and Bj the belief set of another agent rj induced by the modification of its common part BC in BC .
+2.2 A strongly mas-consistent update  mechanism The general idea is that, since information is distributed among all the agents of the MAS, there must be some  interaction between the learner agent and the other agents in a strongly mas-consistent update mechanism Ms.
+An iteration of Ms will then be composed of: • the reception by the learner agent ri of a piece of information and the update M(Bi) restoring its  aconsistency • a set of interactions I(ri, rj) (in which several critic agents can possibly participate).
+In the same way, we define the mas-consistency of a  revision mechanism as the a-consistency of this mechanism should the agents dispose of all information in the MAS.
+Each agent ri has a belief set Bi consisting of all the revisable knowledge he has.
+We also want to define some notion of consistency for the whole MAS depending on the belief and information sets of its constituting elements.
+We call this notion the mas-consistency: Definition 2. mas-consistency of an agent An agent ri is mas-consistent iff Cons(Bi, Ki ∪ K) is true, where K = ∪j∈{1,..,n}−{i}Kj 1 is the set of all information from other agents of the MAS.
+• If a piece of information k concerning the common set BC is consistent with an agent, it is consistent with all agents: for all pair of agents (ri,rj) such that Cons(Bi, Ki) and Cons(Bj, Kj) are true, we have, for all piece of information k: Cons(Bi, Ki ∪ k) iff Cons(Bj, Kj ∪ k).
+If an agent ri updates his belief set Bi to Bi, changing in the process BC into BC , all other agents rk must then update their belief set Bk to Bk so that BC ⊆ Bk.
+In such a case, we will say that the MAS is coherent.
+In other words, iff: ri(Bi, Ki) a-consistent ⇒ ri(Bi, Ki) a-consistent, where Bi = M(Bi) and Ki = Ki ∪ k is the set of all  information from other agents of the MAS.
+• Considering two sets of information Cons(Bi, K1) and Cons(Bi, K2), we also have Cons(Bi, K1 ∪ K2).
+In order to ensure its mas-consistency, Ms will be constituted of  reiterated applications by the learner agent ri of an internal a-consistent mechanism M, followed by some interactions between ri and the other agents, until ri regain its  masconsistency.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 165 At last, when a mas-consistent mechanism is applied by an agent getting a new piece of information, a desirable  sideeffect of the mechanism should be that all others agents  remains mas-consistent after any modification of the common part BC , that is, the MAS itself should become consistent again.
+The global consistency of the MAS is then simply the mas-consistency of all its agents.
+This last condition simply means that the common belief set BC is independent of the possible differences between the belief sets Bi of each agent ri.
+We will simply do that by considering what would be the a-consistency of the agent if he has the information of all the other agents.
+An interaction I(ri, rj) between the learner agent ri and another agent rj, acting as critic is constituted of the  following steps: • agent ri sends the update BC of the common part of its beliefs.
+In the mechanism Ms described above, the learner agent is the only one that receives and memorizes information during the mechanism execution.
+In the following, we shall note, if needed, ri(Bi, Ki, K) for the agent ri in MAS r1 .
+This common part provokes a  dependency between the agents.
+In other words, if: ri(Bi, Ki, K) mas-consistent ⇒ ri(Bi, Ki, K) mas-consistent, where Bi = Ms(Bi), Ki = Ki ∪ k, and K = ∪Kj is the set of all information from the MAS.
+When it is the case, the  masconsistency of the learner agent ri is restored.
+Definition 4. a-consistency of a revision An update mechanism M is a-consistent iff for any agent ri and any piece of information k reaching ri, the a-consistency of this agent is preserved.
+We suppose that some consistency property Cons(Bi, Ki) can be verified by the agent itself between its beliefs Bi and its information Ki.
+Definition 1. a-consistency of an agent An agent ri is a-consistent iff Cons(Bi, Ki) is true.
+The pieces of information transmitted by other agents and memorized by the learner agent are redundant as they are already present in the MAS, more precisely in the memory of the critic agents that transmitted them.
+We will consider in the following that the modification  proposal BC is sent sequentially to the different agents  (synchronous mechanism).
+The update mechanism Ms described above is strongly mas-consistent.
+We describe below such a mechanism, first with a description of an interaction, then an iteration, and finally a statement of the termination condition of the mechanism.
+Definition 5. mas-consistency of a revision An update mechanism Ms is mas-consistent iff for all agent ri and all pieces of information k reaching ri, the  masconsistency of this agent is preserved.
+However, r1 is not mas-consistent as k is in the set K of all information of the MAS.
+• agent rj checks the modification Bj of its beliefs  induced by the update BC .
+As said before, Bi represents knowledge that might be revised whereas Ki represents observed facts, taken as being true, and which can possibly contradict Bi.
+As the other agents all adopt the final update BC , they are all mas-consistent, and the MAS is consistent.
+We will now  illustrate it in the case of multi-agent concept learning. 
+Let r1,...,rn be a consistent MAS in which agent ri receives a piece of information k breaking its  aconsistency, and M an a-consistent internal update  mechanism.
+The Sixth Intl.
+Consistency of a MAS A MAS r1,...,rn is consistent iff all its agents ri are  masconsistent.
+The part of Bi that is common to all agents is denoted as BC .
+Strong mas-consistency of a revision An update mechanism Ms is strongly mas-consistent iff - Ms is mas-consistent, and - the application of Ms by an agent preserves the consistency of the MAS.
+• agent rj sends either an acceptation of BC or a denial along with one (or more) piece(s) of information k such that Cons(Bj, k ) is false.
+This mechanism ensures that each time an agent receives an event, its mas-consistency will be restored.
+Therefore Ms is a strongly consistent update mechanism.
+Note that the mechanism Ms proposed here does not  explicitly indicate the order nor the scope of the interactions.
+If at least one piece of information k is transmitted to ri, the addition of k will necessarily make ri a-inconsistent and a new iteration will then occur.
+Moreover, the response of a critic agent will only contain one piece of information inconsistent with the proposed modification.
+M will also be viewed as an incremental learning  mechanism and represented as an application changing Bi in Bi.
+As long as the piece of information is not  transmitted to r1, and so added to K1 , r1 remains a-consistent.
+We will say that each agent is locally efficient.
+The mechanism is triggered by an agent ri upon receipt of a piece of information k disrupting the mas-consistency.
+If this piece of information is added to K1, then agent r1 is not a-consistent anymore: Cons(B1, K1 ∪ k) is false.
+The proof directly derives from the mechanism description.
+Having applied its update mechanism, ri is a-consistent.
+This property is defined as follows: Definition 6.
+We will say that the  response of the agent is minimal.
+Using the previous example, suppose that the piece of information k is included in the information K2 of agent r2.
+2.1 Definitions and framework In this section, we present a general formulation of  collective incremental learning in a cognitive multi agent system.
+Part of these knowledges must be shared with other agents.
+It ensures that Ms  terminates.
+In the following, we shall note ri(Bi, Ki) for ri when it is useful.
+1 We will note this ∪ Kj when the context is similar.
+Moreover, each agent ri has stored some certain information Ki.
+This mechanism Ms ends when no agent can provide such a piece of information k .
+Agent r1 has a set of plans which are in the common part BC of B1.
+We represent a MAS as a set of agents r1, ..., rn.
+In the simplest case, B1 = ... = Bn = BC .
+If this modification preserve its a-consistency, rj adopts this modification.
+Some piece of information k could be plan P, triggered in  situation s, has failed in spite of s being an instance of d(P).
+This mechanism Ms, being synchronous with minimal response, minimizes the amount of information transmitted by the agents.
+Each plan P has a triggering  context d(P) (which acts as a pre-condition) and a body.
+Example 1.
+Example 2.
+Proposition 1.
+Joint Conf.
+Definition 3.

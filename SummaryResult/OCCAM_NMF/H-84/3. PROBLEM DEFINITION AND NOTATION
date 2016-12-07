@@ -1,0 +1,49 @@
+in the next few sections, we will describe our attempts to tackle these problems. 
+4. since it is a brand new research area, no standard evaluation metrics and benchmark data is available.
+3. the dependencies among events are hard to model.
+2. the granularity of events is hard to define.
+1. the number of events is unknown.
+thus, event  threading can be considered as a further extension of topic detection and tracking and is more challenging due to at least the following  difficulties.
+it goes beyond topics, and models the relationships between events.
+event threading is strongly related to topic detection and  tracking, but also different from it significantly.
+trial and (5) (3) (4) cia announces reward muslim world reactions from islamic militants threats from (2) (1) osama indictment of cia gathered by evidence figure 1: an event model of tdt topic ‘osama bin laden"s indictment".
+we define an event model å ´ µ to be a tuple of the set of events and set of  dependencies.
+extending our notation further, we call an event a a parent of b and b the child of a, if ´ µ ¾ .
+thus all the dependencies in the example are causal.
+the occurrence of event 2, namely ‘trial and  indictment of osama" is dependent on the event of ‘evidence gathered by cia", i.e., event 1. similarly, event 2 influences the occurrences of events 3, 4 and 5, namely ‘threats from militants", ‘reactions 447 from muslim world" and ‘announcement of reward".
+an event model of this topic can be represented as in figure 1. each box in the figure indicates an event in the topic of osama"s indictment.
+this topic has 23 stories which form 5 events.
+to make the idea of event threading more concrete, consider the example of tdt3 topic 30005, titled ‘osama bin laden"s  indictment" (in the 1998 news).
+this choice definitely makes sense as a first step but we chose the former since we believe directional edges make more sense to the user as they provide a more illustrative flow-chart perspective to the topic.
+a simpler (and hence less controversial) choice would be to ignore direction in the dependencies altogether and consider only undirected edges.
+in this work, we do not make an attempt to distinguish between these two kinds of  dependencies and our models treats them as identical.
+now events a and b are closely related through their association with the pope and cuba but event b is not necessarily a consequence of the occurrence of event a. an arrow in such  scenario captures what we call time ordering.
+now consider the pair of events ‘pope arrives in cuba"(event a) and ‘pope meets castro"(event b) in a topic that discusses pope"s visit to cuba.
+hence an  arrow from a to b falls under the category of causal dependency.
+clearly, the investigations are a result of the crash.
+by causal dependency we mean that the occurrence of event b is related to and is a consequence of the occurrence of event a. by temporal  ordering, we mean that event b happened after event a and is related to a but is not necessarily a consequence of a. for example,  consider the following two events: ‘plane crash" (event a) and  ‘subsequent investigations" (event b) in a topic on a plane crash incident.
+it is important to  explain what we mean by this directional dependency: while the  existence of an edge itself represents relatedness of two events, the direction could imply causality or temporal-ordering.
+in fact this allows us to define a mapping function from stories to events as follows: ´× µ iff × ¾ (4) further, we also define a set of directed edges ´ µ which denote dependencies between events.
+the last constraint tells us that every story belongs to one of the events in .
+we define a set of events ½ ¡ ¡ ¡ ñ with the following constraints: ¾ ¾ ë (1) × ø (2) × ¾ × ø × ¾ (3) while the first constraint says that each event is an element in the power set of s, the second constraint ensures that each story can belong to at most one event.
+we are given a set of ò news stories ë ×½ ¡ ¡ ¡ ×ò on a given topic ì and their time of publication.
+we first define our problem and representation of our model formally and then illustrate with the help of an example.
+additionally event threading  models the relatedness or dependencies between pairs of events in a topic while tdt models topics as unrelated clusters of stories.
+thus the main difference between event threading and tdt is that we focus our modeling effort on microscopic events rather than larger topics.
+5. event threading: event threading detects events within in a topic, and also captures the dependencies among the events.
+thus tdt concerns itself mainly with clustering stories into topics that discuss them.
+4. topic detection and tracking (tdt) :topic detection  detects clusters of stories that discuss the same topic; topic tracking detects stories that discuss a previously known topic [3].
+we will describe this representation of a topic in more detail in the next section.
+thus a topic can be represented by clusters of stories each representing an event and a set of (directed or undirected) edges between pairs of these clusters representing the dependencies between these events.
+we expand on this definition and interpret a topic as a series of related events.
+3. topic: a set of news stories strongly connected by a seminal event.
+following the assumption of atomicity of a story, this means that any set of distinct events can be represented by a set of non-overlapping clusters of news stories.
+in our work, we represent an event by a set of stories that discuss it.
+2. event: an event is something that happens at some specific time and place [10].
+clearly, both the assumptions are not necessarily true in reality, but we accept them for simplicity in modeling.
+in other words, a story is the smallest atomic unit in the hierarchy (topic event story).
+in this work, we also assume that each story discusses a single event.
+in tdt, a story is assumed to refer to only a single topic.
+1. story: a story is a news article delivering some information to users.
+we present some definitions (in italics) and our interpretations (regular-faced) below for clarity.
+in this work, we have adhered to the definition of event and topic as defined in tdt.

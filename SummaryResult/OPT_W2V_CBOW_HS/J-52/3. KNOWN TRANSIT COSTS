@@ -1,0 +1,60 @@
+We found that in the absence of per-hop information, the expected cost of each intermediate node equals its expected payment.
+Under the optimal contract that induces high-effort behavior from all intermediate nodes in the Nash  Equi118 librium2 , the expected payment to each node is the same as its  expected cost, with the following payment schedule: sB i = si(x = xB ) = 0 (2) sG i = si(x = xG ) = c (1 − k)n−i+1 (3) PROOF.
+The expected cost of node i is its transit cost multiplied by the probability that it faces this cost (i.e., the probability that the packet reaches node i), which is: (1 − k)i c. The expected payment that node i receives is: Pr(xG )sG i + Pr(xB )sB i = (1 − k)n+1 c (1 − k)n−i+1 = (1 − k)i c Note that the expected payment to a node decreases as the node gets closer to the destination due to the asymmetric distribution of risk.
+Given two paths with respective lengths of n1 and n2 hops, per-hop transit costs of c1 and c2, and per-hop loss rates of k1 and k2, such that: 2Since transit nodes perform actions sequentially, this is really a  subgameperfect equilibrium (SPE), but we will refer to it as Nash equilibrium in the remainder of the paper.
+The principal uses no monitoring to observe per-hop outcomes.
+The expected payment by the principal is: E[S] = (1 − k)n+1 nX i=1 sG i + (1 − (1 − k)n+1 ) nX i=1 sB i = (1 − k)n+1 nX i=1 ci (1 − k)n−i+1 (6) The expected payment made by the principal depends not only on the total cost, but also the number of nodes on the path.
+In addition, if all nodes are incentivized to forward packets, the  probability that the packet reaches the destination is the same in both scenarios, thus the expected benefit of the principal is the same.
+The principal needs to satisfy the IC and IR  constraints for each agent i, which can be expressed as follows: (IC)Pr(xG |aj≥i = 1)sG i + Pr(xB |aj≥i = 1)sB i − c ≥ Pr(xG |ai = 0, aj>i = 1)sG i + Pr(xB |ai = 0, aj>i = 1)sB i (4) This constraint says that the expected utility from forwarding is greater than or equal to its expected utility from dropping, if all subsequent nodes forward as well.
+These constraints can be expressed as follows: (IC) : (1 − k)sG + ksB − c ≥ s0 (IR) : (1 − k)i ((1 − k)sG + ksB − c) ≥ 0 The two constraints bind at the optimal contract as before, and we get the following payment schedule: sB = 0 sG = c 1 − k The expected total payment under this scenario is: E[S] = nX i=1 ((1 − k)i (sB + (i − 1)sG )) + (1 − k)n+1 nsG = (1 − k)n+1 nX i=1 ci (1 − k)n−i+1 as in the scenario without monitoring (see Equation 6.)
+2 and 3, the expected total payment for the top path is: E[S] = Pr(xG )(sG A + sG B) = „ c1 (1 − k1)2 + c1 1 − k1 « (1 − k1)3 (8) 119 while the expect total payment for the bottom path is: E[S] = Pr(xG )(sG A + sG B + sG C ) = ( c2 (1 − k2)3 + c2 (1 − k2)2 + c2 1 − k2 )(1 − k2)4 For n1 = 2, c1 = 1.5, k1 = 0.5, n2 = 3, c2 = 1, k2 = 0.405, we have equal total cost and equal expected benefit, but E[S]1 = 0.948 and E[S]2 = 1.313.
+We have to show that MN 1 n1+1 (1 − N n1 n1+1 ) n1(1 − N 1 n1+1 ) < MN 1 n2+1 (1 − N n2 n2+1 ) n2(1 − N 1 n2+1 ) (7) Let f = N 1 n+1 (1 − N n n+1 ) n(1 − N 1 n+1 ) Then, it is enough to show that f is monotonically increasing in n ∂f ∂n = g(N, n) h(N, n) where: g(N, n) = −((ln(N)n − (n + 1)2 )(N 1 n+1 − N n+2 n+1 ) − (n + 1)2 (N + N 2 n+1 )) and h(N, n) = (n + 1)2 n2 (−1 + N 1 n+1 )2 but h(N, n) > 0 ∀N, n, therefore, it is enough to show that g(N, n) > 0.
+First, the payment structure is different.
+The expected payment in path j is E[S]j = nj X i=1 cj (1 − kj )i = cj (1 − kj ) 1 − (1 − kj)nj kj So, we have to show that: c1(1 − k1) 1 − (1 − k1)n1 k1 > c2(1 − k2) 1 − (1 − k2)n2 k2 Let M = c1n1 = c2n2 and N = (1 − k1)n1+1 = (1 − k2)n2+1 .
+Under the monitoring mechanism, the principal has to satisfy the following constraints: (IC)Pr(xG i→i+1|ai = 1)sG + Pr(xB i→i+1|ai = 1)sB − c ≥ Pr(xG i→i+1|ai = 0)sG + Pr(xB i→i+1|ai = 0)sB (9) (IR)Pr(xG S→i|aj<i = 1)(Pr(xG i→i+1|ai = 1)sG + Pr(xB i→i+1|ai = 1)sB − c) ≥ 0 (10) 3For a recent proposal of an accountability framework that provides such monitoring information see [4].
+Because the expected benefit when all nodes forward is the same under both scenarios, we only need to show that the expected total payment is identical as well.
+• c1n1 = c2n2 (equal total cost) • (1 − k1)n1+1 = (1 − k2)n2+1 (equal expected benefit) • n1 < n2 (path 1 is shorter than path 2) the expected total payment made by the principal is lower on the shorter path.
+Consequently, the principal makes the payment schedule to each agent contingent on the final outcome, x, as follows: si(x) = (sB i , sG i ) where: sB i = si(x = xB ) sG i = si(x = xG ) The timeline of this scenario is shown in figure 2.
+This is possible only if per-hop monitoring information is provided.
+We next prove that the expected payment to a node equals its expected cost in equilibrium.
+(IR)Pr(xG S→i|aj<i = 1)(Pr(xG |aj≥i = 1)sG i + Pr(xB |aj≥i = 1)sB i − c) + Pr(xB S→i|aj<i = 1)sB i ≥ 0 (5) This constraint says that the expected utility from participating is greater than or equal to zero (reservation utility), if all other nodes forward.
+1: (IC) : (1 − k)n−i+1 sG i + (1 − (1 − k)n−i+1 )sB i − c ≥ sB i (IR) : (1−k)i ((1−k)n−i+1 sG i +(1−(1−k)n−i+1 )sB i −c)+ (1 − (1 − k)i )sB i ≥ 0 It is a standard result that both constraints bind at the optimal contract (see [23]).
+The proof to this proposition is already implied in the findings of the previous section.
+In this section we analyze scenarios in which the principal knows in advance the nodes on the path to the destination and their costs, as shown in figure 1.
+We assume costless monitoring, giving us the best case scenario for the use of  monitoring.
+In the drop versus forward model, the  principal derives the same expected utility whether it obtains per-hop monitoring information or not.
+In contrast, monitoring provides us with n identical contracts.
+While the paths are of equal total cost, the total expected payment by the principal is different.
+If no per-hop monitoring is used, the payment to each node depends on its location (i).
+Figure 3: Two paths of equal total costs but different lengths and  individual costs.
+3.2 Drop versus Forward with Monitoring Suppose the principal obtains per-hop monitoring information.3 Per-hop information broadens the set of mechanisms the principal can use.
+The expected utility of the principal is the difference between its expected benefit and its expected payment.
+Therefore, g(N, n) > 0 ∀N, n. This means that, ceteris paribus, shorter paths should always be preferred over longer ones.
+To convince the reader that this is indeed the case, we provide an example of a mechanism that conditions payments on arrival to the next hop.
+As before, we consider a principal who wishes to induce an equilibrium in which all intermediate nodes forward the packet.
+The above constraints can be expressed as follows, based on Eq.
+Therefore, no other payment scheme can reduce the expected payment from the principal to the intermediate nodes.
+While the expected total payment is the same with or without monitoring, there are some differences between the two scenarios.
+In the new mechanism, the principal makes the  payment schedule contingent on whether the packet has reached the next hop or not.
+Solving the two equations, we obtain the  solution that is presented in Eqs.
+Can such information be of use to a principal wishing to induce an equilibrium in which all intermediate nodes forward the packet?
+In contrast, with the use of monitoring, the action chosen by node i is independent of the other agents"  forwarding behavior.
+Therefore, monitoring provides us with  dominant strategy equilibrium, which is a stronger solution concept than Nash equilibrium.
+For example, the principal can make the payment schedule contingent on arrival to the next hop instead of arrival to the final destination.
+Indeed, we have found that even in the absence of per-hop monitoring information, the principal achieves first-best solution.
+3.1 Drop versus Forward without Monitoring In this scenario, the agents decide whether to drop (a = 0) or forward (a = 1) packets.
+The closer the node is to the destination, the lower the probability that a packet will fail to reach the destination, resulting in the low payment being made to the node.
+We consider agents who decide whether to drop or forward packets, and distinguish between scenarios with and without monitoring.
+Second, the solution concept used is different.
+That is, the payment to node i is sG i if the packet has reached node i + 1, and sB i otherwise.
+For example, consider the two topologies presented in Figure 3.
+Given a  perhop loss rate of k, we can express the probability that a packet is successfully delivered from node i to its successor i + 1 as: Pr(xG i→i+1|ai) = (1 − k)ai (1) where xG i→j denotes a successful transmission from node i to j.
+In order to satisfy the IR constraint, it is essential to pay each intermediate node an expected amount of at least its expected cost; otherwise, the node would be better-off not participating.
+If no monitoring is used, the strategy profile of ai = 1 ∀i is a Nash equilibrium, which means that no agent has an incentive to deviate unilaterally from the strategy profile.
+Because N ∈ (0, 1): (i) ln(N) < 0, and (ii) N 1 n+1 > N n+2 n+1 .
+2 and 3.
+Based on Eqs.
+[15], [16] discuss the appropriateness of  different solution concepts in the context of online environments. 
+PROPOSITION 3.3.
+PROPOSITION 3.1.
+PROPOSITION 3.2.

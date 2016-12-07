@@ -1,0 +1,4 @@
+The invalidations are sent lazily to the redirectors to ensure that all the clients in the groups caching the modified objects get rid of the stale data.
+That is, a client includes the page version number corresponding to each object in the read object set sent in the commit request to the server.
+The client keeps track of objects that are read and modified by its transaction; it sends this information, along with new copies of modified objects, to the servers when it tries to commit the transaction.
+The client continues to retain pages containing invalidated objects ; these pages 

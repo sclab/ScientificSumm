@@ -1,0 +1,36 @@
+Using this modified notation, we characterize the optimal  solution of follower l"s problem given the leaders k-uniform policy x, with the following optimality conditions: X j∈Q ql j = 1 al − X i∈X 1 k Cl ijxi ≥ 0 ql j(al − X i∈X 1 k Cl ijxi) = 0 ql j ≥ 0 Again, considering only optimal pure strategies for follower l"s problem we can linearize the complementarity constraint above.
+We will show that ql , al , zl ij = xiql j is a feasible solution of (8) of same objective function value.
+In fact, every pure strategy j in Problem (5) corresponds to a sequence of pure  strategies jl, one for each follower l ∈ L. This means that qj = 1 if and only if ql jl = 1 for all l ∈ L. In addition, given the a  priori probabilities pl of facing player l, the reward in the Harsanyi transformation payoff table is Rij = P l∈L pl Rl ijl .
+We denote by x the vector of strategies of the leader and ql the vector of strategies of follower l, with L denoting the  index set of follower types.
+Proof: Consider x, ql , al with l ∈ L a feasible solution of (7).
+P i xi = kP j∈Q ql j = 1 0 ≤ (al − P i∈X 1 k Cl ijxi) ≤ (1 − ql j)M xi ∈ {0, 1, ...., k} ql j ∈ {0, 1}.
+P i∈X P j∈Q zl ij = k P j∈Q zl ij ≤ k kql j ≤ P i∈X zl ij ≤ k P j∈Q ql j = 1 0 ≤ (al − P i∈X 1 k Cl ij( P h∈Q zl ih)) ≤ (1 − ql j)M P j∈Q zl ij = P j∈Q z1 ij zl ij ∈ {0, 1, ...., k} ql j ∈ {0, 1} (8) PROPOSITION 2.
+We will show that ql , al and xi = P j∈Q z1 ij are feasible for (7) with the same  objective value.
+(7) Problem (7) for a Bayesian game with multiple follower types is indeed equivalent to Problem (5) on the payoff matrix obtained from the Harsanyi transformation of the game.
+The equivalence of the objective functions, and constraints 4, 7 and 8 of (8) are satisfied by  construction.
+Since our security scenario contains multiple follower (robber) types, we change the response function for the follower from a pure strategy into a weighted combination over various pure follower strategies where the weights are probabilities of  occurrence of each of the follower types.
+We also index the payoff matrices on each follower l, considering the  matrices Rl and Cl .
+Let us say that ql jl = 1, then the third constraint in (8) implies that P i∈X zl ijl = k, which means that zl ij = 0 for all i ∈ X and all j = jl.
+We also denote by X and Q the index sets of leader and follower l"s pure strategies, respectively.
+Lets now consider ql , zl , al feasible for (8).
+To see that the objectives match, notice for each l one ql j must equal 1 and the rest equal 0.
+Therefore, given a priori  probabilities pl , with l ∈ L of facing each follower, the leader solves the following problem: The Sixth Intl.
+5.2 Decomposed MILP We can linearize the quadratic programming problem 7 through the change of variables zl ij = xiql j, obtaining the following  problem maxq,z P i∈X P l∈L P j∈Q pl k Rl ijzl ij s.t.
+The fact that P j∈Q zl ij = xi as P j∈Q ql j = 1 explains constraints 1, 2, 5 and 6 of (8).
+We incorporate these constraints on the leader"s problem that  selects the optimal k-uniform policy.
+In particular this implies that xi = X j∈Q z1 ij = z1 ij1 = zl ijl , the last equality from constraint 6 of (8).
+These relations between a pure strategy in the equivalent normal form game and pure strategies in the individual games with each followers are key in showing these problems are equivalent.
+Effectively, constraint 6 ensures that all the adversaries are calculating their best responses against a particular fixed policy of the agent.
+Constraint 3 of (8) is satisfied  because P i∈X zl ij = kql j.
+This last equality is because both are 0 when j = jl.
+In fact all constraints of (7) are readily satisfied by construction.
+We implemented the  decomposed MILP and the results are shown in the following section. 
+Therefore xiql j = zl ijl ql j = zl ij.
+The same  relation holds between C and Cl .
+We can therefore solve this equivalent linear integer program with efficient integer programming packages which can handle  problems with thousands of integer variables.
+This shows that the transformation preserves the objective function value, completing the proof.
+ADVERSARIES The MILP developed in the previous section handles only one follower.
+5.1 Decomposed MIQP To admit multiple adversaries in our framework, we modify the notation defined in the previous section to reason about multiple follower types.
+Problems (7) and (8) are equivalent.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 315 maxx,q X i∈X X l∈L X j∈Q pl k Rl ijxiql j s.t.
+Joint Conf.

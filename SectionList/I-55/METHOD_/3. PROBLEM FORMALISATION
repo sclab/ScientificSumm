@@ -1,0 +1,104 @@
+Consider Example 1, assume that rA,T = $150 and cB,T =
+$100 and rB,R = $10 and cA,R = $7. That is, the revenues 
+generated for A exceeds the costs incurred to B to do task T, and B
+values resource R more highly than the cost for A to provide it.
+The optimal solution to this problem scenario is to assign task T to
+agent B and to allocate 20 units of resource R (i.e., the maximal
+amount of resource R required by agent B) from agent A to agent
+B. This outcome regarding the resource and task allocation 
+problems leaves payoffs of $10 to agent A and $100 to agent B.2
+Any
+other outcome would leave at least one of the agents worse off. In
+other words, the presented outcome is Pareto-efficient and should
+be part of the solution outcome for this problem scenario.
+However, as the agents still have to bargain over the amount of
+money transfer p, neither agent would be willing to disclose their
+respective costs and revenues regarding the task T and the resource
+R. As a consequence, agents often do not achieve the optimal 
+outcome presented above in practice. To address this issue, we 
+introduce a mediator to help the agents discover better agreements than
+the ones they might try to settle on. Note that this problem is 
+essentially the problem of searching for joint gains in a multilateral
+negotiation in which the involved parties hold strategic information,
+i.e., the integrative part in a negotiation. In order to help facilitate
+this process, we introduce the role of a neutral mediator. Before
+formalising the decision problems faced by the mediator and the
+2
+Certainly, without money transfer to compensate agent A, this
+outcome is not a fair one.
+negotiating agents, we discuss the properties of the solution 
+outcomes to be achieved by the mediator. In a negotiation setting, the
+two typical design goals would be:
+• Efficiency: Avoid the agents from settling on an outcome that
+is not Pareto-optimal; and
+• Fairness: Avoid agreements that give the most of the gains
+to a subset of agents while leaving the rest with too little.
+The above goals are axiomatised in Nash"s seminal work [16] on
+cooperative negotiation games. Essentially, Nash advocates for the
+following properties to be satisfied by solution to the bilateral 
+negotiation problem: (i) it produces only Pareto-optimal outcomes; (ii)
+it is invariant to affine transformation (to the consequence space);
+(iii) it is symmetric; and (iv) it is independent from irrelevant 
+alternatives. A solution satisfying Nash"s axioms is called a Nash
+bargaining solution.
+It then turns out that, by taking the negotiators" utilities as its
+objectives the mediator itself faces a multi-criteria decision making
+problem. The issues faced by the mediator are: (i) the mediator
+requires access to the negotiators" utility functions, and (ii) 
+making (fair) tradeoffs between different agents" utilities. Our methods
+allow the agents to repeatedly interact with the mediator so that a
+Nash solution outcome could be found by the parties.
+Informally, the problem faced by both the mediator and the 
+negotiators is construction of the indifference curves. Why are the
+indifference curves so important?
+• To the negotiators, knowing the options available along 
+indifference curves opens up opportunities to reach more 
+efficient outcomes. For instance, consider an agent A who is
+presenting his opponent with an offer θA which she refuses
+to accept. Rather than having to concede, A could look at
+his indifference curve going through θA and choose another
+proposal θA. To him, θA and θA are indifferent but θA could
+give some gains to B and thus will be more acceptable to B.
+In other words, the outcome θA is more efficient than θA to
+these two negotiators.
+• To the mediator, constructing indifference curves requires a
+measure of fairness between the negotiators. The mediator
+needs to determine how much utility it needs to take away
+from the other negotiators to give a particular negotiator a
+specific gain G (in utility).
+In order to search for integrative solutions within the outcome
+space O, we characterise the relationship between the agents over
+the set of attributes Att. As the agents hold different objectives and
+have different capacities, it may be the case that changing between
+two values of a specific attribute implies different shifts in utility
+of the agents. However, the problem of finding the exact 
+Paretooptimal set3
+is NP-hard [2].
+Our approach is thus to solve this optimisation problem in two
+steps. In the first steps, the more manageable attributes will be
+solved. These are attributes that take a finite set of values. The
+result of this step would be a subset of outcomes that contains the
+Pareto-optimal set. In the second step, we employ an iterative 
+procedure that allows the mediator to interact with the negotiators to
+find joint improvements that move towards a Pareto-optimal 
+outcome. This approach will not work unless the attributes from Att
+3
+The Pareto-optimal set is the set of outcomes whose consequences
+(in the consequence space) correspond to the Pareto frontier.
+510 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+are independent. Most works on multi-attribute, or multi-issue, 
+negotiation (e.g. [17]) assume that the attributes or the issues are 
+independent, resulting in an additive value function for each agent.4
+ASSUMPTION 1. Let i ∈ N and S ⊆ Att. Denote by ¯S the
+set Att \ S. Assume that vS and vS are two assignments of values
+to the attributes of S and v1
+¯S, v2
+¯S are two arbitrary value 
+assignments to the attributes of ¯S, then (ui([vS, v1
+¯S]) − ui([vS, v2
+¯S])) =
+(ui([vS, v1
+¯S])−ui([vS, v2
+¯S])). That is, the utility function of agent i
+will be defined on the attributes from S independently of any value
+assignment to other attributes.

@@ -1,0 +1,45 @@
+There are two main groups of related work in resource
+allocation: those that incorporate an economic mechanism,
+and those that do not.
+One non-economic approach is scheduling (surveyed by
+Pinedo [20]). Examples of this approach are queuing in
+first-come, first-served (FCFS) order, queueing using the 
+resource consumption of tasks (e.g., [28]), and scheduling 
+using combinatorial optimization [19]. These all assume that
+the values and resource consumption of tasks are reported
+accurately, which does not apply in the presence of strategic
+users. We view scheduling and resource allocation as two
+separate functions. Resource allocation divides a resource
+among different users while scheduling takes a given 
+allocation and orders a user"s jobs.
+Examples of the economic approach are Spawn [26]), work
+by Stoica, et al. [24]., the Millennium resource allocator [4],
+work by Wellman, et al. [27], Bellagio [2]), and Tycoon [15]).
+Spawn and the work by Wellman, et al. uses a reservation
+abstraction similar to the way airline seats are allocated.
+Unfortunately, reservations have a high latency to acquire
+resources, unlike the price-anticipating scheme we consider.
+The tradeoff of the price-anticipating schemes is that users
+have uncertainty about exactly how much of the resources
+they will receive.
+Bellagio[3] uses the SHARE centralized allocator. SHARE
+allocates resources using a centralized combinatorial auction
+that allows users to express preferences with 
+complementarities. Solving the NP-complete combinatorial auction 
+problem provides an optimally efficient allocation. The 
+priceanticipating scheme that we consider does not explicitly 
+operate on complementarities, thereby possibly losing some 
+efficiency, but it also avoids the complexity and overhead of
+combinatorial auctions.
+There have been several analyses [10, 11, 12, 13, 23] of
+variations of price-anticipating allocation schemes in the 
+context of allocation of network capacity for flows. Their 
+methodology follows the study of congestion (potential) games [17,
+22] by relating the Nash equilibrium to the solution of a
+(usually convex) global optimization problem. But those
+techniques no longer apply to our game because we model
+users as having fixed budgets and private preferences for
+machines. For example, unlike those games, there may 
+exist multiple Nash equilibria in our game. Milchtaich [16]
+studied congestion games with private preferences but the
+technique in [16] is specific to the congestion game.

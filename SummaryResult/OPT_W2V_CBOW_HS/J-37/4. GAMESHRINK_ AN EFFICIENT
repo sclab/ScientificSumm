@@ -1,0 +1,88 @@
+By evaluating this dynamic program from bottom to top, Algorithm 1 determines, in time polynomial in the size of the signal tree, whether or not any pair of equal depth nodes x and y are ordered game isomorphic.
+Again,  although this is exponential in S, it is ˜O(n2 ), where n is the number of nodes in the signal tree.
+nodes at this level, where we again take S to be the maximum number of signals possibly revealed in the game.
+Once it finishes, there are no contractible nodes (since it compares every pair of nodes at each level of the signal tree), and it outputs the corresponding information filter F. The correctness of GameShrink follows by a repeated application of Theorem 2.
+While this is exponential in the number of revealed  signals, we now show that it is polynomial in the size of the signal tree-and thus polynomial in the size of the game tree 7 We thank an anonymous person for this example.
+The problem of computing the index in (either) one of the  dimensions is exactly the problem of computing a bijection between all subsets of size r from a set of size n and  integers in ˆ 0, .
+As discussed in the next subsection, we use a union-find data structure to represent the information filter F. Each  iteration of the inner for-loop possibly performs a union  operation on the data structure; performing M operations on a union-find data structure containing N elements takes O(α(M, N)) amortized time per operation, where α(M, N) is the inverse Ackermann"s function [1, 49] (which grows  extremely slowly).
+, n − 1}, denote the r signals and assume that ci < ci+1.
+For j from 1 to r: For each pair of sibling nodes ϑ, ϑ at either levelPj−1 k=1 ` κk + nγk ´ or Pj k=1 κk + Pj−1 k=1 nγk in the filtered (according to F) signal tree: If OrderedGameIsomorphic?
+The test in step 2(a) can be computed in O(1) time by consulting the relation from the specification of the game.
+Output F. Given as input an ordered game Γ, GameShrink applies the shrinking ideas presented above as aggressively as  possible.
+Let S be the maximum number of signals possibly revealed in the game (e.g., in Rhode Island Hold"em, S = 4 because each of the two players has one card in the hand plus there are two cards on the table).
+(Note that the input to the algorithm is not an explicit game tree, but a specification of the rules, so the algorithm does not need to read in the game tree.)
+Given the OrderedGameIsomorphic?
+If ϑ and ϑ are both leaves of the signal tree: (a) If ur (ϑ | ˜z) = ur (ϑ | ˜z) for all ˜z ∈ r−1 j=1 ωj cont × ωr over, then return true.
+Create a bipartite graph Gϑ,ϑ = (V1, V2, E) with V1 = N(ϑ) and V2 = N(ϑ ).
+(Γ, ϑ, ϑ ), then Fj (ϑ) ← Fj (ϑ ) ← Fj (ϑ) ∪ Fj (ϑ ).
+Thus, O(|Θ|S+5 ) = O(n|Θ|5 ), which proves that we can  indeed compute the ordered game isomorphic relation in time polynomial in the number of nodes, n, of the signal tree.
+The number of nodes, n, in the signal tree is O(|Θ|S ).
+The number of nodes in the signal tree is n = 1 + SX i=1 iY j=1 (|Θ| − j + 1) (Each term in the summation corresponds to the number of nodes at a specific depth of the tree.)
+Furthermore,  GameShrink tends to actually run in sublinear time and space in the size of the game tree because the signal tree is  significantly smaller than the game tree in most nontrivial games, as discussed above.
+This is an efficient method of recording contractions within the game tree, and the memory  requirements are only linear in the size of the signal tree.
+We can eliminate some of these computations by using easy-to-check necessary conditions for the ordered game isomorphic relation to hold.
+We efficiently compute this using the subsets" colexicographical ordering [6].
+The dominating factor in the run time of GameShrink is in the rth iteration of the main for-loop.
+Initially each node in the signalling tree is its own set (this corresponds to the identity information  filter); when two nodes are contracted they are joined into a new set.
+Thus, the total time for GameShrink is O „`|Θ| S ´ S!
+In  general, if an ordered game has r rounds, and each round"s stage game has at least b nonterminal leaves, then the size of the signal tree is at most 1 br of the size of the game tree.
+Upon termination, the filtered signals for the abstracted game correspond exactly to the disjoint sets in the data structure.
+The algorithm often runs in sublinear time (and space) in the size of the game tree because the signal tree is  significantly smaller than the game tree in most nontrivial games.
+We can precompute these  frequencies for every game tree node.
+Determining whether two nodes are ordered game  isomorphic requires us to determine if a bipartite graph has a  perfect matching.
+One technique is the use of the union-find data structure for storing the information filter F. This data structure uses time almost linear in the number of  operations [49].
+(For example in Texas Hold"em, the database is reduced by a factor `50 3 ´`47 1 ´`46 1 ´ / `50 5 ´ = 20.)
+performs at most one perfect matching computation on a bipartite graph with O(|Θ|) nodes and O(|Θ|2 ) edges (recall that Θ is the set of signals).
+Using the Ford-Fulkerson algorithm [12] for finding a maximal matching, this takes O(|Θ|3 ) time.
+routine for  determining ordered game isomorphisms in an ordered game, we are ready to present the main algorithm, GameShrink.
+We can  further speed up this computation by only examining nodes with the same parent, since we know (from step 1) that no nodes with different parents are ordered game  isomorphic.
+= |Θ|S and thus the number of leaves in the signal tree is Ω(|Θ|S ).
+For large |Θ| we can use the relation `n k ´ ∼ nk k!
+Each call to OrderedGameIsomorphic?
+It only needs to analyze the signal tree discussed above, rather than the entire game tree.
+For each v1 ∈ V1 and v2 ∈ V2: If OrderedGameIsomorphic?
+It is a dynamic program for computing the ordered game  isomorphic relation.
+So, it takes O(|Θ|S |Θ|3 |Θ|2 ) = O(|Θ|S+5 ) time to compute the entire ordered game isomorphic relation.
+which is a lower bound on the number of nodes.
+Initialize F to be the identity filter for Γ.
+GameShrink finds all ordered game  isomorphisms and applies the associated ordered game isomorphic abstraction transformations.
+The number of leaves is SY j=1 (|Θ| − j + 1) = |Θ| S !
+This substantially speeds up GameShrink, and we can leverage this database across multiple runs of the algorithm (for example, when trying different abstraction levels; see next section).
+The indices for this database depend on the private and public signals, but not the order in which they were revealed, and thus two nodes may have the same corresponding database  entry.
+The dynamic program visits each node in the signal tree, with each visit requiring O(|Θ|2 ) calls to the OrderedGameIsomorphic?
+We first present a subroutine that GameShrink uses.
+One such condition is to check that the nodes have the same number of chances as being ranked (according to ) higher than, lower than, and the same as the opponents.
+We compute a unique index for this set of signals as follows: index(c1, .
+Furthermore, for any Nash  equilibrium, σ , of the abstracted game, the strategy profile  constructed for the original game from σ is a Nash equilibrium.
+There are at most 166 `|Θ| S ´ S!
+because the signal tree is smaller than the game tree.
+ALGORITHM FOR COMPUTING ORDERED GAME ISOMORPHIC ABSTRACTION TRANSFORMATIONS This section presents an algorithm, GameShrink, for  conducting the abstractions.
+Thus, we have the following result: Theorem 3.
+Thus, the inner for-loop executes O „`|Θ| S ´ S!
+The first dimension is indexed by the private signals, the second by the public signals.
+We store the histograms in a 2-dimensional database.
+Again, it operates on the signal tree.
+(Γ, v1, v2) Create edge (v1, v2) 5.
+For example, in Rhode Island Hold"em, the game tree has 3.1 billion nodes while the signal tree only has 6,632,705.
+By the inequality `n k ´ ≤ nk k!
+, this is O ` (|Θ|S )2 α ` (|Θ|S )2 , |Θ|S ´´ .
+If ϑ and ϑ have different parents, then return false.
+Return true if Gϑ,ϑ has a perfect matching; otherwise, return false.
+Algorithm 1.
+Let {c1, .
+2 α „`|Θ| S ´ S!
+Algorithm 2.
+4.1 Efficiency enhancements We designed several speed enhancement techniques for GameShrink, and all of them are incorporated into our  implementation.
+to get |Θ| S !
+(Γ, ϑ, ϑ ) 1.
+, `n r ´ − 1 ˜ .
+, cr}, ci ∈ {0, .
+2 « times.
+This makes the database significantly more compact.
+« S!
+, cr) = Pr i=1 `ci i ´ .
+2 , |Θ|S «« .
+GameShrink (Γ) 1.
+∼ „ |Θ|S S!
+See Figure 1.
+(b) Otherwise, return false.

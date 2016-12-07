@@ -1,0 +1,383 @@
+We now have a principled way of talking about the utility of 
+normative systems for agents, and so we can start to apply the technical
+apparatus of game theory to analyse them.
+Suppose we have a multi-agent system M = K, γ1, . . . , γn
+and a normative system η over K. It is proposed to the agents
+in M that η should be imposed on K, (typically to achieve some
+coordination objective). Our agent - let"s say agent i - is then faced
+with a choice: should it comply with the strictures of the normative
+system, or not? Note that this reasoning takes place before the agent
+is in the system - it is a design time consideration.
+We can understand the reasoning here as a game, as follows. A
+game in strategic normal form (cf. [11, p.11]) is a structure:
+G = AG, S1, . . . , Sn , U1, . . . , Un where:
+• AG = {1, . . . , n} is a set of agents - the players of the game;
+• Si is the set of strategies for each agent i ∈ AG (a strategy
+for an agent i is nothing else than a choice between 
+alternative actions); and
+• Ui : (S1 × · · · × Sn ) → R is the utility function for agent
+i ∈ AG, which assigns a utility to every combination of
+strategy choices for the agents.
+Now, suppose we are given a social system Σ = M , η where
+M = K, γ1, . . . , γn . Then we can associate a game - the 
+normative system game - GΣ with Σ, as follows. The agents AG in GΣ
+are as in Σ. Each agent i has just two strategies available to it:
+• C - comply (cooperate) with the normative system; and
+• D - do not comply with (defect from) the normative system.
+If S is a tuple of strategies, one for each agent, and x ∈ {C, D},
+then we denote by AGx
+S the subset of agents that play strategy x in
+S. Hence, for a social system Σ = M , η , the normative system
+η AGC
+S only implements the restrictions for those agents that
+choose to cooperate in GΣ. Note that this is the same as η AGD
+S :
+the normative system that excludes all the restrictions of agents that
+play D in GΣ. We then define the utility functions Ui for each
+i ∈ AG as:
+Ui (S) = δi (K, η AGC
+S ).
+So, for example, if SD is a collection of strategies in which every
+agent defects (i.e., does not comply with the norm), then
+Ui (SD ) = δi (K, (η AGD
+SD
+)) = ui (K † η∅) − ui (K) = 0.
+In the same way, if SC is a collection of strategies in which every
+agent cooperates (i.e., complies with the norm), then
+Ui (SC ) = δi (K, (η AGD
+SC
+)) = ui (K † (η ∅)) = ui (K † η).
+We can now start to investigate some properties of normative
+system games.
+EXAMPLE 1. (continued) For our example system, we have 
+displayed the different U values for our multi agent system with the
+norm η3, i.e., {(s, s), (t, t)} as the second table of Figure 2. For
+instance, the pair (0, 3) in the matrix under the entry S = C, D
+is obtained as follows. U1( C, D ) = δ1(K, η3 AGC
+C,D ) =
+u1(K † η3 AGC
+C,D ) − u1(K). The first term of this is the
+utility of 1 in the system K where we implement η3 for the 
+cooperating agent, i.e., 1, only. This means that the transitions are
+R \ {(s, s)}. In this system, still ϕ1
+4 = A E♦p1 is the highest
+goal for agent 1. This is the same utility for 1 as in K, and hence,
+δ1(K, η3 AGC
+C,D ) = 0. Agent 2 of course benefits if agent 1
+complies with η3 while 2 does not. His utility would be 3, since
+η3 AGC
+C,D is in fact η1.
+5.1 Individually Rational Normative Systems
+A normative system is individually rational if every agent would
+fare better if the normative system were imposed than otherwise.
+This is a necessary, although not sufficient condition on a norm to
+expect that everybody respects it. Note that η3 of our example is
+individually rational for both 1 and 2, although this is not a stable
+situation: given that the other plays C, i is better of by playing
+D. We can easily characterise individually rationality with respect
+to the corresponding game in strategic form, as follows. Let Σ =
+M , η be a social system. Then the following are equivalent:
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 885
+f(xk)
+...
+s0
+s1
+s2
+s3
+s4
+s(2k−1)
+s2k
+t(x1)
+f(x1)
+t(x2)
+f(x2)
+t(xk)
+Figure 3: The Kripke structure produced in the reduction of
+Theorem 2; all transitions are associated with agent 1, the only
+initial state is s0.
+1. η is individually rational in M ;
+2. ∀i ∈ AG, Ui (SC ) > Ui (SD ) in the game GΣ.
+The decision problem associated with individually rational 
+normative systems is as follows:
+INDIVIDUALLY RATIONAL NORMATIVE SYSTEM (IRNS):
+Given: Multi-agent system M .
+Question: Does there exist an individually rational 
+normative system for M ?
+THEOREM 2. IRNS is NP-complete, even in one-agent systems.
+PROOF. For membership of NP, guess a normative system η,
+and verify that it is individually rational. Since η ⊆ R, we will be
+able to guess it in nondeterministic polynomial time. To verify that
+it is individually rational, we check that for all i, we have ui (K †
+η) > ui (K); computing K † η is just set subtraction, so can be
+done in polynomial time, while determining the value of ui (K) for
+any K can be done with a polynomial number of model checking
+calls, each of which requires only time polynomial in the K and γ.
+Hence verifying that ui (K † η) > ui (K) requires only polynomial
+time.
+For NP-hardness, we reduce SAT [12, p.77]. Given a SAT instance
+ϕ over Boolean variables x1, . . . , xk , we produce an instance of
+IRNS as follows. First, we define a single agent A = {1}. For each
+Boolean variable xi in the SAT instance, we create two Boolean
+variables t(xi ) and f (xi ) in the IRNS instance. We then create a
+Kripke structure Kϕ with 2k + 1 states, as shown in Figure 3: arcs
+in this graph correspond to transitions in Kϕ. Let ϕ∗
+be the result
+of systematically substituting for every Boolean variable xi in ϕ
+the CTL expression (E ft(xi )). Next, consider the following 
+formulae:
+k^
+i=1
+E f(t(xi ) ∨ f (xi )) (1)
+k^
+i=1
+¬((E ft(xi )) ∧ (E ff (xi ))) (2)
+We then define the goal hierarchy for all agent 1 as follows:
+γ1[0] =
+γ1[1] = (1) ∧ (2) ∧ ϕ∗
+We claim there is an individually rational normative system for the
+instance so constructed iff ϕ is satisfiable. First, notice that any
+individually rational normative system must force γ1[1] to be true,
+since in the original system, we do not have γ1[1].
+For the ⇒ direction, if there is an individually rational normative
+system η, then we construct a satisfying assignment for ϕ by 
+considering the arcs that are forbidden by η: formula (1) ensures that
+we must forbid an arc to either a t(xi ) or a f (xi ) state for all 
+variables xi , but (2) ensures that we cannot forbid arcs to both. So, if
+we forbid an arc to a t(xi ) state then in the corresponding valuation
+for ϕ we make xi false, while if we forbid an arc to a f (xi ) state
+then we make xi true. The fact that ϕ∗
+is part of the goal ensures
+that the normative system is indeed a valuation for ϕ.
+For ⇐, note that for any satisfying valuation for ϕ we can 
+construct an individually rational normative system η, as follows: if
+the valuation makes xi true, we forbid the arc to the f (xi ) state,
+while if the valuation makes xi false, we forbid the arc to the t(xi )
+state. The resulting normative system ensures γ1[1], and is thus
+individually rational.
+Notice that the Kripke structure constructed in the reduction 
+contains just a single agent, and so the Theorem is proven.
+5.2 Pareto Efficient Normative Systems
+Pareto efficiency is a basic measure of how good a particular
+outcome is for a group of agents [11, p.7]. Intuitively, an outcome
+is Pareto efficient if there is no other outcome that makes every
+agent better off. In our framework, suppose we are given a social
+system Σ = M , η , and asked whether η is Pareto efficient. This
+amounts to asking whether or not there is some other normative
+system η such that every agent would be better off under η than
+with η. If η makes every agent better off than η, then we say η
+Pareto dominates η. The decision problem is as follows:
+PARETO EFFICIENT NORMATIVE SYSTEM (PENS):
+Given: Multi-agent system M and normative system η
+over M .
+Question: Is η Pareto efficient for M ?
+THEOREM 3. PENS is co-NP-complete, even for one-agent 
+systems.
+PROOF. Let M and η be as in the Theorem. We show that the
+complement problem to PENS, which we refer to as PARETO 
+DOMINATED, is NP-complete. In this problem, we are given M and η,
+and we are asked whether η is Pareto dominated, i.e., whether or not
+there exists some η over M such that η makes every agent better
+off than η. For membership of NP, simply guess a normative system
+η , and verify that for all i ∈ A, we have ui (K † η ) > ui (K † η)
+- verifying requires a polynomial number of model checking 
+problems, each of which takes polynomial time. Since η ⊆ R, the
+normative system can be guessed in non-deterministic polynomial
+time. For NP-hardness, we reduce IRNS, which we know to be 
+NPcomplete from Theorem 2. Given an instance M of IRNS, we let M
+in the instance of PARETO DOMINATED be as in the IRNS instance,
+and define the normative system for PARETO DOMINATED to be η∅,
+the empty normative system. Now, it is straightforward that there
+exists a normative system η which Pareto dominates η∅ in M iff
+there exist an individually rational normative system in M . Since
+the complement problem is NP-complete, it follows that PENS is
+co-NP-complete.
+886 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+η0 η1 η2 η3 η4 η5 η6 η7 η8
+u1(K † η) 4 4 7 6 5 0 0 8 0
+u2(K † η) 4 7 4 6 0 5 8 0 0
+Table 1: Utilities for all possible norms in our example
+How about Pareto efficient norms for our toy example? Settling
+this question amounts to finding the dominant normative systems
+among η0 = η∅, η1, η2, η3 defined before, and η4 = {(s, t)}, η5 =
+{(t, s)}, η6 = {(s, s), (t, s)}, η7 = {(t, t), (s, t)} and η8 =
+{(s, t), (t, s)}. The utilities for each system are given in Table 1.
+From this, we infer that the Pareto efficient norms are η1, η2, η3, η6
+and η7. Note that η8 prohibits the resource to be passed from one
+agent to another, and this is not good for any agent (since we have
+chosen S0
+= {s, t}, no agent can be sure to ever get the resource,
+i.e., goal ϕi
+1 is not true in K † η8).
+5.3 Nash Implementation Normative Systems
+The most famous solution concept in game theory is of course
+Nash equilibrium [11, p.14]. A collection of strategies, one for each
+agent, is said to form a Nash equilibrium if no agent can benefit by
+doing anything other than playing its strategy, under the 
+assumption that the other agents play theirs. Nash equilibria are important
+because they provide stable solutions to the problem of what 
+strategy an agent should play. Note that in our toy example, although
+η3 is individually rational for each agent, it is not a Nash 
+equilibrium, since given this norm, it would be beneficial for agent 1 to
+deviate (and likewise for 2). In our framework, we say a social
+system Σ = M , η (where η = η∅) is a Nash implementation if
+SC (i.e., everyone complying with the normative system) forms a
+Nash equilibrium in the game GΣ. The intuition is that if Σ is a
+Nash implementation, then complying with the normative system
+is a reasonable solution for all concerned: there can be no 
+benefit to deviating from it, indeed, there is a positive incentive for all
+to comply. If Σ is not a Nash implementation, then the normative
+system is unlikely to succeed, since compliance is not rational for
+some agents. (Our choice of terminology is deliberately chosen to
+reflect the way the term Nash implementation is used in 
+implementation theory, or mechanism design [11, p.185], where a game
+designer seeks to achieve some outcomes by designing the rules of
+the game such that these outcomes are equilibria.)
+NASH IMPLEMENTATION (NI) :
+Given: Multi-agent system M .
+Question: Does there exist a non-empty normative 
+system η over M such that M , η forms a Nash 
+implementation?
+Verifying that a particular social system forms a Nash 
+implementation can be done in polynomial time - it amounts to checking:
+∀i ∈ A : ui (K † η) ≥ ui (K † (η {i})).
+This, clearly requires only a polynomial number of model checking
+calls, each of which requires only polynomial time.
+THEOREM 4. The NI problem is NP-complete, even for 
+twoagent systems.
+PROOF. For membership of NP, simply guess a normative 
+system η and check that it forms a Nash implementation; since η ⊆ R,
+guessing can be done in non-deterministic polynomial time, and as
+s(2k+1)
+1
+1
+1
+1
+1
+1
+11
+1 1
+11
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+t(x1)
+f(x1)
+t(x2)
+f(x2)
+t(xk)
+f(xk)
+2
+2
+t(x1)
+f(x1)
+t(x2)
+f(x2)
+t(xk)
+f(xk)
+......
+s0
+Figure 4: Reduction for Theorem 4.
+we argued above, verifying that it forms a Nash implementation
+can be done in polynomial time.
+For NP-hardness, we reduce SAT. Suppose we are given a SAT 
+instance ϕ over Boolean variables x1, . . . , xk . Then we construct an
+instance of NI as follows. We create two agents, A = {1, 2}. For
+each Boolean variable xi we create two Boolean variables, t(xi )
+and f (xi ), and we then define a Kripke structure as shown in 
+Figure 4, with s0 being the only initial state; the arc labelling in 
+Figure 4 gives the α function, and each state is labelled with the 
+propositions that are true in that state. For each Boolean variable xi , we
+define the formulae xi and x⊥
+i as follows:
+xi = E f(t(xi ) ∧ E f((E f(t(xi ))) ∧ A f(¬f (xi ))))
+x⊥
+i = E f(f (xi ) ∧ E f((E f(f (xi ))) ∧ A f(¬t(xi ))))
+Let ϕ∗
+be the formula obtained from ϕ by systematically 
+substituting xi for xi . Each agent has three goals: γi [0] = for both
+i ∈ {1, 2}, while
+γ1[1] =
+k^
+i=1
+((E f(t(xi ))) ∧ (E f(f (xi ))))
+γ2[1] = E fE f
+k^
+i=1
+((E f(t(xi ))) ∧ (E f(f (xi ))))
+and finally, for both agents, γi [2] being the conjunction of the 
+following formulae:
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 887
+k^
+i=1
+(xi ∨ x⊥
+i ) (3)
+k^
+i=1
+¬(xi ∧ x⊥
+i ) (4)
+k^
+i=1
+¬(E f(t(xi )) ∧ E f(f (xi ))) (5)
+ϕ∗
+(6)
+We denote the multi-agent system so constructed by Mϕ. Now,
+we prove that the SAT instance ϕ is satisfiable iff Mϕ has a Nash
+implementation normative system:
+For the ⇒ direction, suppose ϕ is satisfiable, and let X be a
+satisfying valuation, i.e., a set of Boolean variables making ϕ true.
+We can extract from X a Nash implementation normative system η
+as follows: if xi ∈ X , then η includes the arc from s0 to the state
+in which f (xi ) is true, and also includes the arc from s(2k + 1)
+to the state in which f (xi ) is true; if xi ∈ X , then η includes the
+arc from s0 to the state in which t(xi ) is true, and also includes
+the arc from s(2k + 1) to the state in which t(xi ) is true. No
+other arcs, apart from those so defined, as included in η. Notice
+that η is individually rational for both agents: if they both comply
+with the normative system, then they will have their γi [2] goals
+achieved, which they do not in the basic system. To see that η
+forms a Nash implementation, observe that if either agent defects
+from η, then neither will have their γi [2] goals achieved: agent 1
+strictly prefers (C, C) over (D, C), and agent 2 strictly prefers
+(C, C) over (C, D).
+For the ⇐ direction, suppose there exists a Nash implementation
+normative system η, in which case η = ∅. Then ϕ is satisfiable;
+for suppose not. Then the goals γi [2] are not achievable by any
+normative system, (by construction). Now, since η must forbid at
+least one transition, then at least one agent would fail to have its
+γi [1] goal achieved if it complied, so at least one would do better
+by defecting, i.e., not complying with η. But this contradicts the
+assumption that η is a Nash implementation, i.e., that (C, C) forms
+a Nash equilibrium.
+This result is perhaps of some technical interest beyond the specific
+concerns of the present paper, since it is related to two problems
+that are of wider interest: the complexity of mechanism design [5],
+and the complexity of computing Nash equilibria [6, 7]
+5.4 Richer Goal Languages
+It is interesting to consider what happens to the complexity of
+the problems we consider above if we allow richer languages for
+goals: in particular, CTL
+∗
+[9]. The main difference is that 
+determining ui (K) in a given multi-agent system M when such a goal 
+language is used involves solving a PSPACE-complete problem (since
+model checking for CTL
+∗
+is PSPACE-complete [8]). In fact, it seems
+that for each of the three problems we consider above, the 
+corresponding problem under the assumption of a CTL
+∗
+representation
+for goals is also PSPACE-complete. It cannot be any easier, since 
+determining the utility of a particular Kripke structure involves 
+solving a PSPACE-complete problem. To see membership in PSPACE
+we can exploit the fact that PSPACE = NPSPACE [12, p.150], and so
+we can guess the desired normative system, applying a PSPACE
+verification procedure to check that it has the desired properties.

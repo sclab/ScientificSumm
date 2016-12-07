@@ -1,0 +1,29 @@
+State or state changes in the environment are considered as events, captured by sensors (in the environment or within sentient objects) and further disseminated to other  potentially interested sentient objects in the system.
+As mentioned above, a  fundamental idea underlying the approach is that applications can be composed of a large number of smart components that are able to sense their surrounding environment and  interact with it.
+Therefore, the following kinds of interactions can take place in the system: Environment-to-object interactions: correspond to a flow of information from the environment to  application objects, reporting about the state of the former, and/or notifying about events taking place therein.
+In systems that involve interactions with the environment it is very important to consider the possibility of  communication through the environment.
+These components are referred to as sentient objects, a metaphor elaborated in CORTEX and inspired on the generic concept of sentient computing introduced in [12].
+Interaction with the  environment is therefore done through sensors and actuators, which may, or may not be part of sentient objects, as  discussed in Section 4.2.
+In other words, when a sentient object actuates on the environment it will be able to observe the state changes in the environment by means of events captured by the sensors.
+We consider that the environment can be a producer or consumer of  information while interacting with sentient objects.
+Object-to-environment interactions: correspond to a flow of information from an object to the environment, with the purpose of forcing a change in the state of the latter.
+A distinguishing aspect of our work from many of the  existing approaches, is that we consider that sentient objects may indirectly communicate with each other through the environment, when they act on it.
+As discussed in Section 5, the Generic-Events Architecture introduces the concept of Generic Event and an Event Layer abstraction which aim at dealing, among others, with these issues. 
+Sentient objects accept input events from a variety of different sources (including sensors, but not constrained to that), process them, and produce output events, whereby 29 they actuate on the environment and/or interact with other objects.
+Object-to-object interactions: correspond to a flow of information among sentient objects, serving two  purposes.
+The second is related to  collaboration, in which the object tries to influence other objects into contributing to a common goal, or into reacting to an unexpected situation.
+On the other hand, in order to deal with the information flow through the whole computer system and environment in a seamless way, handling software and hardware events uniformly, it is also necessary to find adequate abstractions.
+Thus the environment constitutes an interaction and communication channel and is in the control and awareness loop of the objects.
+Quite clearly, the information produced by the environment corresponds to the physical representation of real-time entities, of which typical examples include  temperature, distance or the state of a door.
+INTERACTION MODEL In this paper we consider a component-based system model that incorporates previous work developed in the context of the IST CORTEX project [5].
+In  consequence, it is quite natural to base the communication and  interaction among sentient objects and with the environment on an event-based communication model.
+Before continuing, we need to clarify a few issues with respect to these possible forms of interaction.
+The  environment is the real (physical) world surrounding an  object, not necessarily close to the object or limited to certain boundaries.
+Moreover, typical properties of event-based models, such as anonymous and non-blocking communication, are highly desirable in systems where sentient objects can be mobile and where interactions are naturally very dynamic.
+On the other hand, actuation on the environment implies the manipulation of these real-time entities, like increasing the temperature  (applying more heat), changing the distance (applying some movement) or changing the state of the door (closing or opening it).
+Clearly, other objects might as well capture the same events, thus  establishing the above-mentioned indirect communication path.
+We further consider that there may exist dumb sensors and actuators, which interact with the objects by disseminating or capturing raw transducer information, and smart sensors and actuators, with enhanced processing  capabilities, capable of speaking some more elaborate event dialect (see Sections 5 and 6.1).
+The first is related with complementing the assessment of each individual object about the state of the surrounding space.
+The required transformations between system representations of these real-time entities and their physical representations is accomplished, generically, by sensors and actuators.
+Therefore, any solution to the problem requires the definition of convenient abstractions and appropriate  architectural constructs.
+It has been shown that the hidden channels developing through the latter (e.g.,  feedback loops) may hinder software-based algorithms ignoring them [30].

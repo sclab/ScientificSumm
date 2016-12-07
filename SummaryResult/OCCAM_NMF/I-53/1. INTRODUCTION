@@ -1,0 +1,43 @@
+finally, section 7 concludes. 
+in section 4, we present a randomized method for finding the approximate shapley value and analyse its  performance in section 5. section 6 discusses related literature.
+in  section 3 we describe voting games whose shapley value can be found in polynomial time.
+section 2 defines the shapley value and describes the weighted voting game.
+the rest of the paper is organised as follows.
+given this, and the fact that software agents have limited computational resources and therefore cannot  compute the true shapley value, our results are especially relevant to such resource bounded agents.
+finally, our method has time complexity linear in the number of players and it does not require any arrays (i.e., it is economical in terms of both computing time and storage space).
+our experiments show that the error is always less than 20%, and in most cases it is under 5%.
+this analysis is carried out empirically.
+thus, our contribution lies in also in providing, for the first time, an analysis of the percentage error in the  approximate shapley value.
+it is important to determine this error because the performance of an approximation method is evaluated in terms of two criteria: its time complexity, and its  approximation error.
+specifically, it is the difference between the true and the approximate shapley value.
+the approximation error relates to how close the approximate is to the true shapley value.
+moreover, no work has previously analysed the approximation error.
+however the method we propose is more general than either of these (see section 6 for details).
+the second uses an approximation technique based on monte carlo simulation [12, 7].
+this method trades time complexity for  storage space.
+the first is to use  generating functions [3].
+the computational complexity of such games has typically been tackled using two main approaches.
+for the computationally complex voting games, we present a new randomised method, along the lines of monte-carlo simulation, for computing the approximate shapley value.
+by identifying such games, we show, for the first tme, when it is feasible to find the exact value and when it is not.
+specifically, we first show that there are some specific voting games for which the exact value can 959 978-81-904262-7-5 (rps) c 2007 ifaamas be computed in polynomial time.
+hence, our objective is to overcome the computational complexity of finding the shapley value for this game.
+however, the voting game has practical relevance to multi-agent systems as it is an important means of reaching consensus between multiple agents.
+in other words, it is practically infeasible to try to compute the exact shapley value.
+since #p-completeness thus subsumes np-completeness, this implies that computing the shapley value for the weighted voting game will be intractable in general.
+a problem is #p-hard if solving it is as hard as counting  satisfying assignments of propositional logic formulae [15, p442].
+for instance, finding this value for the weighted voting game is, in general, #p-complete [6].
+however, while these are both desirable properties, the shapley value has one major drawback: for many coalition games, it  cannot be determined in polynomial time.
+the main advantage of the shapley value is that it provides a solution that is both unique and fair (see section 2.1 for a discussion of the property of fairness).
+a player"s shapley value gives an indication of its prospects of playing the game - the higher the shapley value, the better its prospects.
+moreover, in this work, one of the most extensively studied solution  concepts is the shapley value [19].
+given these observations, a number of multiagent systems  researchers have used and extended cooperative game-theoretic  solutions to facilitate automated coalition formation [20, 21, 18].
+thus, many more real-life situations fit more easily into a coalitional form game, whose structure is more tractable than that of a non-cooperative game, whether that be in normal or extensive form and it is for this reason that we focus on such forms in this paper.
+the chief advantage of this approach, at least in multiple-player environments, is its practical usefulness.
+also, unlike non-cooperative game theory, cooperative game theory does not specify a game through a description of the  strategic environment (including the order of players" moves and the set of actions at each move) and the resulting payoffs, but, instead, it reduces this collection of data to the coalitional form where each coalition is represented by a single real number: there are no  actions, moves, or individual payoffs.
+cooperative game theory differs from its non-cooperative counterpart in that for the former the players are allowed to form binding agreements and so there is a strong incentive to work together to receive the largest total  payoff.
+in this context, cooperative game theory deals with the  problem of coalition formation and offers a number of solution  concepts that possess desirable properties like stability, fair division of joint gains, and uniqueness [16, 14].
+in such cases, it becomes difficult to select a single solution from among the possible ones, especially if the parties are self-interested (i.e., they have different preferences over stable coalitions).
+however, in many cases there may be more than one solution (i.e., a stable coalition).
+given this, a key problem is to ensure that none of the parties in a coalition has any incentive to break away from it and join another coalition (i.e., the coalitions should be stable).
+often, in such situations, there is more than one possible coalition and a player"s payoff  depends on which one it joins.
+coalition formation, a key form of interaction in multi-agent  systems, is the process of joining together two or more agents so as to achieve goals that individuals on their own cannot, or to achieve them more efficiently [1, 11, 14, 13].

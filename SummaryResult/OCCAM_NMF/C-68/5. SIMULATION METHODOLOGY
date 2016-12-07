@@ -1,0 +1,35 @@
+hence, we only present them for the metric that captures the percentage improvement in latency with respect to the no-zebroids case. 
+moreover, the 95% confidence intervals determined for the results are quite tight for the metrics of latency and  replacement overhead.
+in all the simulation results, each point is an average of 200,000 requests.
+after a maximum period of γ, the latency encountered by this request is recorded.
+the client car that issues the request is chosen in a round-robin manner.
+requests generated as per the zipf distribution are  issued one at a time.
+note that the replacements performed by the zebroids will cause changes to the data item replica distribution.
+the square-root scheme also provides the initial replica  distribution when zebroids are employed.
+this serves as the base-line no-zebroids case.
+the data item replicas are distributed uniformly across the automata devices.
+the square-root replication scheme is shown to have competitive latency performance over a large parameter space [8].
+we employ a replication scheme that allocates replicas for a data item as a function of the square-root of the frequency of access of that item.
+we simulated a skewed distribution of access to the t data items that obeys zipf"s law with a mean of 0.27. this distribution is shown to correspond to sale of movie theater tickets in the united states [6].
+in all our simulations, for illustration we consider a 5 × 5 2d-torus with γ set to 10. our experiments indicate that the trends in the results scale to maps of larger size.
+if a replica for the data item requested was encountered by the client in the first cell then we set δ = 0. if δ > γ then we set δ = γ indicating that no copy of the requested data item was encountered by the client during its entire journey.
+hence the possible values of availability latency are between 0 and γ. δ is defined as the number of time slots after which a client automata device will encounter a replica of the data item for the first time.
+γ represents the duration of the client"s journey in terms of the number of time slots.
+each storage slot stores one data item.
+here, we set the size of every data item, si, to be 1. α represents the number of storage slots per automata.
+this is because this study aims to quantify the effect of a large number of parameters individually on availability latency.
+• unless otherwise mentioned, the prediction accuracy  parameter is assumed to be 100%.
+• either one-instantaneous or z-relay zebroids may be employed per client request for latency improvement.
+this is because additional replicas occupy storage without providing benefits.
+• an automata device does not maintain more than one replica of a data item.
+• the parameters γ, δ have been discretized and expressed in terms of the number of time slots.
+the transition is a function of the current location of the car and a probability transition matrix q = [qij] where qij is the probability of transition from state i to state j. only automata equipped cars within the same cell may communicate with each other.
+in each time slot, every car makes a transition from a cell to any of its neighboring 8 cells.
+• each grid/cell is a unique state of this markov chain.
+a markov mobility model representing a unbiased 2d random walk on the surface of the torus describes the  movement of the cars across this torus.
+• similar to the analysis methodology, the map used is a 2d torus.
+we now provide the preliminaries of the simulation study and then describe the parameter settings used in our experiments.
+a 70% value for this parameter indicates that the routes predicted for the cars will match the actual ones with probability 0.7. note that this probability is spread across the car routes for the entire trip duration.
+a value of 100% implies that the exact routes of all cars are known at all times.
+a prediction accuracy parameter inherently provides a certain probabilistic guarantee on the confidence of the car route  predictions known at the dispatcher.
+the simulation environment considered in this study comprises of vehicles such as cars that carry a fraction of the data item  repository.

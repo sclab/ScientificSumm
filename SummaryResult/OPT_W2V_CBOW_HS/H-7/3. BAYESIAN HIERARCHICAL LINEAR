@@ -1,0 +1,31 @@
+Assume that each user model wm is an independent draw from a population distribution P(w|Φ), which is governed by some unknown hyperparameter Φ.
+wm: The user model parameter associated with user m. wm is a K dimensional vector.
+In this graph, each user model is  represented by a random vector wm.
+The joint  likelihood for all the variables in the probabilistic model, which includes the data and the parameters, is: P(D, θ) = P(Φ) m P(wm|Φ) j P(ym,j|xm,j, wm) (1) For simplicity, we assume a, b, c, and σ are provided to the system. 
+j = 1, 2, ..., Jm: The index for a set of data for user m. Jm is the number of training data for user m. Dm = {(xm,j, ym,j)}: A set of data associated with user m. xm,j is a K dimensional vector that represents the mth user"s jth training document.2 ym,j is a scalar that represents the label of document xm,j.
+The model is called generalized Bayesian  hierarchical linear model when y = f(wT x) is any generalized linear model such as logistic regression, SVM, and linear regression.
+Let the prior distribution of user model w be a Gaussian distribution with parameter Φ = (µ, Σ), which is the commonly used prior for linear models.
+µ = (µ1, µ2, ..., µK ) is a K dimensional vector that represents the mean of the Gaussian distribution, and Σ is the covariance matrix of the Gaussian.
+We assume a user model is sampled randomly from a prior distribution P(w|Φ).
+REGRESSION Assume there are M users in the system.
+Usually, a Normal distribution N(0, aI) and an Inverse Wishart distribution P(Σ) ∝ |Σ|− 1 2 b exp(−1 2 ctr(Σ−1 )) are used as hyperprior to model the prior distribution of µ and Σ respectively.
+The rating, y, for a  document, x, is conditioned on the document and the user model, wm, associated with the user m. Users share information about their models through the prior, Φ = (µ, Σ).
+For each user m, wm is sampled randomly from a  Normal distribution: wm ∼ N(µ, Σ2 ) 3.
+The system can predict the user label y of a document x given an estimation of wm (or wm"s distribution) using a function y = f(x, w).
+Generalized Bayesian hierarchical linear models, one of the simplest Bayesian hierarchical models, are commonly used and have achieved good performance on collaborative  filtering [25] and content-based adaptive filtering [27] tasks.
+With these settings, we have the following model for the system: 1. µ and Σ are sampled from N(0, aI) and IWν (aI),  respectively.
+Now we look at one commonly used model where y = wT x + , where ∼ N(0, σ2 ) is a random noise [25][27].
+To reliably estimate the user model wm, the  system can borrow information from other users through the prior Φ = (µ, Σ).
+I is the K dimensional identity matrix, and a, b, and c are real numbers.
+For each item xm,j, ym,j is sampled randomly from a Normal distribution: ym,j ∼ N(wT mxm,j, σ2 ).
+Let θ = (Φ, w1, w2, ..., wM ) represent the parameters of this system that needs to be estimated.
+k = 1, 2, ..., K: The dimensional index of input variable x.
+The Bayesian hierarchical modeling approach has been widely used in real-world information retrieval applications.
+2 The first dimension of x is a dummy variable that always equals to 1.
+Figure 1: Illustration of dependencies of variables in the hierarchical model.
+m = 1, 2, ..., M: The index for each individual user.
+M is the total number of users.
+For each user, the system learns a user model from the user"s history.
+In the rest of this paper, we will use the following notations to represent the variables in the system.
+The task of the system is to recommend documents that are relevant to each user.
+Figure 1 shows the graphical representation of a Bayesian hierarchical model.

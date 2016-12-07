@@ -1,0 +1,131 @@
+As there are a number of literature on automated 
+negotiation, this section focuses on comparison with negotiation
+frameworks based on logic and argumentation.
+Sadri et al. [14] use abductive logic programming as a 
+representation language of negotiating agents. Agents negotiate
+using common dialogue primitives, called dialogue moves.
+Each agent has an abductive logic program in which a 
+sequence of dialogues are specified by a program, a dialogue
+protocol is specified as constraints, and dialogue moves are
+specified as abducibles. The behavior of agents is regulated
+by an observe-think-act cycle. Once a dialogue move is 
+uttered by an agent, another agent that observed the utterance
+thinks and acts using a proof procedure. Their approach
+and ours both employ abductive logic programming as a
+platform of agent reasoning, but the use of it is quite 
+different. First, they use abducibles to specify dialogue primitives
+of the form tell(utterer, receiver, subject, identifier, time),
+while we use abducibles to specify arbitrary permissible 
+hypotheses to construct conditional proposals. Second, a 
+program pre-specifies a plan to carry out in order to achieve a
+goal, together with available/missing resources in the 
+context of resource-exchanging problems. This is in contrast
+with our method in which possible counter-proposals are
+newly constructed in response to a proposal made by an
+agent. Third, they specify a negotiation policy inside a
+program (as integrity constraints), while we give a protocol
+independent of individual agents. They provide an 
+operational model that completely specifies the behavior of agents
+in terms of agent cycle. We do not provide such a complete
+specification of the behavior of agents. Our primary interest
+is to mechanize construction of proposals.
+Bracciali and Torroni [2] formulate abductive agents that
+have knowledge in abductive logic programs. To explain
+an observation, two agents communicate by exchanging 
+integrity constraints. In the process of communication, an
+agent can revise its own integrity constraints according to
+the information provided by the other agent. A set IC
+of integrity constraints relaxes a set IC (or IC tightens
+IC ) if any observation that can be proved with respect to
+IC can also be proved with respect to IC . For instance,
+IC : ← a, b, c relaxes IC : ← a, b. Thus, they use relaxation
+for weakening the constraints in an abductive logic program.
+In contrast, we use relaxation for weakening proposals and
+three different relaxation methods, anti-instantiation, 
+dropping conditions, and goal replacement, are considered. Their
+goal is to explain an observation by revising integrity 
+constraints of an agent through communication, while we use
+integrity constraints for communication to explain critiques
+and help other agents in making counter-proposals.
+Meyer et al. [11] introduce a logical framework for 
+negotiating agents. They introduce two different modes of 
+negotiation: concession and adaptation. They provide rational
+postulates to characterize negotiated outcomes between two
+agents, and describe methods for constructing outcomes.
+They provide logical conditions for negotiated outcomes to
+satisfy, but they do not describe a process of negotiation nor
+negotiation protocols. Moreover, they represent agents by
+classical propositional theories, which is different from our
+abductive logic programming framework.
+Foo et al. [5] model one-to-one negotiation as a one-time
+encounter between two extended logic programs. An agent
+offers an answer set of its program, and their mutual deal is
+regarded as a trade on their answer sets. Starting from the
+initial agreement set S∩T for an answer set S of an agent and
+an answer set T of another agent, each agent extends this
+set to reflect its own demand while keeping consistency with
+demand of the other agent. Their algorithm returns new
+programs having answer sets which are consistent with each
+other and keep the agreement set. The work is extended to
+repeated encounters in [3]. In their framework, two agents
+exchange answer sets to produce a common belief set, which
+is different from our framework of exchanging proposals.
+There are a number of proposals for negotiation based
+1028 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+on argumentation. An advantage of argumentation-based
+negotiation is that it constructs a proposal with arguments
+supporting the proposal [1]. The existence of arguments is
+useful to convince other agents of reasons why an agent offers
+(counter-)proposals or returns critiques. Parsons et al. [13]
+develop a logic of argumentation-based negotiation among
+BDI agents. In one-to-one negotiation, an agent A generates
+a proposal together with its arguments, and passes it to
+another agent B. The proposal is evaluated by B which
+attempts to build arguments against it. If it conflicts with
+B"s interest, B informs A of its objection by sending back
+its attacking argument. In response to this, A tries to find
+an alternative way of achieving its original objective, or a
+way of persuading B to drop its objection. If either type of
+argument can be found, A will submit it to B. If B finds no
+reason to reject the new proposal, it will be accepted and
+the negotiation ends in success. Otherwise, the process is
+iterated. In this negotiation processes, the agent A never
+changes its original objective, so that negotiation ends in
+failure if A fails to find an alternative way of achieving the
+original objective. In our framework, when a proposal is
+rejected by another agent, an agent can weaken or change
+its objective by abduction and relaxation. Our framework
+does not have a mechanism of argumentation, but reasons
+for critiques can be informed by responding critique sets.
+Kakas and Moraitis [10] propose a negotiation protocol
+which integrates abduction within an argumentation 
+framework. A proposal contains an offer corresponding to the 
+negotiation object, together with supporting information 
+representing conditions under which this offer is made. 
+Supporting information is computed by abduction and is used
+for constructing conditional arguments during the process
+of negotiation. In their negotiation protocol, when an agent
+cannot satisfy its own goal, the agent considers the other
+agent"s goal and searches for conditions under which the
+goal is acceptable. Our present approach differs from theirs
+in the following points. First, they use abduction to seek
+conditions to support arguments, while we use abduction
+to seek conditions for proposals to accept. Second, in their
+negotiation protocol, counter-proposals are chosen among
+candidates based on preference knowledge of an agent at
+meta-level, which represents policy under which an agent
+uses its object-level decision rules according to situations.
+In our framework, counter-proposals are newly constructed
+using abduction and relaxation. The method of 
+construction is independent of particular negotiation protocols. As
+[2, 10, 14], abduction or abductive logic programming used
+in negotiation is mostly based on normal abduction. In 
+contrast, our approach is based on extended abduction which
+can not only introduce hypotheses but remove them from a
+program. This is another important difference.
+Relaxation and neighborhood query answering are devised
+to make databases cooperative with their users [4, 6]. In this
+sense, those techniques have the spirit similar to cooperative
+problem solving in multi-agent systems. As far as the 
+authors know, however, there is no study which applies those
+technique to agent negotiation.

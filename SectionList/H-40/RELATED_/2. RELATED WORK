@@ -1,0 +1,39 @@
+Most approaches to CLIR perform a query translation followed by
+a monolingual IR. Typically, queries are translated either using a
+bilingual dictionary [22], a machine translation software [9] or a
+parallel corpus [20].
+Despite the various types of resources used, out-of-vocabulary
+(OOV) words and translation disambiguation are the two major
+bottlenecks for CLIR [20]. In [7, 27], OOV term translations are
+mined from the Web using a search engine. In [17], bilingual
+knowledge is acquired based on anchor text analysis. In addition,
+word co-occurrence statistics in the target language has been
+leveraged for translation disambiguation [3, 10, 11, 19].
+2
+http://www.google.com/language_tools
+Nevertheless, it is arguable that accurate query translation may
+not be necessary for CLIR. Indeed, in many cases, it is helpful to
+introduce words even if they are not direct translations of any
+query word, but are closely related to the meaning of the query.
+This observation has led to the development of cross-lingual query
+expansion (CLQE) techniques [2, 16, 18]. [2] reports the
+enhancement on CLIR by post-translation expansion. [16]
+develops a cross-lingual relevancy model by leveraging the 
+crosslingual co-occurrence statistics in parallel texts. [18] makes
+performance comparison on multiple CLQE techniques, including
+pre-translation expansion and post-translation expansion.
+However, there is lack of a unified framework to combine the
+wide spectrum of resources and recent advances of mining
+techniques for CLQE.
+CLQS is different from CLQE in that it aims to suggest full
+queries that have been formulated by users in another language.
+As CLQS exploits up-to-date query logs, it is expected that for
+most user queries, we can find common formulations on these
+topics in the query log in the target language. Therefore, CLQS
+also plays a role of adapting the original query formulation to the
+common formulations of similar topics in the target language.
+Query logs have been successfully used for monolingual IR [8,
+12, 15, 26], especially in monolingual query suggestions [12] and
+relating the semantically relevant terms for query expansion [8,
+15]. In [1], the target language query log has been exploited to
+help query translation in CLIR.

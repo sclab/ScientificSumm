@@ -1,0 +1,63 @@
+Grid computing is a model for wide-area distributed and
+parallel computing across heterogeneous networks in 
+multiple administrative domains. This research field aims to 
+promote sharing of resources and provides breakthrough 
+computing power over this wide network of virtual 
+organizations in a seamless manner [8]. Traditionally, as in Globus
+[6], Condor-G [9] and Legion [10], there is a minimal 
+infrastructure that provides data resource sharing, computational
+resource utilization management, and distributed execution.
+Specifically, considering distributed execution, most of the
+existing grid infrastructures supports execution of isolated
+tasks, but they do not consider their task interdependencies
+as in processes (workflows) [12]. This deficiency restricts
+better scheduling algorithms, distributed execution 
+coordination and automatic execution recovery.
+There are few proposed middleware infrastructures that
+support process execution over the grid. In general, they
+model processes by interconnecting their activities through
+control and data dependencies. Among them, WebFlow
+[1] emphasizes an architecture to construct distributed 
+processes; Opera-G [3] provides execution recovering and 
+steering, GridFlow [5] focuses on improved scheduling algorithms
+that take advantage of activity dependencies, and SwinDew
+[13] supports totally distributed execution on peer-to-peer
+networks. However, such infrastructures contain 
+scheduling algorithms that are centralized by process [1, 3, 5], or
+completely distributed, but difficult to monitor and control
+[13].
+In order to address such constraints, this paper proposes a
+structured programming model for process description and a
+hierarchical process execution infrastructure. The 
+programming model employs structured control flow to promote 
+controlled and contextualized activity execution. 
+Complementary, the support infrastructure, which executes a process
+specification, takes advantage of the hierarchical structure
+of a specified process in order to distribute and schedule
+strong dependent activities as a unit, allowing a better 
+execution performance and fault-tolerance and providing 
+localized communication.
+The programming model and the support infrastructure,
+named X avantes, are under implementation in order to show
+the feasibility of the proposed model and to demonstrate its
+two major advantages: to promote widely distributed 
+process execution and scheduling, but in a controlled, 
+structured and localized way.
+Next Section describes the programming model, and 
+Section 3, the support infrastructure for the proposed grid 
+computing model. Section 4 demonstrates how the support
+infrastructure executes processes and distributes activities.
+Related works are presented and compared to the proposed
+model in Section 5. The last Section concludes this paper
+encompassing the advantages of the proposed hierarchical
+process execution support for the grid computing area and
+lists some future works.
+87 Middleware 2004 Companion
+ProcessElement
+Process Activity Controller
+1
+*
+1
+*
+Figure 1: High-level framework of the programming
+model

@@ -1,0 +1,24 @@
+Given the row player"s utilities, a  subset Dr of the row player"s pure strategies Σr, and a  distinguished strategy σ∗ r for the row player, we can check in time polynomial in the size of the game (by solving a single linear program of polynomial size) whether there exists some mixed strategy σr, that places positive probability only on strategies in Dr and dominates σ∗ r , both for strict and for weak  dominance.
+On the other hand, if this program has a solution with  objective value > 0, then for at least one strategy σc ∈ Σc we 5 Recall that the assumption of a single opponent (that is, the assumption of two players) is without loss of generality for one-shot dominance.
+As a first observation, checking whether a given strategy is strictly (weakly) dominated by some pure strategy is straightforward, by checking, for every pure  strategy for that player, whether the latter strategy performs strictly better against all the opponent"s strategies (at least as well against all the opponent"s strategies, and strictly 2 The dominated strategy σi is, of course, also allowed to be mixed, but this has no technical implications for the paper: when we study one-shot dominance, we ask whether a given strategy is dominated, and it does not matter whether the given strategy is pure or mixed; when we study iterated dominance, there is no use in eliminating mixed strategies, as we will see shortly.
+If σ∗ r is weakly dominated by some mixed strategy, then that mixed strategy is a feasible solution to this program with objective value > 0, because for at least one strategy σc ∈ Σc we have ( dr∈Dr pdr ur(dr, σc)) − ur(σ∗ r , σc) > 0.
+Moreover, if this linear program has a solution with objective value < 1, there is a mixed strategy strictly dominating σ∗ r , which can be obtained by taking the LP solution and adding the remaining probability to any strategy (because all the utilities are positive, this will add to the left side of any inequality, so all inequalities will  become strict).
+If σ∗ r is strictly dominated by some mixed strategy, this linear program has a solution with objective value < 1.
+89 better against at least one).5 Next, we show that  checking whether a given strategy is dominated by some mixed strategy can be done in polynomial time by solving a single linear program.
+For strict dominance, the question is whether the pdr can be set so that for every pure strategy for the column player σc ∈ Σc, dr∈Dr pdr ur(dr, σc) > ur(σ∗ r , σc).
+This is because for iterated dominance, we need to look at the dominated strategies of each individual player, so we cannot merge any players.
+4 We note that a restriction to two-player games would not be without loss of generality for iterated dominance.
+must have ( dr∈Dr pdr ur(dr, σc)) − ur(σ∗ r , σc) > 0, and thus the linear program"s solution is a weakly dominating mixed strategy. 
+(The dominating strategy is a feasible solution with  objective value exactly 1.
+For weak dominance, we can solve the following linear program: maximize σc∈Σc (( dr∈Dr pdr ur(dr, σc)) − ur(σ∗ r , σc)) such that for any σc ∈ Σc, dr∈Dr pdr ur(dr, σc) ≥ ur(σ∗ r , σc); dr∈Dr pdr = 1.
+3 This player may have a very large strategy space (one pure strategy for every vector of pure strategies for the players that are being replaced).
+Solve the following linear program: minimize dr∈Dr pdr such that for any σc ∈ Σc, dr∈Dr pdr ur(dr, σc) ≥ ur(σ∗ r , σc).
+Let pdr be the probability that σr places on dr ∈ Dr. We will solve a single linear program in each of our algorithms; linear programs can be solved in polynomial time [10].
+Because the inequality must be strict, we cannot solve this directly by linear programming.
+Because the game is finite, we may assume without loss of generality that all utilities are positive (if not, simply add a constant to all utilities.)
+Because no constraint is binding for this solution, we can reduce one of the probabilities slightly  without affecting feasibility, thereby obtaining a solution with objective value < 1.)
+In this section, we study the notion of one-shot (not  iterated) dominance.
+(Similar linear programs have been given before [18]; we present the result here for completeness, and because we will build on the linear programs given below in Theorem 6.)
+Nevertheless, this will not result in an increase in our representation size, because the original representation already had to specify utilities for each of these vectors.
+We proceed as follows.
+Proposition 1.

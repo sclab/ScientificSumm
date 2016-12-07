@@ -1,0 +1,220 @@
+UNOBSERVABLE QUERIES
+We begin with Socratic games with unobservable queries,
+where a player"s choice of query is not revealed to her 
+opponent. We give an efficient algorithm to solve 
+unobservablequery Socratic games with strategically zero-sum worlds.
+Our algorithm is based upon the LP shown in Figure 1,
+whose feasible points are Nash equilibria for the game. The
+LP has polynomially many variables but exponentially many
+constraints. We give an efficient separation oracle for the LP,
+implying that the ellipsoid method [28, 38] yields an efficient
+algorithm. This approach extends the techniques of Koller
+and Megiddo [39] (see also [40]) to solve constant-sum games
+represented in extensive form. (Recall that their result does
+not directly apply in our case; even a Socratic game with
+constant-sum worlds is not a constant-sum classical game.)
+Lemma 4.1. Let G = A, W, u, S, Q, p, δ be an arbitrary
+unobservable-query Socratic game with strategically zero-sum
+worlds. Any feasible point for the LP in Figure 1 can be 
+efficiently mapped to a Nash equilibrium for G, and any Nash
+equilibrium for G can be mapped to a feasible point for the
+program.
+Proof Sketch. We begin with a description of the 
+correspondence between feasible points for the LP and Nash
+equilibria for G. First, suppose that strategy profile f =
+fquery
+, fresp
+forms a Nash equilibrium for G. Then the 
+following setting for the LP variables is feasible:
+yi
+qi
+= fquery
+i (qi)
+xi
+ai,qi,w = Pr[ai ← fresp
+i (qi, qi(w))] · yi
+qi
+ρi =
+P
+w,q∈Q,a∈A
+p(w) · xi
+ai,qi,w · xii
+aii,qii,w · [uw
+i (a) − δi(qi)].
+(We omit the straightforward calculations that verify 
+feasibility.) Next, suppose xi
+ai,qi,w, yi
+qi
+, ρi is feasible for the LP.
+Let f be the strategy-function profile defined as
+fquery
+i : qi → yi
+qi
+fresp
+i (qi, qi(w)) : ai → xi
+ai,qi,w/yi
+qi
+.
+Verifying that this strategy profile is a Nash equilibrium
+requires checking that fresp
+i (qi, qi(w)) is a well-defined 
+function (from constraint VI), that fquery
+i and fresp
+i (qi, qi(w)) are
+probability distributions (from constraints III and IV), and
+that each player is playing a best response to his or her 
+opponent"s strategy (from constraints I and II). Finally, from
+constraints I and II, the expected payoff to Player i is at most
+ρi. Because the right-hand side of constraint VII is equal
+to the expected sum of the payoffs from f and is at most
+ρi + ρii, the payoffs are correct and imply the lemma.
+We now give an efficient separation oracle for the LP in
+Figure 1, thus allowing the ellipsoid method to solve the
+LP in polynomial time. Recall that a separation oracle is
+a function that, given a setting for the variables in the LP,
+either returns feasible or returns a particular constraint
+of the LP that is violated by that setting of the variables.
+An efficient, correct separation oracle allows us to solve the
+LP efficiently via the ellipsoid method.
+Lemma 4.2. There exists a separation oracle for the LP
+in Figure 1 that is correct and runs in polynomial time.
+Proof. Here is a description of the separation oracle SP.
+On input xi
+ai,qi,w, yi
+qi
+, ρi :
+1. Check each of the constraints (III), (IV), (V), (VI),
+and (VII). If any one of these constraints is violated,
+then return it.
+2. Define the strategy profile f as follows:
+fquery
+i : qi → yi
+qi
+fresp
+i (qi, qi(w)) : ai → xi
+ai,qi,w/yi
+qi
+For each query qi, we will compute a pure best-response
+function ˆf
+qi
+i for Player I to strategy fii after making
+query qi.
+More specifically, given fii and the result qi(wreal) of the
+query qi, it is straightforward to compute the 
+probability that, conditioned on the fact that the result of
+query qi is qi(w), the world is w and Player II will play
+action aii ∈ Aii. Therefore, for each query qi and 
+response qi(w), Player I can compute the expected utility
+of each pure response ai to the induced mixed strategy
+over Aii for Player II. Player I can then select the ai
+maximizing this expected payoff.
+Let ˆfi be the response function such that ˆfi(qi, qi(w)) =
+ˆf
+qi
+i (qi(w)) for every qi ∈ Qi. Similarly, compute ˆfii.
+153
+Player i does not prefer ‘make query qi, then play according to the function fi" :
+∀qi ∈ Qi, fi : Ri → Ai : ρi ≥
+P
+w∈W,aii∈Aii,qii∈Qii,ai=fi(qi,qi(w))
+`
+p(w) · xii
+aii,qii,w · [uw
+i (a) − δi(qi)]
+´
+(I)
+∀qii ∈ Qii, fii : Rii → Aii : ρii ≥
+P
+w∈W,ai∈Ai,qi∈Qi,aii=fii(qii,qii(w))
+`
+p(w) · xi
+ai,qi,w · [uw
+ii (a) − δii(qii)]
+´
+(II)
+Every player"s choices form a probability distribution in every world:
+∀i ∈ {i,ii}, w ∈ W : 1 =
+P
+ai∈Ai,qi∈Qi
+xi
+ai,qi,w (III)
+∀i ∈ {i,ii}, w ∈ W : 0 ≤ xi
+ai,qi,w (IV)
+Queries are independent of the world, and actions depend only on query output:
+∀i ∈ {i,ii}, qi ∈ Qi, w ∈ W, w ∈ W such that qi(w) = qi(w ) :
+yi
+qi
+=
+P
+ai∈Ai
+xi
+ai,qi,w (V)
+xi
+ai,qi,w = xi
+ai,qi,w (VI)
+The payoffs are consistent with the labels (i, ai, w):
+ρi + ρii =
+P
+i∈{i,ii}
+P
+w∈W,qi∈Qi,ai∈Ai
+`
+p(w) · xi
+ai,qi,w · [ (i, ai, w) − δi(qi)]
+´
+(VII)
+Figure 1: An LP to find Nash equilibria in unobservable-query Socratic games with strategically zero-sum
+worlds. The input is a Socratic game A, W, u, S, Q, p, δ so that world w is strategically zero sum with labels
+(i, ai, w). Player i makes query qi ∈ Qi with probability yi
+qi
+and, when the actual world is w ∈ W, makes query
+qi and plays action ai with probability xi
+ai,qi,w. The expected payoff to Player i is given by ρi.
+3. Let ˆρ
+qi
+i be the expected payoff to Player I using the
+strategy make query qi and play response function
+ˆfi if Player II plays according to fii.
+Let ˆρi = maxqi∈Qq ˆρ
+qi
+i and let ˆqi = arg maxqi∈Qq ˆρ
+qi
+i .
+Similarly, define ˆρ
+qii
+ii , ˆρii, and ˆqii.
+4. For the ˆfi and ˆqi defined in Step 3, return constraint
+(I-ˆqi- ˆfi) or (II-ˆqii- ˆfii) if either is violated. If both are
+satisfied, then return feasible.
+We first note that the separation oracle runs in polynomial
+time and then prove its correctness. Steps 1 and 4 are clearly
+polynomial. For Step 2, we have described how to compute
+the relevant response functions by examining every action of
+Player I, every world, every query, and every action of Player
+II. There are only polynomially many queries, worlds, query
+results, and pure actions, so the running time of Steps 2 and
+3 is thus polynomial.
+We now sketch the proof that the separation oracle works
+correctly. The main challenge is to show that if any 
+constraint (I-qi-fi ) is violated then (I-ˆqi- ˆfi) is violated in Step 4.
+First, we observe that, by construction, the function ˆfi 
+computed in Step 3 must be a best response to Player II playing
+fii, no matter what query Player I makes. Therefore the
+strategy make query ˆqi, then play response function ˆfi
+must be a best response to Player II playing fii, by definition
+of ˆqi. The right-hand side of each constraint (I-qi-fi ) is equal
+to the expected payoff that Player I receives when playing
+the pure strategy make query qi and then play response
+function fi  against Player II"s strategy of fii. Therefore,
+because the pure strategy make query ˆqi and then play
+response function ˆfi is a best response to Player II 
+playing fii, the right-hand side of constraint (I-ˆqi- ˆfi) is at least
+as large as the right hand side of any constraint (I-ˆqi-fi ).
+Therefore, if any constraint (I-qi-fi ) is violated, constraint
+(I-ˆqi- ˆfi) is also violated. An analogous argument holds for
+Player II.
+These lemmas and the well-known fact that Nash 
+equilibria always exist [52] imply the following theorem:
+Theorem 4.3. Nash equilibria can be found in 
+polynomial time for any two-player unobservable-query Socratic
+game with strategically zero-sum worlds.

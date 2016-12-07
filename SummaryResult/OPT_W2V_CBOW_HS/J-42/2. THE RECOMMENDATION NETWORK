@@ -1,0 +1,120 @@
+Back to table 1: given the total number of  recommendations e and purchases (bb + be) influenced by  recommendations we can estimate how many recommendations need to be independently sent over the network to induce a new purchase.
+The only indication of the success of a recommendation is the observation of the recipient purchasing the product through the same vendor.
+Finally, because the recommendation takes place before the recommender receives the product, it might not be based on a direct observation of the  product.
+It shows that the deeper an individual is in the cascade, if they choose to make  recommendations, they tend to recommend to a greater number of people on average (the distribution has a higher  variance).
+purchases of the same product, and in between those  purchases she may have received new recommendations.
+Music recommendations reached about the same number of people as DVDs but used more than 5 times fewer  recommendations to achieve the same coverage of the nodes.
+Finally, we also sometimes observe ‘collisions", where nodes receive recommendations from two or more sources.
+Most product recommendation networks consist of a large number of small disconnected components where we do not observe cascades.
+In terms of the number of different items, there are by far the most music CDs, followed by books and videos.
+We consider only the first purchase of an item, because there are many cases when a person made multiple 230 Group p n e eu bb be Purchases Forward Percent Book 103,161 2,863,977 5,741,611 2,097,809 65,344 17,769 65,391 15,769 24.2 DVD 19,829 805,285 8,180,393 962,341 17,232 58,189 16,459 7,336 44.6 Music 393,598 794,148 1,443,847 585,738 7,837 2,739 7,843 1,824 23.3 Video 26,131 239,583 280,270 160,683 909 467 909 250 27.6 Total 542,719 3,943,084 15,646,121 3,153,676 91,322 79,164 90,602 25,179 27.8 Table 1: Product group recommendation statistics.
+(first 7 columns) shows the sizes of various product group recommendation networks with p being the total number of products in the product group, n the total number of nodes spanned by the group recommendation network and e the number of edges (recommendations).
+2.5 The recommendation propagation model A simple model can help explain how the wide variance we observe in the number of recommendations made by  individuals can lead to power-laws in cascade sizes (figure 4).
+Then there is usually a small  number of relatively small components with recommendations successfully propagating.
+In that case the number of recommendations Nt+1 at time (t + 1) is given in terms of the number of  recommendations at an earlier time by Nt+1 = ptNt (1) where the probability pt is defined over the unit interval.
+Notice that, because of the probabilistic nature of the threshold being exceeded, one can only compute the final distribution of recommendation chain lengths, which we now proceed to do.
+The edge (i, j, p, t) indicates that i  recommended product p to customer j at time t. The typical process generating edges in the  recommendation network is as follows: a node i first buys a product p at time t and then it recommends it to nodes j1, .
+Subtracting from both sides of this equation the term Nt and diving by it we obtain N(t+1) − Nt Nt = pt − 1 (2) Summing both sides from the initial time to some very large time T and assuming that for long times the numerator is smaller than the denominator (a reasonable assumption) we get dN N = pt (3) The left hand integral is just ln(N), and the right hand side is a sum of random variables, which in the limit of a very large uncorrelated number of recommendations is normally distributed (central limit theorem).
+In other words the probability density for N is given by P(N) = 1 N √ 2πσ2 exp −(ln(N) − μ)2 2σ2 (4) which, for large variances describes a behavior whereby the typical number of recommendations is small (the mode of the distribution) but there are unlikely events of large chains of recommendations which are also observable.
+Figure 2 shows two typical product recommendation  networks: (a) a medical study guide and (b) a Japanese graphic novel.
+This observation is reflected in the heavy tailed  distribution of cascade sizes (see figure 4), having a power-law exponent close to 1 for DVDs in particular.
+In order to see this, take the logarithms on both sides of the equation (equivalent to a log-log plot) and one obtains ln(P(N)) = − ln(N) − ln( √ 2πσ2) − (ln (N) − μ)2 2σ2 (5) So, for large σ, the last term of the right hand side goes to zero, and since the the second term is a constant one obtains a power law behavior with exponent value of  minus one.
+10 0 10 5 10 0 10 2 10 4 10 6 10 8 Number of recommendations Count = 3.4e6 x−2.30 R2 =0.96 10 0 10 1 10 2 10 3 10 4 10 0 10 2 10 4 10 6 10 8 Number of purchases Count = 4.1e6 x−2.49 R2 =0.99 (a) Recommendations (b) Purchases Figure 3: Distribution of the number of  recommendations and number of purchases made by a node.
+Table 1 229 0 1 2 3 4 x 10 6 0 2 4 6 8 10 12 x 10 4 number of nodes sizeofgiantcomponent by month quadratic fit 0 10 20 0 2 4 x 10 6 m (month) n # nodes 1.7*10 6 m 10 0 10 1 10 2 10 3 10 1 10 2 10 3 10 4 10 5 10 6 kp (recommendations by a person for a product) N(x>=k p ) level 0 γ = 2.6 level 1 γ = 2.0 level 2 γ = 1.5 level 3 γ = 1.2 level 4 γ = 1.2 (a) Network growth (b) Recommending by level Figure 1: (a) The size of the largest connected  component of customers over time.
+Since exceeding this value is a probabilistic event, let"s call pt the probability that at time step t the recommendation exceeds the  thresh231 10 0 10 1 10 2 10 0 10 2 10 4 10 6 = 1.8e6 x−4.98 R2 =0.99 10 0 10 1 10 2 10 3 10 0 10 2 10 4 = 3.4e3 x−1.56 R2 =0.83 10 0 10 1 10 2 10 0 10 2 10 4 = 4.9e5 x−6.27 R2 =0.97 10 0 10 1 10 2 10 0 10 2 10 4 = 7.8e4 x−5.87 R2 =0.97 (a) Book (b) DVD (c) Music (d) Video Figure 4: Size distribution of cascades (size of cascade vs. count).
+We also observe that the probability of an individual making a recommendation at all (which can only occur if they make a purchase), declines after an initial increase as one gets deeper into the cascade.
+Because the buy-bit is set only for the first  person who acts on a recommendation, we identify additional purchases by the presence of outgoing recommendations for a person, since all recommendations must be preceded by a purchase.
+We consider, however, the buy-bits and buy-edges as proxies for the total number of purchases through recommendations.
+The only way for a node to recommend a product is to first buy it.
+The DVD network is also the most dense,  having about 10 recommendations per node, while books and music have about 2 recommendations per node and videos have only a bit more than 1 recommendation per node.
+The delivery of the recommendation is also somewhat different from one person simply telling another about a product they enjoy, possibly in the context of a broader discussion of similar products.
+We delete late recommendations - all incoming recommendations that happened after the first purchase of the product.
+For books one out of 69 recommendations resulted in a purchase.
+We call this type of evidence of purchase a  buyedge.
+There are other models which produce power-law distributions of cascade sizes, but we present ours for its simplicity, since it does not depend on network topology [6] or critical thresholds in the probability of a recommendation being accepted [18]. 
+For books, videos and music the number of unique edges is smaller than the number of nodes - this suggests that the networks are highly disconnected [5].
+The inset shows the linear growth in the number of customers n over time.
+p: number of products, n: number of nodes, e: number of edges (recommendations), eu: number of unique edges, bb: number of buy bits, be: number of buy edges.
+973 938 (a) Medical book (b) Japanese graphic novel Figure 2: Examples of two product recommendation networks: (a) First aid study guide First Aid for the USMLE Step, (b) Japanese graphic novel (manga) Oh My Goddess!
+Figure 3 shows the distribution of the  recommendations and purchases made by a single node in the  recommendation network.
+It seems that some people got quite  heavily involved in the recommendation program, and that they tended to recommend a large number of products to the same set of friends (since the number of unique edges is so small).
+To obtain this information we can only use the nodes with purchases that resulted in a discount.
+The first person to purchase the same item through a referral link in the email gets a 10% discount.
+It is possible for a customer to not be the first to act on a  recommendation and also to not recommend the product to others.
+The most active person made 83,729  recommendations and purchased 4,416 different items.
+Purchases: number of nodes that purchased.
+2.2 Recommendation network statistics For each recommendation, the dataset included the  product and product price, sender ID, receiver ID, the sent date, and a buy-bit, indicating whether the recommendation  resulted in a purchase and discount.
+The model assumes that each recipient of a recommendation will forward it to others if its value exceeds an arbitrary  threshold that the individual sets for herself.
+Even if we compose a network using all the  recommendations in the dataset, the largest connected  component contains less than 2.5% (100,420) of the nodes, and the second largest component has only 600 nodes.
+One possible  reason is that a book is bigger time investment than a DVD: one usually needs several days to read a book, while a DVD can be viewed in a single evening.
+The last 3 columns of table 1 show that only about a third of the people that purchase also recommend the  product forward.
+A detailed  enumeration and analysis of observed topological cascade  patterns for this dataset is made in [10].
+In this case one cannot conclude that recommendations following the first purchase influenced the later purchases.
+This shows that people are most keen on recommending movies, while more conservative when  recommending books and music.
+One external factor which may be affecting the  recommendation patterns for DVDs is the existence of referral websites (www.dvdtalk.com).
+In order to  identify cascades, i.e.
+Each time a person purchases a book, music, or a movie he or she is given the option of sending emails  recommending the item to friends.
+Nevertheless, we believe that these recommendation networks are reflective of the nature of word of mouth  advertising, and give us key insights into the influence of social networks on purchasing decisions.
+Each cascade is a network consisting of customers (nodes) who purchased the same product as a result of each other"s recommendations (edges).
+Still, some smaller communities, numbering in the tens of thousands of purchasers of DVDs in categories such as westerns,  classics and Japanese animated films (anime), had connected components spanning about 20% of their members.
+So we estimate what fraction of people that purchase also decide to recommend forward.
+This means that the logarithm of the number of messages is normally distributed, or equivalently, that the number of messages passed is log-normally distributed.
+The ratio of forward recommendations is much higher for DVDs than for other kinds of products.
+The insert in figure 1(a) shows the growth of the  customer base over time.
+This effect is probably due to only very heavily recommended products producing large enough cascades to reach a certain depth.
+Some nodes recommend to many friends, forming a star like pattern.
+(b) The number of recommendations sent by a user with each curve representing a different depth of the user in the recommendation chain.
+When this happens the sender of the  recommendation receives a 10% credit on their purchase.
+The j nodes can they buy the product and further recommend it.
+Even with these simple counts we can make the first few observations.
+Using this metric books have the most influential recommendations followed by DVDs and music.
+We have no way of knowing if the person had decided instead to purchase elsewhere,  borrow, or otherwise obtain the product.
+Note that even if all nodes j buy a product, only the edge to the node jk that first made the purchase (within a week after the recommendation) will be marked by a buy-bit.
+Figure 1(a) shows the fraction of nodes in largest weakly connected component over time.
+Further evidence of non-viral spread is provided by the  relatively high percentage (94%) of users who made their first recommendation without having previously received one.
+2.3 Forward recommendations Not all people who make a purchase also decide to give recommendations.
+The recommendation dataset consists of 15,646,121  recommendations made among 3,943,084 distinct users.
+The recipient may also doubt whether the friend is recommending the product because they think the recipient might enjoy it, or are simply trying to get a  discount for themselves.
+Figure 1(b) shows the cumulative out-degree distribution, that is the number of people who sent out at least kp  recommendations, for a product.
+Notice that all networks have a very small number of unique edges.
+Videos also have a higher ratio of forward recommendations, while books have the lowest.
+Last 3 columns of the table: Fraction of people that purchase and also recommend forward.
+On these websites people, who want to buy a DVD and get a discount, would ask for  recommendations.
+Someone reading the email might consider it spam, or at least deem it less important than a recommendation given in the context of a conversation.
+In total, 548,523 products were recommended, 99% of them belonging to 4 main product groups: Books, DVDs, Music and Videos.
+Forward: nodes that purchased and then also recommended the product.
+Of the products in our data set, 5813 (1%) were discontinued (the retailer no longer provided any information about them).
+Now each connected component represents a time obeying propagation of recommendations.
+the causal propagation of  recommendations, we track successful recommendations as they influence purchases and further recommendations.
+This shows that people tend to buy more DVDs and also like to recommend them to their friends, while they seem to be more conservative with books.
+In addition to recommendation data, we also crawled the retailer"s website to obtain product categories, reviews and ratings for all products.
+Although the data gives us a detailed and accurate view of recommendation dynamics, it does have its limitations.
+We define a  recommendation to be successful if it reached a node before its first purchase.
+The recommendation is received as a form email including information about the discount program.
+For DVDs it increases to 108 recommendations per purchase and further increases to 136 for music and 203 for video.
+For each product group we took recommendations on all products from the group and created a network.
+On the other hand, DVDs account for more half of all recommendations in the dataset.
+We also notice bursts of recommendations (figure 2(b)).
+Book recommendations reached by far the most people - 2.8  million.
+This way there would be recommendations made between people who don"t really know each other but rather have an economic incentive to cooperate.
+The nodes represent customers, and a directed edge contains all the information about the  recommendation.
+We were not able to find similar referral sharing sites for books or CDs.
+Note that buy-edges provide only a lower bound on the total number of purchases without discounts.
+Throughout the dataset we observe very similar  patters.
+The column eu shows the number of unique edges - disregarding multiple recommendations between the same source and recipient.
+Surprisingly it was linear, adding on average 165,000 new users each month, which is an  indication that the service itself was not spreading epidemically.
+This way we make the  network time increasing or causal - for each node all incoming edges (recommendations) occurred before all outgoing edges.
+We represent this data set as a  directed multi graph.
+2.4 Identifying cascades As customers continue forwarding recommendations, they contribute to the formation of cascades.
+Notice the power-law distributions and long flat tails.
+Unfortunately, this was not recorded in the data set.
+2.1 Dataset description Our analysis focuses on the recommendation referral  program run by a large retailer.
+There is a surprisingly small number of DVD titles.
+Furthermore, for large variances, the lognormal  distribution can behave like a power law for a range of values.
+Notice the component is very small.
+The sender and receiver ID"s were shadowed.
+A power law exponent γ is fitted to all but the tail.
+The data was collected from June 5 2001 to May 16 2003.
+Bold line presents a power-fit.
+: Mara Strikes Back.
+The program rules were as follows.

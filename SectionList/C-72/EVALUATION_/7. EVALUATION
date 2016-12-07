@@ -1,0 +1,83 @@
+We now provide a preliminary evaluation of GUESS in
+simulation. A more detailed evaluation of this approach can
+be found in [3]. Here we focus on how incremental 
+extensions to gossip protocols can lead to further improvements
+over standard gossiping techniques, for the problem of 
+coordinated spectrum sensing.
+Simulation Setup: We implemented a custom 
+simulator in C++. We study the improvements of our 
+incremental gossip protocols over standard gossiping in two 
+dimensions: execution time and network overhead. We use two
+topologies to represent device connectivity: a clique, to 
+eliminate the effects of the underlying topology on protocol 
+performance, and a BRITE-generated [13] power-law random
+graph (PLRG), to illustrate how our results extend to more
+realistic scenarios. We simulate a large deployment of 1,000
+devices to analyze protocol scalability.
+In our simulations, we compute the average signal level in
+a particular band by disseminating FM bit vectors. In each
+run of the simulation, we induce a change in the measured
+signal at one or more devices. A run ends when the new
+average signal level has converged in the network.
+For each data point, we ran 100 simulations and 95% 
+confidence intervals (error bars) are shown.
+Simulation Parameters: Each transmission involves
+sending 70 bits of information to a neighboring node. To
+compute the AVERAGE aggregate, four bit vectors need to
+be transmitted: the original SUM vector, the SUM delete
+vector, the original COUNT vector, and the COUNT delete
+vector. Non-incremental protocols do not transmit the delete
+vectors. Each transmission also includes a time stamp of
+when the update was generated.
+We assume nodes communicate on a common control 
+channel at 2 Mbps. Therefore, one time-step of protocol 
+execution corresponds to the time required for 1,000 nodes to
+sequentially send 70 bits at 2 Mbps. Sequential use of the
+control channel is a worst case for our protocols; in practice,
+multiple control channels could be used in parallel to reduce
+execution time. We also assume nodes are loosely time 
+synchronized, the implications of which are discussed further in
+[3]. Finally, in order to isolate the effect of protocol 
+operation on performance, we do not model the complexities of
+the wireless channel in our simulations.
+Incremental Protocols Reduce Execution Time:
+Figure 4(a) compares the performance of incremental gossip
+(IGP) with uniform gossip on a clique topology. We observe
+that both protocols have almost identical execution times.
+This is expected as IGP operates in a similar fashion to
+16
+uniform gossip, taking O(log(N)) time-steps to converge.
+Figure 4(b) compares the execution times of 
+incremental random walk (IRWP) and standard random walk on a
+clique. IRWP reduces execution time by a factor of 2.7 for a
+small number of measured signal changes. Although random
+walk and IRWP both use k random walks (in our simulations
+k = number of nodes), IRWP initiates walks only from 
+updated nodes (as explained in Section 5.2), resulting in faster
+information convergence. These improvements carry over to
+a PLRG topology as well (as shown in Figure 4(c)), where
+IRWP is 1.33 times faster than random walk.
+Incremental Protocols Reduce Network Overhead:
+Figure 5(a) shows the ratio of data transmitted using 
+uniform gossip relative to incremental gossip on a clique. For
+a small number of signal changes, incremental gossip incurs
+2.4 times less overhead than uniform gossip. This is because
+in the early steps of protocol execution, only devices which
+detect signal changes communicate. As more signal changes
+are introduced into the system, gossip and incremental 
+gossip incur approximately the same overhead.
+Similarly, incremental random walk (IRWP) incurs much
+less overhead than standard random walk. Figure 5(b) shows
+a 2.7 fold reduction in overhead for small numbers of 
+signal changes on a clique. Although each protocol uses the
+same number of random walks, IRWP uses fewer network
+resources than random walk because it takes less time to
+converge. This improvement also holds true on more 
+complex PLRG topologies (as shown in Figure 5(c)), where we
+observe a 33% reduction in network overhead.
+From these results it is clear that incremental techniques
+yield significant improvements over standard approaches to
+gossip, even on complex topologies. Because spectrum 
+utilization is characterized by incremental changes to usage,
+incremental protocols are ideally suited to solve this 
+problem in an efficient and cost effective manner.

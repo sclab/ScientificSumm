@@ -1,0 +1,40 @@
+the format of the protocol used for  communication between the servlet and the client is unaffected. 
+in  particular, the queries sent by the client would need to be recoded into another query language which is native to this different spatial database.
+notice, that if another spatial database was to be used instead of the sand kernel, then only a simple  modification to the servlet would need to be made in order for the sand internet browser to function properly.
+the data stream gets decompressed at the client before the results are parsed.
+in this case, the data is first compressed before it is sent over the network to the client.
+if a script was sent to the kernel (e.g., requesting all the tuples matching some criteria), then an arbitrary amount of data can be returned by the sand server.
+the kernel"s response naturally depends on the query and can be a boolean value, a number or a string representing a value (e.g., a default color) or, a whole tuple (e.g., in response to a nearest tuple query).
+it is then sent to the kernel for evaluation or execution.
+the java servlet parses the query and creates a corresponding sand-tcl expression or script in the sand kernel"s native format.
+the client initiates a transaction by 6 sending a query.
+when the client piece is launched, it connects back to the sand servlet, the communication is driven by the client piece; the server only responds to the client"s queries.
+it handles both requests for the actual client java code (needed when the client is run as an applet) and the sand traffic.
+once the java servlet is launched, it waits for a client to initiate a connection.
+after results are provided by the kernel, the servlet fetches and processes them, and then sends those results back to the originating client.
+next, it transmits these sand-tcl commands or scripts to the sand kernel.
+it translates these requests into the sand-tcl language.
+this servlet  listens on a given port of the server for incoming requests from the client.
+in order to communicate with the server, whose application programming interface (api) is a tcl-based scripting language, a servlet specifically designed to interface the sand internet browser with the sand kernel is required on the server side.
+2.1 client-server communication as mentioned above, the sand internet browser is a client piece of the remotely accessible spatial database server built around the sand kernel.
+however, assuming that the queries are selective enough (i.e., there are far fewer elements returned from the query than the number of elements in the database), the response delay is usually within reasonable limits.
+all user queries are still evaluated on the server side and the results are downloaded onto the client for display.
+due to the complexity of evaluating arbitrary queries (i.e., more complex queries than window queries that are needed for database visualization), we do not perform user-specified queries on the client.
+this makes the system much more responsive than the web mapping services.
+in fact, as long as the user explores one region at a time (i.e., he or she is not panning all over the database), no additional data needs to be retrieved after the initial population of the client-side database.
+since the locally run database is only updated when  additional or newer data is needed, our architecture allows the system to minimize the network traffic between the client and the server when executing the most common user-side operations such as zooming and panning.
+it initiates communication with the server only in cases where it does not have enough data stored locally.
+in our case, the client acts as a lightweight server in that given data, it evaluates queries and provides the visualization module with objects to be displayed.
+this is a concept similar to ‘caching".
+this database keeps a copy of a subset of the whole database whose full version is maintained on the server.
+essence, a simple spatial database engine is run on the client.
+in figure 1: sand internet browser - client-server architecture.
+instead, it operates on vector data allowing the client to execute many operations such as zooming or locational queries locally.
+our client is more than a simple image viewer.
+our client-server approach (figure 1) allows the actual database engine to be run in a central location maintained by spatial database experts, while end users acquire a  javabased client component that provides them with a gateway into the sand spatial database engine.
+these connections can be far slower and less reliable than local area networks and thus it is desirable to limit the data flow between the database (server) and the visualization unit (client) in order to get a timely response from the system.
+in these cases, the database is maintained in one  location while users need to work with it from possibly distant sites over the network (e.g., the internet).
+there are however many applications where a more distributed approach is  desirable.
+this architecture allows for instantaneous transfer of large amounts of data between the spatial database and the visualization module so that it is perfectly reasonable to use large-bandwidth  protocols for communication between them.
+the spatial database is kept on the same computer or local area network from where it is visualized and queried.
+traditionally, geographic information systems (gis) such as arcinfo from esri [2] and many spatial databases are designed to be stand-alone products.

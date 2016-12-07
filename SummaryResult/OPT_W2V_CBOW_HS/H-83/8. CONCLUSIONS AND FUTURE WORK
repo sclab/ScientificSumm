@@ -1,0 +1,28 @@
+In this work, we contend that the use of global PageRank in a localized search engine can improve performance.
+One way to integrate these pages into our framework is to start the FindGlobalPR algorithm with the current subgraph F equal to the set of pages that were crawled by the focused crawler.
+To determine the  benefit of using global PageRanks in a localized search engine, we suggest a user study in which users are asked to rate the quality of search results for various search queries.
+This method crawls nodes that will most significantly impact the local domain and has running time linear in the number of nodes in the local domain.
+Along with the ubiquity of these large-scale search engines comes an  increase in search users" expectations.
+The results of such a study can then be analyzed to determine the added benefit of using the global PageRanks computed by our methods, over just using the local PageRanks.
+Recall that the FindGlobalPR algorithm (Algorithm 2) requires that the PageRanks of the current expanded local domain be recomputed in each iteration.
+The internet is growing exponentially, and in order to  navigate such a large repository as the web, global search  engines have established themselves as a necessity.
+We conclude that by crawling an  additional n or 2n pages, our methods find an estimate of the global PageRanks that is up to ten times better than just using the local PageRanks.
+Our primary contribution is our stochastic complementation page  selection algorithm.
+124 Research Track Paper Often times, topic-specific domains are discovered using a focused web crawler which considers a page"s content in conjunction with link anchor text to decide which pages to crawl next [4].
+By providing complete and isolated coverage of a particular web domain, localized search engines are an effective outlet to quickly locate  content that could otherwise be difficult to find.
+These pages can of course provide valuable information regarding the global PageRank of the local  domain.
+If the number of  iterations T is relatively small compared to the number of pages crawled per iteration, k, then the bottleneck of the algorithm will be the crawling phase.
+To estimate the global PageRank, we have proposed an iterative node selection framework where we select which pages from the global frontier to crawl next.
+Typically, these pages are deleted and not indexed by the localized search engine.
+Although such crawlers have proven to be quite effective in discovering topic-related content, many  irrelevant pages are also crawled in the process.
+The global PageRank estimation framework, along with the node selection algorithms presented, all require O(n) computation per iteration and bandwidth proportional to the number of pages crawled, Tk.
+For some queries, only the local PageRanks are used in  ranking, and for the remaining queries, local PageRanks and the approximate global PageRanks, as computed by our  algorithms, are used.
+Recent work by Langville and Meyer [12] gives an algorithm to quickly recompute  PageRanks of a given webgraph if a small number of nodes are added.
+In this case, our algorithms would benefit from constant factor optimizations.
+In this paper, we have objectively evaluated our methods by measuring how close our global PageRank estimates are to the actual global PageRanks.
+However, as the number of  iterations increases (relative to k), the bottleneck will reside in the node selection computation.
+Experimentally, we validate these methods across a diverse set of local domains, including seven site-specific domains and four topic-specific domains.
+This algorithm was shown to give speedup of five to ten times on some datasets.
+Furthermore, we demonstrate that our algorithm consistently outperforms other existing heuristics.
+We plan to investigate this and other such optimizations as future work.
+This research was supported by NSF grant CCF-0431257, NSF Career Award ACI-0093404, and a grant from Sabre, Inc. 

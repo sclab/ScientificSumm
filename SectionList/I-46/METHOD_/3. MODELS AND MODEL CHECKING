@@ -1,0 +1,271 @@
+In this section, we present and discuss various (existing) 
+representations of systems that can be used for modeling and model
+checking. We believe that the two most important points of 
+reference are in this case: (1) the modeling formalism (i.e., the logic
+and the semantics we use), and (2) the phenomenon, or more 
+generally, the domain we are going to model (to which we will often
+refer as the real world). Our aim is a representation which is 
+reasonably close to the real world (i.e., it is sufficiently compact and
+grounded), and still not too far away from the formalism (so that
+it e.g. easily allows for theoretical analysis of computational 
+problems). We begin with discussing the merits of explicit 
+modelsin our case, these are transition systems, concurrent game structures
+and CEGSs, presented in the previous section.
+3.1 Explicit Models
+Obviously, an advantage of explicit models is that they are very
+close to the semantics of our logics (simply because they are the
+semantics). On the other hand, they are in many ways difficult to
+use to describe an actual system:
+• Exponential size: temporal models usually have an 
+exponential number of states with respect to any higher-level 
+description (e.g. Boolean variables, n-ary attributes etc.). Also, their
+size is exponential in the number of processes (or agents)
+if the evolution of a system results from joint (synchronous
+or asynchronous) actions of several active entities [15]. For
+CGSs the situation is even worse: here, also the number of
+transitions is exponential, even if we fix the number of states.3
+In practice, this means that such representations are very 
+seldom scalable.
+• Explicit models include no modularity. States in a model
+refer to global states of the system; transitions in the model
+correspond to global transitions as well, i.e., they represent
+(in an atomic way) everything that may happen in one single
+step, regardless of who has done it, to whom, and in what
+way.
+• Logics like ATL are often advertised as frameworks for 
+modeling and reasoning about open computational systems. 
+Ideally, one would like the elements of such a system to have
+as little interdependencies as possible, so that they can be
+plugged in and out without much hassle, for instance when
+we want to test various designs or implementations of the
+active component. In the case of a multi-agent system the
+3
+Another class of ATL models, alternating transition systems [2]
+represent transitions in a more succinct way. While we still have
+exponentially many states in an ATS, the number of transitions is
+simply quadratic wrt. to states (like for CTL models). 
+Unfortunately, ATS are even less modular and harder to design than 
+concurrent game structures, and they cannot be easily extended to handle
+incomplete information (cf. [9]).
+need is perhaps even more obvious. We do not only need
+to re-plug various designs of a single agent in the overall
+architecture; we usually also need to change (e.g., increase)
+the number of agents acting in a given environment without
+necessarily changing the design of the whole system. 
+Unfortunately, ATL models are anything but open in this sense.
+Theoretical complexity results for explicit models are as follows.
+Model checking CTL and CTLK is P-complete, and can be done in
+time O(ml), where m is the number of transitions in the model,
+and l is the length of the formula [5]. Alternatively, it can be done
+in time O(n2
+l), where n is the number of states. Model checking
+ATL is P-complete wrt. m, l and ΔP
+3 -complete wrt. n, k, l (k being
+the number of agents) [3, 12, 16]. Model checking ATLir is ΔP
+
+2complete wrt. m, l and ΔP
+3 -complete wrt. n, k, l [21, 13].
+3.2 Compressed Representations
+Explicit representation of all states and transitions is inefficient
+in many ways. An alternative is to represent the state/transition
+space in a symbolic way [17, 18].
+Such models offer some hope for feasible model checking 
+properties of open/multi-agent systems, although it is well known that
+they are compact only in a fraction of all cases.4
+For us, however,
+they are insufficient for another reason: they are merely optimized
+representations of explicit models. Thus, they are neither more
+open nor better grounded: they were meant to optimize 
+implementation rather than facilitate design or modeling methodology.
+3.3 Interpreted Systems
+Interpreted systems [11, 7] are held by many as a prime example
+of computationally grounded models of distributed systems. An 
+interpreted system can be defined as a tuple IS = St1, ..., Stk, Stenv, R, π .
+St1, ..., Stk are local state spaces of agents 1, ..., k, and Stenv is the
+set of states of the environment. The set of global states is defined
+as St = St1 × ... × Stk × Stenv; R ⊆ St × St is a transition relation,
+and π : Π → P(St). While the transition relation encapsulates
+the (possible) evolution of the system over time, the epistemic 
+dimension is defined by the local components of each global state:
+q1, ..., qk, qenv ∼i q1, ..., qk, qenv iff qi = qi .
+It is easy to see that such a representation is modular and 
+compact as far as we are concerned with states. Moreover, it gives a
+natural (grounded) approach to knowledge, and suggests an 
+intuitive methodology for modeling epistemic states. Unfortunately,
+the way transitions are represented in interpreted systems is neither
+compact, nor modular, nor grounded: the temporal aspect of the
+system is given by a joint transition function, exactly like in 
+explicit models. This is not without a reason: if we separate activities
+of the agents too much, we cannot model interaction in the 
+framework any more, and interaction is the most interesting thing here.
+But the bottom line is that the temporal dimension of an interpreted
+system has exponential representation. And it is almost as difficult
+to plug components in and out of an interpreted system, as for an
+ordinary CTL or ATL model, since the local activity of an agent is
+completely merged with his interaction with the rest of the system.
+3.4 Concurrent Programs
+The idea of concurrent programs has been long known in the
+literature on distributed systems. Here, we use the formulation
+from [15]. A concurrent program P is composed of k 
+concurrent processes, each described by a labeled transition system Pi =
+Sti, Acti, Ri, Πi, πi , where Sti is the set of local states of process
+4
+Representation R of an explicit model M is compact if the size of
+R is logarithmic with respect to the size of M.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 899
+i, Acti is the set of local actions, Ri ⊆ Sti ×Acti ×Sti is a transition
+relation, and Πi, πi are the set of local propositions and their 
+valuation. The behavior of program P is given by the product 
+automaton of P1, ..., Pk under the assumption that processes work 
+asynchronously, actions are interleaved, and synchronization is obtained
+through common action names.
+Concurrent programs have several advantages. First of all, they
+are modular and compact. They allow for local modeling of 
+components - much more so than interpreted systems (not only states,
+but also actions are local here). Moreover, they allow for 
+representing explicit interaction between local transitions of reactive 
+processes, like willful communication, and synchronization. On the
+other hand, they do not allow for representing implicit, 
+incidental, or not entirely benevolent interaction between processes. For
+example, if we want to represent the act of pushing somebody, the
+pushed object must explicitly execute an action of being pushed,
+which seems somewhat ridiculous. Side effects of actions are also
+not easy to model. Still, this is a minor complaint in the context
+of CTL, because for temporal logics we are only interested in the
+flow of transitions, and not in the underlying actions. For temporal
+reasoning about k asynchronous processes with no implicit 
+interaction, concurrent programs seem just about perfect.
+The situation is different when we talk about autonomous, 
+proactive components (like agents), acting together (cooperatively or
+adversely) in a common environment - and we want to address
+their strategies and abilities. Now, particular actions are no less 
+important than the resulting transitions. Actions may influence other
+agents" local states without their consent, they may have side 
+effects on other agents" states etc. Passing messages and/or calling
+procedures is by no means the only way of interaction between
+agents. Moreover, the availability of actions (to an agent) should
+not depend on the actions that will be executed by other agents at
+the same time - these are the outcome states that may depend on
+these actions! Finally, we would often like to assume that agents act
+synchronously. In particular, all agents play simultaneously in 
+concurrent game structures. But, assuming synchrony and autonomy
+of actions, synchronization can no longer be a means of 
+coordination.
+To sum up, we need a representation which is very much like
+concurrent programs, but allows for modeling agents that play 
+synchronously, and which enables modeling more sophisticated 
+interaction between agents" actions. The first postulate is easy to satisfy,
+as we show in the following section. The second will be addressed
+in Section 4.
+We note that model checking CTL against concurrent programs
+is PSPACE-complete in the number of local states and the length
+of the formula [15].
+3.5 Synchronous CP and Simple Reactive 
+Modules
+The semantics of ATL is based on synchronous models where
+availability of actions does not depend on the actions currently 
+executed by the other players. A slightly different variant of 
+concurrent programs can be defined via synchronous product of programs,
+so that all agents play simultaneously.5
+Unfortunately, under such
+interpretation, no direct interaction between agents" actions can be
+modeled at all.
+DEFINITION 2. A synchronous concurrent program consists of
+k concurrent processes Pi = Sti, Acti, Ri, Πi, πi with the 
+follow5
+The concept is not new, of course, and has already existed in folk
+knowledge, although we failed to find an explicit definition in the
+literature.
+ing unfolding to a CGS: Agt = {1, ..., k}, St =
+Qk
+i=1 Sti, Act =
+Sk
+i=1 Acti, d(i, q1, ..., qk ) = {αi | qi, αi, qi ∈ Ri for some qi ∈
+Sti}, o( q1, ..., qk , α1, ..., αk) = q1, ..., qk such that qi, αi, qi ∈
+Ri for every i; Π =
+Sk
+i=1 Πi, and π(p) = πi(p) for p ∈ Πi.
+We note that the simple reactive modules (SRML) from [22] can
+be seen as a particular implementation of synchronous concurrent
+programs.
+DEFINITION 3. A SRML system is a tuple Σ, Π, m1, . . . , mk ,
+where Σ = {1, . . . , k} is a set of modules (or agents), Π is a
+set of Boolean variables, and, for each i ∈ Σ, we have mi =
+ctri, initi, updatei , where ctri ⊆ Π. Sets initi and updatei consist
+of guarded commands of the form φ ; v1 := ψ1; . . . ; vk := ψk,
+where every vj ∈ ctri, and φ, ψ1, . . . , ψk are propositional 
+formulae over Π. It is required that ctr1, . . . ctrk partitions Π.
+The idea is that agent i controls the variables ctri. The init guarded
+commands are used to initialize the controlled variables, while the
+update guarded commands can change their values in each round.
+A guarded command is enabled if the guard φ is true in the current
+state of the system. In each round an enabled update guarded 
+command is executed: each ψj is evaluated against the current state of
+the system, and its logical value is assigned to vj. Several guarded
+commands being enabled at the same time model non-deterministic
+choice. Model checking ATL for SRML has been proved 
+EXPTIMEcomplete in the size of the model and the length of the formula [22].
+3.6 Concurrent Epistemic Programs
+Concurrent programs (both asynchronous and synchronous) can
+be used to encode epistemic relations too - exactly in the same
+way as interpreted systems do [20]. That is, when unfolding a
+concurrent program to a model of CTLK or ATLir, we define that
+q1, ..., qk ∼i q1, ..., qk iff qi = qi . Model checking CTLK
+against concurrent epistemic programs is PSPACE-complete [20].
+SRML can be also interpreted in the same way; then, we would
+assume that every agent can see only the variables he controls.
+Concurrent epistemic programs are modular and have a grounded
+semantics. They are usually compact (albeit not always: for 
+example, an agent with perfect information will always blow up the size
+of such a program). Still, they inherit all the problems of 
+concurrent programs with perfect information, discussed in Section 3.4:
+limited interaction between components, availability of local 
+actions depending on the actual transition etc. The problems were
+already important for agents with perfect information, but they 
+become even more crucial when agents have only limited knowledge
+of the current situation. One of the most important applications of
+logics that combine strategic and epistemic properties is 
+verification of communication protocols (e.g., in the context of security).
+Now, we may want to, e.g., check agents" ability to pass an 
+information between them, without letting anybody else intercept the
+message. The point is that the action of intercepting is by definition
+enabled; we just look for a protocol in which the transition of 
+successful interception is never carried out. So, availability of actions
+must be independent of the actions chosen by the other agents under
+incomplete information. On the other hand, interaction is arguably
+the most interesting feature of multi-agent systems, and it is really
+hard to imagine models of strategic-epistemic logics, in which it is
+not possible to represent communication.
+3.7 Reactive Modules
+Reactive modules [1] can be seen as a refinement of 
+concurrent epistemic programs (primarily used by the MOCHA model
+checker [4]), but they are much more powerful, expressive and
+900 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+grounded. We have already mentioned a very limited variant of
+RML (i.e., SRML). The vocabulary of RML is very close to 
+implementations (in terms of general computational systems): the 
+modules are essentially collections of variables, states are just 
+valuations of variables; events/actions are variable updates. However,
+the sets of variables controlled by different agents can overlap,
+they can change over time etc. Moreover, reactive modules 
+support incomplete information (through observability of variables),
+although it is not the main focus of RML. Again, the relationship
+between sets of observable variables (and to sets of controlled 
+variables) is mostly left up to the designer of a system. Agents can act
+synchronously as well as asynchronously.
+To sum up, RML define a powerful framework for modeling 
+distributed systems with various kinds of synchrony and asynchrony.
+However, we believe that there is still a need for a simpler and
+slightly more abstract class of representations. First, the 
+framework of RML is technically complicated, involving a number 
+auxiliary concepts and their definitions. Second, it is not always 
+convenient to represent all that is going on in a multi-agent system
+as reading and/or writing from/to program variables. This view
+of a multi-agent system is arguably close to its computer 
+implementation, but usually rather distant from the real world 
+domainhence the need for a more abstract, and more conceptually flexible
+framework. Third, the separation of the local complexity, and the
+complexity of interaction is not straightforward. Our new proposal,
+more in the spirit of interpreted systems, takes these observations
+as the starting point. The proposed framework is presented in 
+Section 4.

@@ -1,0 +1,74 @@
+In this case, we propose that the proxy be not responsible for  making the movement decision, but instead communicate the movement indication to the server responsible for the region within which the player is currently located.
+In the intra-region and inter-region scenarios described above, the proxy is able to manage movement related information, update only the relevant communication proxies about the movement, update the servers with the movement and  enable handoff of a player between the servers if needed.
+Now consider another scenario where player j moves from region 9 to region 8 and that proxy P4 is able to identify this movement.
+It is possible that a player moves from one region to another but the proxy that is hosting the player is not able to determine the region into which the player is moving, a) the proxy does not  maintain state information about all the regions into which the player could potentially move, or b) the proxy is not able to determine which region the player may move into (even if maintains state information about all these regions).
+Because proxy P1 is currently keeping state information about region 2, it can inform all The 5th Workshop on Network & System Support for Games 2006 - NETGAMES 2006 3 the other relevant communication proxies (in this example, no other proxy maintains information about region 2 at this point and so no update needs to be sent to any of the other proxies) about this movement and then inform the server  independently.
+The server will identify that the player has moved into region 4 and would inform proxy P1 as well as proxy P2 (which is the only other proxy that maintains information about region 4 at this point in time).
+The proxy communicates with the servers responsible for maintaining the game spaces subscribed by the different players.
+But to alleviate the heavy demand on the processing for handling the large player population and the objects in the game in real-time, a MMOG is normally implemented using a distributed server architecture where the game space is further sub-divided into regions so that each region has relatively smaller  number of players and objects that can be handled by a single server.
+Note that the communication proxies need not be cognizant of the game.
+We propose a communication proxy based architecture where a player connects to a (geographically) nearby proxy instead of connecting to a central server in the case of a  centralserver architecture or to one of the servers in case of  dis2 The 5th Workshop on Network & System Support for Games 2006 - NETGAMES 2006 tributed server architecture.
+Even without being aware of game logic, the proxies can provide additional functionalities such as  timestamping messages to make the game playing experience more accurate [10] and fair [11].
+With distributed-server architectures, additionally, communication proxies eliminate the need for the clients to maintain persistent transport sessions to every one of the servers.
+This definitely improves the responsiveness of the game.
+Players a, b, c join proxy P1, proxy P2 hosts players d, e, f, players g, h are with proxy P3, whereas players i, j, k, l are with proxy P4.
+When the proxy sends movement update to server S3 (informing the server that the player is moving out of its region), it would also send a message to server S2 informing the server of the presence and location of the player in one of its region.
+The first  possibility is that the proxy hosting the player can identify the region into which the player is moving (based on the  trajectory information) because it is also maintaining state  information about the new region at that point in time.
+Also note that the players hosted by a proxy may not be in the same game space.
+Proxy P1 will now start maintaining state information about  region 4 because one of its hosted players, player a has moved into this region.
+We envision the proxies to be just communication proxies in that they do not know about the workings of specific games.
+We propose that in this particular scenario, the handoff be managed by the proxy P4 itself.
+Consider the scenario where player a is at the boundary of region 1 and proxy P1 can identify that the player is moving into region 2.
+With central server architectures, communication proxies reduce the overhead at the server by not requiring the server to  terminate persistent transport sessions from every one of the clients.
+The server will then make the movement decision and then a) inform all the proxies including the proxy hosting the player, and b) initiate handoff with another server if the player moves into a region managed by another server.
+Player movement within a region will be tracked by the proxy hosting the player and this movement information (for example, the player"s new coordinates) will be  multicast to a subset of other relevant communication proxies directly.
+They merely process  movement information of players and objects and communicate this information to the other proxies and the servers.
+It will do so by requesting and receiving the current state information about region 4 from server S2 which is responsible for this region.
+If the proxies are made more intelligent in that they understand more of the game logic, it is possible for them to quickly check on claims made by the clients and mitigate cheating.
+Figure 1: Architecture of the gaming environment.
+In the proposed architecture, players who are close by geographically join a particular proxy.
+If a player is at the boundary of a region and moves into a new region, there are two possibilities.
+Introduction of communication proxies also mitigates the overhead of a large number of transport sessions that must be managed and reduces required network bandwidth [9] and processing at the game servers both with central server and distributed server architectures.
+By selectively maintaining relevant regional game state information at the proxies, we are able to achieve this capability in our architecture without the need for maintaining the complete game state at every proxy. 
+In this model, the player on the client machine has to establish multiple  gaming sessions with different servers so that it can roam in the entire game space.
+In this case, the proxy can update movement information  directly at the other relevant communication proxies and also send information to the appropriate server informing of the movement (this may require handoff between servers as we will describe).
+For example, if player a moves within region 1, this  information will be communicated by proxy P1 to server S1 and multicast to proxies P3 and P4.
+The second possibility that should be considered is when players move between regions.
+The proxies communicate with one another in a peer-to-peer to fashion.
+In this way, information about players can be disseminated faster before even the game server gets to know about it.
+When a player moves out of one game region to another adjacent one, the player must communicate with a different server (than it was currently communicating with) hosting the new region.
+That is, a proxy hosts players that are geographically close to it, but the players themselves can reside in different parts of the game space.
+At the same time, this information will be sent to the server responsible for that region with the indication that this movement has already been communicated to all the other relevant communication proxies (so that the server does not have to relay this information to all the proxies).
+Again, because proxy P4  maintains state information about region 8, it can inform any other relevant communication proxies (again, none in this example) about this movement.
+Players can move within the region and between regions.
+Figure 2 shows and example of the working principle of the proposed architecture.
+In this particular case, server S1 is responsible for region 2 as well and so no handoff between servers would be needed.
+In this way, the proxy performs movement updates without  involving the servers in any way in this time-critical function thereby speeding up the game and improving game  playing experience for the players.
+Server S1 will also initiate a handoff of player a with server S2.
+Proxy P1 does not maintain state information about region 4 and thus would pass the movement  information to server S1.
+In the example, assume that player a moves from region 1 to region 4.
+They host a number of players and inform the servers which players are hosted by the proxy in question.
+Thus, a proxy architecture allows us to make use of faster movement updates through the fast path through a proxy if and when possible as opposed to conventional server-based architectures that always have to use the slow path through the server for movement updates.
+Assume that the game space is  divided into 9 regions and there are three servers responsible for managing the regions.
+The proxy then connects to one or more game servers, as needed by the set of players that connect to it and  maintains persistent transport sessions with these server.
+We consider this the fast path for movement update.
+Note that proxies that do not keep state information about this region at this point in time (because they do not have any clients within that region) such as P2 do not have to receive this movement information.
+We consider this the slow path for movement update in that the servers need to be involved in determining the new position of the player.
+Underneath each player, the figure shows which game region the player is located currently.
+The servers could perform the same functionality but with more delay.
+The notion that an architecture such as this one can still maintain temporal consistency will be discussed in detail in Section 3.
+But now, regions 9 and 8 are managed by different servers (servers S3 and S2  respectively) and thus a hand-off between these servers is needed.
+Massively Multi-player Online Games (MMOGs) usually  consist of a large game space in which the players and  different game objects reside and move around and interact with each-other.
+For example, players a, b, c are in regions 1, 2, 6, respectively.
+The servers communicate with one another to hand off a player or an object from one region to another.
+Therefore, proxy P1 must communicate with servers S1 and S3.
+The responsiveness of the game can be improved for updates that do not need to wait on processing at a central authority.
+Server S1 owns regions 1 and 2, S2 manages 4, 5, 7, and 8, and S3 is responsible for 3, 6 and 9.
+There are four communication proxies placed in  geographically distant locations.
+State information about the whole game space could be kept in a single central server which we would  refer to as a Central-Server Architecture.
+The reader can verify the rest of the links between the proxies and the servers.
+In other words, the different game regions are hosted by different servers in a distributed fashion.
+However, it ignores consistency that is critical in MMORPGs.
+This alleviates the problem of each player having to connect  directly to multiple game servers, which can add extra  connection setup delay.
+Figure 1 shows the proposed architecture.
+Figure 2: An example.

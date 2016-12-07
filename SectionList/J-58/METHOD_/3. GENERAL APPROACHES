@@ -1,0 +1,133 @@
+3.1 Properties of Strategyproof Mechanisms
+We discuss several properties that mechanisms need to satisfy in
+order to be truthful.
+THEOREM 1. If a mechanism M = (O, P) satisfies IC, then
+∀i, if Oi(t|i
+ti1 ) = Oi(t|i
+ti2 ), then pi(t|i
+ti1 ) = pi(t|i
+ti2 ).
+COROLLARY 2. For any strategy-proof mechanism for a binary
+demand game G with setting S, if we fix the cost c−i of all agents
+other than i, the payment to agent i is a constant p1
+i if Oi(c) = 1,
+and it is another constant p0
+i if Oi(c) = 0.
+THEOREM 3. Fixed the setting S for a binary demand game,
+if mechanism M = (O, P) satisfies IC, then mechanism M =
+(O, P ) with the same output method O and pi(c) = pi(c) −
+δi(c−i) for any function δi(c−i) also satisfies IC.
+The proofs of above theorems are straightforward and thus 
+omitted due to space limit. This theorem implies that for the binary
+demand games we can always normalize the payment to an agent
+i such that the payment to the agent is 0 when it is not selected.
+Hereafter, we will only consider normalized payment schemes.
+215
+3.2 Existence of Strategyproof Mechanisms
+Notice, given the setting S, a mechanism design problem is 
+composed of two parts: the allocation rule O and a payment scheme P.
+In this paper, given an allocation rule O we focus our attention
+on how to design a truthful payment scheme based on O. Given
+an allocation rule O for a binary demand game, we first present
+a sufficient and necessary condition for the existence of a truthful
+payment scheme P.
+DEFINITION 1 (MONOTONE NON-INCREASING PROPERTY (MP)).
+An output method O is said to satisfy the monotone non-increasing
+property if for every agent i and two of its possible costs ci1 < ci2 ,
+Oi(c|i
+ci2 ) ≤ Oi(c|i
+ci1 ).
+This definition is not restricted only to binary demand games.
+For binary demand games, this definition implies that if Oi(c|i
+ci2 ) =
+1 then Oi(c|i
+ci1 ) = 1.
+THEOREM 4. Fix the setting S, c−i in a binary demand game
+G with the allocation rule O, the following three conditions are
+equivalent:
+1. There exists a value κi(O, c−i)(which we will call a cut value,
+such that Oi(c) = 1 if ci < κi(O, c−i) and Oi(c) = 0 if
+ci > κi(O, c−i). When ci = κi(O, c−i), Oi(c) can be 
+either 0 or 1 depending on the tie-breaker of the allocation rule
+O. Hereafter, we will not consider the tie-breaker scenario
+in our proofs.
+2. The allocation rule O satisfies MP.
+3. There exists a truthful payment scheme P for this binary 
+demand game.
+PROOF. The proof that Condition 2 implies Condition is 
+straightforward and is omitted here.
+We then show Condition 3 implies Condition 2. The proof of
+this is similar to a proof in [13]. To prove this direction, we assume
+there exists an agent i and two valuation vectors c|i
+ci1 and c|i
+ci2 ,
+where ci1 < ci2 , Oi(c|i
+ci2 ) = 1 and Oi(c|i
+ci1 ) = 0. From
+corollary 2, we know that pi(c|i
+ci1 ) = p0
+i and pi(c|i
+ci2 ) = p1
+i .
+Now fix c−i, the utility for i when ci = ci1 is ui(ci1 ) = p0
+i .
+When agent i lies its valuation to ci2 , its utility is p1
+i − ci1 . Since
+M = (O, P) is truthful, we have p0
+i > p1
+i − ci1 .
+Now consider the scenario when the actual valuation of agent i
+is ci = ci2 . Its utility is p1
+i − ci2 when it reports its true valuation.
+Similarly, if it lies its valuation to ci1 , its utility is p0
+i . Since M =
+(O, P) is truthful, we have p0
+i < p1
+i − ci2 .
+Consequently, we have p1
+i −ci2 > p0
+i > p1
+i −ci1 . This inequality
+implies that ci1 > ci2 , which is a contradiction.
+We then show Condition 1 implies Condition 3. We prove this
+by constructing a payment scheme and proving that this payment
+scheme is truthful. The payment scheme is: If Oi(c) = 1, then
+agent i gets payment pi(c) = κi(O, c−i); else it gets payment
+pi(c) = 0.
+From condition 1, if Oi(c) = 1 then ci > κi(O, c−i). Thus,
+its utility is κi(O, c−i) − ci > 0, which implies that the payment
+scheme satisfies the IR. In the following we prove that this payment
+scheme also satisfies IC property. There are two cases here.
+Case 1: ci < κ(O, c−i). In this case, when i declares its true
+cost ci, its utility is κi(O, c−i) − ci > 0. Now consider the 
+situation when i declares a cost di = ci. If di < κi(O, c−i), then
+i gets the same payment and utility since it is still selected. If
+di > κi(O, c−i), then its utility becomes 0 since it is not selected
+anymore. Thus, it has no incentive to lie in this case.
+Case 2: ci ≥ κ(O, c−i). In this case, when i reveals its true
+valuation, its payment is 0 and the utility is 0. Now consider the
+situation when i declares a valuation di = ci. If di > κi(O, c−i),
+then i gets the same payment and utility since it is still not selected.
+If di ≤ κi(O, c−i), then its utility becomes κi(O, c−i) − ci ≤ 0
+since it is selected now. Thus, it has no incentive to lie.
+The equivalence of the monotonicity property of the allocation
+rule O and the existence of a truthful mechanism using O can be
+extended to games beyond binary demand games. The details are
+omitted here due to space limit. We now summarize the process to
+design a truthful payment scheme for a binary demand game based
+on an output method O.
+General Framework 1 Truthful mechanism design for a binary
+demand game
+Stage 1: Check whether the allocation rule O satisfies MP. If it
+does not, then there is no payment scheme P such that mechanism
+M = (O, P) is truthful. Otherwise, define the payment scheme P
+as follows.
+Stage 2: Based on the allocation rule O, find the cut value
+κi(O, c−i) for agent i such that Oi(c|i
+di) = 1 when di <
+κi(O, c−i), and Oi(c|i
+di) = 0 when di > κi(O, c−i).
+Stage 3: The payment for agent i is 0 if Oi(c) = 0; the payment is
+κi(O, c−i) if Oi(c) = 1.
+THEOREM 5. The payment defined by our general framework
+is minimum among all truthful payment schemes using O as output.

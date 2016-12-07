@@ -1,0 +1,38 @@
+we describe related work in section 6. we conclude by  discussing some limit of our model and future work in section 7. 
+in section 5, we describe our simulator and simulation results.
+we  describe the model in section 2 and derive the performance at the nash equilibria for the infinite parallelism model in section 3. in section 4, we describe algorithms for users to optimize their own utility in the fixed budget game.
+the rest of the paper is organized as follows.
+as a result, we believe that shared distributed systems based on the fixed budget game can be highly decentralized, yet achieve a high degree of efficiency and fairness.
+the local adjustment algorithm performs similarly when there is sufficient competitiveness, but takes 25 to 90 iterations to stabilize.
+in addition, the time to converge to the  equilibrium is ≤ 5 iterations when all users use the best response strategy.
+surprisingly, the nash equilibrium, reached by each user iteratively  applying the best response algorithm to adapt his bids, achieves nearly the efficiency of the social optimum and nearly the fairness of the weight-proportional allocation: the efficiency is ≥ 0.90, the utility uniformity is ≥ 0.65, and the  envyfreeness is ≥ 0.97, independent of the number of users in the system.
+intuition would  suggest that efficiency and fairness are exclusive.
+likewise,  allocating according to only users" preference weights results in a high fairness, but a mediocre efficiency.
+using simulation, we find that  although the socially optimal allocation results in perfect  efficiency, it also results in very poor fairness.
+• we show that the price-anticipating resource  allocation mechanism achieves a high degree of  efficiency and fairness.
+in addition, we present a local greedy adjustment algorithm that converges more slowly than best response, but allows for non-linear or unformulatable utility functions.
+we present variations of the best response algorithm for both finite and infinite parallelism tasks.
+as part of the fixed budget game analysis, we show that strategic users with linear  utility functions can calculate their bids using a best response algorithm that quickly results in an allocation with high  efficiency with little computational and communication  overhead.
+• we describe algorithms that allow strategic users to optimize their utility.
+we also show the worst case  performance bounds: for m players the efficiency at equilibrium is ω(1/ √ m), the utility uniformity is ≥ 1/m, and the  envyfreeness ≥ 2 √ 2−2 ≈ 0.83. although these bounds are quite low, the simulations described below indicate these bounds are overly pessimistic.
+using analysis, we show that there is always a nash equilibrium in the fixed budget game if the utility functions satisfy a fairly weak and natural condition of strong competitiveness.
+our contributions are as follows: • we analyze the existence and performance of 127 nash equilibria.
+envyfreeness, which is more from the economic perspective,  measures the happiness of users with their own resources  compared to the resources of others.
+utility uniformity, which is common in computer science work, measures the closeness of utilities of different users.
+we use both  utility uniformity and envy-freeness to measure fairness.
+although rarely considered in previous game  theoretical study, we believe fairness is a critical metric for a resource allocation schemes because the perception of  unfairness will cause some users to reject a system with more efficient, but less fair resource allocation in favor of one with less efficient, more fair resource allocation.
+for evaluating the nash equilibria, we consider both their efficiency, measuring how close the social welfare at equilibrium is to the social  optimum, and fairness, measuring how different the users"  utilities are.
+in this paper, we formulate the fixed budget resource  allocation game and study the existence and performance of the nash equilibria of this game.
+in this work, we examine a price-anticipating scheme in the context of allocating computational  capacity for users with private preferences and limited budgets, resulting in a qualitatively different game (as discussed in section 6).
+previous work has analyzed price-anticipating schemes in the context of allocating network capacity for flows for users with  unlimited budgets.
+this  proportional scheme is simpler, more scalable, and more  responsive [15] than auction-based schemes [6, 21, 26].
+in particular, we consider a price-anticipating [12] scheme in which a user bids for a resource and receives the ratio of his bid to the sum of bids for that resource.
+instead, we examine a market-based resource allocation  system (others are described in [2, 4, 6, 21, 26, 27]) that allows users to express their preferences for resources through a bidding mechanism.
+however, in many cases, task values vary  significantly, are not correlated to resource requirements, and are difficult and time-consuming for an administrator to set.
+several non-economic allocation algorithms have been  proposed, but these typically assume that task values (i.e., their importance) are the same, or are inversely proportional to the resources required, or are set by an omniscient  administrator.
+the problem is how to allocate a shared resource both fairly and efficiently (where efficiency is the ratio of the achieved social welfare to the social optimal) with the presence of strategic users who act in their own interests.
+however, resource allocation in these systems remains the major challenge.
+finally, sharing allows greater reliability because of redundancy in hosts and  network connections.
+sharing nodes that are dispersed in the network allows lower delay because  applications can store data close to users.
+this allows increased throughput because of statistical multiplexing and the bursty utilization pattern of typical users.
+the primary advantage of distributed shared clusters like the grid [7] and planetlab [1] is their ability to pool  together shared computational resources.

@@ -1,0 +1,249 @@
+ITEM GRAPHS
+Let H be a hypergraph. A graph G = (V, E) is an item
+graph for H if V = N(H) and, for each h ∈ E(H), the
+subgraph of G induced over the nodes in h is connected.
+An important class of item graphs is that of structured item
+graphs, i.e., of those item graphs having bounded treewidth
+as formalized below.
+A tree decomposition [16] of a graph G = (V, E) is a pair
+T, χ , where T = (N, F) is a tree, and χ is a labelling
+function assigning to each vertex p ∈ N a set of vertices
+χ(p) ⊆ V , such that the following conditions are satisfied:
+(1) for each vertex b of G, there exists p ∈ N such that
+b ∈ χ(p); (2) for each edge {b, d} ∈ E, there exists p ∈ N
+such that {b, d} ⊆ χ(p); (3) for each vertex b of G, the
+set {p ∈ N | b ∈ χ(p)} induces a connected subtree of T.
+The width of T, χ is the number maxp∈N |χ(p) − 1|. The
+treewidth of G, denoted by tw(G), is the minimum width
+over all its tree decompositions.
+The winner determination problem can be solved in 
+polynomial time on item graphs having bounded treewidth [3].
+Theorem 1 (cf. [3]). Assume a k-width tree 
+decomposition T, χ of an item graph for H is given. Then,
+MaxWSP(H, w) can be solved in time O(|T|2
+×(|E(H)|+1)k+1
+).
+Many item graphs can be associated with a hypergraph.
+As an example, observe that the item graph in Figure 1.(c)
+has treewidth 1, while Figure 1.(d) reports an item graph
+whose treewidth is 2. Indeed, it was an open question
+whether for a given constant k it can be checked in 
+polynomial time if an item graph of treewidth k exists, and if so,
+whether such an item graph can be efficiently computed.
+Let C(ig, k) denote the class of all the hypergraphs having
+an item graph G such that tw(G) ≤ k. The main result of
+this section is to show that the class C(ig, k) is hard to
+recognize.
+Theorem 2. Deciding whether a hypergraph H belongs to
+C(ig, 3) is NP-hard.
+The proof of this result relies on an elaborate reduction from
+the Hamiltonian path problem HP(s, t) of deciding whether
+there is an Hamiltonian path from a node s to a node t in a
+directed graph G = (N, E). To help the intuition, we report
+here a high-level overview of the main ingredients exploited
+in the proof1
+.
+The general idea it to build a hypergraph HG such that
+there is an item graph G for HG with tw(G ) ≤ 3 if and only
+if HP(s, t) over G has a solution. First, we discuss the way
+HG is constructed. See Figure 2.(a) for an illustration, where
+the graph G consists of the nodes s, x, y, and t, and the set of
+its edges is {e1 = (s, x), e2 = (x, y), e3 = (x, t), e4 = (y, t)}.
+From G to HG. Let G = (N, E) be a directed graph.
+Then, the set of the nodes in HG is such that: for each
+x ∈ N, N(HG) contains the nodes bsx, btx, bx, bx, bdx; for
+each e = (x, y) ∈ E, N(HG) contains the nodes nsx, nsx,
+nty, nty , nse
+x and nte
+y. No other node is in N(HG).
+Hyperedges in HG are of three kinds:
+1) for each x ∈ N, E(HG) contains the hyperedges:
+• Sx = {bsx} ∪ {nse
+x | e = (x, y) ∈ E};
+• Tx = {btx} ∪ {nte
+x | e = (z, x) ∈ E};
+• A1
+x = {bdx, bx}, A2
+x = {bdx, bx}, and A3
+x = {bx, bx}
+-notice that these hyperedges induce a clique on
+the nodes {bx, bx, bdx};
+1
+Detailed proofs can be found in the Appendix, available at
+www.mat.unical.it/∼ggreco/papers/ca.pdf.
+154
+Figure 2: Proof of Theorem 2: (a) from G to HG - hyperedges in 1) and 2) are reported only; (b) a skeleton
+for a tree decomposition TD for HG.
+• SA1
+x = {bsx, bx}, SA2
+x = {bsx, bx}, SA3
+x =
+{bsx, bdx} -notice that these hyperedges plus
+A1
+x, A2
+x, and A3
+x induce a clique on the nodes
+{bsx, bx, bx, bdx};
+• TA1
+x = {btx, bx}, TA2
+x = {btx, bx}, and TA3
+x =
+{btx, bdx} -notice that these hyperedges plus
+A1
+x, A2
+x, and A3
+x induce a clique on the nodes
+{btx, bx, bx, bdx};
+2) for each e = (x, y) ∈ E, E(HG) contains the hyperedges:
+• SHx = {nsx, nsx};
+• THy = {nty, nty };
+• SEe = {nsx, nse
+x} and SEe = {nsx, nse
+x} -notice
+that these two hyperedges plus SHx induce a clique
+on the nodes {nsx, nsx, nse
+x};
+• TEe = {nty, nte
+y} and TEe = {nty , nte
+y} -notice
+that these two hyperedges plus THy induce a clique
+on the nodes {nty, nty , nte
+y}.
+Notice that each of the above hyperedges but those of the
+form Sx and Tx contains exactly two nodes. As an example
+of the hyperedges of kind 1) and 2), the reader may refer
+to the example construction reported in Figure 2.(a), and
+notice, for instance, that Sx = {bsx, nse2
+x , nse3
+x } and that
+Tt = {btt, nte4
+t , nte3
+t }.
+3) finally, we denote by DG the set containing the 
+hyperedges in E(HG) of the third kind. In the 
+reduction we are exploiting, DG can be an arbitrary set
+of hyperedges satisfying the four conditions that are
+discussed below. Let PG be the set of the following
+|PG| ≤ |N| + 3 × |E| pairs: PG = {(bx, bx) | x ∈ N} ∪
+{(nsx, nsx), (nty, nty ), (nse
+x, nte
+y) | e = (x, y) ∈ E}.
+Also, let I(v) denote the set {h ∈ E(H) | v ∈ h} of the
+hyperedges of H that are touched by v; and, for a set
+V ⊆ N(H), let I(V ) = v∈V I(v). Then, DG has to be
+a set such that:
+(c1) ∀(α, β) ∈ PG, I(α) ∩ I(β) ∩ DG = ∅;
+(c2) ∀(α, β) ∈ PG, I(α) ∪ I(β) ⊇ DG;
+(c3) ∀α ∈ N such that ∃β ∈ N with (α, β) ∈ PG or
+(β, α) ∈ PG, it holds: I(α) ∩ DG = ∅; and,
+(c4) ∀S ⊆ N such that |S| ≤ 3 and where ∃α, β ∈ S
+with (α, β) ∈ PG, it is the case that: I(S) ⊇ DG.
+Intuitively, the set DG is such that each of its hyperedges
+is touched by exactly one of the two nodes in every pair
+155
+of PG - cf. (c1) and (c2). Moreover, hyperedges in
+DG touch only vertices included in at least a pair of PG
+- cf. (c3); and, any triple of nodes is not capable of
+touching all the elements of DG if none of the pairs that
+can be built from it belongs to PG - cf. (c4).
+The reader may now ask whether a set DG exists at
+all satisfying (c1), (c2), (c3) and (c4). In the following
+lemma, we positively answer this question and refer the
+reader to its proof for an example construction.
+Lemma 1. A set DG, with |DG| = 2 × |PG| + 2, 
+satisfying conditions (c1), (c2), (c3), and (c4) can be built
+in time O(|PG|2
+).
+Key Ingredients. We are now in the position of presenting
+an overview of the key ingredients of the proof. Let G be
+an arbitrary item graph for HG, and let TD = T, χ be a
+3-width tree decomposition of G (note that, because of the
+cliques, e.g., on the nodes {bsx, bx, bx, bdx}, any item graph
+for HG has treewidth 3 at least).
+There are three basic observations serving the purpose of
+proving the correctness of the reduction.
+Blocks of TD: First, we observe that TD must contain
+some special kinds of vertex. Specifically, for each
+node x ∈ N, TD contains a vertex bs(x) such that
+χ(bs(x)) ⊇ {bsx, bx, bx, bdx}, and a vertex bt(x) such
+that χ(bt(x)) ⊇ {btx, bx, bx, bdx}. And, for each edge
+e = (x, y) ∈ E, TD contains a vertex ns(x,e) such that
+χ(ns(x,e)) ⊇ {nse
+x, nsx, nsx}, and a vertex nt(y,e) such
+that χ(nt(y,e)) ⊇ {nte
+y, nty, nty }.
+Intuitively, these vertices are required to cover the
+cliques of HG associated with the hyperedges of kind
+1) and 2). Each of these vertices plays a specific
+role in the reduction. Indeed, each directed edge
+e = (x, y) ∈ E is encoded in TD by means of the
+vertices: ns(x,e), representing precisely that e starts
+from x; and, nt(y,e), representing precisely that e 
+terminates into y. Also, each node x ∈ N is encoded in
+TD be means of the vertices: bs(x), representing the
+starting point of edges originating from x; and, bt(x),
+representing the terminating point of edges ending into
+x. As an example, Figure 2.(b) reports the skeleton
+of a tree decomposition TD. The reader may notice
+in it the blocks defined above and how they are 
+related with the hypergraph HG in Figure 2.(a) - other
+blocks in it (of the form w(x,y)) are defined next.
+Connectedness between blocks,
+and uniqueness of the connections: The second 
+crucial observation is that in the path connecting a 
+vertex of the form bs(x) (resp., bt(y)) with a vertex of
+the form ns(x,e) (resp., nt(y,e)) there is one special
+vertex of the form w(x,y) such that: χ(w(x,y)) ⊇
+{nse
+x , nte
+y }, for some edge e = (x, y) ∈ E. 
+Guaranteeing the existence of one such vertex is precisely
+the role played by the hyperedges in DG. The 
+arguments for the proof are as follows. First, we 
+observe that I(χ(bs(x))) ∩ I(χ(ns(x,e))) ⊇ DG ∪ {Sx}
+and I(χ(bt(y))) ∩ I(χ(nt(y,e))) ⊇ DG ∪ {Ty}. Then,
+we show a property stating that for a pair of 
+consecutive vertices p and q in the path connecting bs(x)
+and ns(x,e) (resp., bt(y) and nt(y,e)), I(χ(p) ∩ χ(q)) ⊇
+I(χ(bs(x))) ∩ I(χ(ns(x,e))) (resp., I(χ(p) ∩ χ(q)) ⊇
+I(χ(bt(x))) ∩ I(χ(nt(y,e)))). Thus, we have: I(χ(p) ∩
+χ(q)) ⊇ DG ∪{Sx} (resp., I(χ(p)∩χ(q)) ⊇ DG ∪{Ty}).
+Based on this observation, and by exploiting the 
+properties of the hyperedges in DG, it is not difficult to
+show that any pair of consecutive vertices p and q
+must share two nodes of HG forming a pair in PG, and
+must both touch Sx (resp., Ty). When the treewidth
+of G is 3, we can conclude that a vertex, say w(x,y),
+in this path is such that χ(w(x,y)) ⊇ {nse
+x , nte
+y }, for
+some edge e = (x, y) ∈ E - to this end, note that
+nse
+x ∈ Sx, nte
+t ∈ Ty, and I(χ(w(x,y))) ⊇ DG. In 
+particular, w(x,y) is the only kind of vertex satisfying these
+conditions, i.e., in the path there is no further vertex
+of the form w(x,z), for z = y (resp., w(z,y), for z = x).
+To help the intuition, we observe that having a vertex
+of the form w(x,y) in TD corresponds to the selection
+of an edge from node x to node y in the Hamiltonian
+path. In fact, given the uniqueness of these vertices 
+selected for ensuring the connectivity, a one-to-one 
+correspondence can be established between the existence
+of a Hamiltonian path for G and the vertices of the
+form w(x,y). As an example, in Figure 2.(b), the 
+vertices of the form w(s,x), w(x,y), and w(y,t) are in TD,
+and GT D shows the corresponding Hamiltonian path.
+Unused blocks: Finally, the third ingredient of the proof
+is the observation that if a vertex of the form w(x,y),
+for an edge e = (x, y) ∈ E is not in TD (i.e., if the
+edge (x, y) does not belong to the Hamiltonian path),
+then the corresponding block ns(x,e ) (resp., nt(y,e ))
+can be arbitrarily appended in the subtree rooted at
+the block ns(x,e) (resp., nt(y,e)), where e is the edge of
+the form e = (x, z) (resp., e = (z, y)) such that w(x,z)
+(resp., w(z,y)) is in TD.
+E.g., Figure 2.(a) shows w(x,t), which is not used in
+TD, and Figure 2.(b) shows how the blocks ns(x,e3)
+and nt(t,e3) can be arranged in TD for ensuring the
+connectedness condition.

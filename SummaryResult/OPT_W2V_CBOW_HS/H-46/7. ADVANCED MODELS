@@ -1,0 +1,34 @@
+The dependence between two queries is reflected by the SI(q, q ) score, where scores greater than zero indicate that it is likely that there is a dependence, which we take to mean that the queries are likely to be similar: SI(q, q ) = log p(q, q ) p(q)p(q ) (10) We estimate the probability of a topic p(q) using the number of documents relevant to query q within the collection.
+The joint probability p(q, q ) is estimated similarly, by using the  concatenation of q and q as a query.
+We model it as follows: p (q|ca) =  1 − P ou∈OU(ca) λou  · p(q|ca) + P ou∈OU(ca) λou · p(q|ou), where OU(ca) is the set of organizational units of which  candidate ca is a member of, and p(q|o) expresses the strength of the association between query q and the unit ou.
+A topic model is inferred for q and q using the method presented in Section 4.1 to describe the query across the entire vocabulary.
+That is: p (q|ca) =P l∈L λl · p(ql|ca), where L is the set of languages used in the collection, ql is the translation of the query q to language l, and λl is a language specific smoothing parameter, such that P l∈L λl = 1. 
+This can be modeled by interpolating between the p(q|ca) and the further supporting evidence from all similar requests q , as follows: p (q|ca) = λp(q|ca) + (1 − λ) X q p(q|q )p(q |ca), (9) where p(q|q ) represents the similarity between the two topics q and q .
+The latter probability can be estimated using either of the three basic models, by simply replacing ca with ou in the corresponding equations.
+We  consider four methods for calculating the similarity score between two topics.
+8 provides a measure of how different or similar two probability  distributions are.
+7.1 Exploiting knowledge area similarity One way to improve the scoring of a query given a candidate is to consider what other requests the candidate would satisfy and use them as further evidence to support the original query, proportional Expert finding Expert profiling Document types Model 1 Model 2 Model 3 Model 1 Model 2 Model 3 %q MAP MRR %q MAP MRR %q MAP MRR %ca MAP MRR %ca MAP MRR %ca MAP MRR English RD 97.8 0.126 0.269 83.5 0.144 0.311 83.3 0.129 0.271 100 0.089 0.189 39.3 0.232 0.465 41.1 0.166 0.337 CD 97.8 0.118 0.227 91.7 0.123 0.248 91.7 0.118 0.226 32.8 0.188 0.381 32.4 0.195 0.385 32.7 0.203 0.370 PUB 97.8 0.200 0.330 98.0 0.216 0.372 98.0 0.145 0.257 78.9 0.167 0.364 74.5 0.212 0.442 78.9 0.135 0.299 HP 97.8 0.081 0.186 97.4 0.071 0.168 97.2 0.062 0.149 31.2 0.150 0.299 28.8 0.185 0.335 30.1 0.136 0.287 RD+CD 97.8 0.188 0.352 92.9 0.193 0.360 92.9 0.150 0.273 100 0.145 0.286 61.3 0.251 0.477 63.2 0.217 0.416 RD+CD+PUB 97.8 0.235 0.373 98.1 0.277 0.439 98.1 0.178 0.305 100 0.196 0.380 87.2 0.280 0.533 89.5 0.170 0.344 RD+CD+PUB+HP 97.8 0.237 0.372 98.6 0.280 0.441 98.5 0.166 0.293 100 0.199 0.387 88.7 0.281 0.525 90.9 0.169 0.329 Dutch RD 61.3 0.094 0.229 38.4 0.137 0.336 38.3 0.127 0.295 38.0 0.127 0.386 34.1 0.138 0.420 38.0 0.105 0.327 CD 61.3 0.107 0.212 49.7 0.128 0.256 49.7 0.136 0.261 32.5 0.151 0.389 31.8 0.158 0.396 32.5 0.170 0.380 PUB 61.3 0.193 0.319 59.5 0.218 0.368 59.4 0.173 0.291 78.8 0.126 0.364 76.0 0.150 0.424 78.8 0.103 0.294 HP 61.3 0.063 0.169 56.6 0.064 0.175 56.4 0.062 0.163 29.8 0.108 0.308 27.8 0.125 0.338 29.8 0.098 0.255 RD+CD 61.3 0.159 0.314 51.9 0.184 0.360 51.9 0.169 0.324 60.5 0.151 0.410 57.2 0.166 0.431 60.4 0.159 0.384 RD+CD+PUB 61.3 0.244 0.398 61.5 0.260 0.424 61.4 0.210 0.350 90.3 0.165 0.445 88.2 0.189 0.479 90.3 0.126 0.339 RD+CD+PUB+HP 61.3 0.249 0.401 62.6 0.265 0.436 62.6 0.195 0.344 91.9 0.164 0.426 90.1 0.195 0.488 91.9 0.125 0.328 Table 1: Performance of the models on the expert finding and profiling tasks, using different document types and their combinations.
+Then, let p1 = k1/n1, p2 = k2/n2, and p = (k1 + k2)/(n1 + n2), (q, q ) = 2( (p1, k1, n1) + (p2, k2, n2) − (p, k1, n1) − (p, k2, n2)), where (p, n, k) = k log p + (n − k) log(1 − p).
+The higher score indicate that queries are also likely to be similar, thus we set w(q, q ) = (q, q ).
+We set the similarity score to be the  reciprocal of the shortest path: w(q, q ) = 1/SP(q, q ).
+The topic hierarchy is viewed as a directed graph, and for all topic-pairs the shortest path SP(q, q ) is calculated.
+Since a lower KL score means the queries are more similar, we let w(q, q ) = max(KL(θq||·) − KL(θq||θq )).
+%q is the number of topics covered (applies to the expert finding task), %ca is the number of candidates covered (applies to the expert profiling task).
+Let k1 be the number of co-occurrences of q and q , k2 the number of occurrences of q not co-occurring with q , n1 the total number of occurrences of q , and n2 the total number of topic tokens minus the number of occurrences of q .
+Finally, we also estimate the similarity of two topics based on their distance within the topic hierarchy.
+To be able to work with similarity methods that are not necessarily probabilities, we set p(q|q ) = w(q,q ) γ , where γ is a normalizing constant, such that γ = P q w(q , q ).
+Pointwise Mutual Information (PMI, [17]) is a measure of  association used in information theory to determine the extent of  independence between variables.
+To obtain p(q|q ), we then set w(q, q ) = SI(q, q ) when SI(q, q ) > 0 otherwise w(q, q ) = 0, because we are only interested in including queries that are similar.
+The best scores are in boldface.
+Three approaches are strictly content-based, and establish similarity by examining co-occurrence patterns of topics within the collection, while the last approach exploits the hierarchical  structure of topical areas that may be present within an organization (see [7] for further examples of integrating word relationships into  language models).
+The following model builds on a kind of independence assumption: there is no spill-over of expertise/profiles across language boundaries.
+That is, p(d|ou) = maxca∈ou p(d|ca).
+to how related the other requests are to the original query.
+The Kullback-Leibler (KL) divergence metric defined in Eq.
+7.2 Contextual information Given the hierarchy of an organization, the units to which a  person belong are regarded as a context so as to compensate for data sparseness.
+The log-likelihood statistic provides another measure of  dependence, which is more reliable than the pointwise mutual  information measure [17].
+An  organizational unit is associated with all the documents that its members have authored.
+Now that we have developed and assessed basic language  modeling techniques for expertise retrieval, we turn to refined models that exploit special features of our test collection.
+While a simplification, this is a sensible first approach.
+7.3 A simple multilingual model For knowledge institutes in Europe, academic or otherwise, a multilingual (or at least bilingual) setting is typical.
+The top and bottom blocks correspond to English and Dutch respectively.

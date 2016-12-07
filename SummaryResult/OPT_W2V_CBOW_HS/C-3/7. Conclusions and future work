@@ -1,0 +1,27 @@
+Existing approaches to these  problems typically assume the existence of a performance model that allows predicting application runtimes on various sets of resources.
+We start the application on an arbitrary set of resources and monitor its performance.
+Our simple  adaptation strategy allows us to handle multiple scenarios typical for grid environments: expand to more nodes or shrink to fewer nodes if the application was started on an inappropriate number of  processors, remove inadequate nodes and replace them with better ones, replace crashed processors, etc.
+In this paper, we investigated the problem of resource selection and adaptation in grid environments.
+We implemented our approach in the Satin divide-and-conquer framework and evaluated it on the DAS-2 distributed supercomputer and demonstrate that our  approach can yield significant performance improvements (up to 60% in our experiments).
+Our approach also allows the application to adapt to the changing grid conditions.
+This problem can be solved by implementing a hierarchy of coordinators: one  subcoordinator per cluster which collects and processes statistics from its cluster and one main coordinator which collects the information from the sub-coordinators.
+Another line of research that we wish to investigate is using feedback control to refine the adaptation strategy during the application run.
+The performance monitoring allows us to learn certain application requirements such as the number of processors needed by the application or the application"s bandwidth  requirements.
+Finally, the centralized implementation of the adaptation coordinator might become a bottleneck for applications which are running on very large numbers of nodes (hundreds or thousands).
+Future work will involve extending our adaptation strategy to support opportunistic migration.
+The adaptation decisions are based on the weighted average  efficiency - an extension of the concept of parallel efficiency defined for traditional, homogeneous parallel machines.
+Acknowledgments This work was carried out in the context of Virtual Laboratory for e-Science project (ww.vl-e.nl).
+For  example, the node badness formula could be refined at runtime based on the effectiveness of the previous adaptation decisions.
+This approach does not result in the optimal resource set, but in a reasonable resource set, i.e.
+We propose an approach that does not require in-depth knowledge about the application.
+We use this knowledge to gradually refine the resource set by removing inadequate nodes or adding new nodes if necessary.
+This project is supported by a BSIK grant from the Dutch Ministry of Education, Culture and Science (OC&W) and is part of the ICT innovation program of the Ministry of Economic Affairs (EZ). 
+This, however, requires grid schedulers with more sophisticated functionality than currently  exists.
+Further research is also needed to decrease the benchmarking overhead.
+The application adapts fully  automatically to changing conditions.
+However, creating performance models is inherently difficult and requires knowledge about the application.
+For example, the information about CPU load could be used to decrease the benchmarking frequency.
+If the weighted  average efficiency drops below a certain level, the adaptation  coordinator starts removing worst nodes.
+If the weighted average efficiency raises above a certain level, new nodes are added.
+a set free from various performance bottlenecks such as slow network connections or overloaded  processors.
+The badness of the nodes is defined by a heuristic formula.

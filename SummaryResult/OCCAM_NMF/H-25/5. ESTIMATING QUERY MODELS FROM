@@ -1,0 +1,34 @@
+we do this by interpolating the tfb model with the cfb model, and call it tcfb: p(w|θq ) = αp(w|θqt f b ) + (1 − α)p(w|θqcf b ) 
+therefore, we try to combine the two methods, hoping to get the best out of both.
+intuitively, the judged relevant terms should receive larger weights because they are explicitly indicated as  relevant by the user.
+cfb remedies tfb"s problem by treating the terms in a cluster collectively, so that unchecked/unpresented terms  receive weights when presented terms in their clusters are judged as relevant, but it does not distinguish which terms in a cluster are presented or judged.
+for example, in figure 1, since as many as 5 terms in the middle cluster (the third and fourth columns) are checked, we should have high confidence in the relevance of other terms in that cluster.
+tfb assigns non-zero probabilities to the presented terms that are marked relevant, but completely ignores (a lot more) others, which may be left unchecked due to the user"s ignorance, or simply not included in the  presentation list, but we should be able to infer their relevance from the checked ones.
+5.3 tcfb (term-cluster feedback) tfb and cfb both have their drawbacks.
+we note that when there is only one cluster (k = 1), the above formula degenerates to p(w|θq ) = λp(w|θq) + (1 − λ)p(w|θ1) which is merely pseudo-feedback of the form proposed in [25].
+if we combine the cluster models using weights determined this way and then interpolate with the original query model, we get the following formula for query updating, which we call cfb (cluster feedback): p(w|θq ) = λp(w|θq) + (1 − λ) k i=1 l j=1 δti,j k k=1 l j=1 δtk,j p(w|θi) where l j=1 δti,j is the number of relevant terms in cluster ci, and k k=1 l j=1 δtk,j is the total number of relevant terms.
+intuitively, the more terms are marked relevant in a cluster, the closer the cluster is to the query topic, and the more the cluster should participate in query  modification.
+because each cluster has an equal number of terms presented to the user, the simplest measure of a cluster"s relevance is the number of terms that are judged relevant in it.
+therefore, we propose to learn cluster feedback indirectly, inferring the relevance of a cluster through the relevance of its feedback terms.
+we could ask the user to directly judge the  relevance of a cluster after viewing representative terms in that cluster, but this would sometimes be a difficult task for the user, who has to guess the semantics of a cluster via its set of terms, which may not be well connected to one another due to a lack of context.
+if we are able to identify the relevant clusters, we can combine them to generate a query model that is good at discovering documents belonging to these clusters (instead of the irrelevant ones).
+the clusters  represent different aspects of the query topic, each of which may or may not be relevant.
+traffic railway harbor rail bridge kilometer construct swiss cross link kong hong river project meter shanghai fire truck french smoke car italian firefights blaze blanc mont victim franc rescue driver chamonix emerge toll amtrak train airport turnpike lui jersey pass rome z center electron road boston speed bu submit 5.2 cfb (cluster feedback) here we exploit the cluster structure that played an important role when we selected the presentation terms.
+figure 1: filled clarification form for topic 363 363 transportation tunnel disasters please select all terms that are relevant to the topic.
+note that the result model will be more biased toward θq if the original query is long or the user feedback is weak, which makes sense, as we can trust more on the original query in either case.
+if we set μ > 1, we are putting more emphasis on the query terms than the checked ones.
+if we let μ = 1, this approach is equivalent to appending the relevant terms after the original query, which is what standard query expansion (without term reweighting) does.
+we call this method tfb (direct term feedback).
+we give a weight of 1 to terms judged relevant by the user, a weight of μ to query terms, zero weight to other terms, and then apply normalization: p(w|θq ) = δw + μ c(w; q) w ∈t δw + μ|q| where w ∈t δw is the total number of terms that are judged  relevant.
+5.1 tfb (direct term feedback) this is a straight-forward form of term feedback that does not involve any secondary structure.
+• r = {δw|w ∈ t}: δw is an indicator variable that is 1 if w is judged relevant or 0 otherwise.
+ti,j is the j-th term chosen from cluster ci.
+l): the set of terms  presented to the user for judgment.
+k, j = 1 .
+• t = {ti,j} (i = 1 .
+k): the unigram language model of cluster ci, as estimated using the theme discovery algorithm.
+• θi (i = 1, 2, .
+• θq : the updated query model which we need to estimate from term feedback.
+first we describe our notations: • θq: the original query model, derived from query terms only: p(w|θq) = c(w; q) |q| where c(w; q) is the count of w in q, and |q| = w∈q c(w; q) is the query length.
+the algorithms take as input the original query q, the clusters {θi} as generated by the theme discovery algorithm, the set of feedback terms t and their relevance judgment r, and outputs an updated query language model θq that makes best use of the feedback evidence to capture the user"s information need.
+term feedback in this section, we present several algorithms for exploiting term feedback.

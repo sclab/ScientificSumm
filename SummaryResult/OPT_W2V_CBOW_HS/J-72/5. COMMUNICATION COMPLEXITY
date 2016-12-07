@@ -1,0 +1,26 @@
+Thus the value and demand queries, and the  responses to these queries, are always of polynomial size.
+Representing the surplus πi to agent i cannot require space greater than q(size(˜vi), m) for some fixed polynomial q, because we assume that the chosen representation is polynomially interpretable, and thus any value generated will be of polynomial size.
+Nisan and Segal [12] show that for a variety of rich valuation spaces (such as general and submodular valuations), the worst-case communication burden of determining Lindahl prices is exponential in the number of goods, m. The communication burden is  measured in terms of the number of bits transmitted between agents and auctioneer in the case of discrete communication, or in terms of the number of real numbers transmitted in the case of continuous communication.
+, vn) parameter sidestep Nisan and  Segal"s [12] negative results on the worst-case communication complexity of efficient allocation problems.
+These algorithms will fare well if the chosen representation class provides succinct representations for the simplest and most common of valuations, and thus the focus moves back to one of compact yet expressive bidding languages.
+If the learning algorithm"s equivalence  queries are all proper, it may then also be possible to provide tight bounds on the communication requirements of the  resulting elicitation algorithm.
+Thus communicating the manifest valuation requires size at most p(size(vi), m), for some polynomial p that upper-bounds the runtime of the efficient learning algorithm.
+Theorem 2 show that elicitation algorithms that depend on the size(v1, .
+These bounds can be translated to explicit bounds on the number of value and demand queries made by the resulting elicitation algorithm.
+We must also communicate to i its allocated bundle, so the total  message size for a demand query is at most p(size(vi), m) + q(p(size(vi), m), m)+O(m).
+In this section, we turn to the issue of the  communication complexity of elicitation.
+An efficient learning algorithm performs a polynomial number of queries, so the total communication of the resulting  elicitation algorithm is polynomial in the relevant parameters.
+, Vn can be efficiently elicited from value and demand queries if they can each be efficiently exactly learned from membership and equivalence queries.
+There will often be explicit bounds on the number of  membership and equivalence queries performed by a learning  algorithm, with constants that are not masked by big-O  notation.
+We are likely to be able to do much better than this in practice.
+Converting efficient learning algorithms to an elicitation algorithm produces an algorithm whose queries have sizes polynomial in the parameters m and size(v1, .
+They provide guarantees with respect to the sizes of the instances of  valuation functions faced at any run of the algorithm.
+Note that an efficient learning algorithm never builds up a manifest hypothesis of superpolynomial size,  because the algorithm"s runtime would then also be  superpolynomial, contradicting efficiency.
+We consider these issues below. 
+We upper-bounded the size of the manifest hypothesis with the runtime of the learning algorithm in Theorem 2.
+The size of any value query is O(m): the  message consists solely of the queried bundle.
+Recall that an  equivalence query is proper if size( ˜f) ≤ size(f) at the time the query is made.
+Clearly, an agent"s response to a value or demand query has size at most q(size(vi), m) + O(m).
+The representation classes V1, .
+To communicate Lindahl prices to agent i, it is sufficient to communicate the agent"s manifest valuation function and the value πi, by equality (4).
+Theorem 2.

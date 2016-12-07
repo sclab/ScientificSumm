@@ -1,0 +1,158 @@
+6.1 Improvements to PageRank
+Since the original PageRank paper, there has been work on
+improving it. Much of that work centers on speeding up and
+parallelizing the computation [15][25].
+One recognized problem with PageRank is that of topic drift: A
+page about dogs will have high PageRank if it is linked to by
+many pages that themselves have high rank, regardless of their
+topic. In contrast, a search engine user looking for good pages
+about dogs would likely prefer to find pages that are pointed to by
+many pages that are themselves about dogs. Hence, a link that is
+on topic should have higher weight than a link that is not.
+Richardson and Domingos"s Query Dependent PageRank [29]
+and Haveliwala"s Topic-Sensitive PageRank [16] are two
+approaches that tackle this problem.
+Other variations to PageRank include differently weighting links
+for inter- vs. intra-domain links, adding a backwards step to the
+random surfer to simulate the back button on most browsers
+[24] and modifying the jump probability (α) [3]. See Langville
+and Meyer [23] for a good survey of these, and other
+modifications to PageRank.
+6.2 Other related work
+PageRank is not the only link analysis algorithm used for ranking
+Web pages. The most well-known other is HITS [22], which is
+used by the Teoma search engine [30]. HITS produces a list of
+hubs and authorities, where hubs are pages that point to many
+authority pages, and authorities are pages that are pointed to by
+many hubs. Previous work has shown HITS to perform
+comparably to PageRank [1].
+One field of interest is that of static index pruning (see e.g.,
+Carmel et al. [8]). Static index pruning methods reduce the size of
+the search engine"s index by removing documents that are
+unlikely to be returned by a search query. The pruning is typically
+done based on the frequency of query terms. Similarly, Pandey
+and Olston [28] suggest crawling pages frequently if they are
+likely to incorrectly appear (or not appear) as a result of a search.
+Similar methods could be incorporated into the static rank (e.g.,
+how many frequent queries contain words found on this page).
+Others have investigated the effect that PageRank has on the Web
+at large [9]. They argue that pages with high PageRank are more
+likely to be found by Web users, thus more likely to be linked to,
+and thus more likely to maintain a higher PageRank than other
+pages. The same may occur for the popularity data. If we increase
+the ranking for popular pages, they are more likely to be clicked
+on, thus further increasing their popularity. Cho et al. [10] argue
+that a more appropriate measure of Web page quality would
+depend on not only the current link structure of the Web, but also
+on the change in that link structure. The same technique may be
+applicable to popularity data: the change in popularity of a page
+may be more informative than the absolute popularity.
+One interesting related work is that of Ivory and Hearst [19].
+Their goal was to build a model of Web sites that are considered
+high quality from the perspective of content, structure and
+navigation, visual design, functionality, interactivity, and overall
+experience. They used over 100 page level features, as well as
+features encompassing the performance and structure of the site.
+This let them qualitatively describe the qualities of a page that
+make it appear attractive (e.g., rare use of italics, at least 9 point
+font, …), and (in later work) to build a system that assists novel
+Web page authors in creating quality pages by evaluating it
+according to these features. The primary differences between this
+work and ours are the goal (discovering what constitutes a good
+Web page vs. ordering Web pages for the purposes of Web
+search), the size of the study (they used a dataset of less than 6000
+pages vs. our set of 468,000), and our comparison with PageRank.
+y = 0.577Ln(x) + 58.283
+R
+2
+= 0.9822
+58
+58.5
+59
+59.5
+60
+60.5
+61
+1 10 100
+Days of Toolbar Data
+PairwiseAccuracy
+Figure 1: Relation between the amount of popularity data and
+the performance of the popularity feature set. Note the x-axis
+is a logarithmic scale.
+713
+Nevertheless, their work provides insights to additional useful
+static features that we could incorporate into fRank in the future.
+Recent work on incorporating novel features into dynamic ranking
+includes that by Joachims et al. [21], who investigate the use of
+implicit feedback from users, in the form of which search engine
+results are clicked on. Craswell et al. [11] present a method for
+determining the best transformation to apply to query independent
+features (such as those used in this paper) for the purposes of
+improving dynamic ranking. Other work, such as Boyan et al. [4]
+and Bartell et al. [2] apply machine learning for the purposes of
+improving the overall relevance of a search engine (i.e., the
+dynamic ranking). They do not apply their techniques to the
+problem of static ranking.
+6.3 Future work
+There are many ways in which we would like to extend this work.
+First, fRank uses only a small number of features. We believe we
+could achieve even more significant results with more features. In
+particular the existence, or lack thereof, of certain words could
+prove very significant (for instance, under construction
+probably signifies a low quality page). Other features could
+include the number of images on a page, size of those images,
+number of layout elements (tables, divs, and spans), use of style
+sheets, conforming to W3C standards (like XHTML 1.0 Strict),
+background color of a page, etc.
+Many pages are generated dynamically, the contents of which may
+depend on parameters in the URL, the time of day, the user
+visiting the site, or other variables. For such pages, it may be
+useful to apply the techniques found in [26] to form a static
+approximation for the purposes of extracting features. The
+resulting grammar describing the page could itself be a source of
+additional features describing the complexity of the page, such as
+how many non-terminal nodes it has, the depth of the grammar
+tree, etc.
+fRank allows one to specify a confidence in each pairing of
+documents. In the future, we will experiment with probabilities
+that depend on the difference in human judgments between the
+two items in the pair. For example, a pair of documents where one
+was rated 4 and the other 0 should have a higher confidence than
+a pair of documents rated 3 and 2.
+The experiments in this paper are biased toward pages that have
+higher than average quality. Also, fRank with all of the features
+can only be applied to pages that have already been crawled.
+Thus, fRank is primarily useful for index ordering and improving
+relevance, not for directing the crawl. We would like to
+investigate a machine learning approach for crawl prioritization as
+well. It may be that a combination of methods is best: for
+example, using PageRank to select the best 5 billion of the 20
+billion pages on the Web, then using fRank to order the index and
+affect search relevancy.
+Another interesting direction for exploration is to incorporate
+fRank and page-level features directly into the PageRank
+computation itself. Work on biasing the PageRank jump vector
+[16], and transition matrix [29], have demonstrated the feasibility
+and advantages of such an approach. There is reason to believe
+that a direct application of [29], using the fRank of a page for its
+relevance, could lead to an improved overall static rank.
+Finally, the popularity data can be used in other interesting ways.
+The general surfing and searching habits of Web users varies by
+time of day. Activity in the morning, daytime, and evening are
+often quite different (e.g., reading the news, solving problems,
+and accessing entertainment, respectively). We can gain insight
+into these differences by using the popularity data, divided into
+segments of the day. When a query is issued, we would then use
+the popularity data matching the time of query in order to do the
+ranking of Web pages. We also plan to explore popularity features
+that use more than just the counts of how often a page was visited.
+For example, how long users tended to dwell on a page, did they
+leave the page by clicking a link or by hitting the back button, etc.
+Fox et al. did a study that showed that features such as this can be
+valuable for the purposes of dynamic ranking [14]. Finally, the
+popularity data could be used as the label rather than as a feature.
+Using fRank in this way to predict the popularity of a page may
+useful for the tasks of relevance, efficiency, and crawl priority.
+There is also significantly more popularity data than human
+labeled data, potentially enabling more complex machine learning
+methods, and significantly more features.

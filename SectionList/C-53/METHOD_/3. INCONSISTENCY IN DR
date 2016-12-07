@@ -1,0 +1,51 @@
+The inconsistency in DR can be divided into two sections by the
+time point when a remote site receives a state update. The
+inconsistency before a remote site receives a state update is
+referred to as before inconsistency, and the inconsistency after a
+remote site receives a state update is referred to as after
+inconsistency. Before inconsistency and after inconsistency are
+similar with the terms before export error and after export error
+[8].
+After inconsistency is caused by the lack of synchronization
+between the physical clocks of all sites in a system. By employing
+physical clock synchronization, GS-DR can accurately calculate
+the states of shared entities after receiving state updates, and it
+can eliminate after inconsistency. Before inconsistency is caused
+by two reasons. The first reason is the delay of sending state
+updates, as local site does not send a state update unless the
+difference between accurate state and the estimated one is larger
+than a predefined threshold. The second reason is network
+transmission delay, as a shared entity can be synchronized only
+after remote sites receiving corresponding state update.
+Figure 1. The paths of a shared entity by using GS-DR.
+For example, it is assumed that the velocity of a shared entity is
+the only parameter to predict the entity"s position, and current
+position of the entity can be calculated by its last position and
+current velocity. To simplify the description, it is also assumed
+that there are only two sites i and j in a game session, site i acts as
+2 The 5th Workshop on Network & System Support for Games 2006 - NETGAMES 2006
+local site and site j acts as remote site, and t1 is the time point the
+local site updates the state of the shared entity. Figure 1 illustrates
+the paths of the shared entity at local site and remote site in x axis
+by using GS-DR. At the beginning, the positions of the shared
+entity are the same at sites i and j and the velocity of the shared
+entity is 0. Before time point t0, the paths of the shared entity at
+sites i and j in x coordinate are exactly the same. At time point t0,
+the player at site i issues an operation, which changes the velocity
+in x axis to v0. Site i first periodically checks whether the
+difference between the accurate position of the shared entity and
+the estimated one, 0 in this case, is larger than a predefined
+threshold. At time point t1, site i finds that the difference is larger
+than the threshold and it sends a state update to site j. The state
+update contains the position and velocity of the shared entity at
+time point t1 and time point t1 is also attached as a timestamp. At
+time point t2, the state update reaches site j, and the received state
+and the time deviation between time points t1 and t2 are used to
+calculate the current position of the shared entity. Then site j
+updates its replicated entity"s position and velocity, and the paths
+of the shared entity at sites i and j overlap again.
+From Figure 1, it can be seen that the after inconsistency is 0, and
+the before consistency is composed of two parts, D1 and D2. D1
+is De(i, j, t0, t1) and it is caused by the state filtering mechanism
+of DR. D2 is De(i, j, t1, t2) and it is caused by network
+transmission delay.

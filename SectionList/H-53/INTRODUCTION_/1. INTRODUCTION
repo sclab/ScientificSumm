@@ -1,0 +1,99 @@
+Web search has now become a major tool in our daily lives
+for information seeking. One of the important issues in Web
+search is that user queries are often not best formulated to
+get optimal results. For example, running shoe is a query
+that occurs frequently in query logs. However, the query
+running shoes is much more likely to give better search
+results than the original query because documents matching
+the intent of this query usually contain the words running
+shoes.
+Correctly formulating a query requires the user to 
+accurately predict which word form is used in the documents
+that best satisfy his or her information needs. This is 
+difficult even for experienced users, and especially difficult for
+non-native speakers. One traditional solution is to use 
+stemming [16, 18], the process of transforming inflected or 
+derived words to their root form so that a search term will
+match and retrieve documents containing all forms of the
+term. Thus, the word run will match running, ran,
+runs, and shoe will match shoes and shoeing. 
+Stemming can be done either on the terms in a document 
+during indexing (and applying the same transformation to the
+query terms during query processing) or by expanding the
+query with the variants during query processing. Stemming
+during indexing allows very little flexibility during query
+processing, while stemming by query expansion allows 
+handling each query differently, and hence is preferred.
+Although traditional stemming increases recall by 
+matching word variants [13], it can reduce precision by retrieving
+too many documents that have been incorrectly matched.
+When examining the results of applying stemming to a large
+number of queries, one usually finds that nearly equal 
+numbers of queries are helped and hurt by the technique [6]. In
+addition, it reduces system performance because the search
+engine has to match all the word variants. As we will show
+in the experiments, this is true even if we simplify stemming
+to pluralization handling, which is the process of converting
+a word from its plural to singular form, or vice versa. Thus,
+one needs to be very cautious when using stemming in Web
+search engines.
+One problem of traditional stemming is its blind 
+transformation of all query terms, that is, it always performs
+the same transformation for the same query word without
+considering the context of the word. For example, the word
+book has four forms book, books, booking, booked, and
+store has four forms store, stores, storing, stored. For
+the query book store, expanding both words to all of their
+variants significantly increases computation cost and hurts
+precision, since not all of the variants are useful for this
+query. Transforming book store to match book stores
+is fine, but matching book storing or booking store is
+not. A weighting method that gives variant words smaller
+weights alleviates the problems to a certain extent if the
+weights accurately reflect the importance of the variant in
+this particular query. However uniform weighting is not 
+going to work and a query dependent weighting is still a 
+challenging unsolved problem [20].
+A second problem of traditional stemming is its blind
+matching of all occurrences in documents. For the query
+book store, a transformation that allows the variant stores
+to be matched will cause every occurrence of stores in the
+document to be treated equivalent to the query term store.
+Thus, a document containing the fragment reading a book
+in coffee stores will be matched, causing many wrong 
+documents to be selected. Although we hope the ranking 
+function can correctly handle these, with many more candidates
+to rank, the risk of making mistakes increases.
+To alleviate these two problems, we propose a context
+sensitive stemming approach for Web search. Our solution
+consists of two context sensitive analysis, one on the query
+side and the other on the document side. On the query side,
+we propose a statistical language modeling based approach
+to predict which word variants are better forms than the
+original word for search purpose and expanding the query
+with only those forms. On the document side, we propose a
+conservative context sensitive matching for the transformed
+word variants, only matching document occurrences in the
+context of other terms in the query. Our model is simple yet
+effective and efficient, making it feasible to be used in real
+commercial Web search engines.
+We use pluralization handling as a running example for
+our stemming approach. The motivation for using 
+pluralization handling as an example is to show that even such
+simple stemming, if handled correctly, can give significant
+benefits to search relevance. As far as we know, no 
+previous research has systematically investigated the usage of
+pluralization in Web search. As we have to point out, the
+method we propose is not limited to pluralization handling,
+it is a general stemming technique, and can also be applied
+to general query expansion. Experiments on general 
+stemming yield additional significant improvements over 
+pluralization handling for long queries, although details will not
+be reported in this paper.
+In the rest of the paper, we first present the related work
+and distinguish our method from previous work in Section 2.
+We describe the details of the context sensitive stemming
+approach in Section 3. We then perform extensive 
+experiments on a major Web search engine to support our claims
+in Section 4, followed by discussions in Section 5. Finally,
+we conclude the paper in Section 6.

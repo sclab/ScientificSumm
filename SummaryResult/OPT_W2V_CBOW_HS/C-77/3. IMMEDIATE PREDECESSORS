@@ -1,0 +1,57 @@
+First, we observe that, by definition, the immediate predecessor on Pj of an event e is necessarily the lastr(e, j) event.
+The intuitive meaning of the next lemma is the following: if e is a receive event receive(m), and pred(e) is not  relevant, the last relevant events in the relevant causal past of e are obtained by merging those of pred(e) and those of send(m) and by taking the latest on each process.
+It results from Lemmas 2 and 3 that, if e is a receive event (e = receive(m)), then determining e.IPi  involves information related to the event send(m).
+If pred(e) is relevant, as explained in the previous lemma, this event hides from e all its relevant causal past and becomes an immediate predecessor of e. Concerning the last relevant predecessors of send(m), only those that are not predecessors of pred(e) remain immediate predecessors of e. Lemma 2.
+The protocol described in Section 3.3 solves the IPT problem: for any relevant event e, the timestamp e.TS contains the identifiers of all its immediate  predecessors and no other event identifier. 
+In fact, the value of IPi just after an event e is used to determine the value succ(e).IPi.
+If e is not a receive event, IP(e) is equal to: ∅ if pred(e) = ⊥, {pred(e)} if pred(e) ∈ R, IP(pred(e)) if pred(e) ∈ R. The intuitive meaning of the next lemma is as follows: if e is a receive event receive(m), the causal paths arriving at e have either pred(e) or send(m) as next-to-last events.
+As recalled in Section 2.3, the knowledge of lastr(e,j) (for every e and every j) is based on the management of vectors V Ci.
+R1 Each time it produces a relevant event e: - Pi associates with e the timestamp e.TS defined as follows e.TS = {(k, V Ci[k]) | IPi[k] = 1}, - Pi increments its vector clock entry V Ci[i]  (namely it executes V Ci[i] := V Ci[i] + 1), - Pi resets IPi: ∀ = i : IPi[ ] := 0; IPi[i] := 1.
+Let e ∈ Hi be the receive event of a message m. If pred(e) ∈ Ri, then, ∀j, IP(e) ∩ Rj is equal to: IP(pred(e)) ∩ Rj if lastr(pred(e),j) > lastr(send(m),j), IP(send(m)) ∩ Rj if lastr(pred(e),j) < lastr(send(m),j) IP(pred(e))∩IP(send(m))∩Rj if lastr(pred(e),j) = lastr (send(m), j).
+R3 When it receives a message m from Pj , Pi executes the following updates: ∀k ∈ [1..n] : case V Ci[k] < m.V C[k] thenV Ci[k] := m.V C[k]; IPi[k] := m.IP[k] V Ci[k] = m.V C[k] then IPi[k] := min(IPi[k], m.IP[k]) V Ci[k] > m.V C[k] then skip endcase The proof of the following theorem directly follows from Lemmas 1, 2 and 3.
+The following lemmas show how the set of immediate  predecessors of an event is related to those of its predecessors in the relation hb →.
+The intuitive meaning of the first lemma is the following: if e is not a receive event, all the causal paths arriving at e have pred(e) as next-to-last event (see CP1).
+On a process where the last relevant events of pred(e) and of send(m) are the same event f, none of the paths from f to e must contain another relevant event, and thus, f must be immediate predecessor of both events pred(e) and send(m).
+So, the  immediate predecessors of e are either those of pred(e) or those of send(m).
+So, if pred(e) is a relevant event, all the relevant events belonging to its relevant causal past are separated from e by pred(e), and pred(e) becomes the only immediate predecessor of e. In other words, the event pred(e) constitutes a reset w.r.t.
+In particular, as stated in the Lemmas, the determination of succ(e).IPi depends on whether e is relevant or not.
+It follows from this definition that IP(e) ⊆ {lastr(e, j)|j = 1, .
+Let e ∈ Hi be the receive event of a message m. If pred(e) ∈ Ri, then, ∀j, IP(e) ∩ Rj is equal to: {pred(e)} if j = i, ∅ if lastr(pred(e),j) ≥ lastr(send(m),j), IP(send(m)) ∩ Rj if lastr(pred(e),j) < lastr(send(m),j).
+Second, for lastr(e, j) to be immediate predecessor of e, there must not be another lastr(e, k) event on a path between lastr(e, j) and e. These observations are formalized in the following definition: Definition 4.
+213 IP(e) of any event e depends on the sets IP of the events pred(e) and/or send(m) (when e = receive(m)).
+The timestamp associated with a relevant event e is denoted e.TS.
+3.3 A Basic IPT Protocol The basic protocol proposed here associates with each  relevant event e, an attribute encoding the set IP(e) of its immediate predecessors.
+, n) such that ∀k : lastr(e, j) ∈↑ (lastr(e, k)).
+The set of immediate  relevant predecessors of e (denoted IP(e)), is the set of the relevant events lastr(e, j) (j = 1, .
+It results from Lemma 1 that, if e is not a receive event, the current value of IPi is sufficient to determine e.IPi.
+To take into  account the information from pred(e), each process manages a boolean array IPi such that, ∀e ∈ Hi the value of IPi when e occurs (denoted e.IPi) is the boolean array  representation of the set IP(e).
+When we consider Figure 1, The graph  depicted in its right part describes the immediate predecessors of the relevant events of the computation defined in its left part, more precisely, a directed edge (e, f) means that the relevant event e is an immediate predecessor of the relevant event f (3 ).
+Thus, the set IP(e) is determined in the following way: IP(e) = {ey j | e.V Ci[j] = y ∧ e.IPi[j] = 1, j = 1, .
+More precisely, this information involves IP(send(m)) and the timestamp of send(m) (needed to compare the events lastr(send(m),j) and lastr(pred(e),j), for  every j).
+Thus, the value of IPi just after the occurrence of event e must  keep track of this event.
+3.2 Formal Properties of IPT In order to design a protocol solving the IPT problem, it is useful to consider the notion of immediate relevant  predecessor of any event, whether relevant or not.
+The Immediate Predecessor Tracking  (IPT) problem consists in associating with each relevant event e the set of relevant events that are its immediate  predecessors.
+R2 When Pi sends a message m to Pj, it attaches to m the current values of V Ci (denoted m.V C) and the boolean array IPi (denoted m.IP).
+Moreover, IPi must be updated upon the occurrence of each event.
+the set of immediate predecessors of e. On the other hand, if pred(e) is not relevant, it does not separate its relevant causal past from e. Lemma 1.
+The following protocol, previously presented in [4] without proof, ensures the correct management of arrays V Ci (as in Section 2.3) and IPi (according to the Lemmas of Section 3.2).
+More precisely, ∀j : IPi[j] = 1 ⇔ lastr(e, j) ∈ IP(e).
+3.1 The IPT Problem As indicated in the introduction, some applications (e.g., analysis of distributed executions [6], detection of  distributed properties [7]) require to determine (on-the-fly and  without additional messages) the transitive reduction of the  relation → (i.e., we must not consider transitive causal  dependency).
+So, both vectors send(m).V Cj and send(m).IPj (assuming send(m) produced by Pj ) are attached to message m. 2.
+Given two relevant events f and e, we say that f is an immediate predecessor of e if f → e and there is no relevant event g such that f → g → e. Definition 3.
+Then, some technical properties of immediate predecessors are stated and proved (Section 3.2).
+This IPT protocol, previously presented in [4] without proof, is built from a vector clock protocol by adding the  management of a local boolean array at each process.
+In this section, the Immediate Predecessor Tracking  (IPT) problem is stated (Section 3.1).
+, n} ⊂↑ (e).
+Hence the idea to introduce a data structure allowing to manage the sets IPs inductively on the poset (H, hb →).
+Let e ∈ Hi.
+, n} Each process Pi updates IPi according to the Lemmas 1, 2, and 3: 1.
+From the previous lemmas, the set 3 Actually, this graph is the Hasse diagram of the partial order associated with the distributed computation.
+As noted in the Introduction, the IPT problem is the  computation of the Hasse diagram associated with the partially ordered set of the relevant events produced by a distributed computation.
+Moreover, this has to be done on the fly and without additional control message (i.e., without modifying the  communication pattern of the computation).
+To ease the reading of the paper, their proofs are presented in Appendix A.
+R0 Initialization: Both V Ci[1..n] and IPi[1..n] are  initialized to [0, .
+These properties are used to design the basic IPT protocol and prove its correctness (Section 3.3).
+They will be used to design and prove the protocols solving the IPT problem.
+Lemma 3.
+Theorem 1.

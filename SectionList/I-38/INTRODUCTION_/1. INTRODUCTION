@@ -1,0 +1,48 @@
+Both the research and practice of combinatorial auctions
+have grown rapidly in the past ten years. In a 
+combinatorial auction bidders can place bids on combinations of
+items, called packages or bidsets, rather than just 
+individual items. Once the bidders place their bids, it is necessary
+to find the allocation of items to bidders that maximizes
+the auctioneer"s revenue. This problem, known as the 
+winner determination problem, is a combinatorial optimization
+problem and is NP-Hard [10]. Nevertheless, several 
+algorithms that have a satisfactory performance for problem
+sizes and structures occurring in practice have been 
+developed. The practical applications of combinatorial auctions
+include: allocation of airport takeoff and landing time slots,
+procurement of freight transportation services, procurement
+of public transport services, and industrial procurement [2].
+Because of their wide applicability, one cannot hope for a
+general-purpose winner determination algorithm that can
+efficiently solve every instance of the problem. Thus, 
+several approaches and algorithms have been proposed to 
+address the winner determination problem. However, most of
+the existing winner determination algorithms for 
+combinatorial auctions are centralized, meaning that they require
+all agents to send their bids to a centralized auctioneer who
+then determines the winners. Examples of these algorithms
+are CASS [3], Bidtree [11] and CABOB [12]. We believe that
+distributed solutions to the winner determination problem
+should be studied as they offer a better fit for some 
+applications as when, for example, agents do not want to reveal
+their valuations to the auctioneer.
+The PAUSE (Progressive Adaptive User Selection 
+Environment) auction [4, 5] is one of a few efforts to distribute
+the problem of winner determination amongst the bidders.
+PAUSE establishes the rules the participants have to adhere
+to so that the work is distributed amongst them. However,
+it is not concerned with how the bidders determine what
+they should bid.
+In this paper we present two algorithms, pausebid and
+cachedpausebid, which enable agents in a PAUSE 
+auction to find the bidset that maximizes their utility. Our
+algorithms implement a myopic utility maximizing strategy
+and are guaranteed to find the bidset that maximizes the
+agent"s utility given the outstanding best bids at a given
+time. pausebid performs a branch and bound search 
+completely from scratch every time that it is called. 
+cachedpausebid is a caching-based algorithm which explores fewer
+nodes, since it caches some solutions.
+694
+978-81-904262-7-5 (RPS) c 2007 IFAAMAS

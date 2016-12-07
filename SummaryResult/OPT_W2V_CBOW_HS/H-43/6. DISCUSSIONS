@@ -1,0 +1,18 @@
+Actually, squared loss does not precisely describe the underlying noise model, because the weights of adjacency matrix can only take nonnegative  values, in our case, zero or one only, and the components of  content matrix C can only take nonnegative integers.
+(9), we can obtain more interpretable results, which could be used for clustering. 
+LA(U, Z) = µh(A, ZUZ ), where h(A, B) =P i,j [1 − AijBij]+ .
+The values of the entries are the weights of linear model, instead of the probabilities of web pages belonging to latent  topics.
+Then the problem of Eq.
+Actually, we can use the idea of nonnegative matrix factorization for clustering [20] to directly cluster web pages.
+As the example with nonnegative constraints shown in Section 3, we represent each cluster by a latent topic, i.e.
+A entry of matrix Z means the relationship of a web page and a factor.
+The loss functions LA in Eq.
+(3) use squared loss due to computationally convenience.
+the dimensionality of the latent space is set to the number of clusters we want.
+Therefore, we allow the components take any possible real  values.
+(4) becomes min U,V,Z J (U, V, Z), s.t.Z ≥ 0.
+When we come to the clustering application, we can use this model to find Z, then apply K-means to partition the web pages into clusters.
+Therefore, we can apply other types of loss, such as hinge loss or smoothed hinge loss, e.g.
+In our paper, we mainly discuss the application of classification.
+(2) and LC in Eq.
+(9) Solving Eq.

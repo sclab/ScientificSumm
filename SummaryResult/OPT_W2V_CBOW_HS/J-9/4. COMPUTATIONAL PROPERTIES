@@ -1,0 +1,209 @@
+Note that, by Theorem 1, p∞ is exactly agent i"s conditional expectation of the value of f(x), given her final possibility set S∞ i .
+It is possible that the equilibrium price p∞ of the security F will not be either 0 or 1, and so we cannot infer the value of f(x) from it.
+, p∞ n ) is common knowledge, then it must be the case that p∞ 1 = p∞ 2 = · · · = p∞ n = E(F|x ∈ S∞ ) = p∞ In one round of our simplified Shapley-Shubik trading model, the announced price is the mean of the conditional expectations of the n agents.
+For any function f, trading in F may happen to converge to the true value of f(x) by coincidence if the prior  probability distribution is sufficiently degenerate.
+[21]) Suppose that, at  equilibrium, the n agents have a common prior, but possibly  different information, about the value of a random variable F, as described above.
+Consider the bids in round r. In our model, agent i will bid her current expectation for the value of F, br i = E(f(y) = 1|y ∈ Sr−1 , yi = xi).
+We now show that this bound is tight to within a factor of 2 by constructing a threshold function with 2n inputs and a prior distribution for which it takes n rounds to determine the value of f(x) in the worst case.
+We define a Boolean aggregate function f(x) : {0, 1}n → {0, 1} that we would like the market to compute.
+To do this, we construct a common prior P2 as follows: • The pair (x1, y1) takes on the values (0, 0), (0, 1), (1, 0), (1, 1) uniformly (i.e., with probability 1 4 each).
+Note that the function and distribution are  symmetric between x and y, and so the same argument shows that B1 will also bid 0.5 in the first round.
+First, observe that if p∞ is 0 or 1, then we must have f(x) = p∞ , regardless of the form of f. For instance, if p∞ = 1, this means that E(f(y)|y ∈ S∞ ) = 1.
+The mean is a stochastically regular function; hence, Theorem 1 shows that, at  equilibrium, all agents have identical conditional expectations of the payoff of the security.
+Hence, it follows that f(x) = 1 in this case.
+4.2 Characterizing computable aggregates We now give a necessary and sufficient characterization of the class of functions f such that, for any prior distribution on x, the equilibrium price of F will reveal the true value of f. We show that this is exactly the class of weighted threshold functions: Definition 3.
+Thus, depending on the value of xi, br i will take on one of two values h (0) i or h (1) i .
+It follows that the clearing price in round r is given by pr = 1 n n i=1 (h (0) i + dixi) (4) All the agents already know all the h (0) i and di values, and they observe the price pr at the end of the rth round.
+In this case, we show how to construct a prior P for which f(x) is not computed by the market.
+There is a function Cn with 2n inputs and a prior distribution Pn such that, in the worst case, the market takes n rounds to reveal the value of Cn(·).
+We use the notation Sr to denote the common-knowledge possibility set after round r, and Sr i to denote the set of states that agent i considers possible after round r. Initially, the only common knowledge is that the input vector x is in Ω; in other words, the set of states considered possible by an external observer before trading has occurred is the set S0 = Ω.
+All the agents also have a common prior probability distribution P : {0, 1}n → [0, 1] over the values of x.
+Now, suppose the aggregate function we want to compute is the XOR function, f(x) = x1 ⊕ x2.
+Now, suppose x1 turns out to be 1, and consider agent A1"s bid in the first round.
+Finally, the inductive assumption tells us that solving this residual problem will take at least n − 1 more rounds in the worst case and hence that finding the value of Cn(x, y) takes at least n rounds in the worst case.
+Now, consider a situation in which (xn, yn) takes on the value (1, 0) or (0, 1).
+2 The XOR function is one example of a function that  cannot be expressed as weighted threshold function; Example 1 illustrates Theorem 3 for this function.
+Note that h (0) i and h (1) i depend only on the set Sr−1 , which is common knowledge before round 161 r. Setting di = h (1) i − h (0) i , we can write br i = h (0) i + dixi.
+Thus, only a finite number of changes in each agent"s knowledge are possible, and so eventually we must converge to an equilibrium after which no player learns any further information.
+As trading proceeds, some possible states can be logically ruled out, but the relative likelihoods among the remaining states are fully determined by the prior P. So the common knowledge after any stage is completely described by the set of states that an external observer-with no  information beyond the sequence of prices observed-considers possible (along with the prior).
+Then, even if x2 and y2 are completely revealed by the first-round price, the value of C2(x1, x2, y1, y2) is not revealed: It will be 1 if x1 = y1 = 1 and 0 otherwise.
+The reason this occurs is that, under this distribution, the second carry bit C2 is statistically  independent of the first carry bit (x1 ∧ y1); we will use this trick again in the general construction.
+Thus, Equation (2) can be written as ∀i P(f(y) = 1|y ∈ S∞ , yi = xi) = p∞ (3) Now define J+ i = P(yi = 1|y ∈ S∞ , f(y) = 1) J− i = P(yi = 1|y ∈ S∞ , f(y) = 0) J+ = n i=1 wiJ+ i J− = n i=1 wiJ− i Because by assumption p∞ = 0, 1, both J+ i and J− i are well-defined (for all i): Neither is conditioned on a  zeroprobability event.
+A function g : n → is called  stochastically monotone if it can be written in the form g(x) = i gi(xi), where each function gi : → is strictly  increasing.
+We extend the distribution Pn−1 on (x−n , y−n ) to a distribution Pn on (x, y) by  specifying the conditional distribution of (xn, yn) given (x−n , y−n ): If Cn−1(x−n , y−n ) = 1, then (xn, yn) takes the values (0, 0), (0, 1), (1, 0), (1, 1) with  probabilities 1 2 , 1 6 , 1 6 , 1 6 respectively.
+Further, for any i such that 0 < x∗ i < 1, we have P(f(x) = 1|xi = 1) = P(f(x) = 1 ∧ xi = 1) P(xi = 1) = x∗ i 2 x∗ i = 1 2 and P(f(x) = 1|xi = 0) = P(f(x) = 1 ∧ xi = 0) P(xi = 0) = (1−x∗ i ) 2 (1 − x∗ i ) = 1 2 For indices i such that x∗ i is 0 or 1 exactly, i"s private  information reveals no additional information under prior P, and so here too we have P(f(x) = 1|xi = 0) = P(f(x) = 1|xi = 1) = 1 2 .
+2 Hence, we must also have J+ = J− .
+• We extend this to a distribution on (x1, x2, y1, y2) by specifying the conditional distribution of (x2, y2) given (x1, y1): If (x1, y1) = (1, 1), then (x2, y2) takes the values (0, 0), (0, 1), (1, 0), (1, 1) with probabilities 1 2 , 1 6 , 1 6 , 1 6 respectively.
+Informally, McKelvey and Page [19] show that, if n  people with common priors but different information about the likelihood of some event A agree about a suitable  aggregate of their individual conditional probabilities, then their individual conditional probabilities of event A"s occurring must be identical.
+It is given by b1 A1 = P(C2(x1, x2, y1, y2) = 1|x1 = 1)) = P(y1 = 1|x1 = 1) · P((x2, y2) = (0, 0)|x1 = 1, y1 = 1) +P(y1 = 0|x1 = 1) · P((x2, y2) = (1, 1)|x1 = 1, y1 = 0) = 1 2 · 1 2 + 1 2 · 1 2 = 1 2 On the other hand, if x1 turns out to be 0, agent A1"s bid would be given by b1 A1 = P(C2(x1, x2, y1, y2) = 1|x1 = 0)) = P((x2, y2) = (1, 1)|x1 = 0) = 1 2 Thus, irrespective of her bit, A1 will bid 0.5 in the first round.
+Otherwise, (xn, yn) takes the values (0, 0), (0, 1), (1, 0), (1, 1) with probabilities 1 6 , 1 6 , 1 6 , 1 2 respectively.
+, λm, such that the following constraints are  satisfied: ∀k zk ∈ {0, 1}n , and f(zk ) = 1 ∀k 0 < λk ≤ 1 m k=1 λk = 1 m k=1 λkzk = x∗ Similarly, because x∗ ∈ H− , there are points y1 , y2 , .
+, µl, such that ∀j yj ∈ {0, 1}n , and f(yj ) = 0 ∀j 0 < µj ≤ 1 l j=1 µj = 1 l j=1 µj yj = x∗ We now define our prior distribution P as follows: P(zk ) = λk 2 for k = 1, 2, .
+If she observes x1 = 0, her expectation of the value of F is the conditional probability that x2 = 1, which is also 1 2 .
+We also want the price to reveal the actual value of f(x).
+7 We assume that the common prior is consistent with x in the sense that it assigns a non-zero probability to the actual value of x.
+Note that x, and hence f(x), is completely determined by the combination of all the agents" information, but it is not known to any one agent.
+162 Proof of claim: A similar calculation to that used for C2 above shows that the value of Cn(x, y) under this  distribution is statistically independent of Cn−1(x−n , y−n ).
+Hence, after every round r, the knowledge of agent i is given by Sr i = {y ∈ Sr |yi = xi}.
+As f(·) can only take the values 0 or 1, it follows that P(f(y) = 1|y ∈ S∞ ) = 1.
+It follows that Cn(x, y) is statistically independent of xi as well.
+On the other hand, agents An and Bn do have different expectations of Cn(x) depending on whether their input bit is a 0 or a 1; thus, the first-round price does reveal whether neither, one, or both of xn and yn are 1.
+When xi = 0, observe that the argument of Case (i) can be used to prove that (1 − J+ i ) = (1 − J− i ).
+Observing that dim(S0 ) = n, and applying Lemma 1 to the first r − 1 rounds, we must have (r − 1) ≤ n. Thus, the price reaches its equilibrium value within n rounds.
+Thus, if the price is a suitable aggregate of the conditional  expectations of all the agents, then in equilibrium they must have identical conditional expectations of the event that the security will pay off.
+Suppose the prior probability distribution is uniform, i.e., x = (x1, x2) takes the values (0, 0), (0, 1), (1, 0), and (1, 1) each with probability 1 4 .
+In our context, this is achieved by announcing the current price at the end of each round; this will ultimately converge to a state in which all agents bid the same price p∞ .
+To this end, we design a market to trade in a Boolean security F, which will  eventually payoff $1 iff x1 ⊕ x2 = 1.
+Further, according to the construction of Pn, the event (xn+ yn = 1) has the same probability (1/3) for all values of (x−n , y−n ).
+In this case, we have P(f(y) = 1|y ∈ S∞ ) · J+ i P(f(y) = 1|y ∈ S∞) · J+ i + P(f(y) = 0|y ∈ S∞) · J− i = P(f(y) = 1|yi = 1, y ∈ S∞ ) (Bayes" law) p∞ J+ i p∞J+ i + (1 − p∞)J− i = p∞ (by Eqs.
+Agent 1 also gains no information from the first round of trading, and hence neither agent changes her bid in the following rounds.
+It immediately follows that J+ i = J− i as well.
+We characterize the set of Boolean functions that can be computed in our market model for all prior distributions and then prove upper and lower bounds on the worst-case convergence time for these markets.
+A function g : n → is called  stochastically regular if it can be written in the form g = h ◦ g , where g is stochastically monotone and h is invertible on the range of g .
+The function value is the value of the high-order carry bit when the binary numbers xnxn−1 · · · x1 and ynyn−1 · · · y1 are  added together.
+Bergin and Brandenburger [2] proved that this simple  definition of stochastically monotone functions is equivalent to the original definition in McKelvey-Page [19].
+By Theorem 1, we must have: P(f(y) = 1|y ∈ S∞ ) = p∞ (1) ∀i P(f(y) = 1|y ∈ S∞ i ) = p∞ (2) Recall that S∞ i = {y ∈ S∞ |yi = xi}.
+Then there exists a prior distribution P for which the price of the security F does not converge to the value of f(x).
+If agent 1 observes x1 = 1, she estimates the expected value of F to be the probability that x2 = 0 (given x1 = 1), which is 1 2 .
+In other words, the external observer knows the function price1 (x) that relates the first round price to the true state x.
+Otherwise, (x2, y2) takes the values (0, 0), (0, 1), (1, 0), (1, 1) with probabilities 1 6 , 1 6 , 1 6 , 1 2 respectively.
+It follows that the equilibrium 159 price p∞ must be exactly the conditional expectations of all agents at equilibrium.
+However, each agent i also knows the value of her bit xi; thus, her knowledge set S0 i is the set {y ∈ Ω|yi = xi}.
+In this section, we study the computational power of  information markets for a very simple class of aggregation  functions: Boolean functions of n variables.
+Also, by contruction of Pn, given the value of Cn−1, the  distribution of Cn is independent of xi.
+However, the equilibrium price of the security F does not reveal the value of f(x1, x2), even though the combination of agents" information is enough to determine it precisely.
+Suppose f : {0, 1}n → {0, 1} cannot be  expressed as a weighted threshold function.
+, Pn by inductively applying the following rule: • Let x−n denote the vector (x1, x2, .
+Thus, in the first round, for all i = 1, 2, .
+We can assume that J− i and J+ i are not both 0 (or else, the claim is trivially true).
+So an omniscient 6 Risk neutrality implies that each agent"s utility for the  security is linearly related to his or her subjective estimation of the expected payoff of the security.
+In Section 4.3, we address the natural follow-up question, by deriving upper and lower bounds on the worst-case  number of rounds of trading required for the value of f(x) to be revealed.
+It is well known that f is expressible as a weighted threshold function iff there is a hyperplane in n that separates all the points at which f has value 0 from all the points at which f has value 1.
+Theorem 1 does not in itself say how the equilibrium is reached.
+Thus, the price p1 announced at the end of the first round reveals no  information about x1 or y1.
+Proof: We prove the theorem by induction on n. The base case for n = 2 has already been shown to be true.
+Thus, in either case, agent 1 will bid 0.5 for F in the first round.
+Agent i"s first-round bid is her conditional expectation of the event f(x) = 1 given that x ∈ S0 i .
+The clearing price of 0.5 also reveals no additional information, and so this is an equilibrium with price p∞ = 0.5 that does not reveal the value of f(x).
+The actual value x is always in the final possibility set S∞ , and, furthermore, it must have non-zero prior probability, because it actually occurred.
+Hence, it is enough to show that, if f is a weighted  threshold function, then p∞ is either 0 or 1.
+Procedurally, this occurs because the agents learn from the markets: The price of the security conveys information to each agent about the knowledge of other agents.
+For a set S ⊆ {0, 1}n , the dimension of set S is the dimension of the smallest linear subspace of n that contains all the points in S; we use the notation dim(S) to denote it.
+Proof: Let S∞ i denote the possibility set of agent i at equilibrium.
+Example 1: Consider two agents 1 and 2 with private input bits x1 and x2 respectively.
+Let f(·) be a weighted threshold function  corresponding to weights {wi}, and assume that 0 < p∞ < 1.
+McKelvey and Page, extending an argument due to Geanakoplos and Polemarchakis [10], show that repeated announcement of the aggregate will eventually result in  common knowledge of the aggregate.
+If Sr is not equal to Sr−1 , this intersection defines a linear subspace of dimension (k − 1) that contains Sr , and hence Sr has dimension at most (k − 1).
+If f is a weighted threshold function, then, for any prior probability distribution P, the equilibrium price of F is equal to f(x).
+Thus, we have shown that at least 2 rounds of trading will be required to reveal the function value in this case.
+Hence, regardless of her private bit xi, each agent i will bid 0.5 for security F in the first round.
+This implies J− = J+ , which leads to a contradiction.
+All the agents" bids are processed, and the clearing price p1 is announced.
+This means that, if f is not expressible as a weighted threshold function, H+ and H− must intersect.
+Myopic behavior means that agents treat each round as if it were the final round: They do not reason about how their bids may affect the bids of other agents in future rounds.
+Let Ω = {0, 1}n be the set of possible values of x; we say that Ω denotes the set of possible states of the world.
+The function Cn takes 2n inputs; for convenience, we write the inputs as x1, x2 .
+Of course, he does not know the value of x; however, he can rule out any vector x that would have resulted in a different clearing price from the observed price p1 .
+Let f be a weighted threshold function, and let P be an arbitrary prior probability distribution.
+The agents trade in a Boolean security F, which pays off $1 if f(x) = 1 and $0 if f(x) = 0.
+There is a strong connection to rational expectation equilibria in markets, which was noted in the original McKelvey-Page paper: The market price of a  security is common knowledge at the point of equilibrium.
+More  interestingly, we would like to know for which functions f does the price of the security F always converge to f(x) for all prior probability distributions P.7 In Section 4.2, we prove a  necessary and sufficient condition that guarantees convergence.
+We show that, in this case, after one round we are left with the residual problem of computing the value of Cn−1(x−n , y−n ) under the prior Pn−1.
+4.3 Convergence time bounds We have shown that the class of Boolean functions  computable in our model is the class of weighted threshold  functions.
+Similarly, the knowledge of agent i at any point is also completely described by the set of states she considers possible.
+We first illustrate our technique by proving that  computing C2 requires 2 rounds in the worst case.
+In other words, after r rounds, the common knowledge set Sr is the intersection of Sr−1 with the hyperplane defined by  Equation (4).
+, Bn, where Ai holds input bit xi, and Bi holds input bit yi.
+An identical argument shows that if p∞ = 0, f(x) = 0.
+Hence, the first round of trading ends with a clearing price of 0.5.
+Then, after at most n rounds of trading, the price reaches its  equilibrium value p∞ = f(x).
+158 agent with access to all the agents" bits would know the true value of security F-either exactly $1 or exactly $0.
+, xn) of inputs.
+Let p∞ denote the clearing price at equilibrium.
+Now, suppose that (x2, y2) is either (0, 1) or (1, 0).
+Thus, the common knowledge after round 1 is the set S1 = {y ∈ S0 | price1 (y) = p1 }.
+In  reality, risk-neutral agents with limited information will value F according to their expectation of its payoff, or Ei[f(x)], where Ei is the expectation operator applied according to agent i"s probability distribution.
+Now, consider the sets H+ = Conv(f−1 (1)) and H− = Conv(f−1 (0)), where Conv(S) denotes the convex hull of S in n .
+As before, we use p∞ to denote the final trading price at this point.
+Agent i knows the  common knowledge and, in addition, knows the value of bit xi.
+We analyze this problem using the same  simplified Shapley-Shubik model of market clearing in each round.
+But using linearity of expectation, we can also write J+ as J+ = E n i=1 wiyi y ∈ S∞ , f(y) = 1 , 160 and, because f(y) = 1 only when i wiyi ≥ 1, this gives us J+ ≥ 1.
+For i < n, xi can affect the value of Cn only through Cn−1.
+Thus, the market reaches equilibrium at this point.
+Thus, they effectively have a linear equation in x1, x2, .
+4.1 Equilibrium price characterization Our analysis builds on a characterization of the  equilibrium price of F that follows from a powerful result on  common knowledge of aggregates due to McKelvey and Page [19], later extended by Nielsen et al.
+As predicted by Theorem 1, both agents have the same conditional expectation (0.5) at equilibrium.
+The information structure we assume is as follows: There are n agents, and each agent i has a single bit of private  information xi.
+If g is a stochastically regular function and g(p∞ 1 , p∞ 2 , .
+We use x to denote the vector (x1, .
+We can model the flow of information through prices as follows.
+For all i, let p∞ i = E(F|x ∈ S∞ i ).
+Then, the rth round of trading does not improve any agent"s knowledge, and thus we must have S∞ = Sr−1 and p∞ = pr−1 .
+We prove this by  contradiction.
+Under this distribution P, first observe that P(f(x) = 1) = 1 2 .
+We now extend this construction to show by induction that the function Cn takes n rounds to reach an equilibrium in the worst case.
+A function f : {0, 1}n → {0, 1} is a  weighted threshold function iff there are real constants w1, w2, .
+Thus, if he knew the value of x, he could predict the value of p1 .
+Claim: Under distribution Pn, for all i < n, P(Cn(x, y) = 1|xi = 1) = P(Cn(x, y) = 1|xi = 0).
+Case (i): xi = 1.
+Similarly, agent 2 will also always bid 0.5 in the first round.
+From this, agent 2 can infer that agent 1 bid 0.5, but this gives her no information about the value of x1-it is still equally likely to be 0 or 1.
+H+ and H− are convex sets in n , and so, if they do not intersect, we can find a separating hyperlane between them.
+Clearly, when xn + yn = 1, Cn(x, y) = Cn−1(x−n , y−n ).
+Information markets aim to aggregate the knowledge of all the agents.
+In weighted threshold form, this can be written as Cn(x, y) = 1 iff n i=1 xi + yi 2n+1−i ≥ 1.
+., and show that, until the market reaches equilibrium, each set has a strictly lower dimension than the previous set.
+We use S∞ to denote the common knowledge at this point, and S∞ i to denote agent i"s knowledge at this point.
+Proof of claim: We consider the two cases xi = 1 and xi = 0 separately.
+For this proof, let us call the agents A1, A2, .
+1 and 3) J+ i = p∞ J+ i + (1 − p∞ )J− i =⇒ J+ i = J− i (as p∞ = 1) Case (ii): xi = 0.
+In our context, the following simple theorem statement suffices; more general versions of this theorem can be found in [19, 21].
+Of course, a similar result holds for yi by symmetry.
+An external observer could predict agent i"s bid if he knew the value of xi.
+We first prove that, in the worst case, at most n rounds are required.
+The functions we use are the carry-bit functions.
+, yl and constants µ1, µ2, .
+, wn such that f(x) = 1 iff n i=1 wixi ≥ 1 Theorem 2.
+Thus, the first-round price does not reveal any information about the value of (x−n , y−n ).
+Note that, because knowledge can only improve over time, we must always have Sr i ⊆ Sr−1 i and Sr ⊆ Sr−1 .
+However, reaching an equilibrium price is not sufficient for the purposes of information aggregation.
+We can now state the McKelvey-Page result, as generalized by Nielsen et al.
+Consider the Boolean hypercube {0, 1}n as a set of points in n .
+Proof: Let k = dim(Sr−1 ).
+Proof: We start from a geometric characterization of  weighted threshold functions.
+The next natural question to ask is: How many rounds of trading are necessary before the equilibrium is reached?
+It follows that Sr is contained in the intersection of this hyperplane with the k-dimension linear space containing Sr−1 .
+2 Theorem 4 provides an upper bound of O(n) on the  number of rounds required for convergence.
+, n − 1, the bids of agents Ai and Bi do not reveal anything about their private information.
+Similarly, J− = E n i=1 wiyi y ∈ S∞ , f(y) = 0 , and thus J− < 1.
+1 and 3 imply that J+ i = J− i , for all i.
+The prior P defines everyone"s initial belief about the likelihood of each state.
+If Sr = Sr−1 , then dim(Sr ) < dim(Sr−1 ).
+It is easy to see that this is a valid probability distribution.
+, xn that they use to improve their knowledge by ruling out any  possibility that would not have resulted in price pr .
+The idea of the proof is to consider the sequence of  common knowledge sets Ω = S0 , S1 , .
+(Note that their information may still be different.)
+Thus, conditioning on this fact does not alter the probability distribution over (x−n , y−n ); it must still be Pn−1.
+, yn or as a pair (x, y).
+, l, and all other points are assigned probability 0.
+, xn−1), and  define y−n similarly.
+, xn, y1, y2, .
+2 Perhaps surprisingly, the converse of Theorem 2 also holds: Theorem 3.
+Let x∗ ∈ n be a point in H+ ∩ H− .
+., and let r be the minimum index such that Sr = Sr−1 .
+Theorem 1.
+(The precise definition of suitable is described below.)
+Proof: Consider the sequence of common knowledge sets S0 , S1 , .
+Because x∗ is in H+ , there exists some points z1 , z2 , .
+, m P(yj ) = µj 2 for j = 1, 2, .
+Lemma 1.
+Starting from the distribution P2 described above, we construct the distributions P3, P4, .
+2 Theorem 4.
+Theorem 5.
+Definition 1.
+, An, B1, B2, .
+Claim: Eqs.
+, zm and constants λ1, λ2, .
+Definition 2.
+Definition 4.
+(Nielsen et al.

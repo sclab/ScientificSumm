@@ -1,0 +1,64 @@
+Using this LP as a basis, we augment it with constraints that ensure that the resource usage implied by the agents" occupation measures {xm} does not violate the global  resource requirements bϕ at any time step τ ∈ [0, bτ].
+This constraint is not used for the dynamic problem formulation, where resources can be reallocated between agents at every time step.
+Our approach is similar to the idea used in [6]: we  begin with the linear-program formulation of agents" MDPs (1) and augment it with constraints that ensure that the corresponding resource allocation across agents and time is valid.
+The meaning of the activity  indicators θ is illustrated in Figure 2b: when agent m is in either the start state sb or the finish state sf , the corresponding θm = 0, but once the agent becomes active and enters one of the other states, we set θm = 1 .
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1223 (a) (b) Figure 2: Illustration of augmenting an MDP to allow for variable starting and stopping times: a) (left) the original two-state MDP with a single action; (right) the augmented MDP with new states sb and sf and the new action a∗ (note that the origianl transitions are not changed in the augmentation process); b) the augmented MDP displayed as a trajectory through time (grey lines indicate all transitions, while black lines indicate a given trajectory.
+The meaning of resource-usage variables Δ is illustrated in Figure 1: Δm(τ, ω) = 1 only if resource ω is allocated to agent m at time τ.
+To  formulate these resource constraints, we use the following binary variables: • Δm(τ, ω) = {0, 1}, ∀m ∈ M, τ ∈ [0, bτ], ω ∈ Ω, which serve as indicator variables that define whether agent m possesses resource ω at time τ.
+To summarize, Table 1 together with the  conservationof-flow constraints from (12) defines the MILP that  simultaneously computes an optimal resource assignment for all agents across time as well as optimal finite-horizon MDP policies that are valid under that resource assignment.
+In the absence of resource constraints, the agents"  finitehorizon MDPs are completely independent, and the globally optimal solution can be trivially obtained via the following LP, which is simply an aggregation of single-agent  finitehorizon LPs: max X m X s X a rm(s, a) X t xm(s, a, t) subject to: X a xm(σ, a, t + 1) = X s,a pm(σ|s, a)xm(s, a, t), ∀m ∈ M, σ ∈ S, t ∈ [1, Tm − 1]; X a xm(s, a, 1) = αm(s), ∀m ∈ M, s ∈ S; (12) where xm(s, a, t) is the occupation measure of agent m, and The Sixth Intl.
+As a rough measure of the complexity of this MILP, let us consider the number of optimization variables and  constraints.
+θm(τ) = 0 =⇒ xm(s, a, τ −τa m+1) = 0 ∀s /∈ {sb , sf }, a ∈ A X s/∈{sb,sf } X a xm(s, a, t) ≤ θm(τa m + t − 1) ∀m ∈ M, ∀t ∈ [1, Tm] (6) Agent can only be active in τ ∈ (τa m, τd m) θm(τ) = 0 ∀m ∈ M, τ /∈ (τa m, τd m) (7) Cannot use resources when not active θm(τ) = 0 =⇒ Δm(τ, ω) = 0 ∀τ ∈ [0, bτ], ω ∈ Ω Δm(τ, ω) ≤ θm(τ) ∀m ∈ M, τ ∈ [0, bτ], ω ∈ Ω (8) Tie x to Δ (nonzero x forces corresponding Δ to be nonzero.)
+Δm(τ, ω) = 0, ϕm(a, ω) = 1 =⇒ xm(s, a, τ − τa m + 1) = 0 ∀s /∈ {sb , sf } 1/|A| X a ϕm(a, ω) X s/∈{sb,sf } xm(s, a, t) ≤ Δm(t + τa m − 1, ω) ∀m ∈ M, ω ∈ Ω, t ∈ [1, Tm] (9) Resource bounds X m Δm(τ, ω) ≤ bϕ(ω) ∀ω ∈ Ω, τ ∈ [0, bτ] (10) Agent cannot change resources while  active.
+θm(τ) = 1 and θm(τ + 1) = 1 =⇒ Δm(τ, ω) = Δm(τ + 1, ω) Δm(τ, ω) − Z(1 − θm(τ + 1)) ≤ Δm(τ + 1, ω) + Z(1 − θm(τ)) Δm(τ, ω) + Z(1 − θm(τ + 1)) ≥ Δm(τ + 1, ω) − Z(1 − θm(τ)) ∀m ∈ M, ω ∈ Ω, τ ∈ [0, bτ] (11) Table 1: MILP for globally optimal resource scheduling.
+More precisely, given an MDP S, A, pm, rm, αm , we  define an augmented MDP S , A , pm, rm, αm as follows: S = S ∪ sb ∪ sf ; A = A ∪ a∗ ; p (s|sb , a∗ ) = α(s), ∀s ∈ S; p (sb |sb , a) = 1.0, ∀a ∈ A; p (sf |s, a∗ ) = 1.0, ∀s ∈ S; p (σ|s, a) = p(σ|s, a), ∀s, σ ∈ S, a ∈ A; r (sb , a) = r (sf , a) = 0, ∀a ∈ A ; r (s, a) = r(s, a), ∀s ∈ S, a ∈ A; α (sb ) = 1; α (s) = 0, ∀s ∈ S; where all non-specified transition probabilities are assumed to be zero.
+The idea is that an agent stays in the start state sb until it is ready to execute its MDP, at which point it performs the start/stop action a∗ and transitions into the state space of the original MDP with the transition  probability that corresponds to the original initial distribution α(s).
+For example, in the problem shown in Figure 1a, agent m1 releases all resources after time τ = 3, at which point the execution of its MDP is halted.
+4.2 MILP for Resource Scheduling Given a set of augmented MDPs, as defined above, the goal of this section is to formulate a global optimization  program that solves the resource-scheduling problem.
+Finally, for the problem formulation where resource  assignments are static during a lifetime of an agent, we add a constraint that ensures that the resource-usage variables Δ do not change their value while the agent is active (θ = 1).
+Once the agent gets to the end of its activity window (time τ = 6 for agent m2 in Figure 1a), it performs the start/stop action, which takes it into the sink finish state sf at time τ = 7.
+Agent is only active when  occupation measure is nonzero in original MDP states.
+This is accomplished via the linear constraint (11), where Z ≥ 2 is a constant that is used to turn off the constraints when θm(τ) = 0 or θm(τ + 1) = 0.
+Despite the fact that the complexity of the MILP is, in the worst case, exponential1 in the number of binary variables, the complexity of this MILP is significantly (exponentially) lower than that of the MILP with flat utility functions,  described in Section 2.2.
+Therefore, an important part of the global decision-making problem is to decide the window of time during which each of the agents is active (i.e., executing its MDP).
+To accomplish this, we augment each agent"s MDP with two new states (start and finish states sb , sf ,  respectively) and a new start/stop action a∗ , as illustrated in Figure 2.
+Constraint (6) sets the value of θ to match the policy defined by the occupation measure xm.
+For example, the augmented MDPs shown in Figure 2b (which starts in state sb at time τ = 2) would be constructed from an MDP with original arrival time τ = 3.
+These are analogous to the static indicator variables used in the one-shot static resource-allocation problem in [6].
+Note that if we wanted to model a problem where agents could pause their MDPs at arbitrary time steps (which might be useful for domains where dynamic reallocation is  possible), we could easily accomplish this by including an extra action that transitions from each state to itself with zero reward.
+The number of constraints (not including the degenerate constraints in (7)) in the MILP is: TM + TM|Ω| + bτ|Ω| + bτ|M||Ω|.
+• θm = {0, 1}, ∀m ∈ M, τ ∈ [0, bτ] are indicator variables that specify whether agent m is active (i.e., executing its MDP) at time τ.
+Figure 2b also shows a sample trajectory through the state space: the agent starts in state sb , transitions into the state space S of the original MDP, and finally exists into the sink state sf .
+This meaning of θ can be enforced with a linear constraint that synchronizes the  values of the agents" occupation measures xm and the activity 1224 The Sixth Intl.
+In a similar fashion, we have to make sure that the resource-usage variables Δ are also synchronized with the occupation measure xm.
+In this section and below, all MDPs are assumed to be the  augmented MDPs as defined in Section 4.1.
+Similarly, agents m2 and m3 only execute their MDPs in the intervals τ ∈ [4, 6] and τ ∈ [4, 10], respectively.
+Another constraint we have to add-because the activity indicators θ are defined on the global timeline τ-is to  enforce the fact that the agent is inactive outside of its  arrivaldeparture window.
+The resulting optimization problem then  simultaneously solves the agents" MDPs and resource-scheduling  problems.
+First, we perform a preprocessing step that augments the agent MDPs; this process is described in Section 4.1.
+4.1 Augmenting Agents" MDPs In the model described in the previous section, we assume that if an agent does not possess the necessary resources to perform actions in its MDP, its execution is halted and the agent leaves the system.
+Further, in order to account for the new starting state, we begin the MDP one time-step earlier, setting τa m ← τa m − 1.
+Then, the number of optimization variables is: TM + bτ|M||Ω| + bτ|M|, TM of which are continuous (xm), and bτ|M||Ω| + bτ|M| are binary (Δ and θ).
+This will not affect the resource allocation due to the resource constraints only being enforced for the original MDP states, as will be discussed in the next section.
+Second, using these augmented MDPs we construct a global optimization problem, which is described in Section 4.2.
+This constraint can also be enforced via a linear inequality on θ and Δ, as shown in (8).
+Objective Function (sum of expected rewards over all agents) max X m X s X a rm(s, a) X t xm(s, a, t) (5) Meaning Implication Linear Constraints Tie x to θ.
+After implementing the above constraint, which enforces the meaning of Δ, we add a constraint that ensures that the agents" resource usage never exceeds the amounts of  available resources.
+This result echos the efficiency gains reported in [6] for single-shot resource-allocation problems, but is much more pronounced, because of the explosion of the flat utility representation due to the temporal aspect of the problem (recall the prohibitive complexity of the  combinatorial optimization in Section 2.2).
+1 Strictly speaking, solving MILPs to optimality is  NPcomplete in the number of integer variables. 
+Tm = τd m − τa m + 1 is the time horizon for the agent"s MDP.
+However, notice that all but TM|M| of the θ are set to zero by constraint (7), which also  immediately forces all but TM|M||Ω| of the Δ to be zero via the constraints (8).
+Only enabled for scheduling with static assignments.
+In the rest of this section, we incrementally develop a mixed integer program (MILP) that achieves this.
+This is accomplished by constraint (7) in Table 1.
+This is done via constraint (9) in Table 1, which is nearly identical to the analogous constraint from [6].
+For example, in Figure 1a, for agent m2 this would happen at time τ = 4.
+Let TM = P Tm = P m(τa m − τd m + 1) be the sum of the lengths of the arrival-departure windows across all agents.
+Furthermore, agents should not be using resources while they are inactive.
+This condition is also trivially expressed as a linear inequality (10) in Table 1.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) indicators θ, as shown in (6) in Table 1.
+In other words, the MDPs cannot be paused and resumed.
+Our resource-scheduling algorithm proceeds in two stages.
+We empirically analyze the performance of this method in Section 5.
+Joint Conf.
+Joint Conf.

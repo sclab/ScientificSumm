@@ -1,0 +1,59 @@
+The rating p1 (Tom → Star Wars) makes a connection from Tom to other ratings that can be used to predict Tom"s rating for The Mask.
+An item-based collaborative filtering algorithm  constructs a neighborhood of movies around The Mask by using the ratings of users who rated The Mask and other movies similarly (e.g., Jim"s ratings of The Matrix and The Mask; and Jeff"s ratings of Star Wars and The Mask).
+Each of these roles has a value in the recommender to the user, the user"s neighborhood, and the system in terms of allowing recommendations to be made.
+3.1 Roles in Detail Ratings that act as scouts tend to help the recommender system suggest more movies to the user, though the extent to which this is true depends on the rating behavior of other users.
+Beside the fact that Jim rated these movies, these recommendations are possible only because of the ratings Jim → The Matrix and Jim → The Mask, which are the best connectors.
+A rating can be part of many paths for a single prediction as shown in Fig.
+We conclude that a good promoter connects an item to a broader neighborhood of other items, and thereby ensures that it is recommended to more users.
+Formally, given a prediction pu,a of a target item a for user u, a scout for pu,a is a rating ru,i such that there exists a user v with ratings rv,a and rv,i for some item i; a promoter for pu,a is a rating rv,a for some user v, such that there exist ratings rv,i and ru,i for an item i, and; a connector for pu,a 252 Jim Tom Jeff Jerry My Cousin Vinny The Matrix Star Wars The Mask Jurasic Park Figure 4: Scouts, promoters, and connectors.
+The scouts, connectors, and promoters for the prediction of Tom"s rating of The Mask are p1 and q1, p2 and q2, and p3 and q3 (respectively).
+is a rating rv,i by some user v and rating i, such that there exists ratings ru,i and rv,a.
+3, where three paths are used for a prediction, two of which follow p1: (p1, p2, p3) and (p1, r2, r3).
+As illustrated here, a rating can have different value in each of the three roles in terms of whether a recommendation can be made or not.
+Tom"s ratings of those movies are then used to make a prediction for The Mask.
+The rating p2 (Jeff → Star Wars) helps the system  recommend The Mask to Tom by connecting the scout to the promoter.
+A user-based collaborative filtering algorithm would construct a neighborhood around Tom by tracking other users whose rating behaviors are similar to Tom"s (e.g., Tom and Jeff have rated Star Wars; Tom and Jim have rated The Matrix).
+This suggests that good scouts allow a user to build similarity with prolific users, and thereby ensure they get more from the system.
+Note that every rating can be of varied benefit in each of these roles.
+Jim Tom Jeff The Matrix Star Wars The Mask q1 q2 q3 p1 p2 p3 Jerry r2 r3 Figure 3: Prediction of The Mask for Tom in which a rating is used more than once.
+Since every prediction is a combined effort of several recommendation paths, we are interested in discerning the influence of each rating (and, hence, each path) in the system towards the system"s overall error.
+While scouts represent beneficial ratings from the  perspective of a user, promoters are their duals, and are of benefit to items.
+His rating of The Mask is the best scout for Jeff, and Jerry"s only scout is his rating of Star Wars.
+2 used to make a prediction of The Mask for Tom: 1.
+We could measure this value by simply counting the number of times a rating is used in each role, which alone would be  helpful in characterizing the behavior of a system.
+But we can also measure the contribution of each rating to the quality of recommendations or health of the system.
+Finally, the rating Jerry → Star Wars is a very good scout, but is of no value as a connector or promoter.
+In Jim Tom Jeff The Matrix Star Wars The Mask q1 q2 q3 p1 p2 p3 Figure 2: Ratings used to predict The Mask for Tom.
+The next section describes the approach to measuring the values of a rating in each role. 
+Tom makes a connection to Jim who is a prolific user of the system, by rating The Matrix.
+Our basic observation is that each rating plays a  different role in each prediction in which it is used.
+The rating Jim → The Mask is a reasonably good scout, a very good connector, and a good promoter.
+Consider a simplified movie recommender system with three users Jim, Jeff, and Tom and their ratings for a few movies, as shown in Fig.
+So, irrespective of the collaborative filtering  algorithm used, we can visualize the prediction of Tom"s rating of The Mask as walking through a sequence of ratings.
+(For this initial discussion we will not consider the rating values involved.)
+Each prediction path  consists of three ratings, playing roles that we call scouts,  promoters, and connectors.
+The rating p3 (Jeff → The Mask) allows connections to The Mask, and, therefore, promotes this movie to Tom.
+Although the nearest-neighbor algorithms aggregate the  ratings to form neighborhoods used to compute predictions, we can disaggregate the similarities to view the computation of a prediction as simultaneously following parallel paths of ratings.
+The recommender predicts whether Tom will like The Mask using the other already available ratings.
+Only the order in which the ratings are traversed is different between the item-based algorithm (e.g., (p3, p2, p1), (q3, q2, q1)) and the user-based algorithm (e.g., (p1, p2, p3), (q1, q2, q3).)
+The rating Jim → My Cousin Vinny is a poor scout and connector, but is a very good promoter.
+We can understand the dynamics of the system at a finer granularity by tracking the influence of a rating according to the role played.
+This rating serves as a scout in the bipartite graph of ratings to find a path that leads to The Mask.
+this example, two paths were used for this prediction as  depicted in Fig.
+4 the rating Tom → Star Wars helps the system recommend only The Mask to him, while Tom → The Matrix helps recommend The Mask, Jurassic Park, and My Cousin Vinny.
+Predictions in a collaborative filtering algorithms may  involve thousands of such walks in parallel, each playing a part in influencing the predicted value.
+The prediction of Tom"s rating for The Mask is then based on the ratings of Jeff and Tim.
+The movies My Cousin Vinny and Jurassic Park have the highest recommendation potential since they can be recommended to Jeff, Jerry and Tom based on the linkage structure illustrated in Fig.
+To illustrate these roles, consider the path (p1, p2, p3) in Fig.
+For example, Jim is benefited equally by both The Mask and The Matrix, which allow the system to recommend Star Wars to him.
+2: (p1, p2, p3) and (q1, q2, q3).
+The Mask is not so dependent on just one rating, since the ratings by Jim and Jeff help it.
+For example, in Fig.
+A  connector improves the system"s ability to make recommendations with no explicit gain for the user.
+However, this does not make The Matrix the best movie to rate for everyone.
+How this is done depends on the algorithm: 1.
+Connectors serve a crucial role in a recommender system that is not as obvious.
+On the other hand, Jerry"s rating of Star Wars does not help promote it to any other user.
+4, My Cousin Vinny benefits from Jim"s rating, since it allows recommendations to Jeff and Tom.
+Note that these paths are undirected, and are all of length 3.
+In Fig.

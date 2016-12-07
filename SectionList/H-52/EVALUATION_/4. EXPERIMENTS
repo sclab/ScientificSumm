@@ -1,0 +1,245 @@
+4.1 Experimental setup
+Our corpus consists of the evaluation set provided by NIST
+for the STD 2006 evaluation [1]. It includes three 
+different source types in US English: three hours of broadcast
+news (BNEWS), three hours of conversational telephony
+speech (CTS) and two hours of conference room meetings
+(CONFMTG). As shown in Section 4.2, these different 
+collections have different accuracies. CTS and CONFMTG are
+spontaneous speech. For the experiments, we have processed
+the query set provided by NIST that includes 1100 queries.
+Each query is a phrase containing between one to five terms,
+common and rare terms, terms that are in the manual 
+transcripts and those that are not. Testing and determination
+of empirical values have been achieved on another set of
+speech data and queries, the development set, also provided
+by NIST.
+We have used the IBM research prototype ASR system,
+described in [26], for transcribing speech data. We have
+produced WCNs for the three different source types. 1-best
+phonetic transcripts were generated only for BNEWS and
+CTS, since CONFMTG phonetic transcripts have too low
+accuracy. We have adapted Juru [7], a full-text search 
+library written in Java, to index the transcripts and to store
+the timestamps of the words and phones; search results have
+been retrieved as described in Section 3.
+For each found occurrence of the given query, our system
+outputs: the location of the term in the audio recording
+(begin time and duration), the score indicating how likely
+is the occurrence of query, (as defined in Section 3.4) and a
+hard (binary) decision as to whether the detection is 
+correct. We measure precision and recall by comparing the
+results obtained over the automatic transcripts (only the 
+results having true hard decision) to the results obtained over
+the reference manual transcripts. Our aim is to evaluate the
+ability of the suggested retrieval approach to handle 
+transcribed speech data. Thus, the closer the automatic results
+to the manual results is, the better the search effectiveness
+over the automatic transcripts will be. The results returned
+from the manual transcription for a given query are 
+considered relevant and are expected to be retrieved with highest
+scores. This approach for measuring search effectiveness 
+using manual data as a reference is very common in speech
+retrieval research [25, 22, 8, 9, 17].
+Beside the recall and the precision, we use the evaluation
+measures defined by NIST for the 2006 STD evaluation [2]:
+the Actual Term-Weighted Value (ATWV) and the 
+Maximum Term-Weighted Value (MTWV). The term-weighted
+value (TWV) is computed by first computing the miss and
+false alarm probabilities for each query separately, then 
+using these and an (arbitrarily chosen) prior probability to
+compute query-specific values, and finally averaging these
+query-specific values over all queries q to produce an overall
+system value:
+TWV (θ) = 1 − averageq{Pmiss(q, θ) + β × PF A(q, θ)}
+where β = C
+V
+(Pr−1
+q − 1). θ is the detection threshold. For
+the evaluation, the cost/value ratio, C/V , has been 
+determined to 0.1 and the prior probability of a query Prq to
+10−4
+. Therefore, β = 999.9.
+Miss and false alarm probabilities for a given query q are
+functions of θ:
+Pmiss(q, θ) = 1 −
+Ncorrect(q, θ)
+Ntrue(q)
+PF A(q, θ) =
+Nspurious(q, θ)
+NNT (q)
+corpus WER(%) SUBR(%) DELR(%) INSR(%)
+BNEWS WCN 12.7 49 42 9
+CTS WCN 19.6 51 38 11
+CONFMTG WCN 47.4 47 49 3
+Table 1: WER and distribution of the error types over word 1-best path extracted from WCNs for the
+different source types.
+where:
+• Ncorrect(q, θ) is the number of correct detections 
+(retrieved by the system) of the query q with a score
+greater than or equal to θ.
+• Nspurious(q, θ) is the number of spurious detections of
+the query q with a score greater than or equal to θ.
+• Ntrue(q) is the number of true occurrences of the query
+q in the corpus.
+• NNT (q) is the number of opportunities for incorrect
+detection of the query q in the corpus; it is the 
+NonTarget query trials. It has been defined by the 
+following formula: NNT (q) = Tspeech − Ntrue(q). Tspeech
+is the total amount of speech in the collection (in 
+seconds).
+ATWV is the actual term-weighted value; it is the 
+detection value attained by the system as a result of the system
+output and the binary decision output for each putative 
+occurrence. It ranges from −∞ to +1. MTWV is the 
+maximum term-weighted value over the range of all possible
+values of θ. It ranges from 0 to +1.
+We have also provided the detection error tradeoff (DET)
+curve [19] of miss probability (Pmiss) vs. false alarm 
+probability (PF A).
+We have used the STDEval tool to extract the relevant
+results from the manual transcripts and to compute ATWV,
+MTWV and the DET curve.
+We have determined empirically the following values for
+the boosting vector defined in Section 3.4: Bi = 1
+i
+.
+4.2 WER analysis
+We use the word error rate (WER) in order to characterize
+the accuracy of the transcripts. WER is defined as follows:
+S + D + I
+N
+× 100
+where N is the total number of words in the corpus, and
+S, I, and D are the total number of substitution, insertion,
+and deletion errors, respectively. The substitution error rate
+(SUBR) is defined by
+S
+S + D + I
+× 100.
+Deletion error rate (DELR) and insertion error rate (INSR)
+are defined in a similar manner.
+Table 1 gives the WER and the distribution of the error
+types over 1-best path transcripts extracted from WCNs.
+The WER of the 1-best path phonetic transcripts is 
+approximately two times worse than the WER of word transcripts.
+That is the reason why we have not retrieved from phonetic
+transcripts on CONFMTG speech data.
+4.3 Theta threshold
+We have determined empirically a detection threshold θ
+per source type and the hard decision of the occurrences
+having a score less than θ is set to false; false occurrences
+returned by the system are not considered as retrieved and
+therefore, are not used for computing ATWV, precision and
+recall.
+The value of the threshold θ per source type is reported in
+Table 2. It is correlated to the accuracy of the transcripts.
+Basically, setting a threshold aims to eliminate from the
+retrieved occurrences, false alarms without adding misses.
+The higher the WER is, the higher the θ threshold should
+be.
+BNEWS CTS CONFMTG
+0.4 0.61 0.91
+Table 2: Values of the θ threshold per source type.
+4.4 Processing resource profile
+We report in Table 3 the processing resource profile. 
+Concerning the index size, note that our index is compressed
+using IR index compression techniques. The indexing time
+includes both audio processing (generation of word and 
+phonetic transcripts) and building of the searchable indices.
+Index size 0.3267 MB/HS
+Indexing time 7.5627 HP/HS
+Index Memory Usage 1653.4297 MB
+Search speed 0.0041 sec.P/HS
+Search Memory Usage 269.1250 MB
+Table 3: Processing resource profile. (HS: Hours of
+Speech. HP: Processing Hours. sec.P: Processing
+seconds)
+4.5 Retrieval measures
+We compare our approach (WCN phonetic) presented in
+Section 4.1 with another approach (1-best-WCN phonetic).
+The only difference between these two approaches is that,
+in 1-best-WCN phonetic, we index only the 1-best path 
+extracted from the WCN instead of indexing all the WCN.
+WCN phonetic was our primary system for the evaluation
+and 1-best-WCN phonetic was one of our contrastive 
+systems. Average precision and recall, MTWV and ATWV on
+the 1100 queries are given in Table 4. We provide also the
+DET curve for WCN phonetic approach in Figure 2. The
+point that maximizes the TWV, the MTWV, is specified on
+each curve. Note that retrieval performance has been 
+evaluated separately for each source type since the accuracy of
+the speech differs per source type as shown in Section 4.2.
+As expected, we can see that MTWV and ATWV decrease
+in higher WER. The retrieval performance is improved when
+measure BNEWS CTS CONFMTG
+WCN phonetic ATWV 0.8485 0.7392 0.2365
+MTWV 0.8532 0.7408 0.2508
+precision 0.94 0.90 0.65
+recall 0.89 0.81 0.37
+1-best-WCN phonetic ATWV 0.8279 0.7102 0.2381
+MTWV 0.8319 0.7117 0.2512
+precision 0.95 0.91 0.66
+recall 0.84 0.75 0.37
+Table 4: ATWV, MTWV, precision and recall per source type.
+Figure 2: DET curve for WCN phonetic approach.
+using WCNs relatively to 1-best path. It is due to the fact
+that miss probability is improved by indexing all the 
+hypotheses provided by the WCNs. This observation confirms
+the results shown by Mamou et al. [17] in the context of 
+spoken document retrieval. The ATWV that we have obtained
+is close to the MTWV; we have combined our ranking model
+with appropriate threshold θ to eliminate results with lower
+score. Therefore, the effect of false alarms added by WCNs
+is reduced.
+WCN phonetic approach was used in the recent NIST STD
+evaluation and received the highest overall ranking among
+eleven participants. For comparison, the system that ranked
+at the third place, obtained an ATWV of 0.8238 for BNEWS,
+0.6652 for CTS and 0.1103 for CONFMTG.
+4.6 Influence of the duration of the query on
+the retrieval performance
+We have analysed the retrieval performance according to
+the average duration of the occurrences in the manual 
+transcripts. The query set was divided into three different 
+quantiles according to the duration; we have reported in Table 5
+ATWV and MTWV according to the duration. We can see
+that we performed better on longer queries. One of the 
+reasons is the fact that the ASR system is more accurate on
+long words. Hence, it was justified to boost the score of the
+results with the exponent γn, as explained in Section 3.4.3,
+according to the length of the query.
+quantile 0-33 33-66 66-100
+BNEWS ATWV 0.7655 0.8794 0.9088
+MTWV 0.7819 0.8914 0.9124
+CTS ATWV 0.6545 0.8308 0.8378
+MTWV 0.6551 0.8727 0.8479
+CONFMTG ATWV 0.1677 0.3493 0.3651
+MTWV 0.1955 0.4109 0.3880
+Table 5: ATWV, MTWV according to the duration
+of the query occurrences per source type.
+4.7 OOV vs. IV query processing
+We have randomly chosen three sets of queries from the
+query sets provided by NIST: 50 queries containing only IV
+terms; 50 queries containing only OOV terms; and 50 hybrid
+queries containing both IV and OOV terms. The following
+experiment has been achieved on the BNEWS collection and
+IV and OOV terms has been determined according to the
+vocabulary of BNEWS ASR system.
+We would like to compare three different approaches of
+retrieval: using only word index; using only phonetic index;
+combining word and phonetic indices. Table 6 summarizes
+the retrieval performance according to each approach and
+to each type of queries. Using a word-based approach for
+dealing with OOV and hybrid queries affects drastically the
+performance of the retrieval; precision and recall are null.
+Using a phone-based approach for dealing with IV queries
+affects also the performance of the retrieval relatively to the
+word-based approach.
+As expected, the approach combining word and phonetic
+indices presented in Section 3 leads to the same retrieval
+performance as the word approach for IV queries and to
+the same retrieval performance as the phonetic approach for
+OOV queries. This approach always outperforms the others
+and it justifies the fact that we need to combine word and
+phonetic search.

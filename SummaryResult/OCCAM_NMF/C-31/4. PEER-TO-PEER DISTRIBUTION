@@ -1,0 +1,28 @@
+it is then the responsibility of the searching peer to contact the peers in the list to negotiate file transfer between the client and server. 
+a node will query the index and a result will be returned with both the document id number as well as a list of peers with a copy of the matched document id.
+each document in the swarm has a unique document identification number (id).
+this is demonstrated in figure 3. figure 3. apocrita query operation.
+this also means that the time to return query results is very fast - much faster than protocols that rely on nodes in the network to pass the query throughout the network and then wait for results.
+unlike the gnutella protocol, a query does not have to propagate throughout the network.
+this makes querying the index for search results trivial.
+4.2 index query operation all nodes in the apocrita swarm have a complete and up-to-date copy of the network index stored locally.
+in addition, apocrita does not have to support one-to-many packet delivery methods such as multicast and instead can rely on jxta for this support.
+a distinct advantage of using the jxta pdp is that apocrita does not have to be sensitive to particular networking nuances such as maximum transmission unit (mtu).
+this new peer group will be periodically advertised on the network; any new peers joining the network will attach to this peer group.
+if no peers are found by the discovery service, the server will create a new peer group and start advertising this peer group.
+if a peer advertisement is detected, the server will attempt to join the peer group and start actively contributing to the network.
+176 the pdp listens for peer advertisements from other nodes in the apocrita swarm.
+4.1 peer discovery the apocrita server subsystem uses the jxta peer discovery protocol (pdp) in order to find participating peers within the network as shown in figure 2. figure 2. apocrita peer discovery process.
+this means that a minimum of one rendezvous peer per subnet is required.
+rendezvous peers are used to coordinate message passing between nodes in the apocrita network.
+this is the classification of all nodes in the apocrita network, and, as such, are the default classification used.
+relay peers are typically higher-bandwidth, dedicated nodes.
+due to these characteristics, edge peers are not used with apocrita.
+edge peers are typically low-bandwidth, non-dedicated nodes.
+using jxta terminology, there are three types of peers used in node classification.
+we are not concerned with any potential quality problems because jxta is considered to be the most mature and stable peer-to-peer framework available.
+this has been decided due to the extremely  shorttimeline of the project which allows us to take advantage of over five years of testing and development and support from many large organizations employing jxta in their own products.
+the jxta framework [5] is used in order to implement peer-to-peer functionality.
+this means that the file transfers will be fast and efficient and should not severely affect the usability of serving nodes from the point of view of a local user.
+files are distributed solely from a serving node to a client node without regard for the availability of file pieces from other clients in the network.
+apocrita uses a peer-to-peer distribution model in order to distribute files.

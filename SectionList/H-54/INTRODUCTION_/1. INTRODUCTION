@@ -1,0 +1,63 @@
+Biologists search for literature on a daily basis. For most
+biologists, PubMed, an online service of U.S. National Library of
+Medicine (NLM), is the most commonly used tool for searching
+the biomedical literature. PubMed allows for keyword search by
+using Boolean operators. For example, if one desires documents on
+the use of the drug propanolol in the disease hypertension, a
+typical PubMed query might be propanolol AND hypertension,
+which will return all the documents having the two keywords.
+Keyword search in PubMed is effective if the query is well-crafted
+by the users using their expertise. However, information needs of
+biologists, in some cases, are expressed as complex questions
+[8][9], which PubMed is not designed to handle. While NLM does
+maintain an experimental tool for free-text queries [6], it is still
+based on PubMed keyword search.
+The Genomics track of the 2006 Text REtrieval Conference
+(TREC) provides a common platform to assess the methods and
+techniques proposed by various groups for biomedical information
+retrieval. The queries were collected from real biologists and they
+are expressed as complex questions, such as How do mutations in
+the Huntingtin gene affect Huntington"s disease?. The document
+collection contains 162,259 Highwire full-text documents in
+HTML format. Systems from participating groups are expected to
+find relevant passages within the full-text documents. A passage is
+defined as any span of text that does not include the HTML
+paragraph tag (i.e., <P> or </P>).
+We approached the problem by utilizing domain-specific
+knowledge in a conceptual retrieval model. Domain-specific
+knowledge, in this paper, refers to information about concepts and
+relationships between concepts in a certain domain. We assume
+that appropriate use of domain-specific knowledge might improve
+the effectiveness of retrieval. For example, given a query What is
+the role of gene PRNP in the Mad Cow Disease?, expanding the
+gene symbol PRNP with its synonyms Prp, PrPSc, and
+prion protein, more relevant documents might be retrieved.
+PubMed and many other biomedical systems [8][9][10][13] also
+make use of domain-specific knowledge to improve retrieval
+effectiveness.
+Intuitively, retrieval on the level of concepts should outperform
+bag-of-words approaches, since the semantic relationships
+among words in a concept are utilized. In some recent studies
+[13][15], positive results have been reported for this hypothesis. In
+this paper, concepts are entry terms of the ontology Medical
+Subject Headings (MeSH), a controlled vocabulary maintained by
+NLM for indexing biomedical literature, or gene symbols in the
+Entrez gene database also from NLM. A concept could be a word,
+such as the gene symbol PRNP, or a phrase, such as Mad cow
+diseases. In the conceptual retrieval model presented in this
+paper, the similarity between a query and a document is measured
+on both concept and word levels.
+This paper makes two contributions:
+1. We propose a conceptual approach to utilize domain-specific
+knowledge in an IR system to improve its effectiveness in
+retrieving biomedical literature. Based on this approach, our
+system achieved significant improvement (23%) over the best
+reported result in passage retrieval in the Genomics track of
+TREC 2006.
+2. We examine the effects of utilizing concepts and of different
+types of domain-specific knowledge in performance
+contribution.
+This paper is organized as follows: problem statement is given in
+the next section. The techniques are introduced in section 3. In
+section 4, we present the experimental results. Related works are
+given in section 5 and finally, we conclude the paper in section 6.

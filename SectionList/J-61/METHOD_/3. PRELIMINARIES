@@ -1,0 +1,144 @@
+In our model, we consider a set of goods, indexed {1, . . . ,
+m} and a set of bidders, indexed {1, . . . , n}. The initial
+allocation of goods is denoted x0
+= (x0
+1, . . . , x0
+n), with x0
+i =
+(x0
+i1, . . . , x0
+im) and x0
+ij ≥ 0 for good j indicating the number
+250
+of units of good j held by bidder i. A trade λ = (λ1, . . . , λn)
+denotes the change in allocation, with λi = (λi1, . . . , λim)
+where λij ∈
+ 
+is the change in the number of units of item
+j to bidder i. So, the final allocation is x1
+= x0
++ λ.
+Each bidder has a value vi(λi) ∈ ¡ for a trade λi. This
+value can be positive or negative, and represents the change
+in value between the final allocation x0
+i +λi and the initial 
+allocation x0
+i . Utility is quasi-linear, with ui(λi, p) = vi(λi)−p
+for trade λi and payment p ∈ ¡ . Price p can be negative,
+indicating the bidder receives a payment for the trade. We
+use the term payoff interchangeably with utility.
+Our goal in the ICE design is to implement the efficient
+trade. The efficient trade, λ∗
+, maximizes the total increase
+in value across bidders.
+Definition 1 (Efficient trade). The efficient trade
+λ∗
+solves
+max
+(λ1,...,λn)
+¢
+i
+vi(λi)
+s.t. λij + x0
+ij ≥ 0, ∀i, ∀j (1)
+¢
+i
+λij ≤ 0, ∀j (2)
+λij ∈
+ 
+(3)
+Constraints (1) ensure that no agent sells more items than
+it has in its initial allocation. Constraints (2) provide free
+disposal, and allows feasible trades to sell more items than
+are purchased (but not vice versa).
+Later, we adopt Feas(x0
+) to denote the set of feasible
+trades, given these constraints and given an initial 
+allocation x0
+= (x0
+1, . . . , x0
+n).
+3.1 Working Examples
+In this section, we provide three simple examples of 
+instances that we will use to illustrate various components of
+the exchange. All three examples have only one seller, but
+this is purely illustrative.
+Example 1. One seller and one buyer, two goods {A, B},
+with the seller having an initial allocation of AB. Changes
+in values for trades:
+seller buyer
+AND(−A, −B) AND(+A, +B)
+-10 +20
+The AND indicates that both the buyer and the seller
+are only interested in trading both goods as a bundle. Here,
+the efficient (value-maximizing) trade is for the seller to sell
+AB to the buyer, denoted λ∗
+= ([−1, −1], [+1, +1]).
+Example 2. One seller and four buyers, four goods {A, B,
+C, D}, with the seller having an initial allocation of ABCD.
+Changes in values for trades:
+seller buyer1 buyer 2 buyer 3 buyer 4
+OR(−A, −B, AND(+A, XOR(+A, AND(+C, XOR(+C,
+−C, −D) +B) +B) +D) +D)
+0 +6 +4 +3 +2
+The OR indicates that the seller is willing to sell any
+number of goods. The XOR indicates that buyers 2 and
+4 are willing to buy at most one of the two goods in which
+they are interested. The efficient trade is for bundle AB
+to go to buyer 1 and bundle CD to buyer 3, denoted λ∗
+=
+([−1, −1, −1, −1], [+1, +1, 0, 0], [0, 0, 0, 0], [0, 0, +1, +1],
+[0, 0, 0, 0]).
+2,2
++A
++10
++B
++10
+BUYER
+2,2
+-A
+-5
+-B
+-5
+SELLER
+Example 1: Example 3:
+2,2
++C +D
+BUYER 2
+2,2
++A +B
+BUYER 1
++11 +84,4
+-B
+SELLER
+-A -C -D
+Example 2:
+1,1
++A +B
+BUYER 2
+2,2
++A +B
+BUYER 1
++6 +40,4
+-B
+SELLER
+-C -D-A
+1,1
++C +D
+BUYER 4
+2,2
++C +D
++3 +2
+BUYER 3
+-18
+Figure 2: Example Bid Trees.
+Example 3. One seller and two buyers, four goods {A, B,
+C, D}, with the seller having an initial allocation of ABCD.
+Changes in values for trades:
+seller buyer1 buyer 2
+AND(−A, −B, −C, −D) AND(+A, +B) AND(+C, +D)
+-18 +11 +8
+The efficient trade is for bundle AB to go to buyer 1 and
+bundle CD to go to buyer 2, denoted λ∗
+= ([−1, −1, −1, −1],
+[+1, +1, 0, 0], [0, 0, +1, +1]).

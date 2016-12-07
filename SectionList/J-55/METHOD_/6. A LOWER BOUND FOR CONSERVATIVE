@@ -1,0 +1,180 @@
+AUCTIONS
+In this section, we define a class of auctions that never offer a
+sale price which is higher than any bid in the input and prove a
+lower bound on the competitive ratio of these auctions. As this
+180
+lower bound is stronger than the lower bound of Theorem 2 for
+n ≥ 3, it shows that the optimal auction must occasionally charge
+a sales price higher than any bid in the input. Specifically, this result
+partially explains the form of the optimal three bidder auction.
+DEFINITION 8. We say an auction BIf is conservative if its 
+bidindependent function f satisfies f(b-i) ≤ max(b-i).
+We can now state our lower bound for conservative auctions.
+THEOREM 10. Let A be a conservative auction for n bidders.
+Then the competitive ratio of A is at least 3n−2
+n
+.
+COROLLARY 1. The competitive ratio of any conservative 
+auction for an arbitrary number of bidders is at least three.
+For a two-bidder auction, this restriction does not prevent 
+optimality. Υ2, the 1-unit Vickrey auction, is conservative. For larger
+numbers of bidders, however, the restriction to conservative 
+auctions does affect the competitive ratio. For the three-bidder case,
+Υ3 has competitive ratio 2.17, while the best conservative auction
+is no better than 2.33-competitive.
+The k-Vickrey auction and the Random Sampling Optimal Price
+auction [9] are conservative auctions. The Random Sampling Profit
+Extraction auction [5] and the CORE auction [7], on the other hand,
+use the ProfitExtractR mechanism as a subroutine and thus 
+sometimes offer a sale price which is higher than the highest input bid
+value.
+In [8], the authors define a restricted auction as one on which,
+for any input, the sale prices are drawn from the set of input bid
+values. The class of conservative auctions can be viewed as a 
+generalization of the class of restricted auctions and therefore our result
+below gives lower bounds on the performance of a broader class of
+auctions.
+We will prove Theorem 10 with the aid of the following lemma:
+LEMMA 1. Let A be a conservative auction with competitive
+ratio 1/r for n bidders. Let h n. Let h0 = 1 and hk = kh 
+otherwise. Then, for all k and H ≥ kh, Pr[f(1, 1, . . . , 1, H) ≤ hk] ≥
+nr−1
+n−1
++ k(3nr−2r−n
+n−1
+).
+PROOF. The lemma is proved by strong induction on k. First
+some notation that will be convenient. For any particular k and
+H we will be considering the bid vector b = (1, . . . , 1, hk, H)
+and placing bounds on ρb-i (z). Since we can assume without loss
+of generality that the auction is symmetric, we will notate b-1 as
+b with any one of the 1-valued bids masked. Similarly we notate
+b-hk
+(resp. b-H ) as b with the hk-valued bid (resp. H-valued bid)
+masked. We will also let p1(b), phk
+(b), and pH (b) represent the
+expected payment of a 1-valued, hk-valued, and H-valued bidder
+in A on b, respectively (note by symmetry the expected payment
+for all 1-valued bidders is the same).
+Base case (k = 0, hk = 1): A must raise revenue of at least rn
+on b = (1, . . . , 1, 1, H):
+rn ≤ pH (b) + (n − 1)p1(b)
+= 1 + (n − 1)
+1
+0
+xρb-1 (x)dx
+≤ 1 + (n − 1)
+1
+0
+ρb-1 (x)dx
+The second inequality follows from the conservatism of the 
+underlying auction. The base case follows trivially from the final 
+inequality.
+Inductive case (k > 0, hk = kh): Let b = (1, . . . , 1, hk, H).
+First, we will find an upper bound on pH(b)
+pH (b) =
+1
+0
+xρb-H (x)dx +
+k
+i=1
+hi
+hi−1
+xρb-H (x)dx (1)
+≤ 1 +
+k
+i=1
+hi
+hi
+hi−1
+ρb-H (x)dx
+≤ 1 +
+3nr − 2r − n
+n − 1
+k−1
+i=1
+ih
++ kh 1 −
+nr − 1
+n − 1
+− (k − 1)
+3nr − 2r − n
+n − 1
+(2)
+= kh
+n(1 − r)
+n − 1
++
+(k − 1)
+2
+3nr − 2r − n
+n − 1
++ 1. (3)
+Equation (1) follows from the conservatism of A and (2) is from
+invoking the strong inductive hypothesis with H = kh and the
+observation that the maximum possible revenue will be found by
+placing exactly enough probability at each multiple of h to satisfy
+the constraints of the inductive hypothesis and placing the 
+remaining probability at kh. Next, we will find a lower bound on phk
+(b)
+by considering the revenue raised by the bids b. Recall that A must
+obtain a profit of at least rF(2)
+(b) = 2rkh. Given upper-bounds
+on the profit from the H-valued, equation bid (3), and the 1-valued
+bids, the profit from the hk-valued bid must be at least:
+phk
+(b) ≥ 2rkh − (n − 2)p1(b) − pH(b)
+≥ kh 2r −
+n(1 − r)
+n − 1
++
+(k − 1)
+2
+3nr − 2r − n
+n − 1
+− O(n).
+(4)
+In order to lower bound Pr[f(b-hk
+) ≤ kh], consider the auction
+that minimizes it and is consistent with the lower bounds obtained
+by the strong inductive hypothesis on Pr[f(b-hk
+) ≤ ih]. To 
+minimize the constraints implied by the strong inductive hypothesis, we
+place the minimal amount of probability mass required each price
+level. This gives ρhk
+(b) with nr−1
+n−1
+probability at 1 and exactly
+3nr−2r−n
+n−1
+at each hi for 1 ≤ i < k. Thus, the profit from offering
+prices at most hk−1 is nr−1
+n−1
+−kh(k−1)3nr−2r−n
+n−1
+. In order to 
+satisfy our lower bound, (4), on phk
+(b), it must put at least 3nr−2r−n
+n−1
+on hk.
+Therefore, the probability that the sale price will be no more than
+kh on masked bid vector on bid vector b = (1, . . . , 1, kh, H) must
+be at least nr−1
+n−1
++ k(3nr−2r−n
+n−1
+).
+Given Lemma 1, Theorem 10 is simple to prove.
+PROOF. Let A be a conservative auction. Suppose 3nr−2r−n
+n−1
+=
+> 0. Let k = 1/ , H ≥ kh, and h n. By Lemma 1,
+Pr[f(1, . . . , 1, kh, H) ≤ hk] ≥ nr−1
+n−1
++ k > 1. But this is a
+contradiction, so 3nr−2r−n
+n−1
+≤ 0. Thus, r ≤ n
+3n−2
+. The theorem
+follows.

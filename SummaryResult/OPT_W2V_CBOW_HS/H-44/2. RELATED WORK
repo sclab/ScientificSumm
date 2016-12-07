@@ -1,0 +1,20 @@
+It should be noted that index-pruning techniques can be adapted to work along with the temporal text index we propose here. 
+Recent work by Nørv˚ag and Nybø [25] and their earlier proposals concentrate on the relatively simpler problem of supporting text-containment queries only and neglect the relevance scoring of results.
+We can classify the related work mainly into the following two categories: (i) methods that deal explicitly with  collections of versioned documents or temporal databases, and (ii) methods for reducing the index size by exploiting either the document-content overlap or by pruning portions of the index.
+Moving on to the second category of related work, Broder et al.
+None of the  approaches, however, considers time explicitly or provides the desired time-travel text search functionality.
+Static  indexpruning techniques [11, 12] aim to reduce the effective index size, by removing portions of the index that are expected to have low impact on the query result.
+To the best of our knowledge, there is very little prior work dealing with historical search over temporally versioned  documents.
+In contrast, research in temporal databases has produced several index structures tailored for time-evolving databases; a comprehensive overview of the state-of-art is available in [28].
+Burrows and Hisgen [10], in a patent description, delineate a method for indexing range-based values and mention its potential use for searching based on dates associated with documents.
+They also do not consider temporal aspects of documents, and thus are  technically quite different from our proposal despite having a shared goal of index-size reduction.
+More recent approaches by Hersovici et al.
+We briefly review work under these categories here.
+Anick and Flynn [3], while pioneering this research, describe a help-desk system that supports historical queries.
+[8] describe a technique that exploits large content overlaps between documents to achieve a reduction in index size.
+This  adaptation, however, does not provide the intended time-travel text search functionality.
+Unlike the inverted file  index, their applicability to text search is not well understood.
+Their technique makes strong assumptions about the structure of document overlaps rendering it inapplicable to our context.
+[17] and Zhang and Suel [34] exploit arbitrary content overlaps between documents to reduce index size.
+Stack [29] reports practical experiences made when adapting the open source search-engine Nutch to search web archives.
+Access costs are optimized for accesses to the most recent versions and increase as one moves farther into the past.

@@ -1,0 +1,52 @@
+Rule 5: Cus will pay Mer via Paypal if there is an  indication from EBank that Cus"s credit is not approved: σ [credit not appr@C Paypal paid@MM ]B 4.2 Description of the interaction Cus requests from Mer a cricket bat at some time.
+The decision is dependent on the credibility of Cus and hence is external (⊕) to Ebank and Mer: σ [sale quote@M ( credit not appr@MB ) ⊕M credit paym@MB ] Rules at agent Cus Cus has an amount of 50 dollars available at any time, can be used for credit payment or cash payment: $50@C. Cus has a commitment of obtaining a cricket bat at some time: [ cricket b@CC ]⊥ .
+Moreover, in order to specify that making payments and sending cricket bats can be in any order, we can add in front of payment method in rule 1 as follows: σ [10$@C ⊗ (Paypal paid@M ⊕ credit paid@MM )C M 10 $@M ⊗ cricket b@C ⊗ cricket b@M⊥ M ].M C This addition in the condition of the rule means that the time of payment can be any time up to Cus"s choice, as long as Cus pays and hence, the time order between making payments and sending goods becomes flexible. 
+EBank proposes that Mer gives a quote of sale and depending on Cus"s  credibility, at the next time point, either credit payment will be arranged or a disapproval of Cus"s credit will be informed.
+At the next (n1-1) time point, n1−1 ( credit not appr@MB ⊕ credit paym@MB )  becomes n1−1 credit paym@M n1 credit paym@M .B B As a result, at the next n1 time points, Ebank will arrange the credit payment.
+σ [10$@C ⊗ (Paypal paid@M ⊕ credit paid@MM )C M 10 $@M ⊗ cricket b@C ⊗ cricket b@M⊥ M C M ] Rule 2: If EBank carries out the credit payment to Mer then the requirement of credit payment at Mer is fulfilled: σ [credit paym@M credit paid@MM ]B Rule 3: If Ebank informs Mer of its disapproval of Cus"s credit then Mer will also let Cus know.
+Mer will propose rule 1C C at a time instance n1 to Cus as a pre-commitment.
+Rules at agent Mer Mer has available at any time 200 cricket bats for sale and can issue sale quotes at any time: 200 cricket b@M ⊗ σ sale quote@M .M M Rule 1: Mer commits to offering a cricket bat (cricket b@M⊥ M ) to Cus ( cricket b@CC ) if Cus pays 10  dollars (10$@CC ) either via Paypal or credit card.
+n110$@CC ; n1Paypal paid@M or n1credit paid@MM ; -(*)-M n110$@C ⊗ ( n1Paypal paid@M ⊕ n1credit paid@MM )C M n1(10$@C ⊗ (Paypal paid@M ⊕ credit paid@MM ))C M From (*), one way to satisfy the conditions is for Cus to  derive, at the next n1 time points, 10 dollars ( n1 10$@CC ); and to choose paying via Paypal ( n1 Paypal paid@MM ) OR by credit payment ( n1 credit paid@MM ).
+M to C: PROPOSE n1 [10$@C ⊗ (Paypal paid@M ⊕ credit paid@MM )C M 10 $@M ⊗ cricket b@C ⊗ cricket b@M⊥ M ]M C With similar analysis, Cus determines that given the  conC 128 The Sixth Intl.
+Rule 5 will then be utilized to allow Cus to handle the exception by paying via Paypal.
+Because credit paym@M will be available one time point after theB rule"s application time, Ebank proposes to Mer an instance of rule 4 at the next n1-1 time points.
+σ [credit not appr@M credit not appr@CB ]B Rules at agent Ebank Rule 4: Upon receiving a sale quote from Mer, at the next time point, Ebank commits to either informing Mer that Cus"s credit is not approved ( credit not appr@MB ) or arranging a credit payment to Mer ( credit paym@MB ).
+Together with the other condition 10$@C being satisfied,C this allows the initial proposal to be applied by Mer to derive n1 cricket b@CC and a commitment of n1 cricket b@M⊥ M for Mer, which is also resolved by the resource cricket b@MM available at Mer.
+When any of n1 Paypal paid@M (if Cus pays via Pay-M pal) or n1 credit paid@M (if Cus pays by credit card)M is derived, n1 (credit paym@M ⊕ Paypal paid@MM ) isM also derived, hence the payment method is arranged.
+If an exception happens that Cus"s credit is not approved, credit not appr@C is produced andB Cus can backtrack to paying via Paypal.
+For simplicity, we show only the case where Cus"s credit is approved.
+Cus can not fulfill its commitment of [ (cricket b@CC )]⊥ and hence, makes a request to Merchant: C to M: REQUEST [ cricket b@CC ]⊥ 2.
+Hence, Ebank then applies the proposalM to derive: n1−1 ( credit not appr@M ⊕ credit paym@MB ).B ⊕ indicates the choice is external to both agents.
+Once payment is arranged, Mer will apply its original  proposal to satisfy the Cus"s request of a cricket bat and hence removing one cricket bat and adding 10 dollars into its set of resources.
+There are two cases, Cus"s credit is approved or disapproved.
+Deriving n1 credit paid@M : Cus can not deriveM this formula by itself, hence, it will make a request to Mer: C to M: REQUEST [ n1 credit paid@MM ]⊥ .
+If the first case  happens, credit payment is done.
+Cus needs to prepare 10 dollars and payment can be made by credit or via Paypal.
+Any values of n1 such that n1 − 1 ≥ 0 ⇔ n1 ≥ 1 will allow Mer to fulfill Cus"s initial request of [ cricket b@CC ]⊥ .
+Mer will then ask EBank to arrange a credit payment.
+Also, non-determinism that whether Cus"s credit is disapproved or credit payment is made to Mer is faithfully represented.
+We assume that Cus prefers credit payment.
+Rule 2 at Mer is applicable but Mer can not derive its condition ( n1 credit paym@MB ).
+Assuming that Cus only pays via Paypal if credit payment fails, Cus will let Mer charges by credit.
+Deriving n1 10$@C : as Cus has 50 dollars, it canC make use of 10 dollars: 10 $@C 10$@C n1 10$@C .C C C There are two options for payment method, the choice is at agent Cus.
+Mer accepts and fulfills the conditions.
+M to E: REQUEST [ n1 credit paym@MB ]⊥ Ebank searches and finds rule 4 applicable.
+One applications of rule 1 can derive cricket b@C and cricket b@C cricket b@C .
+Mer replies with a proposal in which each cricket bat costs 10 dollars.
+M to B: ACCEPT The rule condition is fulfilled by Mer as quote@MM n1−1 quote@M .
+If the second case happens, credit payment is failed, Cus may back track to take the option paying via Paypal.
+B to M: PROPOSE n1−1 [quote@MM ( credit not appr@M ⊕ credit paym@MB )]B With similar analysis, Mer accepts the proposal.
+Mer fulfills Cus"s initial request.
+Hence, C to M: ACCEPT Cus analyzes the conditions of the accepted proposal by proof search.
+It is Cus"s own decision to proceed with the preferred  payment method.
+The choice is at Cus.
+Hence, Mer will further make a request to EBank.
+To meet the request, Mer searches for applicable rules.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) ditions can be satisfied, the proposals can help to derive its request.
+4.1 Specifying Protocol We design a set of pre-commitments and capabilities to implement the above scenario.
+The interaction ends as all commitments are resolved.
+For simplicity, we refer to them as rules.
+4.4 Flexibility The desired flexibility has been achieved in the example.
+We return to the online sales scenario introduced in  Section 1.
+4.3 Interaction 1.
+Joint Conf.

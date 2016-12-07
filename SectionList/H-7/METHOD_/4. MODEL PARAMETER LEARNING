@@ -1,0 +1,260 @@
+If the prior Φ is known, finding the optimal wm is 
+straightforward: it is a simple linear regression. Therefore, we will
+focus on estimating Φ. The maximum a priori solution of Φ
+is given by
+ΦMAP = arg max
+Φ
+P(Φ|D) (2)
+= arg max
+Φ
+P(Φ, D)
+P(D)
+(3)
+= arg max
+Φ
+P(D|Φ)P(Φ) (4)
+= arg max
+Φ w
+P(D|w, Φ)P(w|Φ)P(Φ)dw (5)
+Finding the optimal solution for the above problem is 
+challenging, since we need to integrate over all w = (w1, w2, ..., wM ),
+which are unobserved hidden variables.
+4.1 EM Algorithm for Bayesian Hierarchical
+Linear Models
+In Equation 5, Φ is the parameter needs to be estimated,
+and the result depends on unobserved latent variables w.
+This kind of optimization problem is usually solved by the
+EM algorithm.
+Applying EM to the above problem, the set of user models
+w are the unobservable hidden variables and we have:
+Q =
+w
+P(w|µ, Σ2
+, Dm) log P(µ, Σ2
+, w, D)dw
+Based on the derivation of the EM formulas presented in
+[24], we have the following Expectation-Maximization steps
+for finding the optimal hyperparameters. For space 
+considerations, we omit the derivation in this paper since it is not
+the focus of our work.
+E step: For each user m, estimate the user model 
+distribution P(wm|Dm, Φ) = N(wm; ¯wm, Σ2
+m) based on the
+current estimation of the prior Φ = (µ, Σ2
+).
+¯wm = ((Σ2
+)−1
++
+Sxx,m
+σ2
+)−1
+(
+Sxy,m
+σ2
++ (Σ2
+)−1
+µ) (6)
+Σ2
+m = ((Σ2
+)−1
++
+Sxx,m
+σ2
+)−1
+(7)
+where Sxx,m =
+j
+xm,jxT
+m,j Sxy,m =
+j
+xm,jym,j
+M step: Optimize the prior Φ = (µ, Σ2
+) based on the 
+estimation from the last E step.
+µ =
+1
+M m
+¯wm (8)
+Σ2
+=
+1
+M m
+Σ2
+m + ( ¯wm − µ)( ¯wm − µ)T
+(9)
+Many machine learning driven IR systems use a point 
+estimate of the parameters at different stages in the system.
+However, we are estimating the posterior distribution of the
+variables at the E step. This avoids overfitting wm to a
+particular user"s data, which may be small and noisy. A
+detailed discussion about this subject appears in [10].
+4.2 New Algorithm: Modified EM
+Although the EM algorithm is widely studied and used in
+machine learning applications, using the above EM process
+to solve Bayesian hierarchical linear models in large-scale 
+information retrieval systems is still too computationally 
+expensive. In this section, we describe why the learning rate of
+the EM algorithm is slow in our application and introduce
+a new technique to make the learning of the Bayesian 
+hierarchical linear model scalable. The derivation of the new
+learning algorithm will be based on the EM algorithm 
+described in the previous section.
+First, the covariance matrices Σ2
+, Σ2
+m are usually too large
+to be computationally feasible. For simplicity, and as a 
+common practice in IR, we do not model the correlation between
+features. Thus we approximate these matrices with K 
+dimensional diagonal matrices. In the rest of the paper, we use
+these symbols to represent their diagonal approximations:
+Σ2
+=
+
+
+
+
+σ2
+1 0 .. 0
+0 σ2
+2 .. 0
+.. .. .. ..
+0 0 .. σ2
+K
+
+
+
+
+Σ2
+m =
+
+
+
+
+σ2
+m,1 0 .. 0
+0 σ2
+m,2 .. 0
+.. .. .. ..
+0 0 .. σ2
+m,K
+
+
+
+
+Secondly, and most importantly, the input space is very
+sparse and there are many dimensions that are not related
+to a particular user in a real IR application. For example,
+let us consider a movie recommendation system, with the
+input variable x representing a particular movie. For the jth
+movie that the user m has seen, let xm,j,k = 1 if the director
+of the movie is Jean-Pierre Jeunet (indexed by k). Here
+we assume that whether or not that this director directed
+a specific movie is represented by the kth dimension. If
+the user m has never seen a movie directed by Jean-Pierre
+Jeunet, then the corresponding dimension is always zero
+(xm,j,k = 0 for all j) .
+One major drawback of the EM algorithm is that the 
+importance of a feature, µk, may be greatly dominated by users
+who have never encountered this feature (i.e. j xm,j,k = 0)
+at the M step (Equation 8). Assume that 100 out of 1 
+million users have viewed the movie directed by Jean-Pierre
+Jeunet, and that the viewers have rated all of his movies as
+excellent. Intuitively, he is a good director and the weight
+for him (µk) should be high. Before the EM iteration, the
+initial value of µ is usually set to 0. Since the other 999,900
+users have not seen this movie, their corresponding weights
+(w1,k, w2,k, ..., wm,k..., w999900,k) for that director would be
+very small initially. Thus the corresponding weight of the
+director in the prior µk at the first M step would be very
+low , and the variance σm,k will be large (Equations 8 and
+7). It is undesirable that users who have never seen any
+movie produced by the director influence the importance of
+the director so much. This makes the convergence of the
+standard EM algorithm very slow.
+Now let"s look at whether we can improve the learning
+speed of the algorithm. Without a loss of generality, let
+us assume that the kth dimension of the input variable x
+is not related to a particular user m. By which we mean,
+xm,j,k = 0 for all j = 1, ..., Jm. It is straightforward to prove
+that the kth row and kth column of Sxx,m are completely
+filled with zeros, and that the kth dimension of Sxy,m is
+zeroed as well. Thus the corresponding kth dimension of the
+user model"s mean, ¯wm, should be equal to that of the prior:
+¯wm,k = µk, with the corresponding covariance of σm,k = σk.
+At the M step, the standard EM algorithm uses the 
+numerical solution of the distribution P(wm|Dm, Φ) estimated
+at E step (Equation 8 and Equation 7). However, the 
+numerical solutions are very unreliable for ¯wm,k and σm,k when
+the kth dimension is not related to the mth user. A better
+approach is using the analytical solutions ¯wm,k = µk, and
+σm,k = σk for the unrelated (m, k) pairs, along with the
+numerical solution estimated at E step for the other (m, k)
+pairs. Thus we get the following new EM-like algorithm:
+Modified E step: For each user m, estimate the user model
+distribution P(wm|Dm, Φ) = N(wm; ¯wm, Σ2
+m) based
+on the current estimation of σ , µ, Σ2
+.
+¯wm = ((Σ2
+)−1
++
+Sxx,m
+σ2 )−1
+(
+Sxy,m
+σ2 + (Σ2
+)−1
+µ)(10)
+σ2
+m,k = ((σ2
+k)−1
++
+sxx,m,k
+σ2 )−1
+(11)
+where sxx,m,k =
+j
+x2
+m,j,k and sxy,m,k =
+j
+xm,j,kym,j
+Modified M Step Optimize the prior Φ = (µ, Σ2
+) based
+on the estimation from the last E step for related 
+userfeature pairs. The M step implicitly uses the analytical
+solution for unrelated user-feature pairs.
+µk =
+1
+Mk
+m:related
+¯wm,k (12)
+σ2
+k =
+1
+Mk
+m:related
+σ2
+m,k
++( ¯wm,k − µk)( ¯wm,k − µk)T
+(13)
+where Mk is the number of users that are related to
+feature k
+We only estimate the diagonal of Σ2
+m and Σ since we are
+using the diagonal approximation of the covariance 
+matrices. To estimate ¯wm, we only need to calculate the 
+numerical solutions for dimensions that are related to user m. To
+estimate σ2
+k and µk, we only sum over users that are related
+to the kth feature.
+There are two major benefits of the new algorithm. First,
+because only the related (m, k) pairs are needed at the 
+modified M step, the computational complexity in a single EM
+iteration is much smaller when the data is sparse, and many
+of (m, k) pairs are unrelated. Second, the parameters 
+estimated at the modified M step (Equations 12 - 13) are
+more accurate than the standard M step described in 
+Section 4.1 because the exact analytical solutions ¯wm,k = µk
+and σm,k = σk for the unrelated (m, k) pairs were used in
+the new algorithm instead of an approximate solution as in
+the standard algorithm.

@@ -1,0 +1,70 @@
+Although some newer PDA devices provide native support for different orientations, this mechanism is not  dynamic and requires the user to rotate the PDA"s entire user interface before starting the pTHINC client.
+The reason is that by the time the remote display server attempts to send screen  updates, it has lost all semantic information that may have helped it encode efficiently, and it must resort to using a generic and expensive encoding mechanism on the server, as well as a potentially expensive decoding mechanism on the limited PDA client.
+In addition, specific overlay regions can be manipulated by leveraging the video hardware, for example to perform hardware linear interpolation to smooth out the frame and display it fullscreen, and to do automatic rotation when the client runs in landscape mode. 
+In contrast to both the high and low level interception approaches, pTHINC"s approach of intercepting at the device driver provides an effective  balance between client and server simplicity, and the ability to efficiently encode and decode screen updates.
+This command improves the user  experience by accelerating scrolling and opaque window  movement without having to resend screen data from the server.
+3.1 Display Management To enable users to just as easily access their web browser and helper applications from a desktop computer at home as from a PDA while on the road, pTHINC provides a  resize mechanism to zoom in and out of the display of a web session.
+To allow applications to provide efficient video playback, interfaces have been  created in display systems that allow video device drivers to expose their hardware capabilities back to the applications.
+As the YV12 data is put onto the overlay, the Intel accelerator  automatically performs both colorspace conversion and scaling.
+First, it has become increasingly common for PDA video hardware to natively support YUV and be able to perform the colorspace conversion and scaling  automatically.
+Keeping in mind that resource Command Description COPY Copy a frame buffer area to specified  coordinates SFILL Fill an area with a given pixel color value PFILL Tile an area with a given pixel pattern BITMAP Fill a region using a bit pattern RAW Display raw pixel data at a given location Table 1: pTHINC Protocol Display Commands constrained PDAs and wireless networks may not be able to keep up with a fast server generating a large number of updates, pTHINC is able to coalesce, clip, and discard  updates automatically if network loss or congestion occurs, or the client cannot keep up with the rate of updates.
+pTHINC display rotation is completely supported by the client, not the server.
+Instead, pTHINC simply changes the way data is copied into the framebuffer to switch between display modes.
+Web sites today not only use animated graphics and flash to deliver web content in an attractive manner, but also  utilize streaming video to enrich the web interface.
+On the other hand, large jobs are often lower priority beautifying elements, or, even worse, web page banners and advertisements, which are of questionable value to the user as he or she is browsing the page.
+For example,  intercepting display commands at a higher layer between  applications and the window system as is done by X [17] requires replicating and running a great deal of functionality on the PDA that is traditionally provided by the desktop window system.
+pTHINC takes advantage of these interfaces and its virtual device driver approach to provide a virtual bridge between the remote client and its hardware and the applications, and transparently support video playback.
+pTHINC does not explicitly recalculate the  ge146 ometry of display updates to perform rotation, which would be computationally expensive.
+pTHINC virtualizes the display at the server by leveraging the video device abstraction layer, which sits below the window server and above the framebuffer.
+To enable users to orient their displays on a PDA to provide a viewing experience that best accommodates user preferences and the layout of web pages or applications, pTHINC provides a display rotation mechanism to switch between landscape and portrait viewing modes.
+On the other hand, intercepting at a lower layer by extracting pixels out of the framebuffer as they are rendered provides a simple solution that requires very little functionality on the PDA client, but can also  result in degraded performance.
+In a PDA  environment, this set of commands provides a crucial component in maintaining the simplicity of the client in the  resourceconstrained PDA environment.
+This command is invoked as a last resort if the server is unable to employ any other  command, and it is the only command that may be compressed to mitigate its impact on network bandwidth.
+pTHINC resizing is completely supported by the server, not the client.
+COPY instructs the client to copy a region of the screen from its local framebuffer to another location.
+They are useful for  accelerating the display of solid window backgrounds, desktop patterns, backgrounds of web pages, text drawing, and  certain operations in graphics manipulation programs.
+Clients are not required to explicitly request display  updates, thus minimizing the impact that the typical  varying network latency of wireless links may have on the  responsiveness of the system.
+On top of this architecture, pTHINC uses the YUV  colorspace to encode the video content, which provides a  number of benefits.
+pTHINC accomplishes this through a simple virtual display driver that intercepts drawing  commands, packetizes, and sends them over the network.
+Windows  Mobile provides native API mechanisms for PDA applications to rotate their UI on the fly, but these mechanisms deliver poor performance and display quality as the rotation is  performed naively and is not completely accurate.
+145 While other thin-client approaches intercept display  commands at other layers of the display subsystem, pTHINC"s display virtualization approach provides some key benefits in efficiently supporting PDA clients.
+3.2 Video Playback Video has gradually become an integral part of the World Wide Web, and its presence will only continue to increase.
+SFILL, PFILL, and BITMAP are commands that paint a fixed-size region on the screen.
+In a web browsing environment, short jobs are associated with text and basic page layout components such as the page"s background, which are critical web content for the user.
+Furthermore, applications and the window system often require tight  synchronization in their operation and imposing a wireless  network between them by running the applications on the server and the window system on the client would significantly  degrade performance.
+Third, YUV data is produced as one of the last steps of the decoding process of most video codecs, allowing pTHINC to provide video playback in a manner that is format independent.
+As a result, pTHINC is able to provide fullscreen video playback without any performance hits.
+pTHINC  provides its own rotation mechanism to support a wide range of devices without imposing additional feature requirements on the PDA.
+First, it allows the PDA to leverage the vastly superior  computational power of the server to use high quality resampling algorithms and produce higher quality updates for the PDA to display.
+A more concrete example of how pTHINC leverages the PDA video hardware to support video playback can be seen in our prototype implementation on the popular Dell Axim X51v PDA, which is equipped with the Intel 2700G  multimedia accelerator.
+When in landscape mode, data is copied along the columns of the framebuffer from top to bottom.
+pTHINC builds on the THINC [1] remote display  architecture to provide a thin-client system for PDAs.
+pTHINC delivers its commands using a non-blocking,  serverpush update mechanism, where as soon as display updates are generated on the server, they are sent to the client.
+Second, resizing the screen does not translate into additional resource requirements for the PDA, since it does not need to perform any additional work.
+This type of behavior proves crucial in a web browsing  environment, where for example, a page may be redrawn multiple times as it is rendered on the fly by the browser.
+The server resamples updates to fit within the PDAs viewport before they are transmitted over the network.
+When in portrait mode, data is copied along the rows of the framebuffer from left to right.
+By using the overlay surface, pTHINC has no need to redraw the screen once video playback is over since the overlapped surface is unaffected.
+This provides smooth, visually  pleasing updates with properly antialiasing and has only modest computational requirements.
+Finally, even if the PDA"s video hardware is unable to accelerate playback, the colorspace conversion process is simple enough that it does not impose unreasonable requirements on the PDA.
+Users are able to view pre-recorded and live newscasts on CNN, watch sports highlights on ESPN, and even search through large collection of videos on Google Video.
+In particular, pTHINC uses the YV12 format, which allows full color RGB data to be encoded  using just 12 bits per pixel.
+This is a well-defined, low-level, device-dependent layer that exposes the video hardware to the display system.
+Using SRSF, pTHINC is able to maximize the utilization of the relatively scarce bandwidth available on the wireless connection between the PDA and the server.
+Second, the use of YUV allows for a more efficient representation of RGB data without loss of quality, by taking advantage of the  human eye"s ability to better distinguish differences in  brightness than in color.
+By using a low-level virtual display approach, pTHINC can efficiently encode application display commands using only a small set of low-level commands.
+PFILL replicates a tile over a screen region.
+Finally, better utilization of the wireless network is attained since rescaling the updates reduces their bandwidth requirements.
+Finally, RAW is used to transmit unencoded pixel data to be displayed verbatim on a region of the screen.
+Given both the size and complexity of traditional window systems, attempting to replicate this functionality in the restricted PDA environment would have proven to be a daunting, and perhaps unfeasible task.
+SFILL fills a sizable region on the screen with a single color.
+pTHINC prioritizes the delivery of updates to the PDA  using a Shortest-Remaining-Size-First (SRSF) preemptive  update scheduler.
+When a new video frame arrives, video data is copied from the buffer to Figure 2: Experimental Testbed an overlay surface in video memory, which is independent of the normal surface used for traditional drawing.
+These very fast and simple techniques replace one set of copy operations with  another and impose no performance overhead.
+In this case, pTHINC creates an  offscreen buffer in video memory and writes and reads from this memory region data on the YV12 format.
+pTHINC"s resizing approach has a number of advantages.
+The display commands are shown in Table 1, and work as follows.
+In this case, the PDA will only receive and render the final result, which clearly is all the user is interesting in seeing.
+BITMAP performs a fill using a bitmap of ones and zeros as a stipple to apply a foreground and background color.
+pTHINC uses Fant"s resampling algorithm to resize pixel updates.
+SRSF is analogous to  Shortest-RemainingProcessing-Time scheduling, which is known to be optimal for minimizing mean response time in an interactive system.

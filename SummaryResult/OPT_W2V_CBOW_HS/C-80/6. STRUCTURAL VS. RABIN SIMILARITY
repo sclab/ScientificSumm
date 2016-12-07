@@ -1,0 +1,35 @@
+In contrast, Ganesh was able to detect these large rows and correspondingly increase the size of the chunks.
+With the order of the rows changing in the second result and the Rabin fingerprints now spanning  different rows, the algorithm is unable to detect significant similarity.
+As Ganesh always performed better than Rabin fingerprinting, we only present a subset of the results here in the interests of brevity.
+Figure 8: AUCTION Benchmark - Throughput and Average Response Time the chunking algorithm and the second with Ganesh"s row-based algorithm.
+At 5 and 20 Mb/s, the addition of test clients  decreases the normalized response time as Ganesh"s average response time increases faster than Rabin"s. However, at no point does Rabin outperform Ganesh.
+Rabin"s results for the Browsing Mix are normalized to Ganesh"s results and presented in Figure 9.
+As can be seen in Table 2, even the small gain from the previous microbenchmark disappears as the minimum chunk size was greater than the average row size.
+SelectSort2, another micro-benchmark executed the same queries but increased the minimum chunk size of the Rabin fingerprinting algorithm.
+In this case, Ganesh was not network limited and, in fact, the throughput was the same as 400 clients at 5 Mb/s.
+6.2 Application Benchmarks We ran the BBOARD benchmark described in Section 4.1.1 on two versions of Ganesh: the first with Rabin fingerprinting used as WWW 2007 / Track: Performance and Scalability Session: Scalable Systems for Dynamic Content 317 0 50 100 150 200 250 300 350 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Requests/sec Native Ganesh 0.001 0.01 0.1 1 10 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Avg.Resp.Time(sec) Native Ganesh Note Logscale (a) Throughput: Bidding Mix (b) Response Time: Bidding Mix 0 50 100 150 200 250 300 350 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Requests/sec Native Ganesh 0.001 0.01 0.1 1 10 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 Mb/s 20 Mb/s 100 Mb/s Test Clients Avg.Resp.Time(sec) Native Ganesh Note Logscale (c) Throughput: Browsing Mix (d) Response Time: Browsing Mix Mean of three trials.
+In such a scenario, one would expect a large amount of similarity to be detected between both results.
+First, as outlined in Section 3.1, Rabin finds less similarity as it does not exploit the result"s structural information.
+As Figure 9 (a) shows, at 5 Mb/s, independent of the test client configuration, Rabin significantly underperforms Ganesh.
+In this case,  Rabin, with a small average chunk size, generated a large number of objects that evicted other useful data from the cache.
+As  Table 2 shows, Ganesh"s row-based algorithm achieves a 97.6%  reduction while the Rabin fingerprinting algorithm, with the average chunk size parameter set to 4 KB, only achieves a 1% reduction.
+Rabin, however, took  advantage of the bandwidth increase from 5 to 20 Mb/s to deliver a slightly better performance.
+In this section, we address the second question raised in  Section 4: How important is Ganesh"s structural similarity detection relative to Rabin fingerprinting-based similarity detecting?
+6.1 Microbenchmarks Two microbenchmarks show an example of the effects of data reordering on Rabin fingerprinting algorithm.
+This was confirmed as cache  statistics showed that Ganesh"s hit ratio was roughly three time that of Rabin.
+While one can partially  address these problems by dynamically varying the parameters of the Rabin fingerprinting algorithm, this can be computationally  expensive, especially in the presence of changing workloads.
+The reason, as shown earlier in Figure 2, is that with Rabin  fingerprinting, the spans of data between two consecutive boundaries usually cross row boundaries.
+Throughput measurements at 20 Mb/s were similar with the exception of Rabin"s performance with 400 test clients.
+While the same number of rows and the same data is returned, the order of rows is different.
+Second, this benchmark  contained some queries that generated large results.
+In the first  microbenchmark, SelectSort1, a query with a specified sort order selects 223.6 MB of data spread over approximately 280 K rows.
+The overhead  disappears with 1200 and 1600 clients as the database CPU is saturated and limits the performance of both Ganesh and Rabin. 
+As mentioned in Section 3.1, this is due to the fact that Rabin has to hash each ResultSet twice.
+The small gain seen is mostly for those single rows that are large enough to be broken into multiple chunks.
+The maximum standard deviation for throughput and response time was 2.2% and 11.8% of the corresponding mean.
+This  happens because of a combination of two reasons.
+The query is then repeated with a different sort attribute.
+Note that at 400 and 800 clients at 100 Mb/s, Rabin does have a higher overhead even when it is not bandwidth constrained.
+The normalized response time, presented in Figure 9 (b), shows similar trends.
+At 100 Mb/s, Rabin"s throughput was almost similar to Ganesh as bandwidth was no longer a bottleneck.
+To  answer this question, we used microbenchmarks and the BBOARD and AUCTION benchmarks.

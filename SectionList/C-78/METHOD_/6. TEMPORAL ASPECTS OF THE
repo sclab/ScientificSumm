@@ -1,0 +1,253 @@
+INTERACTIONS
+Any interaction needs some form of predictability. If safety
+critical scenarios are considered as it is done in CORTEX,
+temporal aspects become crucial and have to be made 
+explicit. The problem is how to define temporal constraints
+and how to enforce them by appropriate resource usage in a
+dynamic ad-hoc environment. In an system where 
+interactions are spontaneous, it may be also necessary to determine
+temporal properties dynamically. To do this, the respective
+temporal information must be stated explicitly and available
+during run-time. Secondly, it is not always ensured that
+temporal properties can be fulfilled. In these cases, 
+adaptations and timing failure notification must be provided [2,
+28]. In most real-time systems, the notion of a deadline
+is the prevailing scheme to express and enforce timeliness.
+However, a deadline only weakly reflect the temporal 
+characteristics of the information which is handled. Secondly, a
+deadline often includes implicit knowledge about the system
+and the relations between activities. In a rather well defined,
+closed environment, it is possible to make such implicit 
+assumptions and map these to execution times and deadlines.
+E.g. the engineer knows how long a vehicle position can be
+used before the vehicle movement outdates this information.
+Thus he maps this dependency between speed and position
+on a deadline which then assures that the position error
+can be assumed to be bounded. In a open environment, this
+implicit mapping is not possible any more because, as an 
+obvious reason, the relation between speed and position, and
+thus the error bound, cannot easily be reverse engineered
+from a deadline. Therefore, our event model includes 
+explicit quality attributes which allow to specify the temporal
+attributes for every individual event. This is of course an
+overhead compared to the use of implicit knowledge, but in
+a dynamic environment such information is needed.
+To illustrate the problem, consider the example of the
+position of a vehicle. A position is a typical example for
+time, value entity [30]. Thus, the position is useful if we
+can determine an error bound which is related to time, e.g. if
+we want a position error below 10 meters to establish a safety
+property between cooperating cars moving with 5 m/sec,
+the position has a validity time of 2 seconds. In a time,
+value entity entity we can trade time against the precision
+of the value. This is known as value over time and time over
+value [18]. Once having established the time-value relation
+and captured in event attributes, subscribers of this event
+can locally decide about the usefulness of an information. In
+the GEAR architecture temporal validity is used to reason
+about safety properties in a event-based system [29]. We
+will briefly review the respective notions and see how they
+are exploited in our COSMIC event middleware.
+Consider the timeline of generating an event representing
+some real-time entity [18] from its occurrence to the 
+notification of a certain sentient object (Figure 3). The real-time
+entity is captured at the sensor interface of the system and
+has to be transformed in a form which can be treated by a
+computer. During the time interval t0 the sensor reads the
+real-time entity and a time stamp is associated with the 
+respective value. The derived time, value entity represents
+an observation. It may be necessary to perform substantial
+local computations to derive application relevant 
+information from the raw sensor data. However, it should be noted
+that the time stamp of the observation is associated with
+the capture time and thus independent from further signal
+processing and event generation. This close relationship 
+between capture time and the associated value is supported by
+smart sensors described above.
+The processed sensor information is assembled in an event
+data structure after ts to be published to an event channel.
+As is described later, the event includes the time stamp of
+generation and the temporal validity as attributes.
+The temporal validity is an application defined measure
+for the expiration of a time, value . As we explained in
+the example of a position above, it may vary dependent on
+application parameters. Temporal validity is a more general
+concept than that of a deadline. It is independent of a 
+certain technical implementation of a system. While deadlines
+may be used to schedule the respective steps in an event
+generation and dissemination, a temporal validity is an 
+intrinsic property of a time, value entity carried in an event.
+A temporal validity allows to reason about the usefulness
+of information and is beneficial even in systems in which
+timely dissemination of events cannot be enforced because
+it enables timing failure detection at the event consumer. It
+is obvious that deadlines or periods can be derived from the
+temporal validity of an event. To set a deadline, knowledge
+of an implementation, worst case execution times or 
+message dissemination latencies is necessary. Thus, in the 
+timeline of Figure 3 every interval may have a deadline. Event
+dissemination through soft real-time channels in COSMIC
+exploits the temporal validity to define dissemination 
+deadlines. Quality attributes can be defined, for instance, in
+terms of validity interval, omission degree pairs. These 
+allow to characterize the usefulness of the event for a certain
+application, in a certain context. Because of that, quality
+attributes of an event clearly depend on higher level issues,
+such as the nature of the sentient object or of the smart
+sensor that produced the event. For instance, an event 
+containing an indication of some vehicle speed must have 
+different quality attributes depending on the kind of vehicle
+33
+real-world
+event
+observation:
+<time stamp, value>
+event generated
+ready to be transmitted
+event
+received
+notification
+, to
+t
+event
+producer communication network
+event
+consumer
+event channel
+push <event>
+, ts , tm , tt , tn
+, t o : t i m e t o o b t a i n a n o b s e r v a t i o n
+, t s : t i m e t o p r o c e s s s e n s o r r e a d i n g
+, t m : t i m e t o a s s e m b l e a n e v e n t m e s s a g e
+, t t : t i m e t o t r a n s f e r t h e e v e n t o n t h e r e g u l a r n e t w o r k
+, t n : t i m e f o r n o t i f i c a t i o n o n t h e c o n s u m e r s i t e
+Figure 3: Event processing and dissemination.
+from which it originated, or depending on its current speed.
+The same happens with the position event of the car 
+example above, whose validity depends on the current speed
+and on a predefined required precision. However, since 
+quality attributes are strictly related with the semantics of the
+application or, at least, with some high level knowledge of
+the purpose of the system (from which the validity of the
+information can be derived), the definition of these quality
+attributes may be done by exploiting the information 
+provided at the programming interface. Therefore, it is 
+important to understand how the system programmer can 
+specify non-functional requirements at the API, and how these
+requirements translate into quality attributes assigned to
+events. While temporal validity is identified as an intrinsic
+event property, which is exploited to decide on the 
+usefulness of data at a certain point in time, it is still necessary
+to provide a communication facility which can disseminate
+the event before the validity is expired.
+In a WAN-of-CANs network structure we have to cope
+with very different network characteristics and quality of
+service properties. Therefore, when crossing the network
+boundaries the quality of service guarantees available in a
+certain network will be lost and it will be very hard, costly
+and perhaps impossible to achieve these properties in the
+next larger area of the WAN-of CANs structure. CORTEX
+has a couple of abstractions to cope with this situation 
+(network zones, body/environment) which have been discussed
+above. From the temporal point of view we need a high
+level abstraction like the temporal validity for the 
+individual event now to express our quality requirements of the 
+dissemination over the network. The bound, coverage pair,
+introduced in relation with the TCB [28] seems to be an
+appropriate approach. It considers the inherent uncertainty
+of networks and allows to trade the quality of dissemination
+against the resources which are needed. In relation with
+the event channel model discussed later, the bound, 
+coverage pair allows to specify the quality properties of an event
+channel independently of specific technical issues. Given
+the typical environments in which sentient applications will
+operate, where it is difficult or even impossible to provide
+timeliness or reliability guarantees, we proposed an 
+alternative way to handle non-functional application requirements,
+in relation with the TCB approach [28]. The proposed 
+approach exploits intrinsic characteristics of applications, such
+as fail-safety, or time-elasticity, in order to secure QoS 
+specifications of the form bound, coverage . Instead of 
+constructing systems that rely on guaranteed bounds, the idea
+is to use (possibly changing) bounds that are secured with a
+constant probability all over the execution. This obviously
+requires an application to be able to adapt to changing 
+conditions (and/or changing bounds) or, if this is not possible,
+to be able to perform some safety procedures when the 
+operational conditions degrade to an unbearable level. The
+bounds we mentioned above refer essentially to timeliness
+bounds associated to the execution of local or distributed
+activities, or combinations thereof. From these bounds it is
+then possible to derive the quality attributes, in particular
+validity intervals, that characterize the events published in
+the event channel.
+6.1 The Role of Smart Sensors and Actuators
+Smart devices encapsulate hardware, software and 
+mechanical components and provide information and a set of
+well specified functions and which are closely related to
+the interaction with the environment. The built-in 
+computational components and the network interface enable the
+implementation of a well-defined high level interface that
+does not just provide raw transducer data, but a processed,
+application-related set of events. Moreover, they exhibit an
+autonomous spontaneous behaviour. They differ from 
+general purpose nodes because they are dedicated to a certain
+functionality which complies to their sensing and 
+actuating capabilities while general purpose node may execute any
+program.
+Concerning the sentient object model, smart sensors and
+actuators may be basic sentient objects themselves, 
+consuming events from the real-world environment and producing
+the respective generic events for the system"s event layer or,
+34
+vice versa consuming a generic event and converting it to a
+real-world event by an actuation. Smart components 
+therefore constitute the periphery, i.e. the real-world interface of
+a more complex sentient object. The model of sentient 
+objects also constitutes the framework to built more complex
+virtual sensors by relating multiple (primary, i.e. sensors
+which directly sense a physical entity) sensors.
+Smart components translate events of the environment
+to an appropriate form available at the event layer or, vice
+versa, transform a system event into an actuation. For smart
+components we can assume that:
+• Smart components have dedicated resources to 
+perform a specific function.
+• These resources are not used for other purposes during
+normal real-time operation.
+• No local temporal conflicts occur that will change the
+observable temporal behaviour.
+• The functions of a component can usually only be
+changed during a configuration procedure which is not
+performed when the component is involved in critical
+operations.
+• An observation of the environment as a time,value
+pair can be obtained with a bounded jitter in time.
+Many predictability and scheduling problems arise from
+the fact, that very low level timing behaviours have to be
+handled on a single processor. Here, temporal 
+encapsulation of activities is difficult because of the possible side 
+effects when sharing a single processor resource. Consider the
+control of a simple IR-range detector which is used for 
+obstacle avoidance. Dependent on its range and the speed of
+a vehicle, it has to be polled to prevent the vehicle from
+crashing into an obstacle. On a single central processor,
+this critical activity has to be coordinated with many 
+similar, possibly less critical functions. It means that a very
+fine grained schedule has to be derived based purely on the
+artifacts of the low level device control. In a smart 
+sensor component, all this low level timing behaviour can be
+optimized and encapsulated. Thus we can assume temporal
+encapsulation similar to information hiding in the functional
+domain. Of course, there is still the problem to guarantee
+that an event will be disseminated and recognized in due
+time by the respective system components, but this relates
+to application related events rather than the low artifacts of
+a device timing. The main responsibility to provide 
+timeliness guarantees is shifted to the event layer where these
+events are disseminated. Smart sensors thus lead to network
+centric system model. The network constitute the shared 
+resource which has to be scheduled in a predictable way. The
+COSMIC middleware introduced in the next section is an
+approach to provide predictable event dissemination for a
+network of smart sensors and actuators.

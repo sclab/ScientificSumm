@@ -1,0 +1,71 @@
+We now formally introduce our model of the 
+resourcescheduling problem. The problem input consists of the 
+following components:
+• M, Ω, bϕ, τa
+m, τd
+m, bτ are as defined above in Section 2.2.
+• {Θm} = {S, A, pm, rm, αm} are the MDPs of all agents
+m ∈ M. Without loss of generality, we assume that state
+and action spaces of all agents are the same, but each has
+its own transition function pm, reward function rm, and
+initial conditions αm.
+• ϕm : A×Ω → {0, 1} is the mapping of actions to resources
+for agent m. ϕm(a, ω) indicates whether action a of agent
+m needs resource ω. An agent m that receives a set of
+resources that does not include resource ω cannot execute
+in its MDP policy any action a for which ϕm(a, ω) = 0. We
+assume all resource requirements are binary; as discussed
+below in Section 6, this assumption is not limiting.
+Given the above input, the optimization problem we 
+consider is to find the globally optimal-maximizing the sum
+of expected rewards-mapping of resources to agents for all
+time steps: Δ : τ × M × Ω → {0, 1}. A solution is feasible
+if the corresponding assignment of resources to the agents
+does not violate the global resource constraint:
+X
+m
+Δm(τ, ω) ≤ bϕ(ω), ∀ω ∈ Ω, τ ∈ [1, bτ]. (4)
+We consider two flavors of the resource-scheduling 
+problem. The first formulation restricts resource assignments to
+the space where the allocation of resources to each agent is
+static during the agent"s lifetime. The second formulation 
+allows reassignment of resources between agents at every time
+step within their lifetimes.
+Figure 1 depicts a resource-scheduling problem with three
+agents M = {m1, m2, m3}, three resources Ω = {ω1, ω2, ω3},
+and a global problem horizon of bτ = 11. The agents" arrival
+and departure times are shown as gray boxes and are {1, 6},
+{3, 7}, and {2, 11}, respectively. A solution to this problem
+is shown via horizontal bars within each agents" box, where
+the bars correspond to the allocation of the three resource
+types. Figure 1a shows a solution to a static scheduling 
+problem. According to the shown solution, agent m1 begins the
+execution of its MDP at time τ = 1 and has a lock on all
+three resources until it finishes execution at time τ = 3. Note
+that agent m1 relinquishes its hold on the resources before
+its announced departure time of τd
+m1
+= 6, ostensibly because
+other agents can utilize the resources more effectively. Thus,
+at time τ = 4, resources ω1 and ω3 are allocated to agent
+m2, who then uses them to execute its MDP (using only
+actions supported by resources ω1 and ω3) until time τ = 7.
+Agent m3 holds resource ω3 during the interval τ ∈ [4, 10].
+Figure 1b shows a possible solution to the dynamic version
+of the same problem. There, resources can be reallocated
+between agents at every time step. For example, agent m1
+gives up its use of resource ω2 at time τ = 2, although it
+continues the execution of its MDP until time τ = 6. Notice
+that an agent is not allowed to stop and restart its MDP, so
+agent m1 is only able to continue executing in the interval
+τ ∈ [3, 4] if it has actions that do not require any resources
+(ϕm(a, ω) = 0).
+Clearly, the model and problem statement described above
+make a number of assumptions about the problem and the
+desired solution properties. We discuss some of those 
+assumptions and their implications in Section 6.
+1222 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+(a) (b)
+Figure 1: Illustration of a solution to a resource-scheduling problem with three agents and three resources: a) static
+resource assignments (resource assignments are constant within agents" lifetimes; b) dynamic assignment (resource
+assignments are allowed to change at every time step).

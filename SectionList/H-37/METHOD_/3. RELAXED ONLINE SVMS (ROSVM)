@@ -1,0 +1,122 @@
+One of the main benefits of SVMs is that they find a 
+decision hyperplane that maximizes the margin between classes
+in the data space. Maximizing the margin is expensive,
+typically requiring quadratic training time in the number
+of training examples. However, as we saw in the previous
+section, the task of content-based spam detection is best
+achieved by SVMs with a high value of C. Setting C to a
+high value for this domain implies that minimizing 
+training loss is more important than maximizing the margin (see
+Figure 3).
+Thus, while SVMs do create high performance spam 
+filters, applying them in practice is overkill. The full margin
+maximization feature that they provide is unnecessary, and
+relaxing this requirement can reduce computational cost.
+We propose three ways to relax Online SVMs:
+• Reduce the size of the optimization problem by only
+optimizing over the last p examples.
+• Reduce the number of training updates by only 
+training on actual errors.
+• Reduce the number of iterations in the iterative SVM
+Given: dataset X = (x1, y1), . . . , (xn, yn), C, m, p:
+Initialize w := 0, b := 0, seenData := { }
+For Each xi ∈ X do:
+Classify xi using f(xi) = sign(< w, xi > +b)
+If yif(xi) < m
+Find w , b with SMO on seenData,
+using w, b as seed hypothesis.
+set (w, b) := (w",b")
+If size(seenData) > p
+remove oldest example from seenData
+Add xi to seenData
+done
+Figure 4: Pseudo-code for Relaxed Online SVM.
+solver by allowing an approximate solution to the 
+optimization problem.
+As we describe in the remainder of this subsection, all of
+these methods trade statistical robustness for reduced 
+computational cost. Experimental results reported in the 
+following section show that they equal or approach the 
+performance of full Online SVMs on content-based spam detection.
+3.1 Reducing Problem Size
+In the full Online SVMs, we re-optimize over the full set
+of seen data on every update, which becomes expensive as
+the number of seen data points grows. We can bound this
+expense by only considering the p most recent examples for
+optimization (see Figure 4 for pseudo-code).
+Note that this is not equivalent to training a new SVM
+classifier from scratch on the p most recent examples, 
+because each successive optimization problem is seeded with
+the previous hypothesis w [8]. This hypothesis may contain
+values for features that do not occur anywhere in the p most
+recent examples, and these will not be changed. This allows
+the hypothesis to remember rare (but informative) features
+that were learned further than p examples in the past.
+Formally, the optimization problem is now defined most
+clearly in the dual form [23]. In this case, the original 
+softmargin SVM is computed by maximizing at example n:
+W (α) =
+nX
+i=1
+αi −
+1
+2
+nX
+i,j=1
+αiαjyiyj < xi, xj >,
+subject to the previous constraints [23]:
+∀i ∈ {1, . . . , n} : 0 ≤ αi ≤ C and
+nX
+i=1
+αiyi = 0
+To this, we add the additional lookback buffer constraint
+∀j ∈ {1, . . . , (n − p)} : αj = cj
+where cj is a constant, fixed as the last value found for αj
+while j > (n − p). Thus, the margin found by an 
+optimization is not guaranteed to be one that maximizes the margin
+for the global data set of examples {x1, . . . , xn)}, but rather
+one that satisfies a relaxed requirement that the margin be
+maximized over the examples { x(n−p+1), . . . , xn}, subject
+to the fixed constraints on the hyperplane that were found
+in previous optimizations over examples {x1, . . . , x(n−p)}.
+(For completeness, when p ≥ n, define (n − p) = 1.) This
+set of constraints reduces the number of free variables in the
+optimization problem, reducing computational cost.
+3.2 Reducing Number of Updates
+As noted before, the KKT conditions show that a well
+classified example will not change the hypothesis; thus it is
+not necessary to re-train when we encounter such an 
+example. Under the KKT conditions, an example xi is considered
+well-classified when yif(xi) > 1. If we re-train on every
+example that is not well-classified, our hyperplane will be
+guaranteed to be optimal at every step.
+The number of re-training updates can be reduced by 
+relaxing the definition of well classified. An example xi is
+now considered well classified when yif(xi) > M, for some
+0 ≤ M ≤ 1. Here, each update still produces an optimal 
+hyperplane. The learner may encounter an example that lies
+within the margins, but farther from the margins than M.
+Such an example means the hypothesis is no longer globally
+optimal for the data set, but it is considered good enough
+for continued use without immediate retraining.
+This update procedure is similar to that used by 
+variants of the Perceptron algorithm [18]. In the extreme case,
+we can set M = 0, which creates a mistake driven Online
+SVM. In the experimental section, we show that this 
+version of Online SVMs, which updates only on actual errors,
+does not significantly degrade performance on content-based
+spam detection, but does significantly reduce cost.
+3.3 Reducing Iterations
+As an iterative solver, SMO makes repeated passes over
+the data set to optimize the objective function. SMO has
+one main loop, which can alternate between passing over
+the entire data set, or the smaller active set of current 
+support vectors [22]. Successive iterations of this loop bring
+the hyperplane closer to an optimal value. However, it is
+possible that these iterations provide less benefit than their
+expense justifies. That is, a close first approximation may
+be good enough. We introduce a parameter T to control the
+maximum number of iterations we allow. As we will see in
+the experimental section, this parameter can be set as low
+as 1 with little impact on the quality of results, providing
+computational savings.

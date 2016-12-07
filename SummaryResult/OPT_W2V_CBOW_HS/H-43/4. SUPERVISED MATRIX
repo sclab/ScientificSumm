@@ -1,0 +1,31 @@
+Once we obtain w, b, and Z, we can apply h on the vertices with unknown class labels, or apply traditional classification algorithms on Z to get the classification results. 
+(5) form a matrix H = ZW + 1b , (7) where 1 is a vector of size n, whose elements are all one, W is a c × l parameter matrix, and b is a parameter vector of size c. The total loss is proportional to the sum of Eq.
+In the one-against-rest scheme, we assign a label vector for each class label.
+To overcome the difficulty, we use a smoothed version of hinge loss for each data point, g(yih(vi)), (6) where g(x) = 8 >< >: 0 when x ≥ 2, 1 − x when x ≤ 0, 1 4 (x − 2)2 when 0 < x < 2.
+Then the supervised matrix factorization problem becomes min U,V,Z,W,b Js(U, V, Z, W, b) (8) where Js(U, V, Z, W, b) = J (U, V, Z) + LY (W, b, Z) + ΩW (W).
+Let Y be the label matrix, each column of which is a label vector.
+We assume a transform from the latent space to R is linear, i.e.
+(6) over all labeled data points and the classes, LY (W, b, Z) = λ X i:vi∈T ,j∈C g(YijHij), where λ is the parameter to scale the term.
+Believing that using data labels improves the accuracy by obtaining a better Z for the  classification, we consider to use the data labels to guide the matrix factorization, called supervised matrix factorization [22].
+For simplicity, we first consider  binary class problem, i.e.
+Similar to Support Vector Machines (SVMs) [7], we can use the hinge loss to measure the loss, X i:vi∈T [1 − yih(vi)]+ , where [x]+ is x if x ≥ 0, 0 if x < 0.
+faculty other project staff student total Cornell 44 1 34 581 18 21 128 827 Texas 36 1 46 561 20 2 148 814 Washington 77 1 30 907 18 10 123 1166 Wisconsin 85 0 38 894 25 12 156 1210 Table 1: Dataset of WebKB where w and b are parameters to estimate.
+The gradients are ∂Js ∂U = ∂J ∂U , ∂Js ∂V = ∂J ∂V , ∂Js ∂Z = ∂J ∂Z + λGW, ∂Js ∂W =λG Z + νW, ∂Js ∂b =λG 1, where G is an n×c matrix, whose ik-th element is Yikg (YikHik), and g (x) = 8 >< >: 0 when x ≥ 2, −1 when x ≤ 0, 1 2 (x − 2) when 0 < x < 2.
+Therefore, Y is a matrix of n × c, where c is the number of classes, |C|.
+Let C be the set of classes.
+To derive a robust solution, we also use Tikhonov regularization for W, ΩW (W) = ν 2 W 2 F , where ν is the parameter to scale the term.
+The element of a label vector is 1 if the data point  belongs the corresponding class, −1, if the data point does not belong the corresponding class, 0, if the data point is not labeled.
+Because some data used in the matrix factorization have no label  information, the supervised matrix factorization falls into the category of semi-supervised learning.
+We can also use gradient methods to solve the problem of Eq.
+Assume we know the  labels {yi} for vertices in T ⊂ V. We want to find a hypothesis h : V → R, such that we assign vi to 1 when h(vi) ≥ 0, −1  otherwise.
+(4) to obtain Z as Section 3, then use a traditional classifier to perform classification.
+We reduce a multiclass problem into multiple binary ones.
+Here, w is the norm of the decision boundary.
+Then the values of Eq.
+However, the hinge loss is not smooth at the hinge point, which makes it difficult to apply gradient methods on the problem.
+FACTORIZATION Consider a web page classification problem.
+h(vi) = w φ(vi) + b = w zi + b, (5) School course dept.
+However, this approach does not take data labels into account in the first step.
+We can solve Eq.
+C = {−1, 1}.
+One simple scheme of reduction is the one-against-rest coding scheme.

@@ -1,0 +1,50 @@
+We describe the queries, document collection and the system
+output in this section.
+The query set used in the Genomics track of TREC 2006 consists
+of 28 questions collected from real biologists. As described in [8],
+these questions all have the following general format:
+Biological object (1..m)
+Relationship
+←⎯⎯⎯⎯→ Biological process (1..n) (1)
+where a biological object might be a gene, protein, or gene
+mutation and a biological process can be a physiological process
+or disease. A question might involve multiple biological objects
+(m) and multiple biological processes (n). These questions were
+derived from four templates (Table 2).
+Table 2 Query templates and examples in the Genomics track
+of TREC 2006
+Template Example
+What is the role of gene in
+disease?
+What is the role of DRD4 in
+alcoholism?
+What effect does gene have
+on biological process?
+What effect does the insulin
+receptor gene have on
+tumorigenesis?
+How do genes interact in
+organ function?
+How do HMG and HMGB1
+interact in hepatitis?
+How does a mutation in
+gene influence biological
+process?
+How does a mutation in Ret
+influence thyroid function?
+Features of the queries: 1) They are different from the typical
+Web queries and the PubMed queries, both of which usually
+consist of 1 to 3 keywords; 2) They are generated from structural
+templates which can be used by a system to identify the query
+components, the biological object or process.
+The document collection contains 162,259 Highwire full-text
+documents in HTML format.
+The output of the system is a list of passages ranked according to
+their similarities with the query. A passage is defined as any span
+of text that does not include the HTML paragraph tag (i.e., <P> or
+</P>). A passage could be a part of a sentence, a sentence, a set of
+consecutive sentences or a paragraph (i.e., the whole span of text
+that are inside of <P> and </P> HTML tags).
+This is a passage-level information retrieval problem with the
+attempt to put biologists in contexts where relevant information is
+provided.

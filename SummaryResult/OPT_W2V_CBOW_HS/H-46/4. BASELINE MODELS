@@ -1,0 +1,64 @@
+(5) The probability of a query given a document is estimated by  inferring a document language model θd for each document d in a similar manner as the candidate model was inferred: p(t|θd) = (1 − λ)p(t|d) + λp(t), (6) where p(t|d) is the probability of the term in the document.
+(7) Here, p(d) denotes the prior distribution over the set U, which  reflects the relevance of the document to the topic.
+Using the associations between a candidate and a document, the probability p(t|ca) can be approximated by: p(t|ca) = X d p(t|d)p(d|ca), where p(d|ca) is the probability that candidate ca generates a  supporting document d, and p(t|d) is the probability of a term t  occurring in the document d. We use the maximum-likelihood estimate of a term, that is, the normalised frequency of the term t in  document d. The strength of the association between document d and candidate ca expressed by p(d|ca) reflects the degree to which the candidates expertise is described using this document.
+Given a candidate ca, (1) a document that is associated with a candidate is selected with probability p(d|ca), and (2) from this document a query q is generated with probability p(q|d).
+Instead of attempting to model the query generation process via candidate or document models, we represent the query as a topic language model and directly estimate the probability of the  candidate p(ca|q).
+4.2 Document-candidate associations For our models we need to be able to estimate the probability p(d|ca), which expresses the extent to which a document d  characterizes the candidate ca.
+In order to rank candidates according to the topic model defined, we use the Kullback-Leibler divergence metric (KL, [8]) to measure the difference between the candidate models and the topic model: KL(θk||θca) = X t p(t|θk) log p(t|θk) p(t|θca) .
+Given a collection of documents and a query topic q, it is assumed that there exists an unknown topic model θk that assigns probabilities p(t|θk) to the term  occurrences in the topic documents.
+As with the previous models, a language model is  inferred, but this time for the query.
+The candidate model is then constructed as a linear interpolation of p(t|ca) and the background model p(t) to ensure there are no zero probabilities, which results in the final estimation: p(q|θca) = (4) Y t∈q ( (1 − λ) X d p(t|d)p(d|ca) !
+, qm), and T is the  entire vocabulary of terms.
+However, in our (intranet) setting it is  reasonable to assume that authors of documents can unambiguously be identified (e.g., as the author of an article, the teacher assigned to a course, the owner of a web page, etc.)
+The main task is to estimate p(t|θk), the probability of a term given the topic model.
+We can then estimate p(t|q) using the joint probability of observing the term t together with the query terms, q1, .
+then to construct this set, the query q would be issued against the collection, and the top n returned are assumed to be relevant to the topic, and thus treated as samples from the topic model.
+For each candidate ca, a candidate language model θca is inferred such that the probability of a term given θca is  nonzero for all terms, i.e., p(t|θca) > 0.
+From the candidate model the query is generated with the following probability: p(q|θca) = Y t∈q p(t|θca)n(t,q) , where each term t in the query q is sampled identically and  independently, and n(t, q) is the number of times t occurs in q.
+The candidate model θca is defined in Eq.
+4.1 From topics to candidates Using Candidate Models: Model 1 Model 1 [4] defines the  probability of a query given a candidate (p(q|ca)) using standard  language modeling techniques, based on a multinomial unigram  language model.
+In order to estimate the joint probability p(t, q1, .
+By using KL divergence instead of the  probability of a candidate given the topic model p(ca|θk), we avoid normalization problems.
+With the document models forming U, the joint  probability of term and query becomes: p(t, q1, .
+Both the query and the documents are samples from θk (as opposed to the previous approaches, where a query is assumed to be sampled from a specific document or  candidate model).
+If we choose U to be a set of document models.
+Hence, we set p(d|ca) to be 1 if candidate ca is author of document d, otherwise the probability is 0.
+Lavrenko and Croft [14] suggest a reasonable way of obtaining such an approximation, by assuming that p(t|θk) can be approximated by the probability of term t given the query q.
+The probability of a query given the document model is: p(q|θd) = Y t∈q p(t|θd)n(t,q) .
+Then the sum over all documents is taken to obtain p(q|ca), such that: p(q|ca) = X d p(q|d)p(d|ca).
+, qm), we follow [14, 15] and assume t and q1, .
+We adapt the work of Lavrenko and Croft [14] to estimate a topic model from the query.
+This process is akin to how a user may search for candidates with a standard search engine: initially by finding the documents which are relevant, and then seeing who is associated with that document.
+Model 1 amasses all the term information from all the documents associated with the candidate, and uses this to represent that  candidate.
+The candidate language model is inferred as follows: (1) an empirical model p(t|ca) is computed; (2) it is smoothed with background probabilities.
+(Note that candidate models could be used instead.)
+By examining a number of documents the user can obtain an idea of which  candidates are more likely to discuss the topic q.
+The final estimate of p(q|ca) is obtained by substituting p(q|d) for p(q|θd) into Eq.
+, qm) , where p(q1, .
+In Section 6 we describe how authorship can be determined on different types of documents within the collection. 
+In this section we describe our baseline models for estimating p(q|ca), i.e., associations between topics and people.
+, qm, and dividing by the joint probability of the query terms: p(t|θk) ≈ p(t|q) = p(t, q1, .
+We  employ three models for calculating this probability.
+This model is used to predict how likely a candidate would produce a query q.
+, qm) p(q1, .
+Conceptually, Model 2 differs from Model 1 because the candidate is not directly modeled.
+This can can be intuitively interpreted as the probability of this candidate talking about the query topic, where we assume that this is indicative of their expertise.
+Instead, the document acts like a hidden variable in the process which separates the query from the candidate.
+, qm) = P t ∈T p(t , q1, .
+, qm are mutually independent, once we pick a source distribution from the set of underlying source distributions U.
+We assume that p(d) is uniform across U.
+In [4], two methods are presented for  estimating this probability, based on the number of person names  recognized in a document.
+, qm) P t ∈T p(t , q1, .
+, qm) = p(t, q1, .
+(8) Candidates with a smaller divergence from the topic model are  considered to be more likely experts on that topic.
+Using Topic Models: Model 3 We introduce a third model, Model 3.
+Since the query q is very sparse, and as there are no examples of documents on the topic, this  distribution needs to be approximated.
+Using Document Models: Model 2 Model 2 [4] takes a  different approach.
+, qm) = X d∈U p(d) ˘ p(t|θd) mY i=1 p(qi|θd) ¯ .
+The  estimation of this probability is presented later, in Section 4.2.
+The procedure is as follows.
++ λp(t) )n(t,q) .
+This approach is similar to the model presented in [3, 19].
+Both expert finding and expert profiling boil down to this estimation.
+Here, the process is broken into two parts.
+5 (see [4] for full details).

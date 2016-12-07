@@ -1,0 +1,31 @@
+In this paper, we aim to develop a new learning algorithm that can directly optimize any performance measure used in document retrieval.
+[8] take a similar approach and perform the learning by using boosting,  referred to as RankBoost.
+In ranking, given a new query, the corresponding retrieved documents are sorted by using the trained ranking model.
+A lower bound of the performance on training data is given, which indicates that the ranking accuracy in terms of the performance measure can be continuously improved during the training process.
+Experimental results and  discussions are given in Section 4.
+AdaRank can be viewed as a machine learning method for direct optimization of performance measures, based on a different approach.
+Several methods for learning to rank have been developed and applied to document retrieval.
+For example, Herbrich et al.
+In training, a ranking model is constructed with data  consisting of queries, their corresponding retrieved documents, and  relevance levels given by humans.
+[13] propose a learning algorithm for ranking on the basis of Support Vector Machines, called Ranking SVM.
+As the number of features in the ranking model gets larger and the amount of  training data gets larger, the tuning becomes harder.
+After a summary of related work in Section 2, we describe the proposed AdaRank algorithm in details in Section 3.
+Ideally, the ranking function is created so that the accuracy of ranking in terms of one of the measures with respect to the training data is maximized.
+Tuning ranking models using certain training data and a  performance measure is a common practice in IR [1].
+Inspired by the work of AdaBoost for classification [9], we propose to develop a boosting algorithm for information  retrieval, referred to as AdaRank.
+Freund et al.
+For example, Ranking SVM and RankBoost train ranking models by minimizing  classification errors on instance pairs.
+All the existing methods used for  document retrieval [2, 3, 8, 13, 16, 20] are designed to optimize loss functions loosely related to the IR performance measures, not loss functions directly based on the measures.
+The rest of the paper is organized as follows.
+When applied to document retrieval, learning to rank becomes a task as follows.
+In learning, it repeats the process of re-weighting the training sample, creating a weak ranker, and calculating a weight for the ranker.
+AdaRank offers several advantages: ease in implementation,  theoretical soundness, efficiency in training, and high accuracy in ranking.
+From the viewpoint of IR, AdaRank can be viewed as a machine learning method for ranking model tuning.
+Section 5 concludes this paper and gives future work. 
+In document retrieval, usually ranking results are evaluated in terms of performance measures such as MAP (Mean Average Precision) [1] and NDCG (Normalized Discounted  Cumulative Gain) [15].
+AdaRank utilizes a linear  combination of ‘weak rankers" as its model.
+Several methods for  classification [17] and ranking [5, 19] have been proposed.
+Experimental results indicate that AdaRank can outperform the  baseline methods of BM25, Ranking SVM, and RankBoost, on four benchmark datasets including OHSUMED, WSJ, AP, and .Gov.
+Recently ‘learning to rank" has gained increasing attention in both the fields of information retrieval and machine learning.
+We show that AdaRank algorithm can iteratively optimize an  exponential loss function based on any of IR performance measures.
+Recently, direct optimization of performance measures in  learning has become a hot research topic.

@@ -1,0 +1,34 @@
+finally, we conclude in section 6. 
+we describe the audio processing in section 2. the indexing and retrieval methods are presented in section 3. experimental setup and results are given in section 4. in section 5, we give an overview of related work.
+the paper is organized as follows.
+we analyze the  retrieval effectiveness of this approach on the nist spoken term detection 2006 evaluation data [1].
+we search queries by merging the information retrieved from the two different indices, word index and phonetic index, according to the timestamps of the query terms.
+we present a novel scheme for information retrieval that consists of storing, during the indexing process, for each unit of indexing (phone or word) its timestamp.
+no previous work  combining word and phonetic approach has been done on phrase search.
+the only element of comparison between phonetic and word transcripts are the timestamps.
+therefore, we cannot merge posting lists retrieved by phonetic index with those retrieved by word index since the offset of the occurrences retrieved from the two different indices are not comparable.
+in classical ir, the index stores for each occurrence of a term, its offset.
+proximity information on the occurrences of the query terms is required for phrase search and for proximity-based ranking.
+consequently, we need to merge pieces of information retrieved from word index and phonetic index.
+we would like to be able to process also hybrid queries, i.e, queries that  include both iv and oov terms.
+a solution would be to combine the two different  approaches presented above: we index both word transcripts and phonetic transcripts; during query processing, the  information is retrieved from the word index for iv terms and from the phonetic index for oov terms.
+therefore, such approach cannot be an alternative to word transcripts,  especially for in-vocabulary (iv) query terms that are part of the vocabulary of the asr system.
+the main drawback of this approach is the  inherent high error rate of the transcripts.
+the retrieval is based on searching the sequence of phones representing the query in the phonetic transcripts.
+another approach consists of converting the speech to phonetic transcripts and representing the query as a  sequence of phones.
+in many applications the oov rate may get worse over time unless the recognizer"s vocabulary is periodically updated.
+[28].
+the effects of oov query terms in spoken data retrieval are discussed by woodland et al.
+it has been experimentally observed that over 10% of user queries can contain oov terms [16], as queries often  relate to named entities that typically have a poor coverage in the asr vocabulary.
+oov terms are missing words from the asr system vocabulary and are replaced in the output transcript by alternatives that are probable, given the recognition acoustic model and the language model.
+however, a significant drawback of such approaches is that search on queries containing out-of-vocabulary (oov) terms will not return any results.
+concluded that spoken document retrieval is a solved problem [12].
+in 2000, garofolo et al.
+while the accuracy of automatic speech recognition (asr) systems depends on the scenario and environment, state-of-the-art systems achieved better than 90% accuracy in transcription of such data.
+one of the conclusions of those tracks was that the effectiveness of retrieval mostly depends on the  accuracy of the transcripts.
+these tracks focused on retrieval from a corpus of broadcast news stories spoken by  professionals.
+[12].
+some of these works have been done in the framework of the nist trec spoken document retrieval tracks and are described by garofolo et al.
+in the past decade, most of the research efforts on spoken data retrieval have focused on  extending classical ir techniques to word transcripts.
+the classical approach consists of converting the speech to word transcripts using a large vocabulary continuous speech recognition (lvcsr) tool.
+the rapidly increasing amount of spoken data calls for solutions to index and search this data.

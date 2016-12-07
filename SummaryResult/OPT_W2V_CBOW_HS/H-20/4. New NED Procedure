@@ -1,0 +1,37 @@
+Traditional NED systems can be classified into two main types on the aspect of detection procedure: (1) S-S type, in which the story on hand is compared to each story received previously, and use the highest similarity to determine whether current story is about a new event; (2) S-C type, in which the story on hand is compared to all previous clusters each of which representing a topic, and the highest similarity is used for final decision for current story.
+The more the stories in a cluster similar to each other, the better the cluster represents the stories in it.
+Inserting procedure Comparison procedure: Step 1: compare di to all the direct child nodes of r and select λ nodes with highest similarities, e.g., C1 2 and C1 3 in Figure 1.
+The news indexing-tree is defined formally as follows: S-Tree = {r, NC , NS , E} where r is the root of S-Tree, NC is the set of all cluster nodes, NS is the set of all story nodes, and E is the set of all edges in S-Tree.
+If s is smaller than θ init+(h-1)δ , then add di to the tree as a direct child of r. Otherwise, if n is a terminal node, then create a cluster node instead of n, and add both n and di as its direct children; if n is an non-terminal node, then repeat this procedure and insert di to the sub-tree with n as root recursively.
+Here h is the length between n and the root of S-tree.
+After the new event decision is made, the current story is inserted to the indexing-tree for the following detection.
+If the highest similarity exceeds thresholdθ new, then it is an old story, and put it into the most similar cluster; otherwise it is a new story and create a new cluster.
+Step 2: for each selected node in the last step, e.g.
+But we will give the number of comparing times needed by the new procedure in our experiments in section7.
+Inserting di to the S-tree with r as root: Find the node n which is direct child of r in the path from r to the terminal node with highest similarity s, e.g.
+C1 2, compare di to all its direct child nodes, and select λ nodes with highest similarities, e.g.
+, is represented as the centroid of its desendantsC i i iN∀ ∈ → For a news story di, the comparison procedure and inserting procedure based on indexing-tree are defined as follows.
+Previous work show that the first manner is more accurate than the second one [4][5].
+We index similar stories together by their common ancestor (a cluster node).
+We propose a new detection procedure which uses comparisons with previous clusters to help find the most similar story in less comparing times, and the final new event decision is made according to the most similar story.
+Step 3: record the terminal node with the highest similarty to di, e.g.
+When a story is coming, we use comparisons between the current story and previous hierarchical clusters to help find the most similar story which is useful for new event decision.
+Therefore, we cannot give the complexity of this indexing-tree based procedure.
+So using similarities between stories for determining new story is better than using similarities between story and clusters.
+Hence we add no constraints on the maximum of tree"s height and degree of a node.
+Therefore, we can get both the accuracy of S-S type methods and the efficiency of S-C type methods.
+The new procedure creates a news indexing-tree dynamically, in which similar stories are put together to form a hierarchy of clusters.
+Dissimilar stories are indexed in different clusters.
+Repeat step 2 for all non-terminal nodes.
+Nevertheless, the first manner needs much more comparing times which means the first manner is low efficient.
+s5, and the similarity value (0.20).
+Since sometimes stories within a topic drift far away from each other, a story may have very low similarity with its topic.
+, is a terminal node in the treeS i i N i∀ ∈ → ⅲ .
+We define a set of constraints for a S-Tree: ⅰ .
+, out degree of is at least 2C i i N i∀ ∈ → ⅳ .
+Comparison procedure Figure 2.
+An example is shown by Figure 1 and Figure 2.
+, is an non-terminal node in the treeC i i N i∀ ∈ → ⅱ .
+C2 2 and d8.
+Figure 1.
+C1 2.

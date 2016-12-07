@@ -1,0 +1,184 @@
+We describe CenWits in the context of locating lost/injured
+hikers in wilderness areas. Each hiker wears a sensor (MICA2
+motes in our prototype) equipped with a GPS receiver and
+an RF transmitter. Each sensor is assigned a unique ID and
+maintains its current location based on the signal received by
+its GPS receiver. It also emits beacons periodically. When
+any two sensors are in the range of one another, they record
+the presence of each other (witness information), and also
+exchange the witness information they recorded earlier. The
+key idea here is that if two sensors come with in range of
+each other at any time, they become each other"s witnesses.
+Later on, if the hiker wearing one of these sensors is lost, the
+other sensor can convey the last known (witnessed) location
+of the lost hiker. Furthermore, by exchanging the witness
+information that each sensor recorded earlier, the witness
+information is propagated beyond a direct contact between
+two sensors.
+To convey witness information to a processing center or to
+a rescue team, access points are established at well-known
+locations that the hikers are expected to pass through, e.g.
+at the trail heads, trail ends, intersection of different trails,
+scenic view points, resting areas, and so on. Whenever a
+sensor node is in the vicinity of an access point, all witness
+information stored in that sensor is automatically dumped
+to the access point. Access points are connected to a 
+processing center via satellite or some other network1
+. The
+witness information is downloaded to the processing center
+from various access points at regular intervals. In case, 
+connection to an access point is lost, the information from that
+1
+A connection is needed only between access points and a
+processing center. There is no need for any connection 
+between different access points.
+182
+access point can be downloaded manually, e.g. by UAVs.
+To estimate the speed, location and direction of a hiker at
+any point in time, all witness information of that hiker that
+has been collected from various access points is processed.
+Figure 2: Hiker A and Hiker B are in the range
+of each other. A records the presence of B and B
+records the presence of A. A and B become each
+other"s witnesses.
+Figure 3: Hiker A is in the range of an access
+point. It uploads its recorded witness information
+and clears its memory.
+An example of how CenWits operates is illustrated in 
+Figures 1, 2 and 3. First, hikers A and B are on two close
+trails, but out of range of each other (Figure 1). This is
+a very common scenario during a hike. For example, on a
+popular four-hour hike, a hiker might run into as many as
+20 other hikers. This accounts for one encounter every 12
+minutes on average. A slow hiker can go 1 mile (5,280 feet)
+per hour. Thus in 12 minutes a slow hiker can go as far as
+1056 feet. This implies that if we were to put 20 hikers on a
+4-hour, one-way hike evenly, the range of each sensor node
+should be at least 1056 feet for them to communicate with
+one another continuously. The signal strength starts 
+dropping rapidly for two Mica2 nodes to communicate with each
+other when they are 180 feet away, and is completely lost
+when they are 230 feet away from each other[7]. So, for the
+sensors to form a sensor network on a 4-hour hiking trail,
+there should be at least 120 hikers scattered evenly. Clearly,
+this is extremely unlikely. In fact, in a 4-hour, less-popular
+hiking trail, one might only run into say five other hikers.
+CenWits takes advantage of the fact that sensors can 
+communicate with one another and record their presence. Given
+a walking speed of one mile per hour (88 feet per minute)
+and Mica2 range of about 150 feet for non-line-of-sight radio
+transmission, two hikers have about 150/88 = 1.7 minutes to
+discover the presence of each other and exchange their 
+witness information. We therefore design our system to have
+each sensor emit a beacon every one-and-a-half minute. In
+Figure 2, hiker B"s sensor emits a beacon when A is in range,
+this triggers A to exchange data with B. A communicates
+the following information to B: My ID is A; I saw C at 1:23
+PM at (39◦
+49.3277655", 105◦
+39.1126776"), I saw E at 3:09
+PM at (40◦
+49.2234879", 105◦
+20.3290168"). B then replies
+with My ID is B; I saw K at 11:20 AM at (39◦
+51.4531655",
+105◦
+41.6776223"). In addition, A records I saw B at 4:17
+PM at (41◦
+29.3177354", 105◦
+04.9106211") and B records I
+saw A at 4:17 PM at (41◦
+29.3177354", 105◦
+04.9106211").
+B goes on his way to overnight camping while A heads
+back to trail head where there is an AP, which emits beacon
+every 5 seconds to avoid missing any hiker. A dumps all
+witness information it has collected to the access point. This
+is shown in Figure 3.
+3.1 Witness Information: Storage
+A critical concern is that there is limited amount of 
+memory available on motes (4 KB SDRAM memory, 128 KB
+flash memory, and 4-512 KB EEPROM). So, it is important
+to organize witness information efficiently. CenWits stores
+witness information at each node as a set of witness records
+(Format is shown in Figure 4.
+1 B
+Node ID Record Time X, Y Location Time Hop Count
+1 B 3 B 8 B 3 B
+Figure 4: Format of a witness record.
+When two nodes i and j encounter each other, each node
+generates a new witness record. In the witness record 
+generated by i, Node ID is j, Record Time is the current time
+in i"s clock, (X,Y) are the coordinates of the location of i
+that i recorded most recently (either from satellite or an
+LP), Location Time is the time when the this location was
+recorded, and Hop Count is 0.
+Each node is assigned a unique Node Id when it enters a
+trail. In our current prototype, we have allocated one byte
+for Node Id, although this can be increased to two or more
+bytes if a large number of hikers are expected to be present
+at the same time. We can represent time in 17 bits to a 
+second precision. So, we have allocated 3 bytes each for Record
+Time and Location Time. The circumference of the Earth
+is approximately 40,075 KM. If we use a 32-bit number to
+represent both longitude and latitude, the precision we get
+is 40,075,000/232
+= 0.0093 meter = 0.37 inches, which is
+quite precise for our needs. So, we have allocated 4 bytes
+each for X and Y coordinates of the location of a node. In
+fact, a foot precision can be achieved by using only 27 bits.
+3.2 Location Point and Location Inference
+Although a GPS receiver provides an accurate location
+information, it has it"s limitation. In canyons and rainy
+forests, a GPS receiver does not work. When there is a
+heavy cloud cover, GPS users have experienced inaccuracy
+in the reported location as well. Unfortunately, a lot of 
+hiking trails are in dense forests and canyons, and it"s not that
+uncommon to rain after hikers start hiking. To address this,
+CenWits incorporates the idea of location points (LP). A
+location point can update a sensor node with its current 
+location whenever the node is near that LP. LPs are placed at
+different locations in a wilderness area where GPS receivers
+don"t work. An LP is a very simple device that emits 
+prerecorded location information at some regular time interval.
+It can be placed in difficult-to-reach places such as deep
+canyons and dense rain forests by simply dropping them
+from an airplane. LPs allow a sensor node to determine
+its current location more accurately. However, they are not
+183
+an essential requirement of CenWits. If an LP runs out of
+power, the CenWits will continue to work correctly.
+Figure 5: GPS receiver not working correctly. 
+Sensors then have to rely on LP to provide coordination
+In Figure 5, B cannot get GPS reception due to bad
+weather. It then runs into A on the trail who doesn"t have
+GPS reception either. Their sensors record the presence of
+each other. After 10 minutes, A is in range of an LP that
+provides an accurate location information to A. When A
+returns to trail head and uploads its data (Figure 6), the
+system can draw a circle centered at the LP from which A
+fetched location information for the range of encounter 
+location of A and B. By Overlapping this circle with the trail
+map, two or three possible location of encounter can be 
+inferred. Thus when a rescue is required, the possible location
+of B can be better inferred (See Figures 7 and 8).
+Figure 6: A is back to trail head, It reports the
+time of encounter with B to AP, but no location
+information to AP
+Figure 7: B is still missing after sunset. CenWits
+infers the last contact point and draws the circle of
+possible current locations based on average hiking
+speed
+CenWits requires that the clocks of different sensor nodes
+be loosely synchronized with one another. Such a 
+synchronization is trivial when GPS coverage is available. In 
+addition, sensor nodes in CenWits synchronize their clocks
+whenever they are in the range of an AP or an LP. The
+Figure 8: Based on overlapping landscape, B might
+have hiked to wrong branch and fallen off a cliff. Hot
+rescue areas can thus be determined
+synchronization accuracy Cenwits needs is of the order of a
+second or so. As long as the clocks are synchronized with in
+one second range, whether A met B at 12:37"45 or 12:37"46
+doesn"t matter in the ordering of witness events and 
+inferring the path.

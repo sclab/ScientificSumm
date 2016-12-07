@@ -1,0 +1,450 @@
+As described above, we consider the case that the advertising agents
+do not have an externally derived estimate of the value of exposing
+the advert to a single user. Rather, they have a constrained budget,
+B, and a limited period of interest during which they wish to 
+display their advert. Their goal is then to find the appropriate amount
+to bid within each auction in this period, in order to maximise the
+exposure of their advert.
+In attempting to achieve this goal the advertising agent is faced
+with a high level of uncertainty about future events. It will be 
+uncertain of the number of users who will be present during any 
+advertising cycle since even if the number of users currently present
+3
+This assumption of having a single BluScreen instance is made
+to simplify our task of validating the correctness and the efficiency
+of the proposed mechanism and strategy, and generalising these
+results to the case of multiple screens is the aim of our future work.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 265
+is known, some may leave before the advert commences, and 
+others may arrive. Moreover, the amount that must be bid to ensure
+that an auction is won is uncertain since it depends on the number
+and behaviour of the competing advertising agents.
+Thus, we enable the agent to use its observations of the arrival
+and departure of users to build a probabilistic model, based upon
+independent Poisson processes, that describes the number of users
+who are likely to be exposed to any advert. In addition, we enable
+the agent to observe the outcome of previous advertising cycle 
+auctions, and use the observations of the closing price, and the success
+or otherwise of the bids that it itself submitted, to build a 
+probabilistic model of the bid required to win the auction. The agent then uses
+these two models to calculate its expected utility in each advertising
+cycle, and in turn, determine the optimal sequence of bids that 
+maximises this utility given its constrained budget. Having calculated
+this sequence of bids, then the first bid in the sequence is actually
+used in the auction for the next advertising cycle. However, at the
+close of this cycle, the process is repeated with a new optimal 
+sequence of bids being calculated in order take to account of what
+actually happened in the preceding auction (i.e. whether the bid
+was successful or not, and how many users arrived or departed).
+Thus, in the next three subsections we describe these two 
+probabilistic models, and their application within the bidding strategy of
+the advertising agent.
+5.1 Predicting the Number of Users
+In order to predict the number of users that will be present in any
+future advertising cycle, it is necessary to propose a probabilistic
+model for the behaviour of the users. Thus, our advanced bidding
+strategy assumes that their arrival and departures are determined by
+two independent Poisson processes4
+with arrival rate, λa, and 
+departure rate, λd. This represents a simple model that is commonly
+applied within queuing theory5
+[5], yet is one that we believe well
+describes the case where BluScreen displays are placed in 
+communal areas where people meet and congregate. Given the history of
+users" arrivals and departures obtained from the device detection
+agent, the advertising agent makes a maximum likelihood 
+estimation of the values of λa and λd.
+In more detail, if the advertising agent has observed n users 
+arriving within a time period t, then the maximum likelihood 
+estimation for the arrival rate λa is simply given by:
+λa =
+n
+t
+(1)
+Likewise, if an agent observes n users each with a duration of stay
+of t1, t2, . . . , tn time periods, then the maximum likelihood 
+estimation for the departure rate λd is given by:
+1
+λd
+=
+1
+n
+n
+i=1
+ti (2)
+4
+Given a Poisson distribution with rate parameter λ, the number of
+events, n, within an interval of time t is given by:
+P(n) =
+e−λt
+(λt)n
+n!
+In addition, the probability of having to wait a period of time, t,
+before the next event is determined by:
+P(t) = λeλt
+5
+Note however that in queuing theory it is typically the arrival rate
+and service times of customers that are modelled as Poisson 
+processes. Our users are not actually modelled as a queue since the
+duration of their stay is independent of that of the other users.
+
+0 t t + tc τ
+(i)
+n users
+?
+(iii)
+λatc users
+?
+(ii)
+λat users
+?
+Figure 3: Example showing how to predict the number of users
+who see an advert shown in an advertising cycle of length tc,
+commencing at time t in the future.
+In environments where these rates are subject to change, the agent
+can use a limited time window over which observations are used
+to estimate these rates. Alternatively, in situations where cyclic
+changes in these rates are likely to occur (i.e. changing arrival and
+departure rates at different times of the day, as may be seen in areas
+where commuters pass through), the agent can estimate separate
+values over each hour long period.
+Having estimated the arrival and departure rate of users, and
+knowing the number of users who are present at the current time,
+the advertising agent is then able to predict the number of users
+who are likely to be present in any future advertising cycle6
+. Thus,
+we consider the problem of predicting this number for an 
+advertising cycle of duration tc that starts at a time t in the future, given
+that n users are currently present (see figure 3). This number will
+be composed of three factors: (i) the fraction of the n users that are
+initially present who do not leave in the interval, 0 ≤ τ < t, before
+the advertising cycle commences, (ii) users that actually arrive in
+the interval, 0 ≤ τ < t, and are still present when the advertising
+cycle actually commences, and finally, (iii) users that arrive during
+the course of the advertising cycle, t ≤ τ < t + tc.
+Now, considering case (i) above, the probability of one of the n
+users still being present when the advertising cycle starts is given
+by
+∞
+t
+λde−λdτ
+dτ = e−λdt
+. Thus we expect ne−λdt
+of these
+users to be present. In case (ii), we expect λat new users to 
+arrive before the advertising cycle commences, and the probability
+that any of these will still be there when it actually does so is
+given by 1
+t
+t
+0
+e−λd(t−τ)
+dτ = 1
+λdt
+1 − e−λdt
+. Thus we expect
+λa
+λd
+1 − e−λdt
+of these users to be present. Finally, in case (iii)
+we expect λatc users to arrive during the course of the advertising
+cycle. Thus, the combination of these three factors gives an 
+expression for the expected number of users who will be present within
+an advertising cycle of length tc, that commencing at time t in the
+future, given that there are n users currently present:
+Nn,t = ne−λdt
++
+λa
+λd
+1 − e−λdt
++ λatc (3)
+Note that as t increases the results become less dependent upon the
+initial number of users, n. The mean number of users present at
+any time is simply λa/λd, and the mean number of users exposed
+to an advert in any advertising cycle is given by λa tc + 1
+λd
+.
+5.2 Predicting the Probability of Winning
+In addition to estimating the number of users who will be present
+in any advertising cycle, an effective bidding agent must also be
+able to predict the probability of it winning an auction given that it
+submits any specified bid. This is a common problem within 
+bidding agents, and approaches can generally be classified as game
+theoretic or decision theoretic. Since our advertising agents are
+unaware of the number or identity of the competing advertising
+6
+Note that we do not require a user to be present for the entire
+advertising cycle in order to be counted as present.
+266 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+agents, the game theoretic approach is precluded. Thus, we take a
+decision theoretic approach similar to that adopted within 
+continuous double auctions where bidding agents estimate the market price
+of goods by observing transaction prices [4].
+Thus, our advertising agents uses a parameterised function to
+describe the probability of winning the auction given any submitted
+bid, P(b). This function must have support [0, ∞) since bids must
+be positive. In addition, we expect it to exhibit by an ‘s" shaped
+curve whereby the probability of winning an auction is small when
+the submitted bid is very low, the probability is close to one when
+the bid is very high, and there is a transition point that characterises
+the change from a losing to a wining bid. To this end, we use the
+cumulative form of the gamma distribution for this function:
+P(b) =
+γ (k, b/θ)
+Γ (k)
+(4)
+where Γ(k) is the standard gamma function, and γ (k, b/θ) is the
+incomplete gamma function. This function has the necessary 
+properties described above, and has two parameters, k and θ. The 
+transition point where P(b) = 0.5 is given by kθ and the sharpness of
+the transition is described by kθ2
+. In figure 4 we show examples of
+this function for three different values of k and θ.
+The advertising agent chooses the most appropriate values of k
+and θ by fitting the probability function to observations of previous
+auctions. An observation is a pair {bi, oi} consisting of the bid,
+bi, and an auction outcome, oi. Each auction generates at least one
+pair in which bi is equal to the closing price of the auction, and
+oi = 1. In addition, another pair is generated for each unsuccessful
+bid submitted by the advertising agent itself, and in this case oi =
+0. Thus, having collected N such pairs7
+, the agent finds the values
+of k and θ by evaluating:
+arg min
+k,θ
+N
+i=1
+oi −
+γ (k, bi/θ)
+Γ (k)
+2
+(5)
+This expression can not be evaluated analytically, but can be simply
+found using a numerical gradient descent method whereby the 
+values of k and θ are initially estimated using their relationship to the
+transition point described above. The gradient of this expression
+is then numerically evaluated at these points, and new estimates of
+k and θ calculated by making a fixed size move in the direction
+of maximum gradient. This process is repeated until k and θ have
+converged to an appropriate degree of accuracy.
+5.3 Expected Utility of an Advertising Cycle
+The goal of the advertising agent is to gain the maximum exposure
+for its advert given its constrained budget. We define the utility
+of any advertising cycle as the expected number of users who will
+see the advert for the first time during that cycle, and hence, we
+explicitly assume that no additional utility is derived by showing
+the advert to any user more than once8
+. Thus, we can use the results
+of the previous two sections to calculate the expected utility of each
+advertising cycle remaining within the advertising agent"s period of
+7
+In the case that no unsuccessful bids have been observed, there is
+no evidence of where the transition point between successful and
+unsuccessful bids is likely to occur. Thus, in this case, an 
+additional pair with value {α min(b1 . . . bn), 0} is automatically 
+created. Here α ∈ [0, 1] determines how far below the lowest 
+successful bid the advertising agent believes the transition point to be. We
+have typically used α = 0.5 within our experiments.
+8
+As noted before, we assume that a user has seen the advert if they
+are present during any part of the advertising cycle, and we do not
+differentiate between users who see the entire advert, or users who
+see a fraction of it.
+0 10 20 30 40
+0
+0.2
+0.4
+0.6
+0.8
+1
+Probability of Winning Auction P(b)
+Bid (b)
+k = 5
+k = 10
+k = 20
+Figure 4: Cumulative gamma distribution representing the
+probability of winning an auction (θ = 1 and k = 5, 10 & 20).
+interest. In the first advertising cycle this is simply determined by
+the probability of the advertising agent winning the auction, given
+that it submits a bid b1, and the number of users who are currently in
+front of the BluScreen display, but have not seen the advert before,
+is n. Thus, the expected utility of this advertising cycle is simply
+described by:
+u1 = P(b1)Nn,0 (6)
+Now, in the second advertising cycle, the expected utility will clearly
+depend on the outcome of the auction for the first. If the first 
+auction was indeed won by the agent, then there will be no users who
+have yet to see the advert present at the start of the second 
+advertising cycle. Thus, in this case, the expected number of new users
+who will see the advert in the second advertising cycle is described
+by N0,0 (i.e. only newly arriving users will contribute any utility).
+By contrast, if the first auction was not won by the agent, then the
+expected number of users who have yet to see the advert is given by
+Nn,tc where tc is the length of the preceding adverting cycle (i.e.
+exactly the case described in section 5.1 where there are n users
+initially present and the advertising cycle starts at a time tc in the
+future). Thus, the expected utility of the second advertising cycle
+is given by:
+u2 = P(b2) [P(b1)N0,0 + (1 − P(b1))Nn,tc ] (7)
+We can generalise this result by noting that the number of users 
+expected to be present within any future advertising cycle will depend
+on the number of cycles since an auction was last won (since at this
+point the number of users who are present but have not seen the
+advert must be equal to zero). Thus, we must sum over all possible
+ways in which this can occur, and weight each by its probability.
+Hence, the general case for any advertising cycle is described by
+the rather complex expression:
+ui = P(bi)
+i−1
+j=1
+N0,(i−j−1)tc P(bj)
+i−1
+m=j+1
+(1 − P(bm))
++ Nn,(i−1)tc
+i−1
+m=1
+(1 − P(bm)) (8)
+Thus, given this expression, the goal of the advertising agent is to
+calculate the sequence of bids over the c remaining auctions, such
+that the total expected utility is maximised, whilst ensuring that the
+remaining budget, B, is not exceeded:
+arg max
+b1...bc
+c
+i=1
+ui such that
+c
+i=1
+bi = B (9)
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 267
+0 0.25 0.5 0.75 1
+0
+1
+2
+3
+4
+5
+6
+Expected Utility (U)
+b
+1
+/ B
+B = 5
+B = 10
+B = 20
+B = 30
+B = 40
+Figure 5: Total expected utility of the advertising agent over a
+continuous range of values of b1 for a number of discrete values
+of budget, B, when there are just two auction cycles.
+Having calculated this sequence, a bid of b1 is submitted in the next
+auction. Once the outcome of this auction is known, the process
+repeats with a new optimal sequence of bids being calculated for
+the remaining advertising cycles of the agent"s period of interest.
+5.4 Optimal Sequence of Bids
+Solving for the optimal sequence of bids expressed in equation 9
+can not be performed analytically. Instead we develop a numerical
+routine to perform this maximisation. However, it is informative to
+initially consider the simple case of just two auctions.
+5.4.1 Two Auction Example
+In this case the expected utility of the advertising agent is simply
+given by u1 + u2 (as described in equations 6 and 7), and the 
+bidding sequence is solely dependent on b1 (since b2 = B−b1). Thus,
+we can plot the total expected utility against b1 and graphically 
+determine the optimal value of b1 (and thus also b2).
+To this end, figure 5 shows an example calculated using 
+parameter values λa = 1/120, λd = 1/480 and tc = 120. In this case, we
+assume that k = 10 and θ = 1, and thus, given that kθ describes
+the midpoint of the cumulative gamma distribution, a bid of 10 
+represents a 50% chance of winning any auction (i.e. P(10) = 0.5).
+In addition, we assume that n = λa/λd = 4, and thus the initial
+number of users present is equal to the mean number that we expect
+to find present at any time. The plot indicates that when the budget
+is small, then the maximum utility is achieved at the extreme values
+of b1. This corresponds to bidding in just one of the two auctions
+(i.e. b1 = 0 and b2 = B or b1 = B and b2 = 0). However, as the
+budget increases, the plot passes through a transition whereby the
+maximum utility occurs at the midpoint of the x-axis, 
+corresponding to bidding equally in both auctions (i.e. b1 = b2 = B/2).
+This is simply understood by the fact that continuing to allocate
+the budget to a single auction results in diminishing returns as the
+probability of actually winning this auction approaches one.
+In this case, the plot is completely symmetrical since the 
+number of users present at the start is equal to its expected value (i.e.
+n = λa/λd). If however, n < λa/λd the plot is skewed such that
+when the budget is small, it should be allocated to the second 
+auction (since more users are expected to arrive before this advertising
+cycle commences). Conversely, when n > λa/λd the entire 
+budget should be allocated to the first auction (since the users who are
+currently present are likely to depart in the near future). However,
+in both cases, a transition occurs whereby given sufficient budget it
+is preferable to allocate the budget evenly between both auctions9
+.
+9
+In fact, one auction is still slightly preferred, but the difference in
+temp ← 1
+rate ← 0.995
+bold
+← initial random allocation
+Uold
+← Evaluate(bold
+)
+WHILE temp > 0.0001
+i, j ← random integer index within b
+t ← random real number between 0 and bi
+bnew
+← bold
+bnew
+i ← bold
+i − t
+bnew
+j ← bold
+j + t
+Unew
+← Evaluate(bnew
+)
+IF rand < exp((Unew
+− Uold
+)/temp) THEN
+bold
+← bnew
+Uold
+← Unew
+ENDIF
+temp ← temp × rate
+ENDWHILE
+Figure 6: Stochastic optimisation algorithm to calculate the 
+optimal sequence of bids in the general case of multiple auctions.
+5.4.2 General Case
+In general, the behaviour seen in the previous example 
+characterises the optimal bidding behaviour of the advertising agent. If
+there is sufficient budget, bidding equally in all auctions results in
+the maximum expected utility. However, typically this is not 
+possible and thus utility is maximised by concentrating what budget
+is available into a subset of the available auction. The choice of
+this subset is determined by a number of factors. If there are very
+few users currently present, it is optimal to allocate the budget to
+later auctions in the expectation that more users will arrive. 
+Conversely, if there are many users present, a significant proportion of
+the budget should be allocated to the first auction to ensure that it is
+indeed won, and these users see the advert. Finally, since no utility
+is derived by showing the advert to a single user more than once,
+the budget should be allocated such that there are intervals between
+showings of the advert, in order that new users may arrive.
+Now, due to the complex form of the expression for the expected
+utility of the agent (shown in equation 8) it is not possible to 
+analytically calculate the optimal sequence of bids. However, the inverse
+problem (that of calculating the expected utility for any given 
+sequence of bids) is easy. Thus, we can use a stochastic optimisation
+routine based on simulated annealing to solve the maximisation
+problem. This algorithm starts by assuming some initial random
+allocation of bids (normalised such that the total of all the bids is
+equal to the budget B). It then makes small adjustments to this 
+allocation by randomly transferring the budget from one auction to
+another. If this transfer results in an increase in expected utility,
+then it is accepted. If it results in a decrease in expected utility, it
+might still be accepted, but with a probability that is determined by
+a temperature parameter. This temperature parameter is annealed
+such that the probability of accepting such transfers decreases over
+time. In figure 6 we present this algorithm in pseudo-code.

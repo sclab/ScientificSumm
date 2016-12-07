@@ -1,0 +1,46 @@
+On the Trec123-100Col testbed, the document retrieval effectiveness of the CORI selection algorithm is roughly the same or a little bit better than the ReDDE algorithm but both of them are worse than the other three algorithms (Tables 3 and 4).
+On the representative testbed, CORI is much less effective than other algorithms for distributed document retrieval (Tables 5 and 6).
+One main difference between the UUM/HR algorithm and the ReDDE algorithm was pointed out before: The UUM/HR uses training data and linear interpolation to estimate the centralized document score curves, while the ReDDE algorithm [21] uses a heuristic method, assumes the centralized document score curves are step functions and makes no distinction among the top part of the curves.
+Other experiments with databases that return no document scores are not reported but they show similar results to prove the effectiveness of UUM/HP-FL and  UUM/HPVL algorithms.
+In all of the experiments discussed in this section the results retrieved from individual databases were combined by the  semisupervised learning results merging algorithm.
+EFFECTIVENESS For document retrieval, the selected databases are searched and the returned results are merged into a single final list.
+As the unified utility maximization model only utilizes retrieval scores of sampled documents with a centralized retrieval algorithm to calculate the probabilities of relevance, it makes database selection decisions without referring to the document scores from individual databases and can be easily generalized to this case of rank lists without document scores.
+The only adjustment is that the SSL algorithm merges ranked lists without document scores by assigning the documents with pseudo-document scores normalized for their ranks (In a ranked list of 50 documents, the first one has a score of 1, the second has a score of 0.98 etc) ,which has been studied in [22].
+The Trec123-100Col and representative testbeds were selected for document retrieval as they represent two extreme cases of resource selection effectiveness; in one case the CORI algorithm is as good as the other algorithms and in the other case it is quite Table 5.
+Precision at Doc Rank CORI ReDDE UUM/HR UUM/HP-FL UUM/HP-VL 5 docs 0.4000 0.3920 (-2.0%) 0.4280 (+7.0%) 0.4680 (+17.0%)(+9.4%) 0.4600 (+15.0%)(+7.5%) 10 docs 0.3800 0.3760 (-1.1%) 0.3800 (+0.0%) 0.4180 (+10.0%)(+10.0%) 0.4320 (+13.7%)(+13.7%) 15 docs 0.3560 0.3560 (+0.0%) 0.3720 (+4.5%) 0.3920 (+10.1%)(+5.4%) 0.4080 (+14.6%)(+9.7%) 20 docs 0.3430 0.3390 (-1.2%) 0.3550 (+3.5%) 0.3710 (+8.2%)(+4.5%) 0.3830 (+11.7%)(+7.9%) 30 docs 0.3240 0.3140 (-3.1%) 0.3313 (+2.3%) 0.3500 (+8.0%)(+5.6%) 0.3487 (+7.6%)(+5.3%) 39 a lot worse than the other algorithms.
+The experiments in this section were conducted to study the document retrieval effectiveness of five selection algorithms, namely the CORI, ReDDE, UUM/HR, UUM/HP-FL and UUM/HP-VL algorithms.
+All the first four algorithms selected 3 or 5 databases, and 50 documents were retrieved from each selected database.
+Therefore, the UUM/HR reflects the high-precision retrieval goal better than the ReDDE algorithm and thus is more effective for document retrieval.
+On this testbed the three UUM algorithms are about equally effective.
+This version of the SSL algorithm [22] is allowed to download a small number of returned document texts on the fly to create additional training data in the process of learning the linear models which map database-specific document scores into estimated centralized document scores.
+The UUM/HP-FL algorithm also selected 3 or 5 databases, but it was allowed to adjust the number of documents to retrieve from each selected database; the number retrieved was constrained to be from 10 to 100, and a multiple of 10.
+It can be seen from the results that the UUM/HP-FL and UUM/HP-VL work well with databases returning no document scores and are still more effective than other alternatives.
+Precision on the representative testbed when 5 databases were selected.
+Document retrieval effectiveness was measured by Precision at the top part of the final document list.
+Precision at Doc Rank CORI ReDDE UUM/HR UUM/HP-FL UUM/HP-VL 5 docs 0.3720 0.4080 (+9.7%) 0.4640 (+24.7%) 0.4600 (+23.7%)(-0.9%) 0.5000 (+34.4%)(+7.8%) 10 docs 0.3400 0.4060 (+19.4%) 0.4600 (+35.3%) 0.4540 (+33.5%)(-1.3%) 0.4640 (+36.5%)(+0.9%) 15 docs 0.3120 0.3880 (+24.4%) 0.4320 (+38.5%) 0.4240 (+35.9%)(-1.9%) 0.4413 (+41.4%)(+2.2) 20 docs 0.3000 0.3750 (+25.0%) 0.4080 (+36.0%) 0.4040 (+34.7%)(-1.0%) 0.4240 (+41.3%)(+4.0%) 30 docs 0.2533 0.3440 (+35.8%) 0.3847 (+51.9%) 0.3747 (+47.9%)(-2.6%) 0.3887 (+53.5%)(+1.0%) Table 6.
+Detailed analysis shows that the overlap of the selected databases between the UUM/HR, UUM/HP-FL and UUM/HP-VL algorithms is much larger than the experiments on the Trec123-100Col testbed, since all of them tend to select the two large databases.
+Precision on the representative testbed when 3 databases were selected.
+The above experiments suggest that it is very important to optimize the high-precision goal explicitly in document retrieval.
+In real operational environments, databases may return no document scores and report only ranked lists of results.
+The document retrieval results of the ReDDE algorithm are better than that of the CORI algorithm but still worse than the results of the UUM/HR algorithm.
+Precision at Doc Rank CORI ReDDE UUM/HR UUM/HP-FL UUM/HP-VL 5 docs 0.3640 0.3480 (-4.4%) 0.3960 (+8.8%) 0.4680 (+28.6%)(+18.1%) 0.4640 (+27.5%)(+17.2%) 10 docs 0.3360 0.3200 (-4.8%) 0.3520 (+4.8%) 0.4240 (+26.2%)(+20.5%) 0.4220 (+25.6%)(+19.9%) 15 docs 0.3253 0.3187 (-2.0%) 0.3347 (+2.9%) 0.3973 (+22.2%)(+15.7%) 0.3920 (+20.5%)(+17.1%) 20 docs 0.3140 0.2980 (-5.1%) 0.3270 (+4.1%) 0.3720 (+18.5%)(+13.8%) 0.3700 (+17.8%)(+13.2%) 30 docs 0.2780 0.2660 (-4.3%) 0.2973 (+6.9%) 0.3413 (+22.8%)(+14.8%) 0.3400 (+22.3%)(+14.4%) Table 4.
+It has been shown to be very effective in environments where only short result-lists are retrieved from each selected database [22].
+The experiment setting was the same as before except that the document scores were eliminated intentionally and the selected databases only return ranked lists of document ids.
+Precision on the trec123-100col-bysource testbed when 5 databases were selected.
+This indicates that their power comes from explicitly optimizing the high-precision goal of document retrieval in Equations 14 and 16.
+Precision on the trec123-100col-bysource testbed when 3 databases were selected.
+Precision at Doc Rank CORI ReDDE UUM/HR UUM/HP-FL UUM/HP-VL 5 docs 0.3960 0.4080 (+3.0%) 0.4560 (+15.2%) 0.4280 (+8.1%)(-6.1%) 0.4520 (+14.1%)(-0.9%) 10 docs 0.3880 0.4060 (+4.6%) 0.4280 (+10.3%) 0.4460 (+15.0%)(+4.2%) 0.4560 (+17.5%)(+6.5%) 15 docs 0.3533 0.3987 (+12.9%) 0.4227 (+19.6%) 0.4440 (+25.7%)(+5.0%) 0.4453 (+26.0%)(+5.4%) 20 docs 0.3330 0.3960 (+18.9%) 0.4140 (+24.3%) 0.4290 (+28.8%)(+3.6%) 0.4350 (+30.6%)(+5.1%) 30 docs 0.2967 0.3740 (+26.1%) 0.4013 (+35.3%) 0.3987 (+34.4%)(-0.7%) 0.4060 (+36.8%)(+1.2%) Table 3.
+This difference makes UUM/HR better than the ReDDE algorithm at distinguishing documents with high probabilities of relevance from low probabilities of relevance.
+The experiment results on trec123-100Col-bysource testbed with 3 selected databases are shown in Table 7.
+(The first baseline is CORI; the second baseline for UUM/HP methods is UUM/HR.)
+It can be seen that on this testbed, the UUM/HP-FL and UUM/HP-VL algorithms are much more effective than all the other algorithms.
+(The first baseline is CORI; the second baseline for UUM/HP methods is UUM/HR.)
+The new algorithms based on this principle achieve better or at least as good results as the prior state-of-the-art algorithms in several environments. 
+(The first baseline is CORI; the second baseline for UUM/HP methods is UUM/HR.)
+(The first baseline is CORI; the second baseline for UUM/HP methods is UUM/HR.)
+This explains why they are about equally effective for document retrieval.
+The UUM/HR algorithm has a small advantage over the CORI and ReDDE algorithms.
+The UUM/HR algorithm does not explicitly optimize the selection decision with respect to the high-precision goal as the UUM/HP-FL and UUM/HP-VL algorithms are designed to do.
+Tables 3 and 4 show the results on the Trec123-100Col testbed, and Tables 5 and 6 show the results on the representative testbed.
+This is a common scenario in operational environments and was the case for our experiments.
+The last three algorithms were proposed in Section 3.

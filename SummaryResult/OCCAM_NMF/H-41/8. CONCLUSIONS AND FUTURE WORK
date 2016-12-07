@@ -1,0 +1,11 @@
+finally, we are planning to experiment with more complex feature combinations. 
+going beyond pagerank and hits, we would like to measure the effectiveness of other link-based ranking algorithms, such as salsa.
+in particular, we would like to study the impact of changes to the pagerank damping factor on effectiveness, the  impact of various schemes meant to counteract the effects of link spam, and the effect of weighing hyperlinks differently depending on whether they are nepotistic or not.
+future work includes evaluation of different parameterizations of pagerank and hits.
+there are many possible variants of these schemes, and many other link-based ranking algorithms have been proposed in the literature, hence we do not claim this work to be the last word on this subject, but rather the first step on a long road.
+we believe that the measurements presented in this paper provide a solid evaluation of the best well-known link-based ranking schemes.
+a linear combination of any link-based features with bm25f produces a significant improvement in performance, and there is a clear difference between  combining bm25f with a feature based on incoming links  (indegree, pagerank, or hits authority scores) and a feature based on outgoing links (hits hub scores and out-degree), but within those two groups the precise choice of link-based feature matters relatively little.
+hits hub scores and web page out-degree are much less effective ranking features, but still outperform a random ordering.
+evaluating link-based features in isolation, we found that web page in-degree  outperforms pagerank, and is about as effwective as hits  authority scores.
+evaluation is carried out with respect to a large number of human evaluated queries, using three different measures of  effectiveness: ndcg, mrr, and map.
+this paper describes a large-scale evaluation of the  effectiveness of hits in comparison with other link-based ranking algorithms, in particular pagerank and in-degree, when applied in isolation or in combination with a text  retrieval algorithm exploiting anchor text (bm25f).

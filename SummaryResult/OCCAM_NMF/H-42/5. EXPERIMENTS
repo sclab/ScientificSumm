@@ -1,0 +1,33 @@
+finally, although one might think that topics with several relevant documents are more important and difficult, this is not the case: there is no correlation between hub (or any other indicator) and the number of documents relevant to a topic. 
+an intuitive justification is that negative hubness would indicate a node which disagrees with the other nodes, e.g., a system which does better on difficult topics, or a topic on which bad systems do better; such systems and topics would be quite strange, and probably do not appear in trec.
+we also observe that hub values are positive, whereas  authority assumes, as predicted, both positive and negative values.
+this has a similar effect: the correlation of mean logitap and average logitap with hubness are now small positive numbers (0.23 and 0.15 respectively), still comfortably away from the high correlations with regular map and aap, i.e., not presenting the problematic phenomenon (ii) above (over-dependency on easy topics).
+6.3 below, we discuss another transformation,  replacing the log function used in gmap with logit.
+in sect.
+note that,  perhaps surprisingly, gmap is indeed fairly well balanced, not biased in the opposite direction - that is, it does not  overemphasize the difficult topics.
+this is yet another confirmation that trec effectiveness as measured by map depends mainly on easy topics; gmap appears to be a more balanced measure.
+we then repeat the same normalization process (with gmap and gaap - geometric aap - replacing map and aap): whereas authority values still perfectly correlate with gmap (0.99) and gaap (1.00), the correlation with hubness largely  disappears (values are −0.16 and −0.09 - slightly negative but not enough to concern us).
+1a (zero values are modified into ε = 0.00001).
+gmap has the property of giving more weight to the low end of the ap scale (i.e., to low ap values), and this seems reasonable, since, intuitively, a  performance increase in map values from 0.01 to 0.02 should be more important than an increase from 0.81 to 0.82. to use gmap in place of map and aap, we only need to take the logarithms of initial ap values, i.e., those in tab.
+the gmap (geometric map) metric is defined as the geometric mean of ap values, or equivalently as the arithmetic mean of the  logarithms of ap values [8].
+in this respect, it is interesting to see what happens if we use a different measure from map (and aap).
+this is also confirmed by the work being done on the trec robust track [14].
+indeed, the  correlation between hubness and aap (statement (i) above) is higher than the correlation between hubness and map  (corresponding to statement (ii)): 0.92 vs. 0.80. however, this phenomenon is quite strong.
+it means that system  effectiveness in trec is affected more by easy topics than by difficult topics, which is rather undesirable for quite obvious reasons: a system capable of performing well on a difficult topic, i.e., on a topic on which the other systems perform badly, would be an important result for ir effectiveness;  con-8e-5 -6e-5 -4e-5 -2e-5 0e+0 2e-5 4e-5 6e-5 0.0 0.1 0.2 0.3 0.4 0.5 -3e-1 -2e-1 -1e-1 0e+0 1e-1 2e-1 3e-1 4e-1 5e-1 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 (a) (b) 0e+0 2e-2 4e-2 6e-2 8e-2 1e-1 1e-1 1e-1 0.0 0.1 0.2 0.3 0.4 0.5 0e+0 1e-5 2e-5 3e-5 4e-5 5e-5 6e-5 7e-5 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 (c) (d) figure 5: correlations: map (x axis) and authority (y axis) of systems (a); aap and authority of topics (b); map and hub of systems (c) and aap and hub of topics (d) versely, a system capable of performing well on easy topics is just a confirmation of the state of the art.
+whereas the first statement is fine (there is nothing against it), the second is a bit worrying.
+this, given the meaning of hubness (capability in estimating topic ease and system effectiveness), means two things: (i) more  effective systems are better at estimating topic ease; and (ii) easier topics are better at estimating system effectiveness.
+5d (correlation with aap) show that correlation is not exact, but neither is it random.
+5c (correlation with map) and fig.
+hubness presents interesting phenomena: both fig.
+5a and 5b demonstrate the high  correlation between authority and map or aap.
+the  correlations chart in figs.
+let us analyze the correlations more in detail.
+authority has a very high correlation too with map and aap; hub assumes slightly lower values.
+as expected, inlinks and pagerank have a perfect correlation with map and aap.
+4).
+tables 3a and 3b show the  pearson"s correlation values between inlinks, pagerank, hub, authority and, respectively, map or aap (outlinks  values are not shown since they are always zero, as seen in sect.
+4 shows the distributions of ap, apa, and apm: whereas ap is very skewed, both apa and apm are much more symmetric (as it should be, since they are constructed by subtracting the mean).
+this section illustrates the results  obtained mining these data according to the method presented in previous sections.
+0 0.1 0.2 0.3 -1 -0.5 0 0.5 1 napm napa ap figure 4: distributions of ap, apa, and apm values in trec 8 data map in pr h a map 1 1.0 1.0 .80 .99 inlinks 1 1.0 .80 .99 pagerank 1 .80 .99 hub 1 .87 (a) aap in pr h a aap 1 1.0 1.0 .92 1.0 inlinks 1 1.0 .92 1.0 pagerank 1 .92 1.0 hub 1 .93 (b) table 3: correlations between network analysis measures and map (a) and aap (b) runs - on 50 topics).
+we have built the systems-topics graph for trec 8 data (featuring 1282 systems - actually, 2 actually, trec 8 data features 129 systems; due to some bug in our scripts, we did not include one system (8manext3d1n0), but the results should not be affected.
+we now turn to discuss if these indicators are meaningful and useful in practice, and how they correlate with standard measures used in trec.

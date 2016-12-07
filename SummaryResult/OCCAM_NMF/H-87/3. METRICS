@@ -1,0 +1,31 @@
+this is the first time this issue is explicitly analyzed, to our knowledge. 
+comparing the metrics in tdt and trec from a utility or cost optimization point of view is important for understanding the evaluation results of adaptive filtering methods.
+this was a challenging part of the tdt2004 evaluation for af.
+although these problems with ctrk were not originally anticipated, it offered an opportunity to examine the ability of systems in trading off precision for extreme recall.
+• results in ctrk in the past years of tdt evaluations may not be directly comparable to each other because the evaluation collections changed most years and hence the penalty ratio in ctrk varied.
+• parameters tuned on one corpus (e.g., tdt3) might not work for an evaluation on another corpus (say, tdt5) unless we account for the previously-unknown subtle dependency of ctrk on data.
+• systems optimized for ctrk would not optimize tdt5su (and t11su) because the former favors high-recall oriented to an extreme while the latter does not.
+similarly, we can compute the enlargement factor for tdt5 using the statistics in table 1 as follows: 3.58 991,207/3.71 02.0 )( )(ˆ === tp tp ρ which means the actual penalty ratio for misses vs. false alarms in the evaluation on tdt5 using ctrk was approximately 583:1. the implications of the above analysis are rather significant: • ctrk defined in the same formula does not necessarily mean the same objective function in evaluation; instead, the optimization criterion depends on the test corpus.
+comparing the above result to formula 2, we can see the actual penalty ratio for misses vs. false alarms was 100:1 in the evaluations on tdt3 using ctrk.
+to wit: )1.010( 1 1.010 )3.7937770(37770 3.79 1011.0101 1011.0101 ))(1(2)(1 )02.01(202.01)( bc nn b n c b n c db b n ca n c faptpwmissptpw fapwmisspwttrkc ×+×=×+×≈ − ×−×+××= + + ×−×+××= ×−⋅+××= −×+××= ⎟ ⎠ ⎞ ⎜ ⎝ ⎛ ⎟ ⎠ ⎞ ⎜ ⎝ ⎛ ρρ where 10 002.0 02.0 )( )(ˆ === tp tp ρ is the factor of enlargement in the estimation of p(t) compared to the truth.
+using 02.0)(ˆ =tp as an (inaccurate) estimate of 0.002 enlarges the intended penalty ratio of 10:1 to 100:1, roughly speaking.
+using tdt3 as an example, the true percentage is: 002.0 37770 3.79 )( ≈= + = n n tp where n is the average size of the test sets in tdt3, and n+ is the average number of positive examples per topic in the test sets.
+however, this is not true if 02.0)( =tp is an inaccurate estimate of the on-topic documents on average for the test corpus.
+at first glance, one would think that the penalty ratio in ctrk is 10:1 since 11 =w and 1.02 =w .
+that is, ctrk has a very different penalty ratio for misses vs. false alarms: it favors recall-oriented systems to an extreme.
+more importantly, there is a subtle and major difference between ctrk and the utility functions: t11su and tdt5su.
+the ctrk function, on the other hand, is positively correlated to the values of c and b, and negatively correlated to the values of a and d; hence, it is negatively correlated to t11su and tdt5su.
+for example, both tdt5su and t11su are positively correlated to the values of a and d, and negatively correlated to the values of b and c; the only difference between them is in their penalty ratios for misses vs. false alarms, i.e., 10:1 in tdt5su and 2:1 in t11su.
+the differences and correlations among these objective functions can be analyzed through the shared counts of a, b, c and d in their definitions.
+our objective is to maximize the former or to minimize the latter on test documents.
+corpus #topics n(tr) n(ts) avg n+ (tr) avg n+ (ts) max n+ (ts) min n+ (ts) #topics per doc (ts) trec10 84 20,307 783,484 2 9795.3 39,448 38 1.57 trec11 50 80.664 726,419 3 378.0 597 198 1.12 tdt3 53 18,738* 37,770* 4 79.3 520 1 1.06 tdt5 111 199,419* 207,991* 1 71.3 710 1 1.01 3.3 the correlations and the differences from an optimization point of view, tdt5su and t11su are both utility functions while ctrk is a cost function.
+to distinguish this from the 5.011 =βsut in trec11, we call former tdt5su in the rest of this paper.
+in addition to trkc , tdt2004 also employed 1.011 =βsut as a utility metric.
+to make the intuition behind this measure transparent, we substitute the terms in the definition of ctrk as follows: n ca tp + =)( , n db tp + =− )(1 , ca c pmiss + = , db b pfa + = , )( 1 )( 21 21 bwcw n db b n db w ca c n ca wtctrk +⋅= + ⋅ + ⋅+ + ⋅ + ⋅= clearly, trkc is the average cost per error on topic t, with 1w and 2w controlling the penalty ratio for misses vs. false alarms.
+for evaluating the performance of a system, ctrk is computed for each topic first and then the resulting scores are averaged for a single measure (the topic-weighted ctrk).
+the tdt benchmark evaluations (since 1997) have used the settings of 11 =w , 1.02 =w and 02.0)( =tp for all topics.
+3.2 tdt metrics the tdt-conventional metric for topic tracking is defined as: famisstrk ptpwptpwtc ))(1()()( 21 −+= where p(t) is the percentage of documents on topic t, missp is the miss rate by the system on that topic, fap is the false alarm rate, and 1w and 2w are the costs (pre-specified constants) for a miss and a false alarm, respectively.
+for evaluating the performance of a system, the performance scores are computed for individual topics first and then averaged over topics  (macroaveraging).
+the trec-conventional metrics are defined as: precision )/( baa += , recall )/( caa += )(2 )21( caba a f +++ + = β β β ( ) η ηηβ ηβ − −+− = 1 ),/()(max 11 , caba sut where parameters β and η were set to 0.5 and -0.5 respectively in trec10 (2001) and trec11 (2002).
+3.1 trec11 metrics let a, b, c and d be, respectively, the numbers of true positives, false alarms, misses and true negatives for a specific topic, and dcban +++= be the total number of test documents.
+to make our results comparable to the literature, we decided to use both trec-conventional and tdt-conventional metrics in our evaluation.

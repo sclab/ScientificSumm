@@ -1,0 +1,587 @@
+To find the truthful payment scheme by using General 
+Framework 1, the most difficult stage seems to be the stage 2. Notice
+that binary search does not work generally since the valuations of
+agents may be continuous. We give some general techniques that
+can help with finding the cut value function under certain 
+circumstances. Our basic approach is as follows. First, we decompose the
+allocation rule into several allocation rules. Next find the cut value
+function for each of these new allocation rules. Then, we compute
+the original cut value function by combining these cut value 
+functions of the new allocation rules.
+4.1 Simple Combinations
+In this subsection, we introduce techniques to compute the cut
+value function by combining multiple allocation rules with 
+conjunctions or disconjunctions. For simplicity, given an allocation
+rule O, we will use κ(O, c) to denote a n-tuple vector
+(κ1(O, c−1), κ2(O, c−2), . . . , κn(O, c−n)).
+Here, κi(O, c−i) is the cut value for agent i when the allocation
+rule is O and the costs c−i of all other agents are fixed.
+THEOREM 6. With a fixed setting S of a binary demand game,
+assume that there are m allocation rules O1
+, O2
+, · · · , Om
+
+satisfying the monotonicity property, and κ(Oi
+, c) is the cut value vector
+for Oi
+. Then the allocation rule O(c) =
+Wm
+i=1 Oi
+(c) satisfies the
+monotonicity property. Moreover, the cut value for O is κ(O, c) =
+maxm
+i=1{κ(Oi
+, c)} Here κ(O, c) = maxm
+i=1{κ(Oi
+, c)} means,
+∀j ∈ [1, n], κj(O, c−j) = maxm
+i=1{κj(Oi
+, c−j)} and O(c) =Wm
+i=1 Oi
+(c) means, ∀j ∈ [1, n], Oj(c) = O1
+j (c) ∨ O2
+j (c) ∨ · · · ∨
+Om
+j (c).
+PROOF. Assume that ci > ci and Oi(c) = 1. Without loss
+of generality, we assume that Ok
+i (c) = 1 for some k, 1 ≤ k ≤
+m. From the assumption that Ok
+i (c) satisfies MP, we obtain that
+216
+Ok
+i (c|i
+ci) = 1. Thus, Oi(c|i
+ci) =
+Wm
+j=1 Oj
+(c) = 1. This proves
+that O(c) satisfies MP. The correctness of the cut value function
+follows directly from Theorem 4.
+Many algorithms indeed fall into this category. To demonstrate
+the usefulness of Theorem 6, we discuss a concrete example here.
+In a network, sometimes we want to deliver a packet to a set of
+nodes instead of one. This problem is known as multicast. The
+most commonly used structure in multicast routing is so called
+shortest path tree (SPT). Consider a network G = (V, E, c), where
+V is the set of nodes, and vector c is the actual cost of the nodes
+forwarding the data. Assume that the source node is s and the 
+receivers are Q ⊂ V . For each receiver qi ∈ Q, we compute the
+shortest path (least cost path), denoted by LCP(s, qi, d), from the
+source s to qi under the reported cost profile d. The union of all
+such shortest paths forms the shortest path tree. We then use 
+General Framework 1 to design the truthful payment scheme P when
+the SPT structure is used as the output for multicast, i.e., we 
+design a mechanism M = (SPT, P). Notice that VCG mechanisms
+cannot be applied here since SPT is not an affine maximization.
+We define LCP(s,qi)
+as the allocation corresponds to the path
+LCP(s, qi, d), i.e., LCP
+(s,qi)
+k (d) = 1 if and only if node vk is in
+LCP(s, qi, d). Then the output SPT is defined as
+W
+qi∈Q LCP(s,qi)
+.
+In other words, SPTk(d) = 1 if and only if qk is selected in
+some LCP(s, qi, d). The shortest path allocation rule is a 
+utilitarian and satisfies MP. Thus, from Theorem 6, SPT also satisfies
+MP, and the cut value function vector for SPT can be calculated as
+κ(SPT, c) = maxqi∈Q κ(LCP(s,qi)
+, c), where κ(LCP(s,qi)
+, c)
+is the cut value function vector for the shortest path LCP(s, qi, c).
+Consequently, the payment scheme above is truthful and the 
+minimum among all truthful payment schemes when the allocation rule
+is SPT.
+THEOREM 7. Fixed the setting S of a binary demand game,
+assume that there are m output methods O1
+, O2
+, · · · , Om
+
+satisfying MP, and κ(Oi
+, c) are the cut value functions respectively for
+Oi
+where i = 1, 2, · · · , m. Then the allocation rule O(c) =Vm
+i=1 Oi
+(c) satisfies MP. Moreover, the cut value function for O
+is κ(O, c) = minm
+i=1{κ(Oi
+, c)}.
+We show that our simple combination generalizes the 
+IF-THENELSE function defined in [13]. For an agent i, assume that there
+are two allocation rules O1
+and O2
+satisfying MP. Let κi(O1
+, c−i),
+κi(O2
+, c−i) be the cut value functions for O1
+, O2
+respectively.
+Then the IF-THEN-ELSE function Oi(c) is actually Oi(c) = [(ci ≤
+κi(O1
+, c−i) + δ1(c−i)) ∧ O2
+(c−i, ci)] ∨ (ci < κi(O1
+, c−i) −
+δ2(c−i)) where δ1(c−i) and δ2(c−i) are two positive functions. By
+applying Theorems 6 and 7, we know that the allocation rule O 
+satisfies MP and consequently κi(O, c−i) = max{min(κi(O1
+, c−i)+
+δ1(c−i), κi(O2
+, c−i)), κi(O1
+, c−i) − δ2(c−i))}.
+4.2 Round-Based Allocations
+Some approximation algorithms are round-based, where each
+round of an algorithm selects some agents and updates the setting
+and the cost profile if necessary. For example, several 
+approximation algorithms for minimum weight vertex cover [19], maximum
+weight independent set, minimum weight set cover [4], and 
+minimum weight Steiner [18] tree fall into this category.
+As an example, we discuss the minimum weighted vertex cover
+problem (MWVC) [16, 15] to show how to compute the cut value
+for a round-based output. Given a graph G = (V, E), where the
+nodes v1, v2, . . . , vn are the agents and each agent vi has a weight
+ci, we want to find a node set V ⊆ V such that for every edge
+(u, v) ∈ E at least one of u and v is in V . Such V is called a
+vertex cover of G. The valuation of a node i is −ci if it is selected;
+otherwise its valuation is 0. For a subset of nodes V ∈ V , we
+define its weight as c(V ) =
+P
+i∈V ci.
+We want to find a vertex cover with the minimum weight. Hence,
+the objective function to be implemented is utilitarian. To use the
+VCG mechanism, we need to find the vertex cover with the 
+minimum weight, which is NP-hard [16]. Since we are interested in
+mechanisms that can be computed in polynomial time, we must
+use polynomial-time computable allocation rules. Many algorithms
+have been proposed in the literature to approximate the optimal 
+solution. In this paper, we use a 2-approximation algorithm given
+in [16]. For the sake of completeness, we briefly review this 
+algorithm here. The algorithm is round-based. Each round selects
+some vertices and discards some vertices. For each node i, w(i)
+is initialized to its weight ci, and when w(i) drops to 0, i is 
+included in the vertex cover. To make the presentation clear, we say
+an edge (i1, j1) is lexicographically smaller than edge (i2, j2) if
+(1) min(i1, j1) < min(i2, j2), or (2) min(i1, j1) = min(i2, j2)
+and max(i1, j1) < max(i2, j2).
+Algorithm 2 Approximate Minimum Weighted Vertex Cover
+Input: A node weighted graph G = (V, E, c).
+Output: A vertex cover V .
+1: Set V = ∅. For each i ∈ V , set w(i) = ci.
+2: while V is not a vertex cover do
+3: Pick an uncovered edge (i, j) with the least lexicographic
+order among all uncovered edges.
+4: Let m = min(w(i), w(j)).
+5: Update w(i) to w(i) − m and w(j) to w(j) − m.
+6: If w(i) = 0, add i to V . If w(j) = 0, add j to V .
+Notice, selecting an edge using the lexicographic order is 
+crutial to guarantee the monotonicity property. Algorithm 2 outputs
+a vertex cover V whose weight is within 2 times of the optimum.
+For convenience, we use VC(c) to denote the vertex cover 
+computed by Algorithm 2 when the cost vector of vertices is c. Below
+we generalize Algorithm 2 to a more general scenario. Typically, a
+round-based output can be characterized as follows (Algorithm 3).
+DEFINITION 2. An updating rule Ur
+is said to be 
+crossingindependent if, for any agent i not selected in round r, (1) Sr+1
+and cr+1
+−i do not depend on cr
+j (2) for fixed cr
+−i, cr
+i1
+≤ cr
+i2
+implies
+that cr+1
+i1
+≤ cr+1
+i2
+.
+We have the following theorem about the existence of a truthful
+payment using a round based allocation rule A.
+THEOREM 8. A round-based output A, with the framework 
+defined in Algorithm 3, satisfies MP if the output methods Or
+satisfy
+MP and all updating rules Ur
+are crossing-independent.
+PROOF. Consider an agent i and fixed c−i. We prove that when
+an agent i is selected with cost ci, then it is also selected with cost
+di < ci. Assume that i is selected in round r with cost ci. Then
+under cost di, if agent i is selected in a round before r, our claim
+holds. Otherwise, consider in round r. Clearly, the setting Sr
+and
+the costs of all other agents are the same as what if agent i had cost
+ci since i is not selected in the previous rounds due to the 
+crossindependent property. Since i is selected in round r with cost ci, i
+is also selected in round r with di < ci due to the reason that Or
+satisfies MP. This finishes the proof.
+217
+Algorithm 3 A General Round-Based Allocation Rule A
+1: Set r = 0, c0
+= c, and G0
+= G initially.
+2: repeat
+3: Compute an output or
+using a deterministic algorithm
+Or
+: Sr
+× cr
+→ {0, 1}n
+.
+Here Or
+, cr
+and Sr
+are allocation rule, cost vector and game
+setting in game Gr
+, respectively.
+Remark: Or
+is often a simple greedy algorithm such as 
+selecting the agents that minimize some utilitarian function.
+For the example of vertex cover, Or
+will always select the
+light-weighted node on the lexicographically least 
+uncovered edge (i, j).
+4: Let r = r + 1. Update the game Gr−1
+to obtain a new game
+Gr
+with setting Sr
+and cost vector cr
+according to some rule
+Ur
+: Or−1
+× (Sr−1
+, cr−1
+) → (Sr
+, cr
+).
+Here we updates the cost and setting of the game.
+Remark: For the example of vertex cover, the 
+updating rule will decrease the weight of vertices i and j by
+min(w(i), w(j)).
+5: until a valid output is found
+6: Return the union of the set of selected players of each round as
+the final output. For the example of vertex cover, it is the union
+of nodes selected in all rounds.
+Algorithm 4 Compute Cut Value for Round-Based Algorithms
+Input: A round-based output A, a game G1
+= G, and a updating
+function vector U.
+Output: The cut value x for agent k.
+1: Set r = 0 and ck = ζ. Recall that ζ is a value that can 
+guarantee Ak = 0 when an agent reports the cost ζ.
+2: repeat
+3: Compute an output or
+using a deterministic algorithm based
+on setting Sr
+using allocation rule Or
+: Sr
+×cr
+→ {0, 1}n
+.
+4: Find the cut value for agent k based on the allocation rule
+Or
+for costs cr
+−k. Let r = κk(Or
+, cr
+−k) be the cut value.
+5: Set r = r + 1 and obtain a new game Gr from Gr−1
+and or
+according to the updating rule Ur
+.
+6: Let cr
+be the new cost vector for game Gr
+.
+7: until a valid output is found.
+8: Let gi(x) be the cost of ci
+k when the original cost vector is
+c|k
+x.
+9: Find the minimum value x such that
+8
+>>>>><
+>>>>>:
+g1(x) ≥ 1;
+g2(x) ≥ 2;
+...
+gt−1(x) ≥ t−1;
+gt(x) ≥ t.
+Here, t is the total number of rounds.
+10: Output the value x as the cut value.
+If the round-based output satisfies monotonicity property, the
+cut-value always exists. We then show how to find the cut value
+for a selected agent k in Algorithm 4.
+The correctness of Algorithm 4 is straightforward. To compute
+the cut value, we assume that (1) the cut value r for each round r
+can be computed in polynomial time; (2) we can solve the equation
+gr(x) = r to find x in polynomial time when the cost vector c−i
+and b are given.
+Now we consider the vertex cover problem. For each round r,
+we select a vertex with the least weight and that is incident on the
+lexicographically least uncovered edge. The output satisfies MP.
+For agent i, we update its cost to cr
+i − cr
+j iff edge (i, j) is selected.
+It is easy to verify this updating rule is crossing-independent, thus
+we can apply Algorithm 4 to compute the cut value for the set cover
+game as shown in Algorithm 5.
+Algorithm 5 Compute Cut Value for MVC.
+Input: A node weighted graph G = (V, E, c) and a node k 
+selected by Algorithm 2.
+Output: The cut value κk(V C, c−k).
+1: For each i ∈ V , set w(i) = ci.
+2: Set w(k) = ∞, pk = 0 and V = ∅.
+3: while V is not a vertex cover do
+4: Pick an uncovered edge (i, j) with the least lexicographic
+order among all uncovered edges.
+5: Set m = min(w(i), w(j)).
+6: Update w(i) = w(i) − m and w(j) = w(j) − m.
+7: If w(i) = 0, add i to V ; else add j to V .
+8: If i == k or j == k then set pk = pk + m.
+9: Output pk as the cut value κk(V C, c−k).
+4.3 Complex Combinations
+In subsection 4.1, we discussed how to find the cut value function
+when the output of the binary demand game is a simple 
+combination of some outputs, whose cut values can be computed through
+other means (typically VCG). However, some algorithms cannot
+be decomposed in the way described in subsection 4.1.
+Next we present a more complex way to combine allocation
+rules, and as we may expected, the way to find the cut value is
+also more complicated. Assume that there are n agents 1 ≤ i ≤ n
+with cost vector c, and there are m binary demand games Gi with
+objective functions fi(o, c), setting Si and allocation rule ψi
+where
+i = 1, 2, · · · , m. There is another binary demand game with 
+setting S and allocation rule O, whose input is a cost vector d =
+(d1, d2, · · · , dm). Let f be the function vector (f1, f2, · · · , fm),
+ψ be the allocation rule vector (ψ1
+, ψ2
+, · · · , ψm
+) and ∫ be the
+setting vector (S1, S2, · · · , Sm). For notation simplicity, we 
+define Fi(c) = fi(ψi
+(c), c), for each 1 ≤ i ≤ m, and F(c) =
+(F1(c), F2(c), · · · , Fm(c)).
+Let us see a concrete example of these combinations. Consider
+a link weighted graph G = (V, E, c), and a subset of q nodes Q ⊆
+V . The Steiner tree problem is to find a set of links with minimum
+total cost to connect Q. One way to find an approximation of the
+Steiner tree is as follows: (1) we build a virtual complete graph H
+using Q as its vertices, and the cost of each edge (i, j) is the cost
+of LCP(i, j, c) in graph G; (2) build the minimum spanning tree
+of H, denoted as MST(H); (3) an edge of G is selected iff it is
+selected in some LCP(i, j, c) and edge (i, j) of H is selected to
+MST(H).
+In this game, we define q(q − 1)/2 games Gi,j, where i, j ∈
+Q, with objective functions fi,j(o, c) being the minimum cost of
+218
+connecting i and j in graph G, setting Si being the original graph
+G and allocation rule is LCP(i, j, c). The game G corresponds to
+the MST game on graph H. The cost of the pair-wise q(q − 1)/2
+shortest paths defines the input vector d = (d1, d2, · · · , dm) for
+game MST. More details will be given in Section 5.2.
+DEFINITION 3. Given an allocation rule O and setting S, an
+objective function vector f, an allocation rule vector ψ and setting
+vector ∫, we define a compound binary demand game with setting
+S and output O ◦ F as (O ◦ F)i(c) =
+Wm
+j=1(Oj(F(c)) ∧ ψj
+i (c)).
+The allocation rule of the above definition can be interpreted as
+follows. An agent i is selected if and only if there is a j such that
+(1) i is selected in ψj
+(c), and (2) the allocation rule O will select
+index j under cost profile F(c). For simplicity, we will use O ◦ F
+to denote the output of this compound binary demand game.
+Notice that a truthful payment scheme using O ◦ F as output
+exists if and only if it satisfies the monotonicity property. To study
+when O ◦F satisfies MP, several necessary definitions are in order.
+DEFINITION 4. Function Monotonicity Property (FMP) Given
+an objective function g and an allocation rule O, a function H(c) =
+g(O(c), c) is said to satisfy the function monotonicity property, if,
+given fixed c−i, it satisfies:
+1. When Oi(c) = 0, H(c) does not increase over ci.
+2. When Oi(c) = 1, H(c) does not decrease over ci.
+DEFINITION 5. Strong Monotonicity Property (SMP) An 
+allocation rule O is said to satisfy the strong monotonicity property
+if O satisfies MP, and for any agent i with Oi(c) = 1 and agent
+j = i, Oi(c|j
+cj) = 1 if cj ≥ cj or Oj(c|j
+cj) = 0.
+LEMMA 1. For a given allocation rule O satisfying SMP and
+cost vectors c, c with ci = ci, if Oi(c) = 1 and Oi(c ) = 0, then
+there must exist j = i such that cj < cj and Oj(c ) = 1.
+From the definition of the strong monotonicity property, we have
+Lemma 1 directly. We now can give a sufficient condition when
+O ◦ F satisfies the monotonicity property.
+THEOREM 9. If ∀i ∈ [1, m], Fi satisfies FMP, ψi
+satisfies MP,
+and the output O satisfies SMP, then O ◦ F satisfies MP.
+PROOF. Assuming for cost vector c we have (O ◦ F)i(c) =
+1, we should prove for any cost vector c = c|i
+ci with ci < ci,
+(O ◦ F)i(c ) = 1. Noticing that (O ◦ F)i(c) = 1, without loss
+of generality, we assume that Ok(F(c)) = 1 and ψk
+i (c) = 1 for
+some index 1 ≤ k ≤ m.
+Now consider the output O with the cost vector F(c )|k
+Fk(c).
+There are two scenarios, which will be studied one by one as 
+follows.
+One scenario is that index k is not chosen by the output function
+O. From Lemma 1, there must exist j = k such that
+Fj(c ) < Fj(c) (1)
+Oj(F(c )|k
+Fk(c)) = 1 (2)
+We then prove that agent i will be selected in the output ψj
+(c ),
+i.e., ψj
+i (c ) = 1. If it is not, since ψj
+(c) satisfies MP, we have
+ψj
+i (c) = ψj
+i (c ) = 0 from ci < ci. Since Fj satisfies FMP, we
+know Fj(c ) ≥ Fj(c), which is a contradiction to the inequality
+(1). Consequently, we have ψj
+i (c ) = 1. From Equation (2), the
+fact that index k is not selected by allocation rule O and the 
+definition of SMP, we have Oj(F(c )) = 1, Thus, agent i is selected by
+O ◦ F because of Oj(F(c )) = 1 and ψj
+i (c ) = 1.
+The other scenario is that index k is chosen by the output 
+function O. First, agent i is chosen in ψk
+(c ) since the output ψk
+(c) 
+satisfies the monotonicity property and ci < ci and ψk
+i (c) = 1. 
+Secondly, since the function Fk satisfies FMP, we know that Fk(c ) ≤
+Fk(c). Remember that output O satisfies the SMP, thus we can
+obtain Ok(F(c )) = 1 from the fact that Ok(F(c )|k
+Fk(c)) = 1
+and Fk(c ) ≤ Fk(c). Consequently, agent i will also be selected
+in the final output O ◦ F. This finishes our proof.
+This theorem implies that there is a cut value for the compound
+output O ◦ F. We then discuss how to find the cut value for this
+output. Below we will give an algorithm to calculate κi(O ◦ F)
+when (1) O satisfies SMP, (2) ψj
+satisfies MP, and (3) for fixed c−i,
+Fj(c) is a constant, say hj, when ψj
+i (c) = 0, and Fj(c) increases
+when ψj
+i (c) = 1. Notice that here hj can be easily computed by
+setting ci = ∞ since ψj
+satisfies the monotonicity property. When
+given i and fixed c−i, we define (Fi
+j )−1
+(y) as the smallest x such
+that Fj(c|i
+x) = y. For simplicity, we denote (Fi
+j )−1
+as F−1
+j if
+no confusion is caused when i is a fixed agent. In this paper, we
+assume that given any y, we can find such x in polynomial time.
+Algorithm 6 Find Cut Value for Compound Method O ◦ F
+Input: allocation rule O, objective function vector F and inverse
+function vector F−1
+= {F−1
+1 , · · · , F−1
+m }, allocation rule vector
+ψ and fixed c−i.
+Output: Cut value for agent i based on O ◦ F.
+1: for 1 ≤ j ≤ m do
+2: Compute the outputs ψj
+(ci).
+3: Compute hj = Fj(c|i
+∞).
+4: Use h = (h1, h2, · · · , hm) as the input for the output 
+function O. Denote τj = κj(O, h−j) as the cut value function of
+output O based on input h.
+5: for 1 ≤ j ≤ m do
+6: Set κi,j = F−1
+j (min{τj, hj}).
+7: The cut value for i is κi(O ◦ F, c−i) = maxm
+j=1 κi,j.
+THEOREM 10. Algorithm 6 computes the correct cut value for
+agent i based on the allocation rule O ◦ F.
+PROOF. In order to prove the correctness of the cut value 
+function calculated by Algorithm 6, we prove the following two cases.
+For our convenience, we will use κi to represent κi(O ◦ F, c−i) if
+no confusion caused.
+First, if di < κi then (O ◦ F)i(c|i
+di) = 1. Without loss of
+generality, we assume that κi = κi,j for some j. Since function Fj
+satisfies FMP and ψj
+i (c|i
+di) = 1, we have Fj(c|i
+di) < Fj(κi).
+Notice di < κi,j, from the definition of κi,j = F−1
+j (min{τj, hj})
+we have (1) ψj
+i (c|i
+di) = 1, (2) Fj(c|i
+di) < τj due to the fact that
+Fj(x) is a non-decreasing function when j is selected. Thus, from
+the monotonicity property of O and τj is the cut value for output
+O, we have
+Oj(h|j
+Fj(c|i
+di)) = 1. (3)
+If Oj(F(c|i
+di)) = 1 then (O◦F)i(c|i
+di) = 1. Otherwise, since
+O satisfies SMP, Lemma 1 and equation 3 imply that there exists
+at least one index k such that Ok(F(c|i
+di)) = 1 and Fk(c|i
+di) <
+hk. Note Fk(c|i
+di) < hk implies that i is selected in ψk
+(c|i
+di)
+since hk = Fk(ci|i
+∞). In other words, agent i is selected in O◦F.
+219
+Second, if di ≥ κi(O ◦ F, c−i) then (O ◦ F)i(c|i
+di) = 0. 
+Assume for the sake of contradiction that (O ◦ F)i(c|i
+di) = 1. Then
+there exists an index 1 ≤ j ≤ m such that Oj(F(c|i
+di)) = 1 and
+ψj
+i (c|i
+di) = 1. Remember that hk ≥ Fk(c|i
+di) for any k. Thus,
+from the fact that O satisfies SMP, when changing the cost vector
+from F(c|i
+di) to h|j
+Fj(c|i
+di), we still have Oj(h|j
+Fj(c|i
+di)) =
+1. This implies that
+Fj(c|i
+di) < τj.
+Combining the above inequality and the fact that Fj(c|i
+c|i
+di) <
+hj, we have Fj(c|i
+di) < min{hj, τj}. This implies
+di < F−1
+j (min{hj, τj}) = κi,j < κi(O ◦ F, c−i).
+which is a contradiction. This finishes our proof.
+In most applications, the allocation rule ψj
+implements the 
+objective function fj and fj is utilitarian. Thus, we can compute
+the inverse of F−1
+j efficiently. Another issue is that it seems the
+conditions when we can apply Algorithm 6 are restrictive. 
+However, lots of games in practice satisfy these properties and here we
+show how to deduct the MAX combination in [13]. Assume A1
+and A2 are two allocation rules for single minded combinatorial
+auction, then the combination MAX(A1, A2) returns the 
+allocation with the larger welfare. If algorithm A1 and A2 satisfy MP and
+FMP, the operation max(x, y) which returns the larger element of
+x and y satisfies SMP. From Theorem 9 we obtain that 
+combination MAX(A1, A2) also satisfies MP. Further, the cut value of the
+MAX combination can be found by Algorithm 6. As we will show
+in Section 5, the complex combination can apply to some more
+complicated problems.

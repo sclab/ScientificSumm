@@ -1,0 +1,109 @@
+According to rule 3, the outcome of the execution is threefold: firstly, the performer"s attempt queue is updated so that the  executing action is removed; secondly, the new interaction is added to the target"s set of sub-interactions (moreover, its initiator field is set to the performer agent); last, the event representing this change (which includes a description of the change, the agent that caused it and the action performed) is inserted in the output port of the target"s event channel.
+Concerning the monitoring function, according to invariant 11 of protocols, if the event is  generated as the result of an action performance, the agents to be notified will include the performer and addressees of that action.
+The processing of some attempt may give rise to changes in the scope of the target interaction, such as the  instantiation of new participants (agents or resources) or the  setting up of new sub-interactions.
+The transition which models the execution of this action, specified by rule 4,  defines two effects in the target interaction: its protocol is updated and the event representing this change is inserted in its output port.
+As rule 1 specifies8 , this will only be possible if the  performer is empowered to execute that action according to the rules that govern the state of the target interaction.
+When all members have been checked, the stage field will be set to the next obligation update stage and the auxiliary ag field will be initalised with the agents identified by the protocol"s obligation  update function.
+Moreover, since these events may influence the results of the finishing, over and obligation functions of certain protocols, they will also be dispatched to the input ports of the interactions  identified through a dispatching function - whose invariants will be explained later on.
+3.2.3 Member state update This stage simply iterates over the members of the  interaction to check whether they must be finished according to the protocol"s over function.
+If the (degree) student has passed the course"s prerequisite subjects the join action will be inserted in its queue of attempts and considered for execution.
+Thus, the dispatching of the finish event resulting from a close action (inv.
+The setting up of the new interaction may thus affect its protocol and possible application-dependent fields (e.g.
+Moreover, there should be no pending events to be processed in the interaction, for these events may cause the member or the interaction to be finished (as will be shortly explained in the next sub-section).
+Thus, according to the monitoring rule of  university courses, if a student of some degree joins a certain course and specifies a colleague as addressee of that action, the course"s teachers and itself will also be notified of the successful execution.
+: (15) αtarget,state = open (16) αtarget,context = nil (17) αupd(αtarget,prot,finish)() where the inherited target field represents the interaction to be closed (which must be open and different to the  topinteraction, according to invariants 15 and 16) and the new 9 The resulting type consists of the fields of the ACT record extended with an additional new field.
+αtarget,prot,emp(a, α) a = playing, , , qACT , , a,α :AT T −→ playing, , , qACT , , (1) W here : (α )state = perm (qACT ) = insert(α , qACT ) 3.1.2 Permissions checking The processing of the action resumes when the possible preceding actions in the performer"s queue of attempts are fully processed and removed from the queue.
+ccontext,state s = open ∧ ccontext,prot,monitor s = mon cs = [e| ], d, nil, nil , −→ [e| ], , d(e), mon(e) , (5) 3.2.2 Interaction state update Input port activity is triggered when a new event is  received.
+αstate = exec ∧ α : Close a = playing, , , [α|qACT ], , −→ playing, , , qACT , , αtarget = open, , , , , p, c −→ open, , , , , p , c (4) W here : (p )finish = αupd (pfinish ) (c )out,ev = insert( a, α, finish(αtarget ) , cout,ev ) 3.2 Event Processing The processing of events is encapsulated in the event  channels of interactions.
+: (13) αnew,mem = αnew,res = αnew,sub = ∅ (14) αnew,state = open where the new field represents the new interaction to be initiated.
+: (18) ccontext ∈ cout,disp( , , finish(ccontext) ) (19) ccontext ∈ cout,disp( , , over(a) ) (20) ccontext,sub ⊆ cout,disp(closing(ccontext)) (21) apartsIn ⊆ cout,disp(leaving(a)) (22) ccontext ∈ cout,disp(closed(i)) (23) {ccontext, aplayer,context} ⊆ cout,disp(left(a)) OutP ev : Queue E, disp : E → Set I, int : Set I, ag : Set A InP ev : Queue E, stage : Enum {int, mem, obl}, ag : Set A The output port stores and processes the events originated within the scope of the channel"s interaction.
+cin,ev = ∅ ∧ cin,stage = int ∧ pfinish() ∧ (sA = ∅ ∨ sI = ∅) i = open, , sA, , sI , p, c −→ closing, , sA, , sI , p, c (7) W here : (c )out,ev = insert(closing(i), cout,ev ) (c )in,stage = mem (c )in,ag = sA Eventually, every member will leave the interaction and every sub-interaction will be closed.
+αstate = exec ∧ α : SetUp ∧ αnew = i a = playing, , , [α|qACT ], , −→ playing, , , qACT , , αtarget = open, , , , , sI , c −→ open, , , , , sI ∪ i , c (3) W here : (i )ini = a (c )out,ev = insert( a, α, sub(αtarget , i ) , cout,ev ) Let"s consider now the case of a close action.
+These resulting events may cause further changes in the state of other interactions (the target one included), namely, in its execution state as well as in the execution state, obligations and visibility of their members.
+The corresponding event will be forwarded to its interaction and to the interaction of its player agent to account for further changes (inv.
+Irrespective of the kind of incoming event, the first processing action is to check whether the channel"s  interaction must be finished.
+The first one takes place in the output port of the interaction in which the event  originated, whereas the other ones execute in separate control threads associated to the input ports of the interactions to which the event was dispatched.
+When all the identified agents have been updated, the event is removed from the input queue and the stage field is set back to the interaction state update.
+If the interaction has not to be finished, the input port stage field is set to the member state update stage and the auxiliary ag field is initialised to the interaction members.
+If the protocol of the target interaction grants permission, the processing of the attempt moves to the action execution stage (rule 2).
+Then, it waits for the completion of the leaving procedures of its played roles,  triggered by proper dispatching of the leaving event (inv.
+Moreover, the event representing this change is added to the output channel of the department interaction. 
+For instance, when a course interaction receives an event representing the assignment of some department member to its subject, an obligation to join the course as a teacher is created for that member.
+If some member has to end its participation in the  interaction and it is not playing any role, it will be inmediately abandoned (successfully or unsuccessfully, according to the satisfaction of its purpose).
+For instance, when the software component attached as a student in a degree  attempts to join as a student the course in which some subject is teached, the empowerment rules of the course interaction are checked.
+This action represents an attempt by the performer to force some  interaction to finish, thus bypassing its current protocol rules (those concerning the finish function).
+The dispatching function shall identify the set of  interactions (possibly, empty) that may be affected by the event (which may include the channel"s interaction itself)12 .
+This action is intended to alter the state of some target interaction  (possibly, the performer"s context itself), and notify a collection of addressees of the changes resulting from a successful  execution.
+For instance, according to the finishing rule of university courses mentioned in the last section, the event representing the end of the admission stage, originated within the scope of the school interaction, will be dispatched to every course of the school"s degrees.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) the stage and ag fields are properly initialised so that the process goes on in the next member state update stage.
+Additional  actions, such as permit, forbid, empower, etc., to update other protocol"s fields are yet to be identified in future work.
+As rule 7 shows, the interaction is moved to the transient  closing state and a corresponding event is inserted in the output port.
+This stage will further initiate the leaving process of the members (according to invariant 9).
+αstate = perm ∧ acontext,ch,in,ev = ∅ ∧ αtarget,prot,perm(a, α) a = playing, , , [α| ], , −→ playing, , , [α | ], , (2) W here : (α )state = exec 8 Labels of record instances are omitted to allow for more compact specifications.
+As rule 6 shows, the interaction is closed, removed from the context"s set of sub-interactions and a closed event is inserted in its output channel.
+The resulting dynamics described bellow allows for actions and events corresponding to different agents and interactions to be processed  simultaneously.
+cin,ev 1 = ∅ ∧ cin,stage 1 = int ∧ pfinish() , , , , {i} ∪ sI , , c −→ , , , , sI , , c i = , , ∅, , ∅, p, c1 −→ closed, , , , , , (6) W here : (c )out,ev = insert(closed(i), cout,ev ) In the second scenario, the interaction has some member or sub-interaction.
+3.1.3 Action execution The transitions fired in this stage are classified  according to the different types of actions to be executed.
+3.2.4 Obligations update In this stage, the obligations of agents (not necessaryly members of the interaction) towards the interaction are  updated accordingly.
+3.1 Attempt processing An attempt is defined by the structure AT T perf : A, act : ACT , where the performer represents the agent in charge of executing the specified action.
+if the admission period ends and no student has matriculated for the course,  teachers has to be finished before finishing the course itself).
+In the first one, the interaction has no members and no sub-interactions.
+As an example of constructive action, let"s consider the execution of a set up action, whose type is defined as  follows9 : SetUp ACT · new : I inv.
+As a first step, the auxiliary int and ag fields are initialised 11 Alternatively, we may have assumed that interactions are fully aware of any change in the multi-agent community.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) where: the performer is formally defined as the agent who stores the action in its queue of attempts, and the state field represents the current phase of processing.
+Corresponding events will be received by the interaction (according to invariants 23 and 22) so that the conditions of the first scenario will hold.
+The way in which the dispatching function is initialised and updated is out of the scope of this paper.
+Accordingly, the processing of some event goes through four major stages: event dispatching, interaction state update, member state update and obligations update.
+Its sets of participants (agents and resources) and sub-interactions must be empty (inv.
+This process goes through four major phases, as specified by the  enumeration type SACT Enum {emp, perm, exec} :  empowerment checking, permission checking and action execution, described in the sequel.
+Its first  purpose is to dispatch the local events to the agents  identified by the protocol"s monitoring function.
+This section focuses on the dynamics resulting from a particular kind of external action: the attempt of some component, attached to the community as an agent, to execute a given (internal) action.
+The second group of actions include those, such as close and leave, whose effects are indirectly achieved by updating the interaction protocol.
+Thus, input ports serve as a  coordination mechanism which activate the re-evaluation of the above functios whenever some event is received11 .
+Accordingly, the type ACT of actions, ranged over by meta-variable α, is specified as follows: ACT state : SACT , target : I, add : Set A def.
+If these conditions are met the  permissions to execute the given action (and notify the specified addressees) are checked (e.g.
+Moreover, the performer agent must be in the playing state (this pre-condition is also required for any rule concerning the processing of attempts).
+Actions of the first kind are constructive ones such as set up and join.
+According to invariant 20, the closing event will be dispatched to every sub-interaction in order to activate its closing procedure (guaranteed by invariant 8).
+3.1.1 Empowerment checking The post-condition of an attempt consists of inserting the action in the queue of attempts of the specified performer.
+it will be checked whether the student paid the fee for the course"s subject).
+observe the events from its event queue, enter or exit from the community) and resources (e.g.
+The dynamics of the multi-agent community is influenced by the external actions executed by software components and the protocols governing their interactions.
+Then, additional rules simply iterate over these collections until all agents and interactions have been notified (i.e., both sets are empty).
+The description of other external actions concerning agents (e.g.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 893 update field represents a proper higher-order function to  update the target"s protocol (inv.
+If these pre-conditions are  satisfied the rule is fired and the processing of the action  continues in the permission checking stage.
+Last, the event is removed from the queue and the auxiliary fields are re-set to nil.
+3.2.1 Event dispatching The processing of some event stored in the output port is triggered when all its preceding events have been dispatched.
+According to invariant 22, this event will be later inserted to its input channel to allow for further treatment.
+: (12) αperf = a ⇔ α ∈ aatt 7 The close and leave actions update the finish and over  function fields as explained in the next section.
+10 This strategy is also followed in the definition of leave and may also be used in the definition of other types of actions such as fire, permit, forbid, etc.
+This event will actually trigger the  closing process of the interaction as described in the next  subsection.
+The intended effects of some actions may directly be achieved in a single step, while others will required an indirect  approach and possibly several execution steps.
+Otherwise, the member enters the transient leaving state, thus preventing any action performance.
+In this scenario, interactions would trigger themselves without requiring any explicit notification.
+Unlike unempowered attempts, a forbidden one will cause an event to be generated and transfered to the event channel for further processing.
+Channels, ranged over by meta-variable c, are defined by two input and output ports, according to the following definition: CH out : OutP, in : InP inv.
+In this case, clean-up is required prior to the disposal of the interaction (e.g.
+The way to achieve this effect is to cause an update on the protocol so that the finish function returns true afterwards10 .
+Moreover, 12 This is essentially determined by the protocol rules of these interactions.
+with the returned values of the dispatching and protocol"s monitoring functions, respectively (rule 5).
+Due to lack of space, we only include some of the operational rules that formalise the execution semantics.
+In this case, the  interaction can be inmediately closed down.
+Accordingly, we may specify this type of action as follows: Close ACT · upd : (→ Bool) → (→ Bool) inv.
+13) and its state must be open (inv.
+Moreover, note that record updates in where clauses only affect the specified fields.
+18) serves as a  trigger of the closing procedure.
+This section will also describe the way in which these events are processed.
+The Sixth Intl.
+894 The Sixth Intl.
+892 The Sixth Intl.
+Otherwise, the action is discharged and removed from the queue.
+a timer resource may signal the pass of time) will be skipped.
+the subject of a course interaction).
+If this condition is not met, the attempt will simply be ignored.
+Otherwise, we can consider two possible scenarios.
+On the contrary, we  adhere to the more realistic assumption of limited awareness.
+Joint Conf.
+Joint Conf.
+Joint Conf.

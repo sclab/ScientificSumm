@@ -1,0 +1,73 @@
+6.3 Core Membership Since it is possible for the game induced by the MACG to have a non-empty core when the core of the aggregate value function is empty (Example 3), we try to explore the problem of Core Membership assuming that the core of both the game among attributes, M, w , and the underlying game, N, v , is known to be non-empty, and see if there is any relationship between their members.
+We show that the  nonemptiness of core of the game among attributes and the cores of the aggregators imply non-emptiness of the core of the game induced by the MACG.
+Complementary to the example above, when all the  aggregators have empty cores, the core of N, v is also empty.
+For a MACG N, M, A, a, w , we assume there are oracles that answers the questions of Core  Nonemptiness, and Core Membership for the aggregate value function w. When the aggregate value function is a non-negative linear function of its attributes, the core is always non-empty, and core membership can be determined efficiently.
+One reasonable requirement is whether a payoff vector x in the core of N, v can be decomposed and re-aggregated to a payoff vector y in the core of M, w .
+We claim that this vector y is in the core of N, v .
+Because of the apparent lack of relationship among  members of the core of N, v and that of M, w , we believe an algorithm for testing Core Membership will require more input than just the veto sets of the aggregators and the  oracle of Core Membership for the aggregate value function. 
+For any set of attributes T ⊆ M, let w be defined as w(T) = 0 if |T| = 0 or 1 6 if |T| = 2 10 if |T| = 3 177 Since the core of a game with a finite number of players forms a polytope, we can verify that the set of vectors (4, 4, 2), (4, 2, 4), and (2, 4, 4), fully characterize the core C of M, w .
+Recall that monotonic simple games are fully described by their set of minimal  winning coalitions (cf Section 3).
+Suppose the minimal winning coalition of all aggregators in a MACG N, M, A, a, w is N, then v(S) = 0 for all coalitions S ⊂ N. As long as v(N) ≥ 0, any  nonnegative vector x that satisfies È i∈N xi = v(N) is in the core of N, v .
+A simple game N, v has a non-empty core if and only if it has a set of veto players, say V , such that v(S) = 0 for all S ⊇ V .
+Therefore, j:S⊇P j uj = j:S⊇P j uj i∈P j θj i = i∈S j:S⊇P j ujθj i ≤ i∈S yi Note that the proof is constructive, and hence if we are given an element in the core of the game among attributes, we can construct an element of the core of the coalitional game.
+We will further assume that these simple games are monotonic.
+We say that a vector x ∈ Rn ≥0 can be  decomposed and re-aggregated into a vector y ∈ Rm ≥0 if there exists Z ∈ Rm×n ≥0 , such that yi = n j=1 Zij for all i xj = m i=1 Zij for all j We may refer Z as shares.
+However, the core of the game induced by a MACG may be non-empty even when the core of the game among  attributes is empty, as illustrated by the following example.
+The concept of core for the game among attributes makes the most sense when the aggregators are simple games.
+Given a game N, v represented as a MACG N, M, A, a, w , if the core of the game among attributes, 176 M, w , is non-empty, and the cores of the games of  attributes are non-empty, then the core of N, v is non-empty.
+When there is no restriction on the entries of Z, it is  always possible to decompose a payoff vector x in the core of N, v to a payoff vector y in the core of M, w .
+However, for each attribute, since the core is empty, by Lemma 1, there are at least two disjoint winning coalitions.
+Consider any coalition S ⊆ N, v(S) = w(a(A, S)) ≤ j:S⊇P j uj (4) This is true because an aggregator cannot evaluate to 1  without all members of the veto set.
+We do not have general results regarding the problem of Core Non-emptiness when some of the aggregators have non-empty cores while others have empty cores.
+Given a game N, v represented as a MACG N, M, A, a, w , if the cores of all aggregators are empty, v(N) > 0, and for each i ∈ N, v({i}) ≥ 0, then the core of N, v is empty.
+This is due to the following well-known result regarding simple games: Lemma 1.
+Therefore, the precondition of Theorem 4 is satisfied, and the edge-spanning game with non-negative edge weights has a non-empty core.
+As previously observed, an aggregate value function that is a non-negative linear function of its aggregates has non-empty core.
+However, v(N) = j∈N xj = xi + j /∈N xj ≥ xi + j∈S∗ xj > j∈S∗ xj Therefore, v(S∗ ) > È j∈S∗ xj, contradicting the fact that x is in the core of N, v .
+Suppose the core of N, v is non-empty.
+If the aggregators are  represented as such, Core Non-emptiness and Core  Membership can be checked in polynomial time.
+Further, A payoff vector x is in the core if and only if xi = 0 for all i /∈ V .
+First, we consider the aggregate value function.
+The core of the edge-spanning game of [5] is non-empty when the edge weights are non-negative.
+By Lemma 1, each attribute j must have a set of veto players; let this set be denoted by Pj .
+We can again invoke Theorem 4 to show the non-emptiness of core for flow games with  committee control.
+We also assume there are oracles that answers the questions of Core  Nonemptiness, and Core Membership for the aggregators.
+Let u be an arbitrary payoff vector in the core of the game among attributes, M, w .
+Consider a MACG N, M, A, a, w with two players and three attributes.
+The core of a flow game (without committee) has been shown to be non-empty in [8].
+In this section, we look at the complexity of the two computational problems related to the core: Core  Nonemptiness and Core Membership.
+We also show that there appears to be no such general relationship that relates the core memberships of the game among attributes, games of attributes, and game induced by MACG.
+For a MACG N, M, A, a, w , we assume all aggregators are monotonic and simple.
+6.1 Problem Setup There are many problems in the literature for which the questions of Core Non-emptiness and Core  Membership are known to be hard [1].
+From Theorem 4, we can obtain the following  corollaries that have been previously shown in the literature.
+6.2 Core Non-emptiness There is a strong connection between the non-emptiness of the cores of the games among attributes, games of the attributes, and the game induced by a MACG.
+As MACG can model the edge-spanning game in the same amount of space, these hardness results hold for MACG as well.
+However, it seems reasonable to restrict that if an agent j is irrelevant to the aggregator i, i.e., i never changes the outcome of  aggregator j, then Zij should be restricted to be 0.
+For each attribute, there is a veto set - namely, both endpoints of the edges.
+The core of a flow game with committee control, where each edge is controlled by a simple game with a veto set of players, is non-empty.
+This vector cannot be decomposed and re-aggregated to a vector in C under the stated restriction.
+We treat each edge of the flow game as an  attribute, and so each attribute has a veto set of players.
+On the other hand, the vector (10, 0) is in the core of N, v .
+We consider this a mild assumption.
+Let x be a member of the core, and pick an agent i such that xi > 0.
+For each attribute j, let θj be an arbitrary payoff vector in the core of the game of attribute j.
+For example, for the  edgespanning game that Deng and Papadimitriou studied [5], both of these questions are coNP-complete.
+Let the players be the vertices, and their  attributes the edges incident on them.
+As in the case for computing Shapley value, we attempt to find a way around the hardness barrier by assuming the existence of oracles, and try to build algorithms with these oracles.
+Suppose agent 1 is irrelevant to attribute 1, and agent 2 is irrelevant to attributes 2 and 3.
+Corollary 4 (Theorem 1 of [4]).
+Because S∗ is winning for all coalitions, v(S∗ ) = v(N).
+We suspect knowledge about the status of the cores of the aggregators alone is insufficient to decide this problem.
+Assumption 2.
+Pick the winning coalition Sj that does not include i for each attribute j.
+Corollary 3.
+For each agent i ∈ N, let yi = È j ujθj i .
+For any attribute j, by Lemma 1, È i∈P j θj i = 1.
+Assumption 3.
+Example 3.
+Theorem 4.
+Unfortunately, this restriction is already too strong.
+Theorem 5.
+Let S∗ = Ë j Sj .
+Example 4.
+Formally, Definition 11.

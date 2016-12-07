@@ -1,0 +1,39 @@
+Probes for the file location can then be answered without accessing the root; hence they are not affected by the failure of the root.
+During reconfigurations, a probe might return a stale value for two reasons.
+In our system, applications control replication in space using up and down knobs in the Install API; with large up and down values, aggregates at the intermediate virtual nodes are propagated to more nodes in the system.
+Second, applications can reduce the probability of probe response staleness during such repairs through our flexible API with appropriate setting of the down parameter.
+385 Reconfig reconfig notices DHT partial DHT complete DHT ends Lazy Time Data 3 7 81 2 4 5 6starts Lazy Data starts Lazy Data starts Lazy Data repairrepair reaggr reaggr reaggr reaggr happens Figure 7: Default lazy data re-aggregation time line Also note that the administrative isolation property satisfied by our ADHT algorithm ensures that the reconfigurations in a level i  domain do not affect the probes for level i in a sibling domain.
+Probes initiated between points 1 and 2 and that are affected by reconfigurations are reevaluated by AML upon detecting the reconfiguration.
+Additionally, using up and down knobs in the Probe API, applications can force on-demand fast re-aggregation of updates to avoid staleness in the face of reconfigurations.
+Due to redundancy in the leaf sets and the routing table, updates can be routed towards their root nodes successfully even during failures.
+Our two main principles for robustness are to guarantee (i) read availability - probes complete in finite time, and (ii) eventual consistency -  updates by a live node will be visible to probes by connected nodes in finite time.
+In our system, however, all internal nodes have to be replicated along with the root.
+0.1 1 10 100 1000 10000 0.0001 0.01 1 100 10000 Avg.numberofmessagesperoperation Read to Write ratio Update-All Up=ALL, Down=9 Up=ALL, Down=6 Update-Up Update-Local Up=2, Down=0 Up=5, Down=0 Figure 8: Flexibility of our approach.
+Our system handles reconfigurations at two levels - adaptation at the ADHT layer to ensure connectivity and adaptation at the AML layer to ensure access to the data in SDIMS.
+By reducing the number of nodes that have to be accessed to answer a probe, applications can reduce the  probability of incorrect results occurring due to the failure of nodes that do not contribute to the aggregate.
+Second, the nodes needed for aggregation to answer the probe become unreachable.
+An aggregated value in file location system is valid as long as the node hosting the file is active, irrespective of the status of other nodes in the system; whereas an application that counts the number of machines in a system may receive incorrect results irrespective of the replication.
+Lazy Re-aggregation: The DHT layer informs the AML layer about reconfigurations in the network using the following three function calls - newParent, failedChild, and newChild.
+Any new updates, installs, and probes for this prefix are sent to the parent immediately.
+In particular, if an application  detects or suspects an answer as stale, then it can re-issue the probe increasing the up and down parameters to force the refreshing of the cached data.
+For example, in a file location application, using a non-zero positive down parameter ensures that a file"s global aggregate is replicated on nodes other than the root.
+On-demand Re-aggregation: The default lazy aggregation scheme lazily propagates the old updates in the system.
+First, lazy re-aggregation propagates already received updates to new children or new parents in a lazy fashion over time.
+Probes that complete or start between points 2 and 8 may return stale answers.
+Note that maintaining extra leaf sets does not degrade the fault-tolerance property of the original Pastry; indeed, it enhances the resilience of ADHTs to failures by providing additional routing links.
+6.1 ADHT Adaptation Our ADHT layer adaptation algorithm is same as Pastry"s  adaptation algorithm [32] - the leaf sets are repaired as soon as a  reconfiguration is detected and the routing table is repaired lazily.
+On failedChild(child,  prefix), the AML layer marks the child as inactive and any outstanding probes that are waiting for data from this child are re-evaluated.
+With different UP and DOWN values in a network of 4096 nodes for different  readwrite ratios.
+Replication in Space: Replication in space is more  challenging in our system than in a DHT file location application because replication in space can be achieved easily in the latter by just  replicating the root node"s contents.
+If parent is not null, then  aggregation functions and already existing data are lazily transferred in the background.
+6.2 AML Adaptation Broadly, we use two types of strategies for AML adaptation in the face of reconfigurations: (1) Replication in time as a  fundamental baseline strategy, and (2) Replication in space as an  additional performance optimization that falls back on replication in time when the system runs out of replicas.
+If reconfigurations are only transient (like a node temporarily not responding due to a burst of load), the replicated aggregate closely or correctly resembles the current state. 
+On  newParent(parent, prefix), all probes in the outstanding-probes table  corresponding to prefix are re-evaluated.
+Our  system also provides two hooks that applications can use for improved end-to-end robustness in the presence of reconfigurations: (1)  Ondemand re-aggregation and (2) application controlled replication.
+First, reconfigurations lead to incorrectness in the previous aggregate values.
+On newChild(child, prefix), the AML layer creates space in its data structures for this child.
+Figure 7 shows the time line for the default lazy re-aggregation upon reconfiguration.
+We provide two  mechanisms for replication in time.
+Note that this strategy will be useful only after the DHT adaptation is completed (Point 6 on the time line in Figure 7).
+However, note that this technique is not appropriate in some cases.
+In large scale systems, reconfigurations are common.

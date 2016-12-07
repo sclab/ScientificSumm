@@ -1,0 +1,37 @@
+In this paper, we introduce and evaluate an alternative approach to application adaptation and resource selection which does not need a performance model.
+It handles all of the following cases: • automatically adapting the number of processors to the degree of parallelism in the application, even when this degree changes dynamically during the computation • migrating (part of) a computation away from overloaded  resources • removing resources with poor communication links that slow down the computation • adding new resources to replace resources that have crashed Our work assumes the application is malleable and can run  (efficiently) on multiple sites of a grid (i.e., using co-allocation (15)).
+Predicting the application runtime on a given set of resources, however, requires knowledge about the application.
+We believe that our approach can be extended to other classes of applications with the given assumptions.
+A grid provides much computational power, and thus offers the possibility to solve very large problems, especially if applications can run on multiple sites at the same time (7; 15; 20).
+In a grid environment this problem is even more difficult, because of the heterogeneity of resources: the compute nodes have various speeds and the quality of network connections between them varies from low-latency and high-bandwidth local-area networks (LANs) to high-latency and possibly low-bandwidth wide-area networks (WANs).
+The adaptation problem can be reduced to the resource selection problem: the resource selection phase can be repeated during  application execution, either at regular intervals, or when a performance problem is detected, or when new resources become available.
+A major advantage of our approach is that it improves  application performance in many different situations that are typical for grid computing.
+In Section 2, we explain what assumptions we are making about the applications and grid resources.
+We use these statistics to automatically estimate the resource requirements of the application.
+In Section 5, we evaluate our approach in a number of grid scenarios.
+However, the complexity of Grid environments also is many times larger than that of traditional parallel machines like clusters and supercomputers.
+Another important problem is that the performance and availability of grid resources varies over time: the network links or compute nodes may become overloaded, or the compute nodes may become unavailable because of crashes or because they have been claimed by a higher priority application.
+One important problem is resource selection - selecting a set of compute nodes such that the  application achieves good performance.
+Typically, an analytical performance model is used, but constructing such a model is inherently difficult and requires an expertise which application programmers may not have.
+Even in traditional,  homogeneous parallel environments, finding the optimal number of nodes is a hard problem and is often solved in a trial-and-error fashion.
+We have applied our ideas to divide-and-conquer applications, which satisfy these requirements.
+We start an application on any set of resources.
+We evaluate the performance of our approach on the DAS-2 wide-area system and we will show that our approach yields major performance improvements (roughly 10-60 %) in the above scenarios.
+We implemented our strategy in Satin, which is a Java-centric framework for writing grid-enabled divide-and-conquer  applications (20).
+To maintain a reasonable performance level, the application therefore needs to adapt to the changing conditions.
+For resource selection, the application runtime is estimated for some resource sets and the set that yields the shortest runtime is selected for execution.
+In Section 3, we present our resource selection and adaptation strategy.
+Next, we adjust the resource set the application is running on by adding or removing compute nodes or even entire clusters.
+(10) to determine the efficiency and tries to keep the efficiency of the application between a lower and upper threshold derived from their theory.
+In recent years, grid computing has become a real alternative to  traditional parallel computing.
+In Section 6, we compare our approach with the related work.
+Also, new, better resources may become available.
+The rest of this paper is structured as follows.
+Processors are added or deleted to stay between the thresholds, thus adapting automatically to the  changing environment.
+In Section 4, we describe its implementation in the Satin framework.
+This approach has been adopted by a number of systems (5; 14; 18).
+It should not use static load balancing or be very sensitive to  wide121 area latencies.
+Divide-and-conquer has been shown to be an attractive paradigm for programming grid applications (4; 20).
+Our adaptation strategy uses the work by Eager et al.
+During the application run, we periodically collect  information about the communication times and idle times of the  processors.
+Finally, in Section 7, we conclude and  describe future work. 

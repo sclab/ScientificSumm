@@ -1,0 +1,143 @@
+Synonyms (terms listed in the thesauruses that refer to the same meaning) Type 2.
+For example, there are few documents in PubMed that directly answer the query "What is the role of the genes HNF4 and COUP-tf I in the suppression in the function of the liver?".
+We call this type of concepts implicitly related concepts of the query.
+k is the number of selected top ranked implicitly related concepts (see section 3.2.2); i is the position of t in the ranking of implicitly related concepts.
+Implicitly related concepts (terms that are semantically related and also co-occur more frequently than being independent in the biomedical texts) Knowledge of type 1-3 is retrieved from the following two thesauruses: 1) MeSH, a controlled vocabulary maintained by NLM for indexing biomedical literature.
+3.1 Identifying concepts within a query A concept, defined in Definition 3.1, is a gene symbol or a MeSH term.
+Associate each selected concept c' with the concept cq in q that 1) has the same semantic type as c', and 2) is most related to c' among all the concepts in q.
+Implicitly related concepts are extracted and ranked in the following steps: Step 1.
+The top-k ranked concepts in B are used for query expansion: if I(b, A) ≥ I(b, C), then b is considered as an implicit related concept of A.
+Our strategy for passage extraction assumes that the optimal passage(s) in a paragraph should have all the query concepts that the whole paragraph has.
+In addition, those long-forms that share the same abbreviation with the MeSH concept and are different by an edit distance of 1 or 2 are also considered as its lexical variants.
+In the above example, A = {HNF4, COUP-tf I}, C = {function of liver}, and "hepatitis B virus" is one of the implicitly related concepts.
+3.3.2 Incorporating domain-specific knowledge Given a concept c, a vector u is derived by incorporating its domain-specific knowledge: 1 2 3( , , , )u c u u u= where u1 is a vector of its synonyms, hyponyms, and lexical variants; u2 is a vector of its hypernyms; and u3 is a vector of its implicitly related concepts.
+In Figure 3.2.2, the top 4 implicitly related concepts are all highly associated with liver: Hepatocytes are liver cells; Hepatoblastoma is a malignant liver neoplasm occurring in young children; the vast majority of Gluconeogenesis takes place in the liver; and Hepatitis B virus is a virus that could cause serious damage to the function of liver.
+3.3.1 Basic model Given a query q and a document d, our model measures two similarities, concept similarity and word similarity: ( , ) ( , )( , ) ( , ) concept word sim q d sim q d sim q d= Concept similarity Two vectors are derived from a query q, 1 2 1 11 12 1 2 21 22 2 ( , ) ( , ,..., ) ( , ,..., ) m n q v v v c c c v c c c = = = where v1 is a vector of concepts describing the biological object(s) and v2 is a vector of concepts describing the biological process(es).
+Term PubMed translation Mad cow disease "bovine spongiform encephalopathy"[Text Word] OR "encephalopathy, bovine spongiform"[MeSH Terms] OR Mad cow disease[Text Word] gene ("genes"[TIAB] NOT Medline[SB]) OR "genes"[MeSH Terms] OR gene[Text Word] role "role"[MeSH Terms] OR role[Text Word] 3.2 Compiling domain-specific knowledge In this paper, domain-specific knowledge refers to information about concepts and their relationships in a certain domain.
+Now suppose a document d contains concepts ‘Nurr-77", 'T cells', 'spleen', and 'lymph nodes', but not ‘autoimmunity", then the value of parameter αi is computed as follows: 1 2 1 ('T cells')+ ('spleen')+ ('lymph nodes') ('T cells')+ ('spleen')+ ('lymph nodes')+ ('autoimmunity') idf idf idf idf idf idf idf α α = = Word similarity The similarity between q and d on the word level is computed using Okapi [17]: 10.5 ( 1) log( )( , ) 0.5word w q N n k tf sim q d n K tf∈ − + + = + + ∑ (4) where N is the size of the document collection; n is the number of documents containing w; K=k1 × ((1-b)+b × dl/avdl) and k1=1.2, C Function of Liver Implicitly related concepts (B) Hepatocytes Hepatoblastoma Gluconeogenesis Hepatitis B virus HNF4 and COUP-tf I A b=0.75 are constants.
+dl is the document length of d and avdl is the average document length; tf is the term frequency of w within d. The model Given two documents d1 and d2, we say 1 2( , ) ( , )sim q d sim q d> or d1 will be ranked higher than d2, with respect to the same query q, if either 1) 1 2( , ) ( , ) concept concept sim q d sim q d> or 2) 1 2 1 2and( , ) ( , ) ( , ) ( , ) concept concept word word sim q d sim q d sim q d sim q d= > This conceptual IR model emphasizes the similarity on the concept level.
+Given a vector of concepts v, let s(v) be the set of concepts in v. The weight of vi is then measured by: ( ) max{log : ( ) ( ) and 0}i i v v N w v s v s v n n = ⊆ > where v is a vector that contains a subset of concepts in vi and nv is the number of documents having all the concepts in v. The concept similarity between q and d is then computed by 2 1 ( )( , ) i i concept i w vsim q d α = = ×∑ where αi is a parameter to indicate the completeness of vi that document d has covered.
+The weight that a document d receives from u is given by: max{ : and }tw t u t d∈ ∈ where wt = β .cidf× The weighting factor β is an empirical tuning parameter determined as: 1. β = 1 if t is the original concept, its synonym, its hyponym, or its lexical variant; 2. β = 0.95 if t is a hypernym; 3. β = 0.90× (k-i+1)/k if t is an implicitly related concept.
+αi is measured by: and i i i c c d c v c c v idf idf α ∈ ∈ ∈ = ∑ ∑ (3) where idfc is the inverse document frequency of concept c. An example: suppose we have a query How does Nurr-77 delete T cells before they migrate to the spleen or lymph nodes and how does this impact autoimmunity?.
+For every 1...i i js s s+ in S, let 1{ ... }i i jS S s s s+= − if (j - i + 1) > L. This step is to remove those sequences of sentences in S that have lower density of query concepts.
+For each concept b∈B, compute the association between b and A using the mutual information measure [5]: P( , ) ( , ) log P( )P( ) b A I b A b A = where P(x) = n/N, n is the number of MEDLINE citations having x and N is the size of MEDLINE.
+After identifying the concepts in the query, we have: 1 2 ('Nurr-77') ('T cells', 'spleen', 'autoimmunity', 'lymph nodes') v v = = Suppose that some document frequencies of different combinations of concepts are as follows: 25 df('Nurr-77') 0 df('T cells', 'spleen', 'autoimmunity', 'lymph nodes') 326 df('T cells', 'spleen', 'autoimmunity') 82 df('spleen', 'autoimmunity', 'lymph nodes') 147 df('T cells', 'autoimmunity', 'lymph nodes') 2332 df('T cells', 'spleen', 'lymph nodes') The weight of vi is then computed by (note that there does not exist a document having all the concepts in v2): 1 2 ( ) log( / 25) ( ) log( /82) w v N w v N = = .
+For each sequence of consecutive sentences 1... ,i i js s s+ 1 ≤ i ≤ j ≤ n, let S = S 1{ ... }i i js s s+∪ if 1...i i js s s+ satisfies that: 1) Every query concept in C occurs in 1...i i js s s+ and 2) There does not exist k, such that i < k < j and every query concept in C occurs in 1...i i ks s s+ or 1 2... .k k js s s+ + Condition 1 requires 1...i i js s s+ having all the query concepts in p and condition 2 requires 1...i i js s s+ be the minimal.
+Then the association between b and the query q is measured by: { : and ( ) ( )} ( , ) { : and ( ) ( )} x x B r x r b score b q x x B r b r x ∈ ≤ = ∈ ≤ (2) The numerator in Formula 2 is the number of the concepts in B that are associated with both A and C equally with or less than b.
+1 1 2 1 1 2 2 2 1 1 1 1 { ... } { ... } { ... } i i j i i j i i j S S s s s S S s s s S S s s s + + + = ∪ = − = − 
+Similarly, list_C is created for C. Concepts in B = list_A ∩ list_C are considered as implicitly related concepts of the query.
+In the given example, "hepatitis B virus" is not a synonym, hypernym, hyponym, nor a lexical variant of any of the query concepts, but it is semantically related to the query concepts according to the UMLS Semantic Network.
+First, we give two definitions: Definition 3.1 A concept is 1) a entry term in the MeSH ontology, or 2) a gene symbol in the Entrez gene database.
+We use the query translation functionality of PubMed to extract MeSH terms in a query.
+Figure 3.2.2 Top 4 implicitly related concepts for the query "How do interactions between HNF4 and COUP-TF1 suppress liver function?".
+ADAM [22] is an abbreviation database which covers frequently used abbreviations and their definitions (or long-forms) within MEDLINE, the authoritative repository of citations from the biomedical literature maintained by the NLM.
+Finally the remaining sequences of sentences in S are returned as the optimal passages in the paragraph p with respect to the query.
+Let C be the set of concepts in the top 15 ranked documents.
+[3][21] have shown that expanding gene symbols with their lexical variants improved the retrieval effectiveness of their biomedical IR systems.
+A query q in format (1) of section 2 can be represented by q = (A, C) where A is the set of biological objects and C is the set of biological processes.
+The top-k ranked concepts by sim(q,c) are selected.
+Given an abbreviation X with the long-form L in the query, we scan the top-k ranked (k=1000) documents and when a document is found with X, we compare L with all the long-forms of X in that document.
+Given b1, b2 ∈ B, we say r(b1) ≤ r(b2) if I(b1, A) ≤ I(b2, A) and I(b1, C) ≤ I(b2, C).
+Those concepts that are semantically related to both A and C according to the UMLS Semantic Network are considered as the implicitly related concepts of the query.
+Given a query How does nucleoside diphosphate kinase (NM23) contribute to tumor progression?, we first identify the abbreviation NM23 and its long-form nucleoside diphosphate kinase using the abbreviation identification program from [4].
+In Table 3.1, three MeSH terms within the query What is the role of gene PRNP in the Mad cow disease?
+Figure 3.2.2 shows the top 4 implicitly related concepts for the sample query.
+In this case, HMG and HMGB1 will be identified as gene symbols.
+For example, for the gene symbol "NF-kappa B", at least 5 different lexical variants can be found in the biomedical literature: "NF-kappaB", "NFkappaB", "NFkappa B", "NF-kB", and "NFkB", three of which are not in the current UMLS and two not in the Entrez Gene.
+Another variant, PLA 2, is also generated since a hyphen or a space could be inserted at the transition between alphabetic and numerical characters in a gene symbol.
+Suppose we have a query q and a paragraph p represented by a sequence of sentences 1 2... .np s s s= Let C be the set of concepts in q that occur in p and S = Φ.
+The association between c' and cq is computed by: P( ', ) ( ', ) log P( ')P( ) q q q c c I c c c c = where P(x) = n/N, n is the number of documents having x and N is the size of the document collection.
+A document having c' but not cq receives a weight given by: (0.5× (k-i+1)/k) ,qcidf× where i is the position of c' in the ranking of step 2.
+A passage could be a part of a sentence, a sentence, a set of consecutive sentences or a paragraph (i.e., the whole span of text that are inside of <P> and </P> HTML tags).
+If none of these long-forms is equal or close to L (i.e., the edit distance between L and the long-form of X in that document is 1 or 2), then the concept similarity of X is subtracted.
+All the abbreviations of a MeSH concept in ADAM are considered as lexical variants to each other.
+For every two sequences of consecutive sentences 1 1 1 2 2 21 1... , and ...i i j i i js s s S s s s S+ +∈ ∈ , if 1 2 1 2 2 1 , and 1 i i j j i j ≤ ≤ ≤ + (5) then do Repeat this step until for every two sequences of consecutive sentences in S, condition (5) does not apply.
+We make use of the query templates to identify gene symbols.
+3.2.1 Lexical variants Lexical variants of gene symbols New gene symbols and their lexical variants are regularly introduced into the biomedical literature [7].
+For example, the query How do HMG and HMGB1 interact in hepatitis?
+Then we explain how the domain-specific knowledge is incorporated in the model using query expansion in section 3.3.2.
+Table 3.1 The PubMed translation of the query "What is the role of gene PRNP in the Mad cow disease?".
+For each concept c in C, compute the similarity between c and the query q, the computation of sim(q,c) can be found in [2].
+3.2.2 Implicitly related concepts Motivation: In some cases, there are few documents in the literature that directly answer a given query.
+In our system, we employed the following two strategies to retrieve lexical variants of gene symbols.
+We approached the problem by first retrieving the top-k most relevant paragraphs, then extracting passages from these paragraphs, and finally ranking the passages.
+The denominator is the number of the concepts in B that are associated with both A and C equally with or more than b.
+As an example, "human papilloma viruses" and "human papillomaviruses" have the same abbreviation HPV in ADAM and their edit distance is 1.
+Searching the long-form nucleoside diphosphate kinase in ADAM, other abbreviations, such as NDPK or NDK, are retrieved.
+An occurrence of any term in u1 will be counted as an occurrence of c. idfc in Formula 3 is updated as: 1, logc c u N D idf = 1,c uD is the set of documents having c or any term in 1u .
+We make use of the MEDLINE database to extract the implicitly related concepts.
+Each document in MEDLINE is manually indexed by a list of MeSH terms to describe the topics covered by that document.
+3.3.3 Pseudo-feedback Pseudo-feedback is a technique commonly used to improve retrieval performance by adding new terms into the original query.
+The edit distance between two strings is measured by the minimum number of insertions, deletions, and substitutions of a single character required to transform one string into the other [12].
+A passage is defined as any span of text that does not include the HTML paragraph tag (i.e., <P> or </P>).
+They are commonly used in the literature, but might not be listed in the thesauruses) Type 5.
+This definition of concept can be generalized to include other biomedical dictionary terms.
+We used five types of domain-specific knowledge in the domain of genomics: Type 1.
+For example, given a gene symbol PLA2, a variant PLAII is generated according to the heuristic that Roman numerals and Arabic numerals are convertible when naming gene symbols.
+This step is to merge those sequences of sentences in S that are adjacent or overlapped.
+However, there exist some documents about the role of "HNF4" and "COUP-tf I" in regulating "hepatitis B virus" transcription.
+Let list_A be the set of MeSH terms that are 1) used for indexing those MEDLINE citations having A, and 2) semantically related to A according to the UMLS Semantic Network.
+3.4 Passage extraction The goal of passage extraction is to highlight the most relevant fragments of text in paragraphs.
+are found in the PubMed translation: "encephalopathy, bovine spongiform" for Mad cow disease, genes for gene, and role for role.
+In section 3.2, we specify five different types of domain-specific knowledge and introduce how they are compiled.
+In cases where the query templates are not provided, programs for recognition of gene symbols within texts are needed.
+Hypernyms (more generic terms, one level only) Type 3.
+The expansion is similar for C when I(b, A) < I(b, C).
+is derived from the template How do genes interact in organ function?.
+Each entry term in the MeSH ontology is assigned one or more semantic types.
+It is very likely that the biologists would be interested in these documents because "hepatitis B virus" is known as a virus that could cause serious damage to the function of liver.
+The rest of this section is organized as follows: in section 3.1, we explain how the concepts are identified within a query.
+This is done by submitting the whole query to PubMed, which will then return a file in which the MeSH terms in the query are labeled.
+Lexical variants (different forms of the same concept, such as abbreviations.
+These abbreviations are considered as the lexical variants of NM23.
+The compiling of type 4-5 knowledge is introduced in section 3.2.1 and 3.2.2, respectively.
+These concepts are organized in a tree hierarchy; 2) Entrez Gene, one of the most widely used searchable databases of genes.
+The difference is that we utilize the semantic relationships among query concepts to exclusively focus on concepts of certain semantic types.
+Hyponyms (more specific terms, one level only) Type 4.
+Each gene symbol in the Entrez gene database maps to the semantic type Gene or Genome.
+Lexical variants of MeSH concepts ADAM is used to obtain the lexical variants of MeSH concepts as well.
+Only synonyms are retrieved from Entrez Gene.
+In section 3.3.4, we give a strategy to improve the ranking by avoiding incorrect match of abbreviations.
+Also they should have higher density of query concepts than other fragments of text in the paragraph.
+We utilized these semantic types and their relationships to identify related concepts.
+Strategy I: This strategy is to automatically generate lexical variants according to a set of manually crafted heuristics [3][21].
+This step is to avoid incorrect match of abbreviations in the top ranked documents.
+However, many reference databases, such as UMLS and Entrez Gene, may not be able to keep track of all this kind of variants.
+A pseudo-feedback strategy is introduced in section 3.3.3.
+Thus they are considered as lexical variants to each other.
+Strategy II: This strategy is to retrieve lexical variants from an abbreviation database.
+For example, the gene symbol APC could be the abbreviation for many non-gene long-forms, such as air pollution control, aerobic plate count, or argon plasma coagulation.
+We used a modified pseudo-feedback strategy described in [2].
+This notion is similar to the B-term used in [19] for relating two disjoint literatures for biomedical hypothesis generation.
+It is also possible to have more than one relevant passage in a single paragraph.
+We first give the basic conceptual IR model in section 3.3.1.
+3.3.4 Avoid incorrect match of abbreviations Some gene symbols are very short and thus ambiguous.
+These relationships among semantic types represent general biomedical knowledge.
+A document having b but not A will receive a partial weight of A.
+Definition 3.2 A semantic type is a category defined in the Semantic Network of the Unified Medical Language System (UMLS) [14].
+Finally, our strategy for passage extraction is described in section 3.4.
+The current version of Entrez Gene contains information about 1.7 million genes.
+The current release of the UMLS Semantic Network contains 135 semantic types such as Disease or Syndrome.
+A similar model but applied to non-biomedical domain has been given in [15].
+In this process, we employed several techniques and methods, which will be introduced in this section.
+In this situation, those documents that implicitly answer their questions or provide supporting information would be very helpful.
+In section 3.3, we present our conceptual IR model.
+In addition, these semantic types are linked by 54 relationships.
+3.3 Conceptual IR model We now discuss our conceptual IR model.
+I(b, C) is computed similarly.
+The 2007 version of MeSH contains information about 190,000 concepts.
+The 2006 version of MEDLINE database contains citations (i.e., abstracts, titles, and etc.)
+A large value for I(b, A) means that b and A co-occur much more often than being independent.
+of over 15 million biomedical articles.
+Let r(b) = (I(b, A), I(b, C)), for b∈ B.
+Let 1min{ 1: ... }i i jL j i s s s S+= − + ∈ .
+It does not have a hierarchy.
+Step 3.
+Step 3.
+Step 3.
+Step 2.
+Step 2.
+Step 2.
+For example, Antibiotic prevents Disease or Syndrome.
+Step 1.
+Step 1.

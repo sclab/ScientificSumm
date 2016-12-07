@@ -1,0 +1,111 @@
+We begin by introducing the formal system of 
+argumentation that underpins our approach, as well as the 
+corresponding terminology and notation, all taken from [2, 8, 17].
+A dialogue is a sequence of messages passed between two
+or more members of a set of agents A. An agent α maintains
+a knowledge base, Σα, containing formulas of a propositional
+language L and having no deductive closure. Agent α also
+maintains the set of its past utterances, called the 
+commitment store, CSα. We refer to this as an agent"s public
+knowledge, since it contains information that is shared with
+other agents. In contrast, the contents of Σα are private
+to α.
+Note that in the description that follows, we assume that
+is the classical inference relation, that ≡ stands for logical
+equivalence, and we use Δ to denote all the information
+available to an agent. Thus in a dialogue between two agents
+α and β, Δα = Σα ∪ CSα ∪ CSβ, so the commitment store
+CSα can be loosely thought of as a subset of Δα consisting of
+the assertions that have been made public. In some dialogue
+games, such as those in [18] anything in CSα is either in Σα
+or can be derived from it. In other dialogue games, such as
+1006
+978-81-904262-7-5 (RPS) c 2007 IFAAMAS
+those in [2], CSα may contain things that cannot be derived
+from Σα.
+Definition 2.1. An argument A is a pair (S, p) where p
+is a formula of L and S a subset of Δ such that (i) S is
+consistent; (ii) S p; and (iii) S is minimal, so no proper
+subset of S satisfying both (1) and (2) exists.
+S is called the support of A, written S = Support(A) and p
+is the conclusion of A, written p = Conclusion(A). Thus we
+talk of p being supported by the argument (S, p).
+In general, since Δ may be inconsistent, arguments in
+A(Δ), the set of all arguments which can be made from Δ,
+may conflict, and we make this idea precise with the notion
+of undercutting:
+Definition 2.2. Let A1 and A2 be arguments in A(Δ).
+A1 undercuts A2 iff ∃¬p ∈ Support(A2) such that p ≡
+Conclusion(A1).
+In other words, an argument is undercut if and only if there
+is another argument which has as its conclusion the negation
+of an element of the support for the first argument.
+To capture the fact that some beliefs are more strongly
+held than others, we assume that any set of beliefs has a
+preference order over it. We consider all information 
+available to an agent, Δ, to be stratified into non-overlapping
+subsets Δ1, . . . , Δn such that beliefs in Δi are all equally
+preferred and are preferred over elements in Δj where i > j.
+The preference level of a nonempty subset S ⊂ Δ, where
+different elements s ∈ S may belong to different layers Δi,
+is valued at the highest numbered layer which has a member
+in S and is referred to as level(S). In other words, S is only
+as strong as its weakest member. Note that the strength of
+a belief as used in this context is a separate concept from
+the notion of support discussed earlier.
+Definition 2.3. Let A1 and A2 be arguments in A(Δ).
+A1 is preferred to A2 according to Pref , A1
+Pref
+A2, iff
+level(Support(A1)) > level(Support(A2)). If A1 is 
+preferred to A2, we say that A1 is stronger than A2.
+We can now define the argumentation system we will use:
+Definition 2.4. An argumentation system is a triple:
+A(Δ), Undercut, Pref
+such that:
+• A(Δ) is a set of the arguments built from Δ,
+• Undercut is a binary relation representing the defeat
+relationship between arguments, Undercut ⊆ A(Δ) ×
+A(Δ), and
+• Pref is a pre-ordering on A(Δ) × A(Δ).
+The preference order makes it possible to distinguish 
+different types of relations between arguments:
+Definition 2.5. Let A1, A2 be two arguments of A(Δ).
+• If A2 undercuts A1 then A1 defends itself against A2
+iff A1
+Pref
+A2. Otherwise, A1 does not defend itself.
+• A set of arguments A defends A1 iff for every A2 that
+undercuts A1, where A1 does not defend itself against
+A2, then there is some A3 ∈ A such that A3 undercuts
+A2 and A2 does not defend itself against A3.
+We write AUndercut,Pref to denote the set of all non-undercut
+arguments and arguments defending themselves against all
+their undercutting arguments. The set A(Δ) of acceptable
+arguments of the argumentation system
+A(Δ), Undercut, Pref
+is [1] the least fixpoint of a function F:
+A ⊆ A(Δ)
+F(A) = {(S, p) ∈ A(Δ) | (S, p) is defended by A}
+Definition 2.6. The set of acceptable arguments for an
+argumentation system A(Δ), Undercut, Pref is recursively
+defined as:
+A(Δ) =
+[
+Fi≥0(∅)
+= AUndercut,Pref ∪
+h[
+Fi≥1(AUndercut,Pref )
+i
+An argument is acceptable if it is a member of the acceptable
+set, and a proposition is acceptable if it is the conclusion of
+an acceptable argument.
+An acceptable argument is one which is, in some sense,
+proven since all the arguments which might undermine it
+are themselves undermined.
+Definition 2.7. If there is an acceptable argument for a
+proposition p, then the status of p is accepted, while if there
+is not an acceptable argument for p, the status of p is not
+accepted.
+Argument A is said to affect the status of another argument
+A if changing the status of A will change the status of A .

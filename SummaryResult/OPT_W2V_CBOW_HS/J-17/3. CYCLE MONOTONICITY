@@ -1,0 +1,36 @@
+Definition 3.3 (Cycle monotonicity) A social choice  function f satisfies cycle monotonicity if for every player i, every v−i ∈ V−i, every integer K, and every v1 i , .
+(Strictly speaking, we should use A = f(Vi, v−i) instead of A here.)
+Cycle monotonicity is best described in the abstract social choice setting: there is a finite set A of alternatives, there are m players, and each player has a private type  (valuation function) v : A → R, where vi(a) should be interpreted as i"s value for alternative a.
+Corollary 3.4 There exist prices P such that the  mechanism (f, P) is truthful iff f satisfies cycle monotonicity.1 We now consider our specific scheduling domain.
+[15]) that the price Pi can only depend on the alternative chosen and the others" declarations, that is, we may write Pi : V−i × A → R. Thus, truthfulness implies that for every i, every v−i ∈ V−i, and any vi, vi ∈ Vi with f(vi, v−i) = a and f(vi, v−i) = b, we have vi(a) − Pi(a, v−i) ≥ vi(b) − Pi(b, v−i).
+A  mechanism is a tuple (f, {Pi}) where f : V1 × · · · × Vm → A is the algorithm for choosing the alternative, and Pi : V1 × · · · × Vm → A is the price charged to player i (in the scheduling setting, the mechanism pays the players, which corresponds to negative prices).
+, vK i ∈ Vi, KX k=1 h vk i (ak) − vk i (ak+1) i ≥ 0 where ak = f(vk i , v−i) for 1 ≤ k ≤ K, and aK+1 = a1.
+One of the main contributions of this paper is to demonstrate that the monotonicity condition for multidimensional settings, which is sometimes called cycle monotonicity, can indeed be effectively utilized to devise truthful mechanisms.
+We can now rephrase the above price-assignment problem: we seek an assignment to the variables {Pa}a∈A such that Pa − Pb ≤ δa,b ∀a, b ∈ A (2) This is easily solved by looking at the allocation graph and applying a standard basic result of graph theory.
+Now fix a player i, and fix the declarations v−i of the others.
+We seek an assignment to the variables {Pa}a∈A such that vi(a) − vi(b) ≥ Pa − Pb for every a, b ∈ A and vi ∈ Vi with f(vi, v−i) = a.
+However for multidimensional  domains, the monotonicity condition is more involved and there has been no success in employing it in the design of  truthful mechanisms.
+The mechanism is  truthful if for every i, every v−i ∈ V−i = Q i =i Vi , and any vi, vi ∈ Vi we have vi(a) − Pi(vi, v−i) ≥ vi(b) − Pi(vi, v−i), where a = f(vi, v−i) and b = f(vi, v−i).
+Let x(pk i , p−i) = xk for 1 ≤ k ≤ K, and let xK+1 = x1 , pK+1 = p1 .
+A basic question that arises is given an algorithm f : V1 × · · · × Vm → A, do there exist prices that will make the resulting mechanism truthful?
+Fix a player i, p−i, and any p1 i , .
+Define δa,b := inf{vi(a)− vi(b) : vi ∈ Vi, f(vi, v−i) = a}.
+Furthermore, if all cycles are non-negative, a feasible assignment is 255 obtained as follows: fix an arbitrary node a∗ ∈ A and set Pa to be the length of the shortest path from a∗ to a.
+In the scheduling domain, A represents all the possible assignments of jobs to machines, and vi(a) is the negative of i"s load in the schedule a.
+We have vk i (xk ) = − P j xk ijpk ij, so cycle monotonicity translates to PK k=1 ˆ − P j xk ijpk ij + P j xk+1 ij pk ij ˜ ≥ 0.
+Although truthfulness is defined in terms of payments, it turns out that truthfulness actually boils down to a  certain algorithmic condition of monotonicity.
+Theorem 3.2 There exists a feasible assignment to (2) iff the allocation graph has no negative-length cycles.
+Most positive results for multidimensional domains have relied on explicit price specifications in order to prove truthfulness.
+[11]) The allocation graph of f is a directed weighted graph G = (A, E) where E = A × A and the weight of an edge b → a (for any a, b ∈ A) is δa,b.
+Let Vi denote the set of all possible types of player i.
+For most of this paper, we will consequently ignore any strategic considerations and  focus on designing an approximation algorithm for minimizing makespan that satisfies (3). 
+This leads to the following definition, which is another way of phrasing the condition that the allocation graph have no negative cycles.
+Rearranging, we get KX k=1 X j xk+1 ij ` pk ij − pk+1 ij ´ ≥ 0.
+xk could be a {0, 1}-assignment or a fractional assignment.
+This seems to have been first observed for multidimensional domains by Rochet [23] in 1987, and has been used successfully in  algorithmic mechanism design several times, but for  singledimensional domains.
+We include a brief exposition on it for completeness.
+, pK i .
+(3) Thus (3) reduces our mechanism design problem to a concrete algorithmic problem.
+The exposition here is largely based on [11].
+It is well known (see e.g.
+Definition 3.1 (Gui et al.

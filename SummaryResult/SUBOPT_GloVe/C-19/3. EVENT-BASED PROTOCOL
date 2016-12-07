@@ -1,0 +1,4 @@
+a protocol module that triggers an event is not aware of the module(s) that handle the event.
+When a protocol module triggers an event e  specifying channel c, all handlers bound to e that are part of a protocol that subscribes to c are executed (in the order  prescribed by the definition of channel c). 
+Note that the network is represented as a special protocol module that handles the send event (to send a message to another machine) and triggers the deliver event (upon receipt of a message from another machine).
+To mark that some handler is bound to 

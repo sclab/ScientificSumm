@@ -1,0 +1,521 @@
+According to the PAUSE auction, during the first stage we
+have only several English auctions, with the bidders 
+submitting bids on individual items. In this case, an agent"s 
+dominant strategy is to bid higher than the current winning bid
+until it reaches its valuation for that particular item. Our
+algorithms focus on the subsequent stages: k > 1. When
+k > 1, agents have to find g∗
+i . This can be done by 
+performing a complete search on B. However, this approach is
+computationally expensive since it produces a large search
+tree. Our algorithms represent alternative approaches to
+overcome this expensive search.
+4.1 The PAUSEBID Algorithm
+In the pausebid algorithm (shown in Figure 1) we 
+implement some heuristics to prune the search tree. Given
+that bidders want to maximize their utility and that at any
+given point there are likely only a few bids within B which
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 695
+pausebid(i, k)
+1 my-bids ← ∅
+2 their-bids ← ∅
+3 for b ∈ B
+4 do if bagent
+= i or vi(bitems
+) > bvalue
+5 then my-bids ← my-bids
++new Bid(bitems
+, i, vi(bitems
+))
+6 else their-bids ← their-bids +b
+7 for S ∈ subsets of k or fewer items such that
+vi(S) > 0 and ¬∃b∈Bbitems
+= S
+8 do my-bids ← my-bids +new Bid(S, i, vi(S))
+9 bids ← my-bids + their-bids
+10 g∗
+← ∅ £ Global variable
+11 u∗
+← ui(W)£ Global variable
+12 pbsearch(bids, ∅)
+13 surplus ← b∈g∗ | bagent=i bvalue
+− B(bitems
+)
+14 if surplus = 0
+15 then return g∗
+16 my-payment ← vi(g∗
+) − u∗
+17 for b ∈ g∗
+| bagent
+= i
+18 do if my-payment ≤ 0
+19 then bvalue
+← B(bitems
+)
+20 else bvalue
+← B(bitems
+)
++ my-payment ·bvalue
+−B(bitems
+)
+surplus
+21 return g∗
+Figure 1: The pausebid algorithm which implements
+a branch and bound search. i is the agent and k is
+the current stage of the auction, for k ≥ 2.
+the agent can dominate, we start by defining my-bids to be
+the list of bids for which the agent"s valuation is higher than
+the current best bid, as given in B. We set the value of
+these bids to be the agent"s true valuation (but we won"t
+necessarily be bidding true valuation, as we explain later).
+Similarly, we set their-bids to be the rest of the bids from B.
+Finally, the agent"s search list is simply the concatenation
+of my-bids and their-bids. Note that the agent"s own bids
+are placed first on the search list as this will enable us to do
+more pruning (pausebid lines 3 to 9). The agent can now
+perform a branch and bound search on the branch-on-bids
+tree produced by these bids. This branch and bound search
+is implemented by pbsearch (Figure 2). Our algorithm not
+only implements the standard bound but it also implements
+other pruning techniques in order to further reduce the size
+of the search tree.
+The bound we use is the maximum utility that the agent
+can expect to receive from a given set of bids. We call it u∗
+.
+Initially, u∗
+is set to ui(W) (pausebid line 11) since that
+is the utility the agent currently receives and any solution
+he proposes should give him more utility. If pbsearch ever
+comes across a partial solution where the maximum utility
+the agent can expect to receive is less than u∗
+then that
+subtree is pruned (pbsearch line 21). Note that we can
+determine the maximum utility only after the algorithm has
+searched over all of the agent"s own bids (which are first on
+the list) because after that we know that the solution will
+not include any more bids where the agent is the winner
+thus the agent"s utility will no longer increase. For example,
+pbsearch(bids, g)
+1 if bids = ∅ then return
+2 b ← first(bids)
+3 bids ← bids −b
+4 g ← g + b
+5 ¯Ig ← items not in g
+6 if g does not contain a bid from i
+7 then return
+8 if g includes all items
+9 then min-payment ← max(0, r(W) + − (r(g) − ri(g)),
+b∈g | bagent=i B(bitems
+))
+10 max-utility ← vi(g) − min-payment
+11 if r(g) > r(W) and max-utility ≥ u∗
+12 then g∗
+← g
+13 u∗
+← max-utility
+14 pbsearch(bids, g − b) £ b is Out
+15 else max-revenue ← r(g) + max(h(¯Ig), hi(¯Ig))
+16 if max-revenue ≤ r(W)
+17 then pbsearch(bids, g − b) £ b is Out
+18 elseif bagent
+= i
+19 then min-payment ← (r(W) + )
+−(r(g) − ri(g)) − h(¯Ig)
+20 max-utility ← vi(g) − min-payment
+21 if max-utility > u∗
+22 then pbsearch({x ∈ bids |
+xitems
+∩ bitems
+= ∅}, g) £ b is In
+23 pbsearch(bids, g − b) £ b is Out
+24 else
+25 pbsearch({x ∈ bids |
+xitems
+∩ bitems
+= ∅}, g) £ b is In
+26 pbsearch(bids, g − b) £ b is Out
+27 return
+Figure 2: The pbsearch recursive procedure where
+bids is the set of available bids and g is the current
+partial solution.
+if an agent has only one bid in my-bids then the maximum
+utility he can expect is equal to his value for the items in
+that bid minus the minimum possible payment we can make
+for those items and still come up with a set of bids that has
+revenue greater than r(W). The calculation of the minimum
+payment is shown in line 19 for the partial solution case and
+line 9 for the case where we have a complete solution in
+pbsearch. Note that in order to calculate the min-payment
+for the partial solution case we need an upper bound on the
+payments that we must make for each item. This upper
+bound is provided by
+h(S) =
+s∈S
+max
+b∈B | s∈bitems
+bvalue
+size(bitems)
+. (4)
+This function produces a bound identical to the one used by
+the Bidtree algorithm-it merely assigns to each individual
+item in S a value equal to the maximum bid in B divided
+by the number of items in that bid.
+To prune the branches that cannot lead to a solution with
+revenue greater than the current W, the algorithm considers
+both the values of the bids in B and the valuations of the
+696 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+agent. Similarly to (4) we define
+hi(S, k) =
+s∈S
+max
+S | size(S )≤k and s∈S and vi(S )>0
+vi(S )
+size(S )
+(5)
+which assigns to each individual item s in S the maximum
+value produced by the valuation of S divided by the size
+of S , where S is a set for which the agent has a valuation
+greater than zero, contains s, and its size is less or equal
+than k. The algorithm uses the heuristics h and hi (lines 15
+and 19 of pbsearch), to prune the just mentioned branches
+in the same way an A∗
+algorithm uses its heuristic. A final
+pruning technique implemented by the algorithm is ignoring
+any branches where the agent has no bids in the current
+answer g and no more of the agent"s bids are in the list
+(pbsearch lines 6 and 7).
+The resulting g∗
+found by pbsearch is thus the set of bids
+that has revenue bigger than r(W) and maximizes agent i"s
+utility. However, agent i"s bids in g∗
+are still set to his own
+valuation and not to the lowest possible price. Lines 17 to 20
+in pausebid are responsible for setting the agent"s payments
+so that it can achieve its maximum utility u∗
+. If the agent
+has only one bid in g∗
+then it is simply a matter of reducing
+the payment of that bid by u∗
+from the current maximum of
+the agent"s true valuation. However, if the agent has more
+than one bid then we face the problem of how to distribute
+the agent"s payments among these bids. There are many
+ways of distributing the payments and there does not appear
+to be a dominant strategy for performing this distribution.
+We have chosen to distribute the payments in proportion to
+the agent"s true valuation for each set of items.
+pausebid assumes that the set of best bids B and the 
+current best winning bidset W remains constant during its 
+execution, and it returns the agent"s myopic utility-maximizing
+bidset (if there is one) using a branch and bound search.
+However it repeats the whole search at every stage. We
+can minimize this problem by caching the result of previous
+searches.
+4.2 The CACHEDPAUSEBID Algorithm
+The cachedpausebid algorithm (shown in Figure 3) is
+our second approach to solve the bidding problem in the
+PAUSE auction. It is based in a cache table called C-Table
+where we store some solutions to avoid doing a complete
+search every time. The problem is the same; the agent i has
+to find g∗
+i . We note that g∗
+i is a bidset that contains at least
+one bid of the agent i. Let S be a set of items for which the
+agent i has a valuation such that vi(S) ≥ B(S) > 0, let gS
+i
+be a bidset over S such that r(gS
+i ) ≥ r(W) + and
+gS
+i = arg max
+g⊆2B
+ui(g), (6)
+where each g is a set of bids that covers all items and
+∀b∈g (b ∈ B) or (bagent
+= i and bvalue
+> B(bitems
+)) and
+(∃b∈gbitems
+= S and bagent
+= i). That is, gS
+i is i"s best 
+bidset for all items which includes a bid from i for all S items.
+In the PAUSE auction we cannot bid for sets of items with
+size greater than k. So, if we have for each set of items S for
+which vi(S) > 0 and size(S) ≤ k its corresponding gS
+i then
+g∗
+i is the gS
+i that maximizes the agent"s utility. That is
+g∗
+i = arg max
+{S | vi(S)>0∧size(S)≤k}
+ui(gS
+i ). (7)
+Each agent i implements a hash table C-Table such that
+C-Table[S] = gS
+for all S which vi(S) ≥ B(S) > 0. We can
+cachedpausebid(i, k, k-changed)
+1 for each S in C-Table
+2 do if vi(S) < B(S)
+3 then remove S from C-Table
+4 else if k-changed and size(S) = k
+5 then B ← B + new Bid(i, S, vi(S))
+6 g∗
+← ∅
+7 u∗
+← ui(W)
+8 for each S with size(S) ≤ k in C-Table
+9 do ¯S ← Items − S
+10 gS
+← C-Table[S] £ Global variable
+11 min-payment ← max(r(W) + , b∈gS B(bitems
+))
+12 uS
+← r(gS
+) − min-payment £ Global variable
+13 if (k-changed and size(S) = k)
+or (∃b∈B bitems
+⊆ ¯S and bagent
+= i)
+14 then B ← {b ∈ B |bitems
+⊆ ¯S}
+15 bids ← B
++{b ∈ B|bitems
+⊆ ¯S and b /∈ B }
+16 for b ∈ bids
+17 do if vi(bitems
+) > bvalue
+18 then bagent
+← i
+19 bvalue
+← vi(bitems
+)
+20 if k-changed and size(S) = k
+21 then n ← size(bids)
+22 uS
+← 0
+23 else n ← size(B )
+24 g ← ∅ + new Bid(S, i, vi(S))
+25 cpbsearch(bids, g, n)
+26 C-Table[S] ← gS
+27 if uS
+> u∗
+and r(gS
+) ≥ r(W) +
+28 then surplus ←
+b∈gS | bagent=i bvalue
+− B(bitems
+)
+29 if surplus > 0
+30 then my-payment ← vi(gS
+) − ui(gS
+)
+31 for b ∈ gS
+| bagent
+= i
+32 do if my-payment ≤ 0
+33 then bvalue
+← B(bitems
+)
+34 else bvalue
+← B(bitems
+)+
+my-payment ·bvalue
+−B(bitems
+)
+surplus
+35 u∗
+← ui(gS
+)
+36 g∗
+← gS
+37 else if uS
+≤ 0 and vi(S) < B(S)
+38 then remove S from C-Table
+39 return g∗
+Figure 3: The cachedpausebid algorithm that 
+implements a caching based search to find a bidset that
+maximizes the utility for the agent i. k is the 
+current stage of the auction (for k ≥ 2), and k-changed is
+a boolean that is true right after the auction moved
+to the next stage.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 697
+cpbsearch(bids, g, n)
+1 if bids = ∅ or n ≤ 0 then return
+2 b ← first(bids)
+3 bids ← bids −b
+4 g ← g + b
+5 ¯Ig ← items not in g
+6 if g includes all items
+7 then min-payment ← max(0, r(W) + − (r(g) − ri(g)),
+b∈g | bagent=i B(bitems
+))
+8 max-utility ← vi(g) − min-payment
+9 if r(g) > r(W) and max-utility ≥ uS
+10 then gS
+← g
+11 uS
+← max-utility
+12 cpbsearch(bids, g − b, n − 1) £ b is Out
+13 else max-revenue ← r(g) + max(h(¯Ig), hi(¯Ig))
+14 if max-revenue ≤ r(W)
+15 then cpbsearch(bids, g − b, n − 1) £ b is Out
+16 elseif bagent
+= i
+17 then min-payment ← (r(W) + )
+−(r(g) − ri(g)) − h(¯Ig)
+18 max-utility ← vi(g) − min-payment
+19 if max-utility > uS
+20 then cpbsearch({x ∈ bids |
+xitems
+∩ bitems
+= ∅}, g, n + 1) £ b is In
+21 cpbsearch(bids, g − b, n − 1) £ b is Out
+22 else
+23 cpbsearch({x ∈ bids |
+xitems
+∩ bitems
+= ∅}, g, n + 1) £ b is In
+24 cpbsearch(bids, g − b, n − 1) £ b is Out
+25 return
+Figure 4: The cpbsearch recursive procedure where
+bids is the set of available bids, g is the current 
+partial solution and n is a value that indicates how deep
+in the list bids the algorithm has to search.
+then find g∗
+by searching for the gS
+, stored in C-Table[S],
+that maximizes the agent"s utility, considering only the set
+of items S with size(S) ≤ k. The problem remains in 
+maintaining the C-Table updated and avoiding to search every
+gS
+every time. cachedpausebid deals with this and other
+details.
+Let B be the set of bids that contains the new best bids,
+that is, B contains the bids recently added to B and the bids
+that have changed price (always higher), bidder, or both and
+were already in B. Let ¯S = Items − S be the complement
+of S (the set of items not included in S). cachedpausebid
+takes three parameters: i the agent, k the current stage of
+the auction, and k-changed a boolean that is true right after
+the auction moved to the next stage. Initially C-Table has
+one row or entry for each set S for which vi(S) > 0. We
+start by eliminating the entries corresponding to each set S
+for which vi(S) < B(S) from C-Table (line 3). Then, in the
+case that k-changed is true, for each set S with size(S) = k,
+we add to B a bid for that set with value equal to vi(S)
+and bidder agent i (line 5); this a bid that the agent is now
+allowed to consider. We then search for g∗
+amongst the gS
+stored in C-Table, for this we only need to consider the sets
+with size(S) ≤ k (line 8). But how do we know that the gS
+in C-Table[S] is still the best solution for S? There are only
+two cases when we are not sure about that and we need
+to do a search to update C-Table[S]. These cases are: i)
+When k-changed is true and size(S) ≤ k, since there was
+no gS
+stored in C-Table for this S. ii) When there exists at
+least one bid in B for the set of items ¯S or a subset of it
+submitted by an agent different than i, since it is probable
+that this new bid can produce a solution better than the one
+stored in C-Table[S].
+We handle the two cases mentioned above in lines 13 to 26
+of cachedpausebid. In both of these cases, since gS
+must
+contain a bid for S we need to find a bidset that cover the
+missing items, that is ¯S. Thus, our search space consists
+of all the bids on B for the set of items ¯S or for a subset
+of it. We build the list bids that contains only those bids.
+However, we put the bids from B at the beginning of bids
+(line 14) since they are the ones that have changed. Then,
+we replace the bids in bids that have a price lower than the
+valuation the agent i has for those same items with a bid
+from agent i for those items and value equal to the agent"s
+valuation (lines 16-19).
+The recursive procedure cpbsearch, called in line 25 of
+cachedpausebid and shown in Figure 4, is the one that
+finds the new gS
+. cpbsearch is a slightly modified version
+of our branch and bound search implemented in pbsearch.
+The first modification is that it has a third parameter n that
+indicates how deep on the list bids we want to search, since
+it stops searching when n less or equal to zero and not only
+when the list bids is empty (line 1). Each time that there is
+a recursive call of cpbsearch n is decreased by one when a
+bid from bids is discarded or out (lines 12, 15, 21, and 24)
+and n remains the same otherwise (lines 20 and 23). We set
+the value of n before calling cpbsearch, to be the size of the
+list bids (cachedpausebid line 21) in case i), since we want
+cpbsearch to search over all bids; and we set n to be the
+number of bids from B included in bids (cachedpausebid
+line 23) in case ii), since we know that only the those first n
+bids in bids changed and can affect our current gS
+.
+Another difference with pbsearch is that the bound in
+cpbsearch is uS
+which we set to be 0 (cachedpausebid line
+22) when in case i) and r(gS
+)−min-payment (cachedpausebid
+line 12) when in case ii). We call cpbsearch with g already
+containing a bid for S. After cpbsearch is executed we
+are sure that we have the right gS
+, so we store it in the
+corresponding C-Table[S] (cachedpausebid line 26).
+When we reach line 27 in cachedpausebid, we are sure
+that we have the right gS
+. However, agent i"s bids in gS
+are
+still set to his own valuation and not to the lowest possible
+price. If uS
+is greater than the current u∗
+, lines 31 to 34
+in cachedpausebid are responsible for setting the agent"s
+payments so that it can achieve its maximum utility uS
+.
+As in pausebid, we have chosen to distribute the payments
+in proportion to the agent"s true valuation for each set of
+items. In the case that uS
+less than or equal to zero and
+the valuation that the agent i has for the set of items S is
+lower than the current value of the bid in B for the same
+set of items, we remove the corresponding C-Table[S] since
+we know that is not worthwhile to keep it in the cache table
+(cachedpausebid line 38).
+The cachedpausebid function is called when k > 1 and
+returns the agent"s myopic utility-maximizing bidset, if there
+is one. It assumes that W and B remains constant during
+its execution.
+698 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+generatevalues(i, items)
+1 for x ∈ items
+2 do vi(x) = expd(.01)
+3 for n ← 1 . . . (num-bids − items)
+4 do s1, s2 ←Two random sets of items with values.
+5 vi(s1 ∪ s2) = vi(s1) + vi(s2) + expd(.01)
+Figure 5: Algorithm for the generation of random
+value functions. expd(x) returns a random number
+taken from an exponential distribution with mean
+1/x.
+0
+20
+40
+60
+80
+100
+2 3 4 5 6 7 8 9 10
+Number of Items
+CachedPauseBid
+3 3 3 3 3 3
+3 3
+3
+3
+PauseBid
++ + + + +
++ + +
++
++
+Figure 6: Average percentage of convergence
+(y-axis), which is the percentage of times that our
+algorithms converge to the revenue-maximizing 
+solution, as function of the number of items in the
+auction.

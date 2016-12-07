@@ -1,0 +1,83 @@
+We chose a particular poker game as the benchmark problem because it yields an extremely  complicated and enormous game tree, it is a game of imperfect information, it is fully specified as a game (and the data is available), and it has been posted as a challenge problem by others [47] (to our knowledge no such challenge  problem instances have been proposed for electronic commerce applications that require solving sequential games).
+As our main equilibrium  result we have the following: constant number of agents can be constructed in  quasipolynomial time [31], but finding an exact equilibrium is PPAD-complete even in a 2-player game [8].
+By operating only in the space of filters, we are able to keep the strategic structure of the game intact, while abstracting out details of the game in a way that is lossless from the perspective of equilibrium  finding.
+Recently,  equilibriumfinding algorithms that enumerate supports (i.e., sets of pure strategies that are played with positive probability) have been shown efficient on many games [40], and efficient mixed integer programming algorithms that search in the space of supports have been developed [43].
+Minimax search runs in linear time in the size of the game tree.2 The differentiating feature of games of imperfect  information, such as poker, is that they are not fully observable: when it is an agent"s turn to move, she does not have access to all of the information about the world.
+For sequential games with imperfect information, one could try to find an equilibrium using the normal (matrix) form, where every contingency plan of the agent is a pure strategy for the agent.3 Unfortunately (even if equivalent strategies 1 This actually yields a solution that satisfies not only the Nash equilibrium solution concept, but a stronger solution concept called subgame perfect Nash equilibrium [45].
+Thus the algorithms for perfect information games do not solve games of imperfect information.
+(The rules of Rhode Island Hold"em, as well as a discussion of how Rhode Island Hold"em can be modeled as a game with ordered signals, that is, it fits in our model, is available in an extended version of this paper [13].)
+Chess and Go are examples of the former, and, until recently, most game playing work has been on games of this type.
+However, for the concept to be operational, we need algorithmic techniques for finding an equilibrium.
+If the agent is able to traverse the entire game tree, she simply computes an optimal strategy from the bottom-up, using the principle of backward induction.1 In computer science terms, this is done using minimax search (often in conjunction with  αβ-pruning to reduce the search tree size and thus enhance speed).
+By observing that one needs to consider only sequences of moves rather than pure strategies [41, 46, 22, 52], one arrives at a more compact representation, the sequence form, which is linear in the size of the game tree.4 For 2-player games, there is a polynomial-sized (in the size of the game tree) linear programming formulation (linear complementarity in the non-zero-sum case) based on the sequence form such that strategies for players 1 and 2 correspond to primal and dual variables.
+Many open-cry sequential auction and negotiation mechanisms fall within the game model studied in this paper (specified in detail later), as do certain other games in electronic commerce, such as sequences of take-it-or-leave-it offers [42].
+In such games, the decision of what to do at a point in time cannot  generally be optimally made without considering decisions at all other points in time (including ones on other paths of play) because those other decisions affect the probabilities of  being at different states at the current point in time.
+The proof of the theorem uses an equivalent  characterization of Nash equilibria: σ is a Nash equilibrium if and only if there exist beliefs μ (players" beliefs about unknown information) at all points of the game reachable by σ such that σ is sequentially rational (i.e., a best response) given μ, where μ is updated using Bayes" rule.
+Furthermore, in some states of the auction, a bidder might not care which exact other bidders have which valuations, but cares about which valuations are held by the other  bidders in aggregate (ignoring their identities).
+Thus, by computing an equilibrium in the smaller game (using any available equilibrium-finding algorithm), we are able to construct an equilibrium in the original game.
+Instead of developing an equilibrium-finding method per se, we  instead develop a methodology for automatically abstracting games in such a way that any equilibrium in the smaller (abstracted) game corresponds directly to an equilibrium in the original game.
+Our algorithm  automatically discovers which aspects are irrelevant in different states, and eliminates those aspects of the game, resulting in a more compact, equivalent game representation.
+Furthermore, it may be highly non-obvious which aspects are pertinent in which states of the game.
+Large-scale approximations have been  developed [4], but those methods do not provide any  guarantees about the performance of the computed strategies.
+On the trivial end, some aspects of a player"s knowledge are never pertinent (e.g., whether it is raining or not has no bearing on the bidding strategy in an art auction), and such aspects can be completely left out of the model specification.
+More recently, AI researchers have been applying the computational power of modern hardware to computing game theory-based strategies for larger games.
+1.2 Electronic commerce applications Sequential games of imperfect information are ubiquitous, for example in negotiation and in auctions.
+For example, in those states of a 1-object auction where bidder A can infer that his  valuation is greater than that of bidder B, bidder A can ignore all his other information about B"s signals, although that  information would be relevant for inferring B"s exact valuation.
+4 There were also early techniques that capitalized in  different ways on the fact that in many games the vast majority of pure strategies are not played in equilibrium [54, 23].
+To this end, we introduce games with ordered signals  (Section 2), a broad class of games that has enough structure which we can exploit for abstraction purposes.
+The most prevalent algorithm for finding an equilibrium in a 2-agent game is Lemke-Howson [30], but it takes exponentially many steps in the worst case [44].
+Games can be classified as either games of perfect  information or imperfect information.
+However, some aspects can be pertinent in certain states of the game while they are not pertinent in other states, and thus cannot be left out of the model completely.
+Our techniques are in no way specific to an application.
+While others have worked on computer programs for  playing Rhode Island Hold"em [47], no optimal strategy has been found before.
+To compute an optimal strategy in a perfect information game, an agent traverses the game tree and evaluates individual nodes.
+Thus, the equilibria of reasonable-sized 2-player games can be computed using this method [52, 24, 25].5 However, this approach still yields enormous (unsolvable) optimization problems for many real-world games, such as poker.
+Koller and Pfeffer determined solutions to poker games with up to 140,000 nodes using the sequence form and linear  programming [25].
+Often aspects of a player"s knowledge are not pertinent for deciding what action the player should take at a given point in the game.
+Instead of operating directly on the game tree (something we found to be technically challenging), we instead introduce the use of information filters (Section 2.1), which coarsen the  information each player receives.
+However, this work was limited to tiny games that could be solved by hand.
+We applied the techniques developed in this paper to find an exact  (minimax) solution to Rhode Island Hold"em, which has a game tree exceeding 3.1 billion nodes.
+In  particular, it provides solution concepts that define what rational behavior is in such settings.
+We recently demonstrated our optimal Rhode Island Hold"em poker player at the AAAI-05 conference [14], and it is available for play on-line at http://www.cs.cmu.edu/ ~gilpin/gsi.html.
+We also give an algorithm, GameShrink, for abstracting the game using our isomorphism exhaustively (Section 4).
+We introduce the ordered game isomorphism to describe strategically symmetric situations and the ordered game  isomorphic abstraction transformation to take advantange of such symmetries (Section 3).
+It was designed so that it was similar in style to Texas Hold"em, yet not so large that  devising reasonably intelligent strategies would be impossible.
+The motivation is that an equilibrium for the smaller game can be computed drastically faster than for the original game.
+We can then use the fact that σ is a Nash equilibrium to show that σ is a Nash equilibrium considering only local properties of the game.
+Our approach yields an automated  abstraction mechanism along with theoretical guarantees on the strategies" performance.
+3 An -equilibrium in a normal form game with any 160 are replaced by a single strategy [27]) this representation is generally exponential in the size of the game tree [52].
+The most famous and  important solution concept is that of Nash equilibrium [36].
+The main experiment that we present in this paper is on 161 a recreational game.
+Let F be an information filter constructed from F by one application of the ordered game isomorphic abstraction transformation, and let σ be a Nash equilibrium strategy profile of the induced game ΓF (i.e., the game Γ using the filter F ).
+Rhode Island Hold"em was invented as a testbed for  computational game playing [47].
+1.1 Our approach In this paper, we take a different approach to tackling the difficult problem of equilibrium computation.
+GameShrink  required less than one second to perform the shrinking (i.e., to compute all of the ordered game isomorphic abstraction transformations).
+(Applying iterated  elimination of dominated strategies without GameShrink yielded 89,471,986 rows and 89,121,538 columns, which still would have been prohibitively large to solve.)
+In environments with more than one agent, an agent"s outcome is generally affected by the actions of the other agent(s).
+Poker has been identified as an important research area in AI due to the uncertainty  stemming from opponents" cards, opponents" future actions, and chance moves, among other reasons [5].
+They are used in our analysis and abstraction algorithm.
+2 This type of algorithm still does not scale to huge trees (such as in chess or Go), but effective game-playing agents can be developed even then by evaluating  intermediate nodes using a heuristic evaluation and then treating those nodes as leaves.
+It is a strategy profile (one strategy for each agent) in which no agent has incentive to deviate to a different strategy.
+For more than two players, many algorithms have been proposed, but they currently only scale to very small games [19, 34, 40].
+It is no larger than the game tree, and on nontrivial games it is drastically smaller, so GameShrink has time and space complexity sublinear in the size of the game tree.
+Almost since the field"s founding, game theory has been used to analyze different aspects of poker [28; 37; 3; 51, pp.
+We then applied iterated elimination of  dominated strategies, which further reduced this to 1,190,443 rows and 1,181,084 columns.
+This is the largest poker game solved to date by over four orders of magnitude.
+Applying the sequence form to Rhode Island Hold"em directly without abstraction yields a linear program with 91,224,226 rows, and the same number of columns.
+We used our GameShrink algorithm to reduce this with lossless abstraction, and it yielded a linear program with 1,237,238 rows and columns-with 50,428,638 non-zero coefficients.
+Game theory provides a normative framework for analyzing such strategic situations.
+Consequently, the optimal action of one agent can depend on the others.
+Its complexity is ˜O(n2 ), where n is the number of nodes in a structure we call the signal tree.
+For a survey of equilibrium  computation in 2-player games, see [53].
+5 Recently this approach was extended to handle  computing sequential equilibria [26] as well [35].
+Another broad application area is sequential auctions  (potentially over multiple goods).
+One broad application area that has this property is  sequential negotiation (potentially over multiple issues).
+1.3 Rhode Island Hold"em poker Poker is an enormously popular card game played around the world.
+We present several algorithmic and data structure related speed improvements (Section 4.1), and we demonstrate how a simple modification to our  algorithm yields an approximation algorithm (Section 5).
+This is much too large for (current) linear programming algorithms to handle.
+If σ is constructed by using the corresponding strategies of σ , then σ is a Nash equilibrium of ΓF .
+Using a 1.65GHz IBM eServer p5 570 with 64 gigabytes of RAM (the linear program solver actually needed 25 gigabytes), we solved it in 7 days and 17 hours using the interior-point barrier method of CPLEX version 9.1.2.
+Increasingly, poker players compete in online casinos, and television stations regularly  broadcast poker tournaments.
+Theorem 2 Let Γ be a game with ordered  signals, and let F be an information filter for Γ.
+The 2005 World Series of Poker had over $103 million dollars in total prize money, including $56 million for the main event.
+Furthermore, the approximations were designed manually by a human expert.

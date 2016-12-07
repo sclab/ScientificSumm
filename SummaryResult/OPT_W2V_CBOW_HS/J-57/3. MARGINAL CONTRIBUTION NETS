@@ -1,0 +1,64 @@
+Given a game represented as a MC-net, we can interpret the set of rules that make up the game as a graph.
+The nodes in the graph will  represent the agents in the game, and for each rule in the  MCnet, we connect all the agents in the rule together and assign a value to the clique formed by the set of agents.
+Note that our representation may  require a space larger by a linear factor due to the need to describe the patterns for each rule.
+One simple way to extend it and increase its conciseness is to allow a wider class of patterns in the rules.
+Marginal contribution networks can  represent any games in graphical form (under [4]) in the same amount of space.
+However, we believe that for most naturally arising games, there should be  sufficient structure in the problem such that our representation achieves a net saving over the characteristic form.
+Note that if the pattern of a rule consists solely of negative literals, we will consider that the empty set of agents will also satisfy such pattern, and hence v(∅) may be non-zero in the presence of negative literals.
+The space requirement will be O(mn∗ ), where m is the number of products in the system, and n∗ is the maximum number of agents who knows of the same product.
+Given a game in multi-issue representation, we start by describing each of the subgames, which are  represented in characteristic form in [3], with a set of rules.
+Suppose the value of the knowledge about product i is vi, and there are ni agents, denoted by {xj i }, who know about the product, the game for product i can then be represented as the following rules: {x1 i } → vi {x2 i ∧ ¬x1 i } → vi ... {xni i ∧ ¬xni−1 i ∧ · · · ∧ ¬x1 i } → vi The entire game can then be built up from the sets of rules of each product.
+∧ ¬nn} which has the semantics that such rule will apply to a group S only if {pi}m i=1 ∈ S and {nj}n j=1 /∈ S. We will call the {pi}m i=1 in the above pattern the positive literals, and {nj}n j=1 the negative literals.
+For example, if the set of rules are {a ∧ b} → 5 {b} → 2 then v({a}) = 0, v({b}) = 2, and v({a, b}) = 5 + 2 = 7.
+Formally, we express such patterns by {p1 ∧ p2 ∧ .
+To represent such a game without using negative literals, we will need 2n rules for n players: we need a rule of value 1 for each individual agent, a rule of value −1 for each pair of agents to counter the double-counting, a rule of value 1 for each triplet of agents, etc., similar to the inclusion-exclusion principle.
+In the basic scheme, these patterns are conjunctions of agents, and S meets the  requirement of the given pattern if S is a superset of it.
+We would like to end our discussion of the representation scheme by mentioning a trade-off between the  expressiveness of patterns and the space required to represent them.
+However, as there is no decomposition of this game into smaller subgames, it will require space O(2n ) to represent this game under the  multiissue representation.
+To represent a coalitional game in characteristic form, one would need to specify all 2n − 1 values.
+For each product, as the benefit of knowing about the product will count only once for each group, we need to capture  substitutability among the agents.
+Consider a unit game over all the agents N. As explained in 3.1, this game can be represented in linear space using MC-nets with negative literals.
+Since the game is arbitrary, MC-nets are fully expressive.
+Finally, we will show that this scheme is fully expressive, and generalizes the representation schemes in [3, 4].
+Marginal contribution networks use at most a linear factor (in the number of agents) more space than multi-issue representation for any game.
+3.1 Rules and MarginalContributionNetworks The basic idea behind marginal contribution networks (MC-nets) is to represent coalitional games using sets of rules.
+On the other hand, using negative literals, we only need n rules: value 1 for the first agent, value 1 for the second agent in the absence of the first agent, value 1 for the third agent in the absence of the first two agents, etc.
+The value of a group of agents is defined to be the sum over the values of all rules that apply to the group.
+A pattern that we will use throughout the remainder of the paper is one that applies only in the absence of certain agents.
+Clearly this takes exactly the same space as the size of G, and by the additive semantics of the rules, it represents the same game as G. 
+On the other hand, our approach may have fewer than exponential number of rules for each subgame, depending on the structure of these  subgames, and therefore may be more concise than multi-issue representation.
+The rules in MC-nets have the following syntactic 195 form: Pattern → value A rule is said to apply to a group of agents S if S meets the requirement of the Pattern.
+Consider an arbitrary coalitional game N, v in characteristic form representation.
+We can construct a set of rules to describe this game by starting from the singleton sets and building up the set of rules.
+Using the construction outlined in the proof, we can show that our representation scheme can simulate the multi-issue representation scheme of [3] in almost the same amount of space.
+For any pair of agents {i, j}, we create a rule {i ∧ j} → v({i, j}) − v({i}) − v({j}.
+On the other hand, there are games that require  exponentially more space to represent under the multi-issue scheme compared to our scheme.
+For MC-nets, however, specification of the rules requires specifying both the patterns and the values.
+Under the agent graph interpretation of MC-nets, we can see that MC-nets is a generalization of the graphical  representation in [4], namely from weighted graphs to weighted hypergraphs.
+To demonstrate the increase in conciseness of  representation, consider the unit game described in section 2.2.
+Marginal contribution networks  constitute a fully expressive representation scheme.
+The space required for the patterns also leads to a  tradeoff between the expressiveness of the allowed patterns and the simplicity of representing them.
+We will also show how we can use this scheme to represent the recommendation game from the introduction.
+196 We then build up the grand game by including all the rules from the subgames.
+Marginal contribution networks are  exponentially more concise than multi-issue representation for certain games.
+3.3 Representation Power We will discuss the expressiveness and conciseness of our representation scheme and compare it with the previous works in this subsection.
+The representational savings can be exponential in the number of agents.
+We will show that the idea is flexible, and we can easily extend it to increase its  conciseness.
+This can be captured by a scaled unit game.
+MC-nets is a very flexible representation scheme, and can be extended in different ways.
+In this section, we will describe the Marginal Contribution Networks representation scheme.
+Given a game in graphical form, G, for each edge (i, j) with weight wij in the graph, we create a rule {i, j} → wij.
+This is useful for expressing  concepts such as substitutability or default values.
+3.2 Example: Recommendation Game As an example, we will use MC-net to represent the  recommendation game discussed in the introduction.
+This alternative view of MC-nets will be useful in our algorithm for Core-Membership in section 5.
+We can continue to build up rules in a manner similar to the inclusion-exclusion principle.
+The patterns, if not represented compactly, may end up  overwhelming the savings from having fewer values to specify.
+We call this graph the agent graph.
+There is no  overhead on top of that since there is a natural ordering of the groups.
+For any singleton set {i}, we create a rule {i} → v(i).
+Notice that to accommodate negative literals, we will need to annotate the clique appropriately.
+Proposition 2.
+Proposition 3.
+Proposition 4.
+Proposition 1.
+∧ pm ∧ ¬n1 ∧ ¬n2 ∧ .

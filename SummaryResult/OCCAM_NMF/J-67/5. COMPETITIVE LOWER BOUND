@@ -1,0 +1,46 @@
+substituting in for lf+1, the competitive ratio is then at least: k·( f h=1 lh−2δ)+lf+1+lf lf +δ = k·( f h=1 lh)−2k·δ+(c−1+α)·lf −k·( f h=1 lh)+lf lf +δ = c·lf +(α·lf −2k·δ) lf +δ ≥ c·lf +((ck+3k)δ−2k·δ) lf +δ > c. if instead f = m, then γ achieves a value of at most lm +δ, while γoffline achieves a value of at least k · ( m h=1 lh − 2δ) + lm by completing minor jobs until dm = rm + lm, and then completing job m. the competitive ratio is then at least: k·( m h=1 lh−2δ)+lm lm+δ = k·( m−1 h=1 lh)−2k·δ+klm+lm lm+δ > (c−1+α)·lm−2k·δ+klm lm+δ = (c+k−1)·lm+(αlm−2k·δ) lm+δ > c. 
+if f < m, then γ achieves a value of at most lf +δ (the value of job f if it were perturbed), while γoffline achieves a value of at least k·( f h=1 lh −2δ)+lf+1 +lf by executing minor jobs until rf+1, followed by job f +1 and then job f (we subtract two δ"s instead of one because the last minor job before rf+1 may have to be abandoned).
+while γ"s execution must be identical for both (θf , θ−f ) and (θf , θ−f ), γoffline can take advantage of the change.
+its utility would then increase to uf (g(θf , θ−f , θx), θf ) = vf − pf (θ) > 0, contradicting ic.
+then, in order to achieve the desired competitive ratio, it must execute job x continuously until its deadline, which is by construction at least as late as the new deadline df of job f. thus, job f will not be completed, and, by ir and nnp, it must be the case that pf (θf , θ−f , θx) = 0 and uf (g(θf , θ−f , θx), θf ) = 0. using the fact that θ is indistinguishable from (θf , θ−f , θx) up to time df , if agent f falsely declared his type to be the original θf , then its job would be completed by df and it would be charged pf (θ).
+because this new profile is indistinguishable from (θf , θ−f ) to γ before time df , it must schedule jobs in the same way until df .
+consider the possible profile (θf , θ−f , θx), which differs from the new profile only in the addition of a job x which has zero laxity, rx = df , and vx = lx = max(df − df , (c + 1) · (lf + lf+1)).
+then, at the original deadline of df , job f is not completed.
+assume by contradiction that this were not true.
+ic requires that for the profile (θf , θ−f ), γ still executes job f continuously over the range [rf , rf +lf ], thus preventing job f +1 from being completed.
+if f = m, then instead set df = df +lf .
+if f < m, then define θf to be identical to θf , except that df = df+1 + lf , allowing job f to be completely executed after job f + 1 is completed.
+we now use a more substantial perturbation of θ to  complete the proof.
+thus, for the remainder of the proof, assume that vf > pf (θ).
+furthermore, agent f must be charged the same amount (that is, pf (θf , θ−f ) = pf (θ)), due to a similar  incentive compatibility argument.
+if not, then by ir and nnp we know that pf (θf , θ−f ) = 0, and thus that uf (g(θf , θ−f ), θf ) = 0. however, agent f could then increase its utility by falsely declaring the original type of θf ,  receiving a utility of: uf (g(θf , θ−f ), θf ) = vf − pf (θ) = δ > 0,  violating ic.
+by ic, job f must still be completed by γ for the profile (θf , θ−f ).
+since we will later need this inequality to be strict, if vf = pf (θ), then change θf to θf , where rf = rf , but vf , lf , and df are all incremented by δ over their respective values in θf .
+by ir, we know that vf ≥ pf (θ).
+we now possibly perturb θ slightly.
+therefore, θ consists of major jobs 1 through f + 1 (or, f, if f = m), plus minor jobs from time 0 through time df .
+γ cannot complete job f +1, because rf +lf = df > rf+1.
+if f < m, then major job f + 1 will be released and it will be the final major job.
+also, in order for this job f to be released, the processor time preceding rf can only be spent executing major jobs that are later abandoned.
+no major job is released after job m. in order to achieve the desired competitive ratio, γ must complete some major job f, because γoffline can always at least complete major job 1 (for a value of 1), and γ can complete at most one minor job (for a value of α c+3 < 1 c ).
+the adversary releases major job i ≤ m if and only if each major job j < i was executed continuously over the range [ri, ri+1].
+the first major job has a release time of 0, and each major job i > 1 has a release time of ri = di−1 − δ, just before the deadline of the previous job.
+li+1 = (c − 1 + α) · li − k · i h=1 lh l1 = 1 the bounds on α imply that (1 + √ k)2 − 1 < c − 1 + α < (1+ √ k)2 , which allows us to apply lemma 13. let m be the smallest positive number such that lm+k· m−1 h=1 lh lm > c−1+α.
+the lengths of the major jobs that may be released, starting with i = 1, are determined by the following recurrence relation.
+major jobs also have zero laxity, but they have the  smallest possible value ratio (that is, vi = li).
+the first minor job is released at time 0, and ri = di−1 for all i > 1. the sequence stops whenever γ completes any job.
+minor jobs i are characterized by li = δ, vi = k · δ, and zero laxity.
+the adversary uses two sequences of jobs: minor and major.
+we now construct the original profile θ. pick an α such that 0 < α < , and define δ = α ck+3k .
+after possibly slightly perturbing θ to assure that a strictness property is satisfied, we will then use a more significant perturbation of θ to reach a contradiction.
+since a competitive ratio of c implies a competitive ratio of c + x, for any x > 0, we assume without loss of generality that < 1. first, we will construct a profile of agent types θ using an adversary argument.
+assume by contradiction that there exists a  deterministic online mechanism γ that satisfies nnp and that achieves a competitive ratio of c = (1 + √ k)2 + 1 − for some > 0 (and, by implication, satisfies ic and ir as well).
+68 theorem 14. there does not exist a deterministic online mechanism that satisfies nnp and that achieves a  competitive ratio less than (1 + √ k)2 + 1. proof.
+7 while payments are not required in this setting, γ2 can be changed to collect a payments without affecting incentive compatibility by charging some fixed fraction of li for each job i that is completed.
+lemma 13. for any k ≥ 1, for the recurrence defined by li+1 = λ · li − k · i h=1 lh and l1 = 1, where (1 + √ k)2 − 1 < λ < (1 + √ k)2 , there exists an integer m ≥ 1 such that lm+k· m−1 h=1 lh lm > λ.
+we first present a lemma relating to the recurrence used for this argument, with the proof omitted due to space constraints.
+the proof of the lower bound uses an adversary argument similar to that used in [4] to show a lower bound of (1 +√ k)2 in the non-strategic setting, with the main novelty lying in the perturbation of the job sequence and the related incentive compatibility arguments.
+we note, however, that both γ1 and γ2 satisfy it trivially, and that, in the following proof, zero only serves as a baseline utility for an agent, and could be replaced by any non-positive function of ˆθ−i.
+unlike ic and ir, this requirement is not standard in mechanism design.
+to do so, we will appeal to third  requirement on a mechanism, non-negative payments (nnp), which requires that the center never pays an agent (formally, ∀i, ˆθ, pi(ˆθi) ≥ 0).
+we now show that the competitive ratio of (1 + √ k)2 + 1 achieved by γ1 is a lower bound for deterministic  online mechanisms.

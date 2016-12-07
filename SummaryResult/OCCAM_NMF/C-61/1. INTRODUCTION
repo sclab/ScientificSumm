@@ -1,0 +1,47 @@
+in  section 6, we present our conclusions and discuss future work. 
+section 5 discusses related work.
+in section 4, we show the  feasibility of implementing the proposed mixed authority  assignment mechanism within existing mmogs by describing a proof-of-concept implementation within an existing mmog called rpgquest.
+in  section 3, we provide a generic description of the mixed  authority assignment mechanism and discuss how it improves game playing experience.
+in section 2, we describe the proxy-based game  architecture in more detail and illustrate its advantages.
+third, we implement the proposed mixed authority assignment mechanism within a mmog called rpgquest [8] to validate its viability within mmogs.
+second, we propose a mixed  authority assignment mechanism as described above that  improves game playing experience.
+these functionalities of a communication proxy leads to a decrease in latency of event update and subsequently, better game playing experience.
+in addition, it is capable of multicasting this information only to a relevant subset of other communication proxies.
+a communication proxy in the proposed architecture maintains information only about portions of the game space that are relevant to clients connected to it and is able to process the movement information of objects and players within these portions.
+first we propose an architecture that uses communication proxies to enable clients to connect to the game server.
+our paper has the following contributions.
+we propose that a mixed authority assignment mechanism such as the one outlined above be implemented in high  interaction mmogs.
+this  architecture is applicable for massively multiplayer games where the speed and accuracy of game-play are a major concern while consistency between player game-states is still desired.
+as networked games become more complex, our architecture will become more applicable.
+in summary, we argue that while current authority models that only delegate responsibility to the server to make  authoritative decisions on events is more secure than allowing the clients to make the decisions, these types of models add undesirable delays to events that could very well be decided by the clients without any inconsistency being introduced into the game.
+the client"s decision can always be accurately verified by the server.
+decision on events such as item pickup (for example, picking up items in a game to accumulate points) should be delegated to a server if there are multiple  players within close proximity of an item and any one of the players could succeed in picking the item; for item pick-up contention where the client realizes that no other player,  except its own player, is within a certain range of the item, the client could be delegated the responsibility to claim the item.
+for example, collision detection of two players that collide with each other and hit detection of non-linear  bullets (that changes trajectory with time) should be delegated to the server.
+authority for decisions that could be affected by two or more players should be delegated to the impartial central server, in some cases, to ensure that no conflicts occur and in other cases can be delegated to the clients responsible for those players.
+these type of decisions would include collision  detection with static objects within the virtual game space and hit detection with linear path bullets (whose trajectory is fixed and does not change with time) fired by other players.
+we propose that authority for all decisions that pertain to a single player or object in the game that neither affects the other players or objects, nor are affected by the actions of other players be delegated to that player"s game client.
+depending on who has the authority, that  entity will make decisions on the events that happen within a game space.
+into three different categories, a) events for which the game client has absolute authority, b) events for which the game server has absolute authority, and c) events for which the authority changes dynamically from client to the server and vice-versa.
+we divide the client actions and game events (we will  collectively refer to these as events) such as collisions, hits etc.
+in our model, the game space consists of game clients  (representing the players) and objects that they control.
+we then show the benefits of delegating authority for different actions and game events between the clients and server.
+in this paper we define what it means to have authority within the context of events and objects in a virtual game space.
+we believe that in most cases, the client with the most accurate view of an entity is the best suited to make decisions for that entity when the causality of that action will not immediately affect any other  players.
+we argue that there is no single consistent view of the virtual game space that can be maintained on any one component within a network that has significant latency, such as the one that many mmog players would experience.
+most currently implemented mmogs have game servers that have almost absolute authority.
+in order to move towards more complex real-time networked games, we believe that definitions of authority must be refined.
+second, we propose that assignment of authority in terms of who makes the decision on client  actions such as object pickups and hits, and collisions between players, be distributed between the clients and the servers in order to distribute the computing load away from the central server.
+first, we propose that centralized server-based architectures be made hierarchical through the introduction of communication proxies so that game updates made by clients that are time sensitive, such as movement, can be more efficiently distributed to other players within their game-space.
+in this paper, we propose two important features that would make game playing within mmogs more responsive for movement and scalable.
+latency compensation techniques have been proposed to alleviate the effect of latency [1, 6, 7] but it is obvious that if mmogs are to increase in  interactivity and speed, more architectures will have to be developed that address responsiveness, accuracy and consistency of the gamestate.
+but there are other games such as fps games that break even in the presence of moderate  network latencies [3, 5].
+for example, a player queues up 4 or 5 spells they wish to cast, each of these spells take 1-2 seconds to actually perform, giving the server plenty of time to validate these actions.
+this is accounted to the fact that the combat system used in everquest 2 is queueing based and has very low interaction.
+for example, [4] shows that in a modern rpg called everquest 2, the breakpoint of the game when adding artificial  latency was 1250ms.
+some types of games can function quite well even in the presence of large delays.
+it has been shown that network latency has real impact on practical game playing experience [3, 5].
+a number of works have shown the effect of network latency on distributed multi-player games [1, 2, 3, 4].
+such centralized authority has been implemented with the claim that this improves the security and consistency required in a gaming environment.
+in addition, current mmogs delegate all authority to the game server to make decisions about the results pertaining to the actions that game clients take and also to decide upon the result of other game related events.
+in current architectures, these  interactions are direct in that the game clients and the servers  exchange game messages with each other.
+in massively multi-player on-line games (mmog), game clients who are positioned across the internet connect to a game server to interact with other clients in order to be part of the game.

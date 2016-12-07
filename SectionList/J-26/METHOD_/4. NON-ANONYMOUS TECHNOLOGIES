@@ -1,0 +1,295 @@
+In non-anonymous technologies (even with identical costs),
+we need to talk about the contracted set of agents and not
+only about the number of contracted agents. In this section,
+we identify the sets of agents that can be obtained as the
+optimal contract for some v. These sets construct the orbit
+of a technology.
+Definition 3. For a technology t, a set of agents S is in
+the orbit of t if for some value v, the optimal contract is
+exactly with the set S of agents (where ties between different
+S"s are broken according to a lexicographic order9
+). The 
+korbit of t is the collection of sets of size exactly k in the
+orbit.
+Observe that in the non-strategic case the k-orbit of any
+technology with identical cost c is of size at most 1 (as all sets
+of size k has the same cost, only the one with the maximal
+probability can be on the orbit). Thus, the orbit of any such
+technology in the non-strategic case is of size at most n + 1.
+We show that the picture in the agency case is very different.
+A basic observation is that the orbit of a technology is
+actually an ordered list of sets of agents, where the order is
+determined by the following lemma.
+Lemma 3. ( Monotonicity lemma) For any technology
+(t, c), in both the agency and the non-strategic cases, the
+9
+This implies that there are no two sets with the same 
+success probability in the orbit.
+expected utility of the principal at the optimal contracts, the
+success probability of the optimal contracts, and the expected
+payment of the optimal contract, are all monotonically 
+nondecreasing with the value.
+Proof. Suppose the sets of agents S1 and S2 are 
+optimal in v1 and v2 < v1, respectively. Let Q(S) denote the
+expected total payment to all agents in S in the case that
+the principal contracts with the set S and the project 
+succeeds (for the agency case, Q(S) = t(S) ·
+P
+i∈S
+ci
+t(S)−t(S\i)
+,
+while for the non-strategic case Q(S) =
+P
+i∈S ci). The 
+principal"s utility is a linear function of the value, u(S, v) =
+t(S)·v−Q(S). As S1 is optimal at v1, u(S1, v1) ≥ u(S2, v1),
+and as t(S2) ≥ 0 and v1 > v2, u(S2, v1) ≥ u(S2, v2). We
+conclude that u(S1, v1) ≥ u(S2, v2), thus the utility is 
+monotonic non-decreasing in the value.
+Next we show that the success probability is monotonic
+non-decreasing in the value. S1 is optimal at v1, thus:
+t(S1) · v1 − Q(S1) ≥ t(S2) · v1 − Q(S2)
+S2 is optimal at v2, thus:
+t(S2) · v2 − Q(S2) ≥ t(S1) · v2 − Q(S1)
+Summing these two equations, we get that (t(S1) − t(S2)) ·
+(v1 − v2) ≥ 0, which implies that if v1 > v2 than t(S1) ≥
+t(S2).
+Finally we show that the expected payment is monotonic
+non-decreasing in the value. As S2 is optimal at v2 and
+t(S1) ≥ t(S2), we observe that:
+t(S2) · v2 − Q(S2) ≥ t(S1) · v2 − Q(S1) ≥ t(S2) · v2 − Q(S1)
+or equivalently, Q(S2) ≤ Q(S1), which is what we wanted
+to show.
+4.1 AOO and OOA Technologies
+We begin our discussion of non-anonymous technologies
+with two examples; the And-of-Ors (AOO) and Or-of-Ands
+(OOA) technologies.
+The AOO technology (see figure 2) is composed of 
+multiple OR-components that are Anded together.
+Theorem 3. Let h be an anonymous OR technology, and
+let f =
+Vnc
+j=1 h be the AOO technology that is obtained by
+a conjunction of nc of these OR-components on disjoint 
+inputs. Then for any value v, an optimal contract contracts
+with the same number of agents in each OR-component.
+Thus, the orbit of f is of size at most nl + 1, where nl is the
+number of agents in h.
+Part of the proof of the theorem (for the complete proof
+see [2]), is based on such AOO technology being a special
+case of a more general family of technologies, in which 
+disjoint anonymous technologies are And-ed together, as 
+explained in the next section. We conjecture that a similar
+result holds for the OOA technology.
+Conjecture 2. In an OOA technology which is a 
+disjunction of the same anonymous paths (with the same 
+number of agents, γ and c, but over disjoint inputs), for any
+value v the optimal contract is constructed from some 
+number of fully-contracted paths. Moreover, there exist v1 <
+. . . < vnl such that for any v, vi ≤ v ≤ vi+1, exactly i paths
+are contracted.
+We are unable to prove it in general, but can prove it for
+the case of an OOA technology with two paths of length two
+(see [2]).
+25
+4.2 Orbit Characterization
+The AOO is an example of a technology whose orbit size
+is linear in its number of agents. If conjecture 2 is true,
+the same holds for the OOA technology. What can be said
+about the orbit size of a general non-anonymous technology?
+In case of identical costs, it is impossible for all subsets of
+agents to be on the orbit. This holds by the observation
+that the 1-orbit (a single agent that exerts effort) is of size
+at most 1. Only the agent that gives the highest success
+probability (when only he exerts effort) can be on the orbit
+(as he also needs to be paid the least). Nevertheless, we
+next show that the orbit can have exponential size.
+A collection of sets of k elements (out of n) is 
+admissible, if every two sets in the collection differ by at least 2
+elements (e.g. for k=3, 123 and 234 can not be together in
+the collection, but 123 and 345 can be).
+Theorem 4. Every admissible collection can be obtained
+as the k − orbit of some t.
+Proof sketch: The proof is constructive. Let S be some
+admissible collection of k-size sets. For each set S ∈ S in the
+collection we pick S, such that for any two admissible sets
+Si = Sj, Si = Sj . We then define the technology function
+t as follows: for any S ∈ S, t(S) = 1/2 − S and ∀i ∈ S,
+t(S \ i) = 1/2 − 2 S. Thus, the marginal contribution of
+every i ∈ S is S. Note that since S is admissible, t is well
+defined, as for any two sets S, S ∈ S and any two agents
+i, j, S \ i = S \ j. For any other set Z, we define t(Z) in
+a way that ensures that the marginal contribution of each
+agent in Z is a very small (the technical details appear in
+the full version). This completes the definition of t.
+We show that each admissible set S ∈ S is optimal at the
+value vS = ck
+2 2
+S
+. We first show that it is better than any
+other S ∈ S. At the value vS = ck
+2 2
+S
+, the set S that 
+corresponds to S maximizes the utility of the principal. This
+result is obtained by taking the derivative of u(S, v). 
+Therefore S yields a higher utility than any other S ∈ S. We also
+pick the range of S to ensure that at vS, S is better than
+any other set S \ i s.t. S ∈ S. Now we are left to show
+that at vS, the set S yields a higher utility than any other
+set Z ∈ S. The construction of t(Z) ensures this since the
+marginal contribution of each agent in Z is such a small ,
+that the payment is too high for the set to be optimal. 2
+In [2] we present the full proof of the theorem, as well as
+the full proofs of all other claims presented in this section
+without such a proof. We next show that there exist very
+large admissible collections.
+Lemma 4. For any n ≥ k, there exists an admissible 
+collection of k-size sets of size Ω( 1
+n
+·
+`n
+k
+´
+).
+Proof sketch: The proof is based on an error correcting
+code that corrects one bit. Such a code has a distance ≥
+3, thus admissible. It is known that there are such codes
+with Ω(2n
+/n) code words. To ensure that an appropriate
+fraction of these code words have weight k, we construct a
+new code by XOR-ing each code word with a random word
+r. The properties of XOR ensure that the new code remains
+admissible. Each code word is now uniformly mapped to
+the whole cube, and thus its probability of having weight
+k is
+`n
+k
+´
+/2n
+. Thus the expected number of weight k words
+is Ω(
+`n
+k
+´
+/n), and for some r this expectation is achieved or
+exceeded. 2
+For k = n/2 we can construct an exponential size 
+admissible collection, which by Theorem 4 can be used to build a
+technology with exponential size orbit.
+Corollary 1. There exists a technology (t, c) with orbit
+of size Ω( 2n
+n
+√
+n
+).
+Thus, we are able to construct a technology with 
+exponential orbit, but this technology is not a network technology
+or a structured technology.
+Open Question 2. Is there a Read Once network with
+exponential orbit? Is there a structured technology with 
+exponential orbit?
+Nevertheless, so far, we have not seen examples of 
+seriesparallel networks whose orbit size is larger than n + 1.
+Open Question 3. How big can the orbit size of a 
+seriesparallel network be?
+We make the first step towards a solution of this question
+by showing that the size of the orbit of a conjunction of two
+disjoint networks (taking the two in a serial) is at most the
+sum of the two networks" orbit sizes.
+Let g and h be two Boolean functions on disjoint inputs
+and let f = g
+V
+h (i.e., take their networks in series). The
+optimal contract for f for some v, denoted by S, is composed
+of some agents from the h-part and some from the g-part,
+call them T and R respectively.
+Lemma 5. Let S be an optimal contract for f = g
+V
+h on
+v. Then, T is an optimal contract for h on v · tg(R), and R
+is an optimal contract for g on v · th(T).
+Proof sketch: We exress the pricipal"s utility u(S, v) from
+contracting with the set S when his value is v. We abuse
+notation and use the function to denote the technology as
+well. Let Δf
+i (S \ i) denote the marginal contribution of
+agent i ∈ S. Then, for any i ∈ T, Δf
+i (S \ i) = g(R) ·
+Δh
+i (T \ i), and for any i ∈ R, Δf
+i (S \ i) = h(T) · Δg
+i (R \ i).
+By substituting these expressions and f(S) = h(T) · g(R),
+we derive that u(S, v) = h(T)
+
+g(R) · v −
+P
+i∈T
+ci
+Δh
+i (T \i)
+
++
+g(R) ·
+P
+i∈R
+ci
+Δ
+g
+i
+(R\i)
+. The first term is maximized at a set T
+that is optimal for h on the value g(R) · v, while the second
+term is independent of T and h. Thus, S is optimal for f on
+v if and only if T is an optimal contract for h on v · tg(R).
+Similarly, we show that R is an optimal contract for g on
+v · th(T). 2
+Lemma 6. The real function v → th(T), where T is the
+h − part of an optimal contract for f on v, is monotone
+non-decreasing (and similarly for the function v → tg(R)).
+Proof. Let S1 = T1 ∪ R1 be the optimal contract for f
+on v1, and let S2 = T2 ∪R2 be the optimal contract for f on
+v2 < v1. By Lemma 3 f(S1) ≥ f(S2), and since f = g · h,
+f(S1) = h(T1) · g(R1) ≥ h(T2) · g(R2) = f(S2). Assume in
+contradiction that h(T1) < h(T2), then since h(T1)·g(R1) ≥
+h(T2)·g(R2) this implies that g(R1) > g(R2). By Lemma 5,
+T1 is optimal for h on v1 · g(R1), and T2 is optimal for h on
+v2 ·g(R2). As v1 > v2 and g(R1) > g(R2), T1 is optimal for h
+on a larger value than T2, thus by Lemma 3, h(T1) ≥ h(T2),
+a contradiction.
+26
+Based on Lemma 5 and Lemma 6, we obtain the following
+Lemma. For the full proof, see [2].
+Lemma 7. Let g and h be two Boolean functions on 
+disjoint inputs and let f = g
+V
+h (i.e., take their networks in
+series). Suppose x and y are the respective orbit sizes of g
+and h; then, the orbit size of f is less or equal to x + y − 1.
+By induction we get the following corollary.
+Corollary 2. Assume that {(gj, cj )}m
+j=1 is a set of 
+anonymous technologies on disjoint inputs, each with identical agent
+cost (all agents of technology gj has the same cost cj). Then
+the orbit of f =
+Vm
+j=1 gj is of size at most (
+Pm
+j=1 nj ) − 1,
+where nj is the number of agents in technology gj (the orbit
+is linear in the number of agents).
+In particular, this holds for AOO technology where each
+OR-component is anonymous.
+It would also be interesting to consider a disjunction of
+two Boolean functions.
+Open Question 4. Does Lemma 7 hold also for the Boolean
+function f = g
+W
+h (i.e., when the networks g, h are taken
+in parallel)?
+We conjecture that this is indeed the case, and that the
+corresponding Lemmas 5 and 7 exist for the OR case as well.
+If this is true, this will show that series-parallel networks
+have polynomial size orbit.

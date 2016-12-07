@@ -1,0 +1,125 @@
+In this work, we have adhered to the definition of event and topic
+as defined in TDT. We present some definitions (in italics) and our
+interpretations (regular-faced) below for clarity.
+1. Story: A story is a news article delivering some information
+to users. In TDT, a story is assumed to refer to only a single
+topic. In this work, we also assume that each story discusses
+a single event. In other words, a story is the smallest atomic
+unit in the hierarchy (topic event story). Clearly, both
+the assumptions are not necessarily true in reality, but we
+accept them for simplicity in modeling.
+2. Event: An event is something that happens at some specific
+time and place [10]. In our work, we represent an event by
+a set of stories that discuss it. Following the assumption of
+atomicity of a story, this means that any set of distinct events
+can be represented by a set of non-overlapping clusters of
+news stories.
+3. Topic: A set of news stories strongly connected by a seminal
+event. We expand on this definition and interpret a topic as
+a series of related events. Thus a topic can be represented
+by clusters of stories each representing an event and a set of
+(directed or undirected) edges between pairs of these clusters
+representing the dependencies between these events. We will
+describe this representation of a topic in more detail in the
+next section.
+4. Topic detection and tracking (TDT) :Topic detection 
+detects clusters of stories that discuss the same topic; Topic
+tracking detects stories that discuss a previously known topic [3].
+Thus TDT concerns itself mainly with clustering stories into
+topics that discuss them.
+5. Event threading: Event threading detects events within in a
+topic, and also captures the dependencies among the events.
+Thus the main difference between event threading and TDT
+is that we focus our modeling effort on microscopic events
+rather than larger topics. Additionally event threading 
+models the relatedness or dependencies between pairs of events
+in a topic while TDT models topics as unrelated clusters of
+stories.
+We first define our problem and representation of our model
+formally and then illustrate with the help of an example. We are
+given a set of Ò news stories Ë ×½ ¡ ¡ ¡ ×Ò on a given topic
+Ì and their time of publication. We define a set of events
+½ ¡ ¡ ¡ Ñ with the following constraints:
+¾ ¾
+Ë (1)
+× Ø (2)
+× ¾ × Ø × ¾ (3)
+While the first constraint says that each event is an element in the
+power set of S, the second constraint ensures that each story can
+belong to at most one event. The last constraint tells us that every
+story belongs to one of the events in . In fact this allows us to
+define a mapping function from stories to events as follows:
+´× µ iff × ¾ (4)
+Further, we also define a set of directed edges ´ µ
+which denote dependencies between events. It is important to 
+explain what we mean by this directional dependency: While the 
+existence of an edge itself represents relatedness of two events, the
+direction could imply causality or temporal-ordering. By causal
+dependency we mean that the occurrence of event B is related to
+and is a consequence of the occurrence of event A. By temporal 
+ordering, we mean that event B happened after event A and is related
+to A but is not necessarily a consequence of A. For example, 
+consider the following two events: ‘plane crash" (event A) and 
+‘subsequent investigations" (event B) in a topic on a plane crash incident.
+Clearly, the investigations are a result of the crash. Hence an 
+arrow from A to B falls under the category of causal dependency.
+Now consider the pair of events ‘Pope arrives in Cuba"(event A)
+and ‘Pope meets Castro"(event B) in a topic that discusses Pope"s
+visit to Cuba. Now events A and B are closely related through their
+association with the Pope and Cuba but event B is not necessarily
+a consequence of the occurrence of event A. An arrow in such 
+scenario captures what we call time ordering. In this work, we do not
+make an attempt to distinguish between these two kinds of 
+dependencies and our models treats them as identical. A simpler (and
+hence less controversial) choice would be to ignore direction in the
+dependencies altogether and consider only undirected edges. This
+choice definitely makes sense as a first step but we chose the former
+since we believe directional edges make more sense to the user as
+they provide a more illustrative flow-chart perspective to the topic.
+To make the idea of event threading more concrete, consider the
+example of TDT3 topic 30005, titled ‘Osama bin Laden"s 
+Indictment" (in the 1998 news). This topic has 23 stories which form 5
+events. An event model of this topic can be represented as in figure
+1. Each box in the figure indicates an event in the topic of Osama"s
+indictment. The occurrence of event 2, namely ‘Trial and 
+Indictment of Osama" is dependent on the event of ‘evidence gathered
+by CIA", i.e., event 1. Similarly, event 2 influences the occurrences
+of events 3, 4 and 5, namely ‘Threats from Militants", ‘Reactions
+447
+from Muslim World" and ‘announcement of reward". Thus all the
+dependencies in the example are causal.
+Extending our notation further, we call an event A a parent of B
+and B the child of A, if ´ µ ¾ . We define an event model
+Å ´ µ to be a tuple of the set of events and set of 
+dependencies.
+Trial and
+(5)
+(3)
+(4)
+CIA announces reward
+Muslim world
+Reactions from
+Islamic militants
+Threats from
+(2)
+(1)
+Osama
+Indictment of
+CIA
+gathered by
+Evidence
+Figure 1: An event model of TDT topic ‘Osama bin Laden"s
+indictment".
+Event threading is strongly related to topic detection and 
+tracking, but also different from it significantly. It goes beyond topics,
+and models the relationships between events. Thus, event 
+threading can be considered as a further extension of topic detection and
+tracking and is more challenging due to at least the following 
+difficulties.
+1. The number of events is unknown.
+2. The granularity of events is hard to define.
+3. The dependencies among events are hard to model.
+4. Since it is a brand new research area, no standard evaluation
+metrics and benchmark data is available.
+In the next few sections, we will describe our attempts to tackle
+these problems.

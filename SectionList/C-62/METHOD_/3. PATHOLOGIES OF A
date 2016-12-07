@@ -1,0 +1,430 @@
+LOWACCOUNTABILITY NETWORK
+In order to motivate an exploration of monitoring systems, we begin
+in this section by considering a network with a poor degree of
+accountability, modeled after today"s Internet. We will show how
+the lack of monitoring necessarily leads to poor routing and
+diminishes the rate of innovation. Thus, the network"s lack of
+accountability is a fundamental obstacle to resolving these
+pathologies.
+3.1 Accountability in the Current Internet
+First, we reflect on what accountability characteristics the present
+Internet has. Argyraki, et al., point out that end hosts are given
+minimal information about packet drops [3]. Users know when
+drops occur, but not where they occur, nor why. Dropped packets
+may represent the innocent signaling of congestion, or, as we
+mentioned above, they may be a form of cheating internally. The
+problem is similar for other dimensions of quality, or in fact more
+acute. Finding an ISP that gives high priority packets a lower class
+of service, for example, is further complicated by the lack of even
+basic diagnostic tools.
+In fact, it is similarly difficult to identify an ISP that cheats in route.
+Huston notes that Internet traffic flows do not always correspond to
+routing information [8]. An ISP may hand a packet off to a
+neighbor regardless of what routes that neighbor has advertised.
+Furthermore, blocks of addresses are summarized together for
+distant hosts, so a destination may not even be resolvable until
+packets are forwarded closer.
+One might argue that diagnostic tools like ping and traceroute can
+identify cheaters. Unfortunately, Argyraki, et al., explain that these
+tools only reveal whether probe packets are echoed, not the fate of
+past packets [3]. Thus, for example, they are ineffective in detecting
+low-frequency packet drops. Even more fundamentally, a
+sophisticated cheater can always spot diagnostic packets and give
+them special treatment.
+As a further complication, a cheater may assume different aliases
+for diagnostic packets arriving over different routes. As we will see
+below, this gives the cheater a significant advantage in escaping
+punishment for bad behavior, even if the data path is otherwise
+observable.
+3.2 Modeling Low-Accountability
+As the above evidence suggests, the current industry allows for very
+little insight into the behavior of the network. In this section, we
+attempt to capture this lack of accountability in our model. We
+begin by defining a monitor, our model of the way that players
+receive external information about network behavior,
+A monitor is any distributed algorithmic mechanism that runs on
+the network graph, and outputs, to specific nodes, informational
+statements about current or past network behavior.
+We assume that all external information about network behavior is
+mediated in this way. The accountability properties of the Internet
+can be represented by the following monitors:
+E2E (End to End): A monitor that informs S/D about what the
+total path quality is at any time (this is the quality they
+experience).
+ROP (Rest of Path): A monitor that informs each node along the
+data path what the quality is for the rest of the path to the
+destination.
+PRc (Packets Received): A monitor that tells nodes how much
+data they accept from each other, so that they can charge by
+volume. It is important to note, however, that this information is
+aggregated over many source-destination pairs. Hence, for the
+sake of realism, it cannot be used to monitor what the data path is.
+Players cannot measure the qualities of other, single nodes, just the
+rest of the path. Nodes cannot see the path past the next hop. This
+last assumption is stricter than needed for our results. The critical
+ingredient is that nodes cannot verify that the path avoids a specific
+hop. This holds, for example, if the path is generally visible, except
+nodes can use different aliases for different parents. Similar results
+also hold if alternate paths always converge after some integer
+number, m, of hops.
+It is important to stress that E2E and ROP are not the contractible
+monitors we described in the introduction - they do not generate
+proofs. Thus, even though a player observes certain information,
+she generally cannot credibly share it with another player. For
+example, if a node after the first hop starts cheating, the first hop
+will detect the sudden drop in quality for the rest of the path, but the
+first hop cannot make the source believe this observation - the
+187
+source will suspect that the first hop was the cheater, and fabricated
+the claim against the rest of the path.
+Typically, E2E and ROP are envisioned as algorithms that run on a
+single node, and listen for packet echoes. This is not the only way
+that they could be implemented, however; an alternate strategy is to
+aggregate quality measurements from multiple points in the
+network. These measurements can originate in other monitors,
+located at various ISPs. The monitor then includes the component
+monitors as well as whatever mechanisms are in place to motivate
+nodes to share information honestly as needed. For example, if the
+source has monitors that reveal the qualities of individual nodes,
+they could be combined with path information to create an ROP
+monitor.
+Since we know that contracts only accept proofs as input, we can
+infer that payments in this environment can only depend on the
+number of packets exchanged between players. In other words,
+contracts are best-effort. For the remainder of this section, we will
+assume that contracts are also linear - there is a constant payment
+flow so long as a node accepts data, and all conditions of the
+contract are met. Other, more complicated tariffs are also possible,
+and are typically used to generate lock-in. We believe that our
+parameter t0 is sufficient to describe lock-in effects, and we believe
+that the insights in this section apply equally to any tariffs that are
+bounded so that the routing game remains continuous at infinity.
+Restricting attention to linear contracts allows us to represent some
+node i"s contract by its price, pi.
+Because we further know that nodes cannot observe the path after
+the next hop, we can infer that contracts exist only between
+neighboring nodes on the graph. We will call this arrangement of
+contracts bilateral. When a competition game exclusively uses
+bilateral contracts, we will call it a bilateral contract competition
+game.
+We first focus on the routing game and ask whether a high quality
+route can be maintained, even when a low quality route is cheaper.
+Recall that this is a requirement in order for nodes to have any
+incentive to innovate. If nodes tend to route to low price next hops,
+regardless of quality, we say that the network is commoditized. To
+measure this tendency, we define an index of commoditization as
+follows:
+For a node on the data path, i, define its quality premium,
+minppd ji −= , where pj is the flow payment to the next hop in
+equilibrium, and pmin is the price of the lowest cost next hop.
+Definition: The index of commoditization, CI , is the average,
+over each node on the data path, i, of i"s flow profit as a fraction
+of i"s quality premium, ( ) ijii dpcp /−− .
+CI ranges from 0, when each node spends all of its potential profit
+on its quality premium, to infinite, when a node absorbs positive
+profit, but uses the lowest price next hop. A high value for CI
+implies that nodes are spending little of their money inflow on
+purchasing high quality for the rest of the path. As the next claim
+shows, this is exactly what happens as the path grows long:
+Claim 1. If the only monitors are E2E, ROP, and PRc, ∞→CI
+as ∞→n , where n is the number of nodes on the data path.
+To show that this is true, we first need the following lemma, which
+will establish the difficulty of punishing nodes in the network.
+First a bit of notation: Recall that a cheater can benefit from its
+actions for 00 >t before other players can react. When a node
+cheats, it can expect a higher profit flow, at least until it is caught
+and other players react, perhaps by diverting traffic. Let node i"s
+normal profit flow be iπ , and her profit flow during cheating be
+some greater value, yi. We will call the ratio, iiy π/ , the
+temptation to cheat.
+Lemma 1. If the only monitors are E2E, ROP, and PRc, the
+discounted time, −nt
+rt
+e
+0
+, needed to punish a cheater increases at
+least as fast as the product of the temptations to cheat along the data
+path,
+∏ −−
+≥
+0
+0
+pathdataon
+0
+t
+rt
+i i
+i
+t
+rt
+e
+y
+e
+n
+π
+(1)
+Corollary. If nodes share a minimum temptation to cheat, π/y ,
+the discounted time needed to punish cheating increases at least
+exponentially in the length of the data path, n,
+−−
+≥
+0
+00
+t
+rt
+nt
+rt
+e
+y
+e
+n
+π
+(2)
+Since it is the discounted time that increases exponentially, the
+actual time increases faster than exponentially. If n is so large that
+tn is undefined, the given path cannot be maintained in equilibrium.
+Proof. The proof proceeds by induction on the number of nodes on
+the equilibrium data path, n. For 1=n , there is a single node, say i.
+By cheating, the node earns extra profit ( ) −
+−
+0
+0
+t
+rt
+ii ey π . If node i
+is then punished until time 1t , the extra profit must be cancelled out
+by the lost profit between time 0t and 1t , −1
+0
+t
+t
+rt
+i eπ . A little
+manipulation gives −−
+=
+01
+00
+t
+rt
+i
+i
+t
+rt
+e
+y
+e
+π
+, as required.
+For 1>n , assume for induction that the claim holds for 1−n . The
+source does not know whether the cheater is the first hop, or after
+the first hop. Because the source does not know the data path after
+the first hop, it is unable to punish nodes beyond it. If it chooses a
+new first hop, it might not affect the rest of the data path. Because
+of this, the source must rely on the first hop to punish cheating
+nodes farther along the path. The first hop needs discounted time,
+∏ −0
+0
+hopfirstafter
+t
+rt
+i i
+i e
+y
+π
+, to accomplish this by assumption. So
+the source must give the first hop this much discounted time in order
+to punish defectors further down the line (and the source will expect
+poor quality during this period).
+Next, the source must be protected against a first hop that cheats,
+and pretends that the problem is later in the path. The first hop can
+188
+do this for the full discounted time, ∏ −0
+0
+hopfirstafter
+t
+rt
+i i
+i e
+y
+π
+, so
+the source must punish the first hop long enough to remove the extra
+profit it can make. Following the same argument as for 1=n , we
+can show that the full discounted time is ∏ −0
+0
+pathdataon
+t
+rt
+i i
+i e
+y
+π
+,
+which completes the proof.
+The above lemma and its corollary show that punishing cheaters
+becomes more and more difficult as the data path grows long, until
+doing so is impossible. To capture some intuition behind this result,
+imagine that you are an end user, and you notice a sudden drop in
+service quality. If your data only travels through your access
+provider, you know it is that provider"s fault. You can therefore
+take your business elsewhere, at least for some time. This threat
+should motivate your provider to maintain high quality.
+Suppose, on the other hand, that your data traverses two providers.
+When you complain to your ISP, he responds, yes, we know your
+quality went down, but it"s not our fault, it"s the next ISP. Give us
+some time to punish them and then normal quality will resume. If
+your access provider is telling the truth, you will want to listen,
+since switching access providers may not even route around the
+actual offender. Thus, you will have to accept lower quality service
+for some longer time. On the other hand, you may want to punish
+your access provider as well, in case he is lying. This means you
+have to wait longer to resume normal service. As more ISPs are
+added to the path, the time increases in a recursive fashion.
+With this lemma in hand, we can return to prove Claim 1.
+Proof of Claim 1. Fix an equilibrium data path of length n. Label
+the path nodes 1,2,…,n. For each node i, let i"s quality premium be
+'11 ++ −= iii ppd . Then we have,
+[ ]
+=
+−
+=
+−
++
++
+=
+−
++
+++
+=
++
+−=−
+−−
+−−
+=
+−−
+−
+=
+−−
+=
+n
+i
+i
+n
+i iii
+iii
+n
+i iii
+ii
+n
+i i
+iii
+C
+g
+npcp
+pcp
+n
+pcp
+pp
+nd
+pcp
+n
+I
+1
+1
+1
+1
+1
+1
+1
+1
+1
+11
+1
+1
+1
+1
+1
+'1
+'11
+, (3)
+where gi is node i"s temptation to cheat by routing to the lowest
+price next hop. Lemma 1 tells us that Tg
+n
+i
+i <∏
+=1
+, where
+( )01 rt
+eT −
+−= . It requires a bit of calculus to show that IC is
+minimized by setting each gi equal to n
+T /1
+. However, as ∞→n ,
+we have 1/1
+→n
+T , which shows that ∞→CI .
+According to the claim, as the data path grows long, it increasingly
+resembles a lowest-price path. Since lowest-price routing does not
+support innovation, we may speculate that innovation degrades with
+the length of the data path. Though we suspect stronger claims are
+possible, we can demonstrate one such result by including an extra
+assumption:
+Available Bargain Path: A competitive market exists for 
+lowcost transit, such that every node can route to the destination for
+no more than flow payment, lp .
+Claim 2. Under the available bargain path assumption, if node i , a
+distance n from S, can invest to alter its quality, and the source will
+spend no more than sP for a route including node i"s new quality,
+then the payment to node i, p, decreases hyperbolically with n,
+( )
+( ) s
+n
+l P
+n
+T
+pp
+1
+1/1
+−
++≤
+−
+, (4)
+where ( )01 rt
+eT −
+−= is the bound on the product of temptations
+from the previous claim. Thus, i will spend no more than
+( )
+( )−
++
+−
+s
+n
+l P
+n
+T
+p
+r 1
+1 1/1
+on this quality improvement, which
+approaches the bargain path"s payment,
+r
+pl
+, as ∞→n .
+The proof is given in the appendix. As a node gets farther from the
+source, its maximum payment approaches the bargain price, pl.
+Hence, the reward for innovation is bounded by the same amount.
+Large innovations, meaning substantially more expensive than
+rpl / , will not be pursued deep into the network.
+Claim 2 can alternately be viewed as a lower bound on how much it
+costs to elicit innovation in a network. If the source S wants node i
+to innovate, it needs to get a motivating payment, p, to i during the
+routing stage. However, it must also pay the nodes on the way to i a
+premium in order to motivate them to route properly. The claim
+shows that this premium increases with the distance to i, until it
+dwarfs the original payment, p.
+Our claims stand in sharp contrast to our null hypothesis from the
+introduction. Comparing the intuitive argument that supported our
+hypothesis with these claims, we can see that we implicitly used an
+oversimplified model of market pressure (as either present or not).
+As is now clear, market pressure relies on the decisions of
+customers, but these are limited by the lack of information. Hence,
+competitive forces degrade as the network deepens.

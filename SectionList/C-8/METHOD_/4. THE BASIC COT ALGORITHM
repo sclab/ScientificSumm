@@ -1,0 +1,119 @@
+﻿In the basic COT algorithm, we assume each site 
+maintains a document state DS, which contains the set of original
+operations executed so-far. This is different from the log or
+the History Buffer (HB) schemes in prior OT algorithms [4,
+22, 23], which record a list of transformed operations. We
+deliberately leave the internal data structure of DS 
+unspecified to keep the COT algorithm independent of the operation
+buffering strategy.
+In algorithm description, we shall use the context set 
+representation C(O), rather than the context vector 
+representation CV (O). When an operation O is propagated from the
+local site to remote sites, however, it is the context vector,
+not the context set, that is actually piggy-backed on O for
+propagation. The set of operations in C(O) can be easily
+determined from DS based on the information in CV (O).
+The COT algorithm has two parts: the COT-DO part
+for supporting consistency maintenance (do), and the 
+COTUNDO part for supporting undo. Both parts share the
+same core context-based transformation procedure. 
+Operation context and context-based conditions are central to
+the whole COT algorithm.
+4.1 COT-DO
+COT-DO takes two parameters: O - an original operation
+to be executed, and DS - the current document state 
+representation. COT-DO is invoked only if C(O) ? DS (CC1),
+which ensures that all operations included in the context of
+O have already been executed on DS.
+Algorithm 1. COT-DO(O, DS)
+1. transform(O, DS ? C(O));
+2. Execute O; DS := DS ∪ {org(O)}.
+Procedure 1. transform(O, CD)
+Repeat until CD = { }:
+1. Remove Ox from CD, where C(Ox) ? C(O);
+2. transform(Ox, C(O) ? C(Ox));
+3. O := IT(O, Ox); C(O) := C(O) ∪ {org(Ox)}.
+COT-DO first invokes procedure transform() to transform
+O against operations in DS ? C(O) (CC2). This is to 
+upgrade the context of O to DS. In Step 2, it must be that
+C(O) = DS (CC3), so O is executed as-is, and the original
+of O is added to DS (according to Definition 3-Item 2).
+The heart of COT-DO is transform(O, CD), whose task is
+to transform O against operations in CD, which represents
+the context difference between C(O) and a new context on
+which O is to be defined. This procedure repeats the 
+following three steps until CD becomes empty:
+1. Remove an operation Ox from CD, where C(Ox) ?
+C(O) (CC4). An operation Ox meeting this condition
+can be determined if all operations in CD are sorted in
+the order of their execution and sequentially retrieved.
+2. The procedure transform() is recursively invoked to
+transform Ox against operations in C(O)?C(Ox) (CC5).
+This is to upgrade Ox to the context of O, so that they
+can be used for IT transformation in the next step.
+3. After the recursive call to transform(), it must be that
+C(O) = C(Ox) (CC6), so O is IT-transformed against
+Ox, and the context of O is updated by adding the
+original of Ox (according to Definition 4-Item 3).
+To show how COT-DO works, we examine how it resolves
+the dOPT-puzzle in Figure 1. Consider the operation 
+executions at site 0, with the initial document state DS0 = { }.
+1. After the generation of O1, since C(O1) = DS0, O1 is
+executed as-is and DS0 is updated to DS1 = {O1}.
+2. When O2 arrives with C(O2) = {}, transform(O2, DS1?
+C(O2)) is called, where DS1 ? C(O2) = {O1}.
+Inside transform(O2, {O1}), since C(O1) = C(O2), we
+have O2 := IT(O2, O1), and C(O2) = {O1}.
+Returning from transform(O2, {O1}), we have C(O2) =
+DS1, so O2 is executed, and DS1 is updated to DS2 =
+{O1, O2}, where O2 = org(O2).
+3. When O3 arrives with C(O3) = {O2}, transform(O3, DS2?
+C(O3)) is called, where DS2 ? C(O3) = {O1}.
+Inside transform(O3, {O1}), transform(O1, C(O3)?C(O1))
+is recursively called, with C(O3) ? C(O1) = {O2},
+which is the key step in detecting the dOPT-puzzle.
+In the recursive transform(O1, {O2}), since C(O2) =
+C(O1), we have O1 := IT(O1, O2), and C(O1) = {O2}.
+Returning from the recursion, we have C(O1) = C(O3),
+so C(O3) := IT(O3, O1) (the dOPT-puzzle resolved
+here), and C(O3) = {O1, O2}, where O1 = org(O1).
+After returning from transform(O3, {O1}), C(O3) =
+DS2; so O3 is executed, and DS2 is updated to DS3 =
+{O1, O2, O3}, where O3 = org(O3).
+283
+4.2 COT-UNDO
+To undo an operation O, a meta-level undo command
+Undo(O) must be issued by a user. How to generate the
+undo command for selecting any operation to undo is part
+of the undo policy [21]. This paper is confined to the 
+discussion of the undo mechanism, which determines how to undo
+the selected operation in a given context.
+In COT-UNDO, Undo(O) is interpreted as an inverse O,
+that is context-dependent on operations in C(O) and O itself.
+COT-UNDO takes two input parameters: O is the operation
+selected to be undone, which can be any operation done 
+sofar, and DS is the current document state representation.
+Algorithm 2. COT-UNDO(O, DS)
+1. O := makeInverse(O); C(O) := C(O) ∪ {O};
+2. COT-DO(O, DS).
+COT-UNDO works by first creating an inverse O by 
+invoking makeInverse(O)2
+, with its context C(O) := C(O) ∪ {O}
+(according to Definition 4-Item 2), and then invoking 
+COTDO to handle O.
+For example, to interpret Undo(O2) in Figure 1, 
+COTUNDO is invoked with parameters O2 and DS = {O1, O2, O3}.
+First, O2 and C(O2) = {O2} are created. Then, COT-DO
+is invoked with parameters O2 and DS. Inside COT-DO,
+transform(O2, DS ? C(O2)) shall be invoked, and O2 shall
+be correctly transformed against O1 and O3 since CD =
+DS ? C(O2) = {O1, O3}. This example shows that an 
+inverse operation can be handled by COT-DO in the same way
+as other normal operations. This is because context-based
+conditions CC1 - CC6 are uniformly applicable to both 
+normal and inverse operations.
+The basic COT algorithm is simple yet powerful - 
+capable of doing and undoing any operations at anytime. Among
+all prior OT systems, only the combination of GOTO and
+ANYUNDO (referred as GOTO-ANYUNDO) has similar
+capabilities [22, 21].

@@ -1,0 +1,38 @@
+model nw 2 provided speedups of a factor of 4-10 over the model sw. this was consistent throughout the problem sizes, including the smaller sizes for which the speedup is not visually apparent on the chart. 
+however, the model we built based on the insight from the network structure clearly provided a significant speedup, even without using a special-purpose algorithm.
+thus, we cannot fully evaluate the potential gain attributable to network structure.
+118 figure 8: performance of models when varying percentage of aggregating traders figure 8 shows how the various models are affected by a change in the percentage of aggregating traders, holding problem size fixed.8 due to the integrality constraints, we could not test available  algorithms specialized for network-flow problems on our test  problems.
+figure 7: average performance of models when 70% of traders aggregate.
+figure 6: average performance of models when 50% of traders aggregate.
+figure 5: average performance of models when 30% of traders aggregate.
+the g values represent arc gains, and w values represent weights.
+v 1 is a seller in ad, v 2 ∈ ai, v 4 ∈ nd.
+b1 is a buyer in ad, b2 ∈ ai, b3 ∈ ni, b4 ∈ nd.
+figure 4: generalized network flow model.
+batch means that traders may submit batch sizes.
+one side means that one side aggregates and divisible, and the other side is restrictive.
+generalized ntwrk flow np-hard optional not bounded down to q, batch not required nonlinear opt depends on ˆu(x, q) table 1: mapping from combinations of allocation constraints to the solution methods of gmap.
+side gap np-hard optional none down to q, batch required generalized ntwrk flow np-hard optional bounded down to q, batch bounded size schdl.
+problem polynomial one side none aggr side div.
+divisibility linear pricing technique complexity no aggregation n/a any not required assignment problem polynomial all aggregate none down to 0 required transpor.
+117 aggregation hom.
+7 traded quantity remains integer.
+in the figures, the direct ip (4) is designated sw, our first network model (figure 2) nw, and our revised network model (figure 4) nw 2.
+the tests depicted in figures 5-7 are for the worst case |b| = |s|, with each data point averaged over six samples.
+whereas the size of the problem is defined by the number of traders on each side, the problem complexity depends on the product |b| × |s|.
+each buyer/seller pair is selected as matching with  probability 0.75, with matches assigned a surplus uniformly distributed over [10, 70].
+in our experiments, each trader has a maximum quantity uniformly distributed over [30, 70], and minimum quantity uniformly distributed from zero to maximal quantity.
+unlike the previous model we allow fractional flow for this case, representing the traded fraction of the buyer"s total quantity.7 we tested all three models on random data in the form of  bipartite graphs encoding mmp solutions.
+an aggregating trader has a node for each potential match, connected (via y arcs) to a mutual source node.
+this new model (figure 4) has a single node for each non  aggregating trader, with a single-unit arc designating a match to another non-aggregating trader.
+this new model outperformed our other models on most problem instances, exceptions being those where aggregating traders constitute a vast majority (at least 80%).
+rather than treat non-aggregating traders as a special case, the new model takes advantage of the single-unit nature of non-aggregating trades (treating the aggregating traders as a special case).
+these results motivated us to develop a new network model.
+when the aggregating ratio was reduced to 80% for the same data, solution time was just under five minutes.
+for example, our ip model solved instances with 600 buyers and 500 sellers, where 90% of them are aggregating, in less than two minutes.
+when most of the traders are aggregating, problems of larger sizes can be solved quickly.
+we found that in addition to the problem size (in terms of number of traders), the number of aggregating traders plays a crucial role in determining complexity.
+since we used cplex, a  commercial optimization tool, the second objective could be achieved to the extent that cplex can take advantage of network structure present in a model.
+we also look to compare the performance of a straightforward integer program as in (4) with an integer program that is based on the  network formulations developed here.
+first, we seek a general idea of the sizes and types of  clearing problems that can be solved under given time constraints.
+we approach the experimental aspect of this work with two  objectives.

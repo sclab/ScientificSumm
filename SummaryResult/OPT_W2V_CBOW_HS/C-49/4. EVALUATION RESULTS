@@ -1,0 +1,97 @@
+The direct and random protocols for one-hour TTL had delivery ratios that were too low to be visible in the plot.
+For direct delivery, random, and the probability-based routing protocols, relatively few messages were delivered for short TTLs, so many messages expired before they could reach their destination; those messages had infinite delivery delay and were not included in the median or mean measurements.
+Obviously, the direct delivery protocol had the lowest number of message transmissions - the number of message delivered.
+Indeed, the figures show only the delay time for delivered messages.
+• message transmissions, the total number of messages  transmitted during the simulation across all nodes.
+Because epidemic  protocol transmitted messages at every contact, in turn, more nodes had messages that required meta-data transmission during contact.
+Figure 4 shows that epidemic and all prediction-based methods had substantial meta-data transmissions, though epidemic routing had relatively more, with shorter TTLs.
+3 We tried to use a general network simulator (ns2), which was  extremely slow when simulating a large number of mobile nodes (in our case, more than 5000 nodes), and provided unnecessary detail in modeling lower-level network protocols.
+In our simulation, we assumed the nodes could discover and connect each other instantly when they were associated with a same AP.
+Figure 1 shows the statistics of the numbers of movements and the numbers of contacts during each hour of the day, summed across all users and all days.
+4.3 Message generation After each contact event in the contact trace, we generated a  message with a given probability; we choose a source node and a  des2 Two nodes may not have been able to directly communicate while they were at two far sides of an access point, or two nodes may have been able to directly communicate if they were between two adjacent access points.
+For longer TTLs, more messages were delivered even for the  directdelivery protocol.
+We assume that in some applications, network traffic exhibits similar patterns, that is, people send more messages during the day, too.
+A higher probability threshold limited the transfer probability, so fewer messages were delivered.
+It also required fewer transmissions as shown in Figure 9.
+Table 1: Default Settings of the Simulation Parameter Default value message probability 0.001 bandwidth 11 Mb/s transmission slot 1 millisecond max backoff slots 30 message size 80-1024 bytes hop count limit (HCL) unlimited time to live (TTL) unlimited storage capacity unlimited prediction window ΔT 10 hours probability threshold 0.01 contact history length 20 replication always aging factor α 0.9 (0.98 PRoPHET) initial probability p0 0.75 (PRoPHET) transitivity impact β 0.25 (PRoPHET) 0 20000 40000 60000 80000 100000 120000 0 5 10 15 20 Numberofoccurrence hour movements contacts Figure 1: Movements and contacts duration each hour tination node randomly using a uniform distribution across nodes seen in the contact trace up to the current time.
+In addition to its message transmissions and meta-data  transmissions, the epidemic routing protocol also had excessive message 1 10 100 1000 10000 100000 1e+06 1e+07 1e+08 unlimited 100 24 10 1 Numberofmessagetransmitted Message time-to-live (TTL) (hour) direct random prediction state prophet epidemic Figure 3: Message transmissions (log scale) 1 10 100 1000 10000 100000 1e+06 1e+07 1e+08 unlimited 100 24 10 1 Numberofmeta-datatransmissions Message time-to-live (TTL) (hour) direct random prediction state prophet epidemic Figure 4: Meta-data transmissions (log scale).
+[5] used Dartmouth data traces and made the same assumption to theoretically analyze the impact of human mobility on opportunistic forwarding algorithms.
+Figure 7 shows the maximum and average of maximum volume (in KBytes) of messages stored 39 1 10 100 1000 10000 100000 1e+06 1e+07 1e+08 unlimited 100 24 10 1 Numberofmessageduplications Message time-to-live (TTL) (hour) direct random prediction state prophet epidemic Figure 5: Message duplications (log scale).
+Although we had 5,142 users in the  network, the direct-delivery and random protocols had low delivery ratios (note the log scale).
+The message time-to-live parameter was the big factor affecting the storage usage for epidemic and prediction-based routing protocols.
+The replication factor r was not limited by default, so the source of a message transferred the messages to any other node that had a contact probability with the message destination higher than the probability threshold.
+Direct and  random protocols had no meta-data transmissions.
+When there were more contacts during a certain period, there was a higher likelihood that a new message was generated in that period.
+Even for messages with an unlimited lifetime, only 59 out of 2077 messages were delivered during this one-month simulation.
+Figure 3 shows the number of message data transmissions.
+Figure 6 shows both the median and mean delivery delays.
+The epidemic routing had the most storage usage.
+We can approximate contact traces by assuming that two users can  communicate with each other whenever they are associated with the same access point.
+The time to live (TTL) was the maximum duration that a message may exist before expiring.
+4.2 Simulator We developed a custom simulator.3 Since we used contact traces derived from real mobility data, we did not need a mobility model and omitted physical and link-layer details for node discovery.
+With a larger prediction window, we got a higher contact probability.
+1 10 100 1000 10000 unlimited100 24 10 1 unlimited100 24 10 1 Delay(minute) Message time-to-live (TTL) (hour) direct random prediction state prophet epidemic Mean delayMedian delay Figure 6: Median and mean delays (log scale).
+The number of message transmissions of  epidemic routing was more than 10 times higher than for the  predictionbased routing protocols.
+4.4 Metrics We define a set of metrics that we use in evaluating routing  protocols in opportunistic networks: • delivery ratio, the ratio of the number of messages delivered to the number of total messages generated.
+The direct-delivery and random protocols had no meta-data  transmissions.
+This correlation is not unreasonable, since there were more movements during the day than during the night, and so the number of contacts.
+We simulated one full month of trace data (November 2003) taken from CRAWDAD [13], with 5, 142 users.
+38 • meta-data transmissions, the total number of meta-data units transmitted during the simulation across all nodes.
+Figure 2 shows the delivery ratio of all the protocols, with  different TTLs.
+In our simulation, we imagine the same clients and same mobility in a network with no access points.
+For our routing method, we used a default prediction window ΔT of 10 hours and a probability  threshold of 0.01.
+Since our campus has full WiFi coverage, we assume that the location of access points had little impact on users" mobility.
+• delay, the duration between a message"s generation time and the message"s delivery time.
+If it was, the node backed off a random number of slots.
+0.001 0.01 0.1 1 unlimited 100 24 10 1 Deliveryratio Message time-to-live (TTL) (hour) direct random prediction state prophet epidemic Figure 2: Delivery ratio (log scale).
+Among the three prediction-based methods, the PRoPHET transmitted fewer messages, but had comparable delivery-ratio as seen in Figure 2.
+We evaluate and compare the results of direct delivery, epidemic, random, PRoPHET, Link-State, and timely-contact routing  protocols.
+Direct and random protocols had no message duplications.
+We did not use proactive methods to notify nodes the delivery of messages, so that the messages can be removed from storage.
+Our data are not contacts in a mobile ad-hoc network.
+4.1 Mobility traces We use real mobility data collected at Dartmouth College.
+We were aware that the time for neighbor discovery in different  wireless technologies vary from less than one seconds to several  seconds.
+Figure 8 shows the delivery ratios when we used different probability thresholds.
+The results seem contrary to our intuition: the epidemic routing protocol should be the fastest routing protocol since it spreads  messages all over the network.
+When one node tried to transmit a message, it first checked whether any nearby node was transmitting.
+duplications, spreading replicas of messages over the network.
+The hop count limit (HCL) was the maximum number of hops before a message should stop forwarding.
+To accurately model communication costs, however, we simulated some MAC-layer behaviors, such as collision.
+• message duplications, the number of times a message copy occurred, due to replication.
+Figure 5 shows that epidemic routing had one or two orders more  duplication than the prediction-based protocols.
+Our prediction-based protocol was  sensitive to several parameters, such as the probability threshold and the prediction window ΔT.
+The delivery ratio of epidemic routing was the best.
+(The leftmost value 0.01 is the value used for the other plots.)
+The default transmission  bandwidth was 11 Mb/s.
+Although  predictionbased protocols require prior contact history to estimate each node"s delivery probability, our preliminary results show that the  performance improvement of warming-up over one month of trace was marginal.
+Each message records the wireless card MAC address, the time of association/disassociation, and the name of the access point.
+Recall that the  directdelivery and random protocols did not replicate, thus had no data duplications.
+We studied the impact of different parameters of our  predictionbased routing protocol.
+For 37 more information about Dartmouth"s network and the data  collection, see previous studies [7, 12].
+Each slot was 1  millisecond, and the maximum number of backoff slots was 30.
+Dartmouth College has collected association and disassociation  messages from devices on its wireless network wireless users since spring 2001 [13].
+All protocols show similar delivery delays in both mean and median measures for medium TTLs, but differ for long and short TTLs.
+The activities reached lowest around 5am and peaked between 4pm and 5pm.
+The storage capacity was the maximum space that a node can use for storing messages.
+The direct-delivery had the longest delay for  unlimited TTL, but it had the shortest delay for the one-hour TTL.
+4.5 Results Here we compare simulation results of the six routing protocols.
+Thus, for the same probability threshold, we had a slightly higher delivery ratio as shown in Figure 10, and a few more transmissions as shown in Figure 11. 
+With a 100-hour TTL, or unlimited TTL, epidemic routing had the shortest delays.
+in each node.
+The message probability was the probability of generating  messages, as described in Section 4.3.
+The three prediction-based approaches had low delivery ratio, compared to epidemic routing.
+Although our method was slightly better than the other two, the advantage was marginal.
+The high delivery ratio of epidemic routing came with a price: excessive transmissions.
+The statistics of longer TTLs for comparison are more meaningful than those of short TTLs.
+(In all the plots in the paper, prediction stands for our method, state stands for the Link-State protocol, and prophet represents PRoPHET.)
+Since our message generation rate was low, the storage usage was also low in our simulation.
+Messages expire after a TTL.
+The default settings of the network of our simulator are listed in Table 1, using the values recommended by other papers [22, 16].
+The size of messages was uniformly distributed between 80 bytes and 1024 bytes.
+Therefore, for simplicity, we show the results of all  protocols without warming-up.
+• storage usage, the max and mean of maximum storage (bytes) used across all nodes.
+The plot shows a clear diurnal activity pattern.
+Furthermore, connection establishment also takes time, such as DHCP.
+We treat each unique MAC address as a node.
+This  assumption may not be accurate,2 but it is a good first approximation.
+Chaintreau et al.

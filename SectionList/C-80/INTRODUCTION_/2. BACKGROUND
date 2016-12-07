@@ -1,0 +1,64 @@
+2.1 Dynamic Content Generation
+As the World Wide Web has grown, many web sites have 
+decentralized their data and functionality by pushing them to the edges
+of the Internet. Today, eBusiness systems often use a three-tiered
+architecture consisting of a front-end web server, an application
+server, and a back-end database server. Figure 1 illustrates this
+architecture. The first two tiers can be replicated close to a 
+concentration of clients at the edge of the Internet. This improves user
+experience by lowering end-to-end latency and reducing exposure
+WWW 2007 / Track: Performance and Scalability Session: Scalable Systems for Dynamic Content
+311
+Back-End Database
+Server
+Front-End Web and
+Application Servers
+Figure 1: Multi-Tier Architecture
+to backbone traffic congestion. It can also increase the availability
+and scalability of web services.
+Content that is generated dynamically from the back-end database
+cannot be cached in the first two tiers. While databases can be 
+easily replicated in a LAN, this is infeasible in a WAN because of
+the difficult task of simultaneously providing strong consistency,
+availability, and tolerance to network partitions [7]. As a result,
+databases tend to be centralized to meet the strong consistency 
+requirements of many eBusiness applications such as banking, 
+finance, and online retailing [38]. Thus, the back-end database is
+usually located far from many sets of first and second-tier nodes [2].
+In the absence of both caching and replication, WAN bandwidth
+can easily become a limiting factor in the performance and 
+scalability of data-intensive applications.
+2.2 Hash-Based Systems
+Ganesh"s focus is on efficient transmission of results by 
+discovering similarities with the results of previous queries. As SQL queries
+can generate large results, hash-based techniques lend themselves
+well to the problem of efficiently transferring these large results
+across bandwidth constrained links.
+The use of hash-based techniques to reduce the volume of data
+transmitted has emerged as a common theme of many recent 
+storage systems, as discussed in Section 8.2. These techniques rely
+on some basic assumptions. Cryptographic hash functions are 
+assumed to be collision-resistant. In other words, it is 
+computationally intractable to find two inputs that hash to the same output. The
+functions are also assumed to be one-way; that is, finding an 
+input that results in a specific output is computationally infeasible.
+Menezes et al. [23] provide more details about these assumptions.
+The above assumptions allow hash-based systems to assume that
+collisions do not occur. Hence, they are able to treat the hash of a
+data item as its unique identifier. A collection of data items 
+effectively becomes content-addressable, allowing a small hash to serve
+as a codeword for a much larger data item in permanent storage or
+network transmission.
+The assumption that collisions are so rare as to be effectively
+non-existent has recently come under fire [17]. However, as 
+explained by Black [5], we believe that these issues do not form a
+concern for Ganesh. All communication is between trusted parts
+of the system and an adversary has no way to force Ganesh to 
+accept invalid data. Further, Ganesh does not depend critically on any
+specific hash function. While we currently use SHA-1, replacing it
+with a different hash function would be simple. There would be
+no impact on performance as stronger hash functions (e.g. 
+SHA256) only add a few extra bytes and the generated hashes are still
+orders of magnitude smaller than the data items they represent. No
+re-hashing of permanent storage is required since Ganesh only uses
+hashing on volatile data.

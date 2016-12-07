@@ -1,0 +1,27 @@
+the indexing time is also a bottleneck and will need to be improved for the overall quality of apocrita to be improved. 
+in order to garner a performance increase, the jxta framework needs to be substituted with a more traditional approach.
+the major problem found in these benchmarks is that the underlying network transport mechanism does not perform as quickly or efficiently as expected.
+finally, the average transfer rate using java sockets is 87,540kb/s while the average transfer rate using jxta sockets is 4,293kb/s.
+the maximum transfer rater obtain using java sockets is 97,412kb/s while the maximum transfer rate obtained using jxta sockets is 5,530kb/s.
+the minimum transfer rate obtained using java sockets is 81,945kb/s while the minimum transfer rater obtained using jxta sockets is much lower at 3, 805kb/s.
+as figure 5 demonstrates, the performance of jxta sockets is abysmal as compared to the performance of standard java sockets.
+figure 5. java sockets vs. jxta sockets.
+in order to mitigate possible unexpected errors, each test was run 10 times.
+although less drastic, similar results were shown when the client and server run on independent hardware.
+this was done to isolate possible network issues.
+benchmarks were performed using a 65mb file on a system with both the client and server running locally.
+socket performance is also a very important part of apocrita.
+also, the complexity of joining the indexing results is a complex operation and is complicated further as the number of indexing nodes increases.
+the time needed to communicate with a node is constant, so as the number of nodes increases, this constant becomes more prevalent.
+this can be attributed to the time overhead associated with having many nodes perform indexing.
+as the number of indexing nodes increases the results are less dramatic.
+the different between two 177 indexing nodes and three indexing nodes is still significant and represents a 16% faster time than two indexing nodes.
+the difference in going from one indexing node to two indexing nodes is the most drastic and equates to an indexing time 37% faster than a single indexing node.
+figure 4. node vs. index time.
+as figure 4 demonstrates, the number of nodes involved in the indexing process affects the time taken to complete the indexing  processsometimes even drastically.
+each document ranges in size between 4kb and 8kb.
+the indexing time has been run against both: the time magazine collection [8], which contains 432 documents and 83 queries and their most relevant results, and the npl collection [8] that has a total of 11,429 documents and 93 queries with expected results.
+the evaluation was completed on standard lab computers on a 100mb/s ethernet lan; the machines run windows xp with a pentium 4 cpu running at 2.4ghz with 512 mb of ram.
+the critical sections were determined to be the processes that are the most time intensive.
+we have, however, evaluated the performance of the critical sections of the system.
+it is difficult to objectively benchmark the results obtained through apocrita because there is no other system currently available with the same goals as apocrita.

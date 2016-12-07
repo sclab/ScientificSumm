@@ -1,0 +1,41 @@
+the simulation results show that the replica invalidation scheme can significantly reduce the overhead with an acceptable delay. 
+because the less frequently, the more time nodes in mesh have to move out of mesh then they need to take time to search the mesh when they do update, which increases the delay.
+when updates happen more frequently, the delay will higher.
+figure 11 shows how the delay varies with the update frequency.
+then with higher probability, one of these nodes is still in mesh and finishes the update immediately (don"t need to search mesh first), which decreases the delay.
+the larger the maximum number of concurrent updates is, the more nodes are picked up to do update.
+figure 10 shows that delay decreases slightly as the maximum number of concurrent updates increases.
+delay decreases slightly as the number of nodes increases, due to the fact that the more nodes in the network, the more nodes  receives the advertisement packets which helps the search packet find the target so that the delay of update decreases.
+figure 9 shows that delay is negligibly affected by the density.
+the faster the speed, the more time clients need to spend to search the mesh.
+when these clients want to update data, they will spend time to first search the mesh.
+from figure 8, we know the delay increases as the speed increases, which is due to the fact that with increasing speed,  clients will move out of mesh with higher probability.
+figures 8, 9, 10, and 11 show the delay versus various parameter values.
+this is because the more quickly updates happen, (1) there will be more keep_alive message over the mesh between two updates, and (2) nodes move out of mesh more frequently and send out more search packets.
+figure 7 shows that if updates happen more frequently, the  overhead is higher.
+that"s because one more node just means one more flood over the mesh during update process so that the impact is limited.
+figure 6 shows that overhead also almost remains the same under various maximum number of concurrent updates.
+the size of mesh doesn"t vary much on various densities, so that the overhead doesn"t vary much.
+that is attributed to only flooding over the mesh instead of the whole network.
+figure 5 shows that the overhead almost remains the same under various densities.
+in contrast, the packets will be expected to be more than 200 packets at various speeds when flooding is used.
+however, the overhead is not high, and even in speed 10m/sec, the overhead is below 100 packets.
+in figure 4, the overhead increases as the speed increase, which is due to the fact that as the speed increase, nodes move out of mesh more frequently, and will send out more search packets.
+figures 4, 5, 6, and 7 show the overhead versus various parameter values.
+figure 8: delay vs. speed figure 9: delay vs. density the 3rd conference on mobile technology, applications and systems - mobility 2006 5 figure 10: delay vs. max #concurrent updates figure 11: delay vs. freq.
+figure 4: overhead vs. speed for 80 nodes figure 5: overhead vs. density figure 6: overhead vs. max #concurrent updates figure 7: overhead vs. freq.
+all figures shown present the results with a 70% confidence  interval.
+• average delay per update measures how long our approach takes to finish an update on average.
+table 1: simulation settings hop_limit 10 advertise_hop_limit 1 keepalive_interval 3 second num_search 1 advertise_interval 5 second expiration_interval 10 second average query generation rate 2 query/ 10 sec max # of concurrent update (γ) 2 frequency of update (β) 3s we evaluate the performance under different mobility speed, the density, the maximum number of concurrent update nodes, and update frequency using two metrics: • average overhead per update measures the average number of packets transmitted per update in the network.
+each experiment is run for 10 minutes.
+then we randomly pickup min(γ,n) nodes from them to initiate data update.
+every β seconds, we check the number of nodes, n, which have gotten data.
+two nodes are randomly picked up every 10 seconds as clients.
+initially, there is one  resource server node in network.
+table 1 lists other  parameter settings used in the simulation.
+nodes may move at the minimum and maximum speeds of 1 m/s and 5 m/s, respectively.
+we use the random-waypoint mobility model with a pause time of 1 second.
+each node has a communication range of approximately 250 m over a 2 mbps wireless channel, using ieee802.11 as the mac layer.
+in our experiments, eighty nodes are uniformly distributed over a terrain of size 1000×1000 m2 .
+however, due to space limitation only the performance of the replica invalidation is reported.
+we have conducted simulation experiments using the qualnet simulator to evaluate the performance of the described resource discovery, resource distribution, and replica invalidation schemes.

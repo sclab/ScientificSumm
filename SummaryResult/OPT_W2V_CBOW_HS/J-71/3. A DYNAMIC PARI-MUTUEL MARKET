@@ -1,0 +1,44 @@
+3.1 High-level description In contrast to a standard pari-mutuel market, where each dollar always buys an equal share of the payoff, in a DPM each dollar buys a variable share in the payoff depending on the state of wagering at the time of purchase.
+A natural way to communicate the changing payoff of a bet is to say that, at any given time, a certain amount of money will buy a certain number of shares in one outcome the other.
+Note that the price is set at the time of the wager; the payoff per share is finalized only after the event outcome is revealed.
+Traders must sell to each other  using a standard CDA mechanism, for example by posting an ask order at a price at or below the market maker"s current ask price.
+Even though technically an MSR exposes its patron to risk (i.e., a variable future payoff), the  patron"s maximum loss is bounded, so the distinction between a DPM and an MSR in terms of these three properties is more technical than practical.
+A CDAwMM, the bookmaker mechanism, and an MSR all fail (2).
+3.3 Redistribution rule In a standard pari-mutuel market, payoffs can be  computed in either of two equivalent ways: (1) each winning $1 wager receives a refund of the initial $1 paid, plus an equal share of all losing wagers, or (2) each winning $1 wager receives an equal share of all wagers, winning or losing.
+Denote M1 as the total amount of money wagered on A, M2 as the total amount of money wagered on B, T = M1 + M2 as the total amount of money wagered on both sides, N1 as the total number of shares purchased of A, and N2 as the total number of shares purchased of B.
+In a dynamic pari-mutuel market, because each dollar is not equally weighted, the two formulations are distinct, and lead to significantly different price functions and  mechanisms, each with different potentially desirable properties.
+Several natural price functions are outlined below; each is  motivated as the unique solution to a particular constraint on price dynamics.
+This contrasts with the CDA variants, where the payoff vector across possible future outcomes is fixed at the time of the trade.
+However, since the price changes continuously as shares are purchased, the cost of buying n shares is computed as the integral of a price function from 0 to n. The use of continuous functions and integrals can be hidden from traders by aggregating the automated market maker"s sell orders into discrete lots of, say, 100 shares each.
+Traders can also always hedge-sell by  purchasing shares in the opposite outcome from the market maker, thereby hedging their bet if not fully liquidating it.
+If P does not change according to a random walk, the mechanism still has utility as a mechanism for hedging and speculating, though optimization may be difficult, and determining a measure of the market"s aggregate opinion of the probabilities of A and B may be difficult.
+The payoff for a  wager depends both on the price at the time of the trade, and on the final payoff per share at the market"s close.
+DPM traders can cash out of the market early, just like stock market traders, to lock in a profit or limit a loss, an action that is simply not possible in a standard pari-mutuel.
+So a wager on A at a time when most others are wagering on B offers a greater possible profit than a wager on A when most others are also wagering on A.
+3.2 Advantages and disadvantages To my knowledge, a DPM is the only known mechanism for hedging and speculating that exhibits all three of the following properties: (1) guaranteed liquidity, (2) no risk for the market institution, and (3) continuous incorporation of information.
+There are many ways to formulate the price function.
+There is no pre-determined limit on the number of shares: new shares can be continually generated as trading proceeds.
+The payoff is variable, because when few people are betting on an outcome, shares will generally be cheaper than at a time when many people are betting that outcome.
+A second drawback of a DPM is its one-sided nature.
+So a trader"s strategic optimization problem is  complicated by the need to predict the final values of P1 and P2.
+173 While an automated market maker always stands ready to accept buy orders, there is no corresponding market maker to accept sell orders.
+Because each dollar always earns an equal share of the payoff, the two formulations are precisely the same: $1 + Mlose Mwin = Mwin + Mlose Mwin .
+The next section analyzes case (1), where only losing money is redistributed.
+These ask orders can be  automatically entered into the system by the market institution, so that traders interact with what looks like a more familiar CDA; we examine this interface issue in more detail below in Section 4.2.
+For simplicity, all analyses in this paper consider the  binary outcome case; generalizing to multiple discrete  outcomes should be straightforward.
+If P changes according to a random walk, then traders can take the current P as an unbiased estimate of the  final P, greatly decreasing the complexity of their  optimization.
+Purchasing a share entitles its owner to an equal stake in the winning pot should the chosen outcome occur.
+At any time, a trader can purchase an infinitesimal  quantity of shares of A at price p1 (and similarly for B).
+We consider each case in turn.
+Denote the two outcomes A and B.
+Denote the instantaneous price per share of A as p1 and the price per share of B as p2.
+Section 5 examines case (2), where all money is redistributed. 
+The outcomes are mutually exclusive and  ex5 See http://hanson.gmu.edu/policyanalysismarket.html for more information, or http://dpennock.com/pam.html for  commentary.
+Denote the payoffs per share as P1 and P2, respectively.
+A standard pari-mutuel fails (3).
+These four numbers, p1, p2, P1, P2 are the key numbers that traders must track and understand.
+A DPM also has some drawbacks.
+We discuss the implications of random walk behavior further below in Section 4.1 in the discussion surrounding Assumption 3.
+For our analysis, we introduce the following additional notation.
+A CDA fails (1).
+6 http://www.policyanalysismarket.com/ haustive.

@@ -1,0 +1,81 @@
+The latter is defined for two agents, si and sj, in a hard conflict on a request R. Let si be the agent that is aware of the conflict4 .
+Let si be an agent in a hard conflict with an agent sj on a request R. si applies strategies as follows: 1. insurance strategy (α) 2. competitive strategy (λ) 3. withdrawal : modCsi = ¬2 6.4 Generalization Although agents use pair communication, they may have information about several agents and conflict cardinality may be more than 2.
+Therefore, we define a k-conflict as a conflict with a cardinality of k on a set of agents  proposing or committing to realize the same request.
+It remains to determine what sj must do: sj can either select a substitute for R in order to increase the number of requests potentially realized, or do nothing in order to preserve resources, or allocate R to itself to ensure redundancy.
+The insurance strategy means that both agents maintain their candidacies in order to ensure redundancy.
+These agents have Csi and Csj for respective candidacies.
+In case of a hard conflict, the set S of agents in conflict can be splitted in SS (the subset of agents in a soft conflict) and SH (the subset of unaware agents).
+Agents apply strategies as  follows: 1. insurance strategy (α) 2. altruist strategy ( ) 3. expert strategy The choice of parameters α and allows to adjust the protocol results.
+si must allocate R to itself.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 291 In the insurance strategy, redundancy triggering is  adjusted by the conflict cardinality cardc(R).
+6.3 Hard conflict solving strategies In case of a hard conflict, the agent that is not aware will necessarily realize the request (with success or not).
+When they are in conflict, the agents must find a local agreement (instead of an expensive global agreement) by using the conflict in order to increase the number of realized requests, to decrease the time of  mission return, to increase the quality of the pictures taken or to make sure that a request is carried out.
+The protocol is based on a subsumption architecture [7] on strategies: the insurance strategy (1) is the major strategy because it ensures  redundancy for which the swarm is implemented.
+Consequently, a redundancy is useful only if the other agent is more expert or if the priority of the request is high enough to need redundancy.
+The three strategies are implemented in a negotiation  protocol dedicated to soft conflicts.
+Csk at time t. The set S is in a k-conflict if and only if: - ∀1 ≤ i ≤ k, sCsi = si; - !∃R such as ∀1 ≤ i ≤ k, RCsi = R; 4 i.e.
+In case of a soft k-conflict, the rank-i-expert agent makes its decision with respect to the rank-(i + 1)-expert agent according to Protocol 4.
+Let si be an agent.
+Let si and sj be two agents in conflict on their respective candidacies Csi and Csj such as si is the expert agent.
+The expertise for an agent means it can realize the request at the lower cost.
+As conflicts bear on sets of agents, expertise is a total order on agents.
+A k-conflict is soft if each pair conflict in the k-conflict is a soft conflict with respect to Definition 9.
+Agent si is an expert for R if and only if costsi (R) ≤ costsj (R).
+As previously, a k-conflict can be soft or hard.
+Let si and sj be two agents in conflict on their respective candidacies Csi and Csj such as si is the expert agent.
+the agent that can carry out the request under the best conditions, does it.
+sk} be a set of agents with respective candidacies Cs1 .
+Then the  altruist strategy comes (2) in order to allocate the resources so as to enhance the mission return.
+A strategy is a private (namely intrinsic to an agent) decision process that allows an agent to make a decision on a given object.
+the agent that must make a decision on R. - ∀1 ≤ i ≤ k, modCsi ∈ {2, 3}.
+Let si and sj be two agents in conflict on their respective candidacies Csi and Csj such as si is the expert agent.
+Consequently, we can define collaboration strategies  dedicated to conflict solving.
+The  expert strategy means that the expert agent maintains its  candidacy whereas the other one gives up.
+Let si be the expert agent.
+Finally, the expert strategy that does not have preconditions (3) enhances the cost of the plan.
+Let R be a request in a soft conflict between two agents, si and sj.
+6.2 Soft conflict solving strategies Three strategies are proposed to solve a conflict.
+The altruist strategy means that the agent that can download first3 , provided the cost increase is negligible, maintains its candidacy whereas the other one gives up.
+Let ∈ R+ be a threshold on the cost increase.
+Only agents in SS can take a decision and must adapt themselves to agents in SH .
+Let us suppose a conflict on request R  between agents si and sj.
+Consequently, an observation has a cost for each agent which depends on when it is  realized: the closer the realization date to the desired date of observation, the lower the cost.
+If an agent in SS applies the competitive strategy all the others withdraws. 
+The altruist strategy is : if dnlCsi > dnlCsj and |costsi (R) − costsj (R)| < then modCsi = ¬2 and modCsj = 2.
+We define rank-i-expertise where the  concerned agent is the ith expert.
+The cost costsi (RC ) ∈ R to carry out a request RC according to a candidacy C is defined as: costsi (RC ) = |obsC − tbeg(RC)|.
+The reason is the following: the more redundancies on a given request, the less a new redundancy on this request is needed.
+For example, if = 0, the altruist strategy is never used.
+Let si and sj ∈ S be two agents and R a request.
+In our application, strategies specify what to do with redundancies.
+Let α ∈ R be a priority threshold.
+We would like that the most expert agent, i.e.
+Carrying out a request consumes the agents" resources (e.g.
+Let us suppose si is the expert.
+Let λ ∈ R+ be an cost threshold.
+The expert strategy is: modCsi = 2 and modCsj = ¬2.
+Therefore, we will use the insurance  strategy (refer to Section 6.2) and define a competitive strategy.
+The insurance strategy is : if prio(R) cardc(R)−1 > α then modCsi = 3 and modCsj = 3.
+Protocol 4 (Soft conflict solving).
+The protocol is applied recursively and α and parameters are updated at each step in order to avoid cost explosion5 .
+The competitive strategy is: if costsi (R) < costsj (R) − λ then modCsi = 3.
+- S is maximal (⊆) among the sets that satisfy these properties.
+From this cost notion, we can formally define an expert  notion between two agents.
+3 i.e.
+Protocol 5 (Hard conflict solving).
+The rank-i-expert agent in SS uses Protocol 5 on the whole set SH and the rank-(i − 1)-expert agent in SS .
+The Sixth Intl.
+In space contexts, communication time and agents"  computing capacities are limited.
+6.1 Cost and expertise In our application, cost is linked to the realization dates.
+Strategy 2 (Altruist).
+Strategy 3 (Insurance).
+the agent using memory resources during a shorter time.
+Strategy 1 (Expert).
+Strategy 4 (Competitive).
+Let S = {s1 .
+Definition 11 (Cost).
+Formally, Definition 13 (k-conflict).
+Joint Conf.
+Definition 12 (Expertise).
+Example 2.
+: on-board energy, memory).

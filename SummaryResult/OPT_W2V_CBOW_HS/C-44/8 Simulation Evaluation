@@ -1,0 +1,96 @@
+Impact of the Number of Scans: In this experiment, we compare sequence-based MSP with basic MSP under different number of scans from 3 to 30 in steps of 3.
+Clearly the mean error in  basic MSP is not affected by the number of target nodes, as shown in Figure 15(c).
+Figure 15(a)  indicates significant performance improvement in sequence-based MSP over basic MSP across all scan settings, especially when the number of scans is large.
+The two curves present the performance of  iterative MSP under different numbers of iterations c. We note that when only a single iteration is used, this method degrades to sequence-based MSP.
+In general, the two curves of the DBE MSP lay slightly to the left of that of non-DBE MSP, which indicates that DBE MSP has a smaller statistical mean error and averaged maximum error than non-DBE MSP.
+Figure 14(a) indicates the following: (i) as the number of scans increases, the localization error decreases significantly; for example, localization errors drop more than 60% from 3 scans to 30 scans; (ii) statistically, regular scan achieves better performance than random scan under identical number of scans.
+8.6 Simulation Summary Starting from basic MSP, we have demonstrated  step-bystep how four optimizations can be applied on top of each other to improve localization performance.
+Impact of the Target Node Density: In this experiment, we confirm that the density of target nodes has no impact on the accuracy, which motivated the design of sequence-based MSP.
+Impact of the Number of Anchors: In this experiment, we use different number of anchors from 3 to 30 in steps of 3.
+All the simulations are based on the straight-line scan example.
+Then, we implemented basic MSP and all the advanced MSP methods for the case where time synchronization is available in the network.
+This phenomenon has an interesting explanation: the cutting lines created by anchor nodes are  exploited by both basic MSP and sequence-based MSP, so as the 24 0 2 4 6 8 10 0 5 10 15 20 25 30 35 40 45 50 Basic MSP VS Iterative MSP Iterative Times Error Max Error of Iterative Seq MSP Mean Error of Iterative Seq MSP Max Error of Basic MSP Mean Error of Basic MSP Figure 16.
+Evaluation of Basic MSP under Random and Regular Scans 0 5 10 15 20 25 30 0 10 20 30 40 50 60 70 Basic MSP VS Sequence Based MSP II Scan Time Error Max Error of Basic MSP Max Error of Seq MSP Mean Error of Basic MSP Mean Error of Seq MSP (a) Error vs.
+Default Configuration Parameters Parameter Description Field Area 200×200 (Grid Unit) Scan Type Regular (Default)/Random Scan Anchor Number 3 (Default) Scan Times 6 (Default) Target Node Number 100 (Default) Statistics Error Mean/Max Random Seeds 50 runs 23 0 5 10 15 20 25 30 0 10 20 30 40 50 60 70 80 90 Mean Error and Max Error VS Scan Time Scan Time Error Max Error of Random Scan Max Error of Regular Scan Mean Error of Random Scan Mean Error of Regular Scan (a) Error vs.
+Improvements of DBE MSP 0 20 40 60 80 100 0 10 20 30 40 50 60 70 Adaptive MSP for 500by80 Target Node Number Error Max Error of Regualr Scan Max Error of Adaptive Scan Mean Error of Regualr Scan Mean Error of Adaptive Scan (a) Adaptive MSP for 500 by 80 field 0 10 20 30 40 50 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 Mean Error CDF at Different Angle Steps in Adaptive Scan Mean Error CumulativeDistrubutioinFunctions(CDF) 5 Degree Angle Step Adaptive 10 Degree Angle Step Adaptive 20 Degree Angle Step Adaptive 30 Degree Step Regular Scan (b) Impact of the Number of Candidate Events Figure 18.
+Number of Scans 0 5 10 15 20 25 30 0 10 20 30 40 50 60 Mean Error and Max Error VS Anchor Number Anchor Number Error Max Error of Random Scan Max Error of Regular Scan Mean Error of Random Scan Mean Error of Regular Scan (b) Error vs. Anchor Number 0 50 100 150 200 10 20 30 40 50 60 70 Mean Error and Max Error VS Target Node Number Target Node Number Error Max Error of Random Scan Max Error of Regular Scan Mean Error of Random Scan Mean Error of Regular Scan (c) Error vs.
+Our evaluation of MSP was conducted on three platforms: (i) an indoor system with 46 MICAz motes using straight-line scan, (ii) an outdoor system with 20 MICAz motes using sound wave propagation, and (iii) an extensive simulation under  various kinds of physical settings.
+Number of Scans 0 5 10 15 20 25 30 0 5 10 15 20 25 30 35 40 45 50 Basic MSP VS Sequence Based MSP I Anchor Number Error Max Error of Basic MSP Max Error of Seq MSP Mean Error of Basic MSP Mean Error of Seq MSP (b) Error vs. Anchor Number 0 50 100 150 200 5 10 15 20 25 30 35 40 45 50 55 Basic MSP VS Sequence Based MSP III Target Node Number Error Max Error of Basic MSP Max Error of Seq MSP Mean Error of Basic MSP Mean Error of Seq MSP (c) Error vs.
+Improvements of Iterative MSP 0 2 4 6 8 10 12 14 16 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 DBE VS Non−DBE Error CumulativeDistrubutioinFunctions(CDF) Mean Error CDF of DBE MSP Mean Error CDF of Non−DBE MSP Max Error CDF of DBE MSP Max Error CDF of Non−DBE MSP Figure 17.
+Impact of the Number of Anchors: In this experiment, we compare regular scan with random scan under different  number of anchors from 3 to 30 in steps of 3.
+Summary: From the above experiments, we can conclude that in basic MSP, regular scan are better than random scan under different numbers of anchors and scan events.
+For example, when the number of scans is 30, errors in sequence-based MSP are about 20% of that of basic MSP.
+The results shown in Figure 14(b) indicate that (i) as the number of anchor nodes increases, the localization error decreases, and (ii)  statistically, regular scan obtains better results than random scan with identical number of anchors.
+Therefore, adaptive MSP can achieve a better mean error and maximum error as shown in Figure 18(a).
+However, the performance gap reduces as the number of scans increases.
+Summary: From the above experiments, we can conclude that exploiting order information among target nodes can improve accuracy significantly, especially when the number of events is large but with few anchors.
+Impact of the Target Node Density: Figure 18(a) shows that when the node density is low, adaptive MSP brings more  benefit than when node density is high.
+8.4 DBE MSP over Iterative MSP Figure 17, in which we augment iterative MSP with distribution-based estimation (DBE MSP), shows that DBE MSP could bring about statistically better performance.
+We note that feedback-based  adaptation can be applied to all MSP methods, since it affects only the scanning angles but not the sequence processing.
+Impact of the Number of Scans: In this experiment, we  compare regular scan with random scan under a different number of scans from 3 to 30 in steps of 3.
+For example, adaptive MSP improves  localization accuracy by 30% when the number of target nodes is 10.
+8.1 Performance of Basic MSP The evaluation starts with basic MSP, where we compare the performance of random scan and regular scan under different configurations.
+Figure 16 shows that the second iteration can reduce the mean error and maximum error dramatically.
+Impact of Candidate Angle Density: Figure 18(b) shows that the smaller the candidate scan angle step, the better the  statistical performance in terms of mean error.
+Impact of Area Shape: First, if system settings are regular, the adaptive method hardly contributes to the results.
+This phenomenon makes statistical sense, because the law of large numbers tells us that node placement approaches a truly uniform distribution when the number of nodes is increased.
+Therefore, Figure 16 compares the three methods to one another.
+The rationale is clear, as wider candidate scan angles provide adaptive MSP more  opportunity to choose the one approaching the optimal angle.
+We start with basic MSP and then demonstrate the  performance improvements one step at a time by adding (i)  sequencebased MSP, (ii) iterative MSP, (iii) DBE MSP and (iv) adaptive MSP.
+In this experiment, we compare regular scan with random scan under different number of target nodes from 10 to 190 in steps of 20.
+Results in Figure 14(c) show that mean localization  errors remain constant across different node densities.
+As seen in Figure 15(b), the mean error and maximum error of sequence-based MSP is much smaller than that of basic MSP.
+• Adaptive Scan: The slope of each scan is determined based on the localization results from previous scans.
+Figure 14(a) also demonstrates that MSP requires only a small number of anchors to perform very well, compared to existing range-free solutions [8, 4].
+Impact of the Target Node Density: Figure 15(c)  demonstrates the benefits of exploiting order information among  target nodes.
+In this and the following sections,  regular scan is used for straight-line scan event generation.
+8.3 Iterative MSP over Sequence-Based MSP In this experiment, the same node sequences were processed iteratively multiple times.
+For legibility reasons, we do not plot the confidence intervals in this paper.
+However, when the number of target nodes increases, the average  maximum error increases.
+The purpose of using regular scan is to keep the scan events and the node sequences identical for both sequence-based MSP and basic MSP, so that the only difference between them is the  sequence processing procedure.
+The mean and maximum errors are averaged over 50 runs to obtain high confidence.
+For a square area (regular), the performance of adaptive MSP and regular scans are very close.
+Since sequence-based MSP makes use of the  information among the target nodes, having more target nodes contributes to the overall system accuracy.
+In Figure 16, the two single marks are results from basic MSP, since basic MSP doesn"t perform iterations.
+8.2 Improvements of Sequence-Based MSP This section evaluates the benefits of exploiting the order information among target nodes by comparing sequence-based MSP with basic MSP.
+We intend to illustrate the impact of the number of anchors M, the number of scans d, and target node density (number of target nodes N in a fixed-size region) on the  localization error.
+This is because regular scans uniformly eliminate the map from different  directions, while random scans would obtain sequences with  redundant overlapping information, if two scans choose two similar scanning slopes.
+In simulation, we assume all the node sequences are perfect so as to reveal the performance of MSP achievable in the  absence of incomplete node sequences or sequence flips.
+Especially when there is limited number of anchors in the  system, e.g., 3 anchors, the error rate was almost halved by  using sequence-based MSP.
+We note that by  default we only use three anchors, which is considerably fewer than existing range-free solutions [8, 4].
+As the number of target nodes increases, the mean error and maximum error of sequence-based MSP decreases.
+Improvements of Sequence-Based MSP over Basic MSP is 3 by default.
+This is because the second iteration allows earlier scans to  exploit the new boundaries created by later scans in the first  iteration.
+By combining Figures 14(a) and 14(b), we can conclude that MSP allows a flexible tradeoff between physical cost (anchor nodes) and soft cost  (localization events).
+We note that our simulations were done under assumption that the complete node sequence can be obtained without sequence flips.
+8.5 Improvements of Adaptive MSP This section illustrates the performance of adaptive MSP over non-adaptive MSP.
+The 20-node Outdoor Experiments (Wave) when layout is not uniform.
+This is expected since a large number of random numbers converges to a uniform  distribution.
+In our simulations, all the anchor nodes and target nodes are assumed to be deployed uniformly.
+When we apply DBE on basic MSP methods, the improvement is much more significant.
+However, if the shape of the area is not regular, adaptive MSP helps to choose the appropriate localization events to compensate.
+We implement three scan strategies: • Random Scan: The slope of the scan line is randomly  chosen at each time.
+After that, the performance gain gradually reduces, especially when c > 5.
+The error of each node is defined as the distance between the estimated location and the real position.
+We note that because DBE is augmented on top of the best solution so far, the performance  improvement is not significant.
+The default angle granularity (step) for adaptive searching is 5 degrees.
+In this experiment, we evaluated how adaptive MSP can improve the best solution so far.
+Number of Target Nodes Figure 15.
+The Improvements of Adaptive MSP number of anchor nodes increases, anchors tend to dominate the contribution.
+• Regular Scan: The slope is predetermined to rotate  uniformly from 0 degree to 180 degrees.
+Full implementation and evaluation of system without time synchronization are yet to be completed in the near future.
+Figure 17 presents cumulative distribution localization errors.
+In other words, these  optimizations are compatible with each other and can jointly  improve the overall performance.
+We conclude that sequence-based MSP performs extremely well when there are many scan events.
+Number of Target Nodes Figure 14.
+In order to understand the behavior of MSP under  numerous settings, we start our evaluation with simulations.
+For example, if the system scans 6 times, then the scan angles would be: 0, 30, 60, 90, 120, and 150.
+Therefore the performance gaps lessens.
+Table 1 shows the default simulation parameters.
+The simulation and  implementation details are omitted in this paper due to space  constraints, but related documents [25] are provided online at http://www.cs.umn.edu/∼zhong/MSP.
+The Mirage Test-bed (Line Scan) Figure 20.
+In the next section, we present two real-system implementations that reveal and  address these practical issues.
+We omit these results because of space constraints.
+Such exploitation decays quickly over iterations.
+Adaptive MSP has an edge 25 Figure 19.
+The number of anchors Table 1.

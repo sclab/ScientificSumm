@@ -1,0 +1,39 @@
+since the collaborative environment such as tigre can address both compute and software resource requirements for the enkf application, grid-enabled approach is still advantageous over the conventional mpi implementation in any of the above scenarios. 
+therefore, if a single institution does not have sufficient number of licenses, the cluster availability doesn"t help as much as it is expected.
+however, parallelizability of the enkf application depends on the number of eclipse licenses and ideally, the number of licenses should be equal to the number of models in the ensemble.
+it appears the mpi implementation is favorable compared to the grid scheduling.
+scenario ii: the cluster is relatively less loaded or largely available.
+it is apparent that grid scheduling is beneficial especially when cluster is heavily loaded and requested number of cpus for the mpi job is not readily available.
+therefore, overall waiting time could be shorter in grid approach which requests single cpu for each sub-job many times compared to mpi implementation that requests large number of cpus at a single time.
+the conceived average waiting time of job requesting large number of cpus is usually longer than waiting time of jobs requesting single cpu.
+scenario i: the cluster is heavily loaded.
+there are two main scenarios for comparing grid and cluster computing approaches.
+such delays are not expected executable=runforward requirements=hostname=cosmos.tamu.edu | hostname=antaeus.hpcc.ttu.edu | hostname=minigar.hpcc.ttu.edu | arguments=001 input_files=001.in.tar output_files=001.out.tar in mpi implementation where the node is blocked for processing sub-jobs (model-specific calculation) until the end of the simulation.
+however, the fact that each sub-job gets scheduled independently via gridway could possibly incur another time delay caused by waiting in queue for execution in each simulation time step.
+for resource information, see table i. one of the main advantages of grid-enabled enkf simulation is that both the resources and licenses are released back to the pool at the end of each simulation time step unlike in the case of mpi implementation where licenses and nodes are locked until the completion of entire simulation.
+the simulation runs involved up to 20 jobs between a&m and ttu sites with ttu serving 10 licenses.
+the jobs are so chosen that the runtime doesn"t exceed more than a half hour.
+we have demonstrated the grid-enabled enkf runs using gridway for tigre environment.
+for complete list of message flags and their descriptions, see the documentation in ref [8].
+similarly, when em=pend implies the job is waiting in the queue for resource and the job is running when em=actv.
+dm=epil implies the job has finished running at the remote site and results are being transferred back to the gridway server.
+dm=warp implies that gridway is executing the wrapper which in turn executes the application.
+dm=prol means the job has been scheduled to a resource and the remote working directory is in preparation.
+for dm, the states include pend(ing), prol(og), wrap(per), epil(og), and done.
+when a job is submitted to gridway, it will go through a series of dispatch (dm) and execution (em) states.
+dm: dispatch state, em: execution state, jid is the job id and host corresponds to site specific cluster and its local batch scheduler.
+user jid dm em name host pingluo 88 wrap pend enkf.jt antaeus.hpcc.ttu.edu/lsf pingluo 89 wrap pend enkf.jt antaeus.hpcc.ttu.edu/lsf pingluo 90 wrap actv enkf.jt minigar.hpcc.ttu.edu/lsf pingluo 91 wrap pend enkf.jt minigar.hpcc.ttu.edu/lsf pingluo 92 wrap done enkf.jt cosmos.tamu.edu/pbs pingluo 93 wrap epil enkf.jt cosmos.tamu.edu/pbs table 1. job scheduling across tigre using gridway metascheduler.
+table 1 shows the sub-jobs in tigre grid via gridway using gwps command and for clarity, only selected columns were shown .
+at the end of each iteration, the compute resources and licenses are committed back to the pool.
+this step mimics mpi process synchronization in master-slave model.
+the command-line features of gridway were used to collect and process the model-specific outputs to prepare new set of input files.
+finally, output_files specifies the name and location where the output files are to be written.
+input_files is prepared by the enkf main program (or master/control process) and is transferred by gridway to the remote site where it is  untared and is prepared for execution.
+arguments flag specifies the model in the ensemble that will invoke eclipse at a remote site.
+in the case of enkf application, for example, we need resources that support eclipse package.
+figure 3. gridway sub-job template in figure 3, requirements flag is set to choose the resources that satisfy the application requirements.
+figure 3 represents the sub-job template file for the gridway metascheduler.
+since the tigre compute resources are not expected to change frequently, we have used static resource discovery policy for gridway and the sub-jobs were scheduled dynamically across the tigre resources using gridway.
+for each sub-job, we have constructed a gridway job template that specifies the executable, input and output files, and resource requirements.
+these model-specific sub-jobs were distributed across tigre sites that support eclipse package using the gridway [8] metascheduler.
+to grid-enable the enkf approach, we have eliminated the mpi code for parallel processing and replaced with n single processor jobs (or sub-jobs) where, n is the number of geological models in the ensemble.

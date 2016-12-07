@@ -1,0 +1,118 @@
+The representation of documents in XML provides an 
+opportunity for information retrieval systems to take 
+advantage of document structure, returning individual document
+components when appropriate, rather than complete 
+documents in all circumstances. In response to a user query, an
+XML information retrieval system might return a mixture
+of paragraphs, sections, articles, bibliographic entries and
+other components. This facility is of particular benefit when
+a collection contains very long documents, such as product
+manuals or books, where the user should be directed to the
+most relevant portions of these documents.
+<article>
+<fm>
+<atl>Text Compression for
+Dynamic Document Databases</atl>
+<au>Alistair Moffat</au>
+<au>Justin Zobel</au>
+<au>Neil Sharman</au>
+<abs><p><b>Abstract</b> For ...</p></abs>
+</fm>
+<bdy>
+<sec><st>INTRODUCTION</st>
+<ip1>Modern document databases...</ip1>
+<p>There are good reasons to compress...</p>
+</sec>
+<sec><st>REDUCING MEMORY REQUIREMENTS</st>...
+<ss1><st>2.1 Method A</st>...
+</sec>
+...
+</bdy>
+</article>
+Figure 1: A journal article encoded in XML.
+Figure 1 provides an example of a journal article encoded
+in XML, illustrating many of the important characteristics
+of XML documents. Tags indicate the beginning and end of
+each element, with elements varying widely in size, from one
+word to thousands of words. Some elements, such as 
+paragraphs and sections, may be reasonably presented to the user
+as retrieval results, but others are not appropriate. Elements
+overlap each other - articles contain sections, sections 
+contain subsections, and subsections contain paragraphs. Each
+of these characteristics affects the design of an XML IR 
+system, and each leads to fundamental problems that must be
+solved in an successful system. Most of these fundamental
+problems can be solved through the careful adaptation of
+standard IR techniques, but the problems caused by overlap
+are unique to this area [4,11] and form the primary focus of
+this paper.
+The article of figure 1 may be viewed as an XML tree,
+as illustrated in figure 2. Formally, a collection of XML
+documents may be represented as a forest of ordered, rooted
+trees, consisting of a set of nodes N and a set of directed
+edges E connecting these nodes. For each node x ∈ N , the
+notation x.parent refers to the parent node of x, if one exists,
+and the notation x.children refers to the set of child nodes
+sec
+bdyfm
+atl au au au
+abs
+p
+b
+st ip1
+sec
+st
+ss1
+st
+article
+p
+Figure 2: Example XML tree.
+of x. Since an element may be represented by the node at
+its root, the output of an XML IR system may be viewed as
+a ranked list of the top-m nodes.
+The direct application of a standard relevance ranking
+technique to a set of XML elements can produce a result
+in which the top ranks are dominated by many structurally
+related elements. A high scoring section is likely to contain
+several high scoring paragraphs and to be contained in an
+high scoring article. For example, many of the elements in
+figure 2 would receive a high score on the keyword query
+text index compression algorithms. If each of these
+elements are presented to a user as an individual and 
+separate result, she may waste considerable time reviewing and
+rejecting redundant content.
+One possible solution is to report only the highest 
+scoring element along a given path in the tree, and to remove
+from the lower ranks any element containing it, or contained
+within it. Unfortunately, this approach destroys some of the
+possible benefits of XML IR. For example, an outer element
+may contain a substantial amount of information that does
+not appear in an inner element, but the inner element may
+be heavily focused on the query topic and provide a short
+overview of the key concepts. In such cases, it is reasonable
+to report elements which contain, or are contained in, higher
+ranking elements. Even when an entire book is relevant, a
+user may still wish to have the most important paragraphs
+highlighted, to guide her reading and to save time [6].
+This paper presents a method for controlling overlap. 
+Starting with an initial element ranking, a re-ranking algorithm
+adjusts the scores of lower ranking elements that contain, or
+are contained within, higher ranking elements, reflecting the
+fact that this information may now be redundant. For 
+example, once an element representing a section appears in the
+ranking, the scores for the paragraphs it contains and the
+article that contains it are reduced. The inspiration for this
+strategy comes partially from recent work on structured 
+documents retrieval, where terms appearing in different fields,
+such as the title and body, are given different weights [20].
+Extending that approach, the re-ranking algorithm varies
+weights dynamically as elements are processed.
+The remainder of the paper is organized as follows: After
+a discussion of background work and evaluation 
+methodology, a baseline retrieval method is presented in section 4.
+This baseline method represents a reasonable adaptation of
+standard IR technology to XML. Section 5 then outlines a
+strategy for controlling overlap, using the baseline method as
+a starting point. A re-ranking algorithm implementing this
+strategy is presented in section 6 and evaluated in section 7.
+Section 8 discusses an extended version of the algorithm.

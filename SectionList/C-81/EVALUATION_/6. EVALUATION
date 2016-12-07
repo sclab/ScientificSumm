@@ -1,0 +1,173 @@
+Our adaptive duty cycling algorithm was evaluated using an actual
+solar energy profile measured using a sensor node called Heliomote,
+capable of harvesting solar energy [14]. This platform not only tracks
+the generated energy but also the energy flow into and out of the
+battery to provide an accurate estimate of the stored energy.
+The energy harvesting platform was deployed in a residential area
+in Los Angeles from the beginning of June through the middle of
+August for a total of 72 days. The sensor node used is a Mica2 mote
+running at a fixed 40% duty cycle with an initially full battery. Battery
+voltage and net current from the solar panels are sampled at a period of
+10 seconds. The energy generation profile for that duration, measured
+by tracking the output current from the solar cell is shown in Figure 4,
+both on continuous and diurnal scales. We can observe that although
+the energy profile varies from day to day, it still exhibits a general
+pattern over several days.
+0 10 20 30 40 50 60 70
+0
+10
+20
+30
+40
+50
+60
+70
+Day
+mA
+0 5 10 15 20
+0
+10
+20
+30
+40
+50
+60
+70
+Hour
+mA
+6.1. Prediction Model
+We first evaluate the performance of the prediction model, which
+is judged by the amount of absolute error it made between the
+predicted and actual energy profile. Figure 5 shows the average error
+of each time slot in mA over the entire 72 days. Generally, the amount
+of error is larger during the day time because that"s when the factor of
+weather can cause deviations in received energy, while the prediction
+made for night time is mostly correct.
+6.2. Adaptive Duty cycling algorithm
+Prior methods to optimize performance while achieving energy
+neutral operation using harvested energy are scarce. Instead, we
+compare the performance of our algorithm against two extremes: the
+theoretical optimal calculated assuming complete knowledge about
+future energy availability and a simple approach which attempts to
+achieve energy neutrality using a fixed duty cycle without accounting
+for battery inefficiency.
+The optimal duty cycles are calculated for each slot using the
+future knowledge of actual received energy for that slot. For the simple
+approach, the duty cycle is kept constant within each day and is
+Figure 4 Solar Energy Profile (Left: Continuous, Right: Diurnal)
+Input: D: Initial duty cycle, X: Excess energy due to error in the
+prediction, P: Predicted energy profile, i: index of current time slot
+Output: D: Updated duty cycles in one or more subsequent slots
+AdaptDutyCycle()
+Iteration: At each time slot do:
+if X > 0
+Wsorted = W{1, ...,Nw} sorted in decending order.
+Q := indices of Wsorted
+for k = 1 to |Q|
+if Q(k) ≤ i or D(Q(k)) ≥ Dmax //slot is already passed
+continue
+if R(Q(k), Dmax − D(Q(k))) < X
+D(Q(k)) = Dmax
+X = X − R(j, Dmax − D(Q(k)))
+else
+//X insufficient to increase duty cycle to Dmax
+if P (Q(k)) > Pl
+D(Q(k)) = D(Q(k)) + X/Pl
+else
+D(Q(k)) = D(Q(k)) +
+( ( ))(1 1 ))c s
+X
+P P Q kη η+ −
+if X < 0
+Wsorted = W{1, ...,Nw} sorted in ascending order.
+Q := indices of Wsorted
+for k = 1 to |Q|
+if Q(k) ≤ I or D(Q(k)) ≤ Dmin
+continue
+if R(Q(k), Dmax − D(Q(k))) > X
+D(Q(k)) = Dmin
+X = X − R(j, Dmin − D(Q(k)))
+else
+if P (Q(k)) > Pc
+D(Q(k)) = D(Q(k)) + X/Pc
+else
+D(Q(k)) = D(Q(k)) +
+( ( ))(1 1 ))c s
+X
+P P Q kη η+ −
+ALGORITHM 1 Pseudocode for the duty-cycle adaptation algorithm
+Figure 5. Average Predictor Error in mA
+0 5 10 15 20 25
+0
+2
+4
+6
+8
+10
+12
+Time(H)
+abserror(mA)
+184
+computed by taking the ratio of the predicted energy availability and
+the maximum usage, and this guarantees that the senor node will never
+deplete its battery running at this duty cycle.
+{1.. )
+( )s w c
+i Nw
+D P i N Pη
+∈
+= ⋅ ⋅∑
+We then compare the performance of our algorithm to the two
+extremes with varying battery efficiency. Figure 6 shows the results,
+using Dmax = 0.8 and Dmin = 0.3. The battery efficiency was varied
+from 0.5 to 1 on the x-axis and solar energy utilizations achieved by
+the three algorithms are shown on the y-axis. It shows the fraction of
+net received energy that is used to perform useful work rather than lost
+due to storage inefficiency.
+As can be seen from the figure, battery efficiency factor has great
+impact on the performance of the three different approaches. The three
+approaches all converges to 100% utilization if we have a perfect
+battery (η=1), that is, energy is not lost by storing it into the batteries.
+When battery inefficiency is taken into account, both the adaptive and
+optimal approach have much better solar energy utilization rate than
+the simple one. Additionally, the result also shows that our adaptive
+duty cycle algorithm performs extremely close to the optimal.
+0.4 0.5 0.6 0.7 0.8 0.9 1
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+Eta-batery roundtrip efficiency
+SolarEnergyUtilization(%)
+Optimal
+Adaptive
+Simple
+We also compare the performance of our algorithm with different
+values of Dmin and Dmax for η=0.7, which is typical of NiMH batteries.
+These results are shown in Table 1 as the percentage of energy saved
+by the optimal and adaptive approaches, and this is the energy which
+would normally be wasted in the simple approach. The figures and
+table indicate that our real time algorithm is able to achieve a
+performance very close to the optimal feasible. In addition, these
+results show that environmental energy harvesting with appropriate
+power management can achieve much better utilization of the
+environmental energy.
+Dmax
+Dmin
+0.8
+0.05
+0.8
+0.1
+0.8
+0.3
+0.5
+0.2
+0.9
+0.2
+1.0
+0.2
+Adaptive 51.0% 48.2% 42.3% 29.4% 54.7% 58.7%
+Optimal 52.3% 49.6% 43.7% 36.7% 56.6% 60.8%

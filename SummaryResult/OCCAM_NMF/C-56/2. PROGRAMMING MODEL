@@ -1,0 +1,39 @@
+besides, due to its structured nature, they can be easily composed and the support infrastructure can take advantage of this in order to distribute hierarchically the nested controllers to group server group java virtual machine rmi jdbc group manager process server java virtual machine rmi jdbc process coordinator worker java virtual machine rmi activity manager repository figure 2: infrastructure architecture different machines over the grid, allowing enhanced  scalability and fault-tolerance. 
+the advantage of using controllers is the possibility of the support infrastructure determines the point of execution the process is in, allowing automatic recovery and monitoring, and also the capability of instantiating and dispatching  process elements only when there are enough computing  resources available, reducing unnecessary overhead.
+additionally, in each iteration, the code verifies if the required number of primes, inserted in the primes collection by all concurrent activities, has been reached, and exits if true.
+between its code markers, there is a simple code to find prime numbers, which iterates over the specified range and  verifies if the current integer is a prime.
+it receives, through its input parameters, the range of numbers in which it has to find prime numbers, the total number of prime numbers to be found by the whole process, and, passed by reference, a collection object to store the found prime numbers.
+finally, it is defined the activity type, findprimes, used to find prime numbers in each subrange.
+these activities receive a shared object by reference in order to store the prime numbers just found and control if the required number of primes has been reached.
+in such case, the controller divides the whole range of numbers in subranges of the same size, and, in each iteration, starts a parallel activity that finds prime numbers in a specific  subrange.
+it iterates from 0 to getnumacts() - 1, which determines the number of activities, starting a parallel activity in each iteration.
+this process contains a parfor controller aiming to  execute a determined number of parallel activities.
+at the end, the found prime numbers are returned as a collection through its output parameter.
+it receives, through its input  parameters, a range of integers in which prime numbers have to be found, the number of primes to be returned, and the number of activities to be executed in order to perform this work.
+<process_type name="findprimes"> <in_parameter type="int" name="min"/> <in_parameter type="int" name="max"/> <in_parameter type="int" name="numprimes"/> <in_parameter type="int" name="numacts"/> <body> <pre_code> setprimes(new remotehashset()); parfor.setmin(getmin()); parfor.setmax(getmax()); parfor.setnumprimes(getnumprimes()); parfor.setnumacts(getnumacts()); parfor.setprimes(getprimes()); parfor.setcounterbegin(0); parfor.setcounterend(getnumacts()-1); </pre_code> <parfor name="parfor"> <in_parameter type="int" name="min"/> <in_parameter type="int" name="max"/> <in_parameter type="int" name="numprimes"/> <in_parameter type="int" name="numacts"/> <in_parameter type="remotecollection" name="primes"/> <iterate> <pre_code> int range= (getmax()-getmin()+1)/getnumacts(); int minnum = range*getcounter()+getmin(); int maxnum = minnum+range-1; if (getcounter() == getnumacts()-1) maxnum = getmax(); findprimes.setmin(minnum); findprimes.setmax(maxnum); findprimes.setnumprimes(getnumprimes()); findprimes.setprimes(getprimes()); </pre_code> <activity type="findprimes" name="findprimes"/> </iterate> </parfor> </body> <out_parameter type="remotecollection" name="primes"/> </process_type> middleware for grid computing 88 <activity_type name="findprimes"> <in_parameter type="int" name="min"/> <in_parameter type="int" name="max"/> <in_parameter type="int" name="numprimes"/> <in_parameter type="remotecollection" name="primes"/> <code> for (int num=getmin(); num<=getmax(); num++) { // stop, required number of primes was found if (primes.size() >= getnumprimes()) break; boolean prime = true; for (int i=2; i<num; i++) { if (num % i == 0) { prime = false; break; } } if (prime) { primes.add(new integer(num)); } } </code> </activity_type> firstly, a process type that finds prime numbers, named findprimes, is defined.
+the  portion of the xml document that describes the process and activity types is shown below.
+the whole computation is made by a process, which uses a parallel controller to start and dispatch several concurrent activities of the same type, in order to find prime numbers.
+2.2 process example this section presents an example of a prime number search application that receives a certain range of integers and  returns a set of primes contained in this range.
+when compared to workflow languages, the parallel  controller types represent structured versions of the workflow control constructors, because they can nest other controllers and also can express fixed and conditional forks and joins, present in such languages.
+this provides flexibility to determine, at run-time, the number of process elements to execute simultaneously.
+both fork executions while the iteration condition is true.
+the parfor and parwhile are the iterative versions of the parallel controller types.
+aiming to implement a conditional join, all parallel  controller types contain an exit condition, evaluated all time that an element execution finishes, in order to determine when the controller must end.
+indeed, they contain a fork and a join of execution.
+all parallel controller types fork the execution of one or more process elements, and then, wait for each execution to finish.
+they extend the  respective sequential counterparts to allow parallel execution of process elements.
+similarly, the parallel types are: par, parswitch, parfor and parwhile.
+the block controller is a simple sequential  construct, and the others mimic equivalent structured  programming language constructs.
+the sequential controller types are: block, switch, for and while.
+there are sequential and parallel controllers.
+2.1 controllers controllers are structured control constructs used to  define the control flow of processes.
+external data can be accessed through data sources, such as relational databases or distributed objects.
+they are passed by value, in case of simple  objects, or by reference, if they are remote objects shared among elements of the same controller or process.
+data are exchanged among process elements through  parameters.
+like structured languages, controllers can be nested and then determine the execution order of other controllers.
+activities represent simple tasks that are executed on behalf of a process;  subprocesses are processes executed in the context of a  parent process; and controllers are control elements used to specify the execution order of these activities and  subprocesses.
+in detail, a process is composed of activities,  subprocesses, and controllers (see figure 1).
+in the proposed programming model, a process is a set of interdependent activities arranged to solve a certain  problem.
+the rationale  behind of its design is the possibility of hierarchically distribute the process control and coordination based on structured constructs, differently from bpel, which does not allow  hierarchical composition of processes.
+both describe  processes in xml [4] documents, but the former specifies  processes strictly synchronous and structured, and has more constructs for structured parallel control.
+the programming model designed for the grid computing architecture is very similar to the specified to the business process execution language (bpel) [2].

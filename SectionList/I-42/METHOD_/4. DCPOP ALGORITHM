@@ -1,0 +1,172 @@
+Our extension to the original DPOP algorithm, shown in 
+Algorithm 1, shares the same three phases. The first phase generates the
+cross-edged pseudotree for the DCOP instance. The second phase
+merges branches and propagates the utility hypercubes. The third
+phase chooses assignments for domains at branch merge points and
+in a top down fashion, beginning with the agent at the root node.
+For the first phase we generate a pseudotree using several 
+distributed heuristics and select the one with lowest overall 
+complexity. The complexity of the computation and utility message size
+in DCPOP does not directly correspond to the induced width of
+the cross-edged pseudotree. Instead, we use a polynomial time
+method for calculating the maximum computation and utility 
+message size for a given cross-edged pseudotree. A description of
+this method and the pseudotree selection process appears in 
+Section 5. At the end of the first phase, each agent knows its 
+parent, children, pseudo-parents, pseudo-children, branch-parents, and
+branch-children.
+4.1 Merging Branches and Utility 
+Propagation
+In the original DPOP algorithm a node X only had utility 
+functions involving its parent and its pseudo-parents. In DCPOP, a node
+X is allowed to have a utility function involving a branch-parent.
+The concept of a branch can be seen in Figure 2 with node E 
+representing our node X. The two distinct paths from node E to node
+B are called branches of E. The single node where all branches of
+E meet is node B, which is called the merge point of E.
+Agents with nodes that have branch-parents begin by sending
+a utility propagation message to each branch-parent. This 
+message includes a two dimensional utility hypercube with domains for
+the node X and the branch-parent BP(X). It also includes a branch
+information structure which contains the origination node of the
+branch, X, the total number of branches originating from X, and the
+number of branches originating from X that are merged into a 
+single representation by this branch information structure (this 
+number starts at 1). Intuitively when the number of merged branches
+equals the total number of originating branches, the algorithm has
+reached the merge point for X. In Figure 2, node E sends a utility
+propagation message to its branch-parent, node D. This message
+has dimensions for the domains of E and D, and includes branch
+information with an origin of E, 2 total branches, and 1 merged
+branch.
+As in the original DPOP utility propagation phase, an agent at
+leaf node X sends a utility propagation message to its parent. In
+DCPOP this message contains dimensions for the domains of P(X)
+and PP(X). If node X also has branch-parents, then the utility 
+propagation message also contains a dimension for the domain of X,
+and will include a branch information structure. In Figure 2, node
+E sends a utility propagation message to its parent, node C. This
+message has dimensions for the domains of E and C, and includes
+branch information with an origin of E, 2 total branches, and 1
+merged branch.
+When a node Y receives utility propagation messages from all of
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 743
+its children and branch-children, it merges any branches with the
+same origination node X. The merged branch information structure
+accumulates the number of merged branches for X. If the 
+cumulative total number of merged branches equals the total number of
+branches, then Y is the merge point for X. This means that the
+utility hypercubes present at Y contain all information about the
+valuations for utility functions involving node X. In addition to the
+typical elimination of the domain of Y from the utility hypercubes,
+we can now safely eliminate the domain of X from the utility 
+hypercubes. To illustrate this process, we will examine what happens
+in the second phase for node B in Figure 2.
+In the second phase Node B receives two utility propagation
+messages. The first comes from node C and includes dimensions
+for domains E, B, and A. It also has a branch information structure
+with origin of E, 2 total branches, and 1 merged branch. The second
+comes from node D and includes dimensions for domains E and B.
+It also has a branch information structure with origin of E, 2 total
+branches, and 1 merged branch. Node B then merges the branch
+information structures from both messages because they have the
+same origination, node E. Since the number of merged branches
+originating from E is now 2 and the total branches originating from
+E is 2, node B now eliminates the dimensions for domain E. Node
+B also eliminates the dimension for its own domain, leaving only
+information about domain A. Node B then sends a utility 
+propagation message to node A, containing only one dimension for the
+domain of A.
+Although not possible in DPOP, this method of utility 
+propagation and dimension elimination may produce hypercubes at node Y
+that do not share any domains. In DCPOP we do not join domain
+independent hypercubes, but instead may send multiple hypercubes
+in the utility propagation message sent to the parent of Y. This lazy
+approach to joins helps to reduce message sizes.
+4.2 Value Propagation
+As in DPOP, value propagation begins when the agent at the root
+node Z has received all messages from its children. At this point
+the agent at node Z chooses the assignment for its domain that has
+the best utility. If Z is the merge point for the branches of some
+node X, Z will also choose the assignment for the domain of X.
+Thus any node that is a merge point will choose assignments for
+a domain other than its own. These assignments are then passed
+down the primary edge hierarchy. If node X in the hierarchy has
+branch-parents, then the value assignment message from P(X) will
+contain an assignment for the domain of X. Every node in the 
+hierarchy adds any assignments it has chosen to the ones it received
+and passes the set of assignments to its children. The algorithm is
+complete when all nodes have chosen or received an assignment for
+their domain.
+4.3 Proof of Correctness
+We will prove the correctness of DCPOP by first noting that
+DCPOP fully extends DPOP and then examining the two cases for
+value assignment in DCPOP. Given a traditional pseudotree as 
+input, the DCPOP algorithm execution is identical to DPOP. Using a
+traditional pseudotree arrangement no nodes have branch-parents
+or branch-children since all edges are either back-edges or tree
+edges. Thus the DCPOP algorithm using a traditional pseudotree
+sends only utility propagation messages that contain domains 
+belonging to the parent or pseudo-parents of a node. Since no node
+has any branch-parents, no branches exist, and thus no node serves
+as a merge point for any other node. Thus all value propagation
+assignments are chosen at the node of the assignment domain.
+For DCPOP execution with cross-edged pseudotrees, some
+nodes serve as merge points. We note that any node X that is not a
+merge point assigns its value exactly as in DPOP. The local utility
+hypercube at X contains domains for X, P(X), PP(X), and BC(X).
+As in DPOP the value assignment message received at X includes
+the values assigned to P(X) and PP(X). Also, since X is not a merge
+point, all assignments to BC(X) must have been calculated at merge
+points higher in the tree and are in the value assignment message
+from P(X). Thus after eliminating domains for which assignments
+are known, only the domain of X is left. The agent at node X can
+now correctly choose the assignment with maximum utility for its
+own domain.
+If node X is a merge point for some branch-child Y, we know
+that X must be a node along the path from Y to the root, and from
+P(Y) and all BP(Y) to the root. From the algorithm, we know that
+Y necessarily has all information from C(Y), PC(Y), and BC(Y)
+since it waits for their messages. Node X has information about all
+nodes below it in the tree, which would include Y, P(Y), BP(Y),
+and those PP(Y) that are below X in the tree. For any PP(Y) above
+X in the tree, X receives the assignment for the domain of PP(Y)
+in the value assignment message from P(X). Thus X has utility 
+information about all of the utility functions of which Y is a part.
+By eliminating domains included in the value assignment message,
+node X is left with a local utility hypercube with domains for X and
+Y. The agent at node X can now correctly choose the assignments
+with maximum utility for the domains of X and Y.
+4.4 Complexity Analysis
+The first phase of DCPOP sends one message to each P(X),
+PP(X), and BP(X). The second phase sends one value assignment
+message to each C(X). Thus, DCPOP produces a linear number of
+messages with respect to the number of edges (utility functions) in
+the cross-edged pseudotree and the original DCOP instance. The
+actual complexity of DCPOP depends on two additional 
+measurements: message size and computation size.
+Message size and computation size in DCPOP depend on the
+number of overlapping branches as well as the number of 
+overlapping back-edges. It was shown in [6] that the number of 
+overlapping back-edges is equal to the induced width of the pseudotree. In
+a poorly constructed cross-edged pseudotree, the number of 
+overlapping branches at node X can be as large as the total number
+of descendants of X. Thus, the total message size in DCPOP in a
+poorly constructed instance can be space-exponential in the total
+number of nodes in the graph. However, in practice a well 
+constructed cross-edged pseudotree can achieve much better results.
+Later we address the issue of choosing well constructed 
+crossedged pseudotrees from a set.
+We introduce an additional measurement of the maximum 
+sequential path cost through the algorithm. This measurement 
+directly relates to the maximum amount of parallelism achievable by
+the algorithm. To take this measurement we first store the total
+computation size for each node during phase two and three. This
+computation size represents the number of individual accesses to a
+value in a hypercube at each node. For example, a join between two
+domains of size 4 costs 4 ∗ 4 = 16. Two directed acyclic graphs
+(DAG) can then be drawn; one with the utility propagation 
+messages as edges and the phase two costs at nodes, and the other with
+value assignment messages and the phase three costs at nodes. The
+maximum sequential path cost is equal to the sum of the longest
+path on each DAG from the root to any leaf node.

@@ -1,0 +1,43 @@
+we finally wrap up with the experimental results in section 7, and the conclusions and future work in section 8.
+section 6 gives our experimental data and evaluation metrics.
+in section 5, two term reweighting methods are proposed to improve ned accuracy.
+section 4 describes our new detection procedure based on news indexing-tree.
+we start off this paper by summarizing the previous work in ned in section 2. section 3 presents the basic model for ned that most current systems use.
+the rest of the paper is organized as follows.
+on tdt3 dataset, the new ned model just uses 14.9% comparing times of the basic model, while its minimum normalized cost is 0.5012, which is 0.0797 better than the basic model, and also better than any other results previously reported for this dataset [8, 13].
+and we propose to use statistics to optimize the weights of the terms of different types in a story according to the news class that the story belongs to.
+noun and verb) have different effects for different classes of stories in determining whether two stories are on the same topic.
+(3)based on observations on the statistics obtained from training data, we found that terms of different types (e.g.
+in this approach, cluster (topic) information is used properly, so the problem of theme decentralization is avoided.
+(2)we use the clusters of the first floor in the indexing-tree as news topics, in which term weights are adjusted dynamically according to term distribution in the clusters.
+the new procedure can reduce the amount of comparing times without hurting accuracy.
+comparisons between current story and previous clusters could help find the most similar story in less comparing times.
+story indexing-tree is created by assembling similar stories together to form news clusters in different hierarchies according to their values of similarity.
+(1)to make the detection procedure faster, we propose a new ned procedure based on news indexing-tree created dynamically.
+driven by these problems, we have proposed three approaches in this paper.
+(3) how to obtain better news story representation by better understanding of named entities.
+(2) how to make good use of cluster (topic) information to improve accuracy?
+so, in ned, there still exist following three problems to be investigated: (1) how to speed up the detection procedure while do not decrease the detection accuracy?
+for example, the names of election candidates (person name) are very important for stories of election class; the locations (location name) where accidents happened are important for stories of accidents class.
+noun, verb or person name) have different effects for different classes of stories in determining whether two stories are on the same topic.
+however, none of the systems have considered that terms of different types (e.g.
+on the other hand, some proposed ned systems tried to improve accuracy by making better use of named entities [10, 11, 12, 13].
+this is because sometimes stories within a topic drift far away from each other, which could lead low similarity between a story and its topic.
+nevertheless, it has been proved that this manner is less accurate [4, 5].
+this manner can reduce comparing times significantly.
+other systems organize previous stories into clusters (each cluster corresponds to a topic), and new story is compared to the previous clusters instead of stories.
+further more, it is not acceptable in real applications because of the large amount of computation required in the ned process.
+obviously, these systems cannot take advantage of topic information.
+the core problem of ned is to identify whether two stories are on the same topic.
+they are usually in the form of cosine similarity or hellinger similarity metric.
+if all the similarities between them do not exceed a threshold, then the story triggers a new event.
+in most of state-of-the-art (currently) ned systems, each news story on hand is compared to all the previous received stories.
+these real-life needs often occur in domains like financial markets, news analysis, and intelligence gathering.
+therefore, ned systems are very useful for people who need to detect novel information from real-time news stream.
+useful news information is usually buried in a mass of data generated everyday.
+for instance, when a bomb explodes in a building, the exploding is the seminal event that triggers the topic, and other stories on the same topic would be those discussing salvaging efforts, the search for perpetrators, arrests and trial and so on.
+an event is defined as something (non-trivial) happening in a certain place at a certain time [3].
+a topic is defined as a seminal event or activity, along with directly related events and activities [2].
+it is the task of online identification of the earliest report for each topic as soon as that report arrives in the sequence of documents.
+new event detection (ned) is one of the five tasks in tdt.
+topic detection and tracking (tdt) program aims to develop techniques which can effectively organize, search and structure news text materials from a variety of newswire and broadcast media [1].

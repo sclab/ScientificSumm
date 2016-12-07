@@ -1,0 +1,28 @@
+But the short-term query history clearly may provide useful clues about the user"s current information need as seen in the java example given in the previous section.
+The other kind of context is long-term context, which refers to information such as a user"s education level and general interest, accumulated user query history and past user clickthrough  information; such information is generally stable for a long time and is often accumulated over time.
+In addition to the query history, there may be other short-term context information available.
+Therefore for the current query Qk  (except for the first query of a search session) , there is a query history, HQ = (Q1, ..., Qk−1) associated with it, which consists of the  preceding queries given by the same user in the current session.
+The  clickthrough data may include the title, summary, and perhaps also the content and location (e.g., the URL) of the clicked document.
+Both query history and clickthrough history are implicit  feedback information, which naturally exists in interactive information retrieval, thus no additional user effort is needed to collect them.
+In a single search session, a user may interact with the search system several times.
+Although it is not clear whether a viewed document is actually  relevant to the user"s information need, we may safely assume that the displayed summary/title information about the document is  attractive to the user, thus conveys information about the user"s  information need.
+In general, short-term context is most useful for improving search in the current session, but may not be so helpful for search activities in a different  session.
+There are two kinds of context information we can use for  implicit feedback.
+Suppose we concatenate all the displayed text  information about a document (usually title and summary) together, we will also have a clicked summary Ci in each round of retrieval.
+Long-term context can be applicable to all sessions, but may not be as effective as the short-term context in improving search accuracy for a particular session.
+We refer to data associated with these actions as clickthrough history.
+Such information is most directly related to the current information need of the user and thus can be expected to be most useful for improving the current search.
+During interactions, the user would  continuously modify the query.
+One is short-term context, which is the immediate surrounding information which throws light on a user"s current  information need in a single session.
+Traditionally, the retrieval system only uses the current query Qk to do retrieval.
+The category of a user"s information need (e.g., kids or sports),  previous queries, and recently viewed documents are all examples of short-term context.
+We will also exploit such clickthrough history HC = (C1, ..., Ck−1) to improve our search accuracy for the current query Qk.
+For example, a user would  presumably frequently click some documents to view.
+In this paper, we study how to exploit such information (HQ and HC ), develop models to incorporate the query history and clickthrough history into a retrieval ranking function, and quantitatively evaluate these models. 
+A session can be considered as a period consisting of all interactions for the same information need.
+Indeed, our previous work [15] has shown that the short-term query history is useful for improving  retrieval accuracy.
+In practice, we need techniques to automatically discover session boundaries, which have been studied in [9, 16].
+In this paper, we focus on the short-term context, though some of our methods can also be used to naturally incorporate some long-term context.
+In general, we may have a history of clicked summaries C1, ..., Ck−1.
+Note that we assume that the session boundaries are known in this paper.
+Previous work has also shown positive results using similar clickthrough  information [11, 17].

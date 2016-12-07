@@ -1,0 +1,36 @@
+it is thus  necessary to set up an effective communication protocol. 
+as the choices of an agent will be influenced by the choices of the others, it is necessary that the agents should reason on a common knowledge about the requests.
+let us notice that these criteria are not necessarily  compatible.
+p si∈s p r∈at si costsi (r) is minimal.
+on autonomous agents and multi-agent systems (aamas 07) as: - | s si∈s at si | is maximal;  p si∈s p r∈at si prio(r) is maximal.
+joint conf.
+at sn } where at si ⊆ rt si such 288 the sixth intl.
+agents si in e must build a set {at s1 .
+let e be a swarm.
+more formally, definition 4 (problem).
+3.4 problem formalization then, our problem is the following: we would like each agent to build request allocations (i.e a plan) dynamically such as if these requests are carried out their number is the highest possible or the global cost is minimal.
+a candidacy c is a tuple < idc , modc, sc , rc , obsc, dnlc >: - idc is an identifier; - modc ∈ {3, 2, ¬3, ¬2} is a modality; - sc ∈ s is the candidate agent; - rc ∈ rt sc is the request on which sc candidates; - obsc ∈ t is the realization date proposed by sc ; - dnlc ∈ t is the download date.
+for a request r, an agent si may: - propose to carry out r : si may realize r; - commit to carry out r : si will realize r; - not propose to carry out r : si may not realize r; - refuse to carry out r : si will not realize r. we can notice that these four propositions are modalities of proposition c: si realizes r: - 3c means that si proposes to carry out r; - 2c means that si commits to carry out r; - ¬3c means that si does not propose to carry out r; - ¬2c means that si refuses to carry out r. more formally: definition 3 (candidacy).
+3.3 candidacy an agent may have several intentions about a request, i.e.
+in the sequel, we will note rt si the set of the requests that are known by agent si at time t ∈ t. for each request r in rt si , there is a cost value, noted costsi (r) ∈ r, representing how far from the desired date of observation tbeg(r) an agent si can realize r. so, the more an agent can carry out a request in the vicinity of the desired date of observation, the lower the cost value.
+in our application, priorities are comprised between 1 and 5 (the highest).
+thus a request with a high priority must be realized at all costs.
+the priority prio(r) of a request represents how much it is important for the user, namely the request sender, that the request should be carried out.
+a request r is defined as a tuple < idr, pos(r), prio(r), tbeg(r),br >: - idr is an identifier; - pos(r) is the geographic position of r; - prio(r) ∈ r is the request priority; - tbeg(r) ∈ t is the desired date of observation; - br ∈ {true, false} specifies if r has been realized.
+formally, a request is defined as follows: definition 2 (request).
+during the mission, new requests are sent to the agents by the ground or agents can generate new requests by themselves.
+each agent is allocated a set of initial requests.
+as we have seen previously, the requests are generated both on the ground and on board.
+3.2 requests requests are the observation tasks that the satellite swarm must achieve.
+1 this term will designate a satellite constellation with  intersatellite links.
+as we have seen previously, this relation exists when the agents meet.
+for a given agent and a given time, the vicinity relation returns the set of agents with whom it can communicate at that time.
+in the sequel, we will assume that the agents share a  common clock.
+sn}; - t ⊆ r+ or n+ is a set of dates with a total order <; - vicinity : s × t → 2s .
+a satellite swarm e is a  triplet < s, t, vicinity >: - s is a set of n agents {s1 .
+formally, a swarm is defined as follows: definition 1 (swarm).
+at most, there will be a waste of resources.
+carrying out a request cannot prevent another agent from carrying out another one, even the same one.
+3.1 satellite swarm an observation satellite swarm1 is a multi-agent system where the requests do not have to be carried out in a fixed order and the agents (the satellites) do not have any physical interaction.
+this approach has been developped through the objectagent architecture [38], teamagent [31], dips [14] or prospecting ants [12].
+as each satellite is a single entity that is a piece of the global swarm, a multi-agent system fits to model satellite constellations [39].

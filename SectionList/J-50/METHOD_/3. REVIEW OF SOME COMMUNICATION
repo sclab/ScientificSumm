@@ -1,0 +1,86 @@
+COMPLEXITY THEORY
+In this section, we review the basic model of a 
+communication problem and the lower-bounding technique of 
+constructing a fooling set. (The basic model of a communication
+problem is due to Yao [22]; for an overview see Kushilevitz
+and Nisan [12].)
+Each player 1 ≤ i ≤ n knows (only) input xi. Together,
+they seek to compute f(x1, x2, . . . , xn). In a deterministic
+protocol for computing f, in each stage, one of the players
+announces (to all other players) a bit of information based
+on her own input and the bits announced so far. 
+Eventually, the communication terminates and all players know
+f(x1, x2, . . . , xn). The goal is to minimize the worst-case
+(over all input vectors) number of bits sent. The 
+deterministic communication complexity of a problem is the 
+worstcase number of bits sent in the best (correct) deterministic
+protocol for it. In a nondeterministic protocol, the next
+bit to be sent can be chosen nondeterministically. For the
+purposes of this paper, we will consider a nondeterministic
+protocol correct if for every input vector, there is some 
+sequence of nondeterministic choices the players can make so
+that the players know the value of f when the protocol 
+terminates. The nondeterministic communication complexity
+of a problem is the worst-case number of bits sent in the
+best (correct) nondeterministic protocol for it.
+We are now ready to give the definition of a fooling set.
+Definition 1. A fooling set is a set of input vectors
+{(x1
+1, x1
+2, . . . , x1
+n), (x2
+1, x2
+2, . . . , x2
+n), . . . , (xk
+1 , xk
+2 , . . . , xk
+n) such
+that for any i, f(xi
+1, xi
+2, . . . , xi
+n) = f0 for some constant f0,
+but for any i = j, there exists some vector (r1, r2, . . . , rn) ∈
+{i, j}n
+such that f(xr1
+1 , xr2
+2 , . . . , xrn
+n ) = f0. (That is, we can
+mix the inputs from the two input vectors to obtain a vector
+with a different function value.)
+It is known that if a fooling set of size k exists, then log k
+is a lower bound on the communication complexity (even
+the nondeterministic communication complexity) [12].
+4
+A strategy-proof protocol is one in which it is in the players"
+best interest to report their preferences truthfully.
+80
+For the purposes of this paper, f is the voting rule that
+maps the votes to the winning candidate, and xi is voter
+i"s vote (the information that the voting rule would require
+from the voter if there were no possibility of multistage
+communication-i.e. the most preferred candidate 
+(plurality), the approved candidates (approval), or the ranking of
+all the candidates (all other protocols)). However, when we
+derive our lower bounds, f will only signify whether a 
+distinguished candidate a wins. (That is, f is 1 if a wins, and
+0 otherwise.) This will strengthen our lower bound results
+(because it implies that even finding out whether one given
+candidate wins is hard).5
+Thus, a fooling set in our 
+context is a set of vectors of votes so that a wins (does not win)
+with each of them; but for any two different vote vectors in
+the set, there is a way of taking some voters" votes from the
+first vector and the others" votes from the second vector, so
+that a does not win (wins).
+To simplify the proofs of our lower bounds, we make 
+assumptions such as the number of voters n is odd in many
+of these proofs. Therefore, technically, we do not prove the
+lower bound for (number of candidates, number of voters)
+pairs (m, n) that do not satisfy these assumptions (for 
+example, if we make the above assumption, then we technically
+do not prove the lower bound for any pair (m, n) in which
+n is even). Nevertheless, we always prove the lower bound
+for a representative set of (m, n) pairs. For example, for 
+every one of our lower bounds it is the case that for infinitely
+many values of m, there are infinitely many values of n such
+that the lower bound is proved for the pair (m, n).

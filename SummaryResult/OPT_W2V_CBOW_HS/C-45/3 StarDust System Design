@@ -1,0 +1,212 @@
+The support for the label λk of sensor node ni, resulting from the interaction (i.e., within radio range) with sensor node nj is given by: Qs ni (λk) = M ∑ m=1 gλkλm Ps nj (λm) (6) As a result, the localization algorithm (Algorithm 3  consists of the following steps: all labels are assigned to each sensor node (lines 1-3 of the algorithm), and implicitly each label has a probability initialized to Pni(λk) = 1/|Λ|; in each iteration, the probabilities for the labels of a sensor node are updated, when considering the interaction with the labels of sensor nodes within R. It is important to remark that the  identity of the nodes within R is not known, only the candidate labels and their probabilities.
+As shown in Figure 5, the spatial-based relaxation is a recursive process to assign the probability that a nodes has a certain label by using the distances between the location of a node with  multiple label locations.
+It is interesting to observe that there is an entire spectrum of possibilities for how to partition the set of sensor nodes in equivalence classes (where an equivalence class is  represented by one color), in order to maximize the success of the localization algorithm.
+The main idea of the sensor node localization through probabilistic label relaxation is to iteratively compute the probability of each label being the correct label for a  sensor node, by taking into account, at each iteration, the  support for a label.
+From here on, we will refer to the transfer function as the color of a sensor node.
+If only one set of pictures can be taken (i.e., one  location of the light emitter/image analysis device), then the map of the field is assumed to be known as well as the distance between the imaging device and the field.
+When the size of the coloring set is smaller than the number of sensor nodes (as it is the case for our hybrid  connectivity/color constrained relaxation), the system designer has the option of allowing one node to uniquely have a color (acting as an anchor), or multiple nodes.
+It is important to remark that through beaconing and the reporting of neighbor tables to the Central Device, a global view of all constraints in the network can be obtained.
+We consider the following to be known: the size of the  deployment field (L), the number of sensor nodes deployed (N) Algorithm 3 Localization 1: Estimate the radio range R 2: Execute the Label Relaxation Algorithm with Support Function given by Equation 6 for neighbors less than R apart 3: for each sensor node ni do 4: node identity is λk with max.
+In the case of color constrained label relaxation, the  support for label λk is expressed as follows: Qs ni (λk) = 1 (5) As a result, the label relaxation algorithm (Algorithm 2) consists of the following steps: one label is assigned to each sensor node (lines 1-3 of the algorithm), implicitly having a probability Pni(λk) = 1 ; the algorithm executes a single iteration, when the support function, simply, reiterates the confidence in the unique labeling.
+Distribution of nodes when the support function, simply, reiterates the confidence in the unique labeling.
+3.3.1 Relaxation with Color Constraints The unique mapping between a sensor node"s position (identified by the image processing) and a label can be  obtained by assigning a unique color to each sensor node.
+From the image processing system, the position of sensor nodes can still be obtained.
+After  initialization (a) and after the 1st iteration for node ni (b) associated with nodes ni and nj after the initialization steps of the algorithm (lines 1-6), as well as the number of beacons between different labels (as reported by the network, through G(Λ,E)).
+As a reminder, in the  connectivity constrained relaxation, all labels are candidate labels for each sensor node.
+Part (b) of Figure 8 shows the result of the first iteration of the localization algorithm for node ni, assuming that node nj is the first wi chosen in line 7 of Algorithm 3.
+The unique identification of a sensor node can be obtained by deploying sensor nodes individually, one by one, and recording a sequence of images.
+Formally, the algorithm is outlined in Algorithm 2, where the equations necessary for computing the new  probability Pni(λk) for a label λk of a node ni, are expressed by the 60 Algorithm 2 Label Relaxation 1: for each sensor node ni do 2: assign equal prob.
+It is interesting to discuss here the influence that the size of the coloring space (i.e., |C|) has on the accuracy of the localization algorithm.
+The design of the StarDust system (and its name) was  inspired by the similarity between a deployed sensor network, in which sensor nodes indicate their presence by emitting light, and the Universe consisting of luminous and  illuminated objects: stars, galaxies, planets, etc.
+The parameters of interest are the following: the number of sensor nodes (N), the energy spent for one aerial drop (εd), the energy spent in the network for  collecting and reporting neighbor information εb and the time Td taken by a sensor node to reach the ground after being  aerially deployed.
+• The aerial vehicle executes the mapping of node IDs to the identified locations in one of the following ways: a) by using the color of a retro-reflected light, if a sensor node has a unique color; b) by requiring sensor nodes to establish neighborhood information and report it to a base station; c) by controlling the time sequence of sensor nodes deployment and recording additional  imLight Emitter Sensor Node i Transfer Function Φi(λ) Ψ(λ) Φ(Ψ(λ)) Image Processing Node ID Matching Radio Model R G(Λ,E) Central Device V" V" Figure 2.
+The goal of scene labeling is to assign a label to each object detected in an image, such that an appropriate image interpretation is achieved.
+0.5in2) array of CCRs and the enclosure has self-righting capabilities that orient the array of CCRs  predominantly upwards.
+The connectivity information is represented by neighbor tables sent from 59 Algorithm 1 Image Processing 1: Background filtering 2: Retro-reflected light recognition through intensity  filtering 3: Edge detection to obtain the location of sensor nodes 4: Color identification for each detected sensor node each sensor node to the Central Device.
+The support function for the label relaxation with time constraints is defined identically with the color constrained relaxation: Qs ni (λk) = 1 (8) The localization algorithm (Algorithm 2 consists of the following steps: one label is assigned to each sensor node (lines 1-3 of the algorithm), and implicitly having a  probability Pni(λk) = 1 ; the algorithm executes a single iteration, 62 D1 D2 D4 D 3Node Label-1 Label-2 Label-3 Label-4 0.2 0.1 0.5 0.2 Figure 5.
+The distributed  component of the architecture is the Transfer Function, which acts as a filter for the incoming light.
+For this, we define V = {(x1,y1),(x2,y2),...,(xm,ym)} to be the set of locations of the sensor nodes, as detected by the Image Processing  module and Λ = {λ1,λ2,...,λm} to be the set of unique node IDs assigned to the m sensor nodes, before deployment.
+If C = {c1} one possibility is to assign the color c1 to a single node, and leave the  remaining m−1 sensor nodes white, or to assign the color c1 to more than one sensor node.
+The color of the node is obtained as the color of the pixel located at (x,y) in Plight.
+For our  analysis, we uniformly distribute the sensor nodes in a square area of length L, by using a grid of unit length L/ √ N. We use the substitution u = L/ √ N to simplify the notation, in order to distinguish the following cases: if u ≤ R ≤ √ 2u each node has four neighbors (the expected k = 4N); if √ 2u ≤ R ≤ 2u each node has eight neighbors (the expected k = 8N); if 2u ≤ R ≤ √ 5u each node has twelve neighbors ( the expected k = 12N); if √ 5u ≤ R ≤ 3u each node has twenty neighbors (the expected k = 20N) For a given t = k/4N we take R to be the middle of the interval.
+A quadratic fitting for R over the possible values of t, produces the following closed-form solution for the communication range R, as a function of network connectivity k, assuming L and N constant: R(k) = L √ N −0.051 k 4N 2 +0.66 k 4N +0.6 (7) We investigate the accuracy of our model in Section 5.2.1.
+to all possible labels 3: end for 4: repeat 5: converged ← true 6: for each sensor node ni do 7: for each each label λj of ni do 8: compute the Support label λj: Equation 4 9: end for 10: compute K for the node ni: Equation 3 11: for each each label λj do 12: update probability of label λj: Equation 2 13: if |new prob.−old prob.| ≥ ε then 14: converged ← false 15: end if 16: end for 17: end for 18: until converged = true following equations: Ps+1 ni (λk) = 1 Kni Ps ni (λk)Qs ni (λk) (2) where Kni is a normalizing constant, given by: Kni = N ∑ k=1 Ps ni (λk)Qs ni (λk) (3) and Qs ni (λk) is: Qs ni (λk) = support for label λk of node ni (4) The label relaxation algorithm is iterative and it is  polynomial in the size of the network(number of nodes).
+For this we define C = {c1,c2,...,cn} to be the set of unique  colors available and M : Λ → C to be a one-to-one mapping of labels to colors.
+Second, if nodes are released at different locations that are far away from each other, we have: (i) If node ni has label λk, Ps ni (λk) → 1 when s → ∞, (ii) If node ni does not have label λk, Ps ni (λk) → 0 when s → ∞.
+IPA then generates the third picture, Pfilter, through the following transformations: PR filter(i, j) = PR light(i, j)−PR dark(i, j) PG filter(i, j) = PG light(i, j)−PG dark(i, j) PB filter(i, j) = PB light(i, j)−PB dark(i, j) (1) After this transformation, all the features that appeared in both Pdark and Plight are removed from Pfilter.
+Then Pdark is  composed of n × m pixels noted Pdark(i, j), i ∈ 1 ≤ i ≤ n,1 ≤ j ≤ m. Similarly Plight is composed of n × m pixels noted Plight(i, j), 1 ≤ i ≤ n,1 ≤ j ≤ m. Each pixel P is described by an RGB value where the R value is denoted by PR, the G value is denoted by PG, and the B value is denoted by PB.
+In this scheme, the color constraints are used for reducing the number of candidate labels for sensor nodes, to a more manageable value.
+These  results indicate that spatial-based relaxation can label the node with a very high probability if the physical separation among nodes is large.
+The main idea of the connectivity constrained label  relaxation is depicted in Figure 4 in which two nodes ni and nj have been assigned all possible labels.
+Hence, the algorithm should only consider pairs of sensor nodes that are within a reasonable communication range (R).
+One can observe that once a color is assigned uniquely to a sensor node, in effect, that sensor node is given the status of anchor, or node with known location.
+At the time of a sensor node release, the one-to-one  mapping between the node and its label is known.
+The support for a label can be understood as a hint or proof, that a particular label is more likely to be the correct one, when compared with the other potential  labels for a sensor node.
+• Node ID Matching - This module uses the detected  locations and through additional techniques (e.g., sensor node coloring and connectivity information (G(Λ,E)) from the deployed network) to uniquely identify the sensor nodes observed in the image.
+We use Dni λm to denote the  horizontal distance between the location of the label λm and the  location of the node ni.
+The first step is to obtain a third picture Pfilter where only the differences between Pdark and Plight remain.
+One of the goals of this paper is to understand how the size of the coloring space and its  partitioning affect localization accuracy.
+3.2 Image Processing The goal of the Image Processing Algorithm (IPA) is to identify the location of the nodes and their color.
+Corner-Cube Retroreflector (a) and an array of CCRs molded in plastic (b) esting property of this optical component is that an incoming beam of light is reflected back, towards the source of the light, irrespective of the angle of incidence.
+It initializes the  probabilities associated with each possible label, for a node ni, through a uniform distribution.
+The architecture consists of two main components: the first is centralized and it is located on a more powerful device.
+3.3.5 Relaxation with Color and Connectivity  Constraints One of the most interesting features of the StarDust  architecture is that it allows for hybrid localization solutions to be built, depending on the system requirements.
+In order to gather connectivity  information, the following need to occur: 1) after deployment, through beaconing of HELLO messages, sensor nodes build their neighborhood tables; 2) each node sends its neighbor table information to the Central device via a base station.
+Let Pdark be the  picture of the deployment area, taken when no light was emitted and Plight be the picture of the same deployment area when a strong light beam was directed towards the sensor nodes.
+Let us assume that Pdark has a resolution of n × m, where n is the number of pixels in a row of the picture, while m is the  number of pixels in a column of the picture.
+The sensor nodes, equipped with CCRs and optical filters (acting as  coloring devices) have self-righting capabilities and  retroreflect the incoming strobe light.
+It is only used by node ID matching techniques that are based on the radio connectivity in the network.
+It is important to remark here that the identity of a node can not be directly  obtained through Image Processing alone, unless a  specific characteristic of a sensor node can be identified in the image.
+Probabilistic label relaxation The third step runs an edge detection algorithm on Preflect to identify the boundary of the nodes present.
+The aforementioned assumptions (field map and distance to it) are not necessary if the images can be simultaneously taken from different locations.
+For the obtained edges, the location (x,y) (in the image) of each node is determined by computing the centroid of the points constituting its edges.
+One interesting problem, which we explore in the  performance evaluation section, is to assess the impact the  partitioning of the color set C has on the accuracy of  localization.
+Several cases are discussed below: • If |C| = 0, no colors are used and the sensor nodes are equipped with simple CCRs that reflect back all the  incoming light (i.e., no filtering, and no coloring of the  incoming light).
+For a large scale sensor network deployment, it is not feasible to consider all pairs of sensor nodes in the network.
+We note that the distribution of distance D affects the probability with which a label is assigned.
+3.3 Node ID Matching The goal of the Node ID Matching module is to  obtain the identity (node ID) of a luminous spot in the  image, detected to be a sensor node.
+Each node can be identified, based on its unique color.
+In part (a) of the figure we depict the data structures 63 11 8 4 1 12 9 7 5 3 ni nj 12 8 10 11 10 0.2 0.2 0.2 0.2 0.2 0.25 0.25 0.25 0.25 (a) 11 8 4 1 12 9 7 5 3 ni nj 12 8 10 11 10 0.2 0.2 0.2 0.2 0.2 0.32 0 0.68 0 (b) Figure 8.
+Instead, constraints placed among nearby objects generate local consistencies and through  iteration, global consistencies can be obtained.
+Even when large angular variations from a perfectly upward orientation are present, a CCR will return the light in the exact same  direction from which it came.
+Node ni can be any of the following: 11,8,4,1.
+The two main components of the StarDust architecture are the Image Processing and the Node ID Mapping.
+The second is distributed and it resides on all  sensor nodes.
+The main difficulty when applying the above ideas to the real world is the complexity of the hardware that needs to be put on a sensor node so that the emitted light can be  detected from thousands of feet.
+The acquired images are used for obtaining the locations of sensor nodes (which appear as luminous spots in the image).
+The confidence in each of the candidate labels for a sensor node, is represented by a probability, shown in a dotted rectangle.
+In the remaining part of the section we propose a simple analytical model that estimates the radio range R for medium-connected networks (less than 20 neighbors per R).
+Also depicted in the figure are the probabilities associated with each of the labels.
+In the sections that follow, we describe four different  techniques for implementing the Support function: based on node coloring, radio connectivity, the time of deployment (time) and the location of deployment (space).
+The sensor node that is identified as new in the last picture (it was not identified in the picture before last) must be the last sensor node dropped.
+As shown, the relaxation techniques based on color and space constraints have the lowest localization duration, zero, for all practical purposes.
+Standard computer graphics techniques [23] are then used to transform the 2D locations of sensor nodes detected in multiple images into 3D sensor node locations.
+The filter allows a portion of the original spectrum, to be retro-reflected.
+This is in  contrast with a mirror, which needs to be precisely positioned to be perpendicular to the incident light.
+A very common and inexpensive implementation of an array of CCRs is the  retroreflective plastic material used on cars and bicycles for night time detection, shown in Figure 1(b).
+It is  prohibitively expensive to consider the interactions among all the objects in an image.
+The constraints are depicted by gi2,j2 and gi2,jM, the number of beacons sent the labels λj2 and λjM and received by the label λi2.
+In the StarDust system, each node is equipped with a small (e.g.
+SensorBall with self-righting capabilities (a) and colored CCRs (b) unique color filters that can be built.
+Obviously the higher the wind speed is, the further a node would land away horizontally from the label location.
+The narrower the  Transfer Function Ψ(λ), the larger the number of unique colors that can be created.
+The former pn is defined as the position of nodes (xn,yn,zn) after deployment, which can be obtained through Image Processing as mentioned in Section 3.3.
+Despite the simplicity of this method of constraining the set of labels that can be assigned to a node, we will show that this technique is very powerful, when combined with other relaxation techniques.
+Therefore, the absolute value of the wind speed follows a Rayleigh distribution.
+The label relaxation algorithm based on connectivity  constraints, enforces such constraints between pairs of sensor nodes.
+After release, the label location information is partially lost due to the random factors such as wind and  surface impact.
+The last step of the iteration is to update the probabilities associated with all potential labels of node ni, as given by Equation 2.
+As seen, the potential labels (shown inside the  vertical rectangles) are assigned to each node.
+The Central Device consists of the following: the Light Emitter, the Image Processing module, the Node ID Mapping module and the Radio Model.
+This figure indicates that the possibility of a node to fall vertically is very small under windy conditions (σ > 0), and that the distance D is affected by the σ.
+Instead, what we propose to use for sensor node  localization is a passive optical element called a retro-reflector.
+The cost comparison of the different label relaxation techniques is shown in Table 1.
+3.3.2 Relaxation with Connectivity Constraints Connectivity information, obtained from the sensor  network through beaconing, can provide additional information for locating sensor nodes.
+By using Equation 6, the algorithm computes the support Q(λi) for each of the possible labels for node ni.
+3.3.4 Relaxation with Space Constraints Spatial information related to sensor deployment can also be employed as another input to the label relaxation  algorithm.
+One example is a localization system that uses the color and connectivity constraints.
+In the image processing domain, scene labeling (i.e., identifying objects in an  image) plays a major role.
+In this second scenario, there are multiple  labels (one label per release), hence it is possible to correlate release times (labels) with positions on the ground.
+The  estimate of the radio range R is based on the sensor node density (obtained through the Image Processing  module) and the connectivity information (i.e., G(Λ,E)).
+At each iteration s, the  algorithm updates the probability associated with each label, by considering the Support Qs ni (λk) for each candidate label of a sensor node.
+IPA is executed after an aerial vehicle records two  pictures: one in which the field of deployment is illuminated and one when no illuminations is present.
+Relaxation with space constraints 0 0.2 0.4 0.6 0.8 1 1.2 1.4 0 1 2 3 4 5 6 7 8 PDF Distance D σ = 0.5 σ = 1 σ = 2 Figure 6.
+For our analysis of the trade-offs, we consider the following metrics of interest: the localization time  (duration), the energy consumed (overhead), the network size (scale) that can be handled by the technique and the  localization accuracy.
+While it can be used in practice, it is unlikely that only a time  constrained label relaxation is used.
+We model the problem of finding the label λj of a node ni as a probabilistic label relaxation problem, frequently used in image processing/understanding.
+The second step consists of identifying the elements  contained in Pfilter that retro-reflect light.
+In this case, Ps+1 ni (λk) = Ps ni (λk), which indicates that we can not use the spatial-based relaxation to recursively narrow down the potential labels for a node.
+3.1 System Architecture The envisioned sensor network localization scenario is as follows: • The sensor nodes are released, possibly in a controlled manner, from an aerial vehicle during the night.
+The retro-reflected light is either white, as the originating source light, or colored, due to optical filters.
+To do that, we use two types of locations: the node  location pn and the label location pl.
+The scalability of the color based relaxation technique is, however, limited to the number of (a) (b) Figure 9.
+From these images the locations and the colors of sensor nodes are obtained.
+If we assume that the distance D is a function of the wind speed V [25] [26], we can obtain the probability distribution of D under a given wind speed distribution.
+First, if all nodes are released at once (i.e., only one label location for all released nodes), the distance D from a node to all labels is the same.
+In the remaining part of the section, we present the  architecture of the StarDust system and the design of its main components.
+As shown in Figure 4 two constraints exist between nodes ni and nj.
+In other words, the label location is the same as the node location at the  release time.
+However, it is often the case that unique colors for each node will not be available.
+5: end for and the total number of unidirectional (i.e., not symmetric) one-hop radio connections in the network (k).
+For the sake of simplicity, let"s assume nodes are dropped from the air through a helicopter hovering in the air.
+For a better understanding of how the label relaxation  algorithm works, we give a concrete example, exemplified in Figure 8.
+The relaxation algorithm  converges when, during an iteration, the probability of no label is updated by more than ε.
+Each of the labels has a different value for the Support function Q(λk).
+Label relaxation with connectivity constraints weight gij represented by the number of beacons sent by λj and received by λi.
+From here on, we refer to node IDs as labels.
+Note that IPA does not identify which node fell where, but only what is the set of locations where the nodes fell.
+Probability distribution of distances -4 -3 -2 -1 0 1 2 3 4 X -4 -3 -2 -1 0 1 2 3 4 Y 0 0.2 0.4 0.6 0.8 1 Node Density Figure 7.
+It is critical to observe that these constraints are among labels.
+We defer the explanation of how the Support function is implemented until the  subsections that follow, where we provide four concrete  techniques.
+Support: Q(λk) ni P1 ... P2 ... PN λ1 ... λk ... λN Figure 3.
+One image is taken when the strobe light is on, the other when the strobe light is off.
+First, let us define G = (Λ,E) to be the weighted  connectivity graph built by the Central device from the received neighbor table information.
+After the  initialization, the standard connectivity constrained relaxation algorithm is used.
+In addition, let R be the radio range of the sensor nodes.
+The emitted light is non-monochromatic (unlike a laser) and it is  characterized by a spectral density Ψ(λ), a function of the wavelength.
+The most common retro-reflective optical component is a Corner-Cube Retroreflector (CCR), shown in Figure 1(a).
+While some of these techniques are simplistic, they are primitives which, when combined, can create powerful localization systems.
+More formally, given a probability density function PDF(D), the support for label λk of sensor node ni can be formulated as: Qs ni (λk) = PDF(Dni λk ) (9) It is interesting to point out two special cases.
+Intuitively, by  assigning one color to more than one node, more constraints (distributed) can be enforced.
+This mapping is known prior to the sensor node deployment (from node manufacturing).
+Since all nodes appear white, no single sensor node can be uniquely identified.
+Most notably, the time constrained relaxation, which is very similar to the  colorconstrained relaxation, addresses the scale issue, at a higher deployment cost.
+A tool such as Matlab provides a number of edge detection techniques.
+A step through the algorithm.
+The emitted light is incident on the CCRs present on sensor nodes.
+This step is eased by the fact that the reflecting nodes should appear much brighter than any other illuminated object in the picture.
+In G the edge (λi,λj) has a 61 λ1 λ2 ... λN ni nj gi2,j2 λ1 λ2 ... λN Pj,λ1 Pj,λ2 ... Pj,λN Pi,λ1 Pi,λ1 ... Pi,λN gi2,jm Figure 4.
+The aforementioned modules are briefly described below: • Light Emitter - It is a strobe light, capable of producing very intense, collimated light pulses.
+However, statistically, the node locations are correlated with label locations.
+For example, if D follows the Rayleigh(σ2) distribution, we can obtain the Probability Density Function (PDF) of distances as shown in Figure 6.
+The StarDust system architecture ages; d) by controlling the location where a sensor node is deployed.
+Without loss of generality, we  assume that D is proportional to the wind speed.
+Strong wind with a high σ value leads to a larger node  dispersion.
+• The computed locations are disseminated to the sensor network.
+• Image Processing - The Image Processing module  acquires high resolution images.
+As we will see, by  combining constrained-based primitives, realistic localization  systems can be implemented.
+According to [24], we can assume that X and Y follow an  independent normal distribution.
+In a similar manner with color constrained label  relaxation, the time constrained approach is very simple, but may take too long, especially for large scale systems.
+This simplifies the recognition of light retro-reflected by sensor nodes.
+The color constraints are used in the initialization phase of Algorithm 3 (lines 1-3).
+• If |C| = m − 1 then there are enough unique colors for all nodes (one node remains white, i.e.
+• Radio Model - This component provides an estimate of the radio range to the Node ID Matching module.
+This is the scenario for the relaxation with color constraints.
+The spatial distribution of nodes for σ = 1 is shown in Figure 7.
+• The aerial vehicle hovers over the deployment area and uses a strobe light to illuminate it.
+It is not  necessarily true that the nearest label is always chosen.
+We used the bwboundaries function.
+Therefore, D follows the Rayleigh distribution as well.
+• If |C| ≥ 1, there are several options for how to  partition the coloring space.
+Once the Q(λi)"s are computed, the normalizing constant, given by Equation 3 can be obtained.
+• The aerial vehicle records a sequence of two images very close in time (msec level).
+Then the brightest pixels are identified and used to create Preflect.
+It is critical to understand that the  upward orientation does not need to be exact.
+It consists of three mutually perpendicular mirrors.
+• Transfer Function Φ(Ψ(λ)) - This is a bandpass filter for the incident light on the CCR.
+Only X and Y affect the horizontal distance a node can travel.
+After initialization, all probabilities are equal.
+As shown, node ni has a set of candidate  labels {λ1,...,λk}.
+We assume a circular radio range and a symmetric  connectivity.
+3.3.3 Relaxation with Time Constraints Time constraints can be treated similarly with color  constraints.
+The proposed IPA has several steps, as shown in  Algorithm 1.
+The latter pl is defined as the location (xl,yl,zl) where a node is dropped.
+The architecture of the StarDust system is shown in  Figure 2.
+The energy expenditure for producing an intense enough light beam is also prohibitive.
+The scalability issue is addressed by all other label relaxation techniques.
+Criteria Color Connectivity Time Space Duration 0 NTb NTd 0 Overhead εd εd +Nεb Nεd εd Scale |C| |N| |N| |N| Accuracy High Low High Medium Table 1.
+For this, an intensity filter is applied to Pfilter.
+The manufacturing costs, however, are increasing as well.
+Such correlation depends on the airdrop methods employed and environments.
+no coloring), the problem is trivially solved.
+Comparison of label relaxation techniques 
+Their design and analysis is presented in the sections that follow.
+The pseudo-code is shown in Algorithm 2.
+3.3.6 Relaxation Techniques Analysis The proposed label relaxation techniques have different trade-offs.
+These design techniques have different trade-offs, which we will present in Section 3.3.6.
+Wind can be  decomposed into three components X,Y and Z.
+We pictorially depict this main idea in Figure 3.
+First IPA converts Pfilter into a grayscale picture.
+The  inter58 (a) (b) Figure 1.
+As an example, if t = 5 then R = (3 + √ 5)u/2.
+Clearly, Dni λm = (xn −xl)2 +(yn −yl)2.

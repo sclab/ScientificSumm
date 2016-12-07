@@ -1,0 +1,152 @@
+1.1 Motivation
+Many different kinds of networked data-centric sensor 
+applications have emerged in recent years. Sensors in these applications
+sense the environment and generate data that must be processed,
+filtered, interpreted, and archived in order to provide a useful 
+infrastructure to its users. To achieve its goals, a typical sensor 
+application needs access to both live and past sensor data. Whereas
+access to live data is necessary in monitoring and surveillance 
+applications, access to past data is necessary for applications such as
+mining of sensor logs to detect unusual patterns, analysis of 
+historical trends, and post-mortem analysis of particular events. Archival
+storage of past sensor data requires a storage system, the key 
+attributes of which are: where the data is stored, whether it is indexed,
+and how the application can access this data in an energy-efficient
+manner with low latency.
+There have been a spectrum of approaches for constructing 
+sensor storage systems. In the simplest, sensors stream data or events
+to a server for long-term archival storage [3], where the server 
+often indexes the data to permit efficient access at a later time. Since
+sensors may be several hops from the nearest base station, network
+costs are incurred; however, once data is indexed and archived, 
+subsequent data accesses can be handled locally at the server without
+incurring network overhead. In this approach, the storage is 
+centralized, reads are efficient and cheap, while writes are expensive.
+Further, all data is propagated to the server, regardless of whether
+it is ever used by the application.
+An alternate approach is to have each sensor store data or events
+locally (e.g., in flash memory), so that all writes are local and incur
+no communication overheads. A read request, such as whether an
+event was detected by a particular sensor, requires a message to
+be sent to the sensor for processing. More complex read requests
+are handled by flooding. For instance, determining if an intruder
+was detected over a particular time interval requires the request to
+be flooded to all sensors in the system. Thus, in this approach,
+the storage is distributed, writes are local and inexpensive, while
+reads incur significant network overheads. Requests that require
+flooding, due to the lack of an index, are expensive and may waste
+precious sensor resources, even if no matching data is stored at
+those sensors. Research efforts such as Directed Diffusion [17]
+have attempted to reduce these read costs, however, by intelligent
+message routing.
+Between these two extremes lie a number of other sensor storage
+systems with different trade-offs, summarized in Table 1. The 
+geographic hash table (GHT) approach [24, 26] advocates the use of
+an in-network index to augment the fully distributed nature of 
+sensor storage. In this approach, each data item has a key associated
+with it, and a distributed or geographic hash table is used to map
+keys to nodes that store the corresponding data items. Thus, writes
+cause data items to be sent to the hashed nodes and also trigger 
+updates to the in-network hash table. A read request requires a lookup
+in the in-network hash table to locate the node that stores the data
+39
+item; observe that the presence of an index eliminates the need for
+flooding in this approach.
+Most of these approaches assume a flat, homogeneous 
+architecture in which every sensor node is energy-constrained. In this
+paper, we propose a novel storage architecture called TSAR1
+that
+reflects and exploits the multi-tier nature of emerging sensor 
+networks, where the application is comprised of tens of tethered 
+sensor proxies (or more), each controlling tens or hundreds of 
+untethered sensors. TSAR is a component of our PRESTO [8] predictive
+storage architecture, which combines archival storage with caching
+and prediction. We believe that a fundamentally different storage
+architecture is necessary to address the multi-tier nature of future
+sensor networks. Specifically, the storage architecture needs to 
+exploit the resource-rich nature of proxies, while respecting resource
+constraints at the remote sensors. No existing sensor storage 
+architecture explicitly addresses this dichotomy in the resource 
+capabilities of different tiers.
+Any sensor storage system should also carefully exploit current
+technology trends, which indicate that the capacities of flash 
+memories continue to rise as per Moore"s Law, while their costs continue
+to plummet. Thus it will soon be feasible to equip each sensor with
+1 GB of flash storage for a few tens of dollars. An even more 
+compelling argument is the energy cost of flash storage, which can be
+as much as two orders of magnitude lower than that for 
+communication. Newer NAND flash memories offer very low write and
+erase energy costs - our comparison of a 1GB Samsung NAND
+flash storage [16] and the Chipcon CC2420 802.15.4 wireless radio
+[4] in Section 6.2 indicates a 1:100 ratio in per-byte energy cost 
+between the two devices, even before accounting for network protocol
+overheads. These trends, together with the energy-constrained 
+nature of untethered sensors, indicate that local storage offers a viable,
+energy-efficient alternative to communication in sensor networks.
+TSAR exploits these trends by storing data or events locally on
+the energy-efficient flash storage at each sensor. Sensors send 
+concise identifying information, which we term metadata, to a nearby
+proxy; depending on the representation used, this metadata may be
+an order of magnitude or more smaller than the data itself, 
+imposing much lower communication costs. The resource-rich proxies
+interact with one another to construct a distributed index of the
+metadata reported from all sensors, and thus an index of the 
+associated data stored at the sensors. This index provides a unified,
+logical view of the distributed data, and enables an application to
+query and read past data efficiently - the index is used to 
+pinpoint all data that match a read request, followed by messages to
+retrieve that data from the corresponding sensors. In-network 
+index lookups are eliminated, reducing network overheads for read
+requests. This separation of data, which is stored at the sensors,
+and the metadata, which is stored at the proxies, enables TSAR to
+reduce energy overheads at the sensors, by leveraging resources at
+tethered proxies.
+1.2 Contributions
+This paper presents TSAR, a novel two-tier storage architecture
+for sensor networks. To the best of our knowledge, this is the first
+sensor storage system that is explicitly tailored for emerging 
+multitier sensor networks. Our design and implementation of TSAR has
+resulted in four contributions.
+At the core of the TSAR architecture is a novel distributed index
+structure based on interval skip graphs that we introduce in this
+paper. This index structure can store coarse summaries of sensor
+data and organize them in an ordered manner to be easily 
+search1
+TSAR: Tiered Storage ARchitecture for sensor networks.
+able. This data structure has O(log n) expected search and update
+complexity. Further, the index provides a logically unified view of
+all data in the system.
+Second, at the sensor level, each sensor maintains a local archive
+that stores data on flash memory. Our storage architecture is fully
+stateless at each sensor from the perspective of the metadata index;
+all index structures are maintained at the resource-rich proxies, and
+only direct requests or simple queries on explicitly identified 
+storage locations are sent to the sensors. Storage at the remote sensor
+is in effect treated as appendage of the proxy, resulting in low 
+implementation complexity, which makes it ideal for small, 
+resourceconstrained sensor platforms. Further, the local store is optimized
+for time-series access to archived data, as is typical in many 
+applications. Each sensor periodically sends a summary of its data to a
+proxy. TSAR employs a novel adaptive summarization technique
+that adapts the granularity of the data reported in each summary to
+the ratio of false hits for application queries. More fine grain 
+summaries are sent whenever more false positives are observed, thereby
+balancing the energy cost of metadata updates and false positives.
+Third, we have implemented a prototype of TSAR on a multi-tier
+testbed comprising Stargate-based proxies and Mote-based sensors.
+Our implementation supports spatio-temporal, value, and 
+rangebased queries on sensor data.
+Fourth, we conduct a detailed experimental evaluation of TSAR
+using a combination of EmStar/EmTOS [10] and our prototype.
+While our EmStar/EmTOS experiments focus on the scalability of
+TSAR in larger settings, our prototype evaluation involves latency
+and energy measurements in a real setting. Our results demonstrate
+the logarithmic scaling property of the sparse skip graph and the
+low latency of end-to-end queries in a duty-cycled multi-hop 
+network .
+The remainder of this paper is structured as follows. Section 2
+presents key design issues that guide our work. Section 3 and 4
+present the proxy-level index and the local archive and 
+summarization at a sensor, respectively. Section 5 discusses our prototype 
+implementation, and Section 6 presents our experimental results. We
+present related work in Section 7 and our conclusions in Section 8.

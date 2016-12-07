@@ -1,0 +1,35 @@
+section 7 concludes the study and gives future perspectives. 
+section 6 presents our experiments and results.
+section 5 describes the extended tdt4 corpus.
+section 4 discusses issues with respect to evaluation methodology and proposes a new scheme.
+section 3 describes the technical cores of our system called caf´e - cmu adaptive filtering engine.
+section 2 outlines the information distillation process with a concrete example.
+the rest of this paper is organized as follows.
+moreover, we propose an extension of ndcg (normalized discounted cumulated gain) [9] for assessing the utility of ranked passages as a function of both relevance and novelty.
+to automatically evaluate the system-returned arbitrary spans of text using our answer keys, we further developed an evaluation scheme with semi-automatic procedure for 1 url: http://nyc.lti.cs.cmu.edu/downloads acquiring rules that can match nuggets against system responses.
+we have conducted our experiments on this extended tdt4 corpus and have made the additionally generated data publicly available for future comparative evaluations 1 .
+therefore, we extended a benchmark corpus - the tdt4 collection of news stories and tv broadcasts - with task definitions, multiple queries per task, and answer keys per query.
+note that conventional benchmark corpora for af  evaluations, which have relevance judgments at the document level and do not define tasks with multiple queries, are insufficient for evaluating the new approach.
+we call the new process utility-based information distillation.
+to address the above limitations of current af systems, we propose and examine a new approach in this paper, combining the strengths of conventional af (incremental learning of topic models), multi-pass passage retrieval for long-lasting queries conditioned on topic, and novelty detection for removal of redundancy from user interactions with the system.
+however, the effectiveness of such techniques at passage level to detect novelty with respect to user"s (fine-grained) feedback and to detect redundancy in ranked lists remains to be evaluated using a measure of utility that mimics the needs of a real user.
+clearly, techniques for novelty detection can help in principle [25, 2, 22] for improving the utility of the af systems.
+a conventional af system would select all these redundant news stories for user feedback, wasting the user"s time while offering little gain.
+a major news event, for example, would be reported by multiple sources repeatedly for a while, making most of the information content in those articles redundant with each other.
+3. system-selected documents are often highly  redundant.
+for this, we need to enable supervised learning from labeled pieces of text of arbitrary span instead of just allowing labeled documents.
+effectively leveraging such fine-grained feedback could substantially enhance the quality of an af system.
+however, a real user may be willing to provide more informative, fine-grained feedback via  highlighting some pieces of text in a retrieved document as relevant, instead of labeling the entire document as relevant.
+2. the unit for receiving a relevance judgment (‘yes" or ‘no") is restricted to the document level in conventional af.
+how to deploy such a strategy for long-lasting information needs in af settings is an open question for research.
+the latter form of user interaction has been highly effective in standard retrieval for ad-hoc queries.
+a more ‘active" alternative would be to allow the user to issue multiple queries for a topic, review a ranked list of candidate documents (or passages) per query, and provide feedback on the ranked list, thus refining their information need and requesting updated ranked lists.
+specifically, the following issues may seriously limit the true utility of af systems in real-world applications: 1. user has a rather ‘passive" role in the conventional adaptive filtering setup - he or she reacts to the system only when the system makes a ‘yes" decision on a document, by confirming or rejecting that decision.
+despite substantial achievements in recent adaptive filtering research, significant problems remain unsolved regarding how to leverage user feedback effectively and efficiently.
+regularized logistic regression [21] has been found representative for the state-of-the-art approaches, and highly efficient for frequent model adaptations over large document collections such as the trec-10 corpus (over 800,000 documents and 84 topics).
+a variety of supervised learning algorithms (rocchio-style classifiers, exponential-gaussian models, local regression and logistic regression approaches) have been studied for adaptive settings, examined with explicit and implicit relevance feedback, and evaluated with respect to utility optimization on large benchmark data collections in trec (text retrieval conferences) and tdt (topic detection and tracking) forums [1, 4, 7, 15, 16, 20, 24, 23].
+google and yahoo) in terms of finding relevant information with respect to long-lasting topics of interest, and more attractive for users who are willing to provide feedback to adapt the system towards their specific information needs, without having to modify their queries manually.
+the incremental learning nature of af systems makes them more powerful than standard search engines that support ad-hoc retrieval (e.g.
+based on the initial query and a few positive examples (if available), an af system maintains a profile for each such topic of interest, and constantly updates it based on feedback from the user.
+adaptive filtering (af) is one such task of online prediction of the relevance of each new document with respect to pre-defined topics.
+tracking new and relevant information from temporal data streams for users with long-lasting needs has been a challenging research topic in information retrieval.

@@ -1,0 +1,19 @@
+One challenge with this approach is that propagation distance cannot be determined ahead of time and more importantly, exhibits spatio-temporal variations.
+As well, we also require the use of a control channel to disseminate sensing  information.
+Weighted Readings: Although we argued that most devices will likely be equipped with low-cost sensing  equipment, there may be situations where there are some special infrastructure nodes that have better sensing abilities than others.
+The trade-offs of different approaches to implementing GUESS is a subject of future work. 
+Therefore, we recommend the use of  spatially decaying aggregates [6], which limits the impact of an update on more distant nodes.
+Spatial Decay: Devices performing coordinated sensing are primarily interested in the spectrum usage of their local neighborhood.
+Spatially decaying  aggregates work by successively reducing (by means of a decay function) the value of the update as it propagates further from its origin.
+Choosing an appropriate operating value for β is application dependent, and explored further in [3].
+We have only just scratched the surface in addressing the problem of coordinated spectrum sensing using incremental gossiping.
+Deciding if a change is significant can be done using a significance threshold β, below which any  observed change is not propagated by the node.
+Implementation Specifics: Finally, implementing  gossip for coordinated spectrum sensing is also open.
+Weighting their measurements more heavily could be used to maintain a higher degree of accuracy.
+Therefore, finding the optimal decay function is non-trivial, and an interesting subject of future work.
+There are a variety of alternatives for  implementing such a channel, some of which are outlined in [4].
+Significance Threshold: RF spectrum bands  continually experience small-scale changes which may not  necessarily be significant.
+Determining how to assign such weights is an open area of research.
+If  implemented at the MAC layer, it may be feasible to piggy-back gossip messages over existing management frames (e.g.
+Next, we outline some open areas of research.
+networking advertisement messages).

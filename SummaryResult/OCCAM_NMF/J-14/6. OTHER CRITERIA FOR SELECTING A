@@ -1,0 +1,47 @@
+finally, note that all results in this section can be extended to bounded-degree trees. 
+this identifies an approximation to the fairest nash equilibrium, i.e., one in which the players" expected payoffs differ by the smallest possible amount.
+note also that we can find the smallest ξ for which such a nash equilibrium exists by combining this algorithm with binary search over the space ξ = [0, 2pmax].
+, n. the running time of this algorithm is o(max{np3 max/ 4 , n4 / 4 }).
+we conclude that whenever such a nash  equilibrium s exists, our algorithm outputs a nash equilibrium t that satisfies |epvi (t) − epvj (t)| ≤ ξ + 4 for all i, j = 1, .
+that is, the nash equilibrium s satisfies ti ≤ r ≤ epvi (s) ≤ r + ξ ≤ ti , which means that when ti is set to −pmax + (k − 1) , our algorithm is guaranteed to output a nash equilibrium t that satisfies r − 2 ≤ ti − ≤ epvi (t) ≤ ti + ≤ r +ξ +2 .
+during the kth step of the algorithm, we set t1 = · · · = tn = −pmax +(k−1) , i.e., we have r− ≤ ti ≤ r, r + ξ ≤ ti ≤ r + ξ + .
+, n. there exists a k ≥ 0 such that −pmax + (k − 1) ≤ r ≤ −pmax + k .
+, n. set r = mini=1,...,n epvi (s); we have r ≤ epvi (s) ≤ r + ξ for all i = 1, .
+suppose that there exists a nash equilibrium s that satisfies |epvi (s) − epvj (s)| ≤ ξ for all i, j = 1, .
+we continue until the algorithm finds a solution, or ti ≥ pmax.
+this observation allows us to approximate nash equilibria in which all players" expected payoffs differ by at most ξ for any fixed ξ > 0. given an > 0, we set t1 = · · · = tn = −pmax, t1 = · · · = tn = −pmax + ξ + , and run the modified version of the algorithm of section 5. if it fails to find a solution, we  increment all ti, ti by and loop.
+, n. the modified algorithm also runs in time o(max{np3 max/ 3 , [4]n4 / 3 }).
+, n, we can find a strategy profile s such that s is a nash equilibrium for g and ti − ≤ epvi (s ) ≤ ti + for i = 1, .
+, tn and > 0. then if there exists a  strategy profile s such that s is a nash equilibrium for g and ti ≤ epvi (s) ≤ ti for i = 1, .
+, tn, t1, .
+more precisely,  suppose that we are given a graphical game g, 2n rational numbers t1, .
+moreover, we can efficiently compute an  approximation to a nash equilibrium that satisfies both the upper bound and the lower bound for each player.
+indeed, observe that the algorithm of section 5 can be easily modified to deal with upper bounds on individual payoffs rather than lower bounds.
+we will now show that nash equilibria in this category can be approximated in polynomial time as well.
+6.3 equalizing the payoffs when the players" payoff matrices are not very different, it is reasonable to demand that the expected payoffs to the players do not differ by much either.
+the running time of our algorithm is o(max{np3 max log −1 / 3 , n4 log −1 / 3 }).
+it is not hard to check that for any p ∈ r, if there is a nash equilibrium s such that mini=1,...,n epvi (s) ≥ p, then our algorithm outputs a nash equilibrium s that satisfies mini=1,...,n epvi (s) ≥ p−2 .
+we repeat this process until |t − t | ≤ .
+, n, we set t = t∗ , t∗ = (t + t )/2; otherwise, we set t = t∗ , t∗ = (t + t )/2 and loop.
+if the algorithm succeeds in finding a nash equilibrium s that satisfies epvi (s ) ≥ t∗ − for all i = 1, .
+we then run the algorithm of section 5 with t1 = · · · = tn = t∗ .
+for a fixed > 0, we start by setting t = −pmax, t = pmax, t∗ = (t + t )/2.
+note that the expected payoff to any player vi given a strategy s always satisfies −pmax ≤ epvi (s) ≤ pmax.
+to find an  approximation to such a nash equilibrium, we can combine the  algorithm of section 5 with binary search on the space of potential lower bounds.
+the optimal solution with respect to this measure is a nash equilibrium in which the minimal expected payoff to a player is maximal.
+6.2 a minimax approach a more egalitarian measure of the quality of a nash equilibrium is the minimal expected payoff to a player.
+this problem can be handled similarly.
+even more generally, we may want to maximize the total payoff to a subset of players (who are assumed to be able to redistribute the profits fairly among themselves) while guaranteeing certain  expected payoffs to (a subset of) the other players.
+the ˆml,k i can be computed by dynamic  programming similarly to the ml,k i and zl,k i in the proofs of theorems 3 and 5. finally, as in the proof of theorem 3, we use ml,k n to select the best discrete nash equilibrium subject to the payoff constraints.
+, vi−1 to satisfy these conditions, we set ml,k i = −∞.
+if there is no way to choose the strategies for v1, .
+, vi−1 can achieve if each vj, j ≤ i, chooses a strategy from xj , for each j < i the strategy of vj is a potential best response to the strategy of vj+1 and the payoff to player vj is at least tj − , and,  moreover, vi−1 plays xl i−1, vi plays xk i .
+define ˆml,k i to be the maximum total payoff that v1, .
+combining the proofs of theorem 3 and theorem 5, we can see that the strategy profile ˆt given by ˆti = max{xj i | xj i ≤ ˆsi} satisfies epvi (ˆt) ≥ ti − , |ep(ˆs) − ep(ˆt)| ≤ .
+if the set s is non-empty, we can find a nash equilibrium ˆs that is -close to satisfying the payoff bounds and is within from ˆs with respect to the total payoff by combining the algorithms of section 4 and section 5. namely, for a given > 0, choose δ as in the proof of theorem 3, and let xi be the set of all discrete strategies of player vi (for a 169 formal definition, see the proof of theorem 3).
+, n, and let ˆs = argmaxs∈s ep(s).
+, tn, let s be the set of all nash  equilibria s of g that satisfy ti ≤ epvi (s) for i = 1, .
+formally, given a graphical game g and a vector t1, .
+for example, we may want to ensure that no player gets a negative expected payoff, or that the expected payoff to player i is at least pi max − ξ, where pi max is the maximum entry of i"s  payoff matrix and ξ is a fixed parameter.
+6.1 combining welfare maximization with bounds on payoffs in many real life scenarios, we want to maximize the social  welfare subject to certain restrictions on the payoffs to individual  players.
+nash equilibrium in this section, we consider several other criteria that can be  useful in selecting a nash equilibrium.

@@ -1,0 +1,49 @@
+, n px ≤ 1 return x for which z is maximized 
+, sn ∈ r+ max z z ≤ yi + sipi(x − xi) for i = 1, .
+, yn ∈ rd and s1, .
+, sn ∈ r+ algorithm 2 evaluation input y1, .
+≤ φn for all 1 ≤ i ≤ n do δi ← (n − 1) max(i,j)∈s (−aij ) min(i,j)∈t aij si ← qi j=2 δj end for shortest path(yj − yi ≤ siaij) return y1, .
+, (xn, pn) s ← {(i, j) : aij < 0} e ← {(i, j) : aij = 0} for all (i, j) ∈ s do wij ← −1 end for for all (i, j) ∈ e do wij ← 0 end for while there exist unvisited vertices do visit new vertex j assign potential to φj end while reorder indices so φ1 ≤ φ2 .
+38 algorithm 1 utility algorithm input (x1, p1), .
+since u(x) = mini{yi + sipi(x − xi)} this is a linear program and can be solved in time polynomial in d, n as well as the size of the largest number in the input.
+to use this function to forecast demand for unobserved prices we need algorithm 2 which maximizes the function on a given budget set.
+now, c has weight svavu+ x (k,l)∈c\(v,u) skak,l ≥ svav,u+sp(n−1) max (i,j)∈s {aij } ≥ 0, i.e., c has non-negative weight ✷ algorithm 1 returns in polynomial time a hypothesis that is a piecewise linear function and agrees with the labeling of the observation namely sample error zero.
+i.e., aq,t ≥ 0. let p denote a vertex in c with the second smallest potential.
+hence the edge (q, t) must have non-negative weight.
+hence (iv, iv+1) ∈ t. now, note that all vertices q in c with the same potential as iv must be incident to an edge (q, t) in c such that φ(t) ≥ φ(q).
+if (iv, iv+1) ∈ s ∪ e, then we have φ(iv+1) ≤ φ(iv) + wiv,iv+1 ≤ φ(iv) a contradiction.
+such an edge exists, otherwise φi is identical for all vertices i in c. in this case, all edges in c have non-negative edge weight in d(a, s).
+for any cycle c in the digraph d(a, s), let (v, u) be an edge in c such that (i) v has the smallest potential among all vertices in c, and (ii) φu > φv.
+φ(iv) < φ(iv+1).
+otherwise let iv ∈ c be the vertex with smallest potential satisfying w.l.o.g.
+, k and we are done.
+if φ is constant on c then aij ij+1 = 0 for j = 1, .
+, ik) is a cycle in d(a, s).
+suppose c = (i1, .
+we show that for this choice of s, d(a, s) contains no negative weight cycle.
+let δi = (n − 1) max(i,j)∈s(−aij) min(i,j)∈t aij if φi < φi−1 and δi = 1 otherwise, and define si = iy j=2 δj = δi · si−1 .
+≥ φn.
+d(a) has no negative cycles, hence g is acyclic and breadth first search can assign potentials φi such that φj ≤ φi + wij for (i, j) ∈ s ∪ e. we relabel the vertices so that φ1 ≥ φ2 ≥ .
+now we describe how to choose the si"s. define s = {(i, j) : aij < 0}, e = {(i, j) : aij = 0} and t = {(i, j) : aij > 0} and let g = ([n], s ∪ e) be a digraph with weights wij = −1 if (i, j) ∈ s and wij = 0 otherwise.
+thus, in the second step, if d(a) satisfies ac, the algorithm calls a  shortest path algorithm to find y ∈ rn satisfying the  constraints.
+the dual of a shortest path problem is given by the  constraints: yj − yi ≤ siaij i = j it is a standard result (see [14] p 109) that the system is  feasible iff d(a, s) has no negative cycles.
+first, the  algorithm finds s ∈ rn + such that the weighted digraph d(a, s) defined by the matrix ˜aij = siaij has no cycle with  negative total weight if d(a) satisfies ac and returns a negative cycle otherwise.
+the construction is executed in two steps.
+teo and vohra [17] give a strongly polynomial time algorithm for this construction which will be the heart of our learning algorithm.
+the construction provides a utility function that is consistent with the observations.
+in the other direction it is shown by explicit  construction that afriat"s condition for d(a) implies l(a) is  feasible.
+proof : if l(a) is feasible then it is easy to see that u(x) = min i {yi + sipi(x − xi)} is a concave utility function that is consistent with the  observations, and from our previous remark it follows that d(a) satisfies ac.
+, sn) ∈ rn + satisfying the set of inequalities l(a), yj ≤ yi + siaij i = j 1 ≤ i, j ≤ n iff d(a) satisfies ac.
+, yn) ∈ rn and s = (s1, .
+theorem 1. there exists y = (y1, .
+let a be an n × n matrix with entries aij = pi · (xj − xi) (aij and aji are independent), aii = 0 and let d(a) be the weighted digraph associated with a. the matrix satisfies ac if every cycle with negative total weight includes at least one edge with positive weight.
+this argument shows that ac is necessary for rationalizability; the surprising result in afriat"s theorem is that this condition is also sufficient.
+= pik−1 ·(xik−1 −xik ) = 0. we call the latter  condition the afriat condition (ac).
+= u(xik ) implying pi1 · (xi1 − xi2 ) = pi2 · (xi2 − xi3 ) = .
+k − 1 and pik · (xik − xi1 ) ≤ 0. then the same reasoning shows that u(xi1 ) = u(xi2 ) = .
+, (pik , xik ) such that pij · (xij − xij+1 ) ≤ 0 for j = 1 .
+suppose there is a sequence (pi1 , xi1 ), .
+it is therefore revealed that u(xj) ≤ u(xi) implying pj · xj ≤ pj · xi.
+, n. we begin with a trivial  observation, if pi · xj ≤ pi · xi and xi = f(pi) then xi is preferred over xj since the latter is in the budget set when the  former was chosen.
+, (pn, xn) is rationalizable if there exists a utility function u such that xi = fu(pi) for i = 1, .
+a sequence of prices and demands (p1, x1), .

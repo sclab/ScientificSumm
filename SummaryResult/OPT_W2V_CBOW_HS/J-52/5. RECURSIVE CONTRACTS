@@ -1,0 +1,37 @@
+However, in the case of recursive contracts, the entity that pledges to pay in the cost discovery stage (the principal) is not the same as the entity that  defines and executes the payments in the forwarding stage (the transit nodes).
+When the principal comes to design a contract with node A, he needs to consider the subsequent contract that A should sign with B, which should satisfy the following constrints.
+• Is it possible to design recursive contracts in scenarios of  unknown transit costs?
+In recursive payment, the principal contracts with the first node on the path, which in turn contracts with the second, and so on, such that each node contracts with its downstream node and makes the payment based on the final result, as demonstrated in figure 6.
+The expected total payments by the  principal under direct and recursive contracts are equal.
+= nX i=1 ci (1 − k)i and the expected total payment is E[S] = (1 − k)n+1 sG 1 = (1 − k)n+1 nX i=1 ci (1 − k)n−i+1 which equals the total expected payment in direct payments, as  expressed in Eq.
+What information should the principal posess in order to  implement recursive contracts?
+• What is the relation between the total expected payment  under direct and recursive contracts?
+Transit nodes, who design the contracts in the second stage, know that their downstream nodes will forward the packet as long as the expected payment exceeds the expected cost, even if it is less than the promised amount.
+Because sB i = 0 in the drop / forward model, both constraints can be reduced to: Pr(xG i→R|aj = 1∀j)(sG i − sG i+1) − ci = 0 ⇔ (1 − k)n−i+1 (sG i − sG i+1) − ci = 0 which yields, for all 1 ≤ i ≤ n: sG i = ci (1 − k)n−i+1 + sG i+1 Thus, sG n = cn 1 − k sG n−1 = cn−1 (1 − k)2 + sG n = cn−1 (1 − k)2 + cn 1 − k · · · sG 1 = c1 (1 − k)n + sG 2 = .
+• What should be the structure of recursive contracts that  induce cooperative behavior?
+(IR) :Pr(xG S→A|aS = 1)(E[sS→A − sA→B|ai = 1∀i] − c) + Pr(xB S→A|aS = 1)sB S→A ≥ 0 (IC) : E[sS→A − sA→B|ai = 1∀i] − c ≥ E[sS→A − sA→B|aA = 0, aB = 1] where: E[sS→A − sA→B|ai = 1∀i] = Pr(xG A→D|ai = 1∀i)(sG S→A − sG A→B) +Pr(xB A→D|ai = 1∀i)(sB S→A − sB A→B) and E[sS→A − sA→B|aA = 0, aB = 1] = Pr(xG A→D|aA = 0, aB = 1)(sG S→A − sG A→B) +Pr(xB A→D|aA = 0, aB = 1)(sB S→A − sB A→B) Solving for sB S→A and sG S→A, we get: sB S→A = 0 sG S→A = c(2 − k) 1 − 2k + k2 The expected total payment is E[S] = sG S→APr(xG S→D) + sB S→APr(xB S→D) = c(2 − k)(1 − k) (13) which is equal to the expected total payment under direct contracts (see Eq.
+(IR) :Pr(xG A→B|aA = 1)(E[s|aB = 1] − c)+ Pr(xB A→B|aA = 1)sB A→B ≥ 0 (IC) :E[s|aB = 1] − c ≥ E[s|aB = 0] where: E[s|aB = 1] = Pr(xG B→D|aB = 1)sG A→B + Pr(xB B→D|aB = 1)sB A→B and E[s|aB = 0] = Pr(xG B→D|aB = 0)sG A→B + Pr(xB B→D|aB = 0)sB A→B These (binding) constraints yield the values of sB A→B and sG A→B: sB A→B = 0 sG A→B = c/(1 − k) Based on these values, S can express the constraints it should  satisfy in a contract with A.
+Finally, is it possible to design recursive contracts under  unknown transit costs, and, if so, what should be the structure of such contracts?
+Therefore, while the principal only needs to communicate with the first node on the forwarding path and does not have to know the identities of the other nodes, it still needs to know the number of nodes on the path and their individual transit costs.
+We assume that payments are  enforceable if made by the same entity that pledge to pay.
+Therefore, transit nodes may not have the appropriate incentive to follow the principal"s guarantee during the payment phase.
+Because the payment is contingent on the final outcome, and the expected payment to a node equals its expected cost, nodes have no incentive to offer their downstream nodes lower payment than necessary, since if they do, their downstream nodes will not forward the packet.
+Therefore, while recursive contracts under known transit costs are strategically equivalent to direct contracts, it is not clear whether this is the case under unknown transit costs. 
+In this section, we distinguish between direct and recursive  contracts.
+When the principal designs a contract with the first node, he should take into account the  incentives that the first node should provide to the second node, and so on all the way to the destination.
+Like in direct payments, the expected payment is not affected solely by the total payment on the path, but also by the topology.
+With recursive payments, every node needs to communicate only with its downstream node.
+In order to calculate the expected total payment, we have to find the payment to the first node on the path that will  induce appropriate behavior.
+With direct payments, the principal needs to know the identity and cost of each node on the path and to have some communication channel with the node.
+In direct contracts, the principal contracts directly with each node on the path and pays it directly.
+For  example, in FPSS , the principal guarantees to pay each node an  expected payment of pi > ci.
+122 Figure 6: Structure of the multihop routing game under known  topology and recursive contracts.
+In order to answer the questions outlined above, we look at the IR and IC constraints that the principal needs to satisfy when  contracting with the first node on the path.
+Unlike contracts in known transit costs, the expected payment to a node usually exceeds its expected cost.
+Suppose the principal has implemented the distributed algorithm that calculates the necessary payments, pi for truthful 123 revelation, would the following payment schedule to the first node induce cooperative behavior?
+Transit nodes, who know this is a plausible scenario, may no longer truthfully  reveal their cost.
+Thus, every node has incentive to offer lower payments than promised and keep the profit.
+Several questions arise in this context: • What knowledge should the principal have in order to induce cooperative behavior through recursive contracts?
+For example, consider the topology given in figure 3 (a).
+sB 1 = 0 sG 1 = nX i=1 pi (1 − k)i The answer is not clear.
+PROPOSITION 5.1.

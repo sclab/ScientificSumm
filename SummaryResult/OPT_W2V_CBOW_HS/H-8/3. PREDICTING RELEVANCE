@@ -1,0 +1,76 @@
+Specifically, we want to learn a calibration function qij = Cj(q∗ ij) that will ensure that the predicted probabilities are tuned to the expert"s ability to retrieve relevant documents given the judgments that have been made to this point.
+This is supervised; we learn coefficients from a set of judged documents and use those to estimate the  relevance of the unjudged documents.
+The calibrated probabilities are plugged into model (2) to find the document probabilities.
+Using these as prior parameters ensures that the resulting probabilities will be concentrated around the ratio of relevant documents that have been discovered for topic t. This means that the probability estimates decrease by rank and are higher for topics that have more relevant documents.
+Since q∗ ij is topic-independent, we only need to learn one calibration function for each  expert.
+Once we have the calibration function, it is applied to adjust the experts" predictions to their actual performance.
+We could train a separate predicting model for each topic, but that does not take advantage of all of the information we have: we may only have a handful of judgments for a topic, not enough to train a model to any confidence.
+Aslam & Montague [1] used a similar model for metasearch, but assumed independence among experts.
+The probability distribution we wish to find is the one that maximizes the entropy of pi = p(Xi = 1|qi).
+A language modeling ranker, for instance, will typically give a much higher score to the top retrieved document for a short query than to the top retrieved document for a long query.
+One of the advantages of our  confidence estimates is that they admit information from a wide variety of sources; essentially anything that can be  modeled can be used as information for predicting relevance.
+We want to find the θs that maximize the likelihood function: Ljt(Θ) = rj (i)<rj (k) exp(θrj (i) − θrj (k)) 1 + exp(θrj (i) − θrj (k)) We again include a beta prior on p(θrj(i)) with parameters |Rt| + 1 and |Nt| + 1, the size of the sets of judged  relevant and nonrelevant documents respectively.
+Platt"s SVM calibration method [16] fits a sigmoid  function between q∗ ij and the relevance judgments to obtain qij = Cj (q∗ ij) = exp(Aj +Bjq∗ ij ) 1+exp(Aj +Bj q∗ ij ) .
+Experts E1, E2 have ranked documents A, B, C for topic T1 and documents D, E, F for topic T2.
+Then pi = p(Xi = 1|qi) = exp k j=1 λjqij 1 + exp k j=1 λj qij (2) where λ1, · · · , λk are the regression parameters.
+Since q∗ ij is based on the rank at which a document is retrieved rather than the identity of the document itself, the probabilities are identical from expert to expert, e.g.
+The above model gives topic-independent probabilities for each document.
+The pairwise preference method of Carterette & Petkova [9] could also be used, interpeting the ranking of one document over another as an expression of preference.
+This model has the advantage of including the  statistical dependence between the experts.
+A natural source of information is the retrieval systems  themselves: how they ranked the judged documents, how often they failed to rank relevant documents, how they perform across topics, and so on.
+This gives us q∗ ij, expert j"s self-reported probability of the relevance of document i.
+Furthermore, it seems reasonable to assume that if an expert makes good predictions for one topic, it will make good predictions for other topics as well.
+As it turns out, finding the maximum entropy model is equivalent to finding the parameters that maximize the  likelihood [5].
+Instead, we will calibrate the scores of each expert individually so that scores can be compared both within topic and between topic.
+A model of the same form was shown by Clemen & Winkler to be the best for aggregating expert probabilities [10].
+This gives us pi = p(Xi = 1|qi), the probability of relevance of document i given calibrated expert probabilities qij .
+This can be seen as a type of smoothing to account for the fact that the training data is highly biased.
+Intuitively it seems clear that q∗ ij should decrease with rank, and it should be zero if document i is unranked (the expert did not believe it to be relevant).
+This is  semisupervised; we have relevance judgments at some ranks which we use to impute the probability of relevance at other ranks.
+Blower [6] explicitly shows that finding the  maximum entropy model for a binary variable is equivalent to solving a logistic regression.
+[14] could be used to convert scores into probabilities of relevance.
+We could use a hierarchical model [12], but that will not generalize to unseen topics.
+This gives us qij = Cj (q∗ ij), expert j"s calibrated  probability of the relevance of document i.
+1. ranks → probabilities (per system per topic).
+We are accumulating relevance judgments as we  proceed with the evaluation and are able to re-estimate relevance given each new judgment.
+We explicitly need probabilities of relevance that we can plug into Eq.
+Thus our model takes into account not only the dependence between experts, but also the dependence between experts" performances on different tasks (topics).
+The information about the  relevance of document i will then be the set of k expert opinions I = qi = (qi1, qi2, · · · , qik).
+If we treat each system as an  information retrieval expert providing an opinion about the relevance of each document, the problem becomes one of expert opinion aggregation.
+We define θ∞ = −∞, so that the  probability that an unranked document is relevant is 0.
+The use of beta (conjugate) priors ensures that no expensive computational methods such as MCMC are necessary [12], so the model is trained and applied fast enough to be used on-line.
+A method such as the one used by Manmatha et al.
+3.1 A Model for Expert Opinion Aggregation Suppose that each expert j provides a probability of  relevance qij = pj(Xi = 1).
+3.2 Calibrating Experts Each expert gives us a score and a rank for each document.
+3.3 Model Summary Our model has three components that differ by the data they take as input and what they produce as output.
+We need to convert these to probabilities.
+Let q∗ ij be expert j"s self-reported probability that  document i is relevant.
+A similar  maximumentropy-motivated approach has been used for expert  aggregation [15].
+This is unsupervised; it  requires no labeled data (though if we have some, we use it to set prior parameters).
+This is similar to the metasearch or data fusion problem in which the task is to take k input systems and merge them into a single ranking.
+In light of (1) above, we introduce a probabilistic model for expert combination.
+if expert E put document A at rank 1, and expert D put document B at rank 1, we will have q∗ AE = q∗ BD.
+Although the model appears rather complex, it is really just three successive applications of logistic regression.
+[3] previously identified a connection between evaluation and metasearch.
+Let θrj (i) be the relevance coefficient of the document at rank rj(i).
+Using raw, uncalibrated scores as predictors will not work because score distributions vary too much between topics.
+Next is calibration to true performance to find qij .
+The pairwise preference model can handle these two  requirements easily, so we will use it.
+1; metasearch algorithms have no such requirement.
+Therefore we only have to solve this once for each topic.
+After finding the Θ that maximizes the likelihood, we have q∗ ij = exp(θrj (i)) 1+exp(θrj (i)) .
+3. calibrated probabilities → document probabilities.
+The first step is to obtain q∗ ij.
+Its opinion should be discounted based on its observed performance.
+But suppose an expert who reports 90% probability is only right 50% of the time.
+Our  problem has two key differences: 1.
+As such, it can be implemented in a statistical programming language such as R in a few lines of code.
+Figure 1: Conceptual diagram of our aggregation model.
+We include a beta prior for p(λj) with parameters α, β.
+In our statement of Theorem 1, we left the nature of the information I unspecified.
+2. probabilities → calibrated probabilities (per system).
+Our code is available at http://ciir.cs.umass.edu/~carteret/. 
+Where do the qij s come from?
+A conceptual diagram is shown in Figure 1.
+Finally we obtain pi = p(Xi = 1|qi1, qi2), · · · .
+Aslam et al.

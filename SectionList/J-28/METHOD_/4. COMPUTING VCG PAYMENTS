@@ -1,0 +1,339 @@
+We now consider the related problem of computing the VCG
+payments for all the agents. A naive approach requires solving
+the allocation problem n times, removing each agent in turn. In
+this section, we show that our approximation scheme for the 
+generalized knapsack can be extended to determine all n payments
+in total time O(αT log(αn/ε)), where 1 ≤ C(I\i)/C(I) ≤ α,
+for a constant upper bound, α, and T is the complexity of 
+solving the allocation problem once. This α-bound can be justified
+as a no monopoly condition, because it bounds the marginal
+value that a single buyer brings to the auction. Similarly, in the
+reverse variation we can compute the VCG payments to each
+seller in time O(αT log(αn/ε)), where α bounds the ratio C(I\
+i)/C(I) for all i.
+Our overall strategy will be to build two dynamic 
+programming tables, forward and backward, for each midrange element
+(l, j) once. The forward table is built by considering the agents
+in the order of their indices, where as the backward table is built
+by considering them in the reverse order. The optimal solution
+corresponding to C(I \ i) can be broken into two parts: one 
+corresponding to first (i − 1) agents and the other corresponding to
+last (n − i) agents. As the (i − 1)th row of the forward table 
+corresponds to the sellers with first (i−1) indices, an approximation
+to the first part will be contained in (i − 1)th row of the forward
+table. Similarly, (n− i)th row of the backward table will contain
+an approximation for the second part. We first present a 
+simple but an inefficient way of computing the approximate value of
+C(I \ i), which illustrates the main idea of our algorithm. Then
+we present an improved scheme, which uses the fact that the 
+elements in the rows are sorted, to compute the approximate value
+more efficiently.
+In the following, we concentrate on computing an allocation
+with xj
+being midrange, and some agent i = l removed. This
+will be a component in computing an approximation to C(I \ i),
+the value of the solution to the generalized knapsack without bids
+from agent i. We begin with the simple scheme.
+4.1 A Simple Approximation Scheme
+We implement the scaled dynamic programming algorithm for
+iKnapsack( , j) with two alternate orderings over the other 
+sellers, k = l, one with sellers ordered 1, 2, . . . , n, and one with
+sellers ordered n, n − 1, . . . , 1. We call the first table the 
+forward table, and denote it F , and the second table the backward
+table, and denote it Bl. The subscript reminds us that the agent
+is midrange.9
+In building these tables, we use the same scaling factor as 
+before; namely, the cost of a tuple tj
+i is scaled as follows:
+scost(tj
+i ) =
+ncost(tj
+i )
+εcost(A)
+where cost(A) is the upper bound on C(I), given by our 
+2approximation scheme. In this case, because C(I \ i) can be α
+times C(I), the scaled value of C(I \ i) can be at most nα/ε.
+Therefore, the cost dimension of our dynamic program"s table
+will be nα/ε.
+FlTable
+F (i−1)l
+2 3
+1
+2
+i−1
+1 m−1 m
+n−1
+g
+2 31 m−1 m
+B (n−i)
+n−1
+n−2
+n−i
+1
+lh
+Table Bl
+Figure 3: Computing VCG payments. m = nα
+ε
+Now, suppose we want to compute a (1 + )-approximation
+to the generalized knapsack problem restricted to element (l, j)
+midrange, and further restricted to remove bids from some seller
+i = l. Call this problem iKnapsack−i
+( , j).
+Recall that the ith row of our DP table stores the best solution
+possible using only the first i agents excluding agent l, all of
+them either cleared at zero, or on anchors. These first i agents
+are a different subset of agents in the forward and the backward
+tables. By carefully combining one row of Fl with one row of
+Bl we can compute an approximation to iKnapsack−i
+( , j). We
+consider the row of Fl that corresponds to solutions constructed
+from agents {1, 2, . . . , i − 1}, skipping agent l. We consider the
+row of Bl that corresponds to solutions constructed from agents
+{i+1, i+2, . . . , n}, again skipping agent l. The rows are labeled
+Fl(i − 1) and Bl(n − i) respectively.10
+The scaled costs for
+acquiring these units are the column indices for these entries. To
+solve iKnapsack−i
+( , j) we choose one entry from row F (i−1)
+and one from row B (n−i) such that their total quantity exceeds
+M − uj+1
+and their combined cost is minimum over all such
+combinations. Formally, let g ∈ Fl(i − 1), and h ∈ Bl(n − 1)
+denote entries in each row, with size(g), size(h), denoting the
+number of units and cost(g) and cost(h) denoting the unscaled
+cost associated with the entry. We compute the following, subject
+9
+We could label the tables with both and j, to indicate the jth
+tuple is forced to be midrange, but omit j to avoid clutter.
+10
+To be precise, the index of the rows are (i − 2) and (n − i) for
+Fl and Bl when l < i, and (i − 1) and (n − i − 1), respectively,
+when l > i.
+173
+to the condition that g and h satisfy size(g) + size(h) > M −
+uj+1
+:
+min
+g∈F (i−1),h∈B (n−i)
+Òcost(g) + cost(h) +
+pj
+· max{uj
+, M − size(g) − size(h)}
+Ó (5)
+LEMMA 5. Suppose A−i
+is an optimal solution of the 
+generalized knapsack problem without bids from agent i, and suppose
+that element (l, j) is the midrange element in the optimal 
+solution. Then, the expression in Eq. 5, for the restricted problem
+iKnapsack−i
+( , j), computes a (1 + ε)-approximation to A−i
+.
+PROOF. From earlier, we define cost(A−i
+) = C(I \ i). We
+can split the optimal solution, A−i
+, into three disjoint parts: xl
+corresponds to the midrange seller, xi corresponds to first i − 1
+sellers (skipping agent l if l < i), and x−i corresponds to last
+n − i sellers (skipping agent l if l > i). We have:
+cost(A−i
+) = cost(xi) + cost(x−i) + pj
+xj
+Let ri = scost(xi) and r−i = scost(x−i). Let yi and y−i
+be the solution vectors corresponding to scaled cost ri and r−i
+in F (i − 1) and B (n − i), respectively. From Lemma 3 we
+conclude that,
+cost(yi) + cost(y−i) − cost(xi) − cost(x−i) ≤ εcost(A)
+where cost(A) is the upper-bound on C(I) computed with the
+2-approximation.
+Among all equal scaled cost solutions, our dynamic program
+chooses the one with maximum units. Therefore we also have,
+(size(yi) ≥ size(xi)) and (size(y−i) ≥ size(x−i))
+where we use shorthand size(x) to denote total number of units
+in all tuples in x.
+Now, define yj
+l = max(uj
+l , M −size(yi)−size(y−i)). From
+the preceding inequalities, we have yj
+l ≤ xj
+l . Since (yj
+l , yi, y−i)
+is also a feasible solution to the generalized knapsack problem
+without agent i, the value returned by Eq. 5 is at most
+cost(yi) + cost(y−i) + pj
+l yj
+l ≤ C(I \ i) + εcost(A)
+≤ C(I \ i) + 2cost(A∗
+)ε
+≤ C(I \ i) + 2C(I \ i)ε
+This completes the proof.
+A naive implementation of this scheme will be inefficient 
+because it might check (nα/ε)2
+pairs of elements, for any 
+particular choice of (l, j) and choice of dropped agent i. In the next
+section, we present an efficient way to compute Eq. 5, and 
+eventually to compute the VCG payments.
+4.2 Improved Approximation Scheme
+Our improved approximation scheme for the winner-determination
+problem without agent i uses the fact that elements in F (i − 1)
+and B (n − i) are sorted; specifically, both, unscaled cost and
+quantity (i.e. size), increases from left to right. As before, let
+g and h denote generic entries in F (i − 1) and B (n − i) 
+respectively. To compute Eq. 5, we consider all the tuple pairs, and
+first divide the tuples that satisfy condition size(g) + size(h) >
+M − uj+1
+l into two disjoint sets. For each set we compute the
+best solution, and then take the best between the two sets.
+[case I: size(g) + size(h) ≥ M − uj
+l ]
+The problem reduces to
+min
+g∈F (i−1), h∈B (n−i)
+Òcost(g) + cost(h) + pj
+l uj
+Ó (6)
+We define a pair (g, h) to be feasible if size(g) + size(h) ≥
+M − uj
+l . Now to compute Eq. 6, we do a forward and backward
+walk on F (i − 1) and B (n − i) respectively. We start from
+the smallest index of F (i − 1) and move right, and from the
+highest index of B (n − i) and move left. Let (g, h) be the
+current pair. If (g, h) is feasible, we decrement B"s pointer (that
+is, move backward) otherwise we increment F"s pointer. The
+feasible pairs found during the walk are used to compute Eq. 6.
+The complexity of this step is linear in size of F (i − 1), which
+is O(nα/ε).
+[case II: M − uj+1
+l ≤ size(g) + size(h) ≤ M − uj
+l ]
+The problem reduces to
+min
+g∈F (i−1), h∈B (n−i)
+Òcost(g) + cost(h) +
+pj
+l (M − size(g) − size(h))
+Ó
+To compute the above equation, we transform the above 
+problem to another problem using modified cost, which is defined as:
+mcost(g) = cost(g) − pj
+l · size(g)
+mcost(h) = cost(h) − pj
+l · size(h)
+The new problem is to compute
+min
+g∈F (i−1), h∈B (n−i)
+Òmcost(g) + mcost(h) + pj
+l M
+Ó (7)
+The modified cost simplifies the problem, but unfortunately
+the elements in F (i − 1) and B (n − i) are no longer sorted
+with respect to mcost. However, the elements are still sorted in
+quantity and we use this property to compute Eq. 7. Call a pair
+(g, h) feasible if M − uj+1
+l ≤ size(g) + size(h) ≤ M − uj
+l .
+Define the feasible set of g as the elements h ∈ B (n − i) that
+are feasible given g. As the elements are sorted by quantity, the
+feasible set of g is a contiguous subset of B (n − i) and shifts
+left as g increases.
+2 3 4 5
+10 20 30 40 50 60
+Begin End
+B (n−i)15 20 25 30 35 40
+65421 3
+1 6
+F (i−1)l
+l
+Figure 4: The feasible set of g = 3, defined on B (n − i), is
+{2, 3, 4} when M − uj+1
+l = 50 and M − uj
+l = 60. Begin and
+End represent the start and end pointers to the feasible set.
+Therefore, we can compute Eq. 7 by doing a forward and 
+backward walk on F (i − 1) and B (n − i) respectively. We walk on
+B (n − i), starting from the highest index, using two pointers,
+Begin and End, to indicate the start and end of the current 
+feasible set. We maintain the feasible set as a min heap, where the
+key is modified cost. To update the feasible set, when we 
+increment F"s pointer(move forward), we walk left on B, first using
+End to remove elements from feasible set which are no longer
+174
+feasible and then using Begin to add new feasible elements. For
+a given g, the only element which we need to consider in g"s
+feasible set is the one with minimum modified cost which can
+be computed in constant time with the min heap. So, the main
+complexity of the computation lies in heap updates. Since, any
+element is added or deleted at most once, there are O(nα
+ε
+) heap
+updates and the time complexity of this step is O(nα
+ε
+log nα
+ε
+).
+4.3 Collecting the Pieces
+The algorithm works as follows. First, using the 2 
+approximation algorithm, we compute an upper bound on C(I). We use
+this bound to scale down the tuple costs. Using the scaled costs,
+we build the forward and backward tables corresponding to each
+tuple (l, j). The forward tables are used to compute C(I). To
+compute C(I \ i), we iterate over all the possible midrange 
+tuples and use the corresponding forward and backward tables to
+compute the locally optimal solution using the above scheme.
+Among all the locally optimal solutions we choose one with the
+minimum total cost.
+The most expensive step in the algorithm is computation of
+C(I \ i). The time complexity of this step is O(n2
+α
+ε
+log nα
+ε
+)
+as we have to iterate over all O(n) choices of tj
+l , for all l =
+i, and each time use the above scheme to compute Eq. 5. In
+the worst case, we might need to compute C(I \ i) for all n
+sellers, in which case the final complexity of the algorithm will
+be O(n3
+α
+ε
+log nα
+ε
+).
+THEOREM 4. We can compute an /(1+ )-strategyproof 
+approximation to the VCG mechanism in the forward and reverse
+multi-unit auctions in worst-case time O(n3
+α
+ε
+log nα
+ε
+).
+It is interesting to recall that T = O(n3
+ε
+) is the time 
+complexity of the FPTAS to the generalized knapsack problem with all
+agents. Our combined scheme computes an approximation to the
+complete VCG mechanism, including payments to O(n) agents,
+in time complexity O(T log(n/ε)), taking the no-monopoly 
+parameter, α, as a constant. Thus, our algorithm performs much
+better than the naive scheme, which computes the VCG 
+payment for each agent by solving a new instance of generalized
+knapsack problem. The speed up comes from the way we solve
+iKnapsack−i
+( , j). Time complexity of computing iKnapsack−i
+( , j)
+by creating a new dynamic programming table will be O(n2
+ε
+)
+but by using the forward and backward tables, the complexity is
+reduced to O(n
+ε
+log n
+ε
+). We can further improve the time 
+complexity of our algorithm by computing Eq. 5 more efficiently.
+Currently, the algorithm uses heap, which has logarithmic 
+update time. In worst case, we can have two heap update operations
+for each element, which makes the time complexity super linear.
+If we can compute Eq. 5 in linear time then the complexity of
+computing the VCG payment will be same as the complexity of
+solving a single generalized knapsack problem.

@@ -1,0 +1,58 @@
+The probe interface not only allows applications to obtain the aggregated value for a specified tree but also allows a probing node to continuously fetch the values for a specified time, thus  enabling an application to adapt to spatial and temporal heterogeneity.
+3.1 Aggregation API We provide the flexibility described above by splitting the  aggregation API into three functions: Install() installs an aggregation function that defines an operation on an attribute type and  specifies the update strategy that the function will use, Update() inserts or modifies a node"s local value for an attribute, and Probe()  obtains an aggregate value for a specified subtree.
+The domain  argument, if present, indicates that the aggregation function should be installed on all nodes in the specified domain; otherwise the  function is installed on all nodes in the system.
+In our implementation we choose to return results at all levels k < l for a level-l probe because (i) it is inexpensive as the nodes traversed for level-l probe also contain level k aggregates for k < l and as we expect the network cost of transmitting the  additional information to be small for the small aggregates which we focus and (ii) it is useful as applications can efficiently get several aggregates with a single probe (e.g., for domain-scoped queries as explained in Section 4.2).
+In particular, as outlined above and described in detail in Section 5, after a leaf applies an update locally, the update may trigger re-computation of aggregate values up the tree and may also trigger propagation of changed aggregate values down the tree.
+When node A issues a continuous probe at level l for an attribute, then  regardless of the up and down parameters, updates for the attribute at any node in A"s level-l ancestor"s subtree are aggregated up to level l and the aggregated value is propagated down along the path from the ancestor to A.
+The arguments up and down specify the aggregate computation 381 Update Strategy On Update On Probe for Global Aggregate Value On Probe for Level-1 Aggregate Value Update-Local Update-Up Update-All Figure 1: Flexible API parameter description optional attrType Attribute Type attrName Attribute Name mode Continuous or One-shot (default: one-shot) X level Level at which aggregate is sought (default: at all levels) X up How far up to go and re-fetch the value (default: none) X down How far down to go and  reaggregate (default: none) X expTime Expiry Time Table 2: Arguments for the probe operation and propagation strategy Update-Upk-Downj.
+Also, a leaf  satisfies a probe for a level-i aggregate using purely local data.
+Then, a probe (or read) that reads a level-i aggregate value is sent up the tree to the issuing node"s level-i ancestor and then down the tree to the leaves.
+A SDIMS must provide a wide range of flexible computation and propagation strategies to applications for it to be a general  abstraction.
+In general, an Update-Upk-Downj strategy aggregates up to parameter description optional attrType Attribute Type aggrfunc Aggregation Function up How far upward each update is sent (default: all) X down How far downward each  aggregate is sent (default: none) X domain Domain restriction (default: none) X expTime Expiry Time Table 1: Arguments for the install operation the kth level and propagates the aggregate values of a node at level l (s.t.
+But a virtual intermediate node needs to know the current up and down  propagation values to decide if the local aggregate is fresh in order to answer a probe.
+This is the key reason why up and down need to be statically defined at the install time and can not be specified in the update operation.
+In order to provide this flexibility, we  develop a simple interface that decomposes the aggregation  abstraction into three pieces of functionality: install, update, and probe.
+Along with the attrName and the attrType arguments, a level argument specifies the level at which the answers are required for an attribute.
+This strategy satisfies a leaf"s probe for a level-i aggregate value by sending the probe up to the level-i ancestor of the leaf and then sending the  aggregate value down to the leaf.
+With respect to spatial heterogeneity, access patterns may differ for  different parts of the tree, requiring different propagation strategies for different parts of the tree.
+In an intermediate Update-Up strategy, the root of each subtree maintains the subtree"s current aggregate value, and when an update occurs, the leaf node updates its local state and passes the update to its parent, and then each successive enclosing subtree updates its  aggregate value and passes the new value to its parent.
+SDIMS also allows non-uniform computation and propagation across the aggregation tree with different up and down parameters in different subtrees so that applications can adapt with the  spatial and temporal heterogeneity of read and write operations.
+In the other extreme case of the aggressive Update-All immediate computation and propagation on writes [38], when an update occurs, changes are aggregated up the tree, and each new aggregate value is flooded to all of a node"s descendants.
+3.1.3 Probe The Probe operation returns the value of an attribute to an  application.
+3.1.4 Dynamic Adaptation At the API level, the up and down arguments in install API can be regarded as hints, since they suggest a computation strategy but do not affect the semantics of an aggregation function.
+In this case, each level-i node not only maintains the aggregate values for the level-i subtree but also receives and locally stores copies of all of its ancestors" level- j ( j > i) aggregation values.
+An application should be able to choose a particular  mechanism based on its read-to-write ratio that reduces the bandwidth consumption while attaining the required responsiveness and  precision.
+The up and down arguments enable applications to perform  ondemand fast re-aggregation during reconfigurations, where a forced re-aggregation is done for the corresponding levels even if the  aggregated value is available, as we discuss in Section 6.
+The definition of the aggregation abstraction allows considerable flexibility in how, when, and where aggregate values are computed and propagated.
+The system then computes the desired aggregate value at each layer up the tree until the level-i ancestor that holds the desired value.
+Notice that our  abstraction associates an aggregation function with only an attrType but lets updates specify an attrName along with the attrType.
+Note that the read-to-write ratio of the attributes that  applications install vary extensively.
+Note that continuous mode enables SDIMS to support a distributed sensor-actuator mechanism where a  sensor monitors a level-i aggregate with a continuous mode probe and triggers an actuator upon receiving new values for the probe.
+In dynamic adaptation, we implement a  leasebased mechanism where a node issues a lease to a parent or a child denoting that it will keep propagating the updates to that parent or child.
+The update interface meshes with installed aggregate  computation and propagation strategy to provide flexibility.
+This definition of the aggregation abstraction allows our system to provide a continuous spectrum of strategies ranging from lazy aggregate computation and propagation on reads to aggressive  immediate computation and propagation on writes.
+An  aggregation strategy like Update-All works well for read-dominated attributes but suffers high bandwidth consumption when applied for write-dominated attributes.
+The update interface invokes the aggregation of an attribute on the tree according to corresponding aggregation function"s aggregation strategy.
+3.1.2 Update The Update operation takes three arguments attrType, attrName, and value and creates a new (attrType, attrName, value) tuple or updates the value of an old tuple with matching attrType and  attrName at a leaf node.
+Probes with mode set to continuous and with finite expTime  enable applications to handle spatial and temporal heterogeneity.
+The install  interface allows applications to specify the k and j parameters of the Update-Upk-Downj strategy along with the aggregation function.
+A major innovation of our work is enabling flexible aggregate computation and propagation.
+Finally, the level-i ancestor sends the result down the tree to the  issuing node.
+Similarly with respect to temporal heterogeneity, access patterns may change over time requiring  different strategies over time.
+When present, the up and down arguments are interpreted as described in the install operation.
+This technique helps achieve scalability with respect to nodes and  attributes as described in Section 4.
+The attrType argument denotes the type of attributes on which this  aggregation function is invoked.
+Conversely, an approach like  UpdateLocal works well for write-dominated attributes but suffers from unnecessary query latency or imprecision for read-dominated  attributes.
+Under the lazy Update-Local computation and propagation strategy, an update (or write) only affects local state.
+While previous systems [15, 29, 38, 32, 35, 46] implement a single static strategy, we argue that a SDIMS should provide flexible computation and propagation to efficiently support wide variety of applications with diverse requirements.
+A SDIMS  implementation can dynamically adjust its up/down strategies for an attribute based on its measured read/write frequency.
+For example, a read-dominated attribute like numCPUs rarely changes in value, while a  writedominated attribute like numProcesses changes quite often.
+3.1.1 Install The Install operation installs an aggregation function in the  system.
+We are currently evaluating different policies to decide when to issue a lease and when to revoke a lease. 
+The complete argument set for the probe operation is shown in Table 2.
+Installed functions are soft state that must be periodically renewed or they will be garbage collected at expTime.
+The arguments for this operation are listed in Table 1.
+In Figure 1, we illustrate both extreme strategies and an intermediate strategy.
+The rest of the section describes these three interfaces in detail.
+Finally, notice that other strategies exist.
+l ≤ k) downward for j levels.

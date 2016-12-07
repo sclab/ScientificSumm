@@ -1,0 +1,28 @@
+agent i"s optimal action, a∗ i , for the case of finite horizon with discounting, is an element of the set of optimal actions for the belief state, opt(θi), defined as: opt( bi,l, θi ) = argmax ai∈ai is∈isi,l eri(is, ai)bi,l(is) +γ oi∈ωi pr(oi|ai, bi,l)un ( seθi (bi,l, ai, oi), θi ) (3) 
+2 is a basis for value iteration in i-pomdps.
+2.2 value iteration each belief state in a finitely nested i-pomdp has an associated value reflecting the maximum payoff the agent can expect in this belief state: un ( bi,l, θi ) = max ai∈ai is∈isi,l eri(is, ai)bi,l(is)+ γ oi∈ωi pr(oi|ai, bi,l)un−1 ( seθi (bi,l, ai, oi), θi ) (2) where, eri(is, ai) = aj ri(is, ai, aj)pr(aj|mj,l−1) (since is = (s, mj,l−1)).
+1 for illustrations of the belief update, additional details on i-pomdps, and how they compare with other multiagent frameworks, see [9].
+at this level, the belief update of the agent reduces to a pomdp belief update.
+this  recursion in belief nesting bottoms out at the 0th level.
+if agent j is also modeled as an i-pomdp, then i"s belief update invokes j"s belief update (via the term seθt j ( bt−1 j,l−1 , at−1 j , ot j)), which in turn could invoke i"s belief update and so on.
+for a version of the belief update when j"s model is subintentional, see [9].
+formally, we have: pr(ist |at−1 i , bt−1 i,l ) = β ist−1:mt−1 j =θt j bt−1 i,l (ist−1 ) × at−1 j pr(at−1 j |θt−1 j,l−1)oi(st , at−1 i , at−1 j , ot i) ×ti(st−1 , at−1 i , at−1 j , st ) ot j oj(st , at−1 i , at−1 j , ot j) ×τ(seθt j (bt−1 j,l−1, at−1 j , ot j) − bt j,l−1) (1) where β is the normalizing constant, τ is 1 if its argument is 0 otherwise it is 0, pr(at−1 j |θt−1 j,l−1) is the probability that at−1 j is bayes rational for the agent described by model θt−1 j,l−1, and se(·) is an abbreviation for the belief update.
+if j"s model is subintentional, then j"s probable  observations are appended to the observation history contained in the model.
+in other words, i has to update its belief based on its prediction of what j would observe and how j would update its belief.
+specifically, if j is intentional then an update of j"s beliefs due to its action and observation has to be included.
+second, changes in j"s models have to be included in i"s belief update.
+first, since the state of the physical environment depends on the actions of both agents, i"s prediction of how the physical state changes has to be made based on its prediction of j"s actions.
+however, there are two differences that complicate the belief update in multiagent  settings when compared to single agent ones.
+2.1 belief update analogous to pomdps, an agent within the i-pomdp  framework updates its belief as it acts and observes.
+agent i"s policy is the mapping, ω∗ i → δ(ai), where ω∗ i is the set of all observation histories of agent i. since belief over the interactive states forms a sufficient statistic [9], the policy can also be represented as a mapping from the set of all beliefs of agent i to a distribution over its actions, δ(isi) → δ(ai).
+usually only the physical states will matter.
+• a = ai × aj is the set of joint actions of all agents in the environment; • ti : s ×a×s → [0, 1], describes the effect of the joint actions on the physical states of the environment; • ωi is the set of observations of agent i; • oi : s × a × ωi → [0, 1] gives the likelihood of the observations given the physical state and joint action; • ri : isi × a → r describes agent i"s preferences over its interactive states.
+isi,l = s × {θj,l−1 ∪ smj}, θj,l = { bj,l, ˆθj | bj,l ∈ δ(isj,l)} similar formulations of nested spaces have appeared in [1, 3].
+isi,0 = s, θj,0 = { bj,0, ˆθj | bj,0 ∈ δ(isj,0)} isi,1 = s × {θj,0 ∪ smj}, θj,1 = { bj,1, ˆθj | bj,1 ∈ δ(isj,1)} .
+we give a recursive bottom-up construction of the interactive state space below.
+smj is the set of subintentional models of j. simple examples of subintentional models include a no-information model [10] and a fictitious play model [6], both of which are history independent.
+here, j is bayes rational and ocj is j"s optimality criterion.
+θj,l−1 is the set of computable intentional models of agent j: θj,l−1 = bj,l−1, ˆθj where the frame, ˆθj = a, ωj, tj, oj, rj, ocj .
+for simplicity of presentation we consider an agent, i, that is interacting with one other agent, j. a finitely nested i-pomdp of agent i with a strategy level l is defined as the tuple: i-pomdpi,l = isi,l, a, ti, ωi, oi, ri where: • isi,l denotes a set of interactive states defined as, isi,l = s × mj,l−1, where mj,l−1 = {θj,l−1 ∪ smj}, for l ≥ 1, and isi,0 = s, where s is the set of states of the physical  environment.
+since other agents may also reason about others, the interactive state space is strategically nested; it contains beliefs about other agents" models and their beliefs about others.
+ipomdps interactive pomdps generalize pomdps to multiagent settings by including other agents" models as part of the state space [9].

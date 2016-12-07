@@ -1,0 +1,185 @@
+4.1 Outline
+Title extraction based on machine learning consists of training and
+extraction. The same pre-processing step occurs before training
+and extraction.
+During pre-processing, from the top region of the first page of a
+Word document or the first slide of a PowerPoint document a
+number of units for processing are extracted. If a line (lines are
+separated by ‘return" symbols) only has a single format, then the
+line will become a unit. If a line has several parts and each of
+them has its own format, then each part will become a unit. Each
+unit will be treated as an instance in learning. A unit contains not
+only content information (linguistic information) but also
+formatting information. The input to pre-processing is a document
+and the output of pre-processing is a sequence of units (instances).
+Figure 5 shows the units obtained from the document in Figure 2.
+Figure 5. Example of units.
+In learning, the input is sequences of units where each sequence
+corresponds to a document. We take labeled units (labeled as
+title_begin, title_end, or other) in the sequences as training data
+and construct models for identifying whether a unit is title_begin
+title_end, or other. We employ four types of models: Perceptron,
+Maximum Entropy (ME), Perceptron Markov Model (PMM), and
+Maximum Entropy Markov Model (MEMM).
+In extraction, the input is a sequence of units from one document.
+We employ one type of model to identify whether a unit is
+title_begin, title_end, or other. We then extract units from the unit
+labeled with ‘title_begin" to the unit labeled with ‘title_end". The
+result is the extracted title of the document.
+The unique characteristic of our approach is that we mainly utilize
+formatting information for title extraction. Our assumption is that
+although general documents vary in styles, their formats have
+certain patterns and we can learn and utilize the patterns for title
+extraction. This is in contrast to the work by Han et al., in which
+only linguistic features are used for extraction from research
+papers.
+4.2 Models
+The four models actually can be considered in the same metadata
+extraction framework. That is why we apply them together to our
+current problem.
+Each input is a sequence of instances kxxx L21 together with a
+sequence of labels kyyy L21 . ix and iy represents an instance
+and its label, respectively ( ki ,,2,1 L= ). Recall that an instance
+here represents a unit. A label represents title_begin, title_end, or
+other. Here, k is the number of units in a document.
+In learning, we train a model which can be generally denoted as a
+conditional probability distribution )|( 11 kk XXYYP LL where
+iX and iY denote random variables taking instance ix and label
+iy as values, respectively ( ki ,,2,1 L= ).
+Learning Tool
+Extraction Tool
+21121
+2222122221
+1121111211
+nknnknn
+kk
+kk
+yyyxxx
+yyyxxx
+yyyxxx
+LL
+LL
+LL
+LL
+→
+→
+→
+)|(maxarg 11 mkmmkm xxyyP LL
+)|( 11 kk XXYYP LL
+Conditional
+Distribution
+mkmm xxx L21
+Figure 6. Metadata extraction model.
+We can make assumptions about the general model in order to
+make it simple enough for training.
+148
+For example, we can assume that kYY ,,1 L are independent of
+each other given kXX ,,1 L . Thus, we have
+)|()|(
+)|(
+11
+11
+kk
+kk
+XYPXYP
+XXYYP
+L
+LL
+=
+In this way, we decompose the model into a number of classifiers.
+We train the classifiers locally using the labeled data. As the
+classifier, we employ the Perceptron or Maximum Entropy model.
+We can also assume that the first order Markov property holds for
+kYY ,,1 L given kXX ,,1 L . Thus, we have
+)|()|(
+)|(
+111
+11
+kkk
+kk
+XYYPXYP
+XXYYP
+−= L
+LL
+Again, we obtain a number of classifiers. However, the classifiers
+are conditioned on the previous label. When we employ the
+Percepton or Maximum Entropy model as a classifier, the models
+become a Percepton Markov Model or Maximum Entropy Markov
+Model, respectively. That is to say, the two models are more
+precise.
+In extraction, given a new sequence of instances, we resort to one
+of the constructed models to assign a sequence of labels to the
+sequence of instances, i.e., perform extraction.
+For Perceptron and ME, we assign labels locally and combine the
+results globally later using heuristics. Specifically, we first
+identify the most likely title_begin. Then we find the most likely
+title_end within three units after the title_begin. Finally, we
+extract as a title the units between the title_begin and the title_end.
+For PMM and MEMM, we employ the Viterbi algorithm to find
+the globally optimal label sequence.
+In this paper, for Perceptron, we actually employ an improved
+variant of it, called Perceptron with Uneven Margin [13]. This
+version of Perceptron can work well especially when the number
+of positive instances and the number of negative instances differ
+greatly, which is exactly the case in our problem.
+We also employ an improved version of Perceptron Markov
+Model in which the Perceptron model is the so-called Voted
+Perceptron [2]. In addition, in training, the parameters of the
+model are updated globally rather than locally.
+4.3 Features
+There are two types of features: format features and linguistic
+features. We mainly use the former. The features are used for both
+the title-begin and the title-end classifiers.
+4.3.1 Format Features
+Font Size: There are four binary features that represent the
+normalized font size of the unit (recall that a unit has only one
+type of font).
+If the font size of the unit is the largest in the document, then the
+first feature will be 1, otherwise 0. If the font size is the smallest
+in the document, then the fourth feature will be 1, otherwise 0. If
+the font size is above the average font size and not the largest in
+the document, then the second feature will be 1, otherwise 0. If the
+font size is below the average font size and not the smallest, the
+third feature will be 1, otherwise 0.
+It is necessary to conduct normalization on font sizes. For
+example, in one document the largest font size might be ‘12pt",
+while in another the smallest one might be ‘18pt".
+Boldface: This binary feature represents whether or not the
+current unit is in boldface.
+Alignment: There are four binary features that respectively
+represent the location of the current unit: ‘left", ‘center", ‘right",
+and ‘unknown alignment".
+The following format features with respect to ‘context" play an
+important role in title extraction.
+Empty Neighboring Unit: There are two binary features that
+represent, respectively, whether or not the previous unit and the
+current unit are blank lines.
+Font Size Change: There are two binary features that represent,
+respectively, whether or not the font size of the previous unit and
+the font size of the next unit differ from that of the current unit.
+Alignment Change: There are two binary features that represent,
+respectively, whether or not the alignment of the previous unit and
+the alignment of the next unit differ from that of the current one.
+Same Paragraph: There are two binary features that represent,
+respectively, whether or not the previous unit and the next unit are
+in the same paragraph as the current unit.
+4.3.2 Linguistic Features
+The linguistic features are based on key words.
+Positive Word: This binary feature represents whether or not the
+current unit begins with one of the positive words. The positive
+words include ‘title:", ‘subject:", ‘subject line:" For example, in
+some documents the lines of titles and authors have the same
+formats. However, if lines begin with one of the positive words,
+then it is likely that they are title lines.
+Negative Word: This binary feature represents whether or not the
+current unit begins with one of the negative words. The negative
+words include ‘To", ‘By", ‘created by", ‘updated by", etc.
+There are more negative words than positive words. The above
+linguistic features are language dependent.
+Word Count: A title should not be too long. We heuristically
+create four intervals: [1, 2], [3, 6], [7, 9] and [9, ∞) and define one
+feature for each interval. If the number of words in a title falls into
+an interval, then the corresponding feature will be 1; otherwise 0.
+Ending Character: This feature represents whether the unit ends
+with ‘:", ‘-", or other special characters. A title usually does not
+end with such a character.

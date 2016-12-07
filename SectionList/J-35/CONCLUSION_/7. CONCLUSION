@@ -1,0 +1,77 @@
+We have given a formal analysis of a scrip system and
+have shown that the existence of a Nash equilibrium where
+all agents use a threshold strategy. Moreover, we can 
+compute efficiency of equilibrium strategy and optimize the price
+(or money supply) to maximize efficiency. Thus, our 
+analysis provides a formal mechanisms for solving some important
+problems in implementing scrip systems. It tells us that with
+a fixed population of rational users, such systems are very
+unlikely to become unstable. Thus if this stability is 
+common belief among the agents we would not expect inflation,
+bubbles, or crashes because of agent speculation. However,
+we cannot rule out the possibility that that agents may have
+other beliefs that will cause them to speculate. Our 
+analysis also tells us how to scale the system to handle an influx
+of new users without introducing these problems: scale the
+money supply to keep the average amount of money constant
+(or equivalently adjust prices to achieve the same goal).
+There are a number of theoretical issues that are still open,
+including a characterization of the multiplicity of 
+equilibria - are there usually 2? In addition, we expect that one
+should be able to compute analytic estimates for the best
+response function and optimal pricing which would allow us
+to understand the relationship between pricing and various
+parameters in the model.
+147
+It would also be of great interest to extend our analysis
+to handle more realistic settings. We mention a few possible
+extensions here:
+• We have assumed that the world is homogeneous in a
+number of ways, including request frequency, utility,
+and ability to satisfy requests. It would be 
+interesting to examine how relaxing any of these assumptions
+would alter our results.
+• We have assumed that there is no cost to an agent
+to be a member of the system. Suppose instead that
+we imposed a small cost simply for being present in
+the system to reflect the costs of routing messages and
+overlay maintainance. This modification could have a
+significant impact on sybil attacks.
+• We have described a scrip system that works when
+there are no altruists and have shown that no system
+can work once there there are sufficiently many 
+altruists. What happens between these extremes?
+• One type of irrational behavior encountered with
+scrip systems is hoarding. There are some similarities
+between hoarding and altruistic behavior. While an
+altruist provide service for everyone, a hoarder will
+volunteer for all jobs (in order to get more money) and
+rarely request service (so as not to spend money). It
+would be interesting to investigate the extent to which
+our system is robust against hoarders. Clearly with
+too many hoarders, there may not be enough money
+remaining among the non-hoarders to guarantee that,
+typically, a non-hoarder would have enough money to
+satisfy a request.
+• Finally, in P2P filesharing systems, there are 
+overlapping communities of various sizes that are significantly
+more likely to be able to satisfy each other"s requests.
+It would be interesting to investigate the effect of such
+communities on the equilibrium of our system.
+There are also a number of implementation issues that
+would have to be resolved in a real system. For example, we
+need to worry about the possibility of agents counterfeiting
+money or lying about whether service was actually provided.
+Karma [26] provdes techniques for dealing with both of these
+issues and a number of others, but some of Karma"s 
+implementation decisions point to problems for our model. For
+example, it is prohibitively expensive to ensure that bank 
+account balances can never go negative, a fact that our model
+does not capture. Another example is that Karma has nodes
+serve as bookkeepers for other nodes account balances. Like
+maintaining a presence in the network, this imposes a cost
+on the node, but unlike that, responsibility it can be easily
+shirked. Karma suggests several ways to incentivize nodes
+to perform these duties. We have not investigated whether
+these mechanisms be incorporated without disturbing our
+equilibrium.

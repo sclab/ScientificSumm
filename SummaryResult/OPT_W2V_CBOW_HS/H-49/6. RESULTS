@@ -1,0 +1,29 @@
+However, these improvements are slight compared to the performance of autocorrelation on these collections.
+When  examining the performance of linear combinations of predictors, we note that in every case, autocorrelation factors as a  necessary component of a strong predictor.
+In fact, in every case where our predictor outperforms the baseline, it includes  information from multiple runs. 
+Ranking robustness was presented as an  improvement to Clarity for web collections (represented in our  experiments by the terabyte04 and terabyte05 collections),  shifting the τ correlation from 0.139 to 0.150 for terabyte04 and 0.171 to 0.208 for terabyte05.
+Notice that in the cases where  autocorrelation, ρ(y, ˜y), alone performs well (trec3, trec5-spanish, and trec6-chinese), it is substantially improved by  incorporating multiple-retrieval information from ρ(y, yµ) in the  linear regression, β.
+Therefore, we believe that the improvement in correlation is the result of  incorporating information from spatial behavior.
+In the cases where ρ(y, yµ) performs well, incorporating autocorrelation rarely results in a significant improvement in performance.
+We compare the correlations between those predictors which do not use this information in column (a) and those which do in column (b).
+We also note that the adjusted R2 for individual baselines are always significantly improved by incorporating autocorrelation.
+As noted above, the poor Clarity performance on web data is consistent with our findings in the detailed  experiments.
+And between our new predictors, the hybrid ρ(˜y, yµ) predictor tends to perform better.
+For every collection, the predictors in column (b) outperform the predictors in column (a), indicating that the information from additional runs can be critical to making good predictions.
+We begin by examining the situation in column (a) where we are presented with a single retrieval and no information from additional retrievals.
+However, our autocorrelation measure does not achieve high correlations perhaps because relevance for  entity retrieval does not propagate according to the  cooccurrence links we use.
+Although the Clarity measure is theoretically designed for language model scores, it consistently underperforms our system-agnostic predictor.
+Recall that our ρ(˜y, yµ) measure incorporates both spatial and multiple retrieval information.
+We present results for our detailed experiments comparing the prediction of language model scores in Table 1.
+On the other hand,  autocorrelation seems robust to the changes between different corpora.
+In column (c), we can investigate the utility of  incorporating spatial information with information from  multiple retrievals.
+Our new predictors tend to perform  better on news corpora.
+For every collection except one, we achieve significantly better correlations than ranked-list Clarity.
+Next, we turn to the introduction of information from multiple retrievals.
+Though not always the strongest, autocorrelation achieves  correlations competitive with baseline predictors.
+Surprisingly, we achieve relatively strong  correlations for Spanish and Chinese collections despite our na¨ıve processing.
+Inspecting the predictors in column (b), we only draw weak conclusions.
+We present our generalizability results in Table 2.
+We do not have a ranked-list clarity correlation for ent05 because entity modeling is itself an open research question.
+Our predictor achieves a τ correlation of 0.454 for terabyte04 and 0.383 for terabyte05.
+Clarity also notably underperforms for several news corpora (trec5, trec7, and robust04).

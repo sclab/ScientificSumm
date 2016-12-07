@@ -1,0 +1,69 @@
+In both cases, we can treat the current model as a prior of the context query model and treat the new observed query or clicked summary as observed data.
+Interestingly, if we incrementally update our belief about the user"s information need after seeing each query, we could naturally obtain decaying weights on the previous queries.
+One way to avoid applying a decaying interpolation to the clickthrough data is to do OnlineUp only for the query history Q = (Q1, ..., Qi−1), but not for the clickthrough data C. We first buffer all the clickthrough data together and use the whole chunk of clickthrough data to update the model generated through  running OnlineUp on previous queries.
+To capture this intuition, we treat p(w|HQ) and p(w|HC ) as Dirichlet priors and Qk as the observed data to estimate a context query model using Bayesian estimator.
+In the KL divergence retrieval model, this means that the system must compute a query model whenever a user enters a (new) query.
+With such a conjugate prior, the predictive distribution of φ (or equivalently, the mean of the posterior distribution of φ is given by p(w|φ) = c(w, T) + µT p(w|φ) |T| + µT (1) where c(w, T) is the count of w in T and |T| is the length of T. Parameter µT indicates our confidence in the prior expressed in terms of an equivalent text sample comparable with T. For  example, µT = 1 indicates that the influence of the prior is equivalent to adding one extra word to T. 3.4.2 Sequential query model updating We now discuss how we can update our query model over time during an interactive retrieval process using Bayesian estimation.
+This suggests that we do not have to wait until a user enters a new query to initiate a new round of retrieval; instead, as soon as we collect clicked summary Ci, we can update the query model and use p(w|φi) to immediately rerank any documents that a user has not yet seen.
+If we set µi = 0 (or νi = 0) we essentially ignore the prior model, thus would start a completely new query model based on the query Qi (or the clicked summary Ci).
+According to this model, the retrieval task involves computing a query language model θQ for a given query and a document language model θD for a document and then computing their KL divergence D(θQ||θD), which serves as the score of the document.
+To score documents after seeing query Qk, we use p(w|φk), i.e., p(w|θk) = p(w|φk) 3.5 Batch Bayesian updating (BatchUp) If we set the equivalent sample size parameters to fixed  constant, the OnlineUp algorithm would introduce a decaying factor - repeated interpolation would cause the early data to have a low weight.
+Thus we have the following updating equations: p(w|φi) = c(w, Qi) + µip(w|φi−1) |Qi| + µi p(w|φi) = c(w, Ci) + νip(w|φi) |Ci| + νi where µi is the equivalent sample size for the prior when updating the model based on a query, while νi is the equivalent sample size for the prior when updating the model based on a clicked summary.
+p(w|Qi) = c(w, Qi) |Qi| p(w|HQ) = 1 k − 1 i=k−1 i=1 p(w|Qi) p(w|Ci) = c(w, Ci) |Ci| p(w|HC ) = 1 k − 1 i=k−1 i=1 p(w|Ci) p(w|H) = βp(w|HC ) + (1 − β)p(w|HQ) p(w|θk) = αp(w|Qk) + (1 − α)p(w|H) where β ∈ [0, 1] is a parameter to control the weight on each  history model, and where α ∈ [0, 1] is a parameter to control the weight on the current query and the history information.
+The estimated model is given by p(w|θk) = c(w, Qk) + µp(w|HQ) + νp(w|HC ) |Qk| + µ + ν = |Qk| |Qk| + µ + ν p(w|Qk)+ µ + ν |Qk| + µ + ν [ µ µ + ν p(w|HQ)+ ν µ + ν p(w|HC )] where µ is the prior sample size for p(w|HQ) and ν is the prior sample size for p(w|HC ).
+Our task is to estimate a context query model, which we denote by p(w|θk), based on the current query Qk, as well as the query history HQ and clickthrough history HC .
+As soon as we obtain some implicit feedback evidence in the form of a piece of text Ti, we will update the query model.
+We use such information to define a prior on the query model, which is denoted by φ0.
+3.2 Fixed Coefficient Interpolation (FixInt) Our first idea is to summarize the query history HQ with a  unigram language model p(w|HQ) and the clickthrough history HC with another unigram language model p(w|HC ).
+For example, at the very beginning, we may have very sparse query history, thus we could use a smaller µi, but later as the query history is richer, we can consider using a larger µi.
+Note that Ci is the concatenation of all clicked documents" summaries in the i-th round of retrieval since we may reasonably treat all these summaries equally.
+This may be appropriate for the query history as it is  reasonable to believe that the user becomes better and better at query formulation as time goes on, but it is not necessarily appropriate for the clickthrough information, especially because we use the  displayed summary, rather than the actual content of a clicked  document.
+If we combine these equations, we see that p(w|θk) = αp(w|Qk) + (1 − α)[βp(w|HC ) + (1 − β)p(w|HQ)] That is, the estimated context query model is just a fixed coefficient interpolation of three models p(w|Qk), p(w|HQ), and p(w|HC ).
+Note that we can take either p(w|φi) or p(w|φi) as our context query model for ranking documents.
+As we obtain the second query Q2 from the user, we can update φ1 to obtain a new model φ2.
+Let p(w|φ) be our current query model and T be a new piece of text evidence observed (e.g., T can be a query or a clicked summary).
+p(w|φi) = c(w, Qi) + µip(w|φi−1) |Qi| + µi p(w|ψi) = i−1 j=1 c(w, Cj) + νip(w|φi) i−1 j=1 |Cj| + νi where µi has the same interpretation as in OnlineUp, but νi now indicates to what extent we want to trust the clicked summaries.
+Thus assigning  decaying weights to the previous queries so as to trust a recent query more than an earlier query appears to be reasonable.
+On the other hand, if we set µi = +∞ (or νi = +∞) we essentially ignore the observed query (or the clicked summary) and do not update our model.
+We propose to use statistical language  models to model a user"s information need and develop four specific context-sensitive language models to incorporate context  information into a basic retrieval model.
+Finally, we interpolate the history model p(w|H) with the current query model p(w|Qk).
+As the user views some documents, the displayed summary text for such documents C1 (i.e., clicked  summaries) can serve as some new data for us to further update the query model to obtain φ1.
+The updated query model φ1 can then be used for ranking  documents in response to Q1.
+One advantage of this approach is that we can naturally  incorporate the search context as additional evidence to improve our  estimate of the query language model.
+Then we linearly interpolate these two history models to obtain the history model p(w|H).
+3.4 Online Bayesian Updating (OnlineUp) Both FixInt and BayesInt summarize the history information by averaging the unigram language models estimated based on  previous queries or clicked summaries.
+After we observe the first query Q1, we can update the query model based on the new observed data Q1.
+In a typical retrieval system, the retrieval system responds to every new query entered by the user by presenting a ranked list of documents.
+In general, we assume that the retrieval system maintains a current query model φi at any moment.
+CONTEXTSENSITIVEINFORMATIONRETRIEVAL Intuitively, the query history HQ and clickthrough history HC are both useful for improving search accuracy for the current query Qk.
+However, as the user interacts with the system and acquires more  knowledge about the information in the collection, presumably, the  reformulated queries will become better and better.
+A principled way of updating the query model is to use Bayesian estimation, which we discuss below.
+We will use c(w, X) to denote the count of word w in text X, which could be either a query or a clicked document"s summary or any other text.
+Clearly, we see two types of updating: (1) updating based on a new query Qi; (2) updating based on a new clicked summary Ci.
+For example, we may have some information about what documents the user has viewed in the past.
+3.4.1 Bayesian updating We first discuss how we apply Bayesian estimation to update a query model in general.
+This means that all previous queries are treated equally and so are all clicked summaries.
+We see that the only difference between BayesInt and FixInt is the interpolation coefficients are now  adaptive to the query length.
+But intuitively, if our current query Qk is very long, we should trust the current query more, whereas if Qk has just one word, it may be beneficial to put more weight on the history.
+In general, we may repeat such an updating process to iteratively update the query model.
+And to rank documents after seeing the current query Qk, we use p(w|θk) = p(w|ψk) 
+Since such an incremental online updating strategy can be used to exploit any evidence in an  interactive retrieval system, we present it in a more general way.
+In order to rank documents, the system must have some model for the user"s information need.
+Initially, before we see any user query, we may already have some information about the user.
+Thus the model remains the same as if we do not observe any new text evidence.
+Formally, let HQ = (Q1, ..., Qk−1) be the query history and the current query be Qk.
+In general, the parameters µi and νi may have different values for different i.
+3.3 Bayesian Interpolation (BayesInt) One possible problem with the FixInt approach is that the  coefficients, especially α, are fixed across all the queries.
+To update the query model based on T, we use φ to define a Dirichlet prior parameterized as Dir(µT p(w1|φ), ..., µT p(wN |φ)) where µT is the equivalent sample size of the prior.
+As in OnlineUp, we set all µi"s and νi"s to the same value.
+We now describe several different language models for exploiting HQ and HC to estimate p(w|θk).
+We use  Dirichlet prior because it is a conjugate prior for multinomial  distributions.
+But in our experiments, unless otherwise stated, we set them to the same constants, i.e., ∀i, j, µi = µj, νi = νj.
+We will use |X| to denote the length of text X or the total number of words in X.
+The updating equations are as follows.
+These models are defined as follows.
+Indeed, when viewing BayesInt as FixInt, we see that α = |Qk| |Qk|+µ+ν , β = ν ν+µ , thus with fixed µ and ν, we will have a query-dependent α.
+Let HC = (C1, ..., Ck−1) be the  clickthrough history.
+3.1 Basic retrieval model We use the Kullback-Leibler (KL) divergence method [19] as our basic retrieval method.
+Later we will show that such an adaptive α empirically performs better than a fixed α.
+An important research question is how we can exploit such  information effectively.

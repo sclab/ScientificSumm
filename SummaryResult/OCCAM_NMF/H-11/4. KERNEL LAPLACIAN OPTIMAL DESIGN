@@ -1,0 +1,30 @@
+thus, the (n + 1)-th point zn+1 is given by: zn+1 = arg min zn+1 tr kxx a + kxzn+1 kzn+1x −1 kxx (16) each time we select a new point zn+1, the matrix a is  updated by: a ← a + kxzn+1 kzn+1x if the kernel function is chosen as inner product k(x, y) = x, y , then hk is a linear functional space and the  algorithm reduces to lod. 
+the (n + 1)-th point zn+1 can be selected by solving the following optimization problem: max zn+1=(zn,zn+1) tr kxx kxzn+1 kzn+1x + λ1kxxlkxx + λ2kxx −1 kxx (15) the kernel matrices kxzn+1 and kzn+1x can be rewritten as follows: kxzn+1 = kxzn , kxzn+1 , kzn+1x = kznx kzn+1x thus, we have: kxzn+1 kzn+1x = kxzn kznx + kxzn+1 kzn+1x we define: a = kxzn kznx + λ1kxxlkxx + λ2kxx a is only dependent on x and zn .
+suppose n points have been selected, denoted by a matrix zn = (z1, · · · , zn).
+in this subsection, we develop a simple sequential greedy approach to solve (14).
+it can be shown that the optimization problem (14) is np-hard.
+therefore, we will focus on problem (14) in the following.
+particularly, if we select a linear kernel for klod, then it reduces to lod.
+thus, the kernel laplacian optimal design can be defined as follows: definition 2. kernel laplacian optimal design minz=(z1,··· ,zk) tr kxx kxzkzx + λ1kxxlkxx λ2kxx −1 kxx (14) 4.2 optimization scheme in this subsection, we discuss how to solve the  optimization problems (11) and (14).
+let x−1 be the moore-penrose inverse (also known as pseudo inverse) of x. thus, we have: xt zzt + λ1xlxt + λ2i −1 x = xt xx−1 zzt + λ1xlxt + λ2i −1 (xt )−1 xt x = xt x zzt x + λ1xlxt x + λ2x −1 (xt )−1 xt x = xt x xt zzt x + λ1xt xlxt x + λ2xt x −1 xt x = kxx kxzkzx + λ1kxxlkxx + λ2kxx −1 kxx where kxx is a m × m matrix (kxx,ij = k(xi, xj)), kxz is a m×k matrix (kxz,ij = k(xi, zj)), and kzx is a k×m matrix (kzx,ij = k(zi, xj)).
+in the following, we apply kernel tricks to solve this optimization problem.
+thus, the optimization problem in rkhs can be written as follows: min z tr xt zzt + λ1xlxt + λ2i −1 x (13) since the mapping function φ is generally unknown, there is no direct way to solve problem (13).
+similarly, we define z = (φ(z1), φ(z2), · · · , φ(zk)).
+let x denote the data matrix in rkhs, x = (φ(x1), φ(x2), · · · , φ(xm)).
+let φ : rd → h be a feature map from the input space rd to h, and k(xi, xj) =< φ(xi), φ(xj) >.
+please see [2] for the details.
+proposition 4.1 tells us the minimizer of problem (12) admits a representation f∗ = m i=1 αik(·, xi).
+this implies that fh⊥ , kxi hk = 0. therefore, f(xi) = fh, kxi hk = fh(xi) this completes the proof.
+thus, for any function f ∈ hk , it has orthogonal decomposition as follows: f = fh + fh⊥ now, let"s evaluate f at xi: f(xi) = f, kxi hk = fh + fh⊥ , kxi hk = fh, kxi hk + fh⊥ , kxi hk notice that kxi ∈ h while fh⊥ ∈ h⊥ .
+hk = h ⊕ h⊥ .
+let h⊥ be the orthogonal complement of h, i.e.
+proposition 4.1. let h = { m i=1 αik(·, xi)|αi ∈ r} be a subspace of hk , the solution to the problem (12) is in h. proof.
+thus, we seek a function f ∈ hk such that the following objective function is minimized: min f∈hk k i=1 f(zi)−yi 2 + λ1 2 m i,j=1 f(xi)−f(xj) 2 sij+λ2 f 2 hk (12) we have the following proposition.
+4.1 derivation of lod in reproducing kernel hilbert space consider the optimization problem (5) in rkhs.
+hk consists of all finite linear combinations of the form l i=1 αikti with ti ∈ x and limits of such functions as the ti become dense in x. we have ks, kt hk = k(s, t).
+= k(s, t).
+for given data points x1, · · · , xm ∈ x with a positive definite mercer kernel k : x ×x → r, there exists a unique rkhs hk of real valued functions on x. let kt(s) be the function of s obtained by fixing t and letting kt(s) .
+in this section, we describe how to perform laplacian  experimental design in reproducing kernel hilbert space (rkhs) which gives rise to kernel laplacian experimental design (klod).
+they fail to discover the intrinsic geometry in the data when the data space is highly nonlinear.
+a-optimal design, d-optimal design, and e-optimal) only consider linear functions.
+canonical experimental design approaches (e.g.

@@ -1,0 +1,261 @@
+OBSERVABLE QUERIES
+In this section, we give efficient algorithms to find (1) a
+Nash equilibrium for observable-query Socratic games with
+constant-sum worlds and (2) a correlated equilibrium in the
+broader class of Socratic games with strategically zero-sum
+worlds. Recall that a Socratic game G = A, W, u, S, Q, p, δ
+with observable queries proceeds in two stages:
+Stage 1: The players simultaneously choose queries q ∈ Q.
+Player i receives as output qi, qii, and qi(wreal).
+Stage 2: The players simultaneously choose strategies a ∈
+A. The payoff to Player i is u
+wreal
+i (a) − δi(qi).
+Using backward induction, we first solve Stage 2 and then
+proceed to the Stage-1 game.
+For a query q ∈ Q, we would like to analyze the Stage-2
+game ˆGq resulting from the players making queries q in
+Stage 1. Technically, however, ˆGq is not actually a game,
+because at the beginning of Stage 2 the players have different
+information about the world: Player I knows qi(wreal), and
+154
+Player II knows qii(wreal). Fortunately, the situation in which
+players have asymmetric private knowledge has been well
+studied in the game-theory literature. A Bayesian game is
+a quadruple A, T, r, u , where:
+• Ai is the set of pure strategies for Player i.
+• Ti is the set of types for Player i.
+• r is a probability distribution over T; r(t) denotes the
+probability that Player i has type ti for all i.
+• ui : A × T → R is the payoff function for Player i.
+If the players have types t and play pure strategies a,
+then ui(a, t) denotes the payoff for Player i.
+Initially, a type t is drawn randomly from T according to the
+distribution r. Player i learns his type ti, but does not learn
+any other player"s type. Player i then plays a mixed strategy
+αi ∈ Ai-that is, a probability distribution over Ai-and
+receives payoff ui(α, t). A strategy function is a function
+hi : Ti → Ai; Player i plays the mixed strategy hi(ti) ∈ Ai
+when her type is ti. A strategy-function profile h is a
+Bayesian Nash equilibrium if and only if no Player i has 
+unilateral incentive to deviate from hi if the other players play
+according to h. For a two-player Bayesian game, if α = h(t),
+then the profile h is a Bayesian Nash equilibrium exactly
+when the following condition and its analogue for Player II
+hold: Et∼r[ui(α, t)] = maxhi
+Et∼r[ui( hi(ti), αii , t)]. These
+conditions hold if and only if, for all ti ∈ Ti occurring with
+positive probability, Player i"s expected utility conditioned
+on his type being ti is maximized by hi(ti). A Bayesian
+game is constant sum if for all a ∈ A and all t ∈ T, we
+have ui(a, t) + uii(a, t) = ct, for some constant ct 
+independent of a. A Bayesian game is strategically zero sum if the
+classical game A, u(·, t) is strategically zero sum for every
+t ∈ T. Whether a Bayesian game is strategically zero sum
+can be determined as in Theorem 3.1. (For further 
+discussion of Bayesian games, see [25, 31].)
+We now formally define the Stage-2 game as a Bayesian
+game. Given a Socratic game G = A, W, u, S, Q, p, δ and
+a query profile q ∈ Q, we define the Stage-2 Bayesian game
+Gstage2(q) := A, Tq
+, pstage2(q)
+, ustage2(q)
+, where:
+• Ai, the set of pure strategies for Player i, is the same
+as in the original Socratic game;
+• Tq
+i = {qi(w) : w ∈ W}, the set of types for Player i, is
+the set of signals that can result from query qi;
+• pstage2(q)
+(t) = Pr[q(w) = t | w ← p]; and
+• u
+stage2(q)
+i (a, t) =
+P
+w∈W Pr[w ← p | q(w) = t] · uw
+i (a).
+We now define the Stage-1 game in terms of the payoffs
+for the Stage-2 games. Fix any algorithm alg that finds a
+Bayesian Nash equilibrium hq,alg
+:= alg(Gstage2(q)) for each
+Stage-2 game. Define valuealg
+i (Gstage2(q)) to be the expected
+payoff received by Player i in the Bayesian game Gstage2(q)
+if each player plays according to hq,alg
+, that is,
+valuealg
+i (Gstage2(q))
+:=
+P
+w∈W p(w) · u
+stage2(q)
+i (hq,alg
+(q(w)), q(w)).
+Define the game Galg
+stage1 := Astage1
+, ustage1(alg)
+, where:
+• Astage1
+:= Q, the set of available queries in the Socratic
+game; and
+• u
+stage1(alg)
+i (q) := valuealg
+i (Gstage2(q)) − δi(qi).
+I.e., players choose queries q and receive payoffs 
+corresponding to valuealg
+(Gstage2(q)), less query costs.
+Lemma 5.1. Consider an observable-query Socratic game
+G = A, W, u, S, Q, p, δ . Let Gstage2(q) be the Stage-2 games
+for all q ∈ Q, let alg be an algorithm finding a Bayesian
+Nash equilibrium in each Gstage2(q), and let Galg
+stage1 be the
+Stage-1 game. Let α be a Nash equilibrium for Galg
+stage1, and
+let hq,alg
+:= alg(Gstage2(q)) be a Bayesian Nash equilibrium
+for each Gstage2(q). Then the following strategy profile is a
+Nash equilibrium for G:
+• In Stage 1, Player i makes query qi with probability
+αi(qi). (That is, set fquery
+(q) := α(q).)
+• In Stage 2, if q is the query in Stage 1 and qi(wreal)
+denotes the response to Player i"s query, then Player i
+chooses action ai with probability hq,alg
+i (qi(wreal)). (In
+other words, set fresp
+i (q, qi(w)) := hq,alg
+i (qi(w)).)
+We now find equilibria in the stage games for Socratic games
+with constant- or strategically zero-sum worlds. We first
+show that the stage games are well structured in this setting:
+Lemma 5.2. Consider an observable-query Socratic game
+G = A, W, u, S, Q, p, δ with constant-sum worlds. Then
+the Stage-1 game Galg
+stage1 is strategically zero sum for every
+algorithm alg, and every Stage-2 game Gstage2(q) is Bayesian
+constant sum. If the worlds of G are strategically zero sum,
+then every Gstage2(q) is Bayesian strategically zero sum.
+We now show that we can efficiently compute equilibria for
+these well-structured stage games.
+Theorem 5.3. There exists a polynomial-time algorithm
+BNE finding Bayesian Nash equilibria in strategically 
+zerosum Bayesian (and thus classical strategically zero-sum or
+Bayesian constant-sum) two-player games.
+Proof Sketch. Let G = A, T, r, u be a strategically
+zero-sum Bayesian game. Define an unobservable-query 
+Socratic game G∗
+with one possible world for each t ∈ T, one
+available zero-cost query qi for each Player i so that qi 
+reveals ti, and all else as in G. Bayesian Nash equilibria in G
+correspond directly to Nash equilibria in G∗
+, and the worlds
+of G∗
+are strategically zero sum. Thus by Theorem 4.3 we
+can compute Nash equilibria for G∗
+, and thus we can 
+compute Bayesian Nash equilibria for G.
+(LP"s for zero-sum two-player Bayesian games have been
+previously developed and studied [61].)
+Theorem 5.4. We can compute a Nash equilibrium for
+an arbitrary two-player observable-query Socratic game G =
+A, W, u, S, Q, p, δ with constant-sum worlds in polynomial
+time.
+Proof. Because each world of G is constant sum, Lemma
+5.2 implies that the induced Stage-2 games Gstage2(q) are
+all Bayesian constant sum. Thus we can use algorithm
+BNE to compute a Bayesian Nash equilibrium hq,BNE
+:=
+BNE(Gstage2(q)) for each q ∈ Q, by Theorem 5.3. 
+Furthermore, again by Lemma 5.2, the induced Stage-1 game
+GBNE
+stage1 is classical strategically zero sum. Therefore we can
+again use algorithm BNE to compute a Nash equilibrium
+α := BNE(GBNE
+stage1), again by Theorem 5.3. Therefore, by
+Lemma 5.1, we can assemble α and the hq,BNE
+"s into a Nash
+equilibrium for the Socratic game G.
+155
+We would like to extend our results on observable-query
+Socratic games to Socratic games with strategically 
+zerosum worlds. While we can still find Nash equilibria in the
+Stage-2 games, the resulting Stage-1 game is not in 
+general strategically zero sum. Thus, finding Nash equilibria
+in observable-query Socratic games with strategically 
+zerosum worlds seems to require substantially new techniques.
+However, our techniques for decomposing observable-query
+Socratic games do allow us to find correlated equilibria in
+this case.
+Lemma 5.5. Consider an observable-query Socratic game
+G = A, W, u, S, Q, p, δ . Let alg be an arbitrary algorithm
+that finds a Bayesian Nash equilibrium in each of the derived
+Stage-2 games Gstage2(q), and let Galg
+stage1 be the derived 
+Stage1 game. Let φ be a correlated equilibrium for Galg
+stage1, and let
+hq,alg
+:= alg(Gstage2(q)) be a Bayesian Nash equilibrium for
+each Gstage2(q). Then the following distribution over pure
+strategies is a correlated equilibrium for G:
+ψ(q, f) := φ(q)
+Y
+i∈{i,ii}
+Y
+s∈S
+Pr
+h
+fi(q, s) ← hq,alg
+i (s)
+i
+.
+Thus to find a correlated equilibrium in an observable-query
+Socratic game with strategically zero-sum worlds, we need
+only algorithm BNE from Theorem 5.3 along with an 
+efficient algorithm for finding a correlated equilibrium in a 
+general game. Such an algorithm exists (the definition of 
+correlated equilibria can be directly translated into an LP [3]),
+and therefore we have the following theorem:
+Theorem 5.6. We can provide both efficient oracle 
+access and efficient sampling access to a correlated 
+equilibrium for any observable-query two-player Socratic game with
+strategically zero-sum worlds.
+Because the support of the correlated equilibrium may be
+exponentially large, providing oracle and sampling access is
+the natural way to represent the correlated equilibrium.
+By Lemma 5.5, we can also compute correlated equilibria
+in any observable-query Socratic game for which Nash 
+equilibria are computable in the induced Gstage2(q) games (e.g.,
+when Gstage2(q) is of constant size).
+Another potentially interesting model of queries in 
+Socratic games is what one might call public queries, in which
+both the choice and outcome of a player"s query is 
+observable by all players in the game. (This model might be most
+appropriate in the presence of corporate espionage or media
+leaks, or in a setting in which the queries-and thus their
+results-are done in plain view.) The techniques that we
+have developed in this section also yield exactly the same
+results as for observable queries. The proof is actually 
+simpler: with public queries, the players" payoffs are common
+knowledge when Stage 2 begins, and thus Stage 2 really is a
+complete-information game. (There may still be uncertainty
+about the real world, but all players use the observed 
+signals to infer exactly the same set of possible worlds in which
+wreal may lie; thus they are playing a complete-information
+game against each other.) Thus we have the same results
+as in Theorems 5.4 and 5.6 more simply, by solving Stage 2
+using a (non-Bayesian) Nash-equilibrium finder and solving
+Stage 1 as before.
+Our results for observable queries are weaker than for 
+unobservable: in Socratic games with worlds that are 
+strategically zero sum but not constant sum, we find only a 
+correlated equilibrium in the observable case, whereas we find a
+Nash equilibrium in the unobservable case. We might hope
+to extend our unobservable-query techniques to observable
+queries, but there is no obvious way to do so. The 
+fundamental obstacle is that the LP"s payoff constraint becomes
+nonlinear if there is any dependence on the probability that
+the other player made a particular query. This dependence
+arises with observable queries, suggesting that observable
+Socratic games with strategically zero-sum worlds may be
+harder to solve.

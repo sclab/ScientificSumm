@@ -1,0 +1,42 @@
+The semantics of CTL are given with respect to the satisfaction relation |=, which holds between pairs of the form K, s, (where K is a Kripke structure and s is a state in K), and formulae of the language.
+We have two states, s and t, and two corresponding Boolean variables p1 and p2, which are 1 In the branching time temporal logic literature, a relation R ⊆ S × S is said to be total iff ∀s ∃s : (s, s ) ∈ R. Note that the term total relation is sometimes used to refer to relations R ⊆ S × S such that for every pair of elements s, s ∈ S we have either (s, s ) ∈ R or (s , s) ∈ R; we are not using the term in this way here.
+A Kripke structure is essentially a directed graph, with the vertex set S corresponding to possible states of the system being modelled, and the relation R ⊆ S × S capturing the 881 978-81-904262-7-5 (RPS) c 2007 IFAAMAS possible transitions of the system; intuitively, these transitions are caused by agents in the system performing actions, although we do not include such actions in our semantic model (see, e.g., [13, 2, 15] for related models which include actions as first class citizens).
+We let S0 denote the set of possible initial states of the system.
+The remaining CTL temporal operators are defined: A♦ϕ ≡ A( U ϕ) E♦ϕ ≡ E( U ϕ) A ϕ ≡ ¬E♦¬ϕ E ϕ ≡ ¬A♦¬ϕ We say ϕ is satisfiable if K, s |= ϕ for some Kripke structure K and state s in K; ϕ is valid if K, s |= ϕ for all Kripke structures K and states s in K. The problem of checking whether K, s |= ϕ for given K, s, ϕ (model checking) can be done in deterministic polynomial time, while checking whether a given ϕ is satisfiable or whether ϕ is valid is EXPTIME-complete [8].
+K, π[u] |= ψ and ∀v, (0 ≤ v < u) : K, π[v] |= ϕ The remaining classical logic connectives (∧, →, ↔) are assumed to be defined as abbreviations in terms of ¬, ∨, in the conventional manner.
+We therefore assume a set A of agents, and we label each transition in R with the agent that causes the transition via a function α : R → A.
+We will sometimes refer to and think of an s-path as a possible  computation, or system evolution, from s. EXAMPLE 1.
+The syntax of CTL is defined by the following grammar: ϕ ::= | p | ¬ϕ | ϕ ∨ ϕ | E fϕ | E(ϕ U ϕ) | A fϕ | A(ϕ U ϕ) where p ∈ Φ.
+The satisfaction relation is defined as follows: K, s |= ; K, s |= p iff p ∈ V (s) (where p ∈ Φ); K, s |= ¬ϕ iff not K, s |= ϕ; K, s |= ϕ ∨ ψ iff K, s |= ϕ or K, s |= ψ; K, s |= A fϕ iff ∀π ∈ Π(s) : K, π[1] |= ϕ; K, s |= E fϕ iff ∃π ∈ Π(s) : K, π[1] |= ϕ; K, s |= A(ϕ U ψ) iff ∀π ∈ Π(s), ∃u ∈ N, s.t.
+However, we find it convenient to include within our model the agents that cause transitions.
+Collecting these components together, an agent-labelled Kripke structure (over Φ) is a 6-tuple: K = S, S0 , R, A, α, V , where: • S is a finite, non-empty set of states, • S0 ⊆ S (S0 = ∅) is the set of initial states; • R ⊆ S × S is a total binary relation on S, which we refer to as the transition relation1 ; • A = {1, .
+We write K |= ϕ if K, s0 |= ϕ for all s0 ∈ S0 , and |= ϕ if K |= ϕ for all K. 882 The Sixth Intl.
+Let us say that our set of initial states S0 equals {s, t}, i.e., we don"t make any assumptions about who initially has control over the resource.
+Let ΠR(s) denote the set of s-paths over R; since it will usually be clear from  context, we often omit reference to R, and simply write Π(s).
+of Boolean variables to express the properties of individual states S: we use a function V : S → 2Φ to label each state with the Boolean variables true (or satisfied) in that state.
+, n} is a set of agents; • α : R → A labels each transition in R with an agent; and • V : S → 2Φ labels each state with the set of propositional variables true in that state.
+K, π[u] |= ψ and ∀v, (0 ≤ v < u) : K, π[v] |= ϕ K, s |= E(ϕ U ψ) iff ∃π ∈ Π(s), ∃u ∈ N, s.t.
+In the interests of brevity, we shall hereafter refer to an  agentlabelled Kripke structure simply as a Kripke structure.
+For example, one might consider the agent totality requirement, that in every state, every agent has at least one possible transition  available: ∀s∀i ∈ A∃s : (s, s ) ∈ R and α(s, s ) = i.
+We denote the set of CTL formula over Φ by LΦ; since Φ is understood, we usually omit reference to it.
+Our model is intended to correspond to the well-known interleaved concurrency model from the reactive systems literature: thus an arc corresponds to the execution of an atomic action by one of the processes in the system, which we call agents.
+A path over a transition relation R is an infinite sequence of states π = s0, s1, .
+We will use CTL to express agents" goals.
+which must satisfy the property that ∀u ∈ N: (su , su+1) ∈ R. If u ∈ N, then we denote by π[u] the component indexed by u in π (thus π[0] denotes the first element, π[1] the second, and so on).
+Our running example is of a system with a single non-sharable resource, which is desired by two agents.
+Each agent has two possible actions, when in possession of the resource: either give it away, or keep it.
+A path π such that π[0] = s is an s-path.
+Think of pi as meaning agent i has currently control over the resource.
+It is important to note that, in contrast to such models as [2, 15], we are therefore here not modelling synchronous action.
+It is also worth noting that for some domains, other constraints may be more appropriate than simple totality.
+2.1 CTL We now define Computation Tree Logic (CTL), a branching time temporal logic intended for representing the properties of Kripke structures [8].
+Finally, we use a vocabulary Φ = {p, q, .
+This  assumption is not in fact essential for our analysis, but it greatly  simplifies the presentation.
+Note that since CTL is well known and widely  documented in the literature, our presentation, though complete, will be somewhat terse.
+Obviously there are infinitely many different s-paths and t-paths.
+We use Kripke structures as our basic semantic model for  multiagent systems [8].
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 
+Consider the Kripke structure depicted in Figure 1.
+Joint Conf.
+mutually exclusive.
+2p t p 2 2 1 s 1 1 Figure 1: The resource control running example.

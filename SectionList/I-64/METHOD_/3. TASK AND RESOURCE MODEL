@@ -1,0 +1,92 @@
+To ground our discussion of OSD, we now formally describe
+our task and resource model. In our model, the primary input to
+the multi-agent system (MAS) is an ordered set of problem 
+solving requests or task instances, < P1, P2, P3, ..., Pn >, where each
+problem solving request, Pi, can be represented using the tuple
+< ti, ai, di >. In this scheme, ti is the underlying TÆMS task
+structure, ai ∈ N+
+is the arrival time and di ∈ N+
+is the deadline
+of the ith
+task instance1
+. The MAS has no prior knowledge about
+the task ti before the arrival time, ai. In order for the MAS to
+accrue quality, the task ti must be completed before the deadline,
+di.
+Furthermore, every underlying task structure, ti, can be 
+represented using the tuple < T, τ, M, Q, E, R, ρ, C >, where:
+• T is the set of tasks. The tasks are non-leaf nodes in a
+TÆMS task structure and are used to denote goals that the
+agents must achieve. Tasks have a characteristic 
+accumulation function (see below) and are themselves composed of
+other subtasks and/or methods that need to be achieved in
+order to achieve the goal represented by that task. Formally,
+each task Tj can be represented using the pair (qj, sj), where
+qj ∈ Q and sj ⊂ (T ∪ M). For our convenience, we 
+define two functions SUBTASKS(Task) : T → P(T ∪ M) and
+SUPERTASKS(TÆMS node) : T ∪ M → P(T), that return
+the subtasks and supertasks of a TÆMS node respectively2
+.
+• τ ∈ T, is the root of the task structure, i.e. the highest level
+goal that the organization is trying to achieve. The quality
+accrued on a problem is equal to the quality of task τ.
+• M is the set executable methods, i.e., M =
+{m1, m2, ..., mn}, where each method, mk,
+is represented using the outcome distribution,
+{(o1, p1), (o2, p2), ..., (om, pm)}. In the pair (ol, pl),
+ol is an outcome and pl is the probability that executing mk
+will result in the outcome ol. Furthermore, each outcome,
+ol is represented using the triple (ql, cl, dl), where ql is the
+quality distribution, cl is the cost distribution and dl is the
+duration distribution of outcome ol. Each discrete 
+distribution is itself a set of pairs, {(n1, p1), (n2, p2), ..., (nn, pn)},
+where pi ∈ +
+is the probability that the outcome will have
+a quality/cost/duration of nl ∈ N depending on the type of
+distribution and
+Pm
+i=1 pl = 1.
+• Q is the set of quality/characteristic accumulation functions
+(CAFs). The CAFs determine how a task group accrues 
+quality given the quality accrued by its subtasks/methods. For
+our research, we use four CAFs: MIN, MAX, SUM and 
+EXACTLY ONE. See [5] for formal definitions.
+• E is the set of (non-local) effects. Again, see [5] for formal
+definitions.
+• R is the set of resources.
+• ρ is a mapping from an executable method and resource to
+the quantity of that resource needed (by an agent) to 
+schedule/execute that method. That is ρ(method, resource) :
+M × R → N.
+1
+N is the set of natural numbers including zero and N+
+is the set
+of positive natural numbers excluding zero.
+2
+P is the power set of set, i.e., the set of all subsets of a set
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1229
+• C is a mapping from a resource to the cost of that resource,
+that is C(resource) : R → N+
+We also make the following set of assumptions in our research:
+1. The agents in the MAS are drawn from the infinite set A =
+{a1, a2, a3, ...}. That is, we do not assume a fixed set of
+agents - instead agents are created (spawned) and destroyed
+(combined) as needed.
+2. All problem solving requests have the same underlying task
+structure, i.e. ∃t∀iti = t, where t is the task structure of
+the problem that the MAS is trying to solve. We believe that
+this assumption holds for many of the practical problems that
+we have in mind because TÆMS task structures are 
+basically high-level plans for achieving some goal in which the
+steps required for achieving the goal-as well as the possible
+contingency situations-have been pre-computed offline and
+represented in the task structure. Because it represents many
+contingencies, alternatives, uncertain characteristics and 
+runtime flexible choices, the same underlying task structure
+can play out very differently across specific instances.
+3. All resources are exclusive, i.e., only one agent may use a
+resource at any given time. Furthermore, we assume that
+each agent has to own the set of resources that it 
+needseven though the resource ownership can change during the
+evolution of the organization.
+4. All resources are non-consumable.

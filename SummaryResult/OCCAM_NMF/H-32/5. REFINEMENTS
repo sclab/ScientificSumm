@@ -1,0 +1,50 @@
+with an oracle that can classify topics by entity class with 100% accuracy and by using the best web resources for each entity class as shown in table 2, we can attain a f3-score of 0.3158. 
+conversely for organization and thing topics, the best source of interesting nuggets come from wikipedia"s most relevant article on the topic with google snippets again providing additional information for organizations.
+human readers are likely to be interested in news events that spotlight these personalities.
+we believe that the reason is because the people  selected as topics thus far have been celebrities or well known public figures.
+we had expected wikipedia rather than news articles to be a better source of interesting facts about  people and were surprised to discover that news articles outperformed wikipedia.
+this seem intuitive for events as newspapers predominantly focus on  reporting breaking newsworthy events and are thus excellent sources of interesting nuggets.
+for person and event topics, newslibrary articles are the main source of interesting nuggets with google snippets and  miscellaneous articles offering additional supporting evidence.
+a consistent trend can be observed for each entity class.
+the runs were sorted in descending f3-score and the top 3 best performing runs for each entity class are listed in table 2 together with earlier reported f3-scores from figure 2 as a baseline reference.
+all runs were conducted on human interest model using js divergence as term weighting scheme.
+we conducted a gamut of runs on the trec 2005 question set using all possible combinations of the above four groups of web resources to identify the best possible combination.
+m - miscellaneous sources: combination of content (when  available) from secondary sources including biography.com, s9.com, bartleby.com articles, google definitions and wordnet definitions.
+s - snippets: snippets extracted from the top 100 most relevant links after querying google.
+w - wikipedia: text from the most relevant article found in wikipedia.
+for this reason, we split our collection of web resources into four major groups listed here: n - news: title and first paragraph of the top 50 most relevant articles found in newslibrary.
+we wanted to determine what  impact the choice of web resources have on the performance of our human interest model.
+however, the bounded property is not required here as we are only treating the divergence computed by js divergence as term weights 5.2 selecting web resources in one of our initial experiments, we observed that the quality of web resources included in the interest corpus may have a direct impact on the results we obtain.
+1 js divergence also has the property of being bounded, allowing the results to be treated as a probability if required.
+however we feel that despite this, jensen-shannon  divergence does provide a small but measurable increase in the  performance of our human interest model.
+only a handful of low frequency terms were weighted as strongly as topic keywords and combined with their low frequency, may have limited the impact of re-weighting such terms.
+from inspection of the weighted list of terms, we observed that while low frequency relevant terms were boosted in strength, high frequency relevant terms still dominate the top of the weighted term list.
+both kl and js divergence performed marginally better than the uniform language model probabilistic scheme that we used in our initial experiments.
+we view this as a positive indication that low frequency terms can indeed be useful in finding interesting nuggets.
+despite this, the tfidf weighting scheme only scored a slight 0.0085 lower than our lower bound reference of constant weights.
+this results in tfidf favoring all low frequency terms over high frequency terms in the interest corpus.
+as we are computing the inverse document frequency for terms in the interest corpus collected from web resources, idf  heavily down-weights highly frequency topic terms and relevant terms.
+this causes the idf component to be the main factor in scoring sentences.
+the reason is that most terms only appear once within each sentence, resulting in a term frequency of 1 for most terms.
+tfidf performed the worst as we had anticipated.
+figure 3 show the result of applying the five different term weighting schemes on the human interest model.
+as lower bound reference, we included a term weighting scheme consisting of a constant 1 for all terms.
+djs(i a) = djs(a i) = 0 i = a > 0 i <> a (4) we conducted another experiment, substituting the unigram  languge model weighting scheme we used in the initial experiments with the three term weighting schemes described above.
+however, js divergence has additional properties1 of being  symmetric and non-negative as seen in equation 4. the symmetric property gives a more balanced measure of dissimilarity and avoids the bias that kl divergence has.
+jensen-shannon divergence or js divergence extends upon kl divergence as seen in equation 3. as with kl divergence, we also use js divergence to measure the dissimilarity between our two language models, i and a. djs(i a) = 1 2 ¢dkl  i i+a 2 ¡+ dkl  a i+a 2 ¡£ (3) figure 3: performance by various term weighting schemes on the human interest model.
+for this reason, we explored another divergence measure as a possible term weighting scheme.
+these high frequency topic specific words occur very much more frequently in i than in a. as a result, we found that kl divergence has a bias towards highly frequent topic terms as we are measuring direct dissimilarity against a model of general english where such topic terms are very rare.
+dkl(i a) = t i(t)log i(t) a(t) (2) due to the power law distribution of terms in natural language, there are only a small number of very frequent terms and a large number of rare terms in both i and a. while the common terms in english consist of stop words, the common terms in the topic specific corpus, i, consist of both stop words and relevant topic words.
+in this way, high frequency centroid terms as well as low frequency rare but topic-specific terms are both identified and highly weighted using kl divergence.
+here, we treat the aquaint corpus as a unigram language model of general english [15], a, and the interest corpus as a unigram language model  consisting of topic specific terms and general english terms, i.  general english words are likely to have similar distributions in both language models i and a. thus using kl divergence as a term weighting scheme will cause strong weights to be given to  topicspecific terms because their distribution in the interest corpus they occur significantly more often or less often than in general english.
+kullback-leibler divergence (equation 2) is also called kl  divergence or relative entropy, can be viewed as measuring the  dissimilarity between two probability distributions.
+for our experiments, we compute the weight of each term as tf × log( n nt ), where tf is the term frequency, nt is the number of sentences in the interest corpus having the term and n is the total number of sentences in the interest corpus.
+tfidf, or term frequency × inverse document frequency, is a standard information retrieval weighting scheme that balances the importance of a term in a document and in a corpus.
+the weighting schemes we considered include commonly used tfidf, as well as information theoretic kullback-leiber divergence and jensen-shannon  divergence [8].
+to explore this possibility, we experimented with three different term weighting schemes that can provide more weight to certain low-frequency terms.
+a standard  unigram language model would not capture these low-frequency terms as important terms.
+there is a possibility that some low-frequency terms may  actually be important in identifying interesting nuggets.
+from this description of interesting nuggets and trivia, we hypothesize that interesting nuggets are likely to occur rarely in a text corpora.
+as we have noted, interesting nuggets often has a  trivialike quality that makes them of interest to human beings.
+5.1 weighting interesting terms the word trivia refer to tidbits of unimportant or uncommon  information.
+encouraged by the initial experimental results, we explored two further optimization of the basic algorithm.

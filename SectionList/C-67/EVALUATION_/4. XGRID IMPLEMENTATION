@@ -1,0 +1,140 @@
+Our goal is an Xgrid render farm for Alias Maya. The Ringling
+School has about 400 Apple Power Mac G4"s and G5"s in 13
+computer labs. The computers range from 733 MHz 
+singleprocessor G4"s and 500 MHz and 1 GHz dual-processor G4"s to
+1.8 GHz dual-processor G5"s. All of these computers are lightly
+used in the evening and on weekends and represent an enormous
+processing resource for our student rendering projects.
+4.1 Software Installation
+During our Xgrid testing, we loaded software on each computer
+multiple times, including the operating systems. We saved time by
+facilitating our installations with the remote administration
+daemon (radmind) software developed at the University of
+Michigan [9], [10].
+Everything we installed for testing was first created as a radmind
+base load or overload. Thus, Mac OS X, Mac OS X Developer
+Tools, Xgrid, POV-Ray [11], and Alias Maya were stored on a
+radmind server and then installed on our test computers when
+needed.
+4.2 Initial Testing
+We used six 1.8 GHz dual-processor Apple Power Mac G5"s for
+our Xgrid tests. Each computer ran Mac OS X 10.3.3 and
+contained 1 GB RAM. As shown in Figure 1, one computer
+served as both client and controller, while the other five acted as
+agents.
+Before attempting Maya rendering with Xgrid, we performed
+basic calculations to cement our understanding of Xgrid. Apple"s
+Xgrid documentation is sparse, so finding helpful web sites
+facilitated our learning.
+We first ran the Mandelbrot set plug-in provided by Apple, which
+allowed us to test the basic functionality of our grid. Then we
+performed benchmark rendering with the Open Source
+Application POV-Ray, as described by Daniel Côté [12] and
+James Reynolds [8]. Our results showed that one dual-processor
+G5 rendering the benchmark POV-Ray image took 104 minutes.
+Breaking the image into three equal parts and using Xgrid to send
+the parts to three agents required 47 minutes. However, two
+agents finished their rendering in 30 minutes, while the third
+agent used 47 minutes; the entire render was only as fast as the
+slowest agent.
+These results gave us two important pieces of information. First,
+the much longer rendering time for one of the tasks indicated that
+we should be careful how we split jobs into tasks for the agents.
+All portions of the rendering will not take equal amounts of time,
+even if the pixel size is the same. Second, since POV-Ray cannot
+take advantage of both processors in a G5, neither can an Xgrid
+task running POV-Ray. Alias Maya does not have this limitation.
+4.3 Rendering with Alias Maya 6
+We first installed Alias Maya 6 for Mac OS X on the
+client/controller and each agent. Maya 6 requires licenses for use
+as a workstation application. However, if it is just used for
+rendering from the command line or a script, no license is needed.
+We thus created a minimal installation of Maya as a radmind
+overload. The application was installed in a hidden directory
+inside /Applications. This was done so that normal users of the
+workstations would not find and attempt to run Maya, which
+would fail because these installations are not licensed for such
+use.
+In addition, Maya requires the existence of a directory ending in
+the path /maya. The directory must be readable and writable by
+the Maya user. For a user running Maya on a Mac OS X
+workstation, the path would usually be ~/Documents/maya.
+Unless otherwise specified, this directory will be the default
+location for Maya data and output files. If the directory does not
+Figure 1. Xgrid test grid.
+Client/
+Controller
+Agent 1
+Agent 2
+Agent 3
+Agent 4
+Agent 5
+Network
+Volume
+Jobs
+Data
+Data
+122
+exist, Maya will try to create it, even if the user specifies that the
+data and output files exist in other locations.
+However, Xgrid runs as the user nobody, which does not have a
+home directory. Maya is unable to create the needed directory,
+and looks instead for /Alias/maya. This directory also does not
+exist, and the user nobody has insufficient rights to create it. Our
+solution was to manually create /Alias/maya and give the user
+nobody read and write permissions.
+We also created a network volume for storage of both the
+rendering data and the resulting rendered frames. This avoided
+sending the Maya files and associated textures to each agent as
+part of a working directory. Such a solution worked well for us
+because our computers are geographically close on a LAN; if
+greater distance had separated the agents from the
+client/controller, specifying a working directory may have been a
+better solution.
+Finally, we created a custom GUI plug-in for Xgrid. The plug-in
+command calls a Perl script with three arguments. Two arguments
+specify the beginning and end frames of the render and the third
+argument the number of frames in each job (which we call the
+cluster size). The script then calculates the total number of jobs
+and parses them out to the agents. For example, if we begin at
+frame 201 and end at frame 225, with 5 frames for each job, the
+plug-in will create 5 jobs and send them out to the agents.
+Once the jobs are sent to the agents, the script executes the
+/usr/sbin/Render command on each agent with the parameters
+appropriate for the particular job. The results are sent to the
+network volume.
+With the setup described, we were able to render with Alias Maya
+6 on our test grid. Rendering speed was not important at this time;
+our first goal was to implement the grid, and in that we succeeded.
+4.3.1 Pseudo Code for Perl Script in Custom Xgrid
+Plug-in
+In this section we summarize in simplified pseudo code format the
+Perl script used in our Xgrig plug-in.
+agent_jobs{
+• Read beginning frame, end frame, and cluster size of
+render.
+• Check whether the render can be divided into an integer
+number of jobs based on the cluster size.
+• If there are not an integer number of jobs, reduce the cluster
+size of the last job and set its last frame to the end frame of
+the render.
+• Determine the start frame and end frame for each job.
+• Execute the Render command.
+}
+4.4 Lessons Learned
+Rendering with Maya from the Xgrid GUI was not trivial. The
+lack of Xgrid documentation and the requirements of Maya
+combined into a confusing picture, where it was difficult to decide
+the true cause of the problems we encountered. Trial and error
+was required to determine the best way to set up our grid.
+The first hurdle was creating the directory /Alias/maya with read
+and write permissions for the user nobody. The second hurdle was
+learning that we got the best performance by storing the rendering
+data on a network volume.
+The last major hurdle was retrieving our results from the agents.
+Unlike the POV-Ray rendering tests, our initial Maya results were
+never returned to the client; instead, Maya stored the results in
+/tmp on each agent. Specifying in the plug-in where to send the
+results would not change this behavior. We decided this was
+likely a Maya issue rather than an Xgrid issue, and the solution
+was to send the results to the network volume via the Perl script.

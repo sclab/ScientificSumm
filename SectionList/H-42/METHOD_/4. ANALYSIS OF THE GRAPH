@@ -1,0 +1,194 @@
+4.1 Weighted Inlinks, Outlinks, PageRank
+The sum of weighted outlinks, i.e., the sum of the weights
+on the outgoing arcs from each node, is always zero:
+• The outlinks on each node corresponding to a system
+s (Fig. 2c) is the sum of all the corresponding APM
+values on one row of the matrix in Tab. 2b.
+• The outlinks on each node corresponding to a topic
+t (Fig. 2d) is the sum of all the corresponding APA
+(a) (b)
+(c) (d)
+Figure 2: The relationships between systems and
+topics (a) and (b); and the Systems-Topics graph for
+a toy example (c) and (d). Dashed arcs correspond
+to negative values.
+h
+(a)
+s1
+...
+sm
+t1
+...
+tn
+=
+s1 · · · sm t1 · · · tn
+s1
+... 0 APM
+(APA)
+sm
+t1
+... APA
+T
+0
+tn (APM
+T
+)
+·
+a
+(h)
+s1
+...
+sm
+t1
+...
+tn
+Figure 3: Hub and Authority computation
+values on one row of the transpose of the matrix in
+Tab. 2a.
+The average1
+of weighted inlinks is:
+• MAP for each node corresponding to a system s; this
+corresponds to the average of all the corresponding
+APA values on one column of the APA
+T
+part of the
+adjacency matrix (see Fig. 1).
+• AAP for each node corresponding to a topic t; this
+corresponds to the average of all the corresponding
+APM values on one column of the APM part of the
+adjacency matrix (see Fig. 1).
+Therefore, weighted inlinks measure either system 
+effectiveness or topic ease; weighted outlinks are not meaningful. We
+could also apply the PageRank algorithm to the network;
+the meaning of the PageRank of a node is not quite so 
+obvious as Inlinks and Outlinks, but it also seems a sensible
+measure of either system effectiveness or topic ease: if a 
+system is effective, it will have several incoming links with high
+1
+Usually, the sum of the weights on the incoming arcs to
+each node is used in place of the average; since the graph is
+complete, it makes no difference.
+weights (APA); if a topic is easy it will have high weights
+(APM) on the incoming links too. We will see experimental
+confirmation in the following.
+4.2 Hubs and Authorities
+Let us now turn to more sophisticated indicators. 
+Kleinberg"s HITS algorithm defines, for a directed graph, two
+indicators: hubness and authority; we reiterate here some of
+the basic details of the HITS algorithm in order to 
+emphasize both the nature of our generalization and the 
+interpretation of the HITS concepts in this context. Usually, hubness
+and authority are defined as h(x) =
+P
+x→y a(y) and a(x) =
+P
+y→x h(y), and described intuitively as a good hub links
+many good authorities; a good authority is linked from many
+good hubs. As it is well known, an equivalent formulation
+in linear algebra terms is (see also Fig. 3):
+h = Aa and a = AT
+h (7)
+(where h is the hubness vector, with the hub values for all
+the nodes; a is the authority vector; A is the adjacency 
+matrix of the graph; and AT
+its transpose). Usually, A 
+contains 0s and 1s only, corresponding to presence and absence
+of unweighted directed arcs, but Eq. (7) can be immediately
+generalized to (in fact, it is already valid for) A containing
+any real value, i.e., to weighted graphs.
+Therefore we can have a generalized version (or rather
+a generalized interpretation, since the formulation is still
+the original one) of hubness and authority for all nodes in
+a graph. An intuitive formulation of this generalized HITS
+is still available, although slightly more complex: a good
+hub links, by means of arcs having high weights, many good
+authorities; a good authority is linked, by means of arcs 
+having high weights, from many good hubs. Since arc weights
+can be, in general, negative, hub and authority values can be
+negative, and one could speak of unhubness and unauthority;
+the intuitive formulation could be completed by adding that
+a good hub links good unauthorities by means of links with
+highly negative weights; a good authority is linked by good
+unhubs by means of links with highly negative weights.
+And, also, a good unhub links positively good 
+unauthorities and negatively good authorities; a good unauthority
+is linked positively from good unhubs and negatively from
+good hubs.
+Let us now apply generalized HITS to our Systems-Topics
+graph. We compute a(s), h(s), a(t), and h(t). Intuitively,
+we expect that a(s) is somehow similar to Inlinks, so it
+should be a measure of either systems effectiveness or topic
+ease. Similarly, hubness should be more similar to Outlinks,
+thus less meaningful, although the interplay between hub
+and authority might lead to the discovery of something 
+different. Let us start by remarking that authority of topics
+and hubness of systems depend only on each other; similarly
+hubness of topics and authority of systems depend only on
+each other: see Figs. 2c, 2d and 3.
+Thus the two graphs in Figs. 2c and 2d can be analyzed
+independently. In fact the entire HITS analysis could be
+done in one direction only, with just APM(s, t) values or
+alternatively with just APA(s, t). As discussed below, 
+probably most interest resides in the hubness of topics and the
+authority of systems, so the latter makes sense. However, in
+this paper, we pursue both analyses together, because the
+symmetry itself is interesting.
+Considering Fig. 2c we can state that:
+• Authority a(t) of a topic node t increases when:
+- if h(si) > 0, APM(si, t) increases
+(or if APM(si, t) > 0, h(si) increases);
+- if h(si) < 0, APM(si, t) decreases
+(or if APM(si, t) < 0, h(si) decreases).
+• Hubness h(s) of a system node s increases when:
+- if a(tj) > 0, APM(s, tj) increases
+(or, if APM(s, tj) > 0, a(tj) increases);
+- if a(tj) < 0, APM(s, tj) decreases
+(or, if APM(s, tj) < 0, a(tj) decreases).
+We can summarize this as: a(t) is high if APM(s, t) is high
+for those systems with high h(s); h(s) is high if APM(s, t)
+is high for those topics with high a(t). Intuitively, authority
+a(t) of a topic measures topic ease; hubness h(s) of a system
+measures system"s capability to recognize easy topics. A
+system with high unhubness (negative hubness) would tend
+to regard easy topics as hard and hard ones as easy.
+The situation for Fig. 2d, i.e., for a(s) and h(t), is 
+analogous. Authority a(s) of a system node s measures system
+effectiveness: it increases with the weight on the arc (i.e.,
+APA(s, tj)) and the hubness of the incoming topic nodes tj.
+Hubness h(t) of a topic node t measures topic capability to
+recognize effective systems: if h(t) > 0, it increases further
+if APA(s, tj) increases; if h(t) < 0, it increases if APA(s, tj)
+decreases.
+Intuitively, we can state that A system has a higher 
+authority if it is more effective on topics with high hubness;
+and A topic has a higher hubness if it is easier for those
+systems which are more effective in general. Conversely for
+system hubness and topic authority: A topic has a higher
+authority if it is easier on systems with high hubness; and
+A system has a higher hubness if it is more effective for
+those topics which are easier in general.
+Therefore, for each system we have two indicators: 
+authority (a(s)), measuring system effectiveness, and hubness
+(h(s)), measuring system capability to estimate topic ease.
+And for each topic, we have two indicators: authority (a(t)),
+measuring topic ease, and hubness (h(t)), measuring topic
+capability to estimate systems effectiveness. We can define
+them formally as
+a(s) =
+X
+t
+h(t) · APA(s, t), h(t) =
+X
+s
+a(s) · APA(s, t),
+a(t) =
+X
+s
+h(s) · APM(s, t), h(s) =
+X
+t
+a(t) · APM(s, t).
+We observe that the hubness of topics may be of particular
+interest for evaluation studies. It may be that we can 
+evaluate the effectiveness of systems efficiently by using relatively
+few high-hubness topics.

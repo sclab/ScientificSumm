@@ -1,0 +1,28 @@
+For the upper bound, we can get a √ R competitive ratio, by buying all the shares once the price drops below √ Rpmin .
+For the first T time units we have a price of √ Rpmin , and a total volume of Vmin .
+(Sketch of Theorem 10) We use the idea of  guessing the total volume from Theorem 1, but now allow for the possibility of an arbitrary (but known) distribution over the total volume.
+(Sketch of Theorem 3) W.l.o.g., assume that Q = 1 and the total volume is V .
+(Sketch of Theorem 4) The algorithm simply sells ut = (vt/Vmin )N shares at time t. The total number of shares sold U is clearly more than N and U = t ut = t (vt/Vmin )N = (V/Vmin )N ≤ QN The average price is V WAPA(S) = ( t ptut)/U = t pt(vt/V ) = V WAPM (S), where we used the fact that ut/U = vt/V .
+The Q upper bound is derive by running an algorithm that assumes the volume is Vmin .
+Therefore, in this case the competitive ratio is Ω(Q).
+The VWAP is pmax and the fixed schedule average is (N/T)pmax + (N − N/T)pmin .
+If it has bought more than half of the shares, the remaining time steps have price pmin and volume Vmax − Vmin .
+(of Theorem 5) We start with the proof of the lower bound.
+We then get that Gbins vol (i) ∝ Pbins vol (i) minimizes the upper bound, which leads to the upper bound stated in the theorem.
+The market VWAP is√ Rpmin = pmax / √ R, hence the competitive ratio is Ω( √ R).
+In the first case the online has paid at least √ Rpmin /2 while the VWAP is at most √ Rpmin /Q + pmin .
+In particular, consider constructing a  distribution Gbins vol over a set of volume values using Pvol and use it to guess the total volume V .
+In the second case the online has to buy at least half of the shares at pmax , so its average cost is at least pmax /2.
+This implies an  upper bound on RVWAP(A, Pvol ) in terms of Gbins vol .
+Otherwise, the remaining time steps have price pmax and negligible volume.
+Consider the sequences where at time t we have pt = pmax , vt = V , and for times t = t we have pt = pmin and vt = 0.
+(Sketch of Theorem 11) Replace Pvol with ˜Pvol in the expression for Gbins vol in the proof sketch for the last result.
+The online pays a cost of p, while the VWAP will be at least p/Q.
+Consider the time t where the fixed schedule f sells the least, then ft ≤ N/T.
+Let the algorithm guess ˆV = Vmin 2i with probability Gbins vol (i).
+Then note that, for any price-volume sequence S, if V ∈ [Vmin 2i−1 , Vmin 2i ], VWAPA(S) ≥ Gbins vol (i)VWAPM (S)/2.
+We observe how many shares the online algorithm has bought.
+Consider the following scenario.
+6.2 Proofs from Section 4 Proof.
+197 Proof.
+6.1 Proofs from Subsection 2.3 Proof.

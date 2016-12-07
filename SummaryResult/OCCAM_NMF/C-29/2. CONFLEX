@@ -1,0 +1,31 @@
+by parallelizing conflex, the speedup of searching molecular conformers obtained is as reported in[11]. 
+when all of the trial structures related to a given initial structure are optimized, only the master  procedure is used in comparison.
+after an optimization on a worker node is finished, the worker is immediately supplied with another trial structure.
+then, each worker node is dynamically supplied with one trial structure from the master node.
+after trial structures are generated (step 2), they are temporarily stored in a task pool on the master node.
+we modified the search procedures as follows.
+therefore, we parallelized this  optimization using the master/worker parallelization technique.
+in the conflex search algorithm, the geometry  optimization procedures always take 95% of the elapsed time of the search execution.
+2.2 parallelization of conflex for cluster for application to over 100 atoms, conflex was  improved using high-performance parallel computing techniques.
+gradually increasing sel allows only the  lowenergy conformers to be searched and avoids straying into unnecessarily high-energy regions.
+in order to remain in the low-energy region and perform an exhaustive search, the search limit (sel), which  determines the maximum energy of the initial structures, is pre-defined.
+therefore, these tactical procedures of the conflex search are referred to as the reservoir filling algorithm.
+this rule is effective in moving down the search space toward lower energy regions, like water from a stream running into an empty reservoir, while filling local depressions along the way.
+the initial structure is selected as the set of lowest energy conformers stored in the conformation database.
+the selection rule of the initial structure, the  lowestconformer-first rule, is the second strategy for directing the conformation search expanded to the low-energy regions.
+actually, the  perturbations of an initial structure correspond to the precise  performance around the space of the initial structure because of localization and weakness of the perturbation.
+a barrier-crossing step in the elementary process of the  thermal conformational inter-conversion.
+these perturbations can be considered to mimic 155 stepwise rotation corner flap edge flip figure 2: strategies used to generate the local  perturbations.
+these methods provide a highly efficient way to produce several good trial structures.
+the first strategy involves both corner  flapping and edge flipping for the ring atoms and stepwise  rotation for side-chains or backbone chains.
+figure 2 shows the strategies for generating local perturbations in conflex.
+these procedures incorporate two unique strategies.
+figure 1 shows the outline of conflex, the original  conformational space search algorithm.
+4. comparison of the successfully optimized (trial)  structures with the other conformers stored in a  conformation database, and preservation of newly discovered unique conformers in the database.
+3. geometry optimization for the newly generated trial structures.
+2. generation of trial structures by local perturbations to the selected initial structure.
+(an input structure is used as the first initial structure at the beginning of a search  execution only.)
+the original conflex performs the following four major steps: 1. selection of an initial structure among the previously discovered unique conformers sorted in a  conformational database.
+2.1 algorithm of conformationalspacesearch the basic strategy of conflex is an exhaustive search of only the low-energy regions.
+applications of conflex include the elucidation of the reactivity and  selectivity of drugs and possible drug materials with regard to their conformational flexibility.
+conflex [1] is an efficient conformational space search program, which can predominately and exhaustively search the conformers in the lower-energy region.

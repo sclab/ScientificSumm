@@ -1,0 +1,4 @@
+If the entire result is predicted to be present in the Ganesh driver"s cache, the RecipeResultSet is simply a single hash of the entire result.
+This proxy, which can be shared by multiple front-end nodes, consists of two parts: code to detect similarity in result fragments and the original native JDBC driver that  communicates with the database.
+However, in cases where there is little overlap with previous results, the Ganesh driver will have to make many calls to the proxy during reconstruction to fetch missing  result fragments.
+Ganesh exploits redundancy in the result stream to avoid transmitting result 

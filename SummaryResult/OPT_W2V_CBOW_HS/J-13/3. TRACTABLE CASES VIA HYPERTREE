@@ -1,0 +1,97 @@
+Note that the size of Hv is bounded by (|E(H)| + 1)k , since each node in λ(v) is either left uncovered in a  packing or is covered with precisely one of the hyperedges in χ(v) ⊆ E(H).
+Therefore, h∗ is a packing for H. It remains then to show that it has the maximum weight over all the packings for H. To this aim, we can use structural induction on T to prove that, in the bottom-up phase, the variable v hv is updated to contain the weight of the packing on the edges in χ(Tv), which contains hv and which has the maximum weight over all such packings for the edges in χ(Tv).
+Intuitively, v hv stores the weight of the best partial packing for H computed by using only the hyperedges  occurring in χ(Tv).
+In the dual hypergraph H, I is a hyperedge in E( ¯H) which covers both the nodes h1 and h2.
+For each vertex v ∈ N, let Hv be the hypergraph whose set of nodes N(Hv) ⊆ N(H) coincides with λ(v), and whose set of edges E(Hv) ⊆ E(H) coincides with χ(v).
+A hypertree decomposition of a  hypergraph H is a hypertree HD = T, χ, λ for H which satisfies all the following conditions: 1. for each edge h ∈ E(H), there exists p ∈ vertices(T) such that h ⊆ χ(p) (we say that p covers h); 156 Figure 3: Example MaxWSP problem: (a) Hypergraph H1; (b) Hypergraph ¯H1; (b) A 2-width hypertree decomposition of ¯H1.
+Otherwise, for each child c of v in T, v hv is updated with the maximum of c hc − w(hc ∩ hv) over all the packings hc that conforms with hv (resolving ties arbitrarily).
+The algorithm receives in input a hypergraph H, a  weighting function w, and a k-width hypertree decomposition HD = T=(N, E), χ, λ of ¯H.
+3.1 Hypertree Decomposition on the Dual Hypergraph and Tractable Packing Problems For a fixed constant k, let C(hw, k) denote the class of all the hypergraphs whose dual hypergraphs have  hypertree width bounded by k. The maximum weighted-set  packing problem can be solved in polynomial time on the class C(hw, k) by means of the algorithm ComputeSetPackingk, shown in Figure 4.
+As for the complexity, observe that the initialization step requires the construction of the set Hv, for each vertex v, and each set has size (|E(H)| + 1)k at most.
+A 2-width hypertree decomposition for ¯H1 is reported in Figure 3.(c).
+Hence, by condition (1) in Definition 1, there is a vertex v ∈ vertices(T) such that {h1, h2} ⊆ χ(v).
+¡ In the following, rather than working on the hypergraph H associated with a MaxWSP problem, we shall deal with its dual ¯H, i.e., with the hypergraph such that its nodes are in one-to-one correspondence with the hyperedges of H, and where for each node x ∈ N(H), {h | x ∈ h ∧ h ∈ E(H)} is in E( ¯H).
+Firstly, the packing h∗ is selected that maximizes the weight equipped with the packings in Hr.
+157 Input: H, w, and a k-width hypertree decomposition HD = T =(N, E), χ, λ of ¯H; Output: A solution to MaxWSP(H, w); var Hv : set of packings for Hv, for each v ∈ N; h∗ : packing for H; v hv : rational number, for each partial packing hv for Hv; hhv,c : partial packing for Hc, for each partial packing hv for Hv, and for each (v, c) ∈ E;  -------------------------------------------Procedure BottomUp; begin Done := the set of all the leaves of T ; while ∃v ∈ T such that (i) v ∈ Done, and (ii) {c | c is child of v} ⊆ Done do for each c such that (v, c) ∈ E do Hv := Hv − {hv | ∃hc ∈ Hc s.t.
+Moreover, differently from the case of structured item graphs, it is well known that deciding the existence of a k-bounded hypertree decomposition and computing one (if any) are problems which can be efficiently solved in  polynomial time [7].
+2. for each node Y ∈ N(H), the set {p ∈ vertices(T) | Y ∈ χ(p)} induces a (connected) subtree of T; 3. for each p ∈ vertices(T), χ(p) ⊆ N(λ(p)); 4. for each p ∈ vertices(T), N(λ(p)) ∩ χ(Tp) ⊆ χ(p).
+hv ≈ hc}; for each hv ∈ Hv do v hv := w(hv); for each c such that (v, c) ∈ E do ¯hc := arg maxhc∈Hc|hv≈ hc c hc − w(hc ∩ hv) ; hhv,c := ¯hc; (* set best packing *) v hv := v hv + c ¯hc − w(¯hc ∩ hv); end for end for Done := Done ∪ {v}; end while end;  -------------------------------------------begin (* MAIN *) for each vertex v in T do Hv := {hv packing for Hv}; BottomUp; let r be the root of T ; ¯hr := arg maxhr∈Hr r hr ; h∗ := ¯hr; (* include packing *) T opDown(r, hr); return h∗ ; end.
+In particular, during the bottom-up phase, we have that: (1) v4 is processed, and we set v4 {h2} = v4 {h4} = 1 and v4 {} = 0; (2) v3 is processed, and we set v3 {h1} = v3 {h3} = 1 and v3 {} = 0; (3) v2 is processed, and we set v2 {h1} = v2 {h2} = v2 {h3} = v2 {h4} = 1, v2 {h2,h3} = 2 and v3 {} = 0; (4) v1 is processed and we set v1 {h1} = 1, v1 {h5} = v1 {h3} = 2 and v1 {} = 0.
+Then, the result follows, since in the top-down phase, the packing hr giving the maximum weight over χ(Tr) = E(H) is first included in h∗ , and then extended at each node c with the packing hhv,c conformingly with hv and such that the maximum value of v hv is achieved.
+Let H be a hypergraph and w be a weighting function for it.
+Hence, because of definition of  conformance, the packing hw selected by ComputeSetPackingk to be added at vertex w in h∗ must be such that h1 ∈ hw.
+Then, the function BottomUp checks for the conformance between strategies in Hv with strategies in Hc, for each pair (v, c) ∈ E, and updates the weight v hv .
+The  packing ¯hc for which this maximum is achieved is stored in the variable hhv,c.
+We say that hv conforms with hc, denoted by hv ≈ hc if: for each h ∈ hc ∩ E(Hv), h is in hv; and, for each h ∈ (E(Hc) − hc), h is not in hv.
+A hypertree for a hypergraph H is a triple T, χ, λ , where T = (N, E) is a rooted tree, and χ and λ are labelling functions which associate each vertex p ∈ N with two sets χ(p) ⊆ N(H) and λ(p) ⊆ E(H).
+Indeed, if v is a leaf, then v hv = w(hv).
+Let H be a hypergraph in C(hw, k), and let w be a smooth weighting function for it.
+Procedure T opDown(v : vertex of N, ¯hv ∈ Hv); begin for each c ∈ N s.t.
+The above result shows that if a hypertree decomposition of width k is given, the MaxWSP problem can be efficiently solved.
+Then,  procedure TopDown is used to extend h∗ to all the other partial packings for vertices of T. In particular, at each vertex v, h∗ is extended with the packing hhv,c, for each child c of v. Example 5.
+Assume, w.l.o.g., that h1 ∈ hv, and notice that each vertex w in T in the path  connecting v to v1 is such that h1 ∈ χ(w), because of the  connectedness condition.
+In an  initialization step, the algorithm equips each vertex v with all the possible packings for Hv, which are stored in the set Hv.
+A hypergraph H is acyclic if hw(H) = 1.
+Then, the set of all the possible packings (which are build in the initialization step of ComputeSetPackingk), for each of its vertices, is  reFigure 5: Example application of Algorithm ComputeSetPackingk.
+For instance, note that v1 {h5} = 2 since {h5} conforms with the packing {h4} of Hv2 such that v2 {h4} = 1.
+(v, c) ∈ E do ¯hc := h¯hv,c; h∗ := h∗ ∪ ¯hc; (* include packing *) T opDown(c, ¯hc); end for end; Figure 4: Algorithm ComputeSetPackingk.
+Let HD = T, χ, λ be a complete k-width hypertree decomposition of ¯H.
+Therefore, Theorem 4 witnesses that the class C(hw, k) actually constitutes a tractable class for the winner determination problem.
+Note that, because of the connectedness condition in Definition 1, we can also assume, w.l.o.g., that v is in the path connecting v1 and v2 in T. Let hv ∈ Hv denote the element added by ComputeSetPackingk into h∗ during the bottom-down phase.
+[Sketch] We observe that h∗ (computed by ComputeSetPackingk) is a packing for H. Indeed, consider a pair of hyperedges h1 and h2 in h∗ , and assume, for the sake of contradiction, that h1 ∩ h2 = ∅.
+Since the elements in Hv are packings for Hv, it is the case that either h1 ∈ hv or h2 ∈ hv.
+Specifically, the choices made during the computation are such that the  packing {h2, h3} is computed.
+The HYPERTREE width hw(H) of H is the minimum width over all its hypertree decompositions.
+If T = (N , E ) is a subtree of T, we define χ(T ) = v∈N χ(v).
+Then, MaxWSP(H, w) is in LLOGCFL . 
+Let v1 (resp., v2) be an arbitrary vertex of T, for which ComputeSetPackingk included h1 (resp., h2) in h∗ in the bottom-down  computation.
+(b), where an arrow from a packing hc to a  packing hv is used to denote that hc = hhv,c.
+Then, at the beginning of the top-down phase, ComputeSetPackingk selects {h3} as a packing for Hv1 and propagates this choice in the tree.
+For instance, the root v1 is such that Hv1 = { {}, {h1}, {h3}, {h5} }.
+For each node v being processed, the set Hv is preliminary updated by removing all the packings hv that do not conform with any packing for some of the children of v. After this filtering is performed, the weight hv is  updated.
+DECOMPOSITIONS Since constructing structured item graphs is intractable, it is relevant to assess whether other structural restrictions can be used to single out classes of tractable MaxWSP instances.
+The width of a hypertree decomposition T, χ, λ is maxp∈vertices(T )|λ(p)|.
+Then, ComputeSetPackingk is designed to filter these packings by retaining only those that conform with some packing for Hc, for each children c of v in T, as formalized next.
+Then, ComputeSetPackingk on input H, w, and HD correctly outputs a solution for MaxWSP(H, w) in time O(|T| × (|E(H)| + 1)2k ).
+Consider again the hypertree  decomposition of ¯H1 reported in Figure 3.(c).
+For instance, the reader may check that the packing {h3} ∈ Hv1 conforms with the packing {h2, h3} ∈ Hv3 , but do not conform with {h1} ∈ Hv3 .
+By construction, we have h1 ∈ χ(v1) and h2 ∈ χ(v2).
+Finally, the function TopDown can be implemented in linear time in the size of T, since it just requires updating h∗ by accessing the variable hhv,c.
+We denote the set of vertices N of T by vertices(T).
+Instead, both the hypergraphs H1 and ¯H1 shown in Figure 3.
+Let hv and hc be two packings for Hv and Hc, respectively.
+The rationale for this choice is that issuing restrictions on the original hypergraph is a guarantee for the tractability only in very simple scenarios.
+As a further example, the way the solution {h1} is  obtained by the algorithm when w(h1) = 5 and w(h2) = w(h3) = w(h4) = 1 is reported in Figure 5.(c).
+Notice that, this time, in the top-down phase, ComputeSetPackingk starts selecting {h1} as the best packing for Hv1 .
+In the first phase, vertices of T are processed from the leaves to the root r, by means of the procedure BottomUp.
+(a) is an example acyclic hypergraph.
+Moreover, an arrow from a packing hc to hv denotes that hv conforms with hc.
+In particular, observe that H1 has been obtained by adding the two hyperedges h4 and h5 to H I0,B0 to model, for instance, that two new bids, B4 and B5, respectively, have been proposed to the auctioneer.
+Assume that, in our running example, w(h1) = w(h2) = w(h3) = w(h4) = 1.
+These tasks can be carried out in time O((|E(H)| + 1)2k ) and must be repeated for each edge in T, i.e., O(|T|) times.
+Moreover, for any p ∈ N, Tp denotes the subtree of T rooted at p. Definition 1.
+This holds in particular for w = v1.
+To this end, we focus on the notion of hypertree  decomposition [7], which is a natural generalization of hypergraph acyclicity and which has been profitably used in other  domains, e.g, constraint satisfaction and database query  evaluation, to identify tractability islands for NP-hard problems.
+On the class of acyclic hypergraphs, MaxWSP is (1) in P if each node occurs into two hyperedges at most; and, (2) NP-hard, even if each node is contained into three hyperedges at most.
+(a) and notice that the hypergraph in Figure 3.
+158 Let I be an element in h1 ∩ h2.
+As an example, the reader may want to check again the hypergraph H1 in Figure 3.
+Let us call a weighting function smooth if it is logspace computable and if all weights are polynomial (and thus just require O(log n) bits for their representation).
+(b), respectively, are not acyclic since their hypertree width is 2.
+As the following theorem shows, for large subclasses (that depend only on how the weight function is specified), MaxWSP(H, w) is even highly parallelizeable.
+¡ ComputeSetPackingk builds a solution by traversing T in two phases.
+In the second phase, the tree T is processed starting from the root.
+Equivalently, the  algorithm may have chosen {h5}.
+The hypergraph H I0,B0 reported in  Figure 1.
+Contradiction with the definition of v1.
+The  functional version of LOGCFL is LLOGCFL , which is obtained by equipping a logspace transducer with an oracle in LOGCFL.
+Recall that LOGCFL is a  parallel complexity class contained in NC2, cf.
+Then, an  execution of ComputeSetPackingk is graphically depicted in Figure 5.
+(b) is in fact its dual.
+P Example 3.
+ported in Figure 5.(a).
+(a) and  Figure 3.
+Theorem 3.
+¡ Theorem 4.
+Theorem 5.
+Example 4.

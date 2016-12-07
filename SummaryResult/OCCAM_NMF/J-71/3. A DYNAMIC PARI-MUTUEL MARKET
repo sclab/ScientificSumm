@@ -1,0 +1,39 @@
+section 5 examines case (2), where all money is redistributed. 
+the next section analyzes case (1), where only losing money is redistributed.
+we consider each case in turn.
+in a dynamic pari-mutuel market, because each dollar is not equally weighted, the two formulations are distinct, and lead to significantly different price functions and  mechanisms, each with different potentially desirable properties.
+because each dollar always earns an equal share of the payoff, the two formulations are precisely the same: $1 + mlose mwin = mwin + mlose mwin .
+3.3 redistribution rule in a standard pari-mutuel market, payoffs can be  computed in either of two equivalent ways: (1) each winning $1 wager receives a refund of the initial $1 paid, plus an equal share of all losing wagers, or (2) each winning $1 wager receives an equal share of all wagers, winning or losing.
+traders can also always hedge-sell by  purchasing shares in the opposite outcome from the market maker, thereby hedging their bet if not fully liquidating it.
+traders must sell to each other  using a standard cda mechanism, for example by posting an ask order at a price at or below the market maker"s current ask price.
+173 while an automated market maker always stands ready to accept buy orders, there is no corresponding market maker to accept sell orders.
+we discuss the implications of random walk behavior further below in section 4.1 in the discussion surrounding assumption 3. a second drawback of a dpm is its one-sided nature.
+if p does not change according to a random walk, the mechanism still has utility as a mechanism for hedging and speculating, though optimization may be difficult, and determining a measure of the market"s aggregate opinion of the probabilities of a and b may be difficult.
+if p changes according to a random walk, then traders can take the current p as an unbiased estimate of the  final p, greatly decreasing the complexity of their  optimization.
+so a trader"s strategic optimization problem is  complicated by the need to predict the final values of p1 and p2.
+this contrasts with the cda variants, where the payoff vector across possible future outcomes is fixed at the time of the trade.
+the payoff for a  wager depends both on the price at the time of the trade, and on the final payoff per share at the market"s close.
+a dpm also has some drawbacks.
+dpm traders can cash out of the market early, just like stock market traders, to lock in a profit or limit a loss, an action that is simply not possible in a standard pari-mutuel.
+even though technically an msr exposes its patron to risk (i.e., a variable future payoff), the  patron"s maximum loss is bounded, so the distinction between a dpm and an msr in terms of these three properties is more technical than practical.
+a cdawmm, the bookmaker mechanism, and an msr all fail (2).
+a cda fails (1).
+a standard pari-mutuel fails (3).
+3.2 advantages and disadvantages to my knowledge, a dpm is the only known mechanism for hedging and speculating that exhibits all three of the following properties: (1) guaranteed liquidity, (2) no risk for the market institution, and (3) continuous incorporation of information.
+several natural price functions are outlined below; each is  motivated as the unique solution to a particular constraint on price dynamics.
+denote m1 as the total amount of money wagered on a, m2 as the total amount of money wagered on b, t = m1 + m2 as the total amount of money wagered on both sides, n1 as the total number of shares purchased of a, and n2 as the total number of shares purchased of b. there are many ways to formulate the price function.
+these ask orders can be  automatically entered into the system by the market institution, so that traders interact with what looks like a more familiar cda; we examine this interface issue in more detail below in section 4.2. for our analysis, we introduce the following additional notation.
+however, since the price changes continuously as shares are purchased, the cost of buying n shares is computed as the integral of a price function from 0 to n. the use of continuous functions and integrals can be hidden from traders by aggregating the automated market maker"s sell orders into discrete lots of, say, 100 shares each.
+at any time, a trader can purchase an infinitesimal  quantity of shares of a at price p1 (and similarly for b).
+note that the price is set at the time of the wager; the payoff per share is finalized only after the event outcome is revealed.
+these four numbers, p1, p2, p1, p2 are the key numbers that traders must track and understand.
+denote the payoffs per share as p1 and p2, respectively.
+denote the instantaneous price per share of a as p1 and the price per share of b as p2.
+6 http://www.policyanalysismarket.com/ haustive.
+denote the two outcomes a and b. the outcomes are mutually exclusive and  ex5 see http://hanson.gmu.edu/policyanalysismarket.html for more information, or http://dpennock.com/pam.html for  commentary.
+for simplicity, all analyses in this paper consider the  binary outcome case; generalizing to multiple discrete  outcomes should be straightforward.
+there is no pre-determined limit on the number of shares: new shares can be continually generated as trading proceeds.
+the payoff is variable, because when few people are betting on an outcome, shares will generally be cheaper than at a time when many people are betting that outcome.
+purchasing a share entitles its owner to an equal stake in the winning pot should the chosen outcome occur.
+so a wager on a at a time when most others are wagering on b offers a greater possible profit than a wager on a when most others are also wagering on a. a natural way to communicate the changing payoff of a bet is to say that, at any given time, a certain amount of money will buy a certain number of shares in one outcome the other.
+3.1 high-level description in contrast to a standard pari-mutuel market, where each dollar always buys an equal share of the payoff, in a dpm each dollar buys a variable share in the payoff depending on the state of wagering at the time of purchase.

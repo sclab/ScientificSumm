@@ -1,0 +1,158 @@
+Despite numerous refinements and optimizations, general
+purpose search engines still fail to find relevant results for
+many queries. As a new trend, vertical search has shown
+promise because it can leverage domain-specific knowledge
+and is more effective in connecting users with the 
+information they want. There are many vertical search engines,
+including some for paper search (e.g. Libra [21], Citeseer
+[7] and Google Scholar [4]), product search (e.g. Froogle
+[5]), movie search [6], image search [1, 8], video search [6],
+local search [2], as well as news search [3]. We believe the
+vertical search engine trend will continue to grow.
+Essentially, building vertical search engines includes data
+crawling, information extraction, object identification and
+integration, and object-level Web information retrieval (or
+Web object ranking) [20], among which ranking is one of the
+most important factors. This is because it deals with the
+core problem of how to combine and rank objects coming
+from multiple communities.
+Although object-level ranking has been well studied in
+building vertical search engines, there are still some kinds
+of vertical domains in which objects cannot be effectively
+ranked. For example, algorithms that evolved from 
+PageRank [22], PopRank [21] and LinkFusion [27] were proposed
+to rank objects coming from multiple communities, but can
+only work on well-defined graphs of heterogeneous data.
+Well-defined means that like objects (e.g. authors in 
+paper search) can be identified in multiple communities (e.g.
+conferences). This allows heterogeneous objects to be well
+linked to form a graph through leveraging all the 
+relationships (e.g. cited-by, authored-by and published-by) among
+the multiple communities.
+However, this assumption does not always stand for some
+domains. High-quality photo search, movie search and news
+search are exceptions. For example, a photograph forum
+377
+website usually includes three kinds of objects: photos, 
+authors and reviewers. Yet different photo forums seem to
+lack any relationships, as there are no cited-by relationships.
+This makes it difficult to judge whether two authors cited
+are the same author, or two photos are indeed identical 
+photos. Consequently, although each photo has a rating score
+in a forum, it is non-trivial to rank photos coming from 
+different photo forums. Similar problems also exist in movie
+search and news search. Although two movie titles can be
+identified as the same one by title and director in different
+movie discussion groups, it is non-trivial to combine 
+rating scores from different discussion groups and rank movies
+effectively. We call such non-trivial object relationship in
+which identification is difficult, incomplete relationships.
+Other related work includes rank aggregation for the Web
+[13, 14], and learning algorithm for rank, such as RankBoost
+[15], RankSVM [17, 19], and RankNet [12]. We will contrast
+differences of these methods with the proposed methods 
+after we have described the problem and our methods.
+We will specifically focus on Web object-ranking 
+problem in cases that lack object relationships or have with 
+incomplete object relationships, and take high-quality photo
+search as the test bed for this investigation. In the following,
+we will introduce rationale for building high-quality photo
+search.
+1.1 High-Quality Photo Search
+In the past ten years, the Internet has grown to become
+an incredible resource, allowing users to easily access a huge
+number of images. However, compared to the more than 1
+billion images indexed by commercial search engines, actual
+queries submitted to image search engines are relatively 
+minor, and occupy only 8-10 percent of total image and text
+queries submitted to commercial search engines [24]. This
+is partially because user requirements for image search are
+far less than those for general text search. On the other
+hand, current commercial search engines still cannot well
+meet various user requirements, because there is no 
+effective and practical solution to understand image content.
+To better understand user needs in image search, we 
+conducted a query log analysis based on a commercial search
+engine. The result shows that more than 20% of image
+search queries are related to nature and places and daily
+life categories. Users apparently are interested in enjoying
+high-quality photos or searching for beautiful images of 
+locations or other kinds. However, such user needs are not
+well supported by current image search engines because of
+the difficulty of the quality assessment problem.
+Ideally, the most critical part of a search engine - the
+ranking function - can be simplified as consisting of two
+key factors: relevance and quality. For the relevance 
+factor, search in current commercial image search engines 
+provide most returned images that are quite relevant to queries,
+except for some ambiguity. However, as to quality factor,
+there is still no way to give an optimal rank to an image.
+Though content-based image quality assessment has been
+investigated over many years [23, 25, 26], it is still far from
+ready to provide a realistic quality measure in the immediate
+future.
+Seemingly, it really looks pessimistic to build an image
+search engine that can fulfill the potentially large 
+requirement of enjoying high-quality photos. Various proliferating
+Web communities, however, notices us that people today
+have created and shared a lot of high-quality photos on the
+Web on virtually any topics, which provide a rich source for
+building a better image search engine.
+In general, photos from various photo forums are of higher
+quality than personal photos, and are also much more 
+appealing to public users than personal photos. In addition,
+photos uploaded to photo forums generally require rich 
+metadata about title, camera setting, category and description to
+be provide by photographers. These metadata are actually
+the most precise descriptions for photos and undoubtedly
+can be indexed to help search engines find relevant results.
+More important, there are volunteer users in Web 
+communities actively providing valuable ratings for these photos.
+The rating information is generally of great value in solving
+the photo quality ranking problem.
+Motivated by such observations, we have been attempting
+to build a vertical photo search engine by extracting rich
+metadata and integrating information form various photo
+Web forums. In this paper, we specifically focus on how to
+rank photos from multiple Web forums.
+Intuitively, the rating scores from different photo forums
+can be empirically normalized based on the number of 
+photos and the number of users in each forum. However, such
+a straightforward approach usually requires large manual
+effort in both tedious parameter tuning and subjective 
+results evaluation, which makes it impractical when there are
+tens or hundreds of photo forums to combine. To address
+this problem, we seek to build relationships/links between
+different photo forums. That is, we first adopt an efficient
+algorithm to find duplicate photos which can be considered
+as hidden links connecting multiple forums. We then 
+formulate the ranking challenge as an optimization problem,
+which eventually results in an optimal ranking function.
+1.2 Main Contributions and Organization.
+The main contributions of this paper are:
+1. We have proposed and built a vertical image search 
+engine by leveraging rich metadata from various photo
+forum Web sites to meet user requirements of searching
+for and enjoying high-quality photos, which is 
+impossible in traditional image search engines.
+2. We have proposed two kinds of Web object-ranking
+algorithms for photos with incomplete relationships,
+which can automatically and efficiently integrate as
+many as possible Web communities with rating 
+information and achieves an equal qualitative result 
+compared with the manually tuned fusion scheme.
+The rest of this paper is organized as follows. In Section
+2, we present in detail the proposed solutions to the 
+ranking problem, including how to find hidden links between
+different forums, normalize rating scores, obtain the 
+optimal ranking function, and contrast our methods with some
+other related research. In Section 3, we describe the 
+experimental setting and experiments and user studies conducted
+to evaluate our algorithm. Our conclusion and a discussion
+of future work is in Section 4.
+It is worth noting that although we treat vertical photo
+search as the test bed in this paper, the proposed ranking
+algorithm can also be applied to rank other content that
+includes video clips, poems, short stories, drawings, 
+sculptures, music, and so on.
+378

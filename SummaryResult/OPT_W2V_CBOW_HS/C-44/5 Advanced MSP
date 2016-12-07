@@ -1,0 +1,126 @@
+For each scan, all the nodes are sorted according to the gap, which is the diameter of the polygon along the direction of the scan, to produce a second, gap-based node sequence.
+However, the node sequences obtained from two scans indicate that node 1 should be to the left of and above node 2, as shown in Figure 6(b).
+1: repeat 2: GetOneUnprocessedSeqence(); 3: repeat 4: GetOneNodeByIncreasingOrder(); 5: ComputeLowbound(); 6: UpdateMap(); 7: until The last target node in the sequence; 8: repeat 9: GetOneNodeByDecreasingOrder(); 10: ComputeUpbound(); 11: UpdateMap(); 12: until The last target node in the sequence; 13: until All the node sequences are processed; 14: repeat 15: GetOneUnestimatedNode(); 16: CentroidEstimation(); 17: until All the target nodes are estimated; Elimination Rule: Along a scanning direction, the lower boundary of the successor"s area must be equal to or larger than the lower boundary of the predecessor"s area, and the  upper boundary of the predecessor"s area must be equal to or smaller than the upper boundary of the successor"s area.
+From this example, we can see that iterative processing of the sequence could help further shrink the polygon of each target node, and thus enhance the accuracy of the system.
+Four Cases in DBE Process no neighbor node in the original event-based node sequence shares an overlapping area, or if the neighbors have not been processed due to bigger gaps, a uniform distribution Uniform() is applied to this isolated node (the Alone case in Figure 8).
+Each node"s lower boundary is determined by the lower boundary of its predecessor node in the sequence, thus the processing must start from the first node in the sequence and by increasing order.
+As shown in Figure 8, there are three possible cases  depending on whether the distribution of the overlapping predecessor and/or successor nodes have/has already been estimated.
+5.3 Distribution-Based Estimation After determining the location area polygon for each node, estimation is needed for a final decision.
+To illustrate the idea more clearly, Figure 4 shows the results of three scans that have provided three sequences.
+If COG is used, both nodes are localized at the same position (Figure 6(a)).
+• The vote for each candidate event is also weighted  according to its elimination efficiency for a location area, which is defined as how equally in size (or in diameter) an event can cut an area.
+The reprocessing of the node sequence 1 provides information in the way an additional vertical scan would.
+In addition to the anchor split lines, because nodes 4 and 7 come after node 2 in the sequence, node 4 and 7"s polygons could be narrowed according to node 2"s lower boundary (the lower right-shaded area); similarly, the shaded area in node 2"s  rectangle could be eliminated since this part is beyond node 7"s upper boundary indicated by the dotted line.
+The distributions of each node under the ith scan (for the ith node sequence) are estimated in node.vmap[i], which is a data structure for remembering the marginal distribution over scan i.
+According to the elimination rule, node 2"s lower boundary cannot be smaller than that of node 1 and node 1"s upper boundary cannot exceed node 2"s upper boundary.
+From  sequencebased MSP, we know that the upper boundaries of nodes 3 and 4 along the scan direction must not extend beyond the upper boundary of node 7, therefore the grid parts can be eliminated (a) Central of Gravity (b) Joint Distribution 1 2 2 1 1 2 1 2 2 1 1 2 2 1 1 2 Figure 6.
+Candidate Slops for Node 3 at Anchor 1 overall system error is reduced mostly by splitting the larger areas.
+Evaluation results in  Section 8 will show that iterative MSP contributes noticeably to a lower localization error.
+According to Algorithm 1, the computational complexity of Basic MSP is O(d · N · S), and the storage space required is O(N · S), where d is the number of events, N is the number of target nodes, and S is the area size.
+For this  specific example, as is illustrated in the right part of Figure 10, f(Di,△(k j i ,kopt i )) is defined as the following equation (2): Weight(kj i ) = f(Di,△(kj i ,kopt i )) = Di · Ssmall Slarge (2) Ssmall and Slarge are the sizes of the smaller part and larger part of the area cut by the candidate line respectively.
+For example, if node A has predecessor node B and successor node C, then the marginal probability PA(x,y) of node A"s being at location (x,y) is: PA(x,y) = ∑ i ∑ j ∑ m ∑ n 1 NB,A,C ·PB(i, j)·PC(m,n) (3) NB,A,C is the number of valid locations for A satisfying the sequence (B, A, C) when B is at (i, j) and C is at (m,n); PB(i, j) is the available probability of node B"s being located at (i, j); PC(m,n) is the available probability of node C"s  being located at (m,n).
+Combining the above two aspects, the weight for each vote is computed according to the following equation (1): Weight(k j i ) = f(Di,△(k j i ,k opt i )) (1) k j i is node i"s jth supporting parameter for next event  generation; Di is diameter of node i"s location area; △(k j i ,k opt i ) is the distance between k j i and the optimal parameter k opt i for node i, which should be defined to fit the specific application.
+Sequence-Based MSP Example 1 A 2 3 4 5 B C 6 7 8 9 Straight-line Scan 1 Straight-lineScan2 Straight-line Scan 3 Reprocessing Scan 1 Target node Anchor node Figure 5.
+Basic Architecture of Adaptive MSP 2 3 Diameter D3 1 1 3k 2 3k 3 3k 4 3k 5 3k 6 3k 1 3k 2 3k 3 3k 6 3k4 3k 5 3k Weight el small i opt i j ii j i S S DkkDfkWeight arg ),(,()( ⋅=∆= 1 3 opt k Target node Anchor node Center of Gravity Node 3's area Figure 10.
+Example of Joint Distribution Estimation …... vm ap[0] vm ap[1] vm ap[2] vm ap[3] Combine m ap Figure 7.
+Iterative MSP: Reprocessing Scan 1 From above, we can see that the sequence-based MSP makes use of the information embedded in every sequential node pair in the node sequence.
+We noted that in basic MSP, only the anchors are used to narrow down the polygon of each target node, but actually there is more information in the node sequence that we can made use of.
+Similar  eliminating can be performed for node 3 as shown in the figure.
+The objective of all these improvements is to make full use of the information embedded in the node sequences.
+Each node"s upper boundary is determined by the upper  boundary of its successor node in the sequence, thus the processing must start from the last node in the sequence and by  decreasing order.
+If the distribution of its neighbors sharing overlapped areas has been processed, we calculate the joint distribution for the node.
+The estimation"s strategy of starting from the most accurate node (smallest gap node) reduces the problem of estimation  error propagation.
+Thus, we can further narrow the location area of node 2 by eliminating the shaded part of node 2"s rectangle.
+Rule Illustration in Sequence Based MSP Algorithm 2 Sequence-Based MSP Process Output: The estimated location of each node.
+However, since the marginal probability indeed comes from only one dimension along the scanning direction (e.g., a line), the complexity can be reduced to O(d · N · S1.5) after algorithm optimization.
+There are two factors that determine the weight of each vote: • The vote for each candidate event is weighted according to the diameter D of the node"s location area.
+The computational complexity of the distribution-based  estimation (DBE MSP) is greater.
+Specifically, sequence-based MSP follows this exact processing rule: 1 2 1 2 1 2 Lower boundary of 1 Upper boundary of 1 Lower boundary of 2 Upper boundary of 2 New sequence New upper boundary of 1 New Lower boundary of 2 EventPropagation Figure 3.
+We show later that adaptive MSP improves localization  accuracy in WSNs with irregularly shaped deployment areas.
+The sequence processing contains two steps: Step 1 (line 3 to 7): Compute and modify the lower  boundary for each target node by increasing order in the node  sequence.
+Now if we process the sequence (8,1,5,A,6,C,4,3,7,2,B,9) obtained from scan 1 again, we can make progress, as shown in Figure 5.
+After processing all the sequences, for each node, a polygon bounding its possible location has been found.
+The idea of  adaptive MSP is to generate the next localization event to achieve best-effort elimination, which ideally could shrink the location area of individual node as much as possible.
+With  knowledge of the scan"s direction, it is easy to tell that node 1 is located to the left of node 2.
+Then all the vmaps are combined to get a single map and weighted estimation is used to obtain the final location.
+Then,  center-ofgravity-based estimation is applied to compute the exact  location of each node (line 14 to 17).
+In sequence-based MSP, a sequence processed later benefits from information produced by previously processed sequences (e.g., the third scan in  Figure 5).
+In addition, the final location areas for every node are much smaller than the original field S; therefore, in practice, DBE MSP can be  computed much faster than O(d ·N ·S1.5).
+18 1 A 2 3 4 5 B C 6 7 8 9 Straight-line Scan 1 Straight-lineScan2 Straight-line Scan 3 Target node Anchor node Figure 4.
+The polygon boundaries of the target nodes obtained in prior could be used to further split other target nodes" areas.
+Step 2 (line 8 to 12): Compute and modify the upper  boundary for each node by decreasing order in the node sequence.
+Figure 10 presents an example for node 1"s voting for the slopes of the next straight-line scan.
+This is because node 2 is located on the right of node 1 while the shaded area is outside the lower boundary of node 1.
+The location area of target node 3 is shown in the figure.
+The basic idea of iterative MSP is to process all the sequences iteratively several times so that the processing of each single sequence can benefit from the results of other sequences.
+However, the first several sequences can hardly benefit from other scans in this way.
+This is because it is statistically more accurate to assume a uniform distribution of the node with smaller gap.
+The results in the evaluation section indicate that applying distribution-based estimation could give  statistically better results.
+We use a weighted voting mechanism to evaluate candidate localization events.
+Nodes with bigger location areas speak louder in the voting, because Map Partitioned by the Localization Events Diameter of Each Area Candidate Localization Events Evaluation Trigger Next Localization Evet Figure 9.
+We call this procedure sequence-based MSP which means that the whole node sequence needs to be processed node by node in order.
+Figure 6 shows an example in which node 1 and node 2 are located in the same polygon.
+Then, the estimation starts from the node with the smallest gap.
+According to Algorithm 2, the computational complexity of both sequence-based MSP and iterative MSP is O(c·d ·N ·S), where c is the number of iterations and c = 1 for  sequencebased MSP, and the storage space required is O(N ·S).
+5.4 Adaptive MSP So far, all the enhancements to basic MSP focus on  improving the multi-sequence processing algorithm given a fixed set of scan directions.
+In adaptive MSP, we carefully generate each new localization event so as to maximize the contribution of the new event to the refinement of localization, based on feedback from previous events.
+Therefore, every node votes for the parameters of the next event (e.g., the scan angle k of the straight-line scan).
+In the system, there are a fixed number of candidate slopes for each scan (e.g., k1,k2,k3,k4...).
+Similarly, the location area of node 1 can be narrowed by eliminating the shaded part out of node 2"s right boundary.
+Idea of DBE MSP for Each Node for the nodes 3 and node 4, respectively, as shown in Figure 5.
+Then update the map according to the new lower boundary.
+Previous research mostly applied the Center of Gravity (COG) method [4] [8] [10] which minimizes average error.
+We emphasize that MSP adopts an asymmetric design in which sensor nodes need only to detect and report the events.
+The results we have obtained  empirically indicate that the implementation of the first two methods can dramatically reduce the localization error, and that the third and fourth methods are helpful for some system deployments.
+In order to compute the marginal probability, MSP needs to enumerate the locations of the predecessor node and the successor node.
+Each node sequence is processed within line 3 to 13.
+In this case, if the marginal  probability of joint distribution is used for estimation, better  statistical results are achieved.
+In the case of Figure 3, node 2 is the successor of node 1, and node 1 is the predecessor of node 2.
+In summary, iterative processing can achieve better performance with only a small computation overhead.
+In this section, we analyze the  computational cost on the node sequence processing side, where resources are plentiful.
+Four improvements to basic MSP are proposed in this  section.
+The previous scans narrow the locations of target node 1 and node 2 into two dashed rectangles shown in the left part of Figure 3.
+Since the area map is  maintained centrally, the vote is virtually done and there is no need for the real sensor nodes to participate in it.
+Then update the map according to the new upper boundary.
+5.2 Iterative MSP Sequence-based MSP is preferable to basic MSP because it extracts more information from the node sequence.
+The candidate events k1 3,k2 3,k3 3,k4 3,k5 3,k6 3 are  evaluated according to their effectiveness compared to the optimal ideal event which is shown as a dotted line with appropriate weights computed according to equation (1).
+In fact,  further useful information still remains!
+If every node is  independent of all others, COG is the statistically best solution.
+An example of this process is shown in Figure 4.
+The implementation of iterative MSP is straightforward: process all the sequences multiple times using sequence-based MSP.
+Like sequence-based MSP, iterative MSP introduces no additional event cost.
+Every node wants the next event to split its area evenly, which would shrink the area fast.
+The third scan generates the node sequence (B,9,2,7,4,6,3,8,C,A,5,1).
+Empirical results show that after 5 iterations, improvements become less significant.
+In other words, an optimal scan event cuts an area in the middle, since this cut shrinks the area quickly and thus reduces localization uncertainty quickly.
+For each node  processed in order from the gap-based node sequence, either if 19 Pred.
+5.1 Sequence-Based MSP As shown in Figure 2, each scan line and M anchors, splits the whole area into M + 1 parts.
+For  example, two neighboring nodes in a certain sequence could have overlapping polygon areas.
+After gathering all the voting results, the event parameters with the most votes win the election.
+The major overhead comes from the computation of joint distributions when both  predecessor and successor nodes exit.
+Let"s first look at a simple example shown in Figure 3.
+Then a new scan generates a new sequence (1, 2).
+All these enhancements require only more computing time without any overhead to the sensor nodes.
+Through previous localization events, the whole map has been partitioned into many small location areas.
+The high-level idea of distribution-based estimation  proposed for MSP, which we call DBE MSP, is illustrated in  Figure 7.
+In MSP, however, each node may not be independent.
+Both the computational complexity and storage space are equal within a constant factor to those of basic MSP.
+The first three improvements do not need additional sensing and communication in the networks but require only slightly more off-line computation.
+In this case, node 3 votes 0 for the candidate lines that do not cross its area since Ssmall = 0.
+node"s area Both predecessor and successor nodes exist: conditional distribution based on both of them Pred.
+20 5.5 Overhead and MSP Complexity Analysis This section provides a complexity analysis of the MSP  design.
+For example, in military situations, artillery or rocket-launched mini-ultrasound bombs can be used for event generation at some selected locations.
+Each target node falls into one polygon shaped by scan lines.
+Obviously, it is possible to have some choice and optimization on how events are generated.
+Our evaluation in Sections 8 and 9 shows that sequence-based MSP considerably enhances system accuracy.
+Algorithm 2 illustrates the pseudo code of sequence-based MSP.
+In other words, reprocessing does not actually repeat the scan physically.
+node"s area Successor node exists: conditional distribution based on succ.
+Inspired by this phenomenon, we propose iterative MSP.
+They are blissfully oblivious to the processing methods  proposed in previous sections.
+node"s area Predecessor node exists: conditional distribution based on pred.
+node"s area Alone: Uniformly Distributed Succ.
+A naive algorithm to compute equation (3) has complexity O(d · N · S3).
+node"s area Figure 8.
+Figure 9 depicts the basic architecture of adaptive MSP.
+node"s area Succ.

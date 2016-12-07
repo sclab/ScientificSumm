@@ -1,0 +1,25 @@
+In this section, we address the third question raised in Section 4:
+Is the overhead of Ganesh"s proxy-based design acceptable? To 
+answer this question, we concentrate on its performance at the higher
+bandwidths. Our evaluation in Section 5 showed that Ganesh, when
+compared to Native, can deliver a substantial throughput 
+improvement at lower bandwidths. It is only at higher bandwidths that 
+latency, measured by the average response time for a client request,
+and throughput, measured by the number of client requests that can
+be serviced per second, overheads would be visible.
+Looking at the Authoring mix of the original BBOARD 
+benchmark, there are no visible gains from Ganesh at 100 Mb/s. Ganesh,
+however, still tracks Native in terms of throughput. While the 
+average response time is higher for Ganesh, the absolute difference is
+in between 0.01 and 0.04 seconds and would be imperceptible to
+the end-user. The Browsing mix shows an even smaller difference
+in average response times. The results from the filter variant of the
+BBOARD benchmarks are similar. Even for the AUCTION 
+benchmark, the difference between Native and Ganesh"s response time at
+100 Mb/s was never greater than 0.02 seconds. The only exception
+to the above results was seen in the filter variant of the BBOARD
+benchmark where Ganesh at 1600 test clients added 0.85 seconds
+to the average response time. Thus, even for much faster networks
+where the WAN link is not the bottleneck, Ganesh always delivers
+throughput equivalent to Native. While some extra latency is added
+by the proxy-based design, it is usually imperceptible.

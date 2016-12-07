@@ -1,0 +1,23 @@
+in other word, it is interesting to note that term dependence, when being modeled appropriately, can be helpful for both improving and predicting retrieval performance. 
+the superiority of wig over other prediction techniques based on unigram features, which will be demonstrated later in our paper, coincides with that of mrf for retrieval.
+this model is used to estimate the joint probability distribution over documents and queries, an important part of wig.
+the mrf model directly models term dependence and is found be to highly effective across a variety of test collections (particularly web collections) and retrieval tasks.
+one of our prediction models, wig, is related to the markov random field (mrf) model for information retrieval [8].
+we experimentally show that the baselines, even after being carefully tuned, are inadequate for the web environment.
+in this paper, we mainly adopt the clarity score and the robustness score as our baselines.
+the difficulties of applying these models in web search environments have already been mentioned.
+unfortunately, their way of measuring the sensitivity does not perform equally well for short queries and prediction accuracy drops considerably when a state-of-the-art retrieval technique (like okapi or a language modeling approach) is adopted for retrieval instead of the tf-idf weighting used in their paper [16].
+the most effective measure is the sensitivity to document perturbation, an idea somewhat similar to the robustness score.
+[7] proposed four measures to capture the geometry of the top retrieved documents for prediction.
+vinay et al.
+[2] found that the distance measured by the jensen-shannon divergence between the retrieved document set and the collection is significantly correlated to average precision.
+carmel et al.
+the robustness score [1] quantifies another property of a ranked list: the robustness of the ranking in the presence of uncertainty.
+for example, the clarity score [6] measures the coherence of a list of documents by the kl-divergence between the query model and the collection model.
+in fact, most of the successful techniques are based on measuring some characteristics of the retrieved document set to estimate topic difficulty.
+therefore, it is not surprising to notice that simple features, such as the frequency of query terms in the collection [4] and the average idf of query terms [5], do not predict well.
+each factor affects performance to a different degree and the overall effect is hard to predict accurately.
+the major difficulty of performance prediction comes from the fact that many factors have an impact on retrieval performance.
+next we review some representative models.
+we know of no published work that addresses other types of queries such as np queries, let alone a mixture of query types.
+as we mentioned in the introduction, a number of prediction techniques have been proposed recently that focus on  contentbased queries in the topical relevance (ad-hoc) task.

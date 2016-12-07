@@ -1,0 +1,46 @@
+conclusions and some future directions of the research work are discussed in section 6. 
+in section 5, experiments about single-document segmentation, shared topic detection, and multi-document segmentation are described, and results are presented and discussed to evaluate the performance of our algorithm.
+ing dynamic programming.
+in section 4, we first propose the iterative greedy algorithm of topic segmentation and alignment with term co-clustering, and then describe how the algorithm can be optimized by  usfigure 1: illustration of multi-document  segmentation and alignment.
+section 3 contains a formulation of the problem of topic segmentation and alignment of multiple documents with term co-clustering, a review of the criterion of mi for clustering, and finally an introduction to wmi.
+the rest of this paper is organized as follows: in section 2, we review related work.
+some of our prior work is in [24].
+we propose an iterative greedy algorithm based on dynamic programming and show that it works well in practice.
+we also introduce the new criterion of wmi based on term weights learned from  multiple similar documents, which can improve performance of topic segmentation further.
+it can detect shared topics among documents to judge if they are multiple documents on the same topic.
+obviously, our approach can handle single documents as a special case when multiple documents are unavailable.
+multi-document segmentation and alignment can utilize information from similar documents and improves the performance of topic segmentation greatly.
+also, we have addressed the problem of topic  segmentation and alignment across multiple documents, whereas most existing research focused on segmentation of single documents.
+the major contribution of this paper is that it introduces a novel method for topic segmentation using mi and shows that this method performs better than previously used  criteria.
+our results in figure 3 show that term weights are useful for multi-document topic segmentation and alignment.
+many methods based on sentence similarity require that these words are removed before topic segmentation can be performed [15].
+these words are common in a document.
+not only can this approach increase the contribution of cue words, but it can also decrease the effect of common stop words, noisy word, and document-dependent stop words.
+inspired by this, we give each term (or term cluster) a weight based on entropy among different documents and different segments of  documents.
+usually, human readers can identify topic transition based on cue words, and can ignore stop words.
+terms can be co-clustered as in [10] at the same time, given the number of clusters, but our experimental results show that this method results in a worse segmentation (see tables 1, 4, and 6).
+single-document topic segmentation is just a special case of the multi-document topic segmentation and alignment problem.
+topic alignment of multiple similar documents can be achieved by clustering sentences on the same topic into the same cluster.
+cosine distance) of segments [15, 25, 6].
+the mi focuses on  measuring the difference among segments whereas previous research focused on finding the similarity (e.g.
+this is equal to maximizing the mi (or wmi).
+in this paper, we view the problem of topic segmentation as an optimization issue using information theoretic  techniques to find the optimal boundaries of a document given the number of text segments so as to minimize the loss of mutual information (mi) (or a weighted mutual information (wmi)) after segmentation and alignment.
+we employ a soft  classification using term weights.
+second, even though stop words can be identified, hard classification of stop words and  nonstop words cannot represent the gradually changing amount of information content of each word.
+removing common stop words may result in the loss of useful  information in a specific domain.
+first, identifying stop words is another  issue [12] that requires estimation in each domain.
+there are two reasons that we do not remove stop words directly.
+for example, additional document-dependent stop words are removed together with the generic stop words in [15].
+however, they usually suffer the issue of  identifying stop words.
+traditional approaches using similarity measurement based on term frequency generally have the same assumption that similar vocabulary tends to be in a coherent topic segment [15, 25, 6].
+thus, the extension of topic  segmentation from single documents to identifying similar segments from multiple similar documents with the same topic is a natural and necessary direction, and multi-document topic segmentation is expected to have a better performance since more information is utilized.
+at a finer granularity, users may  actually be looking to obtain sections of a document similar to a particular section that presumably discusses a topic of the users interest.
+search engines, like, google, provide links to obtain similar pages.
+often, end-users seek documents that have the  similar content.
+most of them perform badly in subtle tasks like coherent document segmentation [15].
+traditional approaches perform topic segmentation on  documents one at a time [15, 25, 6].
+previous research in connection with tdt falls into the former  category, targeted on topic tracking of broadcast speech data and newswire text, while the latter category has not been studied very well.
+the former category has applications in automatic speech recognition, while the latter one has more applications such as partial-text query of long documents in information retrieval, text summary, and quality measurement of multiple documents.
+topic segmentation tasks usually fall into two  categories [15]: text stream segmentation where topic transition is identified, and coherent document segmentation in which documents are split into sub-topics.
+topic segmentation intends to identify the boundaries in a document with the goal to capture the latent topical  structure.
+many researchers have worked on topic detection and  tracking (tdt) [26] and topic segmentation during the past decade.

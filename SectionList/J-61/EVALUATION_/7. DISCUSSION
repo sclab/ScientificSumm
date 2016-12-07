@@ -1,0 +1,101 @@
+The bidding language was defined to allow for perfect 
+symmetry between buyers and sellers and provide expressiveness
+in an exchange domain, for instance for mixed bidders 
+interested in executing trades such as swaps. This proved
+especially challenging. The breakthrough came when we 
+focused on changes in value for trades rather than providing
+absolute values for allocations. For simplicity, we require the
+same tree structure for both the upper and lower valuations.
+10
+Code size is measured in physical source line of code
+(SLOC), as generated using David A. Wheeler"s SLOC
+Count. The total of 6502 includes 184 for instrumentation
+(not shown in the table). The JOpt solver interface is 
+another 1964 lines, and Castor automatically generates around
+5200 lines of code for XML file manipulation.
+11
+http://econcs.eecs.harvard.edu/jopt
+This allows the language itself to ensure consistency (with
+the upper value at least the lower value on all trades) and
+enforce monotonic tightening of these bounds for all trades
+across rounds. It also provides for an efficient method to
+check the RP activity rule, because it makes it simple to
+reason about shared uncertainty between trades.
+The decision to adopt a direct and proxied approach
+in which bidders express their upper and lower values to a
+trusted proxy agent that interacts with the exchange was
+made early in the design process. In many ways this is
+the clearest and most immediate way to generalize the 
+design in Parkes et al. [24] and make it iterative. In addition,
+this removes much opportunity for strategic manipulation:
+bidders are restricted to making (incremental) statements
+about their valuations. Another advantage is that it makes
+the activity rule easy to explain: bidders can always meet
+the activity rule by tightening bounds such that their true
+value remains in the support.12
+Perhaps most importantly,
+having explicit information on upper and lower values 
+permits progress in early rounds, even while there is no efficient
+trade at pessimistic values.
+Upper and lower bound information also provides 
+guidance about when to terminate. Note that taken by itself,
+PP = PO does not imply that the current provisional trade
+is efficient with respect to all values consistent with current
+value information. The difference in values between 
+different trades, aggregated across all bidders, could be similar at
+lower and upper bounds but quite different at intermediate
+values (including truth). Nevertheless, we conjecture that
+PP = PO will prove an excellent indicator of efficiency in
+practical settings where the shape of the upper and lower
+valuations does convey useful information. This is worthy of
+experimental investigation. Moreover, the use of price and
+RP activity provides additional guarantees.
+We adopted linear prices (prices on individual items) rather
+than non-linear prices (with prices on a trade not equal to
+the sum of the prices on the component items) early in the
+design process. The conciseness of this price representation
+is very important for computational tractability within the
+exchange and also to promote simplicity and transparency
+for bidders. The RP activity rule was adopted later, and is
+a good choice because of its excellent theoretical properties
+when coupled with CE prices. The following can be easily
+established: given exact CE prices pt−1
+for provisional trade
+12
+This is in contrast to indirect price-based approaches, such
+as clock-proxy [1], in which bidders must be able to reason
+about the RP-constraints implied by bids in each round.
+257
+λt−1
+at valuations vα
+, then if the upper and lower values at
+the start of round t already satisfy the RP rule (and without
+the need for any tie-breaking), the provisional trade is 
+efficient for all valuations consistent with the current bid trees.
+When linear CE prices exist, this provides for a soundness
+and completeness statement: if PP = PO, linear CE prices
+exist, and the RP rule is satisfied, the provisional trade is
+efficient (soundness); if prices are exact CE prices for the
+provisional trade at vα
+, but the trade is inefficient with 
+respect to some valuation profile consistent with the current
+bid trees, then at least one bidder must fail RP with her
+current bid tree and progress will be made (completeness).
+Future work must study convergence experimentally, and
+extend this theory to allow for approximate prices.
+Some strategic aspects of our ICE design deserve 
+comment, and further study. First, we do not claim that 
+truthfully responding to the RP rule is an ex post equilibrium.13
+However, the exchange is designed to mimic the Threshold
+rule in its payment scheme, which is known to have 
+useful incentive properties [16]. We must be careful, though.
+For instance we do not suggest to provide αeff
+to bidders,
+because as αeff
+approaches 1 it would inform bidders that
+bid values are becoming irrelevant to determining the trade
+but merely used to determine payments (and bidders would
+become increasingly reluctant to increase their lower 
+valuations). Also, no consideration has been given in this work
+to collusion by bidders. This is an issue that deserves some
+attention in future work.

@@ -1,0 +1,34 @@
+there are two exceptions: stv, for which our upper and lower bounds are apart by a factor log m; and maximin, for which our best deterministic upper bound is also a factor log m above the (nondeterministic) lower bound, although we give a nondeterministic upper bound that matches the lower bound. 
+after obtaining the upper bounds, we show that they are tight by giving matching lower bounds on (even the nondeterministic) communication complexity of each voting rule.
+however, we hope to also include the alternative proofs in a later version.
+we only give direct proofs for these rules here because 1) these direct proofs are among the  easier ones in this paper, 2) the alternative proofs are nontrivial even given segal"s results, and 3) a space constraint applies.
+finally, for some rules (such as the condorcet and bucklin rules), we need to introduce a more complex communication protocol to achieve the best possible upper 1 for two of the rules that we study that are  intersectionmonotonic, namely the approval and condorcet rules,  segal"s results can in fact be used to give alternative proofs of our lower bounds.
+however, for some rules (such as plurality with runoff, stv and cup) there is a straightforward multistage communication protocol that, with some analysis, can be shown to significantly outperform the immediate communication of all (potentially relevant) information.
+(segal"s results [20] do not apply to most voting rules because most voting rules are not  intersectionmonotonic (or even monotonic).1 ) for many of the voting rules under study, it turns out that one cannot do better than simply letting each voter immediately communicate all her (potentially relevant) information.
+for each rule, we first give an upper bound on the (deterministic)  communication complexity by providing a communication protocol for it and analyzing how many bits need to be transmitted in this protocol.
+we determine the  communication complexity of the common voting rules.
+in contrast, in this paper, we are concerned with the worst-case number of bits that must be communicated to  execute a given voting rule, when nothing is known in advance about the voters" preferences.
+in addition, that paper discusses strategic (game-theoretic) issues introduced by elicitation.
+prior work [8] has studied elicitation in voting, studying how computationally hard it is to decide whether a winner can be determined with the  information elicited so far, as well as how hard it is to find the optimal sequence of queries given perfect suspicions about the voters" preferences.
+the communication required by voting rules can be large either because the number of voters is large (such as, for example, in national elections), or because the number of candidates is large (for example, the agents can vote over allocations of a number of resources), or both.
+in a voting setting, there is a set of candidate outcomes over which the voters express their preferences by submitting a vote (typically, a ranking of the candidates), and the winner (that is, the chosen outcome) is determined based on these votes.
+in this paper, we will focus on the communication  requirements of a generally applicable subclass of social choice rules, commonly known as voting rules.
+segal then uses this characterization to prove bounds on the communication required in resource allocation as well as matching settings [20].
+segal also studies social choice rules in general, and shows that for a large class of social choice rules, supporting budget sets must be revealed such that if every agent prefers the same outcome in her budget set, this proves the optimality of that  outcome.
+for example, nisan and  segal show that exponential communication is required even to obtain a surplus greater than that obtained by  auctioning off all objects as a single bundle [14].
+finally, resource 78 allocation problems have also been studied from a  communication complexity viewpoint, thereby deriving lower bounds on the required communication.
+ascending combinatorial auctions are a well-known special form of preference elicitation, where the elicitor asks demand queries with increasing prices [15, 21, 1, 9].
+for a review of preference elicitation in combinatorial auctions, see [17].
+furthermore, if the agents" valuation functions are drawn from certain natural subclasses, the elicitation problem can be solved using only polynomially many queries even in the worst case [23, 4, 13, 18, 14].
+experimentally, this yields drastic savings in preference  revelation [11].
+for example, the elicitor can ask for a bidder"s value for a specific bundle (value queries), which of two bundles the bidder prefers  (order queries), which bundle he ranks kth or what the rank of a given bundle is (rank queries), which bundle he would  purchase given a particular vector of prices (demand queries), etc.-until (at least) the final allocation can be determined.
+this can be accomplished by supplementing the auctioneer with an elicitor that incrementally elicits parts of the bidders" preferences on an as-needed basis, based on what the bidders have revealed about their preferences so far, as suggested by conen and sandholm [5].
+because in a combinatorial auction,  bidders can have separate valuations for each of an  exponential number of possible bundles of items, this is a setting in which reducing the communication burden is especially crucial.
+most of the work on reducing the communication burden in preference aggregation has focused on resource allocation settings such as combinatorial auctions, in which an  auctioneer auctions off a number of (possibly distinct) items in a single event.
+• it preserves (some of) the agents" privacy.
+this is especially true when the agents, rather than knowing all their preferences in advance, need to invest effort (such as computation or information gathering) to  determine their preferences [16].
+• even when communicating all the preference  information is feasible, reducing the communication  requirements lessens the burden placed on the agents.
+this has at least the following advantages: • it can make preference aggregation feasible in settings where the total amount of preference information is too large to communicate.
+clever protocols that elicit the agents" preferences partially and sequentially have the potential to dramatically reduce the required communication.
+to successfully aggregate the agents" preferences, it is usually not necessary for all the agents to report all of their preference information.
+one key factor in the practicality of any preference  aggregation rule is its communication burden.

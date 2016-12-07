@@ -1,0 +1,10 @@
+we have generalized our back-end optimization solver  interface11 (we currently support cplex and the lgpl-  licensed lpsolve), and can take advantage of the load-balancing and parallel mip/lp solving capability that this library  provides. 
+we take  advantage of the commonality of these problems by using common lp/mip builders that differ only by a few functional hooks to provide the correct variables for optimization.
+the second, used by the three pricing stages, is an lp that holds trades constant, seeking to minimize slack, profit, or prices.
+the first, used by winner  determination, activity rule, closing rule, and constraint generation in pricing, is a mip that finds trades that maximize value, holding prices and slacks constant.
+we realized that all of our optimization formulations boil down to two classes of optimization problem.
+these engines drive the appropriate mip/lp builders.
+major exchange tasks are handled by engines that  dictate the non-optimizer specific logic.
+a user specifies a valuation model in an  xmlinterpretation of our bidding language, which is revealed to the exchange via the agent"s strategy.
+in addition to the core exchange discussed in this paper, we have developed an agent component that allows a user to simulate the  behavior and knowledge of other players in the system, better allowing a user to formulate their strategy in advance of actual play.
+ice is approximately 6502 lines of java code, broken up into the functional packages described in table 1.10 the prototype is modular so that researchers may easily replace components for experimentation.

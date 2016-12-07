@@ -1,0 +1,139 @@
+Web caches are widely used tool to improve overall 
+system efficiency by allowing fast local access. They were listed
+in [12] as a challenging application of Distributed 
+Algorithmic Mechanism Design.
+Nisan [30] considered a single cache shared by strategic
+agents. In this problem, agent i gains the value vT
+i if a
+particular item is loaded to the local shared cache. The
+efficient goal is to load the item if and only if ΣvT
+i ≥ C,
+where C is the loading cost. This goal reduces to the public
+project problem analyzed by Clarke [10]. However, it is well
+known that this mechanism is not budget-balanced (e.g., if
+the valuation of each player is C, then everyone pays zero).
+In this section we suggest informational and 
+environmental assumptions for which we describe a decentralized 
+budgetbalanced efficient mechanism. We consider environments
+for which future demand of each agent depends on past 
+demand. The underlying informational and environmental 
+requirements are as follows.
+1. An agent can read the content of a message only if he
+is the target node (even if he has to forward the 
+message as an intermediate node of some routing path).
+An agent cannot initiate a message on behalf of other
+agents.
+2. An acknowledgement protocol is available, so that 
+every agent can provide a certificate indicating that he
+handled a certain message properly.
+3. Negligible costs: we assume p-informed agents, where
+p is such that the agent"s induced cost for keeping
+records of information is negligible. We also assume
+that the cost incurred by sending and forwarding 
+messages is negligible.
+4. Let qi(t) denotes the number of loading requests agent
+i initiated for the item during the time slot t. We
+assume that vT
+i (t), the value for caching the item in
+the beginning of slot t depends only on most recent
+slot, formally vT
+i (t) = max{Vi(qi(t − 1)), C}, where
+Vi(·) is a non-decreasing real function. In addition,
+Vi(·) is a common knowledge among the players.
+5. The network is homogeneous in the sense that if
+agent j happens to handle k requests initiated by agent
+i during the time slot t, then qi(t) = kα, where α
+depends on the routing protocol and the environment
+(α might be smaller than 1, if each request is flooded
+several times). We assume that the only way agent i
+can affect the true qi(t) is by superficially increasing
+his demand for the cached item, but not the other way
+(that is, agent"s loss, incurred by giving up a necessary
+request for the item, is not negligible).
+The first requirement is to avoid free riding, and also to
+avoid the case that an agent superficially increases the 
+demand of others and as a result decreases his own demand.
+The second requirement is to avoid the case that an agent
+who gets a routing request for the item, records it and then
+drops it. The third is to ensure that the environment stays
+well informed. In addition, if the forwarding cost is 
+negligible each agent cooperates and forwards messages as he would
+not like to decrease the future demand (that monotonically
+depends on the current time slot, as assumed in the forth
+requirement) of some other agent. Given that the payments
+are increasing with the declared values, the forth and fifth
+requirements ensure that the agent would not increase his
+demand superficially and so qi(t) is the true demand.
+The following Web-Cache Mechanism implements the 
+efficient goal that shares the cost proportionally. For simplicity
+it is described for two players and w.l.o.g vT
+i (t) equals the
+number of requests initiated by i and observed by any 
+informed j (that is, α = 1 and Vi(qi(t − 1)) = qi(t − 1)).
+• Stage 1: (Elicitation of vT
+A(t))
+Alice announces vA.
+Bob announces vA ≥ vA. If vA = vA goto the next
+Stage. Otherwise (Bob challenges):
+- If Bob provides vA valid records then Alice pays C
+to finance the loading of the item into the cache.
+She also pays βp to Bob. STOP.
+- Otherwise, Bob finances the loading of the item
+into the cache. STOP.
+• Stage 2: The elicitation of vT
+B(t) is done analogously.
+• Stage 3: If vA + vB < C, then STOP.
+Otherwise, load the item to the cache, Alice pays pA =
+vA
+vA+vB
+· C, and Bob pays pB = vB
+vA+vB
+· C.
+Claim 7. It is a dominated strategy to overreport the true
+value.
+Proof. Let vT
+A < VA. There are two cases to consider:
+• If vT
+A + vB < C and vA + vB ≥ C.
+We need to show that if the mechanism stops normally
+Alice would pay more than vT
+A, that is: vA
+vA+vB
+·C > vT
+A.
+Indeed, vA C > vA (vT
+A + vB) > vT
+A (vA + vB).
+• If vT
+A + vB ≥ C, then clearly, vA
+vA+vB
+>
+vT
+A
+vT
+A
++vB
+.
+Theorem 2. Let βp = max{0, 1−2p
+p
+· C} + , p ∈
+(0, 1]. A strategy that survives iterative elimination of weakly
+dominated strategies is to report the truth and to challenge
+only when the agent is informed. The mechanism is efficient,
+budget-balanced, exhibits consumer sovereignty, no positive
+transfer and individual rationality10
+.
+Proof. Challenging without being informed (that is, 
+without providing enough valid records) is always dominated
+strategy in this mechanism. Now, assume w.l.o.g. Alice is
+10
+See [29] or [12] for exact definitions.
+246
+the last to report her value. Alice"s expected payoff gained
+by underreporting ≤
+p · (−C − βp) + (1 − p) · C < p · 0 + (1 − p) · 0 ≤ Alice"s
+expected payoff if she honestly reports.
+The right hand side equals zero as the participation costs
+are negligible. Reasoning back, Bob cannot expect to get
+the bonus and so misreporting is dominated strategy for
+him.

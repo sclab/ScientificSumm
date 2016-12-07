@@ -1,0 +1,68 @@
+Interactive partially observable Markov decision processes 
+(IPOMDPs) [9] provide a framework for sequential decision-making
+in partially observable multiagent environments. They generalize
+POMDPs [13] to multiagent settings by including the other agents"
+computable models in the state space along with the states of the
+physical environment. The models encompass all information 
+influencing the agents" behaviors, including their preferences, 
+capabilities, and beliefs, and are thus analogous to types in Bayesian
+games [11]. I-POMDPs adopt a subjective approach to 
+understanding strategic behavior, rooted in a decision-theoretic framework that
+takes a decision-maker"s perspective in the interaction.
+In [15], Polich and Gmytrasiewicz introduced interactive 
+dynamic influence diagrams (I-DIDs) as the computational 
+representations of I-POMDPs. I-DIDs generalize DIDs [12], which may
+be viewed as computational counterparts of POMDPs, to 
+multiagents settings in the same way that I-POMDPs generalize POMDPs.
+I-DIDs contribute to a growing line of work [19] that includes
+multi-agent influence diagrams (MAIDs) [14], and more recently,
+networks of influence diagrams (NIDs) [8]. These formalisms seek
+to explicitly model the structure that is often present in real-world
+problems by decomposing the situation into chance and decision
+variables, and the dependencies between the variables. MAIDs
+provide an alternative to normal and extensive game forms using
+a graphical formalism to represent games of imperfect information
+with a decision node for each agent"s actions and chance nodes
+capturing the agent"s private information. MAIDs objectively 
+analyze the game, efficiently computing the Nash equilibrium profile
+by exploiting the independence structure. NIDs extend MAIDs to
+include agents" uncertainty over the game being played and over
+models of the other agents. Each model is a MAID and the network
+of MAIDs is collapsed, bottom up, into a single MAID for 
+computing the equilibrium of the game keeping in mind the different 
+models of each agent. Graphical formalisms such as MAIDs and NIDs
+open up a promising area of research that aims to represent 
+multiagent interactions more transparently. However, MAIDs provide an
+analysis of the game from an external viewpoint and the 
+applicability of both is limited to static single play games. Matters are more
+complex when we consider interactions that are extended over time,
+where predictions about others" future actions must be made using
+models that change as the agents act and observe. I-DIDs address
+this gap by allowing the representation of other agents" models as
+the values of a special model node. Both, other agents" models and
+the original agent"s beliefs over these models are updated over time
+using special-purpose implementations.
+In this paper, we improve on the previous preliminary 
+representation of the I-DID shown in [15] by using the insight that the static
+I-ID is a type of NID. Thus, we may utilize NID-specific language
+constructs such as multiplexers to represent the model node, and
+subsequently the I-ID, more transparently. Furthermore, we clarify
+the semantics of the special purpose policy link introduced in the
+representation of I-DID by [15], and show that it could be replaced
+by traditional dependency links. In the previous representation of
+the I-DID, the update of the agent"s belief over the models of others
+as the agents act and receive observations was denoted using a 
+special link called the model update link that connected the model
+nodes over time. We explicate the semantics of this link by 
+showing how it can be implemented using the traditional dependency
+links between the chance nodes that constitute the model nodes.
+The net result is a representation of I-DID that is significantly more
+transparent, semantically clear, and capable of being implemented
+using the standard algorithms for solving DIDs. We show how 
+IDIDs may be used to model an agent"s uncertainty over others"
+models, that may themselves be I-DIDs. Solution to the I-DID is
+a policy that prescribes what the agent should do over time, given
+its beliefs over the physical state and others" models. Analogous to
+DIDs, I-DIDs may be used to compute the policy of an agent online
+as the agent acts and observes in a setting that is populated by other
+interacting agents.

@@ -1,0 +1,30 @@
+days/topic 30.65 34.48 table 1: statistics of annotated data 
+dependencies/event 0.61 0.68 avg.
+dependencies/topic 3.07 2.92 avg.
+events/topic 5.07 4.29 avg.
+stories/event 5.65 6.22 avg.
+64.60 64.04 avg.
+stories/topic 28.69 26.74 avg.
+topics 26 27 avg.
+feature training set test set num.
+table 1 shows that the training and test sets have fairly similar statistics.
+from the annotated topics, we created a training set of 26 topics and a test set of 27 topics by merging the 28 topics from tdt2 and 25 from tdt3 and splitting them randomly.
+the annotator was however instructed to assign a  dependency from event a to event b if and only if the occurrence of b is ‘either causally influenced by a or is closely related to a and follows a in time".
+further, the graph could have cycles or  orphannodes.
+each event could have single,  multiple or no parents.
+in defining dependencies between events, we imposed no  restrictions on the graph structure.
+we however, do not use or model these titles in our algorithms.
+we believe that this would help make her understanding of the events more concrete.
+as part of the guidelines, we instructed the annotator to assign titles to all the events in each topic.
+we realized from our own experience that people differ in their perception of an event especially when the number of stories in that event is small.
+the annotator was also encouraged to avoid singleton events, events that contain a single news story, if possible.
+the annotator was encouraged to merge two events a and b into a single event c if any of the  stories discusses both a and b. this is to satisfy our assumption that each story corresponds to a unique event.
+in identifying events in a topic, the annotator was asked to broadly follow the tdt definition of an event, i.e., ‘something that happens at a specific time and location".
+we supervised the annotator on a set of three topics that we did our own annotations on and then asked her to annotate the 28 topics from tdt2 and 25 topics from tdt3.
+annotation includes defining the event membership for each story and also the  dependencies.
+we hired an annotator to create truth data.
+we believe modeling such stories would be a useful first step before dealing with more complex data sets.
+the reason for choosing only cnn as the source is that the stories from this source tend to be short and precise and do not tend to digress or drift too far away from the central theme.
+if the topic contained more than 30 cnn stories, we picked only the first 30 stories to keep the topic short enough for  annotators.
+the criterion we used for selecting a topic is that it should contain at least 15 on-topic stories from cnn headline news.
+we picked 28 topics from the tdt2 corpus and 25 topics from the tdt3 corpus.

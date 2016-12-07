@@ -1,0 +1,66 @@
+Before presenting our multi-dimensional trust model, we first 
+introduce the notation and formalism that we will use by describing the
+more familiar single dimensional case. We consider an agent who
+must decide whether to engage in a future contract with a supplier.
+This contract will lead to some outcome, o, and we consider that
+o = 1 if the contract is successfully fulfilled, and o = 0 if not2
+.
+In order for the agent to make a rational decision, it should 
+consider the utility that it will derive from this contract. We assume
+that in the case that the contract is successfully fulfilled, the agent
+derives a utility u(o = 1), otherwise it receives no utility3
+. Now,
+given that the agent is uncertain of the reliability with which the
+supplier will fulfill the contract, it should consider the expected
+utility that it will derive, E[U], and this is given by:
+E[U] = p(o = 1)u(o = 1) (1)
+where p(o = 1) is the probability that the supplier will successfully
+fulfill the contract. However, whilst u(o = 1) is known by the
+agent, p(o = 1) is not. The best the agent can do is to determine
+a distribution over possible values of p(o = 1) given its direct
+experience of previous contract outcomes. Given that it has been
+able to do so, it can then determine an estimate of the expected
+utility4
+of the contract, E[E[U]], and a measure of its uncertainty
+in this expected utility, Var(E[U]). This uncertainty is important
+since a risk averse agent may make a decision regarding a contract,
+2
+Note that we only consider binary contract outcomes, although
+extending this to partial outcomes is part of our future work.
+3
+Clearly this can be extended to the case where some utility is 
+derived from an unsuccessful outcome.
+4
+Note that this is often called the expected expected utility, and
+this is the notation that we adopt here [2].
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1071
+not only on its estimate of the expected utility of the contract, but
+also on the probability that the expected utility will exceed some
+minimum amount. These two properties are given by:
+E[E[U]] = ˆp(o = 1)u(o = 1) (2)
+Var(E[U]) = Var(p(o = 1))u(o = 1)2
+(3)
+where ˆp(o = 1) and Var(p(o = 1)) are the estimate and 
+uncertainty of the probability that a contract will be successfully 
+fulfilled, and are calculated from the distribution over possible values
+of p(o = 1) that the agent determines from its direct experience.
+The utility based approach that we present here provides an 
+attractive motivation for this model of Teacy et al. [11].
+Now, in the case of binary contract outcomes, the beta 
+distribution is the natural choice to represent the distribution over possible
+values of p(o = 1) since within Bayesian statistics this well known
+to be the conjugate prior for binomial observations [3]. By adopting
+the beta distribution, we can calculate ˆp(o = 1) and Var(p(o = 1))
+using standard results, and thus, if an agent observed N previous
+contracts of which n were successfully fulfilled, then:
+ˆp(o = 1) =
+n + 1
+N + 2
+and:
+Var(p(o = 1)) =
+(n + 1)(N − n + 1)
+(N + 2)2(N + 3)
+Note that as expected, the greater the number of contracts the agent
+observes, the smaller the variance term Var(p(o = 1)), and, thus,
+the less the uncertainty regarding the probability that a contract will
+be successfully fulfilled, ˆp(o = 1).

@@ -1,0 +1,494 @@
+3.1 Conditional Proposals by Abduction
+We suppose an agent who has a knowledge base 
+represented by an abductive program P, H . A program P
+consists of two types of knowledge, belief B and desire D,
+where B represents objective knowledge of an agent, while
+D represents subjective knowledge in general. We define
+P = B ∪ D, but do not distinguish B and D if such 
+distinction is not important in the context. In contrast, abducibles
+H are used for representing permissible conditions to make
+a compromise in the process of negotiation.
+Definition 3.1. A proposal G is a conjunction of literals
+and NAF-literals:
+L1, . . . , Lm, not Lm+1, . . . , not Ln
+where every variable in G is existentially quantified at the
+front and range-restricted. In particular, G is called a 
+critique if G = accept or G = reject where accept and reject
+are the reserved propositions. A counter-proposal is a 
+proposal made in response to a proposal.
+Definition 3.2. A proposal G is accepted in an 
+abductive program P, H if P has an answer set satisfying G.
+When a proposal is not accepted, abduction is used for
+seeking conditions to make it acceptable.
+Definition 3.3. Let P, H be an abductive program
+and G a proposal. If (E, F) is a minimal explanation of
+Gθ for some substitution θ in P, H , the conjunction G :
+Gθ, E, not F
+is called a conditional proposal (for G), where E, not F
+represents the conjunction: A1, . . . , Ak, not Ak+1, . . . , not Al
+for E = {A1, . . . , Ak} and F = { Ak+1, . . . , Al }.
+Proposition 3.1. Let P, H be an abductive program
+and G a proposal. If G is a conditional proposal, there is a
+belief set S of P, H satisfying G .
+Proof. When G = Gθ, E, not F, (P \ F) ∪ E has a
+consistent answer set S satisfying Gθ and E ∩ F = ∅. In
+this case, S satisfies Gθ, E, not F.
+A conditional proposal G provides a minimal requirement
+for accepting the proposal G. If Gθ has multiple minimal 
+explanations, several conditional proposals exist accordingly.
+When (E, F) = (∅, ∅), a conditional proposal is used as a
+new proposal made in response to the proposal G.
+Example 3.1. An agent seeks a position of a research
+assistant at the computer department of a university with
+the condition that the salary is at least 50,000 USD per year.
+The agent makes his/her request as the proposal:2
+G = assist(compt dept), salary(x), x ≥ 50, 000.
+The university has the abductive program P, H :
+P : salary(40, 000) ← assist(compt dept), not has PhD,
+salary(60, 000) ← assist(compt dept), has PhD,
+salary(50, 000) ← assist(math dept),
+salary(55, 000) ← system admin(compt dept),
+2
+For notational convenience, we often include mathematical
+(in)equations in proposals/programs. They are written by
+literals, for instance, x ≥ y by geq(x, y) with a suitable
+definition of the predicate geq.
+employee(x) ← assist(x),
+employee(x) ← system admin(x),
+assist(compt dept); assist(math dept)
+; system admin(compt dept) ←,
+H : has PhD,
+where available positions are represented by disjunction. 
+According to P, the base salary of a research assistant at the
+computer department is 40,000 USD, but if he/she has PhD,
+it is 60,000 USD. In this case, (E, F) = ({has PhD}, ∅) 
+becomes the minimal explanation of Gθ = assist(compt dept),
+salary(60, 000) with θ = { x/60, 000 }. Then, the 
+conditional proposal made by the university becomes
+assist(compt dept), salary(60, 000), has PhD .
+3.2 Neighborhood Proposals by Relaxation
+When a proposal is unacceptable, an agent tries to 
+construct a new counter-proposal by weakening constraints in
+the initial proposal. We use techniques of relaxation for
+this purpose. Relaxation is used as a technique of 
+cooperative query answering in databases [4, 6]. When an original
+query fails in a database, relaxation expands the scope of
+the query by relaxing the constraints in the query. This 
+allows the database to return neighborhood answers which
+are related to the original query. We use the technique for
+producing proposals in the process of negotiation.
+Definition 3.4. Let P, H be an abductive program
+and G a proposal. Then, G is relaxed to G in the following
+three ways:
+Anti-instantiation: Construct G such that G θ = G for
+some substitution θ.
+Dropping conditions: Construct G such that G ⊂ G.
+Goal replacement: If G is a conjunction G1, G2, where
+G1 and G2 are conjunctions, and there is a rule L ←
+G1 in P such that G1θ = G1 for some substitution θ,
+then build G as Lθ, G2. Here, Lθ is called a replaced
+literal.
+In each case, every variable in G is existentially quantified
+at the front and range-restricted.
+Anti-instantiation replaces constants (or terms) with fresh
+variables. Dropping conditions eliminates some conditions
+in a proposal. Goal replacement replaces the condition G1
+in G with a literal Lθ in the presence of a rule L ← G1 in P
+under the condition G1θ = G1. All these operations 
+generalize proposals in different ways. Each G obtained by these
+operations is called a relaxation of G. It is worth noting
+that these operations are also used in the context of 
+inductive generalization [12]. The relaxed proposal can produce
+new offers which are neighbor to the original proposal.
+Definition 3.5. Let P, H be an abductive program
+and G a proposal.
+1. Let G be a proposal obtained by anti-instantiation. If
+P has an answer set S which satisfies G θ for some 
+substitution θ and G θ = G, G θ is called a neighborhood
+proposal by anti-instantiation.
+2. Let G be a proposal obtained by dropping conditions.
+If P has an answer set S which satisfies G θ for some
+substitution θ, G θ is called a neighborhood proposal by
+dropping conditions.
+1024 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+3. Let G be a proposal obtained by goal replacement.
+For a replaced literal L ∈ G and a rule H ← B in
+P such that L = Hσ and (G \ {L}) ∪ Bσ = G for
+some substitution σ, put G = (G \ {L}) ∪ Bσ. If
+P has an answer set S which satisfies G θ for some
+substitution θ, G θ is called a neighborhood proposal
+by goal replacement.
+Example 3.2. (cont. Example 3.1) Given the proposal
+G = assist(compt dept), salary(x), x ≥ 50, 000,
+• G1 = assist(w), salary(x), x ≥ 50, 000 is produced by
+substituting compt dept with a variable w. As
+G1θ1 = assist(math dept), salary(50, 000)
+with θ1 = { w/math dept } is satisfied by an answer
+set of P, G1θ1 becomes a neighborhood proposal by
+anti-instantiation.
+• G2 = assist(compt dept), salary(x) is produced by
+dropping the salary condition x ≥ 50, 000. As
+G2θ2 = assist(compt dept), salary(40, 000)
+with θ2 = { x/40, 000 } is satisfied by an answer set of
+P, G2θ2 becomes a neighborhood proposal by 
+dropping conditions.
+• G3 = employee(compt dept), salary(x), x ≥ 50, 000 is
+produced by replacing assist(compt dept) with
+employee(compt dept) using the rule employee(x) ←
+assist(x) in P. By G3 and the rule employee(x) ←
+system admin(x) in P, G3 = sys admin(compt dept),
+salary(x), x ≥ 50, 000 is produced. As
+G3 θ3 = sys admin(compt dept), salary(55, 000)
+with θ3 = { x/55, 000 } is satisfied by an answer set
+of P, G3 θ3 becomes a neighborhood proposal by goal
+replacement.
+Finally, extended abduction and relaxation are combined to
+produce conditional neighborhood proposals.
+Definition 3.6. Let P, H be an abductive program
+and G a proposal.
+1. Let G be a proposal obtained by either anti-instantiation
+or dropping conditions. If (E, F) is a minimal 
+explanation of G θ(= G) for some substitution θ, the 
+conjunction G θ, E, not F is called a conditional neighborhood
+proposal by anti-instantiation/dropping conditions.
+2. Let G be a proposal obtained by goal replacement.
+Suppose G as in Definition 3.5(3). If (E, F) is a
+minimal explanation of G θ for some substitution θ,
+the conjunction G θ, E, not F is called a conditional
+neighborhood proposal by goal replacement.
+A conditional neighborhood proposal reduces to a 
+neighborhood proposal when (E, F) = (∅, ∅).
+3.3 Negotiation Protocol
+A negotiation protocol defines how to exchange proposals
+in the process of negotiation. This section presents a 
+negotiation protocol in our framework. We suppose one-to-one
+negotiation between two agents who have a common 
+ontology and the same language for successful communication.
+Definition 3.7. A proposal L1, ..., Lm, not Lm+1, ..., not Ln
+violates an integrity constraint ← body+
+(r), not body−
+(r) if
+for any substitution θ, there is a substitution σ such that
+body+
+(r)σ ⊆ { L1θ, . . . , Lmθ }, body−
+(r)σ∩{ L1θ, . . . , Lmθ } =
+∅, and body−
+(r)σ ⊆ { Lm+1θ, . . . , Lnθ }.
+Integrity constraints are conditions which an agent should
+satisfy, so that they are used to explain why an agent does
+not accept a proposal.
+A negotiation proceeds in a series of rounds. Each i-th
+round (i ≥ 1) consists of a proposal Gi
+1 made by one agent
+Ag1 and another proposal Gi
+2 made by the other agent Ag2.
+Definition 3.8. Let P1, H1 be an abductive program
+of an agent Ag1 and Gi
+2 a proposal made by Ag2 at the i-th
+round. A critique set of Ag1 (at the i-th round) is a set
+CSi
+1(P1, Gj
+2) = CSi−1
+1 (P1, Gj−1
+2 ) ∪ { r | r is an integrity
+constraint in P1 and Gj
+2 violates r }
+where j = i − 1 or i, and CS0
+1 (P1, G0
+2) = CS1
+1 (P1, G0
+2) = ∅.
+A critique set of an agent Ag1 accumulates integrity 
+constraints which are violated by proposals made by another
+agent Ag2. CSi
+2(P2, Gj
+1) is defined in the same manner.
+Definition 3.9. Let Pk, Hk be an abductive program
+of an agent Agk and Gj
+a proposal, which is not a critique,
+made by any agent at the j(≤ i)-th round. A negotiation set
+of Agk (at the i-th round) is a triple NSi
+k = (Si
+c, Si
+n, Si
+cn),
+where Si
+c is the set of conditional proposals, Si
+n is the set
+of neighborhood proposals, and Si
+cn is the set of conditional
+neighborhood proposals, produced by Gj
+and Pk, Hk .
+A negotiation set represents the space of possible proposals
+made by an agent. Si
+x (x ∈ {c, n, cn}) accumulates proposals
+produced by Gj
+(1 ≤ j ≤ i) according to Definitions 3.3, 3.5,
+and 3.6. Note that an agent can construct counter-proposals
+by modifying its own previous proposals or another agent"s
+proposals. An agent Agk accumulates proposals that are
+made by Agk but are rejected by another agent, in the failed
+proposal set FP i
+k (at the i-th round), where FP 0
+k = ∅.
+Suppose two agents Ag1 and Ag2 who have abductive 
+programs P1, H1 and P2, H2 , respectively. Given a 
+proposal G1
+1 which is satisfied by an answer set of P1, a 
+negotiation starts. In response to the proposal Gi
+1 made by Ag1
+at the i-th round, Ag2 behaves as follows.
+1. If Gi
+1 = accept, an agreement is reached and 
+negotiation ends in success.
+2. Else if Gi
+1 = reject, put FP i
+2 = FPi−1
+2 ∪{Gi−1
+2 } where
+{G0
+2} = ∅. Proceed to the step 4(b).
+3. Else if P2 has an answer set satisfying Gi
+1, Ag2 returns
+Gi
+2 = accept to Ag1. Negotiation ends in success.
+4. Otherwise, Ag2 behaves as follows. Put FP i
+2 = FPi−1
+2 .
+(a) If Gi
+1 violates an integrity constraint in P2, return
+the critique Gi
+2 = reject to Ag1, together with the
+critique set CSi
+2(P2, Gi
+1).
+(b) Otherwise, construct NSi
+2 as follows.
+(i) Produce Si
+c. Let μ(Si
+c) = { p | p ∈ Si
+c \ FPi
+2 and
+p satisfies the constraints in CSi
+1(P1, Gi−1
+2 )}.
+If μ(Si
+c) = ∅, select one from μ(Si
+c) and propose
+it as Gi
+2 to Ag1; otherwise, go to (ii).
+(ii) Produce Si
+n. If μ(Si
+n) = ∅, select one from μ(Si
+n)
+and propose it as Gi
+2 to Ag1; otherwise, go to (iii).
+(iii) Produce Si
+cn. If μ(Si
+cn) = ∅, select one from
+μ(Si
+cn) and propose it as Gi
+2 to Ag1; otherwise,
+negotiation ends in failure. This means that Ag2
+can make no counter-proposal or every 
+counterproposal made by Ag2 is rejected by Ag1.
+In the step 4(a), Ag2 rejects the proposal Gi
+1 and returns
+the reason of rejection as a critique set. This helps for Ag1
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1025
+in preparing a next counter-proposal. In the step 4(b), Ag2
+constructs a new proposal. In its construction, Ag2 should
+take care of the critique set CSi
+1(P1, Gi−1
+2 ), which 
+represents integrity constraints, if any, accumulated in previous
+rounds, that Ag1 must satisfy. Also, FP i
+2 is used for 
+removing proposals which have been rejected. Construction of
+Si
+x (x ∈ {c, n, cn}) in NSi
+2 is incrementally done by adding
+new counter-proposals produced by Gi
+1 or Gi−1
+2 to Si−1
+x . For
+instance, Si
+n in NSi
+2 is computed as
+Si
+n = Si−1
+n ∪{ p | p is a neighborhood proposal made by Gi
+1 }
+∪ { p | p is a neighborhood proposal made by Gi−1
+2 },
+where S0
+n = ∅. That is, Si
+n is constructed from Si−1
+n by
+adding new proposals which are obtained by modifying the
+proposal Gi
+1 made by Ag1 at the i-th round or modifying
+the proposal Gi−1
+2 made by Ag2 at the (i − 1)-th round. Si
+c
+and Si
+cn are obtained as well.
+In the above protocol, an agent produces Si
+c at first, 
+secondly Si
+n, and finally Si
+cn. This strategy seeks conditions
+which satisfy the given proposal, prior to neighborhood 
+proposals which change the original one. Another strategy,
+which prefers neighborhood proposals to conditional ones,
+is also considered. Conditional neighborhood proposals are
+to be considered in the last place, since they differ from the
+original one to the maximal extent. The above protocol 
+produces the candidate proposals in Si
+x for each x ∈ {c, n, cn}
+at once. We can consider a variant of the protocol in which
+each proposal in Si
+x is constructed one by one (see 
+Example 3.3).
+The above protocol is repeatedly applied to each one of
+the two negotiating agents until a negotiation ends in 
+success/failure. Formally, the above negotiation protocol has
+the following properties.
+Theorem 3.2. Let Ag1 and Ag2 be two agents having 
+abductive programs P1, H1 and P2, H2 , respectively.
+1. If P1, H1 and P2, H2 are function-free (i.e., both
+Pi and Hi contain no function symbol), any 
+negotiation will terminate.
+2. If a negotiation terminates with agreement on a 
+proposal G, both P1, H1 and P2, H2 have belief sets
+satisfying G.
+Proof. 1. When an abductive program is function-free,
+abducibles and negotiation sets are both finite. Moreover, if
+a proposal is once rejected, it is not proposed again by the
+function μ. Thus, negotiation will terminate in finite steps.
+2. When a proposal G is made by Ag1, P1, H1 has a
+belief set satisfying G. If the agent Ag2 accepts the proposal
+G, it is satisfied by an answer set of P2 which is also a belief
+set of P2, H2 .
+Example 3.3. Suppose a buying-selling situation in the
+introduction. A seller agent has the abductive program
+Ps, Hs in which Ps consists of belief Bs and desire Ds:
+Bs : pc(b1, 1G, 512M, 80G) ; pc(b2, 1G, 512M, 80G) ←,(1)
+dvd-rw ; cd-rw ←, (2)
+Ds : normal price(1300) ←
+pc(b1, 1G, 512M, 80G), dvd-rw, (3)
+normal price(1200) ←
+pc(b1, 1G, 512M, 80G), cd-rw, (4)
+normal price(1200) ←
+pc(b2, 1G, 512M, 80G), dvd-rw, (5)
+price(x) ← normal price(x), add point, (6)
+price(x ∗ 0.9) ←
+normal price(x), pay cash, not add point,(7)
+add point ←, (8)
+Hs : add point, pay cash.
+Here, (1) and (2) represent selection of products. The atom
+pc(b1, 1G, 512M, 80G) represents that the seller agent has
+a PC of the brand b1 such that CPU is 1GHz, memory is
+512MB, and HDD is 80GB. Prices of products are 
+represented as desire of the seller. The rules (3) - (5) are normal
+prices of products. A normal price is a selling price on the
+condition that service points are added (6). On the other
+hand, a discount price is applied if the paying method is cash
+and no service point is added (7). The fact (8) represents
+the addition of service points. This service would be 
+withdrawn in case of discount prices, so add point is specified as
+an abducible.
+A buyer agent has the abductive program Pb, Hb in
+which Pb consists of belief Bb and desire Db:
+Bb : drive ← dvd-rw, (9)
+drive ← cd-rw, (10)
+price(x) ←, (11)
+Db : pc(b1, 1G, 512M, 80G) ←, (12)
+dvd-rw ←, (13)
+cd-rw ← not dvd-rw, (14)
+← pay cash, (15)
+← price(x), x > 1200, (16)
+Hb : dvd-rw.
+Rules (12) - (16) are the buyer"s desire. Among them, (15)
+and (16) impose constraints for buying a PC. A DVD-RW
+is specified as an abducible which is subject to concession.
+(1st round) First, the following proposal is given by the
+buyer agent:
+G1
+b : pc(b1, 1G, 512M, 80G), dvd-rw, price(x), x ≤ 1200.
+As Ps has no answer set which satisfies G1
+b , the seller agent
+cannot accept the proposal. The seller takes an action of
+making a counter-proposal and performs abduction. As a
+result, the seller finds the minimal explanation (E, F) =
+({ pay cash }, { add point }) which explains G1
+b θ1 with θ1 =
+{ x/1170 }. The seller constructs the conditional proposal:
+G1
+s : pc(b1, 1G, 512M, 80G), dvd-rw, price(1170),
+pay cash, not add point
+and offers it to the buyer.
+(2nd round) The buyer does not accept G1
+s because he/she
+cannot pay it by cash (15). The buyer then returns the 
+critique G2
+b = reject to the seller, together with the critique set
+CS2
+b (Pb, G1
+s) = {(15)}. In response to this, the seller tries
+to make another proposal which satisfies the constraint in
+this critique set. As G1
+s is stored in FP 2
+s and no other 
+conditional proposal satisfying the buyer"s requirement exists,
+the seller produces neighborhood proposals. He/she relaxes
+G1
+b by dropping x ≤ 1200 in the condition, and produces
+pc(b1, 1G, 512M, 80G), dvd-rw, price(x).
+As Ps has an answer set which satisfies
+G2
+s : pc(b1, 1G, 512M, 80G), dvd-rw, price(1300),
+1026 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+the seller offers G2
+s as a new counter-proposal.
+(3rd round) The buyer does not accept G2
+s because he/she
+cannot pay more than 1200USD (16). The buyer again 
+returns the critique G3
+b = reject to the seller, together with
+the critique set CS3
+b (Pb, G2
+s) = CS2
+b (Pb, G1
+s) ∪ {(16)}. The
+seller then considers another proposal by replacing b1 with
+a variable w, G1
+b now becomes
+pc(w, 1G, 512M, 80G), dvd-rw, price(x), x ≤ 1200.
+As Ps has an answer set which satisfies
+G3
+s : pc(b2, 1G, 512M, 80G), dvd-rw, price(1200),
+the seller offers G3
+s as a new counter-proposal.
+(4th round) The buyer does not accept G3
+s because a PC of
+the brand b2 is out of his/her interest and Pb has no answer
+set satisfying G3
+s. Then, the buyer makes a concession by
+changing his/her original goal. The buyer relaxes G1
+b by goal
+replacement using the rule (9) in Pb, and produces
+pc(b1, 1G, 512M, 80G), drive, price(x), x ≤ 1200.
+Using (10), the following proposal is produced:
+pc(b1, 1G, 512M, 80G), cd-rw, price(x), x ≤ 1200.
+As Pb \ { dvd-rw } has a consistent answer set satisfying the
+above proposal, the buyer proposes the conditional 
+neighborhood proposal
+G4
+b : pc(b1, 1G, 512M, 80G), cd-rw, not dvd-rw,
+price(x), x ≤ 1200
+to the seller agent. Since Ps also has an answer set satisfying
+G4
+b , the seller accepts it and sends the message G4
+s = accept
+to the buyer. Thus, the negotiation ends in success.

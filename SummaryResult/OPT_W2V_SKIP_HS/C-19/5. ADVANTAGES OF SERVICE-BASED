@@ -1,0 +1,5 @@
+When a protocol module generates a reply in a service-based framework, only the correct listener  (identified at the time the corresponding request was issued) is executed.
+The reason is that several events that are used to model different protocol interactions can be modeled by a single service interface.
+An addition of special protocol modules (named connectors) for routing events is also not satisfactory, since it requires  additional work from the composer and introduces overhead.
+The reason is that notifications correspond to the one-to-many communication scheme provided by events.
+On the other hand , in event-based frameworks , a protocol module 

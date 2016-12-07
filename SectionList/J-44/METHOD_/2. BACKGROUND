@@ -1,0 +1,149 @@
+2.1 Algorithms
+Nearest-neighbor collaborative filtering algorithms either
+use neighborhoods of users or neighborhoods of items to
+compute a prediction. An algorithm of the first kind is
+called user-based, and one of the second kind is called 
+itembased [12]. In both families of algorithms, neighborhoods are
+formed by first computing the similarity between all pairs
+of users (for user-based) or items (for item-based). 
+Predictions are then computed by aggregating ratings, which in a
+user-based algorithm involves aggregating the ratings of the
+target item by the user"s neighbors and, in an item-based
+algorithm, involves aggregating the user"s ratings of items
+that are neighbors of the target item. Algorithms within
+these families differ in the definition of similarity, 
+formation of neighborhoods, and the computation of predictions.
+We consider a user-based algorithm based on that defined
+for GroupLens [11] with variations from Herlocker et al. [2],
+and an item-based algorithm similar to that of Sarwar et
+al. [12].
+The algorithm used by Resnick et al. [11] defines the 
+similarity of two users u and v as the Pearson correlation of
+their common ratings:
+sim(u, v) =
+P
+i∈Iu∩Iv
+(ru,i − ¯ru)(rv,i − ¯rv)
+qP
+i∈Iu
+(ru,i − ¯ru)2
+qP
+i∈Iv
+(rv,i − ¯rv)2
+,
+where Iu is the set of items rated by user u, ru,i is user u"s
+rating for item i, and ¯ru is the average rating of user u 
+(similarly for v). Similarity computed in this manner is typically
+scaled by a factor proportional to the number of common
+ratings, to reduce the chance of making a recommendation
+made on weak connections:
+sim (u, v) =
+max(|Iu ∩ Iv|, γ)
+γ
+· sim(u, v),
+where γ ≈ 5 is a constant used as a lower limit in scaling [2].
+These new similarities are then used to define a static 
+neighborhood Nu for each user u consisting of the top K users
+most similar to user u. A prediction for user u and item
+i is computed by a weighted average of the ratings by the
+neighbors
+pu,i = ¯ru +
+P
+v∈V sim (u, v)(rv,i − ¯rv)
+P
+v∈V sim (u, v)
+(1)
+where V = Nu ∩ Ui is the set of users most similar to u who
+have rated i.
+The item-based algorithm we use is the one defined by
+Sarwar et al. [12]. In this algorithm, similarity is defined as
+the adjusted cosine measure
+sim(i, j) =
+P
+u∈Ui∩Uj
+(ru,i − ¯ru)(ru,j − ¯ru)
+qP
+u∈Ui
+(ru,i − ¯ru)2
+qP
+u∈Uj
+(ru,j − ¯ru)2
+(2)
+where Ui is the set of users who have rated item i. As for
+the user-based algorithm, the similarity weights are adjusted
+proportionally to the number of users that have rated the
+items in common
+sim (i, j) =
+max(|Ui ∩ Uj|, γ)
+γ
+· sim(i, j). (3)
+Given the similarities, the neighborhood Ni of an item i is
+defined as the top K most similar items for that item. A
+prediction for user u and item i is computed as the weighted
+average
+pu,i = ¯ri +
+P
+j∈J sim (i, j)(ru,j − ¯rj)
+P
+j∈J sim (i, j)
+(4)
+where J = Ni ∩ Iu is the set of items rated by u that are
+most similar to i.
+2.2 Evaluation
+Recommender algorithms have typically been evaluated
+using measures of predictive accuracy and coverage [3]. 
+Studies on recommender algorithms, notably Herlocker et al. [2]
+and Sarwar et al. [12], typically compute predictive accuracy
+by dividing a set of ratings into training and test sets, and
+compute the prediction for an item in the test set using the
+ratings in the training set. A standard measure of predictive
+accuracy is mean absolute error (MAE), which for a test set
+T = {(u, i)} is defined as,
+MAE =
+P
+(u,i)∈T |pu,i − ru,i|
+|T |
+. (5)
+Coverage has a number of definitions, but generally refers
+to the proportion of items that can be predicted by the 
+algorithm [3].
+A practical issue with predictive accuracy is that users
+typically are presented with recommendation lists, and not
+individual numeric predictions. Recommendation lists are
+lists of items in decreasing order of prediction (sometimes
+stated in terms of star-ratings), and so predictive accuracy
+may not be reflective of the accuracy of the list. So, instead
+we can measure recommendation or rank accuracy, which
+indicates the extent to which the list is in the correct 
+order. Herlocker et al. [3] discuss a number of rank accuracy
+measures, which range from Kendall"s Tau to measures that
+consider the fact that users tend to only look at a prefix of
+the list [5]. Kendall"s Tau measures the number of inversions
+when comparing ordered pairs in the true user ordering of
+251
+Jim
+Tom
+Jeff
+My Cousin Vinny
+The Matrix
+Star Wars
+The Mask
+Figure 1: Ratings in simple movie recommender.
+items and the recommended order, and is defined as
+τ =
+C − D
+p
+(C + D + TR)(C + D + TP)
+(6)
+where C is the number of pairs that the system predicts in
+the correct order, D the number of pairs the system 
+predicts in the wrong order, TR the number of pairs in the true
+ordering that have the same ratings, and TP is the 
+number of pairs in the predicted ordering that have the same
+ratings [3]. A shortcoming of the Tau metric is that it is
+oblivious to the position in the ordered list where the 
+inversion occurs [3]. For instance, an inversion toward the end
+of the list is given the same weight as one in the beginning.
+One solution is to consider inversions only in the top few
+items in the recommended list or to weight inversions based
+on their position in the list.

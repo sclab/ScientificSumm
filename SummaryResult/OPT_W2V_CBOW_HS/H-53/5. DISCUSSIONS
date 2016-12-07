@@ -1,0 +1,47 @@
+We do this by  requiring that the plural word hotels appears in the document.
+Another kind is the unstemmed word matches an entity or concept because of the stemming of the other words.
+5.3 Error analysis One type of mistakes we noticed, though rare but  seriously hurting relevance, is the search intent change after stemming.
+To test the hypothesis that we can learn reliable  transformation probabilities from the query log, we trained a  language model from the same query top 25M queries as used to learn segmentation, and use that for prediction.
+Thus, the results after query stemming returns Steve Jobs as one of the results in top 5.
+A simple equivalence of hotel to hotels might boost a particular page about new york hotel to top rank.
+This is matched because of Affected Queries old dcg new dcg dcg Improvement naive model 408/408 7.102 7.206 1.5% document context sensitive model 408/408 7.102 7.302 2.8% selective model: unigram LM 300/408 5.904 6.187 4.8% selective model: bigram LM 250/408 5.551 5.891 6.1% Table 6: Results comparison over the stemmed queries only: column old/new dcg is the dcg score over the affected queries before/after applying stemming the pluralized word quotes.
+A plural word used in a query indicates a special intent.
+One is that the stemmed word variant now matches part of an entity or concept.
+For one example of such a query, job at apple, we pluralize job to jobs.
+Affected Queries dcg dcg Improvement p-value baseline 0/408 7.102 N/A N/A naive model 408/408 7.206 1.5% 0.22 document context sensitive model 408/408 7.302 2.8% 0.014 selective model: unigram LM 300/408 7.321 3.4% 0.001 selective model: bigram LM 250/408 7.381 3.9% 0.001 oracle model 100/408 7.519 5.9% 0.001 Table 4: Results comparison of different stemming strategies over all queries affected by naive stemming Short Query Results Affected Queries dcg Improvement p-value baseline 0/272 N/A N/A naive model 272/272 2.7% 0.48 document context sensitive model 272/272 4.2% 0.002 selective model: unigram LM 185/272 4.4% 0.001 selective model: bigram LM 150/272 4.7% 0.001 oracle model 71/272 6.3% 0.001 Long Query Results Affected Queries dcg Improvement p-value baseline 0/136 N/A N/A naive model 136/136 -2.4% 0.25 document context sensitive model 136/136 -1.6% 0.27 selective model: unigram LM 115/136 1.1% 0.001 selective model: bigram LM 100/136 2.5% 0.001 oracle model 29/136 4.6% 0.001 Table 5: Results comparison of different stemming strategies overall short queries and long queries Users reformulate a query using many different variants to get good results.
+General stemming gives a 8% upperbound, which is quite substantial in terms of our metrics.
+We observed a slight overall dcg decrease, although not statistically significant, for document context sensitive stemming if we do not consider this asymmetric property.
+For example, the query new york hotels is looking for a list of hotels in new york, not the specific new york hotel which might be a hotel located in  California.
+For long queries, we should correctly identify the concepts in the query, and boost the proximity for the words within a concept. 
+This  stemming makes the original query ambiguous.
+One is the employment opportunities at apple, and another is a person working at Apple, Steve Jobs, who is the CEO and co-founder of the company.
+5.1 Language models from query vs. from Web As we mentioned in Section 1, we are trying to predict the probability of a string occurring on the Web.
+To capture this intent, we have to make sure the document is a general page about hotels in new york.
+The  language model should describe the occurrence of the string on the Web.
+A third type of mistakes occurs in long queries.
+In fact, bar code reader in the original query is a strong concept and the internal words should not be changed.
+The unchanged word ICE matches part of the noun phrase ice cream here.
+The query job OR jobs at apple has two intents.
+On the other hand, converting a singular word to plural is safer since a general purpose page normally contains  specific information.
+5.2 How linguistics helps Some linguistic knowledge is useful in stemming.
+However, we noticed that among the top results, one of the results is Food quotes: Ice cream.
+To solve this kind of problem, we have to analyze the documents and recognize cookie jar and ice cream as concepts instead of two independent words.
+Thus, the query log can serve as a good approximation of the Web frequencies.
+2 Note that this upperbound is for pluralization handling only, not for general stemming.
+This is the  segmentation and entity and noun phrase detection problem in queries, which we actively are attacking.
+This is similar to relevance feedback and requires second phase ranking.
+For the query bar code reader software, two words are pluralized.
+The original intent for this query is searching for stock quote for ticker ICE.
+We  observed a slight performance decrease compared to the model trained on Web frequencies.
+In particular, the performance for unigram LM was not affected, but the dcg gain for bigram LM changed from 4.7% to 4.5% for short queries.
+A second type of mistakes is the entity/concept  recognition problem, These include two kinds.
+One solution is performing results set based analysis to check if the intent is changed.
+However, the intent could change in a few cases.
+Although cookie still means the same thing as cookies, cookie jar is a different concept.
+Generally speaking, pluralization or  depluralization keeps the original intent.
+However, the query log is also a good resource.
+The results will match cookie jar in san francisco.
+For example, query cookies in san francisco is pluralized to cookies OR cookie in san francisco.
+For the pluralization handling case, pluralization and de-pluralization is not symmetric.
+For example, quote ICE is  pluralized to quote OR quotes ICE.
+code to codes and reader to readers.

@@ -1,0 +1,84 @@
+We illustrate our problem with an anecdote from a supply chain
+research exercise: the 2003 and 2004 Trading Agent Competition
+(TAC) Supply Chain Management (SCM) game. TAC/SCM [1]
+defines a scenario where agents compete to maximize their profits
+as manufacturers in a supply chain. The agents procure components
+from the various suppliers and assemble finished goods for sale to
+customers, repeatedly over a simulated year.
+As it happened, the specified negotiation behavior of suppliers
+provided a great incentive for agents to procure large quantities of
+components on day 0: the very beginning of the simulation. During
+the early rounds of the 2003 SCM competition, several agent 
+developers discovered this, and the apparent success led to most agents
+performing the majority of their purchasing on day 0. Although
+jockeying for day-0 procurement turned out to be an interesting
+strategic issue in itself [19], the phenomenon detracted from other
+interesting problems, such as adapting production levels to varying
+demand (since component costs were already sunk), and dynamic
+management of production, sales, and inventory. Several 
+participants noted that the predominance of day-0 procurement 
+overshadowed other key research issues, such as factory scheduling [2] and
+optimizing bids for customer orders [13]. After the 2003 
+tournament, there was a general consensus in the TAC community that
+the rules should be changed to deter large day-0 procurement.
+The task facing game organizers can be viewed as a problem in
+mechanism design. The designers have certain game features 
+under their control, and a set of objectives regarding game outcomes.
+Unlike most academic treatments of mechanism design, the 
+objective is a behavioral feature (moderate day-0 procurement) rather
+than an allocation feature like economic efficiency, and the allowed
+mechanisms are restricted to those judged to require only an 
+incremental modification of the current game. Replacing the 
+supplychain negotiation procedures with a one-shot direct mechanism, for
+example, was not an option. We believe that such operational 
+restrictions and idiosyncratic objectives are actually quite typical of
+practical mechanism design settings, where they are perhaps more
+commonly characterized as incentive engineering problems.
+In response to the problem, the TAC/SCM designers adopted
+several rule changes intended to penalize large day-0 orders. These
+included modifications to supplier pricing policies and introduction
+of storage costs assessed on inventories of components and finished
+goods. Despite the changes, day-0 procurement was very high in
+the early rounds of the 2004 competition. In a drastic measure, the
+GameMaster imposed a fivefold increase of storage costs midway
+through the tournament. Even this did not stem the tide, and day-0
+procurement in the final rounds actually increased (by some 
+measures) from 2003 [9].
+The apparent difficulty in identifying rule modifications that 
+effect moderation in day-0 procurement is quite striking. Although
+the designs were widely discussed, predictions for the effects of
+various proposals were supported primarily by intuitive arguments
+or at best by back-of-the-envelope calculations. Much of the 
+difficulty, of course, is anticipating the agents" (and their 
+developers") responses without essentially running a gaming exercise for
+this purpose. The episode caused us to consider whether new 
+ap306
+proaches or tools could enable more systematic analysis of design
+options. Standard game-theoretic and mechanism design methods
+are clearly relevant, although the lack of an analytic description of
+the game seems to be an impediment. Under the assumption that
+the simulator itself is the only reliable source of outcome 
+computation, we refer to our task as empirical mechanism design.
+In the sequel, we develop some general methods for empirical
+mechanism design and apply them to the TAC/SCM redesign 
+problem. Our analysis focuses on the setting of storage costs (taking
+other game modifications as fixed), since this is the most direct 
+deterrent to early procurement adopted. Our results confirm the basic
+intuition that incentives for day-0 purchasing decrease as storage
+costs rise. We also confirm that the high day-0 procurement 
+observed in the 2004 tournament is a rational response to the setting
+of storage costs used. Finally, we conclude from our data that it is
+very unlikely that any reasonable setting of storage costs would 
+result in acceptable levels of day-0 procurement, so a different design
+approach would have been required to eliminate this problem.
+Overall, we contribute a formal framework and a set of methods
+for tackling indirect mechanism design problems in settings where
+only a black-box description of players" utilities is available. Our
+methods incorporate estimation of sets of Nash equilibria and 
+sample Nash equilibria, used in conjuction to support general claims
+about the structure of the mechanism designer"s utility, as well as a
+restricted probabilistic analysis to assess the likelihood of 
+conclusions. We believe that most realistic problems are too complex to
+be amenable to exact analysis. Consequently, we advocate the 
+approach of gathering evidence to provide indirect support of specific
+hypotheses.

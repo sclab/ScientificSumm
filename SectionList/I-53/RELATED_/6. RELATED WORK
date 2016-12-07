@@ -1,0 +1,42 @@
+In order to overcome the computational complexity of finding the
+Shapley value, two main approaches have been proposed in the
+literature. One approach is to use generating functions [3]. This
+method is an exact procedure that overcomes the problem of time
+complexity, but its storage requirements are substantial - it requires
+huge arrays. It also has the limitation (not shared by other 
+approaches) that it can only be applied to games with integer weights
+and quotas.
+The other method uses an approximation technique based on
+Monte Carlo simulation. In [12], for instance, the Shapley value is
+computed by considering a random sample from a large population
+of players. The method we propose differs from this in that they 
+define the Shapley value by treating a player"s number of swings (if a
+player can change a losing coalition to a winning one, then, for the
+player, the coalition is counted as a swing) as a random variable,
+while we treat the players" weights as random variables. In [12],
+however, the question remains how to get the number of swings
+from the definition of a voting game and what is the time 
+complexity of doing this. Since the voting game is defined in terms of the
+players" weights and the number of swings are obtained from these
+weights, our method corresponds more closely to the definition of
+the voting game. Our method also differs from [7] in that while [7]
+presents a method for the case where all the players" weights are
+distributed normally, our method applies to any type of distribution
+for these weights. Thus, as stated in Section 1, our method is more
+general than [3, 12, 7]. Also, unlike all the above mentioned work,
+we provide an analysis of the performance of our method in terms
+of the percentage error in the approximate Shapley value.
+A method for finding the Shapley value was also proposed in
+[5]. This method gives the exact Shapley value, but its time 
+complexity is exponential. Furthermore, the method can be used only
+if the game is represented in a specific form (viz., the multi-issue
+representation), not otherwise. Finally, [9, 10] present a 
+polynomial time method for finding the Shapley value. This method can
+be used if the coalition game is represented as a marginal 
+contribution net. Furthermore, they assume that the Shapley value of
+a component of a given coalition game is given by an oracle, and
+on the basis of this assumption aggregate these values to find the
+value for the overall game. In contrast, our method is independent
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 965
+of the representation and gives an approximate Shapley value in
+linear time, without the need for an oracle.

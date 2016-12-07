@@ -1,0 +1,49 @@
+The information introduced by the query, though, is retrieval-independent so that, if two  retrievals return the same set of documents, the approximate Cox-Lewis statistic will be the same regardless of the  retrieval scores.
+In this case, we might take a document a, compare its rank in the retrieval to its average rank in the m retrievals.
+The similarity between the retrieval and the combined retrieval may be computed using some  correlation measure.
+Here, we can consider the fusion of these retrieval as a surrogate for relevance.
+Specifically, Clarity measures the similarity of the words most frequently used in retrieved documents to those most frequently used in the whole corpus.
+A retrieval which is tightly clustered will, on average, have a low distance between a and b; a retrieval which is less tightly-closed will, on average have high  distances between a and b.
+In Figure 2a, we present Clarity as measuring the distance between the weighted center of mass of the retrieval (labeled y) and the unweighted center of mass of the collection (labeled O).
+Mathematically, we can compute a  representation of the language used in the initial retrieval as a weighted combination of document language models, P(w|θQ) = nX i=1 P(w|θi) P(Q|θi) Z (6) where θi is the language model of the ith-ranked  document, P(Q|θi) is the query likelihood score of the ith-ranked document and Z = Pn i=1 P(Q|θi) is a normalization  constant.
+PREDICTORS One way to predict the effectiveness of a retrieval is to look at the shared vocabulary of the top n retrieved  documents.
+If, on average over the n documents, the scores of a and ˜a tend to be very  different, we might suspect that the system is failing on this query.
+yOy (a) Global Divergence µ(y)˜y y (b) Score Perturbation µ(y) y (c) Multirun Averaging Figure 2: Representation of several performance predictors on a grid.
+This average corresponds to using the Cox-Lewis statistic to measure the randomness of the top n documents retrieved from a system [18].
+The nature of the perturbation process requires additional  scorings or retrievals.
+The conjecture is that a good retrieval will use language distinct from general text; the overlapping language in a bad retrieval will tend to be more similar to general text.
+In Figure 2a, we depict predictors which measure the divergence between the center of mass of a retrieval and the center of the embedding space.
+Finally, assume that we have, in addition to the retrieval we want to evaluate, m retrievals from a variety of  different systems.
+In previous work, the Kullback-Leibler divergence between the  normalized scores of the retrieval and the normalized scores of the combined retrieval provides the similarity [1]. 
+Therefore the Cox-Lewis statistic is highly dependent on selecting the top n documents.1 Remember that we have n documents and a set of scores.
+Clarity reaches a minimum when a retrieval assigns every document the same score.
+If, on the other hand, the retrieval is very consistent with the m retrievals, then we might predict that the  retrieval is good.
+Finally, in Figure 2c, we depict prediction when given retrievals from several other systems on the same query.
+If we believe that the m retrievals provide a satisfactory approximation to relevance, then a very large difference in rank would suggest that our retrieval is  misranking a.
+Now, we can ask our system to score ˜a with respect to our query.
+If this difference is large on average over all n documents, then we might predict that the retrieval is bad.
+Here, the  distribution P(w|θC ) is our model of general text which can be computed using term frequencies in the corpus.
+Let"s assume that we have access to the system which  provided the original scores and that we can also request scores for new documents.
+Our predictor does not require access to the original scoring function or additional retrievals.
+The similarity between the two retrievals can be measured using some correlation measure.
+Let"s again assume we have a set of n documents retrieved for our query.
+Another way to quantify the dispersion of a set of documents is to look at how clustered they are.
+In fact, we might believe that a bad  retrieval would include documents on many disparate topics, resulting in an overlap of terminological noise.
+So, an alternative approach is to measure the  simi1 The authors have suggested coupling the query with the distance measure [18].
+Our approach uses a particular type of perturbation based on score diffusion.
+A poorly performing retrieval will return a loosely related set of documents covering many topics.
+larity between the retrieval and a perturbed version of that retrieval [18, 19].
+So,  although our method is similar to other perturbation methods in spirit, it can be applied in situations when the retrieval system is inaccessible or costly to access.
+In Figure 2a, this is roughly equivalent to measuring the area of the set n. Notice that we are throwing away information about the retrieval function y.
+This can be accomplished by either  perturbing the documents or queries.
+One proposed method of quantifying this dispersion is to  measure the distance from a random document a to it"s nearest neighbor, b.
+If we computed the most frequent content words in this set, we would hope that they would be consistent with our topic.
+The Clarity of a query attempts to quantify exactly this [7].
+In Figure 2b, we depict predictors which compare the original retrieval, y, to a perturbed version of the retrieval, ˜y.
+Take some document, a, from the  retrieved set and arbitrarily add or remove words at random to create a new document ˜a.
+We may hypothesize that a good retrieval will return a single, tight cluster.
+The similarity between the multinomial P(w|θQ) and a model of general text can be computed using the Kullback-Leibler divergence, DV KL(θQ θC ).
+The upper grid represents the original retrieval, y, while the lower grid  represents the function after having been perturbed, ˜y.
+This suggests a third method for  predicting performance.
+This is depicted in Figure 2c.
+This is depicted in Figure 2b.

@@ -1,0 +1,35 @@
+so we useθ init =0.13,λ =3,δ =0.15 for system-3, 4, and 5. in this parameter setting, we can get both low minimum normalized costs and less comparing times.
+because the greaterθ init is, the less stories combined together, the more comparing times are needed for new event decision.
+0 0.05 0.1 0.15 0.2 1 2 3 4 0.5 0.6 0.7 0.8 0.9 1 θ-initλ mincost 0.6 0.65 0.7 0.75 0.8 0.85 0.9 figure 3. min cost on tdt3 (δ =0.15) 0 0.05 0.1 0.15 0.2 1 2 3 4 0 0.5 1 1.5 2 2.5 x 10 8 θ-init λ comparingtimes 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 x 10 8 figure 4. comparing times on tdt3 (δ =0.15) figure 4 gives the comparing times used by system-3 on tdt3 with the same parameters as figure 3. the comparing times are strongly dependent onθ init.
+when parameter λ is set to 3 or 4, the costs are better than other cases, but there is no much difference between 3 and 4.
+this is easy to explain, because when stories belonging to the same topic are put in a cluster, it is more reasonable for the cluster to represent the stories in it.
+theθ init parameter is tested on six values spanning from 0.03 to 0.18. and the λ parameter is tested on four values 1, 2, 3 and 4. we can see that, whenθ init is set to 0.12, which is the closest one toθ new, the costs are lower than others.
+7.2 parameter selection for indexing-tree detection figure 3 shows the minimum normalized costs obtained by system-3 on tdt3 using different parameters.
+similarity score between two stories belonging to different topics are lower than before, because their overlapping terms are usually not key terms of their topics.
+the hypothesis is that, more weight value is transferred to key terms of topics from non-key terms.
+system-5 achieves the minimum cost at a false alarm rate of 0.0157 and a miss rate of 0.4310. we can observe that  system4 and system-5 obtain lower miss probability at regions of low false alarm probabilities.
+table 4. ned results on tdt3 systems norm(cdet) min norm(cdet) cmp times system-1 0.6159 0.5809 7.04e+8 system-2① 0.6493 0.6308 1.29e+8 system-3② 0.6197 0.5868 1.03e+8 system-4② 0.5601 0.5341 1.03e+8 system-5② 0.5413 0.5012 1.05e+8 system-7 -- 0.5783  -system-8 -- 0.5229  -① θ new=0.13 ② θ init=0.13, λ =3,δ =0.15 figure5 shows the five det curves for our systems on data set tdt3.
+further more, system-5 only needs 1.05e+8 comparing times which is 14.9% of system-1.
+the best system (system-5) has a minimum normalized cost 0.5012, which is 0.0797 better than system-1, and also better than any other results previously reported for this dataset [8, 13].
+system-4 adjusts term weights based on the distance of term distributions between the whole corpus and cluster story set, yielding a good improvement by 0.0468 compared to system-1.
+and system-3 is basically equivalent to system-1 in accuracy results.
+this is because story-story comparisons usually yield greater similarities than story-cluster ones, so stories tend to be combined location person date organization money percentage nn jj cd elections 0.37 1 0.04 0.58 0.08 0.03 0.32 0.13 0.1 scandals/hearings 0.66 0.62 0.28 1 0.11 0.02 0.27 0.13 0.05 legal/criminal cases 0.48 1 0.02 0.62 0.15 0 0.22 0.24 0.09 natural disasters 1 0.27 0 0.04 0.04 0 0.25 0.04 0.02 violence or war 1 0.36 0.02 0.14 0.02 0.04 0.21 0.11 0.02 science and discovery 0.11 1 0.01 0.22 0.08 0.12 0.19 0.08 0.03 finances 1 0.45 0.04 0.98 0.13 0.02 0.29 0.06 0.05 sports 0.16 0.27 0.01 1 0.02 0 0.11 0.03 0.01 together in system-3.
+it requires even less comparing times than system-2.
+system-3 uses the new detection procedure based on news indexing-tree.
+system-2 reduces comparing times to 1.29e+9 which is just 18.3% of system-1, but at the same time it also gets a deteriorated minimum normalized cost which is 0.0499 higher than system-1.
+table 3. ned results on tdt2 systems min norm(cdet) cmp times system-1 0.5749 2.08e+9 system-2① 0.6673 3.77e+8 system-3② 0.5765 2.81e+8 system-4② 0.5431 2.99e+8 system-5② 0.5089 2.78e+8 system-6 0.5300  -① θ new=0.13 ② θ init=0.13, λ =3,δ =0.15 when evaluating on the normalized costs on tdt3, we use the optimal thresholds obtained from tdt2 data set for all systems.
+since no heldout data set for fine-tuning the threshold θ new was available for experiments on tdt2, we only report minimum normalized costs for our systems in table 3. system-5 outperforms all other systems including system-6, and it performs only 2.78e+8 comparing times in detection procedure which is only 13.4% of system-1.
+table 3 and table 4 show topic-weighted normalized costs and comparing times on tdt2 and tdt3 datasets respectively.
+system-8: [13] it split document representation into two parts: named entities and non-named entities, and choose one effective part for each news class.
+system-7: [8] it extended a basic incremental tf-idf model to include source-specific models, similarity score normalization based on document-specific averages, similarity score normalization based on source-pair specific averages, etc.
+and employ support vector machine to predict new or old using the similarity values as features.
+the following are some other ned systems: system-6: [21] for each pair of stories, it computes three similarity values for named entity, non-named entity and all terms respectively.
+the new detection procedure is used.
+system-5: implemented based on the approach presented in section 5.2, i.e., terms of different types are reweighted according to news class using trained parameters.
+system-4: implemented based on the approach presented in section 5.1, i.e., terms are reweighted according to the distance between term distributions in a cluster and all stories.
+system-3: this system is the same as system-1 except that it uses the new detection procedure which is based on indexing-tree.
+system-2: this system is the same as system-1 except that s-c detection procedure is used.
+s-s detection procedure is used.
+similarity score normalization is also employed [8].
+it is implemented based on the basic model described in section 3, i.e., using incremental tf-idf model to generate term weights, and using hellinger distance to compute document similarity.
+7.1 main results to test the approaches proposed in the model, we implemented and tested five systems: system-1: this system is used as baseline.

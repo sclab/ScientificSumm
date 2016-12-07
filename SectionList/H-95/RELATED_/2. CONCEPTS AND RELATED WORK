@@ -1,0 +1,95 @@
+Search engine performance depends on the ability to capture the
+most likely meaning of a query as intended by the user [16]. 
+Previous studies showed that a significant portion of the queries 
+submitted to search engines are geographic [8, 14]. A recent enhancement
+to search engine technology is the addition of geographic 
+reasoning, combining geographic information systems and information
+retrieval in order to build search engines that find information 
+associated with given locations. The ability to recognize and reason
+about the geographical terminology, given in the text documents
+and user queries, is a crucial aspect of these geographical 
+information retrieval (GIR) systems [4, 7].
+Extracting and distinguishing different types of entities in text is
+usually referred to as Named Entity Recognition (NER). For at least
+a decade, this has been an important text mining task, and a key 
+feature of the Message Understanding Conferences (MUC) [3]. NER
+has been successfully automated with near-human performance,
+but the specific problem of recognizing geographical references
+presents additional challenges [9]. When handling named 
+entities with a high level of detail, ambiguity problems arise more 
+frequently. Ambiguity in geographical references is bi-directional [15].
+The same name can be used for more than one location (referent
+ambiguity), and the same location can have more than one name
+(reference ambiguity). The former has another twist, since the same
+name can be used for locations as well as for other class of 
+entities, such as persons or company names (referent class ambiguity).
+Besides the recognition of geographical expressions, GIR also 
+requires that the recognized expressions be classified and grounded
+to unique identifiers [11]. Grounding the recognized expressions
+(e.g. associating them to coordinates or concepts at an ontology)
+assures that they can be used in more advanced GIR tasks.
+Previous works have addressed the tagging and grounding of
+locations in Web pages, as well as the assignment of geographic
+scopes to these documents [1, 7, 13]. This is a complementary 
+aspect to the techniques described in this paper, since if we have the
+Web pages tagged with location information, a search engine can
+conveniently return pages with a geographical scope related to the
+scope of the query. The task of handling geographical references
+over documents is however considerably different from that of 
+handling geographical references over queries. In our case, queries are
+usually short and often do not constitute proper sentences. Text
+mining techniques that make use of context information are 
+difficult to apply for high accuracy.
+Previous studies have also addressed the use of text mining and
+automated classification techniques over search engine queries [16,
+10]. However, most of these works did not consider place 
+references or geographical categories. Again, these previously proposed
+methods are difficult to apply to the geographic domain.
+Gravano et. al. studied the classification of Web queries into two
+types, namely local and global [5]. They defined a query as local if
+its best matches on a Web search engine are likely to be local pages,
+such as houses for sale. A number of classification algorithms
+have been evaluated using search engine queries. However, their
+experimental results showed that only a rather low precision and
+recall could be achieved. The problem addressed in this paper is
+also slightly different, since we are trying not only to detect local
+queries but also to disambiguate the local of interest.
+Wang et. al. proposed to go further than detecting local queries,
+by also disambiguating the implicit local of interest [17]. The 
+proposed approach works for both queries containing place references
+and queries not containing them, by looking for dominant 
+geographic references over query logs and text from search results.
+In comparison, we propose simpler techniques based on matching
+names from a geographic ontology. Our approach looks for spatial
+relationships at the query string, and it also associates the place 
+references to ontology concepts. In the case of queries not containing
+explicit place references, we use geographical scopes previously
+assigned to the documents, whereas Wang et. al. proposed to 
+extract locations from the text of the top search results.
+There are nowadays many geocoding, reverse-geocoding, and
+mapping services on the Web that can be easily integrated with
+other applications. Geocoding is the process of locating points on
+the surface of the Earth from alphanumeric addressing data. Taking
+a string with an address, a geocoder queries a geographical 
+information system and returns interpolated coordinate values for the
+given location. Instead of computing coordinates for a given place
+reference, the technique described in this paper aims at assigning
+references to the corresponding ontology concepts. However, if
+each concept at the ontology contains associated coordinate 
+information, the approach described here could also be used to build a
+geocoding service. Most of such existing services are commercial
+in nature, and there are no technical publications describing them.
+A number of commercial search services have also started to 
+support location-based searches. Google Local, for instance, initially
+required the user to specify a location qualifier separately from the
+search query. More recently, it added location look-up 
+capabilities that extract locations from query strings. For example, in a
+search for Pizza Seattle, Google Local returns local results for
+pizza near Seattle, WA. However, the intrinsics of their solution
+are not published, and their approach also does not handle 
+locationimplicit queries. Moreover, Google Local does not take spatial 
+relations into account.
+In sum, there are already some studies on tagging geographical
+references, but Web queries pose additional challenges which have
+not been addressed. In this paper, we explain the proposed 
+solutions for the identified problems.

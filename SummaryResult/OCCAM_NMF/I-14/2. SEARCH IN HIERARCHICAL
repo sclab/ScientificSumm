@@ -1,0 +1,22 @@
+this process and related algorithms are detailed in [15, 14]. 
+the search session ends when all the agents that receive the query drop it or ttl decreases to 0. upon receipt of search messages for qk, agents schedule local activities including local searching, forwarding qk to their neighbors, and returning search results to the query  initiator.
+in the search process, agents discard those queries that either have been previously processed or whose ttl drops to 0, which prevents queries from looping in the system forever.
+the ttl value decreases by 1 after each hop.
+these search messages contain a ttl (time to live)  parameter in addition to the query.
+in the second step, ai selects a group of the most promising agents to start the actual search process with the message search.
+here, ai is defined as the query initiator of search session si.
+in the first step, upon receipt of a query qk at time tl from a user, agent ai  initiates a search session si by probing its neighboring agents aj ∈ nei(ai) with the message probe for the similarity value sim(qk, aj) between qk and aj.
+the distributed search protocol of our hierarchical agent organization is composed of two steps.
+in this paper, we call ai as aj"s upstream agent and aj as ai"s downstream agent if a4 a5 a6 a7 a2 a3 a9 nei(a2)={a3} par(a2)={a1} chl(a2)={a4,a5} a1 a8 figure 1: a fraction of a hierarchical p2pir system an agent ai routes a query to agent aj.
+these routing decisions determine how the search  process is conducted in the network.
+for the first query in mfi, agent ai determines which subset of its neighboring agents to forward it to based on the agent"s routing policy πi.
+mfi  consists of a set of queries to forward on and is processed in a fifo (first in first out) fashion.
+it is a priority queue and agent ai always selects the most promising queries to process in order to maximize the global utility.
+the local search queue lsi stores search sessions that are scheduled for local processing.
+the states of the two queues constitute the internal states of an agent.
+a typical agent ai in our system uses two queues: a local search queue, lsi, and a message forwarding queue mfi.
+these links are then used by agents to locate other agents that contain documents relevant to the given queries.
+these links are established through a bottom-up content-similarity based distributed clustering process[15].
+in the following sections, we denote the set of agents that are directly connected to agent ai as directconn(ai), which is defined as directconn(ai) = nei(ai) ∪ par(ai) ∪ chl(ai) , where nei(ai) is the set of neighboring agents connected to ai through lateral links; par(ai) is the set of agents whom agent ai is connected to through upward links and chl(ai) is the set of agents that agent ai connects to through downward links.
+in a hierarchical p2p ir  system illustrated in fig.1, agents are connected to each other through three types of links: upward links, downward links, and lateral links.
+p2p ir systems this section briefly reviews our basic approaches to  hierarchical p2p ir systems.

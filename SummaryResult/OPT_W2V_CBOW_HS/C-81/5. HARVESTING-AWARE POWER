@@ -1,0 +1,73 @@
+The remaining energy, RLast, is used to increase the duty cycle to some value between Dmin and Dmax in the slot with the next lower coefficient.
+The value of energy generated in a particular slot is maintained as a weighted average of the energy received in the same time-slot during all observed days.
+It is thus important to adapt the duty cycles calculated using the predicted values, to the actual energy measurements in real time to ensure energy neutrality.
+This calculation is performed at the end of every slot to set the duty cycle for the next slot.
+While the storage data size is limited to a vector length of Nw values in order to minimize the memory overheads of the power management algorithm, the window size is effectively infinite as each value in the history window depends on all the observed data up to that instant.
+Smaller slot durations may be used at the expense of a higher Nw.
+The second part computes the optimal duty cycles based on the predicted energy, and this step uses our computationally tractable method to solve the optimization problem.
+On the other hand, if the energy received is less than Pc, we will need to account for the extra energy used from the battery by the load, which is a function of duty cycle used in time slot i and battery efficiency factor η.
+Denoting this slot with index j, the duty cycle is given by: D(j)= min / ( ( ) ) / ( ) Last c Last s c s R P if j D DR if j S P j P P jη ∈⎧ ⎫ ⎪ ⎪ +⎨ ⎬ ∈⎪ ⎪− −⎩ ⎭ The above solution to the optimization problem requires only simple arithmetic calculations and one sorting step which can be easily implemented on an embedded platform, as opposed to implementing a general linear program solver.
+Combining these two characteristics, we define the utility co-efficient for each slot i as follows: 1 ( ) 1 1 ( ) 1 c c s P for i S W i P P i for i D η η ∈⎧ ⎪ = ⎛ ⎞⎛ ⎞⎨ + − ∈⎜ ⎟⎜ ⎟⎪ ⎝ ⎠⎝ ⎠⎩ where W(i) is a representation of how efficient the energy usage in a particular time slot i is.
+The algorithm starts by assuming D(i) =Dmin for i = {1…NW} because of the minimum duty cycle requirement, and computes the remaining system energy R by: 1 1 ( ) ( ) ( ) 1 ( ) (14) Nw c s s c i i D i S P R P i D i P i P D i η η= ∈ ∈ ⎛ ⎞⎛ ⎞ = − + − −⎜ ⎟⎜ ⎟ ⎝ ⎠⎝ ⎠ ∑ ∑ ∑ A negative R concludes that the optimization problem is infeasible, meaning the system cannot achieve energy neutrality even at the minimum duty cycle.
+1 1 1 1 ( )[ ( )] ( ) ( ) ( ) ( )[ ( ) ] Nw Nw Nw i i c s s s s c i i D i i i S B B TD i P P i TP i TP i D i TD i P i Pη η η+ = ∈ = = ∈ − = Δ − − Δ + Δ − Δ −∑ ∑ ∑ ∑ ∑ The term on the left hand side is actually the battery energy used over the entire window of Nw slots, which can be set to 0 for energy neutral operation.
+Define a quantity R(j,d) as follows: ⎪ ⎩ ⎪ ⎨ ⎧ <=⎟ ⎟ ⎠ ⎞ ⎜ ⎜ ⎝ ⎛ ⎟⎟ ⎠ ⎞ ⎜⎜ ⎝ ⎛ −+ >⋅ = lji l ljl PPifP P d PPifP djR 　　　 1 1 　　d　　 ),( ηη The precise procedure to adapt the duty cycle to account for the above factors is presented in Algorithm 1.
+We can now replace three constraints (8), (9), and (10) in the original problem with (13), restating the optimization problem as follows: 1 max ( ) wN i D i = ∑ 1 1 ( ) ( ) ( ) 1 ( ) Nw c s s c i i D i S P P i D i P i P D i η η= ∈ ∈ ⎛ ⎞⎛ ⎞ = + − +⎜ ⎟⎜ ⎟ ⎝ ⎠⎝ ⎠ ∑ ∑ ∑ min max D(i) D {1,...,Nw) D(i) D {1,...,Nw) i i ≥ ∀ ∈ ≤ ∀ ∈ This form facilitates a low complexity solution that doesn"t require a general linear programming solver.
+Then, the excess energy in slot i, denoted by X, can be obtained as follows: ( ) '( ) '( ) 1 ( ) '( ) ( )[ ( ) '( )](1 ) '( ) s s s c s s s s s c P i P i if P i P X P i P i D i P i P i if P i P η − >⎧ ⎪ = ⎨ − − − − ≤⎪ ⎩ 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 2.6 2.7 2.8 2.9 3 alpha AvgError(mA) Figure 3.
+Here, we want to increase the duty cycles used in the future to utilize this excess energy we received in recent time slot.
+On a typical day, we expect the energy generation to be similar to the energy generation at the same time on the previous days.
+Denote the initial duty cycle assignments for each time slot i computed using the predicted energy values as D(i) = {1, ...,Nw}.
+Next we sum up both sides of (6) over the entire Nw window and rewrite it with the new notation.
+To this end, we define the sets S and D as follows: { } { } | ( ) 0 | ( ) 0 s c c s S i P i P D i P P i = − ≥ = − > The two sets differ by the condition that whether the node operation can be sustained entirely from environmental energy.
+Low-complexity Solution The energy values predicted for the next window of Nw slots are used to calculated the desired duty cycles for the next window, assuming the predicted values match the observed values in the future.
+In this case, we want to reduce the duty cycles used in the future slots in order to make up for this shortfall of energy.
+The average value derived for a slot is treated as an estimate of predicted energy value for the slot corresponding to the subsequent day.
+First we compute the difference between predicted power level Ps(i) and actual power level observed, Ps"(i) in every slot i.
+In contrast to Case I, the duty cycles of future time slots with highest utility coefficient W(i) should be increased first in order to maximize the total system utility.
+A historical summary of the energy generation profile is maintained for this purpose.
+On the other hand, we would also like the time slots with the highest Ps to operate at Dmax because of better efficiency of using energy directly from the energy source.
+One of the parameters to be chosen in the above prediction method is the parameter α, which is a measure of rate of shift in energy pattern over time.
+Since our objective function is to maximize the total system utility, we have to reduce the duty cycles for time slots with the smallest normalized utility coefficient, W(i).
+A larger W(i) indicates more system utility per unit energy in slot i and vice versa.
+When more energy is received than predicted, X is positive and that excess energy is available for use in the subsequent solutes, while if X is negative, that energy must be compensated from subsequent slots.
+183 The upper term accounts for the energy difference when actual received energy is more than the power drawn by the load.
+This curve suggests an optimum value of α = 0.15 for minimum prediction error and this value will be used in the remainder of this paper.
+Since our objective is to maximize the total system utility, the most efficient way to allocate the excess energy is to assign duty cycle Dmax to the slots with the highest W(i).
+This step is required since the observed energy generation may deviate significantly from the predicted energy availability and energy neutral operation must be ensured with the actual energy received rather than the predicted values.
+Suppose the duty cycle is changed by d in slot j.
+The third part consists of a method to dynamically adapt the duty cycle in response to the observed energy generation profile in real time.
+Since our objective is to develop a practical algorithm for embedded computing systems, we present a simplified method to solve the linear programming problem presented in Section 4.
+Since our objective is to maximize the total system utility, it is preferable to set the duty cycle to Dmin for time slots where the utility per unit energy is the least.
+If R is positive, it means the system has excess energy that is not being used, and this may be allocated to increase the duty cycle beyond Dmin for some slots.
+The weights are exponential, resulting in decaying contribution from older Figure 2.
+in decreasing order, and then iteratively reducing Dj to Dmin until the total reduction in energy consumption is the same as X.
+The first term on the right hand side can be interpreted as the total energy consumed during the D slots and the second term is the total energy consumed during the S slots.
+For example, a large deficit in energy supply can"t be restored if there is no future energy input until the end of the window.
+The method is designed to exploit the diurnal cycle in solar energy but at the same time adapt to the seasonal variations.
+Slot-by-slot continual duty cycle adaptiation.
+More specifically, the historical average maintained for each slot is given by: 1 (1 )k k kx x xα α−= + − where α is the value of the weighting factor, kx is the observed value of energy generated in the slot, and 1kx − is the previously stored historical average.
+After some algebraic manipulation, this yields: 1 1 ( ) ( ) ( ) 1 ( ) Nw c s s c i i D i S P P i D i P i P D i η η= ∈ ∈ ⎛ ⎞⎛ ⎞ = + − +⎜ ⎟⎜ ⎟ ⎝ ⎠⎝ ⎠ ∑ ∑ ∑ (13) The term on the left hand side is the total energy received in Nw slots.
+Since this parameter is affected by the characteristics of the energy and sensor node location, the system should have a training period during which this parameter will be determined.
+So, the coefficients W(i) are arranged in decreasing order and duty cycle Dmax is assigned to the slots beginning with the largest coefficients until the excess energy available, R (computed by (14) in every iteration), is insufficient to assign Dmax to another slot.
+In such case, this offset will be carried over to the next window so that long term energy neutrality is still maintained. 
+The error based on the different values of α is shown in Figure 3.
+Two possible cases for energy calculations Slot i Slot k Pc Pc P(i) P(i) Active Sleep 182 data.
+In the case that energy produced from the environment is not sufficient, battery will be discharged to supplement the remaining energy.
+To determine a good value of α, we collected energy data over 72 days and compared the average error of the prediction method for various values of α.
+Energy Prediction Model We use a prediction model based on Exponentially Weighted Moving-Average (EWMA).
+We claim that our duty cycling algorithm is energy neutral because an surplus of energy at the previous time slot will always translate to additional energy opportunity for future time slots, and vice versa.
+This algorithm attempts to achieve energy neutral operation without using knowledge of the future energy availability and maximizes the achievable performance within that constraint.
+In this model, the importance of each day relative to the previous one remains constant because the same weighting factor was used for all days.
+The window size is chosen to be 24 hours and each time slot is taken to be 30 minutes as the variation in generated power by the solar panel using this setting is less than 10% between each adjacent slots.
+The harvesting-aware power management strategy consists of three parts.
+This method helps the historical average values adapt to the seasonal variations in energy received on different days.
+The observed energy values may vary greatly from the predicted ones, such as due to the effect of clouds or other sudden changes.
+In this case, the system designer is responsible for increasing the environment energy availability (e.g., by using larger solar panels).
+The claim may be violated in cases of severe energy shortages especially towards the end of window.
+The historical summary maintained is derived as follows.
+The first part is an instantiation of the energy generation model which tracks past energy input profiles and uses them to predict future energy availability.
+MANAGEMENT We now present a practical algorithm for power management that may be used for adapting the performance based on harvested energy information.
+Choice of prediction parameter.
+This is accomplished by first sorting the coefficient W(j) ,where j>i.
+This yields Nw = 48.
+CASE II: X>0.
+CASE I: X<0.

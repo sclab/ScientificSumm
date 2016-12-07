@@ -1,0 +1,101 @@
+It states that if we are willing to let the number of shares sold vary with Q, we can in fact achieve a VWAP competitive ratio of 1.
+2.2 VWAP Results in the Price-Volume Model As in previous work on online trading, it is generally not possible to obtain finite bounds on competitive ratios with absolutely no assumptions on the set of sequences  Σbounds on the maximum variation in price or volume are required, depending on the exact setting.
+In the price-volume model under the volume variability assumption, there exists an algorithm A that  always sells between N and QN shares and that the average price per sold share is exactly VWAPM (S).
+In contrast to the VWAP, another common measure of the performance of an online selling algorithm would be its one-way trading (OWT) competitive ratio [3] with respect to a set of sequences Σ: ROWT(A) = max S∈Σ max 1≤t≤T {pt/VWAPA(S)} where the algorithms performance is compared to the largest individual price appearing in the sequence S. In both VWAP and OWT, we are comparing the average price per share received by a selling algorithm to some  measure of market performance.
+Our first result establishes that the optimal competitive  ratio for VWAP under the volume variability assumption is Θ(log(Q)) and is achieved by an algorithm that ignores the price data.
+In the price-volume model under the price variability assumption, there exists an online algorithm A for selling N shares achieving competitive ratio RVWAP(A) = O(log(R)).
+To show this, we take any sequence S of prices for the OWT problem, and convert it into a price-volume  sequence for the VWAP problem.
+The pair (pt, vt) represents the fact that a total of vt shares were traded at an (average) price per share pt in the market between time t − 1 and t. Realistically, we should imagine the number of intervals T being reasonably large, so that it is sensible to assign a common approximate price to all shares traded within an interval.
+Note that the lower bound in this theorem, unlike in the previous one, only assumes a price variation bound.
+(Sketch) Follows immediately from the results of [3] for OWT: the upper bound from the simple fact that for any sequence S, VWAPA(S) is less than max1≤t≤T {pt}, and the lower bound from a reduction to OWT.
+In the case of Q = 1 (where the total volume V over the trading period is known), we can gain a competitive ratio of 1 by selling vt V N shares after each time period.
+Assume that the maximum price in S is pmax .
+2.1 The Model In the price-volume trading model, we assume that the intraday trading activity in a given stock is summarized by a discrete sequence of price and volume pairs (pt, vt) for t = 1, .
+If on the sequence S, the algorithm A sells its N stocks using the volume sequence n1, .
+Note that the market VWAP does not include the shares that the algorithm sells.
+The VWAP of our sequence is at least pmax /3.
+The prices in the VWAP  sequence are the same as in S. To construct the volumes in the VWAP sequence, we segment the prices in S into log(R)  intervals [2i−1 pmin , 2i pmin ).
+Hence, at each time, we must select a (possibly fractional) number of shares nt to sell at price pt, subject to the global constraint T t=1 nt = N. It is thus assumed that if we have left over shares to sell after time T − 1, we are forced to sell them at the closing price of the market - that is, nT = N − T −1 t=1 nt is sold at pT .
+Suppose pt ∈ [2i−1 pmin , 2i pmin ), and this is the first time in S that a price has fallen in this interval.
+, (pT , vT ) is simply the average price paid per share over the course of the trading 190 day, ie VWAPM (S) = T t=1 ptvt /V where V is the total daily volume, i.e., V = T t=1 vt.
+In the price-volume model under the volume variability assumption, there exists an online algorithm A for selling N shares achieving competitive ratio RVWAP(A) ≤ 2 log(Q).
+In this way we are certain to sell exactly N shares over the course of the day; the only thing an  algorithm must do is determine the schedule of selling based on the incoming market price-volume stream.
+This flexibility of approach derives from the fact that the VWAP is a quantity in which both prices and volumes matter, as opposed to OWT.
+For the OWT problem under the price variability assumption, the results of [3]  established that the optimal competitive ratio was Θ(log(R)).
+Let us assume that our goal is to sell N shares over the course of the day.
+Consider algorithms which use a  parameter ˆV , which is interpreted as an estimate for the total volume for the day.
+The definitions of the  competitive ratios, Rbuy VWAP(A) and Rbuy OWT(A), for algorithms which Figure 2: Sample Island order books for MSFT.
+, T. Competitive ratios are generally taken over all sets Σ  consistent with at least one of these assumptions.
+Then at each time t, if the market price and volume is (pt, vt), the algorithm sells a fraction vt/ ˆV of its shares.
+Then in the VWAP sequence we set the volume vt = 2i−1 .
+For all intraday trading sequences S ∈ Σ, the total daily volume V ∈ [Vmin , Vmax ].
+In the price-volume model under both the volume and price variability assumptions, any fixed schedule VWAP algorithm A for selling N shares has sell VWAP competitive ratio RVWAP(A) = Ω(min(T, R)).
+We thus introduce the following two assumptions.
+(Note that we only allow fractional volumes in the price-volume model, where liquidity is not an issue.
+Any algorithm which sells fractional volumes can be  converted to a randomized algorithm which only sells integral volumes with the same expected number of shares sold.
+Theorems 1 and 2 demonstrate that one can achieve  logarithmic VWAP competitive ratios under the assumption of either bounded variability of total volume or bounded  variability of maximum price.
+Following the observation of (pt, vt), we are permitted to sell any (possibly fractional) number of shares nt at the price pt.
+However, RVWAP(A) cannot be smaller than 1, since on any sequence S in which all price pt are identical, it is impossible to get a better average share per price.
+If both assumptions hold, it is possible to give an algorithm accomplishing the minimum of log(Q) and log(R).
+The setting we consider can be viewed as a game between our algorithm and the market.
+The following theorem (which interestingly has no analogue for the OWT problem) demonstrates that this trade-off in shares sold and performance can be realized dramatically in our model.
+nT , then we analogously define the VWAP of A on market sequence S by VWAPA(S) = T t=1 ptnt /N .
+In addition, if only the volume variability (and not the price variability) assumption holds, any online algorithm A for selling N shares has RVWAP(A) = Ω(log(Q)).
+For all intraday trading sequences S ∈ Σ, the prices satisfy pt ∈ [pmin, pmax], for all t = 1, .
+Eventhough Theorem 4 also holds for buying, in general, the competitive ratio of the buy (cost) problem is much higher, as stated in the following theorem.
+2.3 RelatedResultsinthePrice-VolumeModel All of the VWAP algorithms we have discussed so far make some use of the daily data (pt, vt) as it unfolds,  using either the price or volume information.
+In VWAP trading, the goal of an online algorithm A which sells exactly N shares is not to maximize profits per se, but to track the market VWAP.
+In the case of R = 1 (where there is no fluctuation in price), any schedule is optimal.
+For now we note one simple fact: on any specific sequence S, VWAPA(S) may be larger that VWAPM (S).
+We now sketch the proof of the lower bound, which  relates performance in the VWAP and OWT problems.
+In the price-volume model under the volume and price variability assumptions, there exists an online  algorithm A for buying N shares achieving buy VWAP  competitive ratio Rbuy VWAP(A) = O(min{Q, √ R}).
+If this is not the first visit to the interval  containing pt, we set vt = 0.
+The VWAP competitive ratio of A with respect to a set of sequences Σ is then RVWAP(A) = max S∈Σ {VWAPM (S)/VWAPA(S)} In the case that A is randomized, we generalize the definition above by taking an expectation over VWAPA(S) inside the max.
+An alternative approach to VWAP is to ignore the  volumes in favor of prices, and apply an algorithm for the OWT problem.
+To gain some intuition consider the two trivial cases of R = 1 and Q = 1.
+If we keep the hard constraint of selling exactly N shares, we might incur an additional slight loss in the conversion.
+For instance, this is true at large brokerages, where many separate VWAP trades may be pooled and executed by a common algorithm, and the firm would be quite willing to carry a small position of  unsold shares overnight if it resulted in better execution prices.
+In addition, if only the price variability (and not the volume variability) assumption holds, any online A for selling N shares has RVWAP(A) = Ω(log(R)).
+We now present a trading model which includes both price and volume information about the sequence of trades.
+Any algorithm that is c-competitive in the VWAP setting  (under fixed Q) is 3c-competitive in the OWT setting with R = Q/2.
+So far our emphasis has been on VWAP algorithms that must sell exactly N shares.
+2.2.0.2 Price Variability Assumption.. Let 0 < pmin ≤ pmax be known positive constants, and  define R = pmax/pmin.
+(Sketch) For the upper bound, the idea is  similar to the price reservation algorithm of [3] for the OWT problem, and similar in spirit to the general technique of classify and select [1].
+In contrast, a fixed schedule VWAP algorithm has a predetermined  distribution {f1, f2, .
+, T. Here t = 0 corresponds to the day"s  market open, and t = T to the close.
+Since we had a c competitive algorithm, its average sell is at least pmax /3c.
+More  precisely, in this online model, we see the price-volume sequence one pair at a time.
+We can derive an O(log(Q)) VWAP competitive ratio by running these  algorithms in parallel, and letting each algorithm sell N/ log(Q) shares.
+In many realistic circumstances, however, there is actually some flexibility in the precise number of shares to be sold.
+Clearly, one of the Ai has a competitive ratio of 2.
+In the order book model to follow, we do not allow fractional volumes.)
+The proofs of all the results in this subsection are in the Appendix.
+In the VWAP setting, selling shares is a benefit problem, and  buying shares is a cost problem.
+fT }, and simply sells ftN shares at time t, independent of (pt, vt).
+While this model is a generalization of previous formalisms for  online trading, it makes an infinite liquidity assumption which fails to model the negative market impact that trading a large number of shares typically has.
+The market VWAP for an  intraday trading sequence S = (p1, v1), .
+This will be addressed in the order book model studied in the next section.
+In addition any online algorithm A for buying N shares has buy VWAP competitive ratio Rbuy VWAP(A) = Ω(min{Q, √ R}). 
+In the case of OWT, we  compare to the rather ambitious benchmark of the high price of the day, ignoring volumes entirely.
+(Alternatively, we can randomly select one Ai and guarantee the same expected competitive ratio.)
+The lower bound now follows using the lower bound in [3].
+Thus, for all  algorithms A, both RVWAP(A) and ROWT(A) are larger than 1, and the closer to 1 they are, the better A is tracking its respective performance measure.
+buy exactly N shares are maxS∈Σ{VWAPA(S)/VWAPM (S)} and maxS∈Σ maxt{VWAPA(S)/pt} respectively.
+In the price-volume model, we shall make an infinite  liquidity assumption for our trading algorithms.
+Our next result demonstrates that such algorithms can perform considerably worse than  dynamically adaptive algorithms in terms of the worst case competitive ratio.
+In many online problems, there is a clear distinction  between benefit problems and cost problems [2].
+In VWAP trading, we have the more modest goal of comparing favorably to the overall market average of the day.
+We consider a family of log(Q) such  algorithms, where algorithm Ai uses ˆV = Vmin 2i−1 .
+While there is nothing technically special about the time horizon of a single day, it is particularly consistent with limit order book trading on Wall Street.
+We note that unlike on Wall Street, our definition of VWAPM does not take our own trading into account.
+A note on terminology: throughout the paper (unless  otherwise specified), we shall use the term market to describe all activity or orders other than those of the algorithm  under consideration.
+2.2.0.1 Volume Variability Assumption.. Let 0 < Vmin ≤ Vmax be known positive constants, and define Q = Vmax /Vmin .
+For the OWT problem in the price-volume model,  volumes are irrelevant for the performance criterion, but for the VWAP criterion they are central.
+As we shall see, there are some important commonalities and differences to these two approaches.
+Fixed schedule VWAP algorithms, or slight variants of them, are surprisingly common on Wall Street, and the schedule is usually derived from historical intraday volume data.
+It is easy to see that this makes it a more challenging criterion to track.
+Theorem 5.
+Theorem 1.
+Theorem 3.
+Theorem 4.
+191 Theorem 2.

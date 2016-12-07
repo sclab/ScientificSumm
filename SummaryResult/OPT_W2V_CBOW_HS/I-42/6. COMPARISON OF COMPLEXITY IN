@@ -1,0 +1,19 @@
+We can see that the back-edges F-B and F-A overlap node C. Node C also has a parent E, and a back-edge with D. Using the original DPOP  algorithm (or DCPOP since they are identical in this case), we find that the computation at node C involves five domains: A, B, C, D, and E. In contrast, the cross-edged pseudotree arrangement in  Figure 3(c) requires only a maximum of four domains in any  computation during DCPOP.
+Thus any traditional pseudotree arrangement for this DCOP instance must take the form of Figure 3(b).
+We will now show that there exists a DCOP instance for which a cross-edged pseudotree outperforms all possible traditional pseudotrees (based on edge-traversal  heuristics).
+We acknowledge that pseudotree  arrangements that allow parent-child relationships without an actual  constraint can solve the problem in Figure 3(a) with maximum  computation size of four domains.
+In practice, since finding the best pseudotree  arrangement is NP-Hard, we find that heuristics that produce cross-edged pseudotrees often produce significantly smaller computation and message sizes. 
+This is a bipartite graph with each partition fully connected to the other (a) (b) (c) Figure 3: (a) The DCOP instance (b) A traditional pseudotree arrangement for the DCOP instance (c) A cross-edged  pseudotree arrangement for the DCOP instance partition.
+If we use a constant number of heuristics to  generate the set of pseudotrees, we can choose the best pseudotree in linear space-time complexity.
+It is easy to see that any  edgetraversal based heuristic cannot expand two nodes from the same partition in succession.
+Since no better traditional pseudotree arrangement can be  created using an edge-traversal heuristic, we have shown that DCPOP can outperform DPOP even if we use the optimal pseudotree found through edge-traversal.
+Since node A is the merge point for branches from both B and C, we can see that each of the nodes D, E, and F have two overlapping branches.
+Also, while we do not prove it here, cross-edged pseudotrees can produce smaller message sizes than such pseudotrees even if the computation size is similar.
+We also see that no node can have more than one child because any such arrangement would be an invalid pseudotree.
+In Figure 3(b) we see a traditional pseudotree  arrangement for this DCOP instance.
+However, current heuristics used with DPOP do not produce such pseudotrees, and such a heuristic would be difficult to distribute since each node would require  information about nodes with which it has no constraint.
+We also have shown that we can  accurately predict performance of a given pseudotree in linear  spacetime complexity.
+DPOP AND DCPOP We have already shown that given the same input, DCPOP  performs the same as DPOP.
+In Figure 3(a) we have a DCOP instance with six nodes.
+In addition each of these nodes has node A as its parent.
+Using the DCPOP algorithm we find that the computation at node D (or E or F) involves four domains: A, B, C, and D (or E or F).

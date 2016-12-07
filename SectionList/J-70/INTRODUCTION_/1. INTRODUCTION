@@ -1,0 +1,171 @@
+In multiagent settings, often an outcome must be 
+chosen on the basis of the preferences reported by a group of
+agents. Such outcomes could be potential presidents, joint
+plans, allocations of goods or resources, etc. The preference
+aggregator generally does not know the agents" preferences
+a priori. Rather, the agents report their preferences to the
+coordinator. Unfortunately, an agent may have an incentive
+to misreport its preferences in order to mislead the 
+mechanism into selecting an outcome that is more desirable to
+the agent than the outcome that would be selected if the
+agent revealed its preferences truthfully. Such manipulation
+is undesirable because preference aggregation mechanisms
+are tailored to aggregate preferences in a socially desirable
+way, and if the agents reveal their preferences insincerely, a
+socially undesirable outcome may be chosen.
+Manipulability is a pervasive problem across preference
+aggregation mechanisms. A seminal negative result, the
+Gibbard-Satterthwaite theorem, shows that under any 
+nondictatorial preference aggregation scheme, if there are at
+least 3 possible outcomes, there are preferences under which
+an agent is better off reporting untruthfully [10, 23]. (A
+preference aggregation scheme is called dictatorial if one of
+the agents dictates the outcome no matter what preferences
+the other agents report.)
+What the aggregator would like to do is design a 
+preference aggregation mechanism so that 1) the self-interested
+agents are motivated to report their preferences truthfully,
+and 2) the mechanism chooses an outcome that is desirable
+from the perspective of some objective. This is the classic
+setting of mechanism design in game theory. In this paper,
+we study the case where the designer is self-interested, that
+is, the designer does not directly care about how the 
+out132
+come relates to the agents" preferences, but is rather 
+concerned with its own agenda for which outcome should be
+chosen, and with maximizing payments to itself. This is the
+mechanism design setting most relevant to electronic 
+commerce.
+In the case where the mechanism designer is interested in
+maximizing some notion of social welfare, the importance
+of collecting the agents" preferences is clear. It is perhaps
+less obvious why they should be collected when the designer
+is self-interested and hence its objective is not directly 
+related to the agents" preferences. The reason for this is that
+often the agents" preferences impose limits on how the 
+designer chooses the outcome and payments. The most 
+common such constraint is that of individual rationality (IR),
+which means that the mechanism cannot make any agent
+worse off than the agent would have been had it not 
+participated in the mechanism. For instance, in the setting
+of optimal auction design, the designer (auctioneer) is only
+concerned with how much revenue is collected, and not per
+se with how well the allocation of the good (or goods) 
+corresponds to the agents" preferences. Nevertheless, the 
+designer cannot force an agent to pay more than its valuation
+for the bundle of goods allocated to it. Therefore, even a
+self-interested designer will choose an outcome that makes
+the agents reasonably well off. On the other hand, the 
+designer will not necessarily choose a social welfare 
+maximizing outcome. For example, if the designer always chooses
+an outcome that maximizes social welfare with respect to
+the reported preferences, and forces each agent to pay the
+difference between the utility it has now and the utility it
+would have had if it had not participated in the mechanism,
+it is easy to see that agents may have an incentive to 
+misreport their preferences-and this may actually lead to less
+revenue being collected. Indeed, one of the counterintuitive
+results of optimal auction design theory is that sometimes
+the good is allocated to nobody even when the auctioneer
+has a reservation price of 0.
+Classical mechanism design provides some general 
+mechanisms, which, under certain assumptions, satisfy some 
+notion of nonmanipulability and maximize some objective. The
+upside of these mechanisms is that they do not rely on
+(even probabilistic) information about the agents" 
+preferences (e.g., the Vickrey-Clarke-Groves (VCG) mechanism [24,
+4, 11]), or they can be easily applied to any probability
+distribution over the preferences (e.g., the dAGVA 
+mechanism [8, 2], the Myerson auction [18], and the Maskin-Riley
+multi-unit auction [17]). However, the general mechanisms
+also have significant downsides:
+• The most famous and most broadly applicable general
+mechanisms, VCG and dAGVA, only maximize social
+welfare. If the designer is self-interested, as is the case
+in many electronic commerce settings, these 
+mechanisms do not maximize the designer"s objective.
+• The general mechanisms that do focus on a 
+selfinterested designer are only applicable in very restricted
+settings-such as Myerson"s expected revenue 
+maximizing auction for selling a single item, and Maskin
+and Riley"s expected revenue maximizing auction for
+selling multiple identical units of an item.
+• Even in the restricted settings in which these 
+mechanisms apply, the mechanisms only allow for payment
+maximization. In practice, the designer may also be
+interested in the outcome per se. For example, an 
+auctioneer may care which bidder receives the item.
+• It is often assumed that side payments can be used
+to tailor the agents" incentives, but this is not always
+practical. For example, in barter-based electronic
+marketplaces-such as Recipco, firstbarter.com,
+BarterOne, and Intagio-side payments are not 
+allowed. Furthermore, among software agents, it might
+be more desirable to construct mechanisms that do not
+rely on the ability to make payments, because many
+software agents do not have the infrastructure to make
+payments.
+In contrast, we follow a recent approach where the 
+mechanism is designed automatically for the specific problem at
+hand. This approach addresses all of the downsides listed
+above. We formulate the mechanism design problem as an
+optimization problem. The input is characterized by the
+number of agents, the agents" possible types (preferences),
+and the aggregator"s prior distributions over the agents"
+types. The output is a nonmanipulable mechanism that is
+optimal with respect to some objective. This approach is
+called automated mechanism design.
+The automated mechanism design approach has four 
+advantages over the classical approach of designing general
+mechanisms. First, it can be used even in settings that
+do not satisfy the assumptions of the classical mechanisms
+(such as availability of side payments or that the objective
+is social welfare). Second, it may allow one to circumvent
+impossibility results (such as the Gibbard-Satterthwaite 
+theorem) which state that there is no mechanism that is 
+desirable across all preferences. When the mechanism is designed
+for the setting at hand, it does not matter that it would
+not work more generally. Third, it may yield better 
+mechanisms (in terms of stronger nonmanipulability guarantees
+and/or better outcomes) than classical mechanisms because
+the mechanism capitalizes on the particulars of the setting
+(the probabilistic information that the designer has about
+the agents" types). Given the vast amount of information
+that parties have about each other today, this approach is
+likely to lead to tremendous savings over classical 
+mechanisms, which largely ignore that information. For example,
+imagine a company automatically creating its procurement
+mechanism based on statistical knowledge about its 
+suppliers, rather than using a classical descending procurement
+auction. Fourth, the burden of design is shifted from 
+humans to a machine.
+However, automated mechanism design requires the 
+mechanism design optimization problem to be solved anew for
+each setting. Hence its computational complexity becomes
+a key issue. Previous research has studied this question for
+benevolent designers-that wish to maximize, for example,
+social welfare [5, 6]. In this paper we study the 
+computational complexity of automated mechanism design in the
+case of a self-interested designer. This is an important 
+setting for automated mechanism design due to the shortage
+of general mechanisms in this area, and the fact that in
+most e-commerce settings the designer is self-interested. We
+also show that this problem is closely related to a particular
+optimal (revenue-maximizing) combinatorial auction design
+problem.
+133
+The rest of this paper is organized as follows. In 
+Section 2, we justify the focus on nonmanipulable mechanisms.
+In Section 3, we define the problem we study. In Section 4,
+we show that designing an optimal deterministic mechanism
+is NP-complete even when the designer only cares about the
+payments made to it. In Section 5, we show that designing
+an optimal deterministic mechanism is also NP-complete
+when payments are not possible and the designer is only 
+interested in the outcome chosen. In Section 6, we show that
+an optimal randomized mechanism can be designed in 
+polynomial time even in the general case. Finally, in Section 7,
+we show that for designing optimal combinatorial auctions
+under best-only preferences, our results on AMD imply that
+this problem is NP-complete for deterministic auctions, but
+easy for randomized auctions.

@@ -1,0 +1,67 @@
+We formulate the social task allocation problem in this
+section. There is a set A of agents: A = {a1, . . . , am}.
+Agents need resources to complete tasks. Let R = {r1, . . . , rk}
+denote the collection of the resource types available to the
+agents A. Each agent a ∈ A controls a fixed amount of 
+resources for each resource type in R, which is defined by a
+resource function: rsc : A × R → N. Moreover, we assume
+agents are connected by a social network.
+Definition 1 (Social network). An agent social 
+network SN = (A, AE) is an undirected graph, where vertices
+A are agents, and each edge (ai, aj) ∈ AE indicates the 
+existence of a social connection between agents ai and aj.
+Suppose a set of tasks T = {t1, t2, . . . , tn} arrives at such
+an agent social network. Each task t ∈ T is then defined by
+a tuple u(t), rsc(t), loc(t) , where u(t) is the utility gained
+if task t is accomplished, and the resource function rsc :
+T ×R → N specifies the amount of resources required for the
+accomplishment of task t. Furthermore, a location function
+loc : T → A defines the locations (i.e., agents) at which the
+tasks arrive in the social network. An agent a that is the
+location of a task t, i.e. loc(t) = a, is called the manager of
+this task.
+Each task t ∈ T needs some specific resources from the
+agents in order to complete the task. The exact assignment
+of tasks to agents is defined by a task allocation.
+Definition 2 (Task allocation). Given a set of tasks
+T = {t1, . . . , tn} and a set of agents A = {a1, . . . , am}
+in a social network SN, a task allocation is a mapping
+φ : T × A × R → N. A valid task allocation in SN must
+satisfy the following constrains:
+• A task allocation must be correct. Each agent a ∈ A
+cannot use more than its available resources, i.e. for
+each r ∈ R,
+P
+t∈T φ(t, a, r) ≤ rsc(a, r).
+• A task allocation must be complete. For each task t ∈
+T , either all allocated agents" resources are sufficient,
+i.e. for each r ∈ R,
+P
+a∈A φ(t, a, r) ≥ rsc(t, r), or t is
+not allocated, i.e. φ(t, ·, ·) = 0.
+• A task allocation must obey the social relationships.
+Each task t ∈ T can only be allocated to agents that are
+(direct) neighbors of agent loc(t) in the social network
+SN. Each such agent that can contribute to a task is
+called a contractor.
+We write Tφ to represent the tasks that are fully allocated
+in φ. The utility of φ is then the summation of the utilities of
+each task in Tφ, i.e., Uφ =
+P
+t∈Tφ
+u(t). Using this notation,
+we define the efficient task allocation below.
+Definition 3 (Efficient task allocation). We say
+a task allocation φ is efficient if it is valid and Uφ is 
+maximized, i.e., Uφ = max(
+P
+t∈Tφ
+u(t)).
+We are now ready to define the task allocation problem
+in social network that we study in this paper.
+Definition 4 (Social task allocation problem).
+Given a set of agents A connected by a social network
+SN = (A, AE), and a finite set of tasks T , the social task
+allocation problem (or STAP for short) is the problem of
+finding the efficient task allocation φ, such that φ is valid
+and the social welfare Uφ is maximized.

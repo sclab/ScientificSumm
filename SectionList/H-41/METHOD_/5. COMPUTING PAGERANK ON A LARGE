@@ -1,0 +1,417 @@
+WEB GRAPH
+PageRank is a query-independent measure of the 
+importance of web pages, based on the notion of peer-endorsement:
+A hyperlink from page A to page B is interpreted as an
+endorsement of page B"s content by page A"s author. The
+following recursive definition captures this notion of 
+endorsement:
+R(v) =
+X
+(u,v)∈E
+R(u)
+Out(u)
+where R(v) is the score (importance) of page v, (u, v) is an
+edge (hyperlink) from page u to page v contained in the
+edge set E of the web graph, and Out(u) is the out-degree
+(number of embedded hyperlinks) of page u. However, this
+definition suffers from a severe shortcoming: In the 
+fixedpoint of this recursive equation, only edges that are part of
+a strongly-connected component receive a non-zero score. In
+order to overcome this deficiency, Page et al. grant each page
+a guaranteed minimum score, giving rise to the definition
+of standard PageRank:
+R(v) =
+d
+|V |
++ (1 − d)
+X
+(u,v)∈E
+R(u)
+Out(u)
+where |V | is the size of the vertex set (the number of known
+web pages), and d is a damping factor, typically set to be
+between 0.1 and 0.2.
+Assuming that scores are normalized to sum up to 1,
+PageRank can be viewed as the stationary probability 
+distribution of a random walk on the web graph, where at each
+step of the walk, the walker with probability 1 − d moves
+from its current node u to a neighboring node v, and with
+probability d selects a node uniformly at random from all
+nodes in the graph and jumps to it. In the limit, the random
+walker is at node v with probability R(v).
+One issue that has to be addressed when implementing
+PageRank is how to deal with sink nodes, nodes that do
+not have any outgoing links. One possibility would be to
+select another node uniformly at random and transition to
+it; this is equivalent to adding edges from each sink nodes
+to all other nodes in the graph. We chose the alternative
+approach of introducing a single phantom node. Each sink
+node has an edge to the phantom node, and the phantom
+node has an edge to itself.
+In practice, PageRank scores can be computed using power
+iteration. Since PageRank is query-independent, the 
+computation can be performed off-line ahead of query time. This
+property has been key to PageRank"s success, since it is a
+challenging engineering problem to build a system that can
+perform any non-trivial computation on the web graph at
+query time.
+In order to compute PageRank scores for all 2.9 billion
+nodes in our web graph, we implemented a distributed 
+version of PageRank. The computation consists of two distinct
+phases. In the first phase, the link files produced by the web
+crawler, which contain page URLs and their associated link
+URLs in textual form, are partitioned among the machines
+in the cluster used to compute PageRank scores, and 
+converted into a more compact format along the way. 
+Specifically, URLs are partitioned across the machines in the 
+cluster based on a hash of the URLs" host component, and each
+machine in the cluster maintains a table mapping the URL
+to a 32-bit integer. The integers are drawn from a densely
+packed space, so as to make suitable indices into the array
+that will later hold the PageRank scores. The system then
+translates our log of pages and their associated hyperlinks
+into a compact representation where both page URLs and
+link URLs are represented by their associated 32-bit 
+integers. Hashing the host component of the URLs guarantees
+that all URLs from the same host are assigned to the same
+machine in our scoring cluster. Since over 80% of all 
+hyperlinks on the web are relative (that is, are between two pages
+on the same host), this property greatly reduces the amount
+of network communication required by the second stage of
+the distributed scoring computation.
+The second phase performs the actual PageRank power
+iteration. Both the link data and the current PageRank
+vector reside on disk and are read in a streaming fashion;
+while the new PageRank vector is maintained in memory.
+We represent PageRank scores as 64-bit floating point 
+numbers. PageRank contributions to pages assigned to remote
+machines are streamed to the remote machine via a TCP
+connection.
+We used a three-machine cluster, each machine equipped
+with 16 GB of RAM, to compute standard PageRank scores
+for all 2.9 billion URLs that were contained in our web
+graph. We used a damping factor of 0.15, and performed 200
+power iterations. Starting at iteration 165, the L∞ norm of
+the change in the PageRank vector from one iteration to the
+next had stopped decreasing, indicating that we had reached
+as much of a fixed point as the limitations of 64-bit floating
+point arithmetic would allow.
+0.07
+0.08
+0.09
+0.10
+0.11
+1 10 100
+Number of back-links sampled per result
+NDCG@10
+hits-aut-all
+hits-aut-ih
+hits-aut-id
+0.01
+0.02
+0.03
+0.04
+1 10 100
+Number of back-links sampled per result
+MAP@10
+hits-aut-all
+hits-aut-ih
+hits-aut-id
+0.07
+0.08
+0.09
+0.10
+0.11
+0.12
+0.13
+0.14
+1 10 100
+Number of back-links sampled per result
+MRR@10
+hits-aut-all
+hits-aut-ih
+hits-aut-id
+Figure 1: Effectiveness of authority scores computed using different parameterizations of HITS.
+A post-processing phase uses the final PageRank vectors
+(one per machine) and the table mapping URLs to 32-bit
+integers (representing indices into each PageRank vector) to
+score the result URL in our query log. As mentioned above,
+our web graph covered 9,525,566 of the 66,846,214 result
+URLs. These URLs were annotated with their computed
+PageRank score; all other URLs received a score of 0.
+6. HITS
+HITS, unlike PageRank, is a query-dependent ranking 
+algorithm. HITS (which stands for Hypertext Induced Topic
+Search) is based on the following two intuitions: First, 
+hyperlinks can be viewed as topical endorsements: A hyperlink
+from a page u devoted to topic T to another page v is likely
+to endorse the authority of v with respect to topic T. Second,
+the result set of a particular query is likely to have a certain
+amount of topical coherence. Therefore, it makes sense to
+perform link analysis not on the entire web graph, but rather
+on just the neighborhood of pages contained in the result
+set, since this neighborhood is more likely to contain 
+topically relevant links. But while the set of nodes immediately
+reachable from the result set is manageable (given that most
+pages have only a limited number of hyperlinks embedded
+into them), the set of pages immediately leading to the result
+set can be enormous. For this reason, Kleinberg suggests
+sampling a fixed-size random subset of the pages linking to
+any high-indegree page in the result set. Moreover, 
+Kleinberg suggests considering only links that cross host 
+boundaries, the rationale being that links between pages on the
+same host (intrinsic links) are likely to be navigational or
+nepotistic and not topically relevant.
+Given a web graph (V, E) with vertex set V and edge
+set E ⊆ V × V , and the set of result URLs to a query
+(called the root set R ⊆ V ) as input, HITS computes a
+neighborhood graph consisting of a base set B ⊆ V (the
+root set and some of its neighboring vertices) and some of
+the edges in E induced by B. In order to formalize the
+definition of the neighborhood graph, it is helpful to first
+introduce a sampling operator and the concept of a 
+linkselection predicate.
+Given a set A, the notation Sn[A] draws n elements 
+uniformly at random from A; Sn[A] = A if |A| ≤ n.
+A link section predicate P takes an edge (u, v) ∈ E. In
+this study, we use the following three link section predicates:
+all(u, v) ⇔ true
+ih(u, v) ⇔ host(u) = host(v)
+id(u, v) ⇔ domain(u) = domain(v)
+where host(u) denotes the host of URL u, and domain(u)
+denotes the domain of URL u. So, all is true for all links,
+whereas ih is true only for inter-host links, and id is true
+only for inter-domain links.
+The outlinked-set OP
+of the root set R w.r.t. a 
+linkselection predicate P is defined to be:
+OP
+=
+[
+u∈R
+{v ∈ V : (u, v) ∈ E ∧ P(u, v)}
+The inlinking-set IP
+s of the root set R w.r.t. a link-selection
+predicate P and a sampling value s is defined to be:
+IP
+s =
+[
+v∈R
+Ss[{u ∈ V : (u, v) ∈ E ∧ P(u, v)}]
+The base set BP
+s of the root set R w.r.t. P and s is defined
+to be:
+BP
+s = R ∪ IP
+s ∪ OP
+The neighborhood graph (BP
+s , NP
+s ) has the base set BP
+s as
+its vertex set and an edge set NP
+s containing those edges in
+E that are covered by BP
+s and permitted by P:
+NP
+s = {(u, v) ∈ E : u ∈ BP
+s ∧ v ∈ BP
+s ∧ P(u, v)}
+To simplify notation, we write B to denote BP
+s , and N to
+denote NP
+s .
+For each node u in the neighborhood graph, HITS 
+computes two scores: an authority score A(u), estimating how
+authoritative u is on the topic induced by the query, and a
+hub score H(u), indicating whether u is a good reference to
+many authoritative pages. This is done using the following
+algorithm:
+1. For all u ∈ B do H(u) :=
+q
+1
+|B|
+, A(u) :=
+q
+1
+|B|
+.
+2. Repeat until H and A converge:
+(a) For all v ∈ B : A (v) :=
+P
+(u,v)∈N H(u)
+(b) For all u ∈ B : H (u) :=
+P
+(u,v)∈N A(v)
+(c) H := H 2, A := A 2
+where X 2 normalizes the vector X to unit length in 
+euclidean space, i.e. the squares of its elements sum up to 1.
+In practice, implementing a system that can compute HITS
+within the time constraints of a major search engine (where
+the peak query load is in the thousands of queries per second,
+and the desired query response time is well below one 
+second) is a major engineering challenge. Among other things,
+the web graph cannot reasonably be stored on disk, since
+.221
+.106
+.105
+.104
+.102
+.095
+.092
+.090
+.038
+.036
+.035
+.034
+.032
+.032
+.011
+0.00
+0.05
+0.10
+0.15
+0.20
+0.25
+bm25f
+degree-in-id
+degree-in-ih
+hits-aut-id-25
+hits-aut-ih-100
+degree-in-all
+pagerank
+hits-aut-all-100
+hits-hub-all-100
+hits-hub-ih-100
+hits-hub-id-100
+degree-out-all
+degree-out-ih
+degree-out-id
+random
+NDCG@10
+.100
+.035
+.033
+.033
+.033
+.029
+.027
+.027
+.008
+.007
+.007
+.006
+.006
+.006
+.002
+0.00
+0.02
+0.04
+0.06
+0.08
+0.10
+0.12
+bm25f
+hits-aut-id-9
+degree-in-id
+hits-aut-ih-15
+degree-in-ih
+degree-in-all
+pagerank
+hits-aut-all-100
+hits-hub-all-100
+hits-hub-ih-100
+hits-hub-id-100
+degree-out-all
+degree-out-ih
+degree-out-id
+random
+MAP@10
+.273
+.132
+.126
+.117
+.114
+.101
+.101
+.097
+.032
+.032
+.030
+.028
+.027
+.027
+.007
+0.00
+0.05
+0.10
+0.15
+0.20
+0.25
+0.30
+bm25f
+hits-aut-id-9
+hits-aut-ih-15
+degree-in-id
+degree-in-ih
+degree-in-all
+hits-aut-all-100
+pagerank
+hits-hub-all-100
+hits-hub-ih-100
+hits-hub-id-100
+degree-out-all
+degree-out-ih
+degree-out-id
+random
+MRR@10
+Figure 2: Effectiveness of different features.
+seek times of modern hard disks are too slow to retrieve the
+links within the time constraints, and the graph does not fit
+into the main memory of a single machine, even when using
+the most aggressive compression techniques.
+In order to experiment with HITS and other 
+query-dependent link-based ranking algorithms that require non-regular
+accesses to arbitrary nodes and edges in the web graph, we
+implemented a system called the Scalable Hyperlink Store,
+or SHS for short. SHS is a special-purpose database, 
+distributed over an arbitrary number of machines that keeps a
+highly compressed version of the web graph in memory and
+allows very fast lookup of nodes and edges. On our 
+hardware, it takes an average of 2 microseconds to map a URL
+to a 64-bit integer handle called a UID, 15 microseconds to
+look up all incoming or outgoing link UIDs associated with
+a page UID, and 5 microseconds to map a UID back to a
+URL (the last functionality not being required by HITS).
+The RPC overhead is about 100 microseconds, but the SHS
+API allows many lookups to be batched into a single RPC
+request.
+We implemented the HITS algorithm using the SHS 
+infrastructure. We compiled three SHS databases, one 
+containing all 17.6 billion links in our web graph (all), one 
+containing only links between pages that are on different hosts
+(ih, for inter-host), and one containing only links between
+pages that are on different domains (id). We consider two
+URLs to belong to different hosts if the host portions of the
+URLs differ (in other words, we make no attempt to 
+determine whether two distinct symbolic host names refer to
+the same computer), and we consider a domain to be the
+name purchased from a registrar (for example, we consider
+news.bbc.co.uk and www.bbc.co.uk to be different hosts 
+belonging to the same domain). Using each of these databases,
+we computed HITS authority and hub scores for various 
+parameterizations of the sampling operator S, sampling 
+between 1 and 100 back-links of each page in the root set.
+Result URLs that were not covered by our web graph 
+automatically received authority and hub scores of 0, since they
+were not connected to any other nodes in the neighborhood
+graph and therefore did not receive any endorsements.
+We performed forty-five different HITS computations, each
+combining one of the three link selection predicates (all, ih,
+and id) with a sampling value. For each combination, we
+loaded one of the three databases into an SHS system 
+running on six machines (each equipped with 16 GB of RAM),
+and computed HITS authority and hub scores, one query
+at a time. The longest-running combination (using the all
+database and sampling 100 back-links of each root set 
+vertex) required 30,456 seconds to process the entire query set,
+or about 1.1 seconds per query on average.

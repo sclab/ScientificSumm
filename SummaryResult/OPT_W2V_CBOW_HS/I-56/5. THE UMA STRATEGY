@@ -1,0 +1,128 @@
+This is because, although both agents have voluntary intentions with improvement of 1, agent 2 has received one change advice from agent 4 while agent 1 has not received any.
+Step 3 - Desire: Agent 3 desires to change its color to Black voluntarily, hence it sends out a voluntary advice to its neighbor, i.e., agent 2.
+Agents 7 and 10 keep their intentions since none of their neighbors has an intention.
+Following, the intention from the agents will be sent to all their neighbors.
+Following a certain period of time when there is no more message communication (and this happens when all the agents have no more intention to update their variable assignments), the observer will inform the agents in the environment that a solution has been found.
+Mediation: If agent i does not send out its intention before this step, i.e., the agent has either a nil intention or a voluntary intention with biggest improvement, it will proceed to next step.
+Since only a few agents have the right to change their variable  assignments in a negotiation round, the number of redundant  computational cycles and info messages is reduced.
+Agents 3, 6 and 9 need not change as all their relevant constraints are satisfied.
+For each problem, a finite number of test cases were generated for  various problem sizes n. The maximum execution time was set to 0 200 400 600 800 1000 10 50 100 Number of queens Cycles Asynchronous Backtracking Asynchronous Weak Commitment Unsolicited Mutual Advice Figure 9: Relationship between execution time and problem size 10000 cycles for node coloring for critical graphs and 1000 cycles for other problems.
+Agents 3, 6 and 9 do not have any desire to update their color assignments.
+Step 4 - Intention: Agents 2, 7 and 10 receive the change  advices from agents 4, 5 and 8, respectively.
+If bi = 1, agent i will send a negotiation message called change advice to the neighbors in Fi who share the violated constraints with agent i.
+Step 2 - Belief: The belief function GB (Pi,Ci) will return a value bi ∈ {0, 1, 2}, decided as follows: • bi = 0 when agent i can find an option to reduce the number violations of the constraints in Ci, i.e., if ∃a ∈ Di, Si(a) < Si(vi) and the assignment xi = a and the current variable assignments of its neighbors do not form a local state stored in a list called bad states list (initially this list is empty).
+• If bi = 1, then DS = {a | a = vi, Si(a) is minimized } and the assignment xi = a and the current variable assignments of agent i"s neighbors do not form a state in the bad states list.
+Step 2 - Belief: Agents which have positive improvements are agent 1 (this agent believes it should change its color to White), agent 2 (this believes should change its color to White), agent 7 (this agent believes it should change its color to Black) and agent 10 (this agent believes it should change its value to Black).
+Step 3 - Desire: The desire function GD (bi) will return a desire set DS, decided as follows: • If bi = 0, then DS = {a | a = vi, Si(a) < Si(vi) and (Si(vi) − Si(a)) is maximized } and the assignment xi = a and the current variable assignments of agent i"s neighbors do not form a state in the bad states list.
+Agents attach their clock value as a time-stamp in the outgoing message and use the time-stamp in the incoming message to update their own clock"s value.
+The simulator program was terminated after this period and the algorithm was considered to fail a test case if it did not find a solution by then.
+The new state after round 1 is shown in Figure 7.
+For agent i, beginning initially with (wl = 1, (0 ≤ l < m), pi = i, (0 ≤ i < n)) and Fi contains all the agents who share the constraints with agent i, its BDI-driven UMA strategy is  described as follows.
+Although this increases the communication cost per negotiation round, we observed from our simulations that the overall communication cost incurred by UMA is lower due to the significantly lower number of negotiation rounds.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 0 1000 2000 3000 4000 5000 6000 60 90 120 Number of Nodes Cycles Asynchronous Weak Commitment Unsolicited Mutual Advice Figure 11: Comparison between AWC and UMA (critical graph coloring) 0 10 20 30 40 50 60 90 120 Number of Nodes Cycles Asynchronous Weak Commitment Unsolicited Mutual Advice Figure 12: Comparison between AWC and UMA (dense graph coloring) Figure 10 shows that the average performance of UMA is slightly better than AWC for the sparse problem.
+5.2.2 Evaluation with graph coloring problem The graph coloring problem can be characterized by three  parameters: (i) the number of colors k, the number of nodes/agents n and the number of links m. Based on the ratio m/n, the problem can be classified into three types [3]: (i) sparse (with m/n = 2), (ii) critical (with m/n = 2.7 or 4.7) and (iii) dense (with m/n = (n − 1)/4).
+2 3 4 5 6 7 8 91 10 Figure 8: The solution obtained 5.2 Performance Evaluation To facilitate credible comparisons with existing strategies, we measured the execution time in terms of computational cycles as defined in [4], and built a simulator that could reproduce the published results for ABT and AWC.
+0 40 80 120 160 200 60 90 120 150 Number of Nodes Cycles Asynchronous Weak Commitment Unsolicited Mutual Advice Figure 10: Comparison between AWC and UMA (sparse graph coloring) 5.3 Discussion 5.3.1 Comparison with ABT and AWC 530 The Sixth Intl.
+In both cases, agent i will attach the number of received change advices in the current negotiation round with its intention.
+Round 3: In this round, every agent finds that it has no desire and hence no intention to revise its variable assignment.
+Step 4 - Intention: Agent 3 will have a voluntary intention while agent 2 will not have any intention as it receives the voluntary advice from agent 3.
+In return, agent i will receive the intentions from its neighbors before proceeding to Mediation step.
+Mediation: Agent 1 finds that the intention from agent 2 is better than its intention.
+The rest of the agents do nothing in this step as they do not have any intention.
+Using DBO, this number of round trips is uncertain as each agent might have to increase the weights of the violated constraints until an agent has a positive  improvement; this could result in a infinite loop [3]. 
+Following, if bi = 0, agent i will send a negotiation message containing hmax i to all its neighbors.
+• bi = 1 when it cannot find a value a such as a ∈ Di, Si(a) < Si(vi), and the assignment xi = a and the current variable assignments of its neighbors do not form a local state stored in the bad states list.
+Termination Condition: Since each agent does not have full information about the global state, it may not know when it has reached a solution, i.e., when all the agents are in a global stable state.
+In this example, each agent has a color variable representing a node.
+The new state after round 2 is shown in Figure 8.
+Agent 4 will send a change advice to agent 2 as agent 2 is sharing the violated constraint with it.
+Step 5 - Execution: If agent i does not cancel its intention, it will update its variable assignment with the intended value.
+Following, if the improvement hmax i is the biggest improvement and equal to some improvements associated with the received voluntary advices, agent i will send its computed intention to all its neighbors.
+Step 2 - Belief: Agent 3 is the only agent who has a positive improvement which is 1.
+Agent i receives advices from all its neighbors and stores them in a list called A, before proceeding to the next step.
+Following, with no more negotiation message communication in the environment, the observer will inform all the agents that a solution has been found.
+Step 3 - Desire: Agents 1, 2, 7 and 10 have the voluntary desire (White color for agents 1, 2 and Black color for agents 7, 10).
+As we observe from the backtracking in ABT and AWC, the difference in the ordering of incoming messages can result in a different number of computational cycles to be executed by the agents.
+Since agent 2 is sharing the constraint violation with agent 3, it sends a change advice to agent 3.
+Mediation: Agent 3 will keep its intention as its only neighbor, agent 2, does not have any intention.
+Round 1: Step 1 - Percept: Each agent obtains the current color  assignments of those nodes (agents) adjacent to it, i.e., its  neighbors".
+This poor performance of ABT was expected since the graph coloring problem is more difficult than the n-queens problem, on which ABT already did not perform well (see Figure 9).
+Agent 2 will keep its intention.
+• bi = 2 when its current assignment is an optimal option, i.e., if Si(vi) = 0.
+Step 4 - Intention: The intention function GI (DS, A) will return an intention, decided as follows: • If there is a voluntary advice from an agent j which is associated with hmax j > hmax i , assign nil as the intention.
+Agents which do not have any improvements are agents 4, 5 and 8.
+Step 5 - Execution: Agent 3 changes its color to Black.
+In such a case, the execution time for the test was counted as 1000 cycles.
+• The intention from an agent who has received a higher  number of change advices in the current negotiation round is selected.
+In turn, the agent will wait to receive unsolicited advices from all its neighbors, before proceeding on to determine its intention.
+5.3.2 Comparison with DBO The computational performance of UMA is arguably better than DBO for the following reasons: • UMA can guarantee that there will be a variable  reassignment following every negotiation round whereas DBO  cannot.
+These agents will send the voluntary advices to all their neighbors.
+• If DS = ∅, DS is a set of voluntary desires and hmax i is the biggest improvement among those associated with the voluntary advices received, select an arbitrary value (say, vi) from DS as the intention.
+Round 2: Step 1 - Percept: The agents obtain the current color  assignments of their neighbors.
+Hence an observer is needed that will keep track of the negotiation messages communicated in the environment.
+Meanwhile, agents 4, 5 and 8 have the reluctant desires (White color for agent 4 and Black color for agents 5, 8).
+• Using UMA, in the worst case, an agent will only take 2 or 3 communication round trips per negotiation round, following which the agent or its neighbor will do a variable  assignment update.
+Agent 2 does not have any value for its reluctant desire set as the only option, Black color, will bring agent 2 and its neighbors to the previous state which is known to be a bad state.
+Step 5 - Execution: Agent 2 changes its color to White.
+Agents 3, 6 and 9 do not have any intention.
+The rest of the agents need not make any change as all their relevant constraints are satisfied.
+For this problem, we did not include ABT in our empirical results as its failure rate was found to be very high.
+• In one cycle, each agent receives all the incoming messages, performs local computation and sends out a reply.
+Otherwise, agent i will select the best intention among all the intentions received, including its own (if any).
+1 2 3 4 5 6 7 8 9 10 Figure 6: Example problem 5.1 An Example To illustrate how UMA works, consider a 2-color graph problem [6] as shown in Figure 6.
+The negotiation message that it sends out to conclude the Desire step constitutes an unsolicited advice for all its neighbors.
+Hence agent 1 cancels its intention.
+In this case, DS is called a set of voluntary desires.
+Unlike when using the strategies of the previous section, a DCSP agent using UMA will not only send out a negotiation message when concluding its Intention step, but also when  concluding its Desire step.
+If agent i has a reluctant intention, it will also send this intention to all its neighbors.
+Similarly, agents 5 and 8 will send change advices to agents 7 and 10 respectively.
+Figure 9 shows the execution time for different problem sizes when ABT, AWC and UMA were run.
+Agents 4, 5 and 8 receive the  voluntary advices from agents 2, 7 and 10, hence they will not have any intention.
+In this negotiation round, the improvements achieved by these agents are 1.
+Agents 7 and 10 change their colors to Black.
+The following records the outcome of each step in every  negotiation round executed.
+• If there is no voluntary intention, the reluctant intention with the lowest number of constraint violations is selected.
+However, as seen in Figure 12, both the strategies are very  efficient when solving the dense problem, with AWC showing slightly better performance.
+• Intention from an agent with highest priority is selected.
+The criteria to select the best intention are listed, applied in descending order of importance as follows.
+• If DS = ∅, DS is a set of reluctant desires and agent i  receives some change advices, select an arbitrary value (say, vi) from DS as the intention.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 529 1 2 3 4 5 6 7 8 9 10 Figure 7: The graph after round 1 color to Black.
+• Each agent has it own clock.
+• UMA introduces one more communication round trip (that of sending a message and awaiting a reply) than DBO, which occurs due to the need to communicate unsolicited advices.
+Update Ci to be the list of constraints relevant to agent i.
+If the selected intention is not agent i"s intention, it will cancel its intention.
+max{(Si(vi)−Si(a))} will be referenced by hmax i in subsequent steps, and it defines 528 The Sixth Intl.
+They will have no desire, and hence no intention.
+Step 1 - Percept: Update Pi upon receiving the info  messages from the neighbors (in Fi).
+The simulation results for each type of problem are shown in Figures 10 - 12.
+The worst case  occurs when all the possible global states of the search are reached.
+This message is called a voluntary advice.
+Agent 2 does not have any positive  improvement.
+The sparse and dense (coloring) problem types are relatively easy while the critical type is difficult to solve.
+UMA outperforms AWC in solving the critical problem as shown in Figure 11.
+• A voluntary intention (if any) with biggest improvement is selected.
+• If DS = ∅, then assign nil as the intention.
+In the  experiments, we fix k = 3.
+This intention is called a voluntary intention.
+It was observed that the latter strategy failed in some test cases.
+• A voluntary intention is preferred over a reluctant intention.
+• A message which is sent at time t will be received at time t + 1.
+It believes it should change its The Sixth Intl.
+In this case, DS is called a set of reluctant desires • If bi = 2, then DS = ∅.
+10 test cases were created using the method described in [13] for each value of n ∈ {60, 90, 120}, for each  problem type.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) the maximal reduction in constraint violations.
+This intention is called  reluctant intention.
+They form their voluntary intentions.
+The initial clock"s value is 0.
+There are 10 color variables sharing the same domain {Black, White}.
+Figure 5 presents the BDI negotiation model incorporating the Unsolicited Mutual Advice(UMA) strategy.
+It is also referred to as an improvement).
+The performance of UMA, in the worst (time complexity) case, is similar to that of all evaluated strategies.
+Four benchmark problems [6] were considered, namely, n-queens and node coloring for sparse, dense and critical graphs.
+10 test cases were generated for each problem size n ∈ {10, 50 and 100}.
+The definition of a  computational cycle is as follows.
+5.2.1 Evaluation with n-queens problem The n-queens problem is a traditional problem of constraint satisfaction.
+The network delay is neglected.
+Joint Conf.
+Joint Conf.
+Joint Conf.

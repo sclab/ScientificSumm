@@ -1,0 +1,113 @@
+COMBINATORIAL AUCTION DESIGN
+PROBLEM
+In this section, we will demonstrate some interesting 
+consequences of the problem of automated mechanism design
+for a self-interested designer on designing optimal 
+combinatorial auctions.
+Consider a combinatorial auction with a set S of items
+for sale. For any bundle B ⊆ S, let ui(θi, B) be bidder
+i"s utility for receiving bundle B when the bidder"s type is
+θi. The optimal auction design problem is to specify the
+rules of the auction so as to maximize expected revenue to
+the auctioneer. (By the revelation principle, without loss
+of generality, we can assume the auction is truthful.) The
+optimal auction design problem is solved for the case of a
+single item by the famous Myerson auction [18]. However,
+designing optimal auctions in combinatorial auctions is a
+recognized open research problem [3, 25]. The problem is
+open even if there are only two items for sale. (The 
+twoitem case with a very special form of complementarity and
+no substitutability has been solved recently [1].)
+Suppose we have free disposal-items can be thrown away
+at no cost. Also, suppose that the bidders" preferences have
+the following structure: whenever a bidder receives a bundle
+of items, the bidder"s utility for that bundle is determined
+by the best item in the bundle only. (We emphasize that
+138
+which item is the best is allowed to depend on the bidder"s
+type.)
+Definition 10. Bidder i is said to have best-only 
+preferences over bundles of items if there exists a function vi :
+Θi × S → R such that for any θi ∈ Θi, for any B ⊆ S,
+ui(θi, B) = maxs∈B vi(θi, s).
+We make the following useful observation in this setting:
+there is no sense in awarding a bidder more than one item.
+The reason is that if the bidder is reporting truthfully, taking
+all but the highest valued item away from the bidder will
+not hurt the bidder; and, by free disposal, doing so can only
+reduce the incentive for this bidder to falsely report this
+type, when the bidder actually has another type.
+We now show that the problem of designing a 
+deterministic optimal auction here is NP-complete, by a reduction
+from the payment maximizing AMD problem!
+Theorem 4. Given an optimal combinatorial auction 
+design problem under best-only preferences (given by a set of
+items S and for each bidder i, a finite type space Θi and a
+function vi : Θi × S → R such that for any θi ∈ Θi, for any
+B ⊆ S, ui(θi, B) = maxs∈B vi(θi, s)), designing the 
+optimal deterministic auction is NP-complete, even for a single
+bidder with a uniform distribution over types.
+Proof. The problem is in NP because we can 
+nondeterministically generate an allocation rule, and then set the
+payments using linear programming.
+To show NP-hardness, we reduce an arbitrary 
+paymentmaximizing deterministic AMD instance, with a single agent
+and a uniform distribution over types, to the following 
+optimal combinatorial auction design problem instance with
+a single bidder with best-only preferences. For every 
+outcome o ∈ O in the AMD instance (besides the outcome o0),
+let there be one item so ∈ S. Let the type space be the
+same, and let v(θi, so) = ui(θi, o) (where u is as specified in
+the AMD instance). Let the expected revenue target value
+be the same in both instances. We show the instances are
+equivalent.
+First suppose there exists a solution to the AMD instance,
+given by an outcome function and a payment function. Then,
+if the AMD solution chooses outcome o for a type, in the
+optimal auction solution, allocate {so} to the bidder for this
+type. (Unless o = o0, in which case we allocate {} to the
+bidder.) Let the payment functions be the same in both
+instances. Then, the utility that an agent receives for 
+reporting a type (given the true type) in either solution is the
+same, so we have incentive compatibility in the optimal 
+auction solution. Moreover, because the type distribution and
+the payment function are the same, the expected revenue to
+the auctioneer/designer is the same. It follows that there
+exists a solution to the optimal auction design instance.
+Now suppose there exists a solution to the optimal auction
+design instance. By the at-most-one-item observation, we
+can assume without loss of generality that the solution never
+allocates more than one item. Then, if the optimal auction
+solution allocates item so to the bidder for a type, in the
+AMD solution, let the mechanism choose outcome o for that
+type. If the optimal auction solution allocates nothing to the
+bidder for a type, in the AMD solution, let the mechanism
+choose outcome o0 for that type. Let the payment functions
+be the same. Then, the utility that an agent receives for
+reporting a type (given the true type) in either solution is
+the same, so we have incentive compatibility in the AMD
+solution. Moreover, because the type distribution and the
+payment function are the same, the expected revenue to the
+designer/auctioneer is the same. It follows that there exists
+a solution to the AMD instance.
+Fortunately, we can also carry through the easiness result
+for randomized mechanisms to this combinatorial auction
+setting-giving us one of the few known polynomial-time 
+algorithms for an optimal combinatorial auction design 
+problem.
+Theorem 5. Given an optimal combinatorial auction 
+design problem under best-only preferences (given by a set of
+items S and for each bidder i, a finite type space Θi and a
+function vi : Θi × S → R such that for any θi ∈ Θi, for
+any B ⊆ S, ui(θi, B) = maxs∈B vi(θi, s)), if the number of
+bidders is a constant k, then the optimal randomized 
+auction can be designed in polynomial time. (For any IC and
+IR constraints.)
+Proof. By the at-most-one-item observation, we can 
+without loss of generality restrict ourselves to allocations where
+each bidder receives at most one item. There are fewer than
+(|S| + 1)k
+such allocations-that is, a polynomial number
+of allocations. Because we can list the outcomes explicitly,
+we can simply solve this as a payment-maximizing AMD
+instance, with linear programming.

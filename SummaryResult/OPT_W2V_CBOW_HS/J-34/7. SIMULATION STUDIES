@@ -1,0 +1,65 @@
+In virtually every case (stock, raw or cleaned data, and quantity) the  percentage change induced by a single deletion in the relative model is many orders of magnitude greater than in the  absolute model, and shows that indeed butterfly effects may occur in a relative model market.
+For each quantity of interest (volume executed, average price, closing price and last bid), we show for the both the absolute and 1 Here same is in quotes since the two orders will actually have different sequence ID numbers, which is what makes such repositioning activity impossible to reliably detect in the data.
+As suggested by the theory we have developed, for the absolute model the change to the average price grows linearly with the number of deletions and remains very small (note the vastly  different scales of the y-axis in the panels for the absolute and relative models in the figure).
+As just one specific  representative example, notice that for QCOM on the cleaned data, the relative model effect of just a single deletion on the closing price is in excess of a full percentage point.
+The results mainly differ, as expected, in the executed volume, where the instability  results for the relative model are much more dramatic in the raw data.
+It is data  sufficient to recreate the precise INET order book in a given stock on a given day and time.
+Rather than deleting only a single order between 10 AM and 3 PM, in these experiments a growing number of randomly chosen deletions was performed, and the  percentage change to the average price measured.
+We also investigate the empirical behavior of mixtures of absolute and relative prices.
+In the cleaned we remove all limit orders that were canceled in the actual market prior to their execution (along with the cancellations themselves).
+Nevertheless, we feel they provide valuable empirical insight into the potential (in)stability properties of modern equity limit order  markets, and demonstrate that one"s belief or hope in stability largely relies on an absolute model interpretation.
+Thus even in a largely relative-price world, a 128 0 10 20 30 40 50 60 70 80 90 100 0 0.5 1 1.5 2 2.5 x 10 −3 QCOM−R June 2004: Absolute Number of changes Averageprice 0 10 20 30 40 50 60 70 80 90 100 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 QCOM−R June 2004: Relative Number of changes Averageprice Figure 4: Percentage change to the average  execution price (y-axis) as a function of the number of deletions to the sequence (x-axis).
+0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 AMZN−R Feburary 2004 α Averageprice 0 0.2 0.4 0.6 0.8 1 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 NVDA−R June 2004 α Averageprice Figure 5: Percentage change to the average  execution price (y-axis) vs. probability of treating  arriving INET orders as absolute prices (x-axis).
+By interpreting arriving limit order prices as either  absolute values, or by transforming them into differences with the current bid and ask (relative model), we can perform small modifications on the sequences and examine how  different various outcomes (volume traded, average price, etc.)
+The type of modification we examined was extremely small compared to the volume of orders placed in these stocks: namely, the deletion of a single randomly chosen order from the sequence.
+Make a small modification to a single order, and  recompute the resulting value of the quantity of interest.
+We emphasize that all such simulations interpret the actual historical data as falling into either the absolute or relative model, and are meaningful only within the confines of such an interpretation.
+Perhaps as expected, we see a monotonic decrease in the percentage change (instability) as the fraction of absolute traders increases, with most of the reduction already being realized by the introduction of just a small population of  absolute traders.
+The results presented so far paint a striking contrast  between the absolute and relative price models: while the  absolute model enjoys provably strong stability over any fixed event sequence, there exist at least specific sequences  demonstrating great instability in the relative model.
+The reason is that such cancellations may often be the first step in the repositioning of orders - that is, cancellations of the  order that are followed by the submission of a replacement order at a different price.
+These times were chosen to include the busiest part of the trading day but avoid the half hour around the opening and closing of the official NASDAQ market (9:30 AM and 3:30 PM respectively), which are known to have different dynamics than the central portion of the day.
+We note that the qualitative results of our  simulations were similar for several other stocks we examined.
+Stock Date volume average Rel Abs Rel Abs AMZN-R 2003 15.1% 0.04% 0.3% 0.0002% AMZN-C 2003 0.69% 0.087% 0.36% 0.0007% NVDA-R 2003 9.09% 0.05 % 0.17% 0.0003% NVDA-C 2003 0.73% 0.09 % 0.35% 0.001% QCOM-R 2003 16.94% 0.035% 0.21% 0.0002% QCOM-C 2003 0.58% 0.06% 0.35% 0.0005% Stock Date close lastbid Rel Abs Rel Abs AMZN-R 2003 0.78% 0.0001% 0.78% 0.0007% AMZN-C 2003 1.10% 0.077% 1.11% 0.001% NVDA-R 2003 1.17% 0.002 % 1.18 % 0.08% NVDA-C 2003 0.45% 0.0003% 0.45% 0.0006% QCOM-R 2003 0.58% 0.0001% 0.58% 0.0004% QCOM-C 2003 1.05% 0.0006% 1.05% 0.06% In Figure 4 we examine how the change to one the  quantities, the average execution price, grows with the  introduction of greater perturbations of the event sequence in the two models.
+In Figure 6, we show how the percentage change to the executed volume varies with the absolute trader fraction α, for NVDA data that is both raw and cleaned of cancellations.
+For the executed volume in the mixture model, however, the findings are more curious.
+This is a variety of market impact entirely separate from the more traditional and expected kind generated by trading a large volume of shares.
+Not removing canceled orders allows the possibility of modified simulations in which the same order 1 is executed twice, which may magnify  instability effects.
+For each trading day examined,this single deleted order was  selected among those arriving between 10 AM and 3 PM, and the quantities of interest were measured and compared at 3 PM.
+For the relative model, it is interesting to note that while small numbers of changes have large effects (often causing average execution price changes well in excess of 0.1 percent), the effects of large numbers of changes levels off quite rapidly and consistently.
+For the relative model, we must first pre-process the raw data and convert its prices to relative values, then make the modification and re-run the order book reconstruction on the relative values.
+We conclude with an examination of experiments with a mixture model.
+The  worstcase nature of these results raises the question of the extent to which such differences could actually occur in real  markets.
+Broadly speaking, this data consists of practically every single event on INET regarding the trading of an individual  stockevery arriving limit order (price, volume, and sequence ID number), every execution, and every cancellation of a  standing order - all timestamped in milliseconds.
+relative model the average percentage change in the quantity induced by the deletion.
+But most intriguing is the fact that the stability is not monotonically increasing with α for either the cleaned or uncleaned  datathe market with maximum instability is not a pure relative price market, but occurs at some nonzero value for α.
+We thus ran simulations in which each arriving order in the INET event streams was treated as an absolute price with probability α, and as a relative price with probability 1−α.
+In this section we provide indirect evidence on this question by presenting simulation results exploiting a rich source of real-market historical limit order sequence data.
+For each of the approximately 250 trading days in 2003, 1000 trials were run in which a randomly selected order was deleted from the INET event sequence.
+However, the results both from the raw data and the clean data are qualitatively similar.
+Again, it is clear that neither the raw nor the cleaned data can perfectly reflect what would have happened under the deleted orders in the actual market.
+We first see that for this quantity, unlike the others, the difference induced by the cleaned and uncleaned data is indeed dramatic, as already suggested by the summary statistics table above.
+7.1 Data The historical data used in our simulations is  commercially available limit order data from INET, the previously mentioned electronic exchange for NASDAQ stocks.
+Similar behavior is found for closing price and last bid.
+In the absolute model case, Step 2 is as simple as  modifying the order in the original data and re-running the order book reconstruction.
+Even if one accepts a world in which traders behave in either an absolute or relative manner, one would be likely to claim that the market contains a mixture of both.
+7.3 Results We begin with summary statistics capturing our overall stability findings.
+Representative results for the average execution price in this mixture model are shown in Figure 5 for AMZN and NVDA.
+We run the absolute and relative model simulations on both the raw INET data and on a cleaned version of this data.
+small minority of absolute traders can have a greatly  stabilizing effect.
+The results confirm rather strikingly the qualitative  conclusions of the theory we have developed.
+Run the order book reconstruction code on the  original INET data and compute the quantity of interest (volume traded, average price, etc.)
+It was in fact not obvious to us that sequences with this property could even be artificially constructed, much less that they would occur as actual market data.
+These three provide some range of liquidities (with QCOM having the greatest and NVDA the least liquidity on INET) and other trading properties.
+The left panel is for the absolute model, the right panel for the  relative model, and each curve corresponds to a single day of QCOM trading in June 2004.
+would be from what actually occurred in the market.
+We will report stability properties for three stocks:  Amazon, Nvidia, and Qualcomm (identified in the sequel by their tickers, AMZN, NVDA and QCOM).
+Each curve corresponds to a single day of trading during a month of 2004.
+We have yet to find a satisfying explanation for this phenomenon and leave it to future research. 
+AMZN) followed by either -R (for the uncleaned or raw data) or -C (for the data with canceled orders  removed).
+These simulations provide an empirical counterpart to the theory we have developed.
+127 7.2 Methodology For our simulations we employed order-book  reconstruction code operating on the underlying raw data.
+The basic format of each experiment was the following: 1.
+Each row of the tables below contains a ticker (e.g.
+Although a deletion is not 1-modification, its edit distance is 1 and we can apply Theorem 5.4.
+Curves represent averages over 1000 trials.
+Curves  represent averages over 1000 trials.

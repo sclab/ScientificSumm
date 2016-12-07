@@ -1,0 +1,99 @@
+The main idea for the query statistics table is that P(qi|q1 ∨· · ·∨ qi−1) can be measured by counting how many times the keyword qi appears within the documents downloaded from q1, .
+3.1 Estimating the number of matching pages In order to identify the most promising query, we need to  estimate how many new documents we will download if we issue the query qi as the next query.
+Based on this observation, the Hidden-Web crawler may use the following efficiency metric to quantify the desirability of the query qi: Efficiency(qi) = Pnew(qi) Cost(qi) Here, Pnew(qi) represents the amount of new documents returned for qi (the pages that have not been returned for previous queries).
+After examining the query statistics table of  Figure 7(a), we have decided to use the term computer as our next query qi.
+• Adaptive: We analyze the documents returned from the previous queries issued to the Hidden-Web database and estimate which keyword is most likely to return the most documents.
+Now assume that we submit query qi to the Web site, but due to a limitation in the number of results that we get back, we retrieve the set qi (small circle in Figure 8) instead of the set qi (dashed circle in Figure 8).
+From the new query qi = computer, we downloaded 20 more new pages.
+The hope is that a random query will return a reasonable number of matching documents.
+Second, the query selection method that we presented in Section 3.2 assumes that for every potential query qi, we can find P(qi|q1 ∨ · · · ∨ qi−1).
+However, there is a way to estimate the correct value for P(qi|q1 ∨ · · · ∨ qi−1) in the case where the Web site returns only a portion of the results.
+Their main idea is (1) to estimate the three parameters, α, β and γ, based on the subset of documents that we have downloaded from previous queries, and (2) use the estimated parameters to predict f given the ranking r of a term within the subset.
+3.4 Crawling sites that limit the number of results In certain cases, when a query matches a large number of pages, the Hidden Web site returns only a portion of those pages.
+For example, if Cost(qi) is Cost(qi) = cq + crP(qi) + cdPnew(qi) (Equation 2), we can estimate Cost(qi) by estimating P(qi) and Pnew(qi).
+Assuming that qi is a random sample of qi, then: P(qi+1 ∧ qi) P(qi+1 ∧ qi) = P(qi) P(qi) (6) From Equation 6 we can calculate P(qi+1 ∧ qi) and after we replace this value to Equation 5 we can find P(qi+1|q1 ∨ · · · ∨ qi). 
+That is, the size of the new documents from the query qi, Pnew(qi), is Pnew(qi) = P(q1 ∨ · · · ∨ qi−1 ∨ qi) − P(q1 ∨ · · · ∨ qi−1) = P(qi) − P(q1 ∨ · · · ∨ qi−1)P(qi|q1 ∨ · · · ∨ qi−1) from Equation 3, where P(qi) can be estimated using one of the methods described in section 3.
+Greedy SelectTerm() Parameters: T: The list of potential query keywords Procedure (1) Foreach tk in T do (2) Estimate Efficiency(tk) = Pnew(tk) Cost(tk) (3) done (4) return tk with maximum Efficiency(tk) Figure 6: Algorithm for selecting the next query term.
+Additionally, we can calculate P(qi+1 ∧ (q1 ∨ · · · ∨ qi−1)) and P(qi+1 ∧ qi ∧ (q1 ∨ · · · ∨ qi−1)) by directly examining the documents that we have downloaded from queries q1, .
+That is, although we got the set qi back, for every potential query qi+1 we need to find P(qi+1|q1 ∨ · · · ∨ qi): P(qi+1|q1 ∨ · · · ∨ qi) = 1 P(q1 ∨ · · · ∨ qi) · [P(qi+1 ∧ (q1 ∨ · · · ∨ qi−1))+ P(qi+1 ∧ qi) − P(qi+1 ∧ qi ∧ (q1 ∨ · · · ∨ qi−1))] (5) In the previous equation, we can find P(q1 ∨· · ·∨qi) by  estimating P(qi) with the method shown in Section 3.
+In estimating this number, we note that we can rewrite P(q1 ∨ · · · ∨ qi−1 ∨ qi) as: P((q1 ∨ · · · ∨ qi−1) ∨ qi) = P(q1 ∨ · · · ∨ qi−1) + P(qi) − P((q1 ∨ · · · ∨ qi−1) ∧ qi) = P(q1 ∨ · · · ∨ qi−1) + P(qi) − P(q1 ∨ · · · ∨ qi−1)P(qi|q1 ∨ · · · ∨ qi−1) (3) In the above formula, note that we can precisely measure P(q1 ∨ · · · ∨ qi−1) and P(qi | q1 ∨ · · · ∨ qi−1) by analyzing  previouslydownloaded pages: We know P(q1 ∨ · · · ∨ qi−1), the union of all pages downloaded from q1, .
+(1) the number of new  documents that can be obtained from the query qi and (2) the cost of issuing the query qi.
+We may consider a number of different ways to estimate P(qi), including the  following: 1.
+Based on this generic  distribution, we start with the most frequent keyword, issue it to the Hidden-Web database and retrieve the result.
+First, since we can only retrieve up to a specific number of pages per query, our crawler will need to issue more queries (and  potentially will use up more resources) in order to download all the pages.
+, qi−1 then the value P(qi|q1 ∨ · · · ∨ qi−1) is not accurate and may affect our decision for the next query qi, and potentially the performance of our crawler.
+This  calculation can be very time-consuming if we repeat it from scratch for every query qi in every iteration of our algorithm.
+, qi−1 which returned a number of results less than the  maximum number than the site allows, and therefore we have  downloaded all the pages for these queries (big circle in Figure 8).
+, qi−1 and downloaded the matching pages.4 We can also measure P(qi | q1 ∨ · · · ∨ qi−1), the probability that qi  appears in the pages from q1, .
+For example, the table in  Figure 7(a) shows that we have downloaded 50 documents so far, and the term model appears in 10 of these documents.
+After we estimate P(qi) and P(qi|q1 ∨ · · · ∨ qi−1) values, we can calculate P(q1 ∨ · · · ∨ qi).
+, qi−1 (b) New from qi = computer Term tk N(tk) model 10+12 = 22 computer 38+20 = 58 disk 0+18 = 18 digital 50+0 = 50 Total pages: 50 + 20 = 70 (c) After q1, .
+We note that the query statistics table needs to be updated  whenever we issue a new query qi and download more documents.
+), then the frequency f of a term inside the text collection is given by: f = α(r + β)−γ (4) where r is the rank of the term and α, β, and γ are constants that depend on the text collection.
+Thus, the  Hidden Web crawler can estimate the efficiency of every candidate qi, and select the one with the highest value.
+That is, assuming that we have issued queries q1, .
+In this section, we explain how we can compute P(qi|q1 ∨ · · · ∨ qi−1) efficiently by maintaining a small table that we call a query statistics table.
+In the next section, we first examine how we can use this value to decide which query we should issue next to the Hidden Web site.
+In Figure 6, we show the query selection function that uses the concept of efficiency.
+104 Again, assume that the Hidden Web site we are currently  crawling is represented as the rectangle on Figure 8 and its pages as points in the figure.
+Intuitively, the efficiency of qi measures how many new  documents are retrieved per unit cost, and can be used as an indicator of 4 For exact estimation, we need to know the total number of pages in the site.
+While the first two policies (random and generic-frequency  policies) are easy to implement, we need to understand how we can  analyze the downloaded pages to identify the most promising query in order to implement the adaptive policy.
+Given that the goal is to download the maximum number of unique documents from a textual database, we may consider one of the following  options: • Random: We select random keywords from, say, an English  dictionary and issue them to the database.
+Therefore, we only need to estimate P(qi) to evaluate P(q1 ∨ · · · ∨ qi).
+However, if the text database  returned only a portion of the results for any of the q1, .
+Out of these, 12 contain the keyword model Term tk N(tk) model 10 computer 38 digital 50 Term tk N(tk) model 12 computer 20 disk 18 Total pages: 50 New pages: 20 (a) After q1, .
+By using its resources more efficiently, the crawler may eventually download the  maximum number of unique documents.
+, qi−1 we need to estimate P(q1∨· · ·∨qi−1∨qi), for every potential next query qi and compare this value.
+In Section 3.3, we explain how we can efficiently compute P(qi|q1 ∨ · · · ∨ qi−1) by maintaining a succinct summary table.
+• Generic-frequency: We analyze a generic document corpus  collected elsewhere (say, from the Web) and obtain the generic  frequency distribution of each keyword.
+Assume that we have already issued queries q1, .
+Now we need to update our query statistics table so that it has accurate information for the next step.
+The table in Figure 7(b) shows the frequency of each term in the newly-downloaded pages.
+That is, for every query qi we can find the fraction of documents in the whole text database that contains qi with at least one of q1, .
+Given this  number, we can compute that P(model|q1 ∨ · · · ∨ qi−1) = 10 50 = 0.2.
+The hope is that the  frequent keywords in a generic corpus will also be frequent in the Hidden-Web database, returning many matching documents.
+Based on this analysis, we issue the most promising query, and repeat the process.
+3.3 Efficient calculation of query statistics In estimating the efficiency of queries, we found that we need to measure P(qi|q1∨· · ·∨qi−1) for every potential query qi.
+Cost(qi) represents the cost of issuing the query qi.
+We can update the old table (Figure 7(a)) to include this new information by simply adding corresponding entries in Figures 7(a) and (b).
+3.2 Query selection algorithm The goal of the Hidden-Web crawler is to download the  maximum number of unique documents from a database using its  limited download resources.
+That is, we assume that P(qi) = P(qi|q1 ∨ · · · ∨ qi−1).
+How should a crawler select the queries to issue?
+The term P(qi+1 ∧ qi) however is unknown and we need to estimate it.
+Independence estimator: We assume that the appearance of the term qi is independent of the terms q1, .
+proposed a method to estimate how many times a particular term occurs in the entire corpus based on a subset of documents from the corpus.
+We can estimate the efficiency of every query using the  estimation method described in Section 3.1.
+Their method exploits the fact that the frequency of terms inside text collections follows a power law distribution [30, 25].
+For example, keyword model exists in 10 + 12 = 22 pages within the pages retrieved from q1, .
+, qi−1, by counting how many times qi appears in the pages from q1, .
+Since we cannot retrieve more results per query than the maximum number the Web site allows, our crawler has no other choice besides submitting more queries.
+We then continue to the second-most frequent keyword and repeat this process  until we exhaust all download resources.
+That is, at this point, our estimation for P(qi|q1 ∨· · ·∨qi−1) is accurate.
+The left column of the table contains all potential query terms and the right column contains the number of previously-downloaded  documents containing the respective term.
+We can also estimate Cost(qi)  similarly.
+For a more detailed description on how we can use this method to estimate P(qi), we refer the reader to the extended version of this paper [27].
+Between the generic-frequency and the  adaptive policies, both policies may show similar performance if the crawled database has a generic document collection without a  specialized topic.
+That is, if we rank all terms based on their occurrence frequency (with the most frequent term having a rank of 1, second most frequent a rank of 2 etc.
+, qi Figure 7: Updating the query statistics table.
+We record these counts in a table, as shown in Figure 7(a).
+For example, if two queries, qi and qj, incur the same cost, but qi returns more new pages than qj, qi is more desirable than qj.
+However, in order to compare only relative values among queries, this information is not actually needed.
+, qi−1, since we have already  issued q1, .
+Similarly, if qi and qj return the same number of new documents, but qi incurs less cost then qj, qi is more  desirable.
+For  example, the Open Directory Project [2] allows the users to see only up to 10, 000 results after they issue a query.
+According to this new table, P(model|q1∨· · ·∨qi) is now 22 70 = 0.3.
+The adaptive policy, however, may perform  significantly better than the generic-frequency policy if the database has a very specialized collection that is different from the generic corpus.
+Among these three general policies, we may consider the  random policy as the base comparison point since it is expected to perform the worst.
+how well our resources are spent when issuing qi.
+This update can be done efficiently as we illustrate in the following  example.
+Obviously, this kind of limitation has an immediate effect on our Hidden Web crawler.
+q i1 i−1 q\/ ... \/q q i / S Figure 8: A Web site that does not return all the results.
+Given this goal, the Hidden-Web crawler has to take two factors into account.
+and 18 the keyword disk.
+In principle, this algorithm takes a greedy approach and tries to maximize the potential gain in every step.
+We address this issue in the rest of this section.
+We will experimentally compare these three policies in Section 4.
+The result is shown on Figure 7(c).
+Zipf estimator: In [19], Ipeirotis et al.
+103 ALGORITHM 3.1.
+EXAMPLE 1.

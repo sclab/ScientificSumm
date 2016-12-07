@@ -1,0 +1,32 @@
+this strategy can save large amount of human judgment effort and is a big advantage of the unified utility maximization framework over the dtf especially when there are a large number of databases. 
+the centralized sample database can serve as a bridge to connect the individual databases with the centralized logistic model, thus the probabilities of relevance of documents in different databases can be estimated.
+in contrast, our approach only builds one logistic model for the centralized sample database.
+this requires human relevance judgments for the results retrieved from each database.
+second, the dtf builds a model for each database to calculate the probabilities of relevance.
+first, the dtf is a framework designed specifically for document retrieval, but our new model integrates two distinct applications with different requirements (database recommendation and distributed document retrieval) into the same unified framework.
+however, two points distinguish our research from the dtf model.
+this framework computes a selection that minimizes the overall costs (e.g., retrieval quality, time) of document retrieval system and several methods [15] have been proposed to estimate the retrieval quality.
+the research most similar to what we propose here is the decision-theoretic framework (dtf) [7,15].
+the research in [21] tried to solve the problem with a heuristic method.
+this type of inconsistency has been observed in previous research [4,21].
+but as pointed out above, a good resource selection algorithm optimized for high-recall may not work well for document retrieval, which targets the high-precision goal.
+in order to achieve accurate document retrieval results, many previous methods simply use resource selection algorithms that are effective of database recommendation system.
+it serves as an important component of our unified utility maximization framework (section 3).
+the ssl algorithm has been shown to be effective [22].
+these linear models are used to convert the database-specific document scores into the approximated centralized document scores.
+the semi supervised learning (ssl) [20,22] result merging algorithm uses the documents acquired by  querybased sampling as training data and linear regression to learn the database-specific, query-specific merging models.
+the last step of the document retrieval sub-problem is results merging, which is the process of transforming database-specific 33 document scores into comparable database-independent document scores.
+although the redde algorithm has been shown to be effective, it relies on heuristic constants that are set empirically [21].
+the relevant document distribution estimation (redde [21]) resource selection algorithm is a recent algorithm that tries to estimate the distribution of relevant documents across the available databases and ranks the databases accordingly.
+as prior research on different datasets has shown the cori algorithm to be the most stable and effective of the three algorithms [1,17,18], we use it as a baseline algorithm in this work.
+the cori algorithm represents each database by its terms, the document frequencies and a small number of corpus statistics (details in [1]).
+many resource selection algorithms such as ggloss/vgloss [8] and cori [1] have been proposed in the last decade.
+experiments have shown that rather accurate resource descriptions can be built by sending about 80 queries and downloading about 300 documents [1].
+as the sampled documents are selected by random queries, query-based sampling is not easily fooled by any adversarial spammer that is interested to attract more traffic.
+thus, in uncooperative environments, one common choice is query-based sampling, which randomly generates and sends queries to individual search engines and retrieves some documents to build the descriptions.
+furthermore, it is not easy to coordinate the databases to provide resource representations that are compatible with each other.
+however, in uncooperative environments, even the databases are willing to share their information, it is not easy to judge whether the information they provide is accurate or not.
+the starts protocol is one solution for acquiring resource descriptions in cooperative environments [8].
+the first problem of distributed information retrieval is resource representation.
+we survey the most related work in this section.
+there has been considerable research on all the sub-problems of distributed information retrieval.

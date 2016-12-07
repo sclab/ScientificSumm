@@ -1,0 +1,85 @@
+ι: A POINT-DISTRIBUTION INDEX
+Suppose there are n points in a Euclidean space Ω. The 
+coordinates of these points are denoted by xi (i = 1, ..., n).
+It may be necessary to evaluate how the distribution of these
+points is. There are many metrics to achieve this goal. For 
+example, the Mean Square Error from these points to their mean value
+can be employed to calculate how these points deviate from their
+mean (i.e., their central). In resource-sharing evaluation, the Global
+Fairness Index (GFI) is often employed to measure how even the
+resource distributes among these points [8], when xi represents the
+amount of resource that belong to point i. In WSNs, GFI is usually
+used to calculate how even the remaining energy of sensor nodes
+is.
+When n is larger than 2 and the points do not all overlap (That
+points all overlap means xi = xj, ∀ i, j = 1, 2, ..., n). We propose
+a novel index called the normalized minimum distance, namely ι,
+to evaluate the distribution of the points. ι is the minimum distance
+between each pair of points normalized by the average distance
+between each pair of points. It is calculated by:
+ι =
+min(||xi − xj||)
+µ
+(∀ i, j = 1, 2, ..., n; and i = j) (1)
+where ||xi − xj|| denotes the Euclidean distance between point
+i and point j in Ω, the min(·) function calculates the minimum
+distance between each pair of points, and µ is the average distance
+between each pair of points, which is:
+µ =
+(
+Pn
+i=1
+Pn
+j=1,j=i ||xi − xj||)
+n(n − 1)
+(2)
+ι measures how well the points separate from one another. 
+Obviously, ι is in interval [0, 1]. ι is equal to 1 if and only if n is equal
+to 3 and these three points forms an equilateral triangle. ι is equal
+to zero if any two points overlap. ι is a very interesting value of a
+set of points. If we consider each xi (∀i = 1, ..., n) is a variable in
+Ω, how these n points would look like if ι is maximized?
+An algorithm is implemented to generate the topology in which
+ι is locally maximized (The algorithm can be found in [19]). We
+consider a 2-dimensional space. We select n = 10, 20, 30, ..., 100
+and perform this algorithm. In order to avoid that the algorithm
+converge to local optimum, we select different random seeds to
+generate the initial points for 1000 time and obtain the best one
+that results in the largest ι when the algorithm converges. Figure 1
+demonstrates what the resulting topology looks like when n = 20
+as an example.
+Suppose each point represents a sensor node. If the sensor 
+coverage model is the Boolean coverage model [15][17][18][14] and
+the coverage radius of each node is the same. It is exciting to see
+that this topology results in lowest redundancy because the Vonoroi
+diagram [2] formed by these nodes (A Vonoroi diagram formed by
+a set of nodes partitions a space into a set of convex polygons such
+that points inside a polygon are closest to only one particular node)
+is a honeycomb-like structure1
+.
+This enlightens us that ι may be employed to solve problems
+related to sensor-coverage of an area. In WSNs, it is desirable
+1
+This is how base stations of a wireless cellular network are 
+deployed and why such a network is called a cellular one.
+0 20 40 60 80 100 120 140 160
+0
+20
+40
+60
+80
+100
+120
+140
+160
+X
+Y
+Figure 1: Node Number = 20, ι = 0.435376
+that the active sensor nodes that are performing surveillance task
+should separate from one another. Under the constraint that the
+sensing area should be covered, the more each node separates from
+the others, the less the redundancy of the coverage is. ι indicates
+the quality of such separation. It should be useful for approaches
+on sensor-coverage related problems.
+In our following discussions, we will show the effectiveness of
+employing ι in sensor-grouping problem.

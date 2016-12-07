@@ -1,0 +1,19 @@
+As stated in [18], although WCNs are more compact than word lattices, in general the 1-best path obtained from WCN has a better word accuracy than the 1-best path obtained from the corresponding word lattice.
+Compute the posterior probabilities for all edges in the word lattice.
+Each vertex in a lattice is  associated with a timestamp and each edge (u, v) is labeled with a word or phone hypothesis and its prior probability, which is the probability of the signal delimited by the timestamps of the vertices u and v, given the hypothesis.
+One of the main advantages of WCN is that it also provides an alignment for all of the words in the lattice.
+Extract a path from the word lattice (which can be the 1-best, the longest or any random path), and call it the pivot path of the alignment.
+As explained in [13], the three main steps for building a WCN from a word lattice are as follows: 1.
+Traverse the word lattice, and align all the transitions with the pivot, merging the transitions that  correspond to the same word (or label) and occur in the same time interval by summing their posterior  probabilities.
+Typical structures of a lattice and a WCN are given in Figure 1.
+[13] propose a compact representation of a word lattice called word  confusion network (WCN).
+For best recognition results, a speaker-independent acoustic model and a  language model are trained in advance on data with similar characteristics.
+Each edge (u, v) is labeled with a word hypothesis and its posterior probability, i.e., the probability of the word given the signal.
+The 1-best path transcript is obtained from the lattice using dynamic programming techniques.
+Figure 1: Typical structures of a lattice and a WCN. 
+Typically, ASR generates lattices that can be considered as directed acyclic graphs.
+The 1-best path of a WCN is obtained from the path  containing the best hypotheses.
+[18] and Hakkani-Tur et al.
+SYSTEM We use an ASR system for transcribing speech data.
+It works in speaker-independent mode.
+Mangu et al.

@@ -1,0 +1,128 @@
+dkj < α (5) The first condition guarantees that there is a server that places the replica within distance α of each server i.
+Throughout our discussion, we use C(SW ) to represent the cost of worst case Nash equilibrium, C(SO) to represent the cost of social optimum, and PoA to represent the price of anarchy, which is C(SW ) C(SO) .
+Network (a) shows a Nash equilibrium in the basic game, where one server in a cluster caches the object.
+(1) where αij is the placement cost of object j, wij is the demand that server i has for object j, (i, j) is the closest server to i that caches object j, and dik is the distance between i and k. When no server caches the object, we define distance cost di (i,j) to be dM -large enough that at least one server will choose to cache the object.
+When a server caches objects, the server incurs some placement cost that is represented by a matrix α (i.e., αij is a placement cost of server i for object j).
+In  addition, when we compute the price of anarchy, we assume that all nodes have the same demand (i.e., ∀i ∈ N wij = 1).
+Since there is no capacity limit on servers, we can look at each single object as a separate game and combine the pure strategy equilibria of these games to obtain a pure strategy equilibrium of the multi-object game.
+We see that if α ≤ dmin, PoA = 1 24 Topology PoA Complete graph 1 Star ≤ 2 Line O( √ n) D-dimensional grid O(n D D+1 ) Table 1: PoA in the basic game for specific topologies trivially, since every server caches the object for both Nash  equilibrium and social optimum.
+Note that in the basic game, this means varying configuration X over all possible configurations.
+The caching problem we study is to find a configuration that meets certain objectives (e.g., minimum total cost).
+In Appendix A, we analyze the price of anarchy with specific underlying topologies and show that PoA can have tighter bounds than O(n) for the complete graph, star, line, and D-dimensional grid.
+3.3 Social Optimum The social cost of a given strategy profile is defined as the total cost incurred by all servers, namely: C(S) = n−1 i=0 Ci(S) (6) where Ci(S) is the cost incurred by server i given by Equation 1.
+at i, then it is placed at another server within distance α of i, so i has no incentive to cache.
+The placement cost can be further divided into first-time  installation cost and maintenance cost: αij = k1i + k2i UpdateSizej ObjectSizej 1 T Pj k wkj , (2) where k1i is the installation cost, k2i is the relative weight  between the maintenance cost and the installation cost, Pj is the  ratio of the number of writes over the number of reads and writes, UpdateSizej is the size of an update, ObjectSizej is the size of the object, and T is the update period.
+C(SW ) = max X∈E (α|X| + i min j∈X dij) (9) where minj∈X dij is the distance to the closest replica (including i itself) from node i and X varies through Nash equilibrium  configurations.
+The cost model is an important part of the game.
+The price of anarchy is the ratio of the social costs of the worst-case Nash equilibrium and the social optimum, and the optimistic price of anarchy is the ratio of the social costs of the best-case Nash equilibrium and the social optimum.
+Thus, we can consider a set E of all pure strategy Nash equilibrium configurations: X ∈ E ⇔ ∀i ∈ N, ∀Si ∈ Ai, Ci(S∗ i , S∗ −i) ≤ Ci(Si, S∗ −i) (4) By this definition, no server has incentive to deviate in the  configurations since it cannot reduce its cost.
+We define Si to be 1 when server i caches j and 0 otherwise.
+The distance between servers can be represented as a distance matrix D (i.e., dij is the distance 22 Server Server Server Server A B C D (a) Server Server Server Server A B C D (b) Server Server Server Server A B C D (c) Figure 1: Caching.
+Given a strategy profile S = (S1, S2, ..., Sn), the cost incurred by server i is defined as: Ci(S) = j∈Si αij + j /∈Si wij di (i,j).
+Since α ≤ C(SO) ≤ α+minj∈N Èi dij when α > dmax, we obtain α+maxj∈N Èi dij α+minj∈N Èi dij ≤ PoA ≤ α+maxj∈N Èi dij α .
+23 A B1−α 0 0 0 0 0 0 0 0 0 0 2 n nodes 2 n nodes (a) A B1−α 0 0 0 0 0 0 0 0 0 0 2 n nodes 2 n nodes (b) A B1−α 2 n nodes 2 n nodes n2 n2 n2 n2 n2 n2 n2 n2 n2 n2 (c) Figure 2: Potential inefficiency of Nash equilibria illustrated by two clusters of n 2 servers.
+To find such  configurations, we formulate an integer programming problem: minimize Èi Èj ¢αij xij + Èk wij dikyijk £ subject to ∀i, j Èk yijk = I(wij) ∀i, j, k xij − ykji ≥ 0 ∀i, j xij ∈ {0, 1} ∀i, j, k yijk ∈ {0, 1} (8) Here, xij is 1 if server i replicates object j and 0 otherwise; yijk is 1 if server i accesses object j from server k and 0 otherwise; I(w) returns 1 if w is nonzero and 0 otherwise.
+Furthermore, let Z(y) = {z : dzy ≤ βz, z ∈ V }; Z(y) represents all nodes z for which y lies within βz from z.
+In this analysis we use simply α in place of αij , since we deal with a single object and we assume placement cost is the same for all servers.
+Network (c) shows a Nash equilibrium in the payment game, where two replicas, one for each cluster, are placed.
+When α > dmax, there is a transition in Nash equilibria: since the placement cost is greater than any  distance cost, only one server caches the object and other servers  access it remotely.
+In the game, each server chooses a pure strategy that minimizes its cost.
+If C is far from A, C caches the object instead of  accessing the object from A.
+Note that all Nash equilibria have the same cost; thus even the optimistic price of anarchy is O(n).
+If B incurs less cost accessing A"s replica than it would caching the object itself, it accesses the object from A as in (b).
+However, note that by varying αij itself we can capture the full range of behaviors in the game.
+Fabrikant, Papadimitriou, and Talwar  discuss this existence argument: if two games are known to have pure equilibria, and their cost functions are cross-monotonic, then their union is also guaranteed to have pure Nash equilibria, by a  continuity argument [9].
+In network (c), C wants to access the object.
+First, initialize the set V to N. Then, remove all nodes with zero demand from V .
+The Price of Anarchy (POA): To quantify the cost of lack of coordination, we use the price of anarchy [21] and the optimistic price of anarchy [3].
+The cost incurred by server i is Ci(S) = αij Si + wij di (i,j)(1 − Si).
+The goal of the basic game is to find configurations that are achieved when servers optimize their cost functions locally.
+A configuration X for some object O is the set of servers replicating this object.
+Figure 2(a) shows a Nash equilibrium where one server in a cluster caches the object.
+The social optimum cost, referred to as C(SO) for the remainder of the paper, is the minimum social cost.
+The first constraint specifies that if server i has demand for object j, then it must access j from exactly one server.
+The resulting configuration is a pure-strategy Nash equilibrium of the basic game.
+This bad price of anarchy comes from an undersupply of replicas due to the selfish nature of the servers.
+In this study, we assume that servers have no capacity limit.
+If the replica is placed at i, then the second condition ensures there is no incentive to drop the replica because no two servers separated by distance less than α both place replicas.
+We define C(SO) as: C(SO) = min S C(S) (7) where S varies over all possible strategy profiles.
+The social optimum cost will serve as an important base case against which to measure the cost of selfish caching.
+If the distance cost is too high, the server caches the object itself, as C does in (c).
+Network (b) shows the social optimum where two replicas, one for each cluster, are placed.
+No such z can have incentive to replicate the object because it can access y"s replica at lower (or equal) cost.
+The extent to which Ci(S) represents actual cost incurred by server i is beyond the scope of this paper; we will assume that an appropriate cost function of the form of Equation 3 can be defined.
+This high price of anarchy comes from the undersupply of replicas due to the selfish nature of servers.
+Our focus is to investigate the resulting configuration, which is the Nash equilibrium of the game.
+There is a set N of n servers and a set M of m objects.
+Let dmin = min(i,j)∈N×N,i=j dij and dmax = max(i,j)∈N×N dij .
+3.2 Nash Equilibrium Solutions In principle, we can start with a random configuration and let this configuration evolve as each server alters its strategy and  attempts to minimize its cost.
+In this case, C(SW ) = α + (α − 1)n 2 , since all servers in the other cluster accesses the  remote replica.
+We describe the case where α > 1, since PoA = 1 trivially when α ≤ 1.
+Note that depending on the underlying topology, even the lower bound of PoA can be O(n).
+For single object selfish caching, each server i has two strategies - to cache or not to cache.
+The object under consideration is j.
+Understanding the placement of replicas by selfish servers is the focus of our study.
+If it is cheaper to access the remote replica than to cache it, B accesses the remote replica as shown in network (b).
+We model the selfish caching problem as a non-cooperative game with n  players (servers/nodes) whose strategies are sets of objects to cache.
+Because at each iteration y is the remaining node with minimum β, no replica will be placed within distance βy of any such y by this process.
+Finally, there is a transition when α > maxj∈N Èi dij.
+It is possible that in an optimal configuration it would be better to place replicas in A and B.
+The price of anarchy is O(n) and even the optimistic price of anarchy is O(n).
+As we discuss in the next section, this fact means that the caching behavior with respect to each object can be examined separately.
+Each node x defines βx, where βx = α wxj .
+For our analysis we assume that the distances are symmetric and the triangle inequality holds on the distances (for all servers i, j, k: dij + djk ≥ dik).
+The second constraint ensures that server i replicates object j if any other server accesses j from i.
+Each server has demand from clients that is represented by a demand matrix W (i.e., wij is the demand of server i for object j).
+However, the social optimum may still place  multiple replicas.
+Consequently, we can talk about configurations of the system with respect to a given object: DEFINITION 1.
+A Nash equilibrium for the multi-object game is the cross product of Nash equilibria for single-object games.
+In the network there are two clusters of servers whose size is n 2 .
+In network (a), A stores an object.
+The worst case Nash equilibrium maximizes the total cost  under the constraint that the configuration meets the Nash condition.
+A Nash equilibrium3 (S∗ i , S∗ −i) for the basic game  specifies a configuration X such that ∀i ∈ N, i ∈ X ⇔ S∗ i = 1.
+We discuss the price of anarchy in general and then on specific underlying topologies.
+Therefore, we can focus on the single object game in the rest of this paper.
+There are four servers labeled A, B, C, and D. The rectangles are object replicas.
+In (a), A stores an object.
+If the replica is not placed 3 The notation for strategy profile (S∗ i , S∗ −i) separates node i s strategy (S∗ i ) from the strategies of other nodes (S∗ −i).
+Place a replica at y and then remove y and all z ∈ Z(y) from V .
+However, the social optimum places two replicas, one for each cluster, as shown in Figure 2(b).
+The social optimum configuration is a solution of a mini-sum facility location problem, which is NP-hard [11].
+Suppose B wants to access the object.
+In some sense, C(SO) represents the best possible caching behavior - if only nodes could be convinced to cooperate with one another.
+Bounds on the Price of Anarchy: We show bounds of the price of anarchy varying α.
+It should be emphasized that we consider only pure strategy Nash equilibria in this paper.
+In these topologies, we set the distance between directly  connected nodes to one.
+The intra-cluster distances are all zero and the distance between clusters is α − 1, where α is the placement cost.
+We show general bounds on the price of anarchy.
+(3) We refer to this game as the basic game.
+The distance between two clusters is α − 1 where α is the placement cost.
+For the basic game, we can easily see that: X ∈ E ⇔ ∀i ∈ N, ∃j ∈ X s.t.
+Here, the optimistic price of anarchy is one.
+A pure strategy Nash equilibrium is reached when no server can benefit by unilaterally changing its strategy.
+Figure 2 shows an example of the inefficiency of a Nash  equilibrium.
+Pure strategy Nash equilibria exist in the basic game.
+In this case, PoA = α+maxj∈N Èi dij α+minj∈N Èi dij and it is upper bounded by 2.
+Pick a node y ∈ V such that βy ≤ βx for all x ∈ V .
+This figure is an example of our caching game model.
+3.4 Analysis To analyze the basic game, we first give a proof of the existence of pure strategy Nash equilibria.
+Let Ai be the set of feasible strategies for server i, and let Si ∈ Ai be the strategy chosen by server i.
+The caching problem is abstracted as follows.
+3.1 Game Model We take a game-theoretic approach to analyzing the  uncapacitated caching problem among networked selfish servers.
+For example, placing replicas becomes more expensive as UpdateSizej increases, Pj increases, or T decreases.
+from server i to server j).
+Each light node in each cluster pays 2/n to the dark node, and the dark node replicates the object.
+The dark nodes replicate the object.
+Game theory is interested in stable solutions called Nash equilibria.
+Figure 1 shows examples of caching among four servers.
+Therefore, C(SO) = 2α.
+Iterate this process of placing  replicas until V is empty.
+For our analysis, we use only αij .
+PoA = α+(α−1) n 2 2α , which is O(n).
+dji ≤ α and ∀j ∈ X, ¬∃k ∈ X s.t.
+We see tradeoffs between different parameters in this equation.
+Formally, we can define C(SW ) as follows.
+A summary of the results is shown in Table 1. 
+D models an underlying network  topology.
+We show a constructive proof.
+THEOREM 1.

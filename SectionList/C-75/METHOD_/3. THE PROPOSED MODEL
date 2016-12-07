@@ -1,0 +1,190 @@
+DIDSoG presents a hierarchy of intrusion detection services; this
+hierarchy is organized through a two-dimensional vector defined
+by Scope:Complexity. The IDSs composing DIDSoG can be
+organized in different levels of scope or complexity, depending on
+its functionalities, the topology of the target environment and
+expected results.
+Figure 1 presents a DIDSoG composed by different intrusion
+detection services (i.e. data gathering, data aggregation, data
+correlation, analysis, intrusion response and management)
+provided by different IDSs. The information flow and the
+relationship between the levels of scope and complexity are
+presented in this figure.
+Information about the environment (host, network or application)
+is collected by Sensors located both in user 1"s and user 2"s
+computers in domain 1. The information is sent to both simple
+Analysers that act on the information from a single host (level
+1:1), and to aggregation and correlation services that act on
+information from multiple hosts from the same domain (level 2:1).
+Simple Analysers in the first scope level send the information to
+more complex Analysers in the next levels of complexity (level 1:
+N). When an Analyser detects an intrusion, it communicates with
+Countermeasure and Monitoring services registered to its scope.
+An Analyser can invoke a Countermeasure service that replies to a
+detected attack, or informs a Monitoring service about the
+ongoing attack, so the administrator can act accordingly.
+Aggregation and correlation resources in the second scope receive
+information from Sensors from different users" computers (user
+1"s and user 2"s) in the domain 1. These resources process the
+received information and send it to the analysis resources
+registered to the first level of complexity in the second scope
+(level 2:1). The information is also sent to the aggregation and
+correlation resources registered in the first level of complexity in
+the next scope (level 3:1).
+User 1
+Domain 1
+Analysers
+Level 1:1
+Local
+Sensors
+Analysers
+Level 1:N
+Aggreg.
+Correlation
+Level 2:1
+User 2
+Domain 1
+Local
+Sensors
+Analysers
+Level 2:1
+Analysers
+Level 2:N
+Aggreg.
+Correlation
+Level 3:1
+Domain 2
+Monitor
+Level 1
+Monitor
+Level 2
+Analysers
+Level 3:1
+Analysers
+Level 3:N
+Monitor
+Level 3
+Response
+Level 1
+Response
+Level 2
+Response
+Level 3
+Fig. 1. How DIDSoG works.
+The analysis resources in the second scope act like the analysis
+resources in the first scope, directing the information to a more
+complex analysis resource and putting the Countermeasure and
+Monitoring resources in action in case of detected attacks.
+Aggregation and correlation resources in the third scope receive
+information from domains 1 and 2. These resources then carry out
+the aggregation and correlation of the information from different
+domains and send it to the analysis resources in the first level of
+complexity in the third scope (level 3:1). The information could
+also be sent to the aggregate service in the next scope in case of
+any resources registered to such level.
+The analysis resources in the third scope act similar to the analysis
+resources in the first and second scopes, except that the analysis
+resources in the third scope act on information from multiple
+domains.
+The functionalities of the registered resources in each of the
+scopes and complexity level can vary from one environment to
+another. The model allows the development of N levels of scope
+and complexity.
+Figure 2 presents the architecture of a resource participating in the
+DIDSoG. Initially, the resource registers itself to GIS (Grid
+Information Service) so other participating resources can query
+the services provided. After registering itself, the resource
+requests information about other intrusion detection resources
+registered to the GIS.
+A given resource of DIDSoG interacts with other resources, by
+receiving data from the Source Resources, processing it, and
+sending the results to the Destination Resources, therefore
+forming a grid of intrusion detection resources.
+Grid Resource
+BaseNative
+IDS
+Grid Origin Resources
+Grid Destination Resources
+Grid Information Service
+Descri
+ptor
+Connec
+tor
+Fig. 2. Architecture of a resource participating of the DIDSoG.
+A resource is made up of four components: Base, Connector,
+Descriptor and Native IDS. Native IDS corresponds to the IDS
+being integrated to the DIDSoG. This component process the data
+received from the Origin Resources and generates new data to be
+sent to the Destination Resources. A Native IDS component can
+be any tool processes information related to intrusion detection,
+including analysis, data gathering, data aggregation, data
+correlation, intrusion response or management.
+The Descriptor is responsible for the information that identifies a
+resource and its respective Destination Resources in the DIDSoG.
+Figure 3 presents the class diagram of the stored information by
+the Descriptor. The ResourceDescriptor class has Feature, Level,
+DataType and Target Resources type members. Feature class
+represents the functionalities that a resource has. Type, name and
+version attributes refer to the functions offered by the Native IDS
+component, its name and version, respectively. Level class
+identifies the level of target and complexity in which the resource
+acts. DataType class represents the data format that the resource
+accepts to receive. DataType class is specialized by classes Text,
+XML and Binary. Class XML contains the DTDFile attribute to
+specify the DTD file that validates the received XML.
+-ident
+-version
+-description
+ResourceDescriptor
+-featureType
+-name
+-version
+Feature
+1
+1
+-type
+-version
+DataType
+-escope
+-complex
+Level
+1
+1
+Text Binary
+-DTDFile
+XML
+1
+1
+TargetResources
+1
+1 10..*
+-featureType
+Resource11
+1
+1
+Fig. 3. Class Diagram of the Descriptor component.
+TargetResources class represents the features of the Destination
+Resources of a determined resource. This class aggregates
+Resource. The Resource class identifies the characteristics of a
+Destination Resource. This identification is made through the
+featureType attribute and the Level and DataType classes.
+A given resource analyses the information from Descriptors from
+other resources, and compares this information with the
+information specified in TargetResources to know to which
+resources to send the results of its processing.
+The Base component is responsible for the communication of a
+resource with other resources of the DIDSoG and with the Grid
+Information Service. It is this component that registers the
+resource and the queries other resources in the GIS.
+The Connector component is the link between Base and Native
+IDS. The information that Base receives from Origin Resources is
+passed to Connector component. The Connector component
+performs the necessary changes in the data so that it is understood
+by Native IDS, and sends this data to Native IDS for processing.
+The Connector component also has the responsibility of collecting
+the information processed by Native IDS, and making the
+necessary changes so the information can pass through the
+DIDSoG again. After these changes, Connector sends the
+information to the Base, which in turn sends it to the Destination
+Resources in accordance with the specifications of the Descriptor
+component.

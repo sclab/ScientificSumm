@@ -1,0 +1,40 @@
+the gpir utilizes cron jobs on each resource to gather site specific resource characteristics such as jobs that are running, queued and waiting for resource allocation. 
+the tigre resource status and loads are monitored by the grid port information repository (gpir) service of the gridport toolkit [13] which interfaces with local cluster load monitoring service such as ganglia.
+the links for otrs and wiki are consumed by the tigre portal [2] - the gateway for users and resource providers.
+the tigre environment is supported by open source tools such as the open ticket request system (otrs) [14] for servicing trouble tickets, and moinmoin [15] wiki for tigre content and knowledge management for education, outreach and training.
+it was designed using gridport [13] and is maintained by tacc.
+2.4. customer service management system a tigre portal [2] was designed and deployed to interface users and resource providers.
+see section 4 for implementation details.
+application users can write job descriptions using gridway"s simple and direct job template format (see section 4 for details) or standard job submission description language (jsdl).
+the tigre site administrator can control the resource sharing through a powerful built-in scheduler provided by gridway or by extending gridway"s external scheduling module to provide their own scheduling policies.
+it is designed to provide efficient use of dynamic grid resources by multiple users for grid infrastructures built on top of globus services.
+the gridway is a light-weight metascheduler that fully utilizes globus functionalities.
+in the present work, we have employed gridway [8] metascheduler - a globus incubator project - to schedule and manage jobs across tigre.
+2.3. metascheduler the metascheduler interoperates with the cluster level batch schedulers (such as lsf, pbs) in the overall grid workflow management.
+the tigre portal [2] documentation area provides a quick start tutorial on running jobs on tigre.
+the certificate revocation lists (crl) are updated on a daily basis to maintain high security standards of the tigre grid services.
+the authentication and authorization of grid jobs are managed by issuing grid certificates to both users and hosts.
+the login to remote hosts for compilation and debugging is only through gsissh service which requires resource authentication through x.509 certificates.
+the high bandwidth file transfer protocols such as gridftp are utilized for staging files in and out of the target machine.
+the web services gram translates the xml scripts into target cluster specific batch schedulers such as lsf, pbs, or sge.
+the job submission scripts are generated using xml.
+2.2. job scheduling and management the tigre environment supports gram4-based job submission via web services.
+this is accomplished through the grid user management system (gums) [12].
+at texas tech university, the users are dynamically allocated one of the many generic pool accounts.
+a native grid-mapfile that contains a list of authorized dns is used to authenticate and authorize user job scheduling and management on tigre site resources.
+the users and hosts on tigre are identified by their distinguished name (dn) in their x.509 certificate provided by the ca.
+for up-to-date information on securing user and resource certificates and their installation instructions see ref [2].
+the tigre institutions serve as registration authorities (ra) for their respective local user base.
+the texas advanced computing center (tacc), university of texas at austin is the tigre"s shared ca.
+509 user and resource grid certificates [11].
+2.1. certificate authority the tigre security infrastructure includes a certificate authority (ca) accredited by the international grid trust federation (igtf) for issuing x.
+the pertinent details of tigre services and tools for job scheduling and management are provided below.
+the tools for handling grid proxy generation, grid-enabled file transfer and grid-enabled remote login are supported.
+the tigre client/server stack consists of an authentication and authorization layer, globus gram4-based job submission via web services (pre-web services installations are available up on request).
+it also helps tigre sites to install the needed components on resources distributed throughout the participating sites.
+this approach allows the clients to keep current, consistent versions of tigre software.
+the pacman distribution mechanism involves retrieval, installation, and often configuration of the packaged software.
+the pacman [10] packaging and distribution mechanism is employed for tigre client/server installation and management.
+additional components will be added as they become necessary.
+the purpose of choosing a minimal software stack is to support applications at hand, and to simplify installation and distribution of client/server stacks across tigre sites.
+the tigre grid middleware consists of minimal set of components derived from a subset of the virtual data toolkit (vdt) [9] which supports a variety of operating systems.

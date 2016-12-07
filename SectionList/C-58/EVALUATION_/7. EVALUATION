@@ -1,0 +1,340 @@
+We have implemented a prototype of SDIMS in Java using the
+FreePastry framework [32] and performed large-scale simulation
+experiments and micro-benchmark experiments on two real 
+networks: 187 machines in the department and 69 machines on the
+PlanetLab [27] testbed. In all experiments, we use static up and
+down values and turn off dynamic adaptation. Our evaluation 
+supports four main conclusions. First, flexible API provides different
+propagation strategies that minimize communication resources at
+different read-to-write ratios. For example, in our simulation we
+observe Update-Local to be efficient for read-to-write ratios 
+below 0.0001, Update-Up around 1, and Update-All above 50000.
+Second, our system is scalable with respect to both nodes and 
+attributes. In particular, we find that the maximum node stress in
+our system is an order lower than observed with an Update-All,
+gossiping approach. Third, in contrast to unmodified Pastry which
+violates path convergence property in upto 14% cases, our system
+conforms to the property. Fourth, the system is robust to 
+reconfigurations and adapts to failures with in a few seconds.
+7.1 Simulation Experiments
+Flexibility and Scalability: A major innovation of our system
+is its ability to provide flexible computation and propagation of 
+aggregates. In Figure 8, we demonstrate the flexibility exposed by the
+aggregation API explained in Section 3. We simulate a system with
+4096 nodes arranged in a domain hierarchy with branching factor
+(bf) of 16 and install several attributes with different up and down
+parameters. We plot the average number of messages per operation
+incurred for a wide range of read-to-write ratios of the operations
+for different attributes. Simulations with other sizes of networks
+with different branching factors reveal similar results. This graph
+clearly demonstrates the benefit of supporting a wide range of 
+computation and propagation strategies. Although having a small UP
+386
+1
+10
+100
+1000
+10000
+100000
+1e+06
+1e+07
+1 10 100 1000 10000 100000
+MaximumNodeStress
+Number of attributes installed
+Gossip 256
+Gossip 4096
+Gossip 65536
+DHT 256
+DHT 4096
+DHT 65536
+Figure 9: Max node stress for a gossiping approach vs. ADHT
+based approach for different number of nodes with increasing
+number of sparse attributes.
+value is efficient for attributes with low read-to-write ratios (write
+dominated applications), the probe latency, when reads do occur,
+may be high since the probe needs to aggregate the data from all
+the nodes that did not send their aggregate up. Conversely, 
+applications that wish to improve probe overheads or latencies can increase
+their UP and DOWN propagation at a potential cost of increase in
+write overheads.
+Compared to an existing Update-all single aggregation tree 
+approach [38], scalability in SDIMS comes from (1) leveraging DHTs
+to form multiple aggregation trees that split the load across nodes
+and (2) flexible propagation that avoids propagation of all updates
+to all nodes. Figure 9 demonstrates the SDIMS"s scalability with
+nodes and attributes. For this experiment, we build a simulator to
+simulate both Astrolabe [38] (a gossiping, Update-All approach)
+and our system for an increasing number of sparse attributes. Each
+attribute corresponds to the membership in a multicast session with
+a small number of participants. For this experiment, the session
+size is set to 8, the branching factor is set to 16, the propagation
+mode for SDIMS is Update-Up, and the participant nodes perform
+continuous probes for the global aggregate value. We plot the 
+maximum node stress (in terms of messages) observed in both schemes
+for different sized networks with increasing number of sessions
+when the participant of each session performs an update operation.
+Clearly, the DHT based scheme is more scalable with respect to 
+attributes than an Update-all gossiping scheme. Observe that at some
+constant number of attributes, as the number of nodes increase in
+the system, the maximum node stress increases in the gossiping
+approach, while it decreases in our approach as the load of 
+aggregation is spread across more nodes. Simulations with other session
+sizes (4 and 16) yield similar results.
+Administrative Hierarchy and Robustness: Although the
+routing protocol of ADHT might lead to an increased number of
+hops to reach the root for a key as compared to original Pastry, the
+algorithm conforms to the path convergence and locality properties
+and thus provides administrative isolation property. In Figure 10,
+we quantify the increased path length by comparisons with 
+unmodified Pastry for different sized networks with different branching
+factors of the domain hierarchy tree. To quantify the path 
+convergence property, we perform simulations with a large number of
+probe pairs - each pair probing for a random key starting from two
+randomly chosen nodes. In Figure 11, we plot the percentage of
+probe pairs for unmodified pastry that do not conform to the path
+convergence property. When the branching factor is low, the 
+domain hierarchy tree is deeper resulting in a large difference between
+0
+1
+2
+3
+4
+5
+6
+7
+10 100 1000 10000 100000
+PathLength
+Number of Nodes
+ADHT bf=4
+ADHT bf=16
+ADHT bf=64
+PASTRY bf=4,16,64
+Figure 10: Average path length to root in Pastry versus ADHT
+for different branching factors. Note that all lines 
+corresponding to Pastry overlap.
+0
+2
+4
+6
+8
+10
+12
+14
+16
+10 100 1000 10000 100000
+Percentageofviolations
+Number of Nodes
+bf=4
+bf=16
+bf=64
+Figure 11: Percentage of probe pairs whose paths to the root
+did not conform to the path convergence property with Pastry.
+U
+pdate-All
+U
+pdate-U
+p
+U
+pdate-Local
+0
+200
+400
+600
+800
+Latency(inms)
+Average Latency
+U
+pdate-All
+U
+pdate-U
+p
+U
+pdate-Local
+0
+1000
+2000
+3000
+Latency(inms) Average Latency
+(a) (b)
+Figure 12: Latency of probes for aggregate at global root level
+with three different modes of aggregate propagation on (a) 
+department machines, and (b) PlanetLab machines
+Pastry and ADHT in the average path length; but it is at these small
+domain sizes, that the path convergence fails more often with the
+original Pastry.
+7.2 Testbed experiments
+We run our prototype on 180 department machines (some 
+machines ran multiple node instances, so this configuration has a 
+total of 283 SDIMS nodes) and also on 69 machines of the 
+PlanetLab [27] testbed. We measure the performance of our system with
+two micro-benchmarks. In the first micro-benchmark, we install
+three aggregation functions of types Update-Local, Update-Up, and
+Update-All, perform update operation on all nodes for all three 
+aggregation functions, and measure the latencies incurred by probes
+for the global aggregate from all nodes in the system. Figure 12
+387
+0
+20
+40
+60
+80
+100
+120
+140
+0 5 10 15 20 25
+2700
+2720
+2740
+2760
+2780
+2800
+2820
+2840
+Latency(inms)
+ValuesObserved
+Time(in sec)
+Values
+latency
+Node Killed
+Figure 13: Micro-benchmark on department network showing
+the behavior of the probes from a single node when failures are
+happening at some other nodes. All 283 nodes assign a value of
+10 to the attribute.
+10
+100
+1000
+10000
+100000
+0 50 100 150 200 250 300 350 400 450 500
+500
+550
+600
+650
+700
+Latency(inms)
+ValuesObserved
+Time(in sec)
+Values
+latency
+Node Killed
+Figure 14: Probe performance during failures on 69 machines
+of PlanetLab testbed
+shows the observed latencies for both testbeds. Notice that the 
+latency in Update-Local is high compared to the Update-UP policy.
+This is because latency in Update-Local is affected by the presence
+of even a single slow machine or a single machine with a high 
+latency network connection.
+In the second benchmark, we examine robustness. We install one
+aggregation function of type Update-Up that performs sum 
+operation on an integer valued attribute. Each node updates the attribute
+with the value 10. Then we monitor the latencies and results 
+returned on the probe operation for global aggregate on one chosen
+node, while we kill some nodes after every few probes. Figure 13
+shows the results on the departmental testbed. Due to the nature
+of the testbed (machines in a department), there is little change in
+the latencies even in the face of reconfigurations. In Figure 14, we
+present the results of the experiment on PlanetLab testbed. The
+root node of the aggregation tree is terminated after about 275 
+seconds. There is a 5X increase in the latencies after the death of the
+initial root node as a more distant node becomes the root node after
+repairs. In both experiments, the values returned on probes start
+reflecting the correct situation within a short time after the failures.
+From both the testbed benchmark experiments and the 
+simulation experiments on flexibility and scalability, we conclude that (1)
+the flexibility provided by SDIMS allows applications to tradeoff
+read-write overheads (Figure 8), read latency, and sensitivity to
+slow machines (Figure 12), (2) a good default aggregation 
+strategy is Update-Up which has moderate overheads on both reads and
+writes (Figure 8), has moderate read latencies (Figure 12), and is
+scalable with respect to both nodes and attributes (Figure 9), and
+(3) small domain sizes are the cases where DHT algorithms fail to
+provide path convergence more often and SDIMS ensures path 
+convergence with only a moderate increase in path lengths (Figure 11).
+7.3 Applications
+SDIMS is designed as a general distributed monitoring and 
+control infrastructure for a broad range of applications. Above, we 
+discuss some simple microbenchmarks including a multicast 
+membership service and a calculate-sum function. Van Renesse et al. [38]
+provide detailed examples of how such a service can be used for a
+peer-to-peer caching directory, a data-diffusion service, a 
+publishsubscribe system, barrier synchronization, and voting. 
+Additionally, we have initial experience using SDIMS to construct two 
+significant applications: the control plane for a large-scale distributed
+file system [12] and a network monitor for identifying heavy 
+hitters that consume excess resources.
+Distributed file system control: The PRACTI (Partial 
+Replication, Arbitrary Consistency, Topology Independence) replication
+system provides a set of mechanisms for data replication over which
+arbitrary control policies can be layered. We use SDIMS to provide
+several key functions in order to create a file system over the 
+lowlevel PRACTI mechanisms.
+First, nodes use SDIMS as a directory to handle read misses.
+When a node n receives an object o, it updates the (ReadDir, o)
+attribute with the value n; when n discards o from its local store,
+it resets (ReadDir, o) to NULL. At each virtual node, the ReadDir
+aggregation function simply selects a random non-null child value
+(if any) and we use the Update-Up policy for propagating updates.
+Finally, to locate a nearby copy of an object o, a node n1 issues a
+series of probe requests for the (ReadDir, o) attribute, starting with
+level = 1 and increasing the level value with each repeated probe
+request until a non-null node ID n2 is returned. n1 then sends a
+demand read request to n2, and n2 sends the data if it has it. 
+Conversely, if n2 does not have a copy of o, it sends a nack to n1,
+and n1 issues a retry probe with the down parameter set to a value
+larger than used in the previous probe in order to force on-demand
+re-aggregation, which will yield a fresher value for the retry.
+Second, nodes subscribe to invalidations and updates to interest
+sets of files, and nodes use SDIMS to set up and maintain 
+perinterest-set network-topology-sensitive spanning trees for 
+propagating this information. To subscribe to invalidations for interest
+set i, a node n1 first updates the (Inval, i) attribute with its 
+identity n1, and the aggregation function at each virtual node selects
+one non-null child value. Finally, n1 probes increasing levels of the
+the (Inval, i) attribute until it finds the first node n2 = n1; n1 then
+uses n2 as its parent in the spanning tree. n1 also issues a 
+continuous probe for this attribute at this level so that it is notified of any
+change to its spanning tree parent. Spanning trees for streams of
+pushed updates are maintained in a similar manner.
+In the future, we plan to use SDIMS for at least two additional
+services within this replication system. First, we plan to use SDIMS
+to track the read and write rates to different objects; prefetch 
+algorithms will use this information to prioritize replication [40, 41].
+Second, we plan to track the ranges of invalidation sequence 
+numbers seen by each node for each interest set in order to augment
+the spanning trees described above with additional hole filling to
+allow nodes to locate specific invalidations they have missed.
+Overall, our initial experience with using SDIMS for the 
+PRACTII replication system suggests that (1) the general aggregation
+interface provided by SDIMS simplifies the construction of 
+distributed applications-given the low-level PRACTI mechanisms,
+388
+we were able to construct a basic file system that uses SDIMS for
+several distinct control tasks in under two weeks and (2) the weak
+consistency guarantees provided by SDIMS meet the requirements
+of this application-each node"s controller effectively treats 
+information from SDIMS as hints, and if a contacted node does not have
+the needed data, the controller retries, using SDIMS on-demand 
+reaggregation to obtain a fresher hint.
+Distributed heavy hitter problem: The goal of the heavy hitter
+problem is to identify network sources, destinations, or protocols
+that account for significant or unusual amounts of traffic. As noted
+by Estan et al. [13], this information is useful for a variety of 
+applications such as intrusion detection (e.g., port scanning), denial of
+service detection, worm detection and tracking, fair network 
+allocation, and network maintenance. Significant work has been done
+on developing high-performance stream-processing algorithms for
+identifying heavy hitters at one router, but this is just a first step;
+ideally these applications would like not just one router"s views of
+the heavy hitters but an aggregate view.
+We use SDIMS to allow local information about heavy hitters
+to be pooled into a view of global heavy hitters. For each 
+destination IP address IPx, a node updates the attribute (DestBW,IPx)
+with the number of bytes sent to IPx in the last time window. The
+aggregation function for attribute type DestBW is installed with the
+Update-UP strategy and simply adds the values from child nodes.
+Nodes perform continuous probe for global aggregate of the 
+attribute and raise an alarm when the global aggregate value goes
+above a specified limit. Note that only nodes sending data to a 
+particular IP address perform probes for the corresponding attribute.
+Also note that techniques from [25] can be extended to hierarchical
+case to tradeoff precision for communication bandwidth.

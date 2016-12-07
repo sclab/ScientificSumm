@@ -1,0 +1,127 @@
+To determine if the payoff vector x is in the core, during the r-value computation at each node, we can check if all of the r-values are non-negative.
+Our algorithm works by keeping track of the reserves of all non-empty subsets that can be formed by the agents of a node at each of the nodes of the tree decomposition.
+For any subset S ⊆ Xi, arg ri(S) must be chosen  between the groups of S and S ∪ {m}, and hence we choose between the lower of the two from the r-values at node j.
+As both the base set and the limiting set of the r-values of node j and node i  differ by {m}, for any group V that lies between the base set and the limiting set of node i, the excess of group V will differ by a constant amount from the corresponding group (V \ {m}) at node j.
+Firstly, the cut between an agent m and a set S at node i now refers to the cut among agent m, set S, and set ¬(Xi \ S), and its value must be computed  accordingly.
+The treewidth of a tree decomposition is defined as the  maximum cardinality over all sets in X, less one.
+We sometimes refer to these values as the r-values of a node.
+Finally, note that each step in the computation of the  rvalues of each node i takes time at most exponential in the size of Xi, hence the algorithm runs in time exponential only in the treewidth of the graph.
+In MC-nets, however, there need not be a negative hypercut in the graph for the core to be empty, as demonstrated by the following game (N = {1, 2, 3, 4}): v(S) =    1 if S = {1, 2, 3, 4} 3/4 if S = {1, 2}, {1, 3}, {1, 4}, or {2, 3, 4} 0 otherwise (5) Applying the Bondereva-Shapley theorem, if we let λ12 = λ13 = λ14 = 1/3, and λ234 = 2/3, this set of weights  demonstrates that the game is not balanced, and hence the core is empty.
+198 i j k l nm Introduce Node: Xj = {1, 4} Xk = {1, 4} Forget Node: Xl = {1, 4} Introduce Node: Xm = {1, 2, 4} Xn = {4} Leaf Node: Join Node: Xi = {1, 3, 4} Join Node: Figure 1: Example of a (partial) nice tree  decomposition the excesses computed elsewhere in the graph.
+On the other hand, the dual of the program has only n variables, and can be written as follows: minimize x∈Rn n i=1 xi subject to x(S) ≥ v(S), ∀S ⊆ N (7) By strong duality, optimal value of (7) is equal to  optimal value of (4), the primal program described in section 2.
+We call this difference the excess of group S. Definition 5.
+We will also call U the limiting set of the reserve and S the base set of the reserve.
+Therefore, the set arg ri(T) equals the set arg rj(S) ∪ {m}, and ri(T) = rj(S) + xm − v(cut), where v(cut) is the value of the rules in the cut between m and S. For any  subset S ⊂ Xi that does not include m, we need to  consider the values of rules that include ¬m as a literal in the pattern.
+By using this procedure as a  separation oracle, i.e., a procedure for returning the inequality violated by a candidate solution, to solving a linear  program that is related to Core-Non-Emptiness using the  ellipsoid method, we can obtain a polynomial time algorithm for Core-Non-Emptiness for graphs of bounded treewidth.
+(⇐) If the reserve at some node i for some group S is negative, then there exists a coalition T for which e(T) = x(T) − v(T) < 0, hence x is not in the core.
+A tree decomposition of a graph G = (V, E) is a pair (X, T), where T = (I, F) is a tree and X = {Xi | i ∈ I} is a family of subsets of V , one for each node of T, such that • i∈I Xi = V ; • For all edges (v, w) ∈ E, there exists an i ∈ I with v ∈ Xi and w ∈ Xi; and • (Running Intersection Property) For all i, j, k ∈ I: if j is on the path from i to k in T, then Xi ∩ Xk ⊆ Xj.
+The reserve of a coalition S relative to a coalition U is the minimum excess over all coalitions between S and U, i.e., all T : S ⊆ T ⊆ U.
+We adjust for the double-counting by subtracting the excesses in the middle from the sum of the two reserves rj(S) and rk(S).
+On the other hand, this game can be represented with MC-nets as follows (weights on hyperedges): w({1, 2}) = w({1, 3}) = w({1, 4}) = 3/4 w({1, 2, 3}) = w({1, 2, 4}) = w({1, 3, 4}) = −6/4 w({2, 3, 4}) = 3/4 w({1, 2, 3, 4}) = 10/4 No matter how the set is partitioned, the sum over the weights of the hyperedges in the cut is always non-negative.
+However, we cannot simply ignore ¯U as members of ¯U may still influence the excesses of groups that include agent i through group S. Specifically, if there exists a group T ⊃ S such that e(T) < e(S), then even when e(S ∪ {i}) has non-negative excess, e(T ∪{i}) may have negative excess.
+Introduce nodes i have one child j such that Xi = Xj ∪ {v} of some v ∈ V .
+The reserve rj(S) will cover the excesses on the left and in the middle, whereas the reserve rk(S) will cover those on the right and in the middle, and so the excesses in the middle is double-counted.
+199 Algorithm 1 Subprocedures for Core Membership Leaf-Node(i) 1: ri(Xi) ← e(Xi) Introduce-Node(i) 2: j ← child of i 3: m ← Xi \ Xj {the introduced node} 4: for all S ⊆ Xj, S = ∅ do 5: C ← all hyperedges in the cut of m, S, and ¬(Xi \ S) 6: ri(S ∪ {x}) ← rj(S) + xm − v(C) 7: C ← all hyperedges in the cut of ¬m, S, and ¬(Xi \S) 8: ri(S) ← rj(S) − v(C) 9: end for 10: r({m}) ← e({m}) Forget-Node(i) 11: j ← child of i 12: m ← Xj \ Xi {the forgotten node} 13: for all S ⊆ Xi, S = ∅ do 14: ri(S) = min(rj(S), rj(S ∪ {m})) 15: end for Join-Node(i) 16: {j, k} ← {left, right} child of i 17: for all S ⊆ Xi, S = ∅ do 18: ri(S) ← rj(S) + rk(S) − e(S) 19: end for By the running intersection property, the sets of nodes in the trees Ti"s are disjoint.
+5.2 Review of Tree Decomposition As our algorithm for Core-Membership relies heavily on tree decomposition, we will first briefly review the main ideas in tree decomposition and treewidth.3 Definition 3.
+If this is so for all nodes in the tree, the payoff vector x is in the core.
+Suppose we have already checked that the excesses of all sets R ⊆ U are non-negative, and we would like to check if the addition of an agent i to the set U will create a group with negative excess.
+However, suppose that from the tree decomposition, we know that i is only connected to a subset of U, say S, which we will call the entry set to U.
+Starting from the leaves of the tree and working towards the root, at each node i, our algorithm computes the reserves of all groups S ⊆ Xi, limited by the set of agents in the subtree rooted at i, Ti, except those in (Xi\S).
+Thus, for graphs of small treewidth, such as trees, we have a tractable solution to determine if a payoff vector is in the core.
+The agents in (Xi\S) are excluded to ensure that S is an entry set.
+As for its hardness, given any instance of  CoreMembership for a game in graphical form of [4], we can encode the game in exactly the same space using MC-net due to Proposition 4.
+Join nodes (i with left child j and right child k) For any given set S ⊆ Xi, consider the r-values of that set at j and k. If arg rj(S) or arg rk(S) includes agents not in S, then argrj(S) and argrk(S) will be  disjoint from each other due to the running intersection property.
+The excess of the group (R ∪ {i}) for any group R can be computed as follows e(R ∪ {i}) = e(R) + xi − v(c) (6) where c is the cut between R and i, and v(c) is the sum of the weights of the edges in the cut.
+Next, we will present the algorithm for Core-Membership, and show that the algorithm runs in polynomial time for graphs of bounded treewidth.
+Since Core-Membership for games in graphical form is coNP-complete, Core-Membership in MC-nets is coNP-hard.
+Thus, if the set R∗ = i Si for some Si ∈ Ti, e(R∗ ) = i e(Si) < 0 implies some group S∗ i has negative excess as well.
+We can solve the dual program using the ellipsoid method with Core-Membership as a separation oracle, i.e., a  procedure for returning a constraint that is violated.
+In [4], Deng and Papadimitriou showed the coNP-completeness of Core-Non-Emptiness via a combinatorial  characterization, namely that the core is non-empty if and only if there is no negative cut in the graph.
+Therefore, we can decompose arg ri(S) into three sets, (arg rj(S) \ S) on the left, S in the middle, and (arg rk(S) \ S) on the right.
+Also, when computing the reserve, the payoff xm will not contribute to group S. Therefore, together with the running intersection property as  argued above, we can show that ri(S) = rj(S) − v(cut).
+refer to the agents rooted under node m. For notational use, we will use ri(S) to denote r(S, U) at node i where U is the set of agents in the subtree rooted at node i excluding agents in (Xi \ S).
+The procedure in Algorithm 1 correctly compute the r-values at each of the tree nodes.
+5.3 Algorithm for Core Membership Our algorithm for Core-Membership takes as an input a nice tree decomposition T of the agent graph and a payoff vector x.
+Let Xroot be the set of nodes at the root.
+Note that the obvious certificate of a balanced set of weights based on the Bondereva-Shapley theorem is exponential in size.
+The payoff vector x is not in the core if and only if the r-values at some node i for some group S is negative.
+Ideally, because i does not share any edges with members of ¯U = (U \ S), we would hope that an algorithm can take advantage of this structure by checking only sets that are subsets of (S ∪ {i}).
+For now, let us focus on rules with positive literals.
+Given a tree decomposition, we can convert it into a nice tree decomposition of the same treewidth, and of size linear in that of T. Definition 4.
+The details of the r-value computations are in Algorithm 1.
+Join nodes i have two children j and k with Xi = Xj = Xk.
+Therefore, Core-Non-Emptiness can run in time polynomial in the running time of Core-Membership, which in turn runs in 200 time exponential only in the treewidth of the graph.
+Consider any set S ∈ Xroot, rroot(S) will have the base set of S and the limiting set of ((N \ Xroot) ∪ S).
+Core-Membership in MC-nets is in the class of coNP since any set of agents S of which v(S) > x(S) will serve as a certificate to show that x does not belong to the core.
+Leaf nodes (i) The only reserve value to be computed is ri(Xi), which equals r(Xi, Xi), and therefore it is just the excess of group Xi.
+In the base case, we have the leaf nodes of the original tree  decomposition, say, for agent i.
+Unfortunately, that program has an exponential number of variables.
+An example of a (partial) nice tree decomposition together with a classification of the different types of nodes is in  Figure 1.
+The same argument for hardness between games in graphical frm and MC-nets holds for the problem of  CoreNon-Emptiness.
+A na¨ıve solution will be to compute the excesses of all sets that include i.
+Therefore, if R∗ is not disjoint from Xroot, the r-value for some group in the root is negative.
+Forget nodes i have one child j such that Xi = Xj \ {v} for some v ∈ Xj.
+Note that a simple extension to the Core-Membership algorithm will allow us to keep track of the set T for which e(T) < 0  during the r-values computation, and hence we can return the inequality about T as the constraint violated.
+A brute-force approach to determine if a payoff vector  belongs to the core will have to check that the excesses of all groups are non-negative.
+At node i, we will keep track of the following: r({1}, {1, 2, .
+Core-Non-Emptiness for games  represented as marginal contribution networks is coNP-hard.
+In the following section, we will refer to nodes in the tree decomposition as nodes, and nodes in the agent graph as agents.
+We do not know of a certificate to show that  Core-NonEmptiness is in the class of coNP as of now.
+The treewidth of a graph is defined as the minimum treewidth over all tree decompositions of the graph.
+As an example of the reserve values we keep track of at a tree node, consider node i of the tree in Figure 1.
+We will refer to the group T that has the minimum excess as arg r(S, U).
+The correctness of the algorithm is due to the following proposition.
+Therefore, by the Bondereva-Shapley theorem, if the  optimal value of (7) is greater than v(N), the core is empty.
+Core-Membership for games represented as marginal contribution networks is coNP-complete.
+(Sketch) We can perform a case analysis over the four types of tree nodes in a nice tree decomposition.
+Therefore, we only need to check the r-values of the nodes on the individual trees in the forest.
+As described in section 2, whether the core is empty can be checked using the optimization program based on the balancedness  condition (3).
+Introduce nodes (i with child j) Let m be the introduced node.
+By the running intersection  property, there are no rules that involve m and agents of the subtree rooted at node i except those involving m and agents in Xi.
+Also, when an agent m is introduced to a group at an introduce node, we will also need to consider the change in the reserves of groups that do not include m due to possible cut involving ¬m and the group.
+This computational saving may be possible since (xi −v(c)) in the update equation of (6) does not depend on ¯U.
+For Core-Membership, our  algorithm runs in time exponential only in the treewidth of the agent graph.
+5.1 Computational Complexity The hardness of Core-Membership and  Core-NonEmptiness follows directly from the hardness results of games over weighted graphs in [4].
+If R∗ is disjoint from U, consider the forest {Ti} resulting from removal of all tree nodes that include agents in Xroot.
+By definition, if x belongs to the core, then for all groups S ⊆ N, x(S) ≥ v(S).
+where the dots .
+We denote this value by r(S, U).
+We will next explain the intuition behind the correctness of the computations for the r-values in the tree nodes.
+We end by extending this algorithm to answer the question of  CoreNon-Emptiness in polynomial time for graphs of bounded treewidth.
+5.4 Algorithm for Core Non-emptiness We can extend the algorithm for Core-Membership into an algorithm for Core-Non-Emptiness.
+Note that when the core is not empty, this program will return an outcome in the core. 
+But for each tree in the forest, we can apply the same argument restricted to the agents in the tree.
+Therefore, the difference x(S)−v(S) measures how close the group S is to violating the core condition.
+The excess of a coalition S, e(S), is defined as x(S) − v(S).
+A tree decomposition T is nice if T is rooted and has four types of nodes: Leaf nodes i are leaves of T with |Xi| = 1.
+(Core-Non-Emptiness) Given a coalitional game, determine if the core is non-empty.
+Tree  decomposition is the key to take advantage of such inferences in a structured way.
+Forget nodes (i with child j) Let m be the forgotten node.
+(Core-Membership) Given a coalitional game and a payoff vector x, determine if x is in the core.
+QUESTIONS There are a few different but related computational  problems associated with the solution concept of the core.
+Specifically, S is the entry set to ((Ti \ Xi) ∪ S).
+A detailed proof of correctness of these computations can be found in the appendix under Lemmas 1 and 2.
+However, this approach ignores the structure in the agent graph that will allow an algorithm to infer that certain groups have non-negative excesses due to 3 This is based largely on the materials from a survey paper by Bodlaender [1].
+For any subset T ⊆ Xi that includes m, let S denote (T \ {m}).
+Therefore, by induction, if e(R∗ ) < 0, some reserve at some node would be negative.
+We will then review the main ideas of tree decomposition as it will be used extensively in our algorithm for Core-Membership.
+The union over all of these ranges includes all sets U for which U ∩ Xroot = ∅.
+In the rest of the section, we will first show that these two problems are coNP-complete and coNP-hard  respectively, and discuss some complexity considerations about these problems.
+(⇒) Suppose x is not in the core, then there exists some group R∗ such that e(R∗ ) < 0.
+In other words, the excess available at S may have been drained away due to T. This motivates the definition of the reserve of a group.
+To accomodate for negative literals, we will need to make two adjustments.
+We will focus on the following two problems: Definition 1.
+Definition 2.
+r({3}, {2, 3, .
+If R∗ = {i}, then r({i}) = e({i}) < 0.
+To overcome the computational hardness of these  problems, we have developed algorithms that are based on tree decomposition techniques.
+r({1, 3}, {1, 2, 3, .
+r({4}, {2, 4, .
+r({1, 4}, {1, 2, 4, .
+r({3, 4}, {2, 3, 4, .
+r({1, 3, 4}, {1, 2, 3, 4, .
+Definition 6.
+197 Proposition 6.
+Proposition 9.
+Proposition 7.
+Proposition 8.

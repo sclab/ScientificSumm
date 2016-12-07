@@ -1,0 +1,220 @@
+In this paper we test the performance of our agent based
+air traffic optimization method on a series of simulations
+using the FACET air traffic simulator. In all experiments
+we test the performance of five different methods. The first
+method is Monte Carlo estimation, where random policies
+are created, with the best policy being chosen. The other
+four methods are agent based methods where the agents are
+maximizing one of the following rewards:
+1. The system reward, G(z), as define in Equation 1.
+2. The difference reward, Di(z), assuming that agents
+can calculate counterfactuals.
+3. Estimation to the difference reward, Dest1
+i (z), where
+agents estimate the counterfactual using E(f(z)|zi)
+and E(f(z)|ci).
+4. Estimation to the difference reward, Dest2
+i (z), where
+agents estimate the counterfactual using E(f(z)|zi)
+and E(f(z)).
+These methods are first tested on an air traffic domain with
+300 aircraft, where 200 of the aircraft are going through
+a single point of congestion over a four hour simulation.
+Agents are responsible for reducing congestion at this single
+point, while trying to minimize delay. The methods are then
+tested on a more difficult problem, where a second point of
+congestion is added with the 100 remaining aircraft going
+through this second point of congestion.
+In all experiments the goal of the system is to maximize
+the system performance given by G(z) with the parameters,
+a = 50, b = 0.3, τs1 equal to 200 minutes and τs1 equal to
+175 minutes. These values of τ are obtained by examining
+the time at which most of the aircraft leave the sectors, when
+no congestion control is being performed. Except where
+noted, the trade-off between congestion and lateness, α is
+set to 0.5. In all experiments to make the agent results
+comparable to the Monte Carlo estimation, the best policies
+chosen by the agents are used in the results. All results are
+an average of thirty independent trials with the differences
+in the mean (σ/
+√
+n) shown as error bars, though in most
+cases the error bars are too small to see.
+Figure 3: Performance on single congestion 
+problem, with 300 Aircraft , 20 Agents and α = .5.
+4.1 Single Congestion
+In the first experiment we test the performance of the five
+methods when there is a single point of congestion, with
+twenty agents. This point of congestion is created by setting
+up a series of flight plans that cause the number of aircraft in
+346 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+the sector of interest to be significantly more than the 
+number allowed by the FAA. The results displayed in Figures
+3 and 4 show the performance of all five algorithms on two
+different system evaluations. In both cases, the agent based
+methods significantly outperform the Monte Carlo method.
+This result is not surprising since the agent based methods
+intelligently explore their space, where as the Monte Carlo
+method explores the space randomly.
+Figure 4: Performance on single congestion 
+problem, with 300 Aircraft , 20 Agents and α = .75.
+Among the agent based methods, agents using difference
+rewards perform better than agents using the system 
+reward. Again this is not surprising, since with twenty agents,
+an agent directly trying to maximize the system reward has
+difficulty determining the effect of its actions on its own
+reward. Even if an agent takes an action that reduces 
+congestion and lateness, other agents at the same time may
+take actions that increase congestion and lateness, causing
+the agent to wrongly believe that its action was poor. In
+contrast agents using the difference reward have more 
+influence over the value of their own reward, therefore when an
+agent takes a good action, the value of this action is more
+likely to be reflected in its reward.
+This experiment also shows that estimating the difference
+reward is not only possible, but also quite effective, when
+the true value of the difference reward cannot be computed.
+While agents using the estimates do not achieve as high of
+results as agents using the true difference reward, they still
+perform significantly better than agents using the system
+reward. Note, however, that the benefit of the estimated
+difference rewards are only present later in learning. Earlier
+in learning, the estimates are poor, and agents using the
+estimated difference rewards perform no better then agents
+using the system reward.
+4.2 Two Congestions
+In the second experiment we test the performance of the
+five methods on a more difficult problem with two points of
+congestion. On this problem the first region of congestion is
+the same as in the previous problem, and the second region
+of congestion is added in a different part of the country.
+The second congestion is less severe than the first one, so
+agents have to form different policies depending which point
+of congestion they are influencing.
+Figure 5: Performance on two congestion problem,
+with 300 Aircraft, 20 Agents and α = .5.
+Figure 6: Performance on two congestion problem,
+with 300 Aircraft, 50 Agents and α = .5.
+The results displayed in Figure 5 show that the relative
+performance of the five methods is similar to the single 
+congestion case. Again agent based methods perform better
+than the Monte Carlo method and the agents using 
+difference rewards perform better than agents using the system
+reward. To verify that the performance improvement of our
+methods is maintained when there are a different number of
+agents, we perform additional experiments with 50 agents.
+The results displayed in Figure 6 show that indeed the 
+relative performances of the methods are comparable when the
+number of agents is increased to 50. Figure 7 shows scaling
+results and demonstrates that the conclusions hold over a
+wide range of number of agents. Agents using Dest2
+
+perform slightly better than agents using Dest1
+in all cases but
+for 50 agents. This slight advantage stems from Dest2
+
+providing the agents with a cleaner signal, since its estimate
+uses more data points.
+4.3 Penalty Tradeoffs
+The system evaluation function used in the experiments is
+G(z) = −((1−α)D(z)+αC(z)), which comprises of penalties
+for both congestion and lateness. This evaluation function
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 347
+Figure 7: Impact of number of agents on system 
+performance. Two congestion problem, with 300 
+Aircraft and α = .5.
+forces the agents to tradeoff these relative penalties 
+depending on the value of α. With high α the optimization focuses
+on reducing congestion, while with low α the system focuses
+on reducing lateness. To verify that the results obtained
+above are not specific to a particular value of α, we repeat
+the experiment with 20 agents for α = .75. Figure 8 shows
+that qualitatively the relative performance of the algorithms
+remain the same.
+Next, we perform a series of experiments where α ranges
+from 0.0 to 1.0 . Figure 9 shows the results which lead to
+three interesting observations:
+• First, there is a zero congestion penalty solution. This
+solution has agents enforce large MIT values to block
+all air traffic, which appears viable when the system
+evaluation does not account for delays. All algorithms
+find this solution, though it is of little interest in 
+practice due to the large delays it would cause.
+• Second, if the two penalties were independent, an 
+optimal solution would be a line from the two end points.
+Therefore, unless D is far from being optimal, the two
+penalties are not independent. Note that for α = 0.5
+the difference between D and this hypothetical line is
+as large as it is anywhere else, making α = 0.5 a 
+reasonable choice for testing the algorithms in a difficult
+setting.
+• Third, Monte Carlo and G are particularly poor at
+handling multiple objectives. For both algorithms, the
+performance degrades significantly for mid-ranges of α.
+4.4 Computational Cost
+The results in the previous section show the performance
+of the different algorithms after a specific number of episodes.
+Those results show that D is significantly superior to the
+other algorithms. One question that arises, though, is what
+computational overhead D puts on the system, and what
+results would be obtained if the additional computational
+expense of D is made available to the other algorithms.
+The computation cost of the system evaluation, G 
+(Equation 1) is almost entirely dependent on the computation of
+Figure 8: Performance on two congestion problem,
+with 300 Aircraft, 20 Agents and α = .75.
+Figure 9: Tradeoff Between Objectives on two 
+congestion problem, with 300 Aircraft and 20 Agents.
+Note that Monte Carlo and G are particularly bad
+at handling multiple objectives.
+the airplane counts for the sectors kt,s, which need to be
+computed using FACET. Except when D is used, the 
+values of k are computed once per episode. However, to 
+compute the counterfactual term in D, if FACET is treated as
+a black box, each agent would have to compute their own
+values of k for their counterfactual resulting in n + 1 
+computations of k per episode. While it may be possible to
+streamline the computation of D with some knowledge of
+the internals of FACET, given the complexity of the FACET
+simulation, it is not unreasonable in this case to treat it as
+a black box.
+Table 1 shows the performance of the algorithms after
+2100 G computations for each of the algorithms for the 
+simulations presented in Figure 5 where there were 20 agents,
+2 congestions and α = .5. All the algorithms except the
+fully computed D reach 2100 k computations at time step
+2100. D however computes k once for the system, and then
+once for each agent, leading to 21 computations per time
+step. It therefore reaches 2100 computations at time step
+100. We also show the results of the full D computation
+at t=2100, which needs 44100 computations of k as D44K
+.
+348 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+Table 1: System Performance for 20 Agents, 2 
+congestions and α = .5, after 2100 G evaluations (except
+for D44K
+which has 44100 G evaluations at t=2100).
+Reward G σ/
+√
+n time
+Dest2
+-232.5 7.55 2100
+Dest1
+-234.4 6.83 2100
+D -277.0 7.8 100
+D44K
+-219.9 4.48 2100
+G -412.6 13.6 2100
+MC -639.0 16.4 2100
+Although D44K
+provides the best result by a slight margin,
+it is achieved at a considerable computational cost. Indeed,
+the performance of the two D estimates is remarkable in this
+case as they were obtained with about twenty times fewer
+computations of k. Furthermore, the two D estimates, 
+significantly outperform the full D computation for a given
+number of computations of k and validate the assumptions
+made in Section 3.4.2. This shows that for this domain, in
+practice it is more fruitful to perform more learning steps
+and approximate D, than few learning steps with full D 
+computation when we treat FACET as a black box.

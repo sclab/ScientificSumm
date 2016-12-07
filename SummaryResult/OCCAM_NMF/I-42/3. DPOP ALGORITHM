@@ -1,0 +1,27 @@
+the  algorithm is complete when all nodes have chosen an assignment for their domain. 
+the node adds its domain assignment to the assignments it received and passes the set of assignments to its children.
+each other node then receives a value propagation message from its parent and chooses the assignment for its domain that has the best utility given the assignments received in the  message.
+a value propagation message with this assignment is sent to each node in c(z).
+the combined hypercube contains only values for the domain for z. at this point the agent at node z  simply chooses the assignment for its domain that has the best utility.
+since z has no parents or pseudo-parents, it simply combines the utility hypercubes  received from its children.
+3.2 value propagation value propagation begins when the agent at the root node z has received all messages from its children.
+this dynamic programming based propagation phase  continues until the agent at the root node of the pseudotree has received all messages from its children.
+the dimensional size of this hypercube depends on the number of overlapping domains in received messages and the local utility  hypercube.
+a message containing this hypercube is now sent to p(y).
+this elimination process chooses the best utility over the domain of y for each combination of the remaining  domains.
+at this point all utilities involving node y are known, and the domain for y may be safely eliminated from the joined hypercube.
+once the agent at node y has all utility messages, it calculates its local utility  hypercube which includes domains for p(y), pp(y), and y. the local utility hypercube is then joined with all of the hypercubes from the child messages.
+agents located at non-leaf nodes wait for all messages from children to arrive.
+a message  containing this hypercube is sent to p(x).
+this hypercube has dimensional size equal to the number of pseudo-parents plus one.
+this hypercube at node x contains summed utilities for each combination of values in the domains for p(x) and pp(x).
+3.1 utility propagation agents located at leaf nodes in the pseudotree begin the process by calculating a local utility hypercube.
+at the end of the first phase, each agent knows its parent, children, pseudo-parents, and pseudo-children.
+several distributed  edgetraversal heuristics have been developed to find low width  pseudotrees [8].
+dpop uses polynomial time heuristics to generate the pseudotree since finding the minimum induced width pseudotree is np-hard.
+it has been shown that this size directly corresponds to the induced width of the  pseudotree generated in phase one [6].
+the complexity of dpop depends on the size of the largest  computation and utility message during phase two.
+the third phase chooses an assignment for each domain in a top down fashion beginning with the agent at the root node.
+the second phase joins utility hypercubes from children and the local node and propagates them towards the root.
+the first phase generates a traditional pseudotree from the dcop  instance using a distributed algorithm.
+the original dpop algorithm operates in three main phases.

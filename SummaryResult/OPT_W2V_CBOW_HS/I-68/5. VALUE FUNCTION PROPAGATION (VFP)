@@ -1,0 +1,69 @@
+To this end, for each method mi ∈ M, we define three new functions: Value Function, denoted as vi(t), that maps time t ∈ [0, Δ] to the expected total reward for starting the execution of method mi at time t. Opportunity Cost Function, denoted as Vi(t), that maps time t ∈ [0, Δ] to the expected total reward for starting the execution of method mi at time t assuming that mi is enabled.
+We now show how in the general case (Figure 2) propagate the probability functions forward through one method, i.e., we assume that the probability functions [Pik ]K k=0 of methods [mik ]K k=0 are known, and the probability function Pj0 of method mj0 must be derived.
+It is derived by multiplying Vi0 by the probability functions of all methods other than mi0 that enable mj0 .
+5.3 Probability Function Propagation Phase Assume now, that value functions and opportunity cost values have all been propagated from sink methods to source nodes and the sets Zj for all methods mj ∈ M have been identified.
+We now add back the link { mi, mj } to C≺, which affects the error of only one probability function, namely Pj, by a factor of (1 + P ).
+At any time during this phase we  encounter a situation shown in Figure 2, where opportunity cost  functions [Vjn ]N n=0 of methods [mjn ]N n=0 are known, and the  opportunity cost Vi0 of method mi0 is to be derived.
+If we ignore the dependency of [Pik ]K k=0 then the probability Pj0 (t) that the execution of method mj0 starts before time t is given by: Pj0 (t) = (QK k=0 Pik (τ) if ∃(τ, τ ) ∈ Zj0 s.t.
+In order to establish the bound for π, we first prove by induction on the size of C≺, that the overall error of  probability function propagation phase, π(P ) = maxP supt∈[0,Δ]|P(t) − bP(t)| is bounded by (1 + P )|C≺| − 1.
+When the VFP algorithm propagates the value functions and  probability functions, it constantly carries out operations represented by equations (1) and (3) and we have already shown that these  operations are convolutions of some functions p(t) and h(t).
+Then at each iteration it: (i) Propagates the value functions [vi] |M| i=1 using the old probability functions [Pi] |M| i=1 from previous algorithm iteration and establishes the new sets [Zi] |M| i=1 of method inactivity intervals, and (ii) propagates the new probability functions [Pi ] |M| i=1 using the newly established sets [Zi] |M| i=1.
+Induction step: Suppose, that π(P ) for |C≺| = n is bounded by (1 + P )n − 1, and we want to prove that this statement holds for |C≺| = n. Let G = M, C≺ be a graph with at most n + 1 edges, and G = M, C≺ be a subgraph of G, such that C≺ = C≺ − { mi, mj }, where mj ∈ M is a sink node in G. From the induction assumption we have, that C≺ introduces the probability propagation phase error bounded by (1 + P )n − 1.
+Formally: vi0 (t) = Vi0 (t) · KY k=1 Plk (t) Where the dependency of [Plk ]K k=1 is also ignored.
+Formally: Vi0 (t) = 8 >>< >>: R τ −t 0 pi0 (t )(ri0 + PN n=0 Vjn,i0 (t + t ))dt if ∃ mi0 τ,τ ∈C[ ] such that t ∈ [τ, τ ] 0 otherwise (1) Note, that for t ∈ [τ, τ ], if h(t) := ri0 + PN n=0 Vjn,i0 (τ −t) then Vi0 is a convolution of p and h: vi0 (t) = (pi0 ∗h)(τ −t).
+Probability Function, denoted as Pi(t), that maps time t ∈ [0, Δ] to the probability that method mi will be completed before time t. Such functional representation allows us to easily read the current policy, i.e., if an agent Ak is at method mi at time t, then it will wait as long as value function vi(t) will be greater in the future.
+Since value function propagation phase was using probabilities Pi(t) for  methods mi ∈ M and times t ∈ [0, Δ] found at previous algorithm iteration, we now have to find new values Pi(t), in order to prepare the algorithm for its next iteration.
+Let V j0,i0 (t) be the opportunity cost of starting the execution of method mj0 at time t given that method mi0 has been completed.
+Since the number of value function propagation operations is |C≺|, the total error π of the value function propagation phase is bounded by: |C≺|  V + ((1 + P )|C≺| − 1) P mi∈M ri  . 
+We then visit at each time a method m such that all the methods that enable The Sixth Intl.
+As a result, instead of performing O(Δ2 )  multiplications to compute f(t), VFP only needs to perform O(k · Δ) multiplications to compute f(t), where k is the number of linear segments of bh(t) (note, that since h(t) is monotonic, bh(t) is  usually close to h(t) with k Δ).
+We have consequently shown a general scheme how to propagate the value functions: Knowing [vjn ]N n=0 and [Vjn ]N n=0 of methods [mjn ]N n=0 we can derive vi0 and Vi0 of method mi0 .
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 5.1 Value Function Propagation Phase Suppose, that we are performing a value function propagation phase during which the value functions are propagated from the sink  methods to the source methods.
+Given Pj0 (t), the probability Pj0 (t) that method mj0 will be  completed by time t is derived by: Pj0 (t) = Z t 0 Z t 0 ( ∂Pj0 ∂t )(t ) · pj0 (t − t )dt dt (3) Which can be written compactly as ∂Pj0 ∂t = pj0 ∗ ∂P j0 ∂t .
+t ∈ (τ, τ ) QK k=0 Pik (t) otherwise.
+5.2 Reading the Policy In order to determine the policy of agent Ak for the method mj0 we must identify the set Zj0 of intervals [z, z ] ⊂ [0, ..., Δ], such that: ∀t∈[z,z ] πk( mj0 , t ) = W. One can easily identify the intervals of Zj0 by looking at the time intervals in which the value function vj0 does not decrease  monotonically.
+Since Ak does not know if other agents have completed methods [mlk ]k=K k=1 , in order to derive vi0 , it has to multiply Vi0 by the  probability functions of all methods of other agents that enable mi0 .
+We now prove that the overall approximation error accumulated during the value function propagation phase can be expressed in terms of P and V : THEOREM 1.
+The general, the probability function propagation phase starts with source methods msi for which we know that Psi = 1 since they are enabled by default.
+The general scheme of the VFP algorithm is identical to the  OCDEC-MDP algorithm, in that it performs a series of policy  improvement iterations, each one involving a Value and Probability Propagation Phase.
+Since Pi values are in range [0, 1] and Vi values are in range [0, P mi∈M ri], we suggest to  approximate Vi(t) with bVi(t) within error V , and Pi(t) with bPi(t) within error P .
+Let pj0 be the probability  distribution function of method mj0 execution duration, and Zj0 be the set of intervals of inactivity for method mj0 , found during the last value function propagation phase.
+The function Vi0 is then derived from ri0 and opportunity costs Vjn,i0 (t) n = 1, ..., N from future methods.
+Knowing the opportunity cost Vi0 , we can then easily derive the value function vi0 .
+Let C≺ be a set of precedence constraints of a DEC-MDP with Temporal Constraints, and P and V be the  probability function and value function approximation errors  respectively.
+Formally: πk( mi, t ) = j W if ∃t >t such that vi(t) < vi(t ) E otherwise.
+However, instead of propagating separate  values, VFP maintains and propagates the whole functions, we  therefore refer to these phases as the value function propagation phase and the probability function propagation phase.
+Thus, if opportunity cost functions are not overestimated, they are bounded by P mi∈M ri and the error of a single value function propagation operation will be at most Z Δ 0 p(t)( V +((1+ P ) |C≺| −1) X mi∈M ri) dt < V +((1+ P ) |C≺| −1) X mi∈M ri.
+Let pi0 be the probability distribution function of method mi0 execution  duration, and ri0 be the immediate reward for starting and  completing the execution of method mi0 inside a time interval [τ, τ ] such that mi0 τ, τ ∈ C[ ].
+If time is discretized, functions p(t) and h(t) are discrete; however, h(t) can be nicely approximated with a PWL function bh(t), which is exactly what VFP does.
+Let Ak be an agent assigned to the method mi0 .
+Observe that V j0,i0 does not have to be monotonically  decreasing, i.e., delaying the execution of the method mi0 can sometimes be profitable.
+Formally: V j0,i0 (t) = Vj0 (t) · KY k=1 Pik (t).
+We have consequently shown how to propagate the probability  functions [Pik ]K k=0 of methods [mik ]K k=0 to obtain the probability  function Pj0 of method mj0 .
+The overall error π = maxV supt∈[0,Δ]|V (t) − bV (t)| of value function propagation phase is then bounded by: |C≺|  V + ((1 + P )|C≺| − 1) P mi∈M ri  .
+These new functions [Pi ] |M| i=1 are then used in the next iteration of the algorithm.
+If Ak is about to start the execution of mi0 it means, that Ak must have completed its part of the mission plan up to the method mi0 .
+However, since one of our goals is to compare VFP with the existing OC-DEC- MDP algorithm, that works only for discrete time, we also discretize time, and choose to approximate value functions and probability functions with  piecewise linear (PWL) functions.
+Therefore the opportunity cost Vj0,i0 (t) of enabling method mi0 at time t must be greater than or equal to V j0,i0 .
+The probability function propagation phase terminates when all the sink methods have been marked as visited.
+Induction base: If n = 1 only two methods are present, and we will perform the operation identified by Equation (3) only once, introducing the error π(P ) = P = (1 + P )|C≺| − 1.
+Since probability propagation phase error in C≺ was bounded by (1 + P )n − 1, in C≺ = C≺ ∪ { mi, mj } it can be at most ((1 + P )n − 1)(1 + P ) < (1 + P )n+1 − 1.
+Formally: Vj0,i0 = min f∈F f (2) Where F = {f | f ≥ V j0,i0 and f(t) ≥ f(t ) ∀t<t }.
+We now show how to derive Vj0,i0 (derivation of Vjn,i0 for n = 0 follows the same scheme).
+Assume for now, that Vjn,i0 represents a full opportunity cost,  postponing the discussion on different techniques for splitting the  opportunity cost Vj0 into [Vj0,ik ]K k=0 until section 6.
+5.5 Implementation of Function Operations So far, we have derived the functional operations for value function and probability function propagation without choosing any  function representation.
+We now develop an analytical technique for performing the value function and probability function propagation phases.
+In general, the value function propagation scheme starts with sink nodes.
+The value function propagation phase terminates when all the source methods have been marked as visited.
+3 Similarly for the probability propagation phase 832 The Sixth Intl.
+It then visits at each time a method m, such that all the methods that m enables have already been marked as visited.
+In general, our functional operations can  handle continuous time, and one has freedom to choose a desired  function approximation technique, such as piecewise linear [7] or  piecewise constant [9] approximation.
+Where similarly to [4] and [5] we ignored the dependency of [Plk ]K k=1.
+5.4 The Algorithm Similarly to the OC-DEC-MDP algorithm, VFP starts the policy improvement iterations with the earliest starting time policy π0 .
+Similarly to OC-DEC-MDP, VFP terminates if a new policy does not improve the policy from the previous algorithm iteration.
+Probability  functions propagate forward (left to right) whereas value functions propagate backward (right to left).
+Furthermore, Vj0,i0 should be non-increasing.
+Figure 2: Fragment of an MDP of agent Ak.
+Joint Conf.
+Joint Conf.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 833 m have already been marked as visited.

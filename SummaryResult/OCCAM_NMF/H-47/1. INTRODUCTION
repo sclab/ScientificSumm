@@ -1,0 +1,47 @@
+experimental evaluation is presented in  section 7. finally, section 8 presents the concluding remarks. 
+in section 6 we briefly discuss how to search efficiently the ad space in order to return the top-k ranked ads.
+section 5 describes the  semanticsyntactic method.
+section 4 describes the taxonomy and document classifier that were used for page and ad classification.
+section 3 overviews the related work.
+in the next section we review the basic principles of the contextual advertising.
+the paper proceeds as follows.
+this classifier gave the best results in both page and ad classification, and ultimately in ad relevance.
+we evaluated several classifiers and taxonomies and in this paper we present results using a taxonomy with close to 6000 nodes using a variation of the rocchio"s classifier [9].
+to implement our approach we need to solve a challenging problem: classify both pages and ads within a large  taxonomy (so that the topic granularity would be small enough) with high precision (to reduce the probability of mis-match).
+even if there are no ads for this  particular chevy model, the chosen ads will still be within the automotive domain.
+in the chevy tahoe example above, the classifier would  establish that the page is about cars/automotive and only those ads will be considered.
+in addition to increased click through rate (ctr) due to increased relevance, a significant but harder to quantify  benefit of the semantic-syntactic matching is that the resulting page has a unified feel and improves the user experience.
+updating the taxonomy with new nodes or even new vocabulary each time a new model comes to the market is prohibitively expensive when we are dealing with millions of manufacturers.
+in the  digital camera example this would correspond to the level of a particular model, say canon sd450 whose advertising life might be just a few months.
+the keywords capture the specificity to a level that is more dynamic and granular.
+the taxonomy contains nodes for topics that do not change fast, for example, brands of digital cameras, say canon.
+in some sense, the taxonomy classes are used to select the set of applicable ads and the keywords are used to narrow down the search to concepts that are of too small  granularity to be in the taxonomy.
+for  example if the page is about an event in curling, a rare winter sport, and contains the words alpine meadows, the  system would still rank highly ads for skiing in alpine meadows as these ads belong to the class skiing which is a sibling of the class curling and both of these classes share the parent winter sports.
+furthermore, by using a hierarchical taxonomy we allow for the gradual generalization of the ad search space in the case when there are no ads matching the precise topic of the page.
+hence we  favor ads that are topically related to the page and thus avoid the pitfalls of the purely syntactic approach.
+the semantic phase classifies the page and the ads into a  taxonomy of topics and uses the proximity of the ad and page classes as a factor in the ad ranking formula.
+in order to solve this problem we propose a matching mechanism that combines a semantic phase with the  traditional keyword matching, that is, a syntactic phase.
+in all these examples the mismatch arises from the fact that the ads are not appropriate for the context.
+polysemy is not the only culprit: there is a (maybe apocryphal) story about a lurid news item about a headless body found in a suitcase triggering an ad for samsonite  luggage!
+another example could be a page describing the chevy tahoe truck (a  popular vehicle in us) triggering an ad about lake tahoe  vacations.
+however targeting mechanisms based solely on phrases found within the text of the page can lead to problems: for example, a page about a famous golfer named john maytag might trigger an ad for maytag  dishwashers since maytag is a popular brand.
+previous published approaches estimated the ad relevance based on co-occurrence of the same words or phrases within the ad and within the page (see [7, 8] and section 3 for more details).
+vogue) where a majority of the content is topical advertising (fashion in the case of vogue) and by user  studies that have confirmed that increased relevance increases the number of ad-clicks [4, 13].
+this intuition is supported by the analogy to  conventional publishing where there are very successful  magazines (e.g.
+given a page, rather than placing generic ads, it seems preferable to have ads related to the content to provide a better user experience and thus to increase the probability of clicks.
+for simplicity, we only deal with the ppc model in this paper.
+there are also other models used: pay-per-impression, where the advertisers pay for the number of exposures of an ad and pay-per-action where the advertiser pays only if the ad leads to a sale or similar transaction.
+the prevalent pricing model for textual ads is that the advertisers pay a certain amount for every click on the  advertisement (pay-per-click or ppc).
+without this model, the web would be a lot smaller!
+cm supports sites that range from individual bloggers and small niche communities to large publishers such as major  newspapers.
+however, today, almost all of the for-profit non-transactional web sites (that is, sites that do not sell anything directly) rely at least in part on revenue from context match.
+(see [5] for a brief history).
+the ss market developed quicker than the cm market, and most textual ads are still characterized by bid phrases representing those queries where the advertisers would like to have their ad displayed.
+again, all major current web search  engines (google, yahoo!, and microsoft) provide such ad-networking services but there are also many smaller players.
+in contextual advertising usually there is a commercial intermediary, called an ad-network, in charge of optimizing the ad selection with the twin goal of increasing revenue (shared  between publisher and ad-network) and improving user experience.
+2. contextual advertising or context match which refers to the placement of commercial ads within the  content of a generic web page.
+all major current web search engines (google, yahoo!, and microsoft) support such ads and act  simultaneously as a search engine and an ad agency.
+the main advertising channels used to distribute textual ads are: 1. sponsored search or paid search advertising which  consists in placing ads on the result pages from a web search engine, with ads driven by the originating query.
+a large part of this market consists of textual ads, that is, short text messages usually marked as sponsored links or similar.
+the total internet advertiser spend in us alone in 2006 is estimated at over 17 billion dollars with a growth rate of almost 20% year over year.
+web advertising supports a large swath of today"s internet ecosystem.

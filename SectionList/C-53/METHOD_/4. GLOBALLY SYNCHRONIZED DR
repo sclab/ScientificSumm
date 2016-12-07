@@ -1,0 +1,129 @@
+WITH LOCAL LAG
+From the analysis in Section 3, It can be seen that GS-DR can
+eliminate after inconsistency, but it cannot effectively tackle
+before inconsistency. In order to decrease before inconsistency,
+we propose GS-DR-LL, which combines GS-DR with local lag
+and can effectively decrease before inconsistency.
+In GS-DR-LL, the state of a shared entity at a certain time point t
+is notated as S = (t, pos, par 1, par 2, ……, par n), in which pos
+means the position of the entity and par 1 to par n means the
+parameters to calculate the position of the entity. In order to
+simplify the description of GS-DR-LL, it is assumed that there are
+only one shared entity and one remote site.
+At the beginning of a game session, the states of the shared entity
+are the same at local and remote sites, with the same position p0
+and parameters pars0 (pars represents all the parameters). Local
+site keeps three states: the real state of the entity Sreal, the
+predicted state at remote site Sp-remote, and the latest state updated
+to remote site Slate. Remote site keep only one state Sremote, which
+is the real state of the entity at remote site. Therefore, at the
+beginning of a game session Sreal = Sp-remote = Slate = Sremote = (t0,
+p0, pars0). In GS-DR-LL, it is assumed that the physical clocks of
+all sites are synchronized with a deviation of less than 50 ms
+(using NTP or GPS clock). Furthermore, it is necessary to make
+corrections to a physical clock in a way that does not result in
+decreasing the value of the clock, for example by slowing down
+or halting the clock for a period of time. Additionally it is
+assumed that the game scene is updated at a fixed frequency and
+T stands for the time interval between two consecutive updates,
+for example, if the scene update frequency is 50 Hz, T would be
+20 ms. n stands for the lag value used by local lag, and t stands for
+current physical time.
+After updating the scene, local site waits for a constant amount of
+time T. During this time period, local site receives the operations
+of the player and stores them in a list L. All operations in L are
+sorted by their issue time. At the end of time period T, local site
+executes all stored operations, whose issue time is between t - T
+and t, on Slate to get the new Slate, and it also executes all stored
+operations, whose issue time is between t - (n + T) and t - n, on
+Sreal to get the new Sreal. Additionally, local site uses Sp-remote and
+corresponding prediction methods to estimate the new Sp-remote.
+After new Slate, Sreal, and Sp-remote are calculated, local site
+compares whether the difference between the new Slate and 
+Spremote exceeds the predefined threshold. If YES, local site sends
+new Slate to remote site and Sp-remote is updated with new Slate. Note
+that the timestamp of the sent state update is t. After that, local
+site uses Sreal to update local scene and deletes the operations,
+whose issue time is less than t - n, from L.
+After updating the scene, remote site waits for a constant amount
+of time T. During this time period, remote site stores received
+state update(s) in a list R. All state updates in R are sorted by their
+timestamps. At the end of time period T, remote site checks
+whether R contains state updates whose timestamps are less than t
+- n. Note that t is current physical time and it increases during the
+transmission of state updates. If YES, it uses these state updates
+and corresponding prediction methods to calculate the new Sremote,
+else they use Sremote and corresponding prediction methods to
+estimate the new Sremote. After that, local site uses Sremote to update
+local scene and deletes the sate updates, whose timestamps are
+less than t - n, from R.
+From the above description, it can been see that the main
+difference between GS-DR and GS-DR-LL is that GS-DR-LL
+uses the operations, whose issue time is less than t - n, to
+calculate Sreal. That means that the scene seen by local player is
+the results of the operations issued a period of time (i.e. n) ago.
+Meanwhile, if the results of issued operations make the difference
+between Slate and Sp-remote exceed a predefined threshold,
+corresponding state updates are sent to remote sites immediately.
+The aforementioned is the basic mechanism of GS-DR-LL. In the
+case with multiple shared entities and remote sites, local site
+calculates Slate, Sreal, and Sp-remote for different shared entities
+respectively, if there are multiple Slate need to be transmitted, local
+site packets them in one state update and then send it to all remote
+sites.
+Figure 2 illustrates the paths of a shared entity at local site and
+remote site while using GS-DR and GS-DR-LL. All conditions
+are the same with the conditions used in the aforementioned
+example describing GS-DR. Compared with t1, t2, and n, T (i.e.
+the time interval between two consecutive updates) is quite small
+and it is ignored in the following description.
+At time point t0, the player at site i issues an operation, which
+changes the velocity of the shared entity form 0 to v0. By using
+GS-DR-LL, the results of the operation are updated to local scene
+at time point t0 + n. However the operation is immediately used
+to calculate Slate, thus in spite of GS-DR or GS-DR-LL, at time
+point t1 site i finds that the difference between accurate position
+and the estimated one is larger than the threshold and it sends a
+state update to site j. At time point t2, the state update is received
+by remote site j. Assuming that the timestamp of the state update
+is less than t - n, site j uses it to update local scene immediately.
+The 5th Workshop on Network & System Support for Games 2006 - NETGAMES 2006 3
+With GS-DR, the time period of before inconsistency is (t2 - t1) +
+(t1 - t0), whereas it decreases to (t2 - t1 - n) + (t1 - t0) with the
+help of GS-DR-LL. Note that t2 - t1 is caused by network
+transmission delay and t1 - t0 is caused by the state filtering
+mechanism of DR. If n is larger than t2 - t1, GS-DR-LL can
+eliminate the before inconsistency caused by network
+transmission delay, but it cannot eliminate the before
+inconsistency caused by the state filtering mechanism of DR
+(unless the threshold is set to 0). In highly interactive games,
+which request high consistency and GS-DR-LL might be
+employed, the results of operations are quite difficult to be
+estimated and a small threshold must be used. Thus, in practice,
+most before inconsistency is caused by network transmission
+delay and GS-DR-LL has the capability to eliminate such before
+inconsistency.
+Figure 2. The paths of a shared entity by using GS-DR and
+GS-DR-LL.
+To GS-DR-LL, the selection of lag value n is very important, and
+both network transmission delay and the effects of local lag on
+interaction should be considered. According to the results of HCI
+related researches, humans cannot perceive the delay imposed on
+a system when it is smaller than a specific value, and the specific
+value depends on both the system and the task. For example, in a
+graphical user interface a delay of approximately 150 ms cannot
+be noticed for keyboard interaction and the threshold increases to
+195 ms for mouse interaction [13], and a delay of up to 50 ms is
+uncritical for a car-racing game [5]. Thus if network transmission
+delay is less than the specific value of a game system, n can be set
+to the specific value. Else n can be set in terms of the effects of
+local lag on the interaction of a system [14]. In the case that a
+large n must be used, some HCI methods (e.g. echo [15]) can be
+used to relieve the negative effects of the large lag. In the case
+that n is larger than the network transmission delay, GS-DR-LL
+can eliminate most before inconsistency. Traditional local lag
+requests that the lag value must be larger than typical network
+transmission delay, otherwise state repairs would flood the system.
+However GS-DR-LL allows n to be smaller than typical network
+transmission delay. In this case, the before inconsistency caused
+by network transmission delay still exists, but it can be decreased.

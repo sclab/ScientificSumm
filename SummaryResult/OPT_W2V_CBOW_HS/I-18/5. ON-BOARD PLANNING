@@ -1,0 +1,47 @@
+A conflict is soft if it exists a chain of agents between the two agents in conflict such as information can propagate  before both agents realize the request.
+A conflict is hard when the agents cannot communicate before the  realization of the request.
+Let si be an agent and At1 si a (possibly empty) plan at time t1.
+[13] relax these constraints by cleaving planning modules: on the first hand, satellites have a planner that builds plans on a large horizon and on the second hand, they have a decision  module that enables them to choose to realize or not a planned observation.
+5.1 A deliberative approach Inspired from both approaches, we propose to build  allocations made up of a set of unquestionable requests and a set of uncertain disjunctive requests on which a decision will be made at the end of the decision horizon.
+Consequently, conflict has to be defined: Definition 8 (Conflict).
+si and sj are in conflict if and only if: - RCsi = RCsj - modCsi and modCsj ∈ {2, 3} Let us notice that the agents have the means to know whether they are in conflict with another one during the communication process.
+Let us define three sets: - the set of potential requests: Rp = {R ∈ Rt si |bR = false} - the set of mandatory requests: Rm = {R ∈ Rp |∃C ∈ Ct si : modC = 2, sC = si, RC = R} - the set of given-up requests: Rg = {R ∈ Rp |∃C ∈ Ct si : modC = ¬2, sC = si, RC = R} A plan At si generated at time t ∈ T is a set of requests such as Rm ⊆ At si ⊆ Rp and ∃ R ∈ Rg such as R ∈ At si .
+- ∀ R ∈ At1 si such as R ∈ At2 si , a candidacy C such as mod(C) = ¬3, sC = si and RC = R is generated; - ∀ R ∈ At2 si such as R ∈ At1 si , a candidacy C such as mod(C) = 3, sC = si and RC = R is generated; - Protocol 2 is used to update Kt1 si in Kt2 si .
+It is a matter of redundancies between allocations on a given request, i.e.
+tj−1} (ti−1 = t) where: ∀ i ≤ k <j, sk+1 ∈ Vicinity(sk, tk) with tk < obsCsi , tk < obsCsj and tk ≥ tk−1 then the conflict is soft else it is hard.
+Consequently, the conflict is hard.
+Let si be an agent, Rt si a set of requests and Ct si a set of candidacies.
+The main idea in contingency planning [15, 29] is to determine the nodes in the initial plan where the risks of failures are most important and to incrementally build contingency branches for these situations.
+Let si be an agent and R a request in conflict.
+A conflict is soft when the concerned agents can communicate before one or the other carries out the request in question.
+Let si and sj (i < j) two agents in conflict with, at time t, candidacies Csi and Csj respectively (sCsi = si and sCsj = sj).
+We can define the conflict cardinality: Definition 10 (Conflict cardinality).
+So each agent is able to determine if a conflict is soft or hard.
+In an uncertain environment such as the one of satellite swarms, it may be advantageous to delay the decision until the last moment (i.e.
+Let si and sj be two agents with, at time t, candidacies Csi and Csj respectively (sCsi = si and sCsj = sj).
+The conflict cardinality corresponds to the number of agents that are candidates or committed to the same request.
+Building a plan generates candidacies.
+All the conflicts do not have the same strength, meaning that they can be solved with more or less difficulty according to the agents" communication capacities.
+the realization date), especially if there are several possibilities for a given request.
+If this chain does not exist, it means that the agents in conflict cannot  communicate directly or not.
+Proposing such partial allocations allows conflicts to be solved locally without propagating them through the whole plan.
+A plan is defined as follows: Definition 6 (Plan).
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 5.2 Conflicts When two agents compare their respective plans some conflicts may appear.
+Thus, a conflict has at least a cardinality of 2. 
+Let At2 si be the plan generated at time t2 with t2 > t1.
+Whereas such  redundancies may sometimes be useful to ensure the realization of a request (the realization may fail, e.g.
+This  horizon corresponds to the request realization date.
+Definition 9 (Soft/Hard conflict).
+If ∃ V ⊆ S such as V = {si .
+Indeed, they exchange information not only concerning their own plan but also concerning what they know about the other agents" plans.
+In order to build the agents" initial plans, let us assume that each agent is equipped with an on-board planner.
+The conflict cardinality is cardc(R) = |{C ∈ Ct si |modC ∈ {2, 3}, CR = R}|.
+Definition 7 (Generating candidacies).
+sj} and if ∃ T ∈ T such as T = {ti−1 .
+: several agents stand as candidates to carry out this request.
+because of clouds), it may also lead to a loss of opportunity.
+290 The Sixth Intl.
+In satellite swarms, the geographical positions of the  requests are known as well as the satellite orbits.
+However, they assume high communication and computation capabilities [10].
+In space contexts, [5, 21, 6] present multi-agent  architectures for on-board planning.
+Joint Conf.

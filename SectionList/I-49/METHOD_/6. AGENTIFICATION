@@ -1,0 +1,115 @@
+How the problem is transposed in a MAS problem is a
+very important aspect when designing such a system. The
+agentification has an influence upon the systems efficiency in
+solving the problem. Therefore, in this section, we describe
+the elements and constraints taken into account during the
+modelling phase and for the model itself. However, for this
+negotiation application, the modelling is quite natural when
+one observes the negotiation protocol motivations and main
+properties.
+First of all, it seems obvious that there should be one agent
+for each player of our multilateral multi-issue negotiation
+protocol. The agents have the involved parties" information
+and preferences. These agents are:
+• Autonomous: they decide for themselves what, when
+and under what conditions actions should be 
+performed;
+• Rational: they have a means-ends competence to fit
+its decisions, according to its knowledge, preferences
+and goal;
+• Self-interested: they have their own interests which
+may conflict with the interests of other agents.
+Moreover, their preferences are modelled and a proposal
+evaluated and analysed using MYRIAD. Each agent has
+private information and can access public information as
+knowledge.
+In fact, there are two types of agents: the mediator type
+for the agents corresponding to the mediator of our 
+negotiation protocol, the delegated physician in our application,
+and the negotiator type for the agents corresponding to
+the other parties, the hospitals. The main behaviours that
+an agent of type mediator needs to negotiate in our protocol
+are the following:
+• convert_improvements: converts the information 
+given by the other agents involved in the negotiation
+about the improvements to be done, into constraints
+on the next proposal to be made;
+• convert_no_decrease: converts the information given
+by the other agents involved in the negotiation about
+the points that should not be changed into constraints
+on the next proposal to be made;
+• construct_proposal: constructs a new proposal 
+according to the constraints obtained with 
+convert_improvements, convert_no_decrease and the agent 
+preferences;
+The main behaviours that an agent of type negotiator
+needs to negotiate in our protocol are the following:
+• convert_proposal: converts a proposal to a MYRIAD
+option of the agent according to its preferences model
+and its private data;
+• convert_improvements_wc: converts the agent 
+recommendations for the improvements of a MYRIAD 
+option into general information on the proposal;
+• convert_no_decrease_wc: converts the agent 
+recommendations about the criteria that should not be 
+changed in the MYRIAD option into general information
+on the proposal;
+In addition to these behaviours, there are, for the two types
+of agents, access behaviours to MYRIAD functionalities
+such as the evaluation and improvement functions:
+• evaluate_option: evaluates the MYRIAD option 
+obtained using the agent behaviour convert_proposal;
+• improvements: gets the agent recommendations to 
+improve a proposal from the MYRIAD option;
+• no_decrease: gets the agent recommendations to not
+change some criteria from the MYRIAD option;
+Of course, before running the system with such agents, we
+must have defined each party preferences model in 
+MYRIAD. This model has to be part of the agent so that it could
+be used to make the assessments and to retrieve the 
+improvements. In addition to these behaviours, the communication
+acts between the agents is as follows.
+1. mediator agent communication acts:
+946 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+m1 m
+1
+1
+m
+inform1 m
+mediator negotiator
+accept−proposal
+l
+1
+accept−proposal
+m−l
+reject−proposal
+propose
+propose
+Figure 2: The protocol diagram in AUML, and
+where m is the number of negotiator agents and l
+is the number of agents refusing current proposal.
+(a) propose: sends a message containing a proposal
+to all negotiator agents;
+(b) inform: sends a message to all negotiator agents
+to inform them that an agreement has been 
+reached and containing the consensus outcome.
+2. negotiator agent communication acts:
+(a) accept-proposal: sends a message to the 
+mediator agent containing the agent recommendations
+to improve the proposal and obtained with
+convert_improvements_wc;
+(b) reject-proposal: sends a message to the 
+mediator agent containing the agent recommendations
+about the criteria that should not be changed and
+obtained with convert_no_decrease_wc.
+Such agents are interchangeable, in a case of failure, since
+they all have the same properties and represent a user with
+his preference model, not depending on the agent, but on the
+model defined in MYRIAD. When the issues and the 
+decision criteria are different from each other, the information
+about the criteria improvement have to be pre-processed to
+give some instructions on the directions to take and about
+the negotiated issues. It is the same for the evaluation of a
+proposal: each agent has to convert the information about
+the issues to update its private information and to obtain
+the values of each attribute of the decision criteria.

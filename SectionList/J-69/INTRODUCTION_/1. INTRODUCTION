@@ -1,0 +1,108 @@
+Many peer-to-peer (P2P) systems rely on cooperation among 
+selfinterested users. For example, in a file-sharing system, overall
+download latency and failure rate increase when users do not share
+their resources [3]. In a wireless ad-hoc network, overall packet 
+latency and loss rate increase when nodes refuse to forward packets
+on behalf of others [26]. Further examples are file preservation [25],
+discussion boards [17], online auctions [16], and overlay routing
+[6]. In many of these systems, users have natural disincentives to
+cooperate because cooperation consumes their own resources and
+may degrade their own performance. As a result, each user"s 
+attempt to maximize her own utility effectively lowers the overall
+A
+BC
+Figure 1: Example of asymmetry of interest. A wants service from B,
+B wants service form C, and C wants service from A.
+utility of the system. Avoiding this tragedy of the commons [18]
+requires incentives for cooperation.
+We adopt a game-theoretic approach in addressing this problem. In
+particular, we use a prisoners" dilemma model to capture the 
+essential tension between individual and social utility, asymmetric
+payoff matrices to allow asymmetric transactions between peers,
+and a learning-based [14] population dynamic model to specify the
+behavior of individual peers, which can be changed continuously.
+While social dilemmas have been studied extensively, P2P 
+applications impose a unique set of challenges, including:
+• Large populations and high turnover: A file sharing 
+system such as Gnutella and KaZaa can exceed 100, 000 
+simultaneous users, and nodes can have an average life-time of the
+order of minutes [33].
+• Asymmetry of interest: Asymmetric transactions of P2P
+systems create the possibility for asymmetry of interest. In
+the example in Figure 1, A wants service from B, B wants
+service from C, and C wants service from A.
+• Zero-cost identity: Many P2P systems allow peers to 
+continuously switch identities (i.e., whitewash).
+Strategies that work well in traditional prisoners" dilemma games
+such as Tit-for-Tat [4] will not fare well in the P2P context. 
+Therefore, we propose a family of scalable and robust incentive 
+techniques, based upon a novel Reciprocative decision function, to 
+address these challenges and provide different tradeoffs:
+• Discriminating Server Selection: Cooperation requires 
+familiarity between entities either directly or indirectly. 
+However, the large populations and high turnover of P2P systems
+makes it less likely that repeat interactions will occur with
+a familiar entity. We show that by having each peer keep a
+102
+private history of the actions of other peers toward her, and
+using discriminating server selection, the Reciprocative 
+decision function can scale to large populations and moderate
+levels of turnover.
+• Shared History: Scaling to higher turnover and mitigating
+asymmetry of interest requires shared history. Consider the
+example in Figure 1. If everyone provides service, then the
+system operates optimally. However, if everyone keeps only
+private history, no one will provide service because B does
+not know that A has served C, etc. We show that with shared
+history, B knows that A served C and consequently will serve
+A. This results in a higher level of cooperation than with 
+private history. The cost of shared history is a distributed 
+infrastructure (e.g., distributed hash table-based storage) to store
+the history.
+• Maxflow-based Subjective Reputation: Shared history 
+creates the possibility for collusion. In the example in Figure 1,
+C can falsely claim that A served him, thus deceiving B into
+providing service. We show that a maxflow-based algorithm
+that computes reputation subjectively promotes cooperation
+despite collusion among 1/3 of the population. The basic idea
+is that B would only believe C if C had already provided 
+service to B. The cost of the maxflow algorithm is its O(V 3
+)
+running time, where V is the number of nodes in the system.
+To eliminate this cost, we have developed a constant mean
+running time variation, which trades effectiveness for 
+complexity of computation. We show that the maxflow-based 
+algorithm scales better than private history in the presence of
+colluders without the centralized trust required in previous
+work [9] [20].
+• Adaptive Stranger Policy: Zero-cost identities allows 
+noncooperating peers to escape the consequences of not 
+cooperating and eventually destroy cooperation in the system if not
+stopped. We show that if Reciprocative peers treat strangers
+(peers with no history) using a policy that adapts to the 
+behavior of previous strangers, peers have little incentive to
+whitewash and whitewashing can be nearly eliminated from
+the system. The adaptive stranger policy does this without
+requiring centralized allocation of identities, an entry fee for
+newcomers, or rate-limiting [13] [9] [25].
+• Short-term History: History also creates the possibility that
+a previously well-behaved peer with a good reputation will
+turn traitor and use his good reputation to exploit other peers.
+The peer could be making a strategic decision or someone
+may have hijacked her identity (e.g., by compromising her
+host). Long-term history exacerbates this problem by 
+allowing peers with many previous transactions to exploit that 
+history for many new transactions. We show that short-term 
+history prevents traitors from disrupting cooperation.
+The rest of the paper is organized as follows. We describe the model
+in Section 2 and the reciprocative decision function in Section 3. We
+then proceed to the incentive techniques in Section 4. In Section 4.1,
+we describe the challenges of large populations and high turnover
+and show the effectiveness of discriminating server selection and
+shared history. In Section 4.2, we describe collusion and 
+demonstrate how subjective reputation mitigates it. In Section 4.3, we
+present the problem of zero-cost identities and show how an 
+adaptive stranger policy promotes persistent identities. In Section 4.4,
+we show how traitors disrupt cooperation and how short-term 
+history deals with them. We discuss related work in Section 5 and
+conclude in Section 6.

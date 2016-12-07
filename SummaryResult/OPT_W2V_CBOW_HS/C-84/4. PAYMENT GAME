@@ -1,0 +1,78 @@
+Having set ti to α for i in Nc means that any node in N is at least as well off lowering its threshold and replicating as bidding α to some node in Nc to make it replicate, so we may disregard the latter as a profitable strategy.
+Ii tells us whether player i replicates the object or not, bi is the payment player i makes to player vi, and Ri is the total amount of bids received by player i.
+If node i replicates the object, j is the  nearest node to i among the other nodes that replicate the object, and dij < α in a Nash equilibrium, then i should have a threshold at 25 least (α − dij).
+The idea is to look at each node i in No and distribute the minimum payment needed to make i replicate the object among the nodes that access the object from i.
+(10) The cost of social optimum for the payment game is same as that for the basic game, since the net payments made cancel out.
+It also does not have incentive to reduce bj since the node where j accesses does not replicate and j has to replicate the object or to access the next closest replica, which costs at least the same from the definition of bj .
+For each i in No, and for each j in Qi, we define δj = min{α, min k∈No−{i} djk} − dji (11) Note that δj is the difference between j"s cost for accessing the replica at i and j"s next best option among replicating the object and accessing some replica other than i.
+4.1 Game Model The new game, which we refer to as the payment game, allows each player to offer a payment to another player to give the latter incentive to replicate the object.
+Next we prove that indeed the payment game always has a strategy profile that  implements the socially optimal configuration as a Nash equilibrium.
+For the thresholds, we have: ti = α if i ∈ Nc;Èj∈Qi bj if i ∈ No.
+No player has incentive to deviate, so the current configuration is a Nash equilibrium.
+In the socially optimal configuration, dij ≤ α for all j in Qi.
+It is easy to see that cost of φopt minus cost of φnew is at least: (α + j∈Qi dij) − (di + j∈Qi min{α, min k∈No−{i} dik}) = α − di − j∈Qi δj > 0, which contradicts the optimality of φopt.
+For each i in No, bi = 0 and for each j in Qi, j bids to i (i.e., vj = i) the amount: bj = max{0, δj − i/(|Qi| + 1)}, j ∈ Qi (12) where i = Èj∈Qi δj − α + di ≥ 0 and |Qi| is the cardinality of Qi.
+1 1.5 2 2.5 3 3.5 4 4.5 5 5.5 0 20 40 60 80 100 120 140 160 180 200 1 10 100 C(NE)/C(SO) AverageNumberofReplicas alpha PoA Ratio OPoA Replica (SO) Replica (NE) Figure 3: We present P oA, Ratio, and OP oA results for the basic game, varying α on a 100-node line topology, and we show number of replicas placed by the Nash equilibria and by the optimal solution.
+vi specifies the player to whom i makes a bid, bi ≥ 0 is the value of the bid, and ti ≥ 0 denotes a threshold for payments beyond which i will replicate the object.
+By observation 1, to ensure that each i in No does not deviate, we require that if is the nearest node to i in No, then Èj∈Qi bj is at least (α − di ).
+Let No be the set of nodes that replicate the object and Nc = N − No be the rest of the nodes.
+Consider the new configuration φnew wherein i does not replicate and each node in Qi chooses its next best strategy (either replicating or accessing the replica at some node in No − {i}).
+Therefore, each node i ∈ No does not have incentive to change ti since i loses its payments received or there is no change, and i does not have incentive to bi since it replicates the object.
+To compute the payoffs given the outcome, we must now take into account the payments a node makes, in addition to the placement costs and access costs of the basic game.
+Since no one has an incentive to deviate, the configuration is a Nash equilibrium.
+Therefore, the price of anarchy of the payment game is at least that of the basic game.
+In fact, Appendix B shows that the PoA of the payment game can be more than that of the basic game in a given topology.
+Its net payment is biIvi − RiIi.
+A node i replicates the object if and only if Ri ≥ ti, that is, the amount of bids it receives is greater than or equal to its threshold.
+We make the rule that if a node i makes a bid to another node j and j replicates the object, then i must pay j the amount bi.
+Otherwise, it cannot collect enough payment to compensate for the cost of replicating the object and is better off accessing the replica at j. THEOREM 3.
+It is defined as Ci(S) = αij Ii + wij di (i,j)(1 − Ii) + biIvi − RiIi.
+Also, for each i in No, let Qi denote the set of nodes that access the object from i, not including i itself.
+A node that replicates the object does not have incentive to change its strategy: changing the threshold does not decrease its cost, and it would have to pay at least α to access a remote replica or  incentivize a nearby node to cache.
+(13) This fully specifies the strategy profile of the nodes, and it is easy to see that the outcome is indeed the socially optimal configuration.
+We want to find a set of payments and thresholds that makes this configuration implementable.
+The total cost incurred by each node is the sum of its placement cost, access cost, and net payment.
+Also, for all i, bi = 0.
+The payment necessary for another server to place a replica is at least α.
+By our rules, a server node i pays bi to node vi if vi replicates the object, and receives a payment of Ri if it replicates the object itself.
+For each i ∈ No, let be the nearest node to i in No.
+We then present an important positive result - in the  payment game the socially optimal configuration can always be  implemented by a Nash equilibrium.
+The optimistic price of anarchy in the payment game is therefore always one.
+Next, we verify that the strategies stipulated constitute a Nash equilibrium.
+In addition, we still place replicas at each node in No − {i}.
+Its total cost is 2α, the same as in the socially optimal configuration shown in Figure 2(b).
+Let Ii denote the corresponding indicator variable, that is, Ii equals 1 if i replicates the object, and 0 otherwise.
+We can easily check that j∈Qi bj ≥ j∈Qi δj − |Qi| i |Qi| + 1 = α − di + i |Qi| + 1 ≥ α − di .
+In the payment game, there is always a pure  strategy Nash equilibrium that implements the social optimum  configuration.
+Otherwise, i will raise ti above Èj∈Qi bj so that it does not replicate and instead accesses the replica at .
+No player has incentive to deviate, so this strategy profile is a Nash equilibrium. 
+The strategy for each player i is specified by a triplet (vi, bi, ti) ∈ {N, Ê+, Ê+}.
+Any configuration that is a pure strategy Nash equilibrium in the basic game is also a pure strategy Nash  equilibrium in the payment game.
+(of claim) Assume the contrary, that is, Èj∈Qi δj < α − di .
+For each node i replicating the object, set its threshold ti to 0; everyone else has threshold α.
+Given a strategy profile, the outcome of the game is the set of tuples {(Ii, vi, bi, Ri)}.
+We first present the following observation, which is used in the proof, about thresholds in the payment game.
+In this section, we present an extension to the basic game with payments and analyze the price of anarchy and the optimistic price of anarchy of the game.
+Therefore it is better off keeping its threshold and bid at 0 and replicating the object.
+In addition, we use Ri to denote the total amount of bids received by a node i (Ri = Èj:vj =i bj).
+We know from the counterexample in Figure 2 that this is not guaranteed in the the basic game.
+We set bids as follows.
+4.2 Analysis In analyzing the payment model, we first show that a Nash  equilibrium in the basic game is also a Nash equilibrium in the payment game.
+Each node j in Nc has no incentive to change tj since changing tj does not reduce its cost.
+The same argument holds for A because of symmetry in the graph.
+Lowering its threshold does not decrease its cost, since all bi are zero.
+Consider any Nash equilibrium configuration in the  basic game.
+B does not have an incentive to deviate, since accessing the remote replica does not decrease its cost.
+Suppose node B"s neighbors each decide to pay node B an amount 2/n.
+It is clear that δj ≥ 0.
+A node that is not replicating the object can access the object  remotely at a cost less than or equal to α.
+The cost of replication is shared among the nodes paying the server that replicates the object.
+If j does not replicate the object, i does not pay j.
+In this analysis we use α to represent αij .
+Consider the socially optimal configuration φopt.
+Now let us look at what happens to the example shown in  Figure 2 in the best case.
+Then, Èj∈Qi δj ≥ α − di .
+CLAIM 1.
+We see large peaks in P oA and OP oA at α = 100, where a phase transition causes an abrupt transition in the lines.
+OBSERVATION 1.
+THEOREM 2.

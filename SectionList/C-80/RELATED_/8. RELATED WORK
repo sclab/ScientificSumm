@@ -1,0 +1,144 @@
+To the best of our knowledge, Ganesh is the first system that
+combines the use of hash-based techniques with caching of database
+results to improve throughput and response times for applications
+with dynamic content. We also believe that it is also the first 
+system to demonstrate the benefits of using structural information for
+WWW 2007 / Track: Performance and Scalability Session: Scalable Systems for Dynamic Content
+318
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+400
+800
+1200
+1600
+400
+800
+1200
+1600
+400
+800
+1200
+1600
+5 Mb/s 20 Mb/s 100 Mb/s
+Test Clients
+Norm.Throughput
+31.8
+3.8
+2.8
+2.3
+23.8
+32.8
+5.8
+3.6
+1.8
+2.1
+1.1
+1.0
+0
+5
+10
+15
+20
+25
+30
+35
+400
+800
+1200
+1600
+400
+800
+1200
+1600
+400
+800
+1200
+1600
+5 Mb/s 20 Mb/s 100 Mb/s
+Test Clients
+Norm.ResponseTime
+(a) Normalized Throughput: Higher is better (b) Normalized Response Time: Higher is worse
+For throughput, a normalized result greater than 1 implies that Rabin is better, For response time, a normalized result greater than 1 implies
+that Ganesh is better. Mean of three trials. The maximum standard deviation for throughput and response time was 9.1% and 13.9% of
+the corresponding mean.
+Figure 9: Normalized Comparison of Ganesh vs. Rabin - BBOARD Browsing Mix
+detecting similarity. In this section, we first discuss alternative 
+approaches to caching dynamic content and then examine other uses
+of hash-based primitives in distributed systems.
+8.1 Caching Dynamic Content
+At the database layer, a number of systems have advocated 
+middletier caching where parts of the database are replicated at the edge or
+server [3, 4, 20]. These systems either cache entire tables in what
+is essentially a replicated database or use materialized views from
+previous query replies [19]. They require tight integration with the
+back-end database to ensure a time bound on the propagation of
+updates. These systems are also usually targeted towards 
+workloads that do not require strict consistency and can tolerate stale
+data. Further, unlike Ganesh, some of these mid-tier caching 
+solutions [2, 3], suffer from the complexity of having to participate in
+query planing and distributed query processing.
+Gao et al. [15] propose using a distributed object replication
+architecture where the data store"s consistency requirements are
+adapted on a per-application basis. These solutions require 
+substantial developer resources and detailed understanding of the 
+application being modified. While systems that attempt to automate
+the partitioning and replication of an application"s database 
+exist [34], they do not provide full transaction semantics. In 
+comparison, Ganesh does not weaken any of the semantics provided by
+the underlying database.
+Recent work in the evaluation of edge caching options for 
+dynamic web sites [38] has suggested that, without careful planning,
+employing complex offloading strategies can hurt performance. 
+Instead, the work advocates for an architecture in which all tiers 
+except the database should be offloaded to the edge. Our evaluation of
+Ganesh has shown that it would benefit these scenarios. To improve
+database scalability, C-JDBC [10], SSS [22], and Ganymed [28]
+also advocate the use of an interposition-based architecture to 
+transparently cluster and replicate databases at the middleware level.
+The approaches of these architectures and Ganesh are 
+complementary and they would benefit each other.
+Moving up to the presentation layer, there has been widespread
+adoption of fragment-based caching [14], which improves cache
+utilization by separately caching different parts of generated web
+pages. While fragment-based caching works at the edge, a recent
+proposal has proposed moving web page assembly to the clients to
+optimize content delivery [31]. While Ganesh is not used at the 
+presentation layer, the same principles have been applied in Duplicate
+Transfer Detection [25] to increase web cache efficiency as well as
+for web access across bandwidth limited links [33].
+8.2 Hash-based Systems
+The past few years have seen the emergence of many systems
+that exploit hash-based techniques. At the heart of all these 
+systems is the idea of detecting similarity in data without requiring 
+interpretation of that data. This simple yet elegant idea relies on 
+cryptographic hashing, as discussed earlier in Section 2. Successful 
+applications of this idea span a wide range of storage systems. 
+Examples include peer-to-peer backup of personal computing files [11],
+storage-efficient archiving of data [29], and finding similar files [21].
+Spring and Wetherall [35] apply similar principles at the network
+level. Using synchronized caches at both ends of a network link,
+duplicated data is replaced by smaller tokens for transmission and
+then restored at the remote end. This and other hash-based systems
+such as the CASPER [37] and LBFS [26] filesystems, and Layer-2
+bandwidth optimizers such as Riverbed and Peribit use Rabin 
+fingerprinting [30] to discover spans of commonality in data. This 
+approach is especially useful when data items are modified in-place
+through insertions, deletions, and updates. However, as Section 6
+shows, the performance of this technique can show a dramatic drop
+in the presence of data reordering. Ganesh instead uses row 
+boundaries as dividers for detecting similarity.
+The most aggressive use of hash-based techniques is by systems
+that use hashes as the primary identifiers for objects in persistent
+storage. Storage systems such as CFS [12] and PAST [13] that
+have been built using distributed hash tables fall into this category.
+Single Instance Storage [6] and Venti [29] are other examples of
+such systems. As discussed in Section 2.2, the use of cryptographic
+hashes for addressing persistent data represents a deeper level of
+faith in their collision-resistance than that assumed by Ganesh. If
+time reveals shortcomings in the hash algorithm, the effort involved
+in correcting the flaw is much greater. In Ganesh, it is merely a
+matter of replacing the hash algorithm.

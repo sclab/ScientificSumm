@@ -1,0 +1,173 @@
+We study the effects of resource failures in congestion 
+settings. This study is motivated by a variety of situations
+in multi-agent systems with unreliable components, such as
+machines, computers etc. We define a model for congestion
+games with load-dependent failures (CGLFs) which provides
+simple and natural description of such situations. In this
+model, we are given a finite set of identical resources (service
+providers) where each element possesses a failure 
+probability describing the probability of unsuccessful completion of
+its assigned tasks as a (nondecreasing) function of its 
+congestion. There is a fixed number of agents, each having
+a task which can be carried out by any of the resources.
+For reliability reasons, each agent may decide to assign his
+task, simultaneously, to a number of resources. Thus, the
+congestion on the resources is not known in advance, but
+is strategy-dependent. Each resource is associated with a
+cost, which is a (nonnegative) function of the congestion 
+experienced by this resource. The objective of each agent is to
+maximize his own utility, which is the difference between his
+benefit from successful task completion and the sum of the
+costs over the set of resources he uses. The benefits of the
+agents from successful completion of their tasks are allowed
+to vary across the agents.
+The resource cost function describes the cost suffered by
+an agent for selecting that resource, as a function of the
+number of agents who have selected it. Thus, it is natural
+to assume that these functions are nonnegative. In addition,
+in many real-life applications of our model the resource cost
+functions have a special structure. In particular, they can
+monotonically increase or decrease with the number of the
+users, depending on the context. The former case is 
+motivated by situations where high congestion on a resource
+causes longer delay in its assigned tasks execution and as
+a result, the cost of utilizing this resource might be higher.
+A typical example of such situation is as follows. Assume
+we need to deliver an important package. Since there is no
+guarantee that a courier will reach the destination in time,
+we might send several couriers to deliver the same package.
+The time required by each courier to deliver the package
+increases with the congestion on his way. In addition, the
+payment to a courier is proportional to the time he spends
+in delivering the package. Thus, the payment to the courier
+increases when the congestion increases. The latter case 
+(decreasing cost functions) describes situations where a group
+of agents using a particular resource have an opportunity to
+share its cost among the group"s members, or, the cost of
+210
+using a resource decreases with the number of users, 
+according to some marketing policy.
+Our results
+We show that CGLFs and, in particular, CGLFs with
+nondecreasing cost functions, do not admit a 
+potential function. Therefore, the CGLF model can not be
+reduced to congestion games. Nevertheless, if the 
+failure probabilities are constant (do not depend on the
+congestion) then a potential function is guaranteed to
+exist.
+We show that CGLFs and, in particular, CGLFs with
+decreasing cost functions, do not possess pure 
+strategy Nash equilibria. However, as we show in our main
+result, there exists a pure strategy Nash 
+equilibrium in any CGLF with nondecreasing cost
+functions.
+Related work
+Our model extends the well-known class of congestion games
+[11]. In a congestion game, every agent has to choose from a
+finite set of resources, where the utility (or cost) of an agent
+from using a particular resource depends on the number of
+agents using it, and his total utility (cost) is the sum of
+the utilities (costs) obtained from the resources he uses. An
+important property of these games is the existence of pure
+strategy Nash equilibria. Monderer and Shapley [9] 
+introduced the notions of potential function and potential game
+and proved that the existence of a potential function implies
+the existence of a pure strategy Nash equilibrium. They
+observed that Rosenthal [11] proved his theorem on 
+congestion games by constructing a potential function (hence,
+every congestion game is a potential game). Moreover, they
+showed that every finite potential game is isomorphic to a
+congestion game; hence, the classes of finite potential games
+and congestion games coincide.
+Congestion games have been extensively studied and 
+generalized. In particular, Leyton-Brown and Tennenholtz [5]
+extended the class of congestion games to the class of 
+localeffect games. In a local-effect game, each agent"s payoff is
+effected not only by the number of agents who have chosen
+the same resources as he has chosen, but also by the number
+of agents who have chosen neighboring resources (in a given
+graph structure). Monderer [8] dealt with another type of
+generalization of congestion games, in which the resource
+cost functions are player-specific (PS-congestion games). He
+defined PS-congestion games of type q (q-congestion games),
+where q is a positive number, and showed that every game
+in strategic form is a q-congestion game for some q. 
+Playerspecific resource cost functions were discussed for the first
+time by Milchtaich [6]. He showed that simple and 
+strategysymmetric PS-congestion games are not potential games,
+but always possess a pure strategy Nash equilibrium. 
+PScongestion games were generalized to weighted congestion
+games [6] (or, ID-congestion games [7]), in which the 
+resource cost functions are not only player-specific, but also
+depend on the identity of the users of the resource. 
+Ackermann et al. [1] showed that weighted congestion games
+admit pure strategy Nash equilibria if the strategy space of
+each player consists of the bases of a matroid on the set of
+resources.
+Much of the work on congestion games has been inspired
+by the fact that every such game has a pure strategy Nash
+equilibrium. In particular, Fabrikant et al. [3] studied
+the computational complexity of finding pure strategy Nash
+equilibria in congestion games. Intensive study has also
+been devoted to quantify the inefficiency of equilibria in
+congestion games. Koutsoupias and Papadimitriou [4] 
+proposed the worst-case ratio of the social welfare achieved
+by a Nash equilibrium and by a socially optimal strategy
+profile (dubbed the price of anarchy) as a measure of the
+performance degradation caused by lack of coordination.
+Christodoulou and Koutsoupias [2] considered the price of
+anarchy of pure equilibria in congestion games with linear
+cost functions. Roughgarden and Tardos [12] used this 
+approach to study the cost of selfish routing in networks with
+a continuum of users.
+However, the above settings do not take into 
+consideration the possibility that resources may fail to execute their
+assigned tasks. In the computer science context of 
+congestion games, where the alternatives of concern are machines,
+computers, communication lines etc., which are obviously
+prone to failures, this issue should not be ignored.
+Penn, Polukarov and Tennenholtz were the first to 
+incorporate the issue of failures into congestion settings [10].
+They introduced a class of congestion games with failures
+(CGFs) and proved that these games, while not being 
+isomorphic to congestion games, always possess Nash equilibria
+in pure strategies. The CGF-model significantly differs from
+ours. In a CGF, the authors considered the delay associated
+with successful task completion, where the delay for an agent
+is the minimum of the delays of his successful attempts and
+the aim of each agent is to minimize his expected delay. In
+contrast with the CGF-model, in our model we consider the
+total cost of the utilized resources, where each agent wishes
+to maximize the difference between his benefit from a 
+successful task completion and the sum of his costs over the
+resources he uses.
+The above differences imply that CGFs and CGLFs 
+possess different properties. In particular, if in our model the
+resource failure probabilities were constant and known in 
+advance, then a potential function would exist. This, however,
+does not hold for CGFs; in CGFs, the failure probabilities
+are constant but there is no potential function. 
+Furthermore, the procedures proposed by the authors in [10] for
+the construction of a pure strategy Nash equilibrium are
+not valid in our model, even in the simple, agent-symmetric
+case, where all agents have the same benefit from successful
+completion of their tasks.
+Our work provides the first model of congestion settings
+with resource failures, which considers the sum of 
+congestiondependent costs over utilized resources, and therefore, does
+not extend the CGF-model, but rather generalizes the classic
+model of congestion games. Moreover, it is the first model
+to consider load-dependent failures in the above context.
+211
+Organization
+The rest of the paper is organized as follows. In Section 2
+we define our model. In Section 3 we present our results.
+In 3.1 we show that CGLFs, in general, do not have pure
+strategy Nash equilibria. In 3.2 we focus on CGLFs with
+nondecreasing cost functions (nondecreasing CGLFs). We
+show that these games do not admit a potential function.
+However, in our main result we show the existence of pure
+strategy Nash equilibria in nondecreasing CGLFs. Section
+4 is devoted to a short discussion. Many of the proofs are
+omitted from this conference version of the paper, and will
+appear in the full version.

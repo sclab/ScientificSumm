@@ -1,0 +1,185 @@
+Similarity can be estimated with a similarity metric that takes
+two entries and returns how similar they are. There are several 
+similarity metrics used in case based reasoning system such as weighted
+sum of Euclidean distance, Hamming distance and so on [12].
+The similarity metric affects the performance of the system while
+deciding which service is the closest to the consumer"s request. We
+first analyze some existing metrics and then propose a new 
+semantic similarity metric named RP Similarity.
+5.1 Tversky"s Similarity Metric
+Tversky"s similarity metric compares two vectors in terms of
+the number of exactly matching features [17]. In Equation (1),
+common represents the number of matched attributes whereas
+different represents the number of the different attributes. Our
+current assumption is that α and β is equal to each other.
+SMpq =
+α(common)
+α(common) + β(different)
+(1)
+Here, when two features are compared, we assign zero for 
+dissimilarity and one for similarity by omitting the semantic closeness
+among the feature values.
+Tversky"s similarity metric is designed to compare two feature
+vectors. In our system, whereas the list of services that can be 
+offered by the producer are each a feature vector, the most specific
+set S is not a feature vector. S consists of hypotheses of feature
+vectors. Therefore, we estimate the similarity of each hypothesis
+inside the most specific set S and then take the average of the 
+similarities.
+EXAMPLE 3. Assume that S contains the following two 
+hypothesis: { {Light, Moderate, (Red, White)} , {Full, Strong, Rose}}.
+Take service s as (Light, Strong, Rose). Then the similarity of the
+first one is equal to 1/3 and the second one is equal to 2/3 in 
+accordance with Equation (1). Normally, we take the average of it
+and obtain (1/3 + 2/3)/2, equally 1/2. However, the first 
+hypothesis involves the effect of two requests and the second hypothesis
+involves only one request. As a result, we expect the effect of the
+first hypothesis to be greater than that of the second. Therefore,
+we calculate the average similarity by considering the number of
+samples that hypotheses cover.
+Let ch denote the number of samples that hypothesis h covers
+and (SM(h,service)) denote the similarity of hypothesis h with the
+given service. We compute the similarity of each hypothesis with
+the given service and weight them with the number of samples they
+cover. We find the similarity by dividing the weighted sum of the
+similarities of all hypotheses in S with the service by the number
+of all samples that are covered in S.
+AV G−SM(service,S) =
+|S|
+|h| (ch ∗ SM(h,service))
+|S|
+|h| ch
+(2)
+Figure 2: Sample taxonomy for similarity estimation
+EXAMPLE 4. For the above example, the similarity of (Light,
+Strong, Rose) with the specific set is (2 ∗ 1/3 + 2/3)/3, equally
+4/9. The possible number of samples that a hypothesis covers can
+be estimated with multiplying cardinalities of each attribute. For
+example, the cardinality of the first attribute is two and the others
+is equal to one for the given hypothesis such as {Light, Moderate,
+(Red, White)}. When we multiply them, we obtain two (2 ∗ 1 ∗ 1 =
+2).
+5.2 Lin"s Similarity Metric
+A taxonomy can be used while estimating semantic similarity 
+between two concepts. Estimating semantic similarity in a Is-A 
+taxonomy can be done by calculating the distance between the nodes
+related to the compared concepts. The links among the nodes can
+be considered as distances. Then, the length of the path between the
+nodes indicates how closely similar the concepts are. An 
+alternative estimation to use information content in estimation of semantic
+similarity rather than edge counting method, was proposed by Lin
+[8]. The equation (3) [8] shows Lin"s similarity where c1 and c2
+are the compared concepts and c0 is the most specific concept that
+subsumes both of them. Besides, P(C) represents the probability
+of an arbitrary selected object belongs to concept C.
+Similarity(c1, c2) =
+2 × log P(c0)
+log P(c1) + log P(c2)
+(3)
+5.3 Wu & Palmer"s Similarity Metric
+Different from Lin, Wu and Palmer use the distance between the
+nodes in IS-A taxonomy [20]. The semantic similarity is 
+represented with Equation (4) [20]. Here, the similarity between c1 and
+c2 is estimated and c0 is the most specific concept subsuming these
+classes. N1 is the number of edges between c1 and c0. N2 is the
+number of edges between c2 and c0. N0 is the number of IS-A
+links of c0 from the root of the taxonomy.
+SimW u&P almer(c1, c2) =
+2 × N0
+N1 + N2 + 2 × N0
+(4)
+5.4 RP Semantic Metric
+We propose to estimate the relative distance in a taxonomy 
+between two concepts using the following intuitions. We use Figure
+2 to illustrate these intuitions.
+• Parent versus grandparent: Parent of a node is more 
+similar to the node than grandparents of that. Generalization of
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1305
+a concept reasonably results in going further away that 
+concept. The more general concepts are, the less similar they
+are. For example, AnyWineColor is parent of ReddishColor
+and ReddishColor is parent of Red. Then, we expect the 
+similarity between ReddishColor and Red to be higher than that
+of the similarity between AnyWineColor and Red.
+• Parent versus sibling: A node would have higher similarity
+to its parent than to its sibling. For instance, Red and Rose
+are children of ReddishColor. In this case, we expect the
+similarity between Red and ReddishColor to be higher than
+that of Red and Rose.
+• Sibling versus grandparent: A node is more similar to it"s
+sibling then to its grandparent. To illustrate, AnyWineColor
+is grandparent of Red, and Red and Rose are siblings. 
+Therefore, we possibly anticipate that Red and Rose are more 
+similar than AnyWineColor and Red.
+As a taxonomy is represented in a tree, that tree can be traversed
+from the first concept being compared through the second concept.
+At starting node related to the first concept, the similarity value is
+constant and equal to one. This value is diminished by a constant
+at each node being visited over the path that will reach to the node
+including the second concept. The shorter the path between the
+concepts, the higher the similarity between nodes.
+Algorithm 2 Estimate-RP-Similarity(c1,c2)
+Require: The constants should be m > n > m2
+where m, n ∈
+R[0, 1]
+1: Similarity ← 1
+2: if c1 is equal to c2 then
+3: Return Similarity
+4: end if
+5: commonParent ← findCommonParent(c1, c2)
+{commonParent is the most specific concept that covers
+both c1 and c2}
+6: N1 ← findDistance(commonParent, c1)
+7: N2 ← findDistance(commonParent, c2) {N1 & N2 are
+the number of links between the concept and parent concept}
+8: if (commonParent == c1) or (commonParent == c2) then
+9: Similarity ← Similarity ∗ m(N1+N2)
+10: else
+11: Similarity ← Similarity ∗ n ∗ m(N1+N2−2)
+12: end if
+13: Return Similarity
+Relative distance between nodes c1 and c2 is estimated in the
+following way. Starting from c1, the tree is traversed to reach c2.
+At each hop, the similarity decreases since the concepts are getting
+farther away from each other. However, based on our intuitions,
+not all hops decrease the similarity equally.
+Let m represent the factor for hopping from a child to a parent
+and n represent the factor for hopping from a sibling to another
+sibling. Since hopping from a node to its grandparent counts as
+two parent hops, the discount factor of moving from a node to its
+grandparent is m2
+. According to the above intuitions, our constants
+should be in the form m > n > m2
+where the value of m and n
+should be between zero and one. Algorithm 2 shows the distance
+calculation.
+According to the algorithm, firstly the similarity is initialized
+with the value of one (line 1). If the concepts are equal to each other
+then, similarity will be one (lines 2-4). Otherwise, we compute the
+common parent of the two nodes and the distance of each concept
+to the common parent without considering the sibling (lines 5-7).
+If one of the concepts is equal to the common parent, then there
+is no sibling relation between the concepts. For each level, we
+multiply the similarity by m and do not consider the sibling factor
+in the similarity estimation. As a result, we decrease the similarity
+at each level with the rate of m (line9). Otherwise, there has to be
+a sibling relation. This means that we have to consider the effect of
+n when measuring similarity. Recall that we have counted N1+N2
+edges between the concepts. Since there is a sibling relation, two of
+these edges constitute the sibling relation. Hence, when calculating
+the effect of the parent relation, we use N1+N2 −2 edges (line 11).
+Some similarity estimations related to the taxonomy in Figure 2
+are given in Table 2. In this example, m is taken as 2/3 and n is
+taken as 4/7.
+Table 2: Sample similarity estimation over sample taxonomy
+Similarity(ReddishColor, Rose) = 1 ∗ (2/3) = 0.6666667
+Similarity(Red, Rose) = 1 ∗ (4/7) = 0.5714286
+Similarity(AnyW ineColor,Rose) = 1 ∗ (2/3)2
+= 0.44444445
+Similarity(W hite,Rose) = 1 ∗ (2/3) ∗ (4/7) = 0.3809524
+For all semantic similarity metrics in our architecture, the 
+taxonomy for features is held in the shared ontology. In order to evaluate
+the similarity of feature vector, we firstly estimate the similarity for
+feature one by one and take the average sum of these similarities.
+Then the result is equal to the average semantic similarity of the
+entire feature vector.

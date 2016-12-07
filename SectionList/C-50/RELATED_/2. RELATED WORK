@@ -1,0 +1,134 @@
+A survey of location systems for ubiquitous computing
+is provided in [11]. A location tracking system for adhoc
+sensor networks using anchor sensors as reference to gain
+location information and spread it out to outer node is 
+proposed in [17]. Most location tracking systems in adhoc 
+sensor networks are for benefiting geographic-aware routing.
+They don"t fit well for our purposes. The well-known 
+active badge system [19] lets a user carry a badge around.
+An infrared sensor in the room can detect the presence of
+a badge and determine the location and identification of
+the person. This is a useful system for indoor environment,
+where GPS doesn"t work. Locationing using 802.11 devices
+is probably the cheapest solution for indoor position 
+tracking [8]. Because of the popularity and low cost of 802.11
+devices, several business solutions based on this technology
+have been developed[1].
+A system that combines two mature technologies and is
+viable in suburban area where a user can see clear sky and
+has GSM cellular reception at the same time is currently
+available[5]. This system receives GPS signal from a 
+satellite and locates itself, draws location on a map, and sends
+location information through GSM network to the others
+who are interested in the user"s location.
+A very simple system to monitor children consists an RF
+transmitter and a receiver. The system alarms the holder
+of the receiver when the transmitter is about to run out of
+range [6].
+Personal Locater Beacons (PLB) has been used for avalanche
+rescuing for years. A skier carries an RF transmitter that
+emits beacons periodically, so that a rescue team can find
+his/her location based on the strength of the RF signal. 
+Luxury version of PLB combines a GPS receiver and a 
+COSPASSARSAT satellite transmitter that can transmit user"s 
+location in latitude and longitude to the rescue team whenever
+an accident happens [4]. However, the device either is turned
+on all the time resulting in fast battery drain, or must be
+turned on after the accident to function.
+Another related technology in widespread use today is the
+ONSTAR system [3], typically used in several luxury cars.
+In this system, a GPS unit provides position information,
+and a powerful transmitter relays that information via 
+satellite to a customer service center. Designed for emergencies,
+the system can be triggered either by the user with the push
+of a button, or by a catastrophic accident. Once the system
+has been triggered, a human representative attempts to gain
+communication with the user via a cell phone built as an 
+incar device. If contact cannot be made, emergency services
+are dispatched to the location provided by GPS. Like PLBs,
+this system has several limitations. First, it is heavy and 
+expensive. It requires a satellite transmitter and a connected
+network. If connectivity with either the GPS network or a
+communication satellite cannot be maintained, the system
+fails. Unfortunately, these are common obstacles 
+encountered in deep canyons, narrow streets in large cities, parking
+garages, and a number of other places.
+181
+The Lifetch system uses GPS receiver board combined
+with a GSM/GPRS transmitter and an RF transmitter in
+one wireless sensor node called Intelligent Communication
+Unit (ICU). An ICU first attempts to transmit its location
+to a control center through GSM/GPRS network. If that
+fails, it connects with other ICUs (adhoc network) to 
+forward its location information until the information reaches
+an ICU that has GSM/GPRS reception. This ICU then
+transmits the location information of the original ICU via
+the GSM/GPRS network.
+ZebraNet is a system designed to study the moving 
+patterns of zebras [13]. It utilizes two protocols: History-based
+protocol and flooding protocol. History-based protocol is
+used when the zebras are grazing and not moving around
+too much. While this might be useful for tracking zebras,
+it"s not suitable for tracking hikers because two hikers are
+most likely to meet each other only once on a trail. In
+the flooding protocol, a node dumps its data to a neighbor
+whenever it finds one and doesn"t delete its own copy until
+it finds a base station. Without considering routing loops,
+packet filtering and grouping, the size of data on a node will
+grow exponentially and drain the power and memory of a
+sensor node with in a short time. Instead, Cenwits uses a
+four-phase hand-shake protocol to ensure that a node 
+transmits only as much information as the other node is willing
+to receive. While ZebraNet is designed for a big group of
+sensors moving together in the same direction with same
+speed, Cenwits is designed to be used in the scenario where
+sensors move in different directions at different speeds.
+Delay tolerant network architecture addresses some 
+important problems in challenged (resource-constrained) 
+networks [9]. While this work is mainly concerned with 
+interoperability of challenged networks, some problems related
+to occasionally-connected networks are similar to the ones
+we have addressed in CenWits.
+Among all these systems, luxury PLB and Lifetch are 
+designed for location tracking in wilderness areas. However,
+both of these systems require a connected network. Luxury
+PLB requires the user to transmit a signal to a satellite,
+while Lifetch requires connection to GSM/GPRS network.
+Luxury PLB transmits location information, only when an
+accident happens. However, if the user is buried in the snow
+or falls into a deep canyon, there is almost no chance for the
+signal to go through and be relayed to the rescue team. This
+is because satellite transmission needs line of sight. 
+Furthermore, since there is no known history of user"s location, it is
+not possible for the rescue team to infer the current location
+of the user. Another disadvantage of luxury PLB is that a
+satellite transmitter is very expensive, costing in the range
+of $750. Lifetch attempts to transmit the location 
+information by GSM/GPRS and adhoc sensor network that uses
+AODV as the routing protocol. However, having a cellular
+reception in remote areas in wilderness areas, e.g. 
+American national parks is unlikely. Furthermore, it is extremely
+unlikely that ICUs worn by hikers will be able to form an
+adhoc network in a large wilderness area. This is because
+the hikers are mobile and it is very unlikely to have several
+ICUs placed dense enough to forward packets even on a very
+popular hike route.
+CenWits is designed to address the limitations of systems
+such as luxury PLB and Lifetch. It is designed to 
+provide hikers, skiers, and climbers who have their activities
+mainly in wilderness areas a much higher chance to convey
+their location information to a control center. It is not 
+reliant upon constant connectivity with any communication
+medium. Rather, it communicates information along from
+user to user, finally arriving at a control center. Unlike 
+several of the systems discussed so far, it does not require that
+a user"s unit is constantly turned on. In fact, it can discover
+a victim"s location, even if the victim"s sensor was off at the
+time of accident and has remained off since then. CenWits
+solves one of the greatest problems plaguing modern search
+and rescue systems: it has an inherent on-site storage 
+capability. This means someone within the network will have
+access to the last-known-location information of a victim,
+and perhaps his bearing and speed information as well.
+Figure 1: Hiker A and Hiker B are are not in the
+range of each other

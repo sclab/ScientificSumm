@@ -1,0 +1,125 @@
+The reward ep"s domain is Dep = [-1,1], and |ep| means the extra portion of proceeds the proposer promises to provide or requests in the next  negotiation process.
+When A receives B"s counter-offer and  reward, A evaluates them using its utility function, and  compares the utility with the utility of offer and reward it wants to propose to B at time t+2, decides to accept it or give its counter-offer and reward.
+3.1 Utility function During the negotiation process, one provider proposes an offer and a reward to the other provider.
+However, if A considers that it may provide bad context, A will propose that its  opponent B provide the context, and require B to share some proceeds and provide reward.
+For example, in the last  negotiation process A promised to give reward ep (0 ≤ ep < 1) to B, and A"s portion of the proceeds is p in current  negotiation.
+In addition, according to the feedback and the negotiation time,  Context Manager will give proceeds to the provider.
+The two  negotiators acquire c"s QoC information from c, and we use the approach proposed in [4] to calculate the distance between c"s QoC and the application"s Qoc requirements.
+Now we calculate the expected utility to be conceded at time t +2, we use Cu to express the conceded utility.
+When B receives the proposal from A, it uses its utility  function to evaluate it.
+During the negotiation process, we assume that at time t A proposes offer ot and reward ept to B, at time t + 1, B proposes counter-offer ot+1 and reward ept+1 to A.
+the expected utility of c at time t+2 is UA c (ct)− 1 3 Cu δA(t+2) and it is closer to the utility of A"s proposal ct at time t, then at time t + 2, ct+2 = ct, else the utility is closer to B"proposal ct+1 and ct+2 = ct+1.
+We extend Raiffa"s basic model for bilateral negotiation [8], and allow negotiators to negotiate with each other by exchanging arguments in the form of promises of  future rewards or requests for future rewards.
+In addition, Context Manager allocates the  proceeds between the two providers.
+ep < 0 means the proposer promises to provide reward, ep > 0 means the proposer requests reward and ep =0 means no reward.
+Context provider A"s utility function of the offer and reward at time t UA : O × Dep × T → [−1, 1] is defined as: UA(o,ep,t)=(wA 1 ·UA c (c)+wA 2 ·UA p (p)+wA 3 ·UA ep(ep))·δA(t) (1) Similarly, the utility function of A"s opponent (i.e.
+The current application gives the feedback information about the provided context, and then Context Manager will update the chosen provider"s  reputation information according to the feedback information.
+Context Knowledge Base Reputation of Context Providers Context provider A Context Manager Negotiate Application"s QoC requirements and feedback Provide QoC requirements and proceeds Manage Context Provide Context Getreputation Getreputation Update reputation information according to feedback Context provider B Figure 1: Negotiate to provide appropriate context information.
+When negotiation is forced to be terminated,  Context manager will ask A and B to calculate UA c (A), UA c (B), UB c (A) and UB c (B) respectively.
+When negotiation is completed, the chosen provider will provide the context  information to Context Manager, and then Context Manager delivers such information to the application and also stores it in Context Knowledge Base where current and historical context information is stored.
+The expected utility of A at time t + 2 is: UA(ot+2, ept+2, t + 2) = UA(ot, ept, t + 2) − Cu If UA(ot+2, ept+2, t + 2) ≤ UA(ot+1, ept+1, t + 1) then A will accept B"s proposal (i.e.
+We calculate pt+2 and ept+2 as follows: pt+2 = (UA p )−1 (UA p (pt) − 1 2 Cu δA(t + 2) ) ept+2 = (UA ep)−1 (UA ep(ept) − 1 2 Cu δA(t + 2) ) When ct+2 is equal to ct+1, the actual conceded utility of c is |UA c (ct+2) − UA c (ct)|, the total concession of p and ep is Cu δA(t+2) − |UA c (ct+2) − UA c (ct)|, then: pt+2 = (UA p )−1 (UA p (pt)− 1 2 ( Cu δA(t + 2) −|UA c (ct+2)−UA c (ct)|)) ept+2 = (UA ep)−1 (UA ep(ept)−1 2 ( Cu δA(t+2) −|UA c (ct+2)−UA c (ct)|)) Now, we have generated the offer and reward A will propose at time t + 2.
+B) can be defined as: UB(o,ep,t)=(wB 1 ·UB c (c)+wB 2 ·UB p (1−p)+wB 3 ·UB ep(−ep))·δB(t) In (1), wA 1 , wA 2 and wA 3 are weights given to c, p and ep respectively, and wA 1 + wA 2 + wA 3 =1.
+1 For example, cA(t) = ( t tdeadline ) 1 β (0 < β < 1) Utility function and weight of c, p and ep Uc, w1 Up, w2 Uep, w3 A 0.5(1 − dA 500 ) + 0.5repA 1000 , 0.6 0.9p, 0.3 0.9ep, 0.1 B 0.52(1 − dB 500 ) + 0.48repB 1000 , 0.5 0.9p, 0.45 0.8ep, 0.05 Table 1: Utility functions and weights of c, p and ep for each provider 
+UA c (c) : R × Drep → [−1, 1] can be defined as: UA c (c) = wA c1 · UA d (d) + wA c2 · UA rep(rep) wA c1 and wA c2 are weights given to the distance and  reputation respectively, and wA c1 + wA c2 = 1.
+dn) di = (cpi − ai) · si · wi where cpi−ai = 0 for ai = and cpi−ai = o(ai) for cpi = ( o(.)
+At the beginning of the negotiation, context providers  initialize their offers and rewards according to their beliefs and their reserved utility.
+the two context providers participating in the negotiation); p means the proposer"s portion of the proceeds, and its domain is Dp = [0,1].
+If context provider A considers that it can provide good context and wants to enhance  reputation, then it will propose that A provides the context  information, shares some proceeds with its opponent B, and even promises to give reward.
+Context Manager also provides the proceeds to providers according to the feedback information and the time cost on negotiation.
+the utility of o and ep proposed by A at time t is greater than the utility of offer o" and reward ep" which B will  propose to A at time t + 1, B will accept this offer and reward.
+Similarly, B also can generate its offer and reward.
+In the following parts of this section, we describe our negotiation model in detail, including context providers" utility functions to evaluate offers and rewards, negotiation protocol, and strategies to generate offers and rewards.
+determines the application"s satisfaction or  dissatisfaction when c is unable to provide an estimate of a QoC  attribute, given the value wished for by the application).
+Then at time t + 2, when the utility of B"s proposal is greater than A"s reserved utility, A gives its response.
+However, if UB(o, ep, t) < UB(o , ep , t + 1) then B will reject A"s proposal, and propose its counter-offer and reward to A.
+When ct+2 is equal to ct, the actual conceded utility of c is 0, and the total concession of p and ep is Cu.
+Context Manager finds that provider A and B can provide such kind of context with different quality levels.
+According to the application"s feedback information about this  context, Context Manager updates the provider"s reputation stored in Reputation of Context Providers.
+Then the provider will share the proceeds with its opponent according to the negotiation outcome and the reward confirmed in the last negotiation process.
+Thus context providers should have utility functions to evaluate offers and rewards.
+If UA c (A) + UB c (A) < UA c (B) + UB c (B) then B will get the right to provide context information.
+Negotiation using persuasive arguments (such as threats, promises of future rewards, and appeals) allows negotiation parties to influence each others" preferences to reach better deals effectively and efficiently [9].
+An offer is noted as o = (c, p): c indicates the chosen context provider and its domain is Dc (i.e.
+Both providers get reputation  information from the database Reputation of Context Providers and QoC requirements, and then negotiate with each other according to our negotiation model.
+When the negotiation is finished, the chosen provider  provides the context information to Context Manager which will deliver the information to current application.
+Then A generates its  offer ot+2 = (ct+2, pt+2) and reward ept+2 at time t + 2.
+Then A"s actual portion of the proceeds is p · (1 − ep), and its opponent B"s portion of the proceeds is 1−p+p·ep.
+The negotiation is completed.
+Cu = (UA(ot, ept, t) − UA(ot+1, ept+1, t + 1)) · cA(t + 2) (UA(ot, ept, t) > UA(ot+1, ept+1, t + 1), otherwise, A will  accept B"s proposal) where cA : T → [0, 1] is a  monotoneincreasing function.
+Then the manager tells A and B to negotiate to reach agreement on who can provide the context information and how they will allocate the proceeds.
+Context providers can specify QoC attributes for the context information they deliver.
+Rewards mean some extra proceeds in the next negotiation process.
+A"s utility function of reward ep UA ep : Dep → [−1, 1] is also a monotone-increasing  function and UA ep(0) = 0. δA : T → [0, 1] is the time discount function.
+This function is determined by two  factors: the distance between c"s QoC and current application"s QoC requirements, and c"s reputation.
+3.3 Negotiation strategy The context provider might want to pursue the right to provide context information blindly in order to enhance its reputation.
+In our negotiation model, the context provider generates its offer and reward according to its pervious offer and reward and the last one sent by its opponent.
+In pervasive environments, all available context providers negotiate with each other to decide who can provide  context information.
+tdeadline}, context providers can propose their offers.
+When time t cost on negotiation increases, δA(t) will decrease, and the utility will also decrease.
+We divide the total concession of p and ep evenly, and get the conceded utility of p and ep respectively.
+When UA c (A) + UB c (A) = UA c (B) + UB c (B) Context Manager will select a provider from A and B  randomly.
+In the beginning, we introduce the concepts of reputation and Quality of Context (QoC) attributes.
+They first set their reserved (the lowest acceptable) utility which can guarantee the system"s interests and their personal  interests.
+When the context provider finds the utility of an offer and a reward is lower than its reserved utility, it will reject this proposal and terminate the negotiation process.
+UA c : Dc → [−1, 1] is the utility function of the issue who provides context.
+Its opponent"s  portion of the proceeds is 1−p.
+If |UA c (ct)−(UA c (ct)− 1 3 Cu δA(t+2) )| ≤ |UA c (ct+1)−(UA c (ct)− 1 3 Cu δA(t+2) )| i.e.
+Thus, in addition to QoC, reputation information of context providers is another factor affecting the decision who can provide context information.
+Negotiation is a process by which a joint decision is made by two or more parties.
+The aim of provider"s negotiation strategy is to determine the best course of action which will result in a negotiation outcome maximizing its utility function (i.e how to generate an offer and a reward).
+In our approach, as described by Figure 1, the current application requires Context Manager to provide a specific type of context information satisfying QoC requirements.
+UA p : Dp → [0, 1] is the utility function of the portion of proceeds A will receive and it is also a monotone-increasing function.
+The provider"s reputation may be enhanced or decreased.
+Moreover, more time negotiators cost on negotiation, less proceeds will be given.
+We assume A starts the negotiation, and it proposes offer o and reward ep to B according to its strategy (see subsection 3.3).
+Although we can decide who provides appropriate context according to QoC requirements and context providers" QoC information,  applications" QoC requirements might not reflect the actual quality requirements.
+the utility to be conceded on c, p and ep is 1 3 Cu respectively).
+Reputation of c can be acquired from the database  Reputation of Context Providers.
+If UA c (A) + UB c (A) > UA c (B) + UB c (B) Context Manager let A provide context.
+Here agent means context provider.
+Thus both negotiators want to reach agreement as quickly as possible to avoid loss of utility.
+The opponent evaluates the offer and reward to decide to accept them or propose a counter-offer and a reward.
+cpn) (where cpi = means c"s inability to provide a quantitative value for the i-th QoC attribute).
+Otherwise, if UB(o, ep, t) ≥ UB(o , ep , t + 1) i.e.
+Each provider"s  reputation indicates its historical ability to provide appropriate context information.
+cA(t) indicates A"s utility concession rate1 .
+Although we can select one provider when negotiation is terminated forcibly,  however, this may lead to the unfair allocation of the proceeds.
+The  required context has n QoC attributes and let the  application"s wishes for this context be a = (a1, a2 .
+Quality of Context (QoC) attributes characterize the quality of context information.
+However when it finally provides bad context information, its reputation will be decreased and the  proceeds is also very small.
+They can influence outcomes of current and future negotiation.
+It is also a monotone-decreasing function.
+The parties first verbalize  contradictory demands and then move towards agreement by a  process of concession making or search for new alternatives [2].
+This negotiation process continues and in each negotiation round, context providers concede in order to reach agreement.
+Reputation of an agent is a perception  regarding its behavior norms, which is held by other agents, based on experiences and observation of its past actions [7].
+We assume that Cu is distributed evenly on c, p and ep (i.e.
+When  applications require context information, they should specify their QoC requirements which express constraints of QoC attributes.
+Thus the context provider should take action according to its strategy.
+The negotiation will be  successfully finished when agreement is reached, or be terminated forcibly due to deadline or the utility lower than reserved utility.
+Otherwise, A will propose its counter-offer and reward based on Cu.
+The set O include all available offers.
+If it is lower than its reserved utility, the provider terminates the negotiation.
+an) (where ai = means the application"s indifference to the i-th QoC attribute), c"s QoC attributes cp = (cp1, cp2 .
+3.2 Negotiation protocol When provider A and B have got QoC requirements and reputation information, they begin to negotiate.
+Time is a critical factor, and only at times in the set T = {0, 1, 2, .
+The provider who starts the negotiation is chosen randomly.
+This pervasive negotiation is effective in repeated interaction because arguments can be constructed to directly impact future encounters.
+Drep is the domain of reputation information.
+This process will be repeated because a kind of context is needed more than one time.
+In this paper, for simplicity, we let negotiation take place between two providers.
+Thus negotiators will try to reach agreement as soon as possible in order to avoid unnecessary loss.
+Both will be used in our approach.
+Usually, the context provider pays the most attention to the system"s interests, pays the least attention to the reward, thus wA 1 > wA 2 > wA 3 .
+A concedes a little in the beginning before conceding significantly towards the deadline.
+ot+1 and ept+1).
+location  precision in metres with refresh rate in Hz, thus a standard scale for all dimension is needed.
+The scaling factors for the QoC attributes are s = (s1, s2 .
+Because numerical distance  values of different properties are combined, e.g.
+|dn|} (max − norm) The detail description of this calculation can be found in [4].
+UA d : R → [0, 1] is a  monotonedecreasing function and UA rep : Drep → [−1, 1] is a  monotoneincreasing function.
+In addition, different QoC attributes may have different weights: w = (w1, w2 .
+The distance can be linear distance (1-norm), Euclidean distance (2-norm), or the maximum distance (max-norm): |d| = |d1| + |d2| + .
+Then d = (d1, d2 .
++ |dn|2 (2 − norm) ||d||∞ = max{|d1|, |d2| .
++ |dn| (1 − norm) ||d||2 = |d1|2 + |d2|2 + .

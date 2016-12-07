@@ -1,0 +1,258 @@
+In a game, the sender of an entity sends DR vectors to all the
+receivers every time a threshold is crossed by the entity. Lower
+the threshold, more DR vectors are generated during a given time
+period. Since the DR vectors are sent to all the receivers and the
+network delay between the sender-receiver pairs cannot be avoided,
+the before export error 3
+with the most distant player will always
+3
+Note that after export error is eliminated by using synchronized
+clock among the players.
+7
+0
+1000
+2000
+3000
+4000
+5000
+15950 16000 16050 16100 16150 16200 16250 16300
+MeanAccumulatedError
+Time in Seconds
+Base Case
+Scheduling Algorithm #1
+0
+50
+100
+150
+200
+250
+300
+350
+400
+450
+500
+15950 16000 16050 16100 16150 16200 16250 16300
+StandardDeviationofAccumulatedError
+Time in Seconds
+Base Case
+Scheduling Algorithm #1
+Figure 4: Mean and standard deviation of error with scheduling and without (i.e., base case).
+be higher than the rest. In order to mitigate the imbalance in the
+error, we propose to send DR vectors selectively to different 
+players based on the accumulated errors of these players. The budget
+based algorithm is based on this idea and there are two variations
+of it. One is a probabilistic budget based scheme and the other, a
+deterministic budget base scheme.
+5.1 Probabilistic budget based scheme
+The probabilistic budget based scheme has three main steps: a)
+lower the dead reckoning threshold but at the same time keep the
+total number of DRs sent the same as the base case, b) at every
+trigger, probabilistically pick a player to send the DR vector to,
+and c) send the DR vector to the chosen player. These steps are
+described below.
+The lowering of DR threshold is implemented as follows. 
+Lowering the threshold is equivalent to increasing the number of trigger
+points where DR vectors are generated. Suppose the threshold is
+such that the number of triggers caused by it in the base case is t
+and at each trigger n DR vectors sent by the sender, which results
+in a total of nt DR vectors. Our goal is to keep the total number of
+DR vectors sent by the sender fixed at nt, but lower the number of
+DR vectors sent at each trigger (i.e., do not send the DR vector to
+all the receivers). Let n and t be the number of DR vectors sent
+at each trigger and number of triggers respectively in the modified
+case. We want to ensure n t = nt. Since we want to increase the
+number of trigger points, i.e, t > t, this would mean that n < n.
+That is, not all receivers will be sent the DR vector at every trigger.
+In the probabilistic budget based scheme, at each trigger, a 
+probability is calculated for each receiver to be sent a DR vector and
+only one receiver is sent the DR (n = 1). This probability is based
+on the relative weights of the receivers" accumulated errors. That
+is, a receiver with a higher accumulated error will have a higher
+probability of being sent the DR vector. Consider that the 
+accumulated error for three players are a1, a2 and a3 respectively.
+Then the probability of player 1 receiving the DR vector would
+be a1
+a1+a2+a3
+. Similarly for the other players. Once the player is
+picked, the DR vector is sent to that player.
+To compare the probabilistic budget based algorithm with the
+base case, we needed to lower the threshold for the base case (for
+fair comparison). As the dead reckoning threshold in the base
+case was already very fine, it was decided that instead of 
+lowering the threshold, the probabilistic budget based approach would
+be compared against a modified base case that would use the 
+normal threshold as the budget based algorithm but the base case was
+modified such that every third trigger would be actually used to
+send out a DR vector to all the three receivers used in our 
+experiments. This was called as the 1/3 base case as it resulted in 1/3
+number of DR vectors being sent as compared to the base case.
+The budget per trigger for the probability based approach was 
+calculated as one DR vector at each trigger as compared to three DR
+vectors at every third trigger in the 1/3 base case; thus the two cases
+lead to the same number of DR vectors being sent out over time.
+In order to evaluate the effectiveness of the probabilistic budget
+based algorithm, we instrumented the BZFlag game to use this 
+approach. We used the same testbed consisting of one sender and
+three receivers with delays of 800ms, 500ms and 200ms from the
+sender and with low delay variance (100ms) and moderate delay
+variance (180ms). The results are shown in Figures 5 and 6. As
+mentioned earlier, the x-axis of these graphs represents the system
+time when the snapshot of the game was taken. Observe from the
+figures that the standard deviation of the accumulated error among
+the receivers with the probabilistic budget based algorithm is less
+than the 1/3 base case and the mean is a little higher than the 1/3
+base case. This implies that the game is fairer as compared to the
+1/3 base case at the cost of increasing the mean error by a small
+amount as compared to the 1/3 base case.
+The increase in mean error in the probabilistic case compared to
+the 1/3 base case can be attributed to the fact that the even though
+the probabilistic approach on average sends the same number of
+DR vectors as the 1/3 base case, it sometimes sends DR vectors to
+a receiver less frequently and sometimes more frequently than the
+1/3 base case due to its probabilistic nature. When a receiver does
+not receive a DR vector for a long time, the receiver"s trajectory
+is more and more off of the sender"s trajectory and hence the rate
+of buildup of the error at the receiver is higher. At times when
+a receiver receives DR vectors more frequently, it builds up error
+at a lower rate but there is no way of reversing the error that was
+built up when it did not receive a DR vector for a long time. This
+leads the receivers to build up more error in the probabilistic case
+as compared to the 1/3 base case where the receivers receive a DR
+vector almost periodically.
+8
+0
+200
+400
+600
+800
+1000
+15950 16000 16050 16100 16150 16200 16250 16300
+MeanAccumulatedError
+Time in Seconds
+1/3 Base Case
+Deterministic Algorithm
+Probabilistic Algorithm
+0
+50
+100
+150
+200
+250
+300
+350
+400
+450
+500
+15950 16000 16050 16100 16150 16200 16250 16300
+StandardDeviationofAccumulatedError
+Time in Seconds
+1/3 Base Case
+Deterministic Algorithm
+Probabilistic Algorithm
+Figure 5: Mean and standard deviation of error for different algorithms (including budget based algorithms) for low delay variance.
+0
+200
+400
+600
+800
+1000
+16960 16980 17000 17020 17040 17060 17080 17100 17120 17140 17160 17180
+MeanAccumulatedError
+Time in Seconds
+1/3 Base Case
+Deterministic Algorithm
+Probabilistic Algorithm
+0
+50
+100
+150
+200
+250
+300
+16960 16980 17000 17020 17040 17060 17080 17100 17120 17140 17160 17180
+StandardDeviationofAccumulatedError
+Time in Seconds
+1/3 Base Case
+Deterministic Algorithm
+Probabilistic Algorithm
+Figure 6: Mean and standard deviation of error for different algorithms (including budget based algorithms) for moderate delay
+variance.
+5.2 Deterministic budget based scheme
+To bound the increase in mean error we decided to modify the
+budget based algorithm to be deterministic. The first two steps
+of the algorithm are the same as in the probabilistic algorithm; the
+trigger points are increased to lower the threshold and accumulated
+errors are used to compute the probability that a receiver will 
+receiver a DR vector. Once these steps are completed, a deterministic
+schedule for the receiver is computed as follows:
+1. If there is any receiver(s) tagged to receive a DR vector at
+the current trigger, the sender sends out the DR vector to the
+respective receiver(s). If at least one receiver was sent a DR
+vector, the sender calculates the probabilities of each receiver
+receiving a DR vector as explained before and follows steps
+2 to 6, else it does not do anything.
+2. For each receiver, the probability value is multiplied with the
+budget available at each trigger (which is set to 1 as explained
+below) to give the frequency of sending the DR vector to each
+receiver.
+3. If any of the receiver"s frequency after multiplying with the
+budget goes over 1, the receiver"s frequency is set as 1 and
+the surplus amount is equally distributed to all the receivers
+by adding the amount to their existing frequencies. This 
+process is repeated until all the receivers have a frequency of
+less than or equal to 1. This is due to the fact that at a trigger
+we cannot send more than one DR vector to the respective
+receiver. That will be wastage of DR vectors by sending 
+redundant information.
+4. (1/frequency) gives us the schedule at which the sender should
+send DR vectors to the respective receiver. Credit obtained
+previously (explained in step 5) if any is subtracted from the
+schedule. Observe that the resulting value of the schedule
+might not be an integer; hence, the value is rounded off by
+taking the ceiling of the schedule. For example, if the 
+frequency is 1/3.5, this implies that we would like to have a DR
+vector sent every 3.5 triggers. However, we are constrained
+to send it at the 4th trigger giving us a credit of 0.5. When we
+do send the DR vector next time, we would be able to send it
+9
+on the 3rd trigger because of the 0.5 credit.
+5. The difference between the schedule and the ceiling of the
+schedule is the credit that the receiver has obtained which
+is remembered for the future and used at the next time as
+explained in step 4.
+6. For each of those receivers who were sent a DR vector at
+the current trigger, the receivers are tagged to receive the
+next DR vector at the trigger that happens exactly schedule
+(the ceiling of the schedule) number of times away from the
+current trigger. Observe that no other receiver"s schedule is
+modified at this point as they all are running a schedule 
+calculated at some previous point of time. Those schedules will
+be automatically modified at the trigger when they are 
+scheduled to receive the next DR vector. At the first trigger, the
+sender sends the DR vector to all the receivers and uses a
+relative probability of 1/n for each receiver and follows the
+steps 2 to 6 to calculate the next schedule for each receiver
+in the same way as mentioned for other triggers. This 
+algorithm ensures that every receiver has a guaranteed schedule
+of receiving DR vectors and hence there is no irregularity in
+sending the DR vector to any receiver as was observed in the
+budget based probabilistic algorithm.
+We used the testbed described earlier (three receivers with 
+varying delays) to evaluate the deterministic algorithm using the budget
+of 1 DR vector per trigger so as to use the same number of DR
+vectors as in the 1/3 base case. Results from our experiments are
+shown in Figures 5 and 6. It can be observed that the standard 
+deviation of error in the deterministic budget based algorithm is less
+than the 1/3 base case and also has the same mean error as the 1/3
+base case. This indicates that the deterministic algorithm is more
+fair than the 1/3 base case and at the same time does not increase
+the mean error thereby leading to a better game quality compared
+to the probabilistic algorithm.
+In general, when comparing the deterministic approach to the
+probabilistic approach, we found that the mean accumulated 
+error was always less in the deterministic approach. With respect to
+standard deviation of the accumulated error, we found that in the
+fixed or low variance cases, the deterministic approach was 
+generally lower, but in higher variance cases, it was harder to draw 
+conclusions as the probabilistic approach was sometimes better than
+the deterministic approach.

@@ -1,0 +1,20 @@
+further, this approach allows us to scale the number of simultaneous workflows (up to one thousand workflows in our experiments) and yet still find effective schedules. 
+in section 4 we show through experimentation that this search heuristic finds better assignments than other algorithms (greedy, round-robin, and proportional).
+this approach converges  towards an assignment that maximises the overall business value for all the workflows.
+in section 3 we state the scenario as a combinatorial problem and utilise a genetic search algorithm [5] to find the best assignment of web service requests to providers.
+the scheduling must be done such that the aggregate business value across all the workflows is maximised.
+the resulting problem is then to schedule and assign the business  processes" requests for service types to one of the service providers for that type.
+we further leverage the notion that qos service agreements are generally agreed-upon between the web service providers and the scheduling agent such that the providers advertise some level of guaranteed qos to the scheduler based upon runtime conditions such as turnaround time and maximum available concurrency.
+an important challenge is that the workflows must meet some quality-of-service (qos) metric, such as end-to-end completion time of all its business processes, and that meeting or failing this goal results in the  assignment of a quantitative business value metric for the workflow;  intuitively, it is desired that all workflows meet their respective qos goals.
+), and for each service type, there are multiple instances of  service providers that publish a web service interface.
+airline reservations, hotel reservations, car reservations, etc.
+each of these requests target a particular service type (e.g.
+in this example, a workflow could represent the actions needed to instantiate a vacation itinerary, where one business process requests booking an airline ticket, another business process requests a hotel room, and so forth.
+these  workflows are then submitted to a portal (not shown) that acts as a scheduling agent between the web service consumers and the web service providers.
+workflows comprise multiple related business processes that are web service consumers; here we assume that the workflows represent requested service from  customers or automated systems and that the workflow has already been composed with an existing choreography toolkit.
+consider the example shown in figure 1 that illustrates our problem space.
+the problem of scheduling web service requests to providers is relevant to modern business domains that depend on multi-tiered service provisioning.
+in this paper we address this scheduling problem and examine means to manage a large number of business process workflows in a scalable manner.
+[1, 9]), an important remaining problem is the assignment of web service requests to the underlying web service providers in a multi-tiered runtime scenario within constraints.
+although previous research efforts have looked at ways to  intelligently automate the composition of web services into workflows (e.g.
+web services can be composed into workflows to provide  streamlined end-to-end functionality for human users or other systems.

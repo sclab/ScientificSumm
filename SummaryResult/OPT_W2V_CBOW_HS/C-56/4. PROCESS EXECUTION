@@ -1,0 +1,27 @@
+In each  iteration of this controller, the process coordinator requests to the group manager (GM) an available activity manager (AM) in order to execute a new instance of the FindPrimes activity.
+At this time, it can be instantiated and executed by a process coordinator.
+At this point, the process coordinator verifies that there is no other process element to execute and finishes the process. 
+It returns an external worker (activity manager machine) if there are no available workers in the local group; and, it returns an  external process server (process coordinator machine), if there are no available process servers or workers in the local group.
+The advantage of this distribution model is wide area  execution, which takes advantage of potentially all grid  resources; and localized communication of process elements, because strong dependent elements, which are under the same controller, are placed in the same or near groups.
+If the element is a process or a controller, the process  coordinator can choose to execute it in the same machine or to pass it to another process coordinator in a remote machine, if available.
+In parallel, whenever an activity finishes, its result is sent back to the process coordinator, which records it in the parfor controller.
+A FindPrimes process  instance is created in an available process coordinator (PC), which begins executing the parfor controller.
+If there is any AM available in this group or in an external one, the process coordinator sends the activity class and initial parameters to this activity manager and requests its execution.
+The process coordinator carries out the process by  executing the process elements included in its body sequentially.
+Else, if the element is an activity, it passes to an activity manager of an available machine.
+Process coordinators request the local group manager to find available machines that contain the required service, process coordinator or activity manager, in order to  execute a process element.
+In order to solve this problem, it creates a number of activities using the parfor controller.
+Else, if no activity manager is available, then the controller enters in a wait state until an activity manager is made available, or is created.
+4.1 Dynamic Model To execute a specified process, it must be instantiated by referencing its type on a process coordinator service of a specific group.
+After specified, the process is compiled in a set of classes, which represent specific process, activity and controller types.
+Then, it can return a local  machine, a machine in another group or none, depending on the availability of such resource in the grid.
+Therefore, because processes are structured by  nesting process elements, the process execution is automatically distributed hierarchically through one or more grid groups according to the availability and locality of computing  resources.
+Such procedure is followed recursively by all process  coGM FindPrimes Activity AM FindPrimes Activity AM FindPrimes Activity AM FindPrimes Process PC Figure 4: FindPrimes process execution ordinators that execute subprocesses or controllers of a  process.
+Also, the initial parameters must be passed to it, and then it can be started.
+In the proposed grid architecture, a process is specified in XML, using controllers to determine control flow;  referencing other processes and activities; and passing objects to their parameters in order to define data flow.
+Obeying this rule, group managers try to find process servers in the same group of the available workers.
+Besides, it supports easy monitoring and steering, due to its structured controllers, which maintain state and control over its inner elements.
+Each activity, then, finds primes in a determined part of the range of numbers.
+Then, the controller waits until all  activities that have been started are finished, and it ends.
+4.2 Process Execution Example Revisiting the example shown in Section 2.2, a process type is specified to find prime numbers in a certain range of numbers.
+Figure 4 shows an instance of this process type executing over the proposed infrastructure.

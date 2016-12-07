@@ -1,0 +1,77 @@
+This paper aims to contribute to solve complex stochastic
+resource allocation problems. In general, resource 
+allocation problems are known to be NP-Complete [12]. In such
+problems, a scheduling process suggests the action (i.e. 
+resources to allocate) to undertake to accomplish certain tasks,
+according to the perfectly observable state of the 
+environment. When executing an action to realize a set of tasks,
+the stochastic nature of the problem induces probabilities
+on the next visited state. In general, the number of states
+is the combination of all possible specific states of each task
+and available resources. In this case, the number of 
+possible actions in a state is the combination of each individual
+possible resource assignment to the tasks. The very high
+number of states and actions in this type of problem makes
+it very complex.
+There can be many types of resource allocation problems.
+Firstly, if the resources are already shared among the agents,
+and the actions made by an agent does not influence the
+state of another agent, the globally optimal policy can be
+computed by planning separately for each agent. A second
+type of resource allocation problem is where the resources
+are already shared among the agents, but the actions made
+by an agent may influence the reward obtained by at least
+another agent. To solve this problem efficiently, we adapt 
+Qdecomposition proposed by Russell and Zimdars [9]. In our
+Q-decomposition approach, a planning agent manages each
+task and all agents have to share the limited resources. The
+planning process starts with the initial state s0. In s0, each
+agent computes their respective Q-value. Then, the 
+planning agents are coordinated through an arbitrator to find
+the highest global Q-value by adding the respective possible
+Q-values of each agents. When implemented with heuristic
+search, since the number of states and actions to consider
+when computing the optimal policy is exponentially reduced
+compared to other known approaches, Q-decomposition 
+allows to formulate the first optimal decomposed heuristic
+search algorithm in a stochastic environments.
+On the other hand, when the resources are available to
+all agents, no Q-decomposition is possible. A common
+way of addressing this large stochastic problem is by 
+using Markov Decision Processes (mdps), and in particular
+real-time search where many algorithms have been 
+developed recently. For instance Real-Time Dynamic 
+Programming (rtdp) [1], lrtdp [4], hdp [3], and lao [5] are all
+state-of-the-art heuristic search approaches in a stochastic
+environment. Because of its anytime quality, an interesting
+approach is rtdp introduced by Barto et al. [1] which 
+updates states in trajectories from an initial state s0 to a goal
+state sg. rtdp is used in this paper to solve efficiently a
+constrained resource allocation problem.
+rtdp is much more effective if the action space can be
+pruned of sub-optimal actions. To do this, McMahan et
+1212
+978-81-904262-7-5 (RPS) c 2007 IFAAMAS
+al. [6], Smith and Simmons [11], and Singh and Cohn [10]
+proposed solving a stochastic problem using a rtdp type
+heuristic search with upper and lower bounds on the value
+of states. McMahan et al. [6] and Smith and Simmons [11]
+suggested, in particular, an efficient trajectory of state 
+updates to further speed up the convergence, when given upper
+and lower bounds. This efficient trajectory of state updates
+can be combined to the approach proposed here since this
+paper focusses on the definition of tight bounds, and efficient
+state update for a constrained resource allocation problem.
+On the other hand, the approach by Singh and Cohn is
+suitable to our case, and extended in this paper using, in
+particular, the concept of marginal revenue [7] to elaborate
+tight bounds. This paper proposes new algorithms to define
+upper and lower bounds in the context of a rtdp heuristic
+search approach. Our marginal revenue bounds are 
+compared theoretically and empirically to the bounds proposed
+by Singh and Cohn. Also, even if the algorithm used to
+obtain the optimal policy is rtdp, our bounds can be used
+with any other algorithm to solve an mdp. The only 
+condition on the use of our bounds is to be in the context of
+stochastic constrained resource allocation. The problem is
+now modelled.

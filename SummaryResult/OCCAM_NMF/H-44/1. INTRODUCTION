@@ -1,0 +1,17 @@
+the presented work is put in context with related work in  section 2. we delineate our model of a temporally versioned document collection in section 3. we present our time-travel inverted index in section 4. building on it, temporal  coalescing is described in section 5. in section 6 we describe principled techniques to improve index performance, before presenting the results of our experimental evaluation in  section 7. 
+the remainder of this paper is organized as follows.
+4. in a comprehensive experimental evaluation our  approach is evaluated on the english wikipedia and parts of the internet archive as two large-scale real-world datasets with versioned documents.
+3. we develop two sublist materialization techniques to improve index performance that allow trading off space vs. performance.
+2. temporal coalescing is introduced to avoid an  indexsize explosion while keeping results highly accurate.
+this paper presents an efficient solution to time-travel text search by making the following key contributions: 1. the popular well-studied inverted file index [35] is  transparently extended to enable time-travel text search.
+as a consequence, na¨ıve approaches to time-travel text search fail, and viable approaches must scale-up well to such large data volumes.
+looking at their evolutionary history, we are faced with even larger data volumes.
+document collections like the web or wikipedia [32], as we target them here, are already large if only a single  snapshot is considered.
+if the query could be enriched with a time point, say august 20th 2003 as the day after the scandal got  revealed, and be issued against a web archive, only pages that existed specifically at that time could be retrieved thus better satisfying the journalist"s information need.
+sending an appropriate query to a major web search-engine, the majority of returned  results contains only recent coverage, since many of the early web pages have disappeared and are only preserved in web archives.
+for a documentary about a past political scandal, a  journalist needs to research early opinions and statements made by the involved politicians.
+time-travel text search, as we develop it in this paper, is a crucial tool to explore these collections and to unfold their full potential as the following example demonstrates.
+even worse, for some collections, in particular web archives like the  internet archive [18], a comprehensive text-search functionality is often completely missing.
+text search on these collections,  however, is mostly time-ignorant: while the searched collection changes over time, often only the most recent version of a documents is indexed, or, versions are indexed  independently and treated as separate documents.
+given a keyword query q and a time t our goal is to identify and rank  relevant documents as if the collection was in its state as of time t. an increasing number of such versioned document  collections is available today including web archives,  collaborative authoring environments like wikis, or timestamped information feeds.
+in this work we address time-travel text search over  temporally versioned document collections.

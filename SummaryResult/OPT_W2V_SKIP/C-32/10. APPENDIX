@@ -1,0 +1,3 @@
+In the case of a redirector failure, the failover protocol reinitializes sessions with the servers and clients, and  rebuilds the page directory using a protocol similar to one in [6].
+Any response to an earlier request  initiated by the failed client is ignored except a commit reply, in which case the redirector distributes the retained committed updates to active clients caching the modified pages.
+Therefore , if a server receives a commit request from a client for a transaction T reading an object o after a failover in the client group , and the server has no unacknowledged invalidation for 

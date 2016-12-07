@@ -1,0 +1,40 @@
+the variable quantities occur only in linear terms and hence the above optimization problem can be solved using standard linear programming techniques, available in popular optimization toolboxes. 
+note that while the constraints above contain the non-linear function [x]+ , the quantities occurring within that function are all known constants.
+stating the above constraints quantitatively, we can express the calculation of the optimal duty cycles as an optimization problem below: 1 max ( ) wn i d i = ∑ (7) ( ) ( ) ( ) ( ) ( ) ( ){ } ( ) ( )1 1c s s s cb i b i td i p p i tp i d i td i p i pη η + + ⎡ ⎤ ⎡ ⎤− + = δ − − δ − − −⎣ ⎦ ⎣ ⎦ (8) 0(1)b b= (9) 0( 1)wb n b+ ≥ (10) min w( ) i {1,...,n }d i d≥ ∀ ∈ (11) max w( ) i {1,...,n }d i d≤ ∀ ∈ (12) the solution to the optimization problem yields the duty cycles that must be used in every slot and the evolution of residual battery over the course of nw slots.
+further, the battery level cannot be negative at any time, and this is ensured by having a large enough initial battery level b0 such that node operation is sustained even in the case of total blackout during a window period.
+this is an approximation since an ideal choice of the window size would be infinite, but a finite size must be used for analytical tractability.
+for instance, in the case of solar energy harvesting, nw could be chosen to be a twenty-four hour duration, corresponding to the diurnal cycle in the harvested energy.
+however, the window nw is judiciously chosen such that over that duration, we expect the environmental energy availability to complete a periodic cycle.
+clearly, battery level will go down when the harvested energy is not available and the system is operated from stored energy.
+for energy neutral operation, we require the battery at the end of the window of nw slots to be greater than or equal to the starting battery.
+we can write the energy used from the battery in any slot i as: ( ) ( ) ( ) ( )[ ] ( ) ( ){ } ( ) ( )[ ]1 1c cs s sb i b i td i p p i tp i d i td i p i pη η + + − + = δ − − δ − − − (6) in equation (6), the first term on the right hand side measures the energy drawn from the battery when ps(i) < pc, the next term measures the energy stored into the battery when the node is in sleep mode, and the last term measures the energy stored into the battery in active mode if ps(i) > pc.
+the crosshatched area shows the energy that is available for storage into the battery while the hashed area shows the energy drawn from the battery.
+when ps(i) is lower than pc, some of the energy used by the load comes from the battery, while when ps(i) is higher than pc, all the energy used is supplied directly from the harvested source.
+ps(i) may either be less than or higher than pc , as shown on the left and right respectively.
+figure 2 shows two possible cases for ps(i) in a time slot.
+the energy used directly from the harvested source and the energy stored and used from the battery must be accounted for differently.
+the values of these variables will depend on the choice of d(i).
+b(i) is the residual battery energy at the beginning of slot i. following this convention, the battery energy left after the last slot in the window is represented by b(nw+1).
+we define the following energy profile variables, with the index i ranging over {1,…, nw}: ps(i) is the power output from the harvested source in time slot i, averaged over the slot duration, pc is the power consumption of the load in active mode, and d(i) is the duty cycle used in slot i, whose value is to be determined.
+suppose the time axis is partitioned into discrete slots of duration δt, and the duty cycle adaptation calculation is carried out over a window of nw such time slots.
+this is particularly useful for our algorithm since no prior algorithms are available to serve as a baseline for comparison.
+the calculation of the optimal is a useful tool for evaluating the performance of our proposed algorithm.
+for the calculation of the optimal strategy, we assume complete knowledge of the energy availability profile at the node, including the availability in the future.
+before discussing the performance scaling methods for harvesting aware duty cycle adaptation, let us first consider the optimal power management strategy that is possible for a given energy generation profile.
+in view of the above models for the system components and the required performance, the objective of our power management strategy is adjust the duty cycle d(i) dynamically so as to maximize the total utility u(d) over a period of time, while ensuring energy neutral operation for the sensor node.
+while there may be cases where the relationship between utility and duty cycle may be non-linear, in this paper, we restrict our focus on applications that follow this linear model.
+181 maximum sensing delay tolerable, which results in the relevant dmax and dmin for the sensor node.
+the fastest and the slowest speeds of the intruders may be known, leading to a minimum and harvested energy tracking energy consumption model energy storage model  harvestingaware power mangement energy generation model load figure 1. system model for an energy harvesting system.
+in this case, a linear increase in duty cycle translates into a linear increase in the detection probability.
+as an example, consider a sensor node designed to detect intrusion across a periphery.
+to adjust the duty cycle d using our performance scaling algorithm, we assume the following relation between duty cycle and the perceived utility of the system to the user: suppose the utility of the application to the user is represented by u(d) when the system operates at a duty cycle d. then, min 1 min max 2 max ( ) 0, ( ) , ( ) , u d if d d u d k d if d d d u d k if d d β = < = + ≤ ≤ = > this is a fairly general and simple model and the specific values of dmin and dmax may be determined as per application requirements.
+the following conditions are sufficient for the system to achieve energy neutrality: ρ2 ≤ ηρ1 − pleak (3) b0 ≥ ησ2 + σ3 (4) b ≥ b0 (5) where b0 is the initial energy stored in the buffer and provides a lower bound on the capacity of the energy buffer b. the proof is presented in our prior work [19].
+theorem 1 (energy neutral operation): consider a harvesting system in which the energy production profile is characterized by a (ρ1, σ1, σ2) function, the load is characterized by a (ρ2, σ3) function and the energy buffer is characterized by parameters η for storage efficiency, and pleak for leakage power.
+the condition for energy neutrality, equation (1), leads to the following theorem, based on the energy production, consumption, and energy buffer models discussed above.
+similarly, pc(t) can be modeled as a (ρ2,σ3) function, when ρ2 and σ3 are used to place an upper bound on power consumption (the inequality on the right side) while there are no minimum power consumption constraints.
+if the harvested energy profile ps(t) is a (ρ1,σ1,σ2) function, then the average rate of available energy over long durations becomes ρ1, and the burstiness is bounded by σ1 and σ2 .
+definition 1 (ρ,σ1,σ2) function: a non-negative, continuous and bounded function p (t) is said to be a (ρ,σ1,σ2) function if and only if for any value of finite real number t , the following are satisfied: 2 1( ) t t p t dt tρ σ ρ σ− ≤ ≤ +∫ (2) this function can be used to model both energy sources and loads.
+using this notation, applying the rule of energy conservation leads to the following inequality: 0 0 00 [ ( ) ( )] [ ( ) ( )] 0 t t t s c c s leakp t p t dt p t p t dt p dtb η + + − − − ≥+ −∫ ∫ ∫ (1) where b0 is the initial battery level and the function [x]+ = x if x > 0 and zero otherwise.
+further, we model the non-ideal storage buffer by its round-trip efficiency η (strictly less than 1) and a constant leakage power pleak.
+let us define ps(t) as the energy harvested from the environment at time t, and the energy being consumed by the load at that time is pc(t).
+management we develop the following theory to understand the energy neutral mode of operation.

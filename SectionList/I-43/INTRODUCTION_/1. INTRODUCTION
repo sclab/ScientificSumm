@@ -1,0 +1,53 @@
+Planning and control constitutes a central research area in 
+multiagent systems and artificial intelligence. In recent years, Partially
+Observable Markov Decision Processes (POMDPs) [12] have 
+become a popular formal basis for planning in stochastic 
+environments. In this framework, the planning and control problem is often
+addressed by imposing a reward function, and computing a policy
+(of choosing actions) that is optimal, in the sense that it will result
+in the highest expected utility. While theoretically attractive, the
+complexity of optimally solving a POMDP is prohibitive [8, 7].
+We take an alternative view of planning in stochastic 
+environments. We do not use a (state-based) reward function, but instead
+optimize over a different criterion, a transition-based specification
+of the desired system dynamics. The idea here is to view 
+planexecution as a process that compels a (stochastic) system to change,
+and a plan as a dynamic process that shapes that change according
+to desired criteria. We call this general planning framework 
+Dynamics Based Control (DBC).
+In DBC, the goal of a planning (or control) process becomes to
+ensure that the system will change in accordance with specific 
+(potentially stochastic) target dynamics. As actual system behavior
+may deviate from that which is specified by target dynamics (due
+to the stochastic nature of the system), planning in such 
+environments needs to be continual [4], in a manner similar to classical
+closed-loop controllers [16]. Here, optimality is measured in terms
+of probability of deviation magnitudes.
+In this paper, we present the structure of Dynamics Based 
+Control. We show that the recently developed Extended Markov 
+Tracking (EMT) approach [13, 14, 15] is subsumed by DBC, with EMT
+employing greedy action selection, which is a specific 
+parameterization among the options possible within DBC. EMT is an efficient
+instantiation of DBC.
+To evaluate DBC, we carried out a set of experiments applying
+multi-target EMT to the Tag Game [11]; this is a variant on the
+area sweeping problem, where an agent is trying to tag a moving
+target (quarry) whose position is not known with certainty. 
+Experimental data demonstrates that even with a simple model of the
+environment and a simple design of target dynamics, high success
+rates can be produced both in catching the quarry, and in surprising
+the quarry (as expressed by the observed entropy of the controlled
+agent"s position).
+The paper is organized as follows. In Section 2 we motivate DBC
+using area-sweeping problems, and discuss related work. Section 3
+introduces the Dynamics Based Control (DBC) structure, and its
+specialization to Markovian environments. This is followed by a
+review of the Extended Markov Tracking (EMT) approach as a
+DBC-structured control regimen in Section 4. That section also
+discusses the limitations of EMT-based control relative to the 
+general DBC framework. Experimental settings and results are then
+presented in Section 5. Section 6 provides a short discussion of
+the overall approach, and Section 7 gives some concluding remarks
+and directions for future work.
+790
+978-81-904262-7-5 (RPS) c 2007 IFAAMAS

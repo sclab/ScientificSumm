@@ -1,0 +1,71 @@
+In our problem, the evaluation produces the net business value across all workflows after executing all  business processes once they are assigned to their respective service providers according to the mapping in the chromosome.
+Given that the scope of the optimisation is the entire set of  workflows, it may be that the best scheduling assignments may result in some workflows having to fail in order for more workflows to  succeed.
+The business  processes in each workload are assigned to service providers, and each provider"s completion time is calculated based on the service  agreement guarantee using the parameters mentioned in Section 3.1, namely the unloaded completion time α, the maximum  concur32 rency β, and a coefficient γ that controls the linear performance degradation under heavy load.
+Note that the evaluation function can be easily replaced if desired; for example, other evaluation functions can model different service provider guarantees or  parallel workflows. 
+To explore the solution space, we use a genetic algorithm (GA) search heuristic that simulates Darwinian natural selection by having members of a population compete to survive in order to pass their genetic chromosomes onto the next generation; after successive generations, there is a tendency for the chromosomes to converge toward the best combination [5] [6].
+Given a particular chromosome representing one scheduling mapping, the function deterministically calculates the net business value across all workloads.
+Upon completion (or failure), the workflow is assigned a business value.
+In the next subsection, discuss how a genetic search algorithm can be used to converge toward the optimum scheduling assignments.
+In Figure 2 we show an example chromosome that encodes one scheduling  assignment.
+To simulate sexual recombination of two chromosomes to produce a new child chromosome, we applied a one-point crossover scheme twice (once along each dimension).
+For each category, a business value score is assigned to the workflow, with the  successful category assigned the highest positive score, followed by acceptable and then failing.
+This guarantee is defined by several  parameters: α is the expected completion time (for example, on the order of seconds) if the assigned workload of web service requests is less than or equal to β, the maximum concurrency, and if the workload is higher than β, the expected completion for a workload of size ω is α+ γ(ω − β) where γ is a fractional coefficient.
+Matrix  elements from quadrants II and IV from the first parent and elements from quadrants I and III from the second parent are used to create the new child.
+0 1 2 3 4 0 1 2 0 2 1 1 0 1 0 1 0 2 1 2 0 0 1 Figure 2: An example chromosome representing a scheduling assignment of (workflow,service type) → service provider.
+3.2 Genetic algorithm Given an exponential search space of business process  assignments to web service providers, the problem is to find the optimal assignment that produces the overall highest aggregate business value across all workflows.
+simulated annealing or steepest-ascent  hillclimbing), the business process scheduling problem fits well with a GA because potential solutions can be represented in a matrix form and allows us to use prior research in effective GA chromosome recombination to form new members of the population (e.g.
+We extended this  approach further and considered different types of workflow  completion in order to model differentiated QoS levels that can be applied by businesses (for example, to provide tiered customer service).
+There are thus W · PB combinations to explore to find the optimal assignments of business processes to providers.
+However, because we model service providers with degrading performance under load, not all workflows will achieve their QoS limit: it may easily be the case that business processes are assigned to providers who are overloaded and cannot complete within the respective workflow"s QoS limit.
+This intuitive observation suggests that traditional scheduling approaches such as round-robin or proportional assignments will not fare well, which is what we observe and discuss in Section 4.
+As mentioned, the  chromosomes are 2-dimensional matrices that represent scheduling  assignments.
+The  chromosomes are evaluated (hashed) to some metric, and the best ones are chosen to be parents.
+Suppose there are W workflows with an  average of B business processes per workflow.
+The key research  problem, then, is to assign the business processes to the web service providers with the goal of optimising on the aggregate business value of all workflows.
+We assume that the providers make service level agreements (SLAs) to guarantee a level of performance defined by the completion time for completing a web service invocation.
+The principal idea is that we would like the children to be different from the parents (in order to explore more of the solution space) yet not too  different (in order to contain the portions of the chromosome that result in good scheduling assignments).
+On the other hand, an exhaustive search of all the possible  assignments will find the best schedule, but the computational complexity is prohibitively high.
+Initially a random set of chromosomes is created for the population.
+In workflow 0, any request for service type 3 goes to provider 2.
+In this section we describe our model and discuss how we can find scheduling assignments using a genetic search algorithm.
+Further, in the worst case each business process requests one service type, for which there are P providers.
+The  parents recombine to produce children, simulating sexual crossover, and occasionally a mutation may arise which produces new  characteristics that were not available in either parent.
+Ideally, all workflows would be able to finish within their QoS limits and thus maximise the aggregate business value across all workflows.
+Each row represents a workflow, and each column represents a  service type.
+The business value point  distribution is non-uniform across workflows, further modelling cases where some workflows are of higher priority than others.
+An important GA component is the evaluation function.
+For a business  process in workflow i and utilising service type j, the (i, j)th entry in the table is the identifier for the service provider to which the  business process is assigned.
+Other recombination and mutation schemes are an area of research in the GA community, and we look to explore new operators in future work.
+We say that a workflow is successful if it completes within its QoS requirement, acceptable if it completes within a constant factor κ 31 of its QoS bound (in our experiments we chose κ=3), or failing if it finishes beyond κ times its QoS bound.
+Although SLAs can be complex, in this paper we assume for  simplicity that the guarantees can take the form of a linear performance degradation under load.
+Further, business processes have an ordering in the  workflow.
+This approach follows GA best practices by keeping contiguous chromosome segments together as they are transmitted from parent to child.
+Due to space constraints, we focus on the problem space presented here and will extend our model to more advanced deployment scenarios in the future.
+W =10, B=5, P=10), the computational time for exhaustive search is significant, and in our work we look to scale these parameters.
+The uni-chromosome mutation scheme randomly changes one of the service provider assignments to another provider within the available range.
+The crossover is best explained by analogy to Cartesian space as follows.
+its column), so the 2 listed for service type 3 is a different server from server 2 in other columns.
+Specifically, we assume that users or automated systems request the execution of a workflow.
+Note that finding the global  optimum is not guaranteed because the recombination and mutation are stochastic.
+Chromosome representation of a solution.
+Each service type is implemented by a number of different  service providers.
+For example, here there are 3 workflows (0 to 2) and 5 service types (0 to 4).
+Although composition languages can use sophisticated flow-control mechanisms such as conditional branches, for simplicity we assume the processes execute  sequentially in a given order.
+The workflows comprise business  processes, each of which makes one web service invocation to a  service type.
+on the order of seconds, as  detailed in the Experiments section).
+Each workflow has a QoS requirement to complete within a  specified number of time units (e.g.
+A random point is chosen in the matrix to be coordinate (0, 0).
+The representation is a 2-dimensional matrix that maps {workflow, service type} to a service provider.
+Note that the service provider  identifier is within a range limited to its service type (i.e.
+In our experiments we vary α, β, and γ with different distributions.
+Although other search heuristics exist that can solve  optimization problems (e.g.
+The arrangement and execution of the business processes and the data flow between them are all managed by a composition or choreography tool (e.g.
+Note that the service provider identifier is within a range limited to its service type.
+A GA proceeds as follows.
+This scenario can be naturally extended to more complex  relationships that can be expressed in BPEL [7], which defines how business processes interact, messages are exchanged, activities are ordered, and exceptions are handled.
+3.1 Model We base our model on the simplified scenario shown in Figure 1.
+GA evaluation function.
+GA recombination and mutation.
+GA execution.
+Even for small configurations (e.g.
+[1, 9]).

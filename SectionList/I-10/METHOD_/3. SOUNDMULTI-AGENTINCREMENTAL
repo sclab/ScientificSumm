@@ -1,0 +1,145 @@
+LEARNING
+3.1 The learning task
+We experiment the mechanism proposed above in the case
+of incremental MAS concept learning. We consider here
+a hypothesis language in which a hypothesis is a 
+disjunction of terms. Each term is a conjunction of atoms from a
+set A. An example is represented by a tag + or − and a
+description 2
+composed of a subset of atoms e ⊆ A. A term
+covers an example if its constituting atoms are included in
+the example. A hypothesis covers an example if one of its
+term covers it.
+This representation will be used below for learning boolean
+formulae. Negative literals are here represented by 
+additional atoms, like not − a. The boolean formulae f =(a ∧
+b) ∨ (b ∧ ¬c) will then be written (a ∧ b) ∨ (b ∧ not − c). A
+positive example of f, like {not − a, b, not − c}, represents
+a model for f.
+3.2 Incremental learning process
+The learning process is an update mechanism that, given
+a current hypothesis H, a memory E = E+
+∪ E−
+filled
+with the previously received examples, and a new positive
+or negative example e, produces a new updated 
+hypothesis. Before this update, the given hypothesis is complete,
+meaning that it covers all positive examples of E+
+, and
+2
+When no confusion is possible, the word example will be
+used to refer to the pair (tag, description) as well as the
+description alone.
+166 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+coherent, meaning that it does not cover any negative 
+example of E−
+. After the update, the new hypothesis must be
+complete and coherent with the new memory state E ∪ {e}.
+We describe below our single agent update mechanism, 
+inspired from a previous work on incremental learning[7].
+In the following, a hypothesis H for the target formula f is
+a list of terms h, each of them being a conjunction of atoms.
+H is coherent if all terms h are coherent, and H is complete
+if each element of E+
+is covered by at least one term h of
+H. Each term is by construction the lgg (least general 
+generalization) of a subset of positives instances {e1, ..., en}[5],
+that is the most specific term covering {e1, ..., en}. The
+lgg operator is defined by considering examples as terms,
+so we denote as lgg(e) the most specific term that covers
+e, and as lgg(h, e) the most specific term which is more
+general than h and that covers e. Restricting the term to
+lgg is the basis of a lot of Bottom-Up learning algorithms
+(for instance [5]). In the typology proposed by [9], our 
+update mechanism is an incremental learner with full instance
+memory: learning is made by successive updates and all
+examples are stored.
+The update mechanism depends of the ongoing hypothesis
+H, the ongoing examples E+
+and E−
+, and the new example
+e. There are three possible cases:
+• e is positive and H covers e, or e is negative and H
+does not cover e. No update is needed, H is already
+complete and coherent with E ∪ {e}.
+• e is positive and H does not cover e: e is denoted
+as a positive counterexample of H. Then we seek
+to generalize in turn the terms h of H. As soon
+as a correct generalization h = lgg(h, e) is found, h
+replaces h in H. If there is a term that is less general
+that h , it is discarded. If no generalization is correct
+(meaning here coherent), H ∪ lgg(e) replaces H.
+• e is negative and H covers e: e is denoted as a 
+negative counterexample of H. Each term h covering e
+is then discarded from H and replaced by a set of
+terms {h1, ...., hn} that is, as a whole, coherent with
+E−
+∪ {e} and that covers the examples of E+
+
+uncovered by H − {h}. Terms of the final hypothesis H
+that are less general than others are discarded from
+H.
+We will now describe the case where e = e−
+is a covered
+negative example. The following functions are used here:
+• coveredOnlyBy(h, E+) gives the subset of E+
+covered
+by h and no other term of H.
+• bestCover(h1, h2) gives h1 if h1 covers more examples
+from uncoveredPos than h2, otherwise it gives h2.
+• covered(h) gives the elements of uncoveredPos covered
+by h.
+// Specialization of each h covering e−
+for each h of H covering e−
+do
+H = H − {h}
+uncoveredPos = coveredOnlyBy(h, E+
+)
+Ar= atoms that are neither in e−
+nor in h
+while (uncoveredPos = ∅) do
+// seeking the best specialization of h
+hc=h
+best=⊥ // ⊥ covers no example
+for each a of Ar do
+hc= h ∧ a
+best = bestCover(hc, best)
+endfor
+Ar=Ar−{best}
+hi=lgg(covered(best))
+H = H ∪ {hi}
+uncoveredPos=uncoveredPos - covered(best)
+endwhile
+endfor
+Terms of H that are less general than others are discarded.
+Note that this mechanism tends to both make a minimal
+update of the current hypothesis and minimize the number
+of terms in the hypothesis, in particular by discarding terms
+less general than other ones after updating a hypothesis.
+3.3 Collective learning
+If H is the current hypothesis, Ei the current example
+memory of agent ri and E the set of all the examples
+received by the system, the notation of section 2 becomes
+Bi = BC = H, Ki = Ei and K = E. Cons(H, Ei) states
+that H is complete and coherent with Ei. In such a case,
+ri is a-consistent. The piece of information k received by
+agent ri is here simply an example e along with its tag.
+If e is such that the current hypothesis H is not complete
+or coherent with Ei ∪ {e}, e contradicts H: ri becomes
+a-inconsistent, and therefore the MAS is not consistent
+anymore.
+The update of a hypothesis when a new example arrives
+is an a- consistent mechanism. Following proposition 1 this
+mechanism can be used to produce a strong mas-consistent
+mechanism: upon reception of a new example in the MAS
+by an agent r, an update is possibly needed and, after a set
+of interactions between r and the other agents, results in a
+new hypothesis shared by all the agents and that restores
+the consistency of the MAS, that is which is complete and
+coherent with the set ES of all the examples present in the
+MAS.
+It is clear that by minimizing the number of 
+hypothesis modifications, this synchronous and minimal 
+mechanism minimize the number of examples received by the
+learner from other agents, and therefore, the total number
+of examples stored in the system.

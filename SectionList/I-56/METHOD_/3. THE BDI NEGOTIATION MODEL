@@ -1,0 +1,188 @@
+The BDI model originates with the work of M. Bratman [11].
+According to [12, Ch.1], the BDI architecture is based on a 
+philosophical model of human practical reasoning, and draws out the
+process of reasoning by which an agent decides which actions to
+perform at consecutive moments when pursuing certain goals.
+Grounding the scope to the DCSP framework, the common goal
+of all agents is finding a combination of domain values to satisfy a
+set of predefined constraints. In automated negotiation [9], such
+a solution is called an agreement among the agents. Within this
+scope, we found that we were able to unearth the generic behavior
+of a DCSP agent and formulate it in a negotiation protocol, 
+prescribed using the powerful concepts of BDI. Thus, our proposed
+negotiation model can be said to combine the BDI concepts with
+automated negotiation in a multiagent framework, allowing us
+to conceptually separate DCSP mechanisms into a common BDI
+interaction protocol and the adopted strategies.
+3.1 The generic protocol
+Figure 1 shows the basic reasoning steps in an arbitrary round
+of negotiation that constitute the new protocol. The solid line
+indicates the common component or transition which always 
+exists regardless of the strategy used. The dotted line indicates the
+Percept
+Belief
+Desire
+Intention
+Mediation
+Execution
+P
+B
+D
+I
+I
+I
+Info Message
+Info Message
+Negotiation Message
+Negotiation Message
+Negotiation Message
+Negotiation Message
+Negotiation Message
+Negotiation Message
+Negotiation Message
+Figure 1: The BDI interaction protocol
+component or transition which may or may not appear depending
+on the adopted strategy.
+Two types of messages are exchanged through this protocol,
+namely, the info message and the negotiation message.
+An info message perceived is a message sent by another agent.
+The message will contain the current selected values and priorities
+of the variables of that sending agent. The main purpose of this
+message is to update the agent about the current environment.
+Info message is sent out at the end of one negotiation round (also
+called a negotiation cycle), and received at the beginning of next
+round.
+A negotiation message is a message which may be sent within
+a round. This message is for mediation purposes. The agent may
+put different contents into this type of message as long as it is
+agreed among the group. The format of the negotiation message
+and when it is to be sent out are subject to the strategy. A
+negotiation message can be sent out at the end of one reasoning
+step and received at the beginning of the next step.
+Mediation is a step of the protocol that depends on whether the
+agent"s interaction with others is synchronous or asynchronous.
+In synchronous mechanism, mediation is required in every 
+negotiation round. In an asynchronous one, mediation is needed only in
+a negotiation round when the agent receives a negotiation 
+message. A more in-depth view of this mediation step is provided
+later in this section.
+The BDI protocol prescribes the skeletal structure for DCSP
+negotiation. We will show in Section 4 that several well-known
+DCSP mechanisms all inherit this generic model.
+The details of the six main reasoning steps for the protocol
+(see Figure 1) are described as follows for a DCSP agent. For a
+conceptually clearer description, we assume that there is only one
+variable per agent.
+• Percept. In this step, the agent receives info messages
+from its neighbors in the environment, and using its Percept
+function, returns an image P. This image contains the
+current values assigned to the variables of all agents in its
+neighbor list. The image P will drive the agent"s actions
+in subsequent steps. The agent also updates its constraint
+list C using some criteria of the adopted strategy.
+• Belief. Using the image P and constraint list C, the agent
+will check if there is any violated constraint. If there is
+no violation, the agent will believe it is choosing a correct
+option and therefore will take no action. The agent will
+do nothing if it is in a local stable state - a snapshot of
+the variables assignments of the agent and all its neighbors
+by which they satisfy their shared constraints. When all
+agents are in their local stable states, the whole 
+environment is said to be in a global stable state and an 
+agreeThe Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 525
+ment is found. In case the agent finds its value in conflict
+with some of its neighbors", i.e., the combination of values
+assigned to the variables leads to a constraint violation,
+the agent will first try to reassign its own variable using a
+specific strategy. If it finds a suitable option which meets
+some criteria of the adopted strategy, the agent will believe
+it should change to the new option. However it does not
+always happen that an agent can successfully find such an
+option. If no option can be found, the agent will believe it
+has no option, and therefore will request its neighbors to
+reconsider their variable assignments.
+To summarize, there are three types of beliefs that a DCSP
+agent can form: (i) it can change its variable assignment to
+improve the current situation, (ii) it cannot change its 
+variable assignment and some constraints violations cannot be
+resolved and (iii) it need not change its variable assignment
+as all the constraints are satisfied.
+Once the beliefs are formed, the agent will determine its
+desires, which are the options that attempt to resolve the
+current constraint violations.
+• Desire. If the agent takes Belief (i), it will generate a list of
+its own suitable domain values as its desire set. If the agent
+takes Belief (ii), it cannot ascertain its desire set, but will
+generate a sublist of agents from its neighbor list, whom it
+will ask to reconsider their variable assignments. How this
+sublist is created depends on the strategy devised for the
+agent. In this situation, the agent will use a virtual desire
+set that it determines based on its adopted strategy. If the
+agent takes Belief (iii), it will have no desire to revise its
+domain value, and hence no intention.
+• Intention. The agent will select a value from its desire
+set as its intention. An intention is the best desired 
+option that the agent assigns to its variable. The criteria for
+selecting a desire as the agent"s intention depend on the
+strategy used. Once the intention is formed, the agent may
+either proceed to the execution step, or undergo mediation.
+Again, the decision to do so is determined by some criteria
+of the adopted strategy.
+• Mediation. This is an important function of the agent.
+Since, if the agent executes its intention without 
+performing intention mediation with its neighbors, the constraint
+violation between the agents may not be resolved. Take
+for example, suppose two agents have variables, x1 and x2,
+associated with the same domain {1, 2}, and their shared
+constraint is (x1 + x2 = 3). Then if both the variables are
+initialized with value 1, they will both concurrently switch
+between the values 2 and 1 in the absence of mediation
+between them.
+There are two types of mediation: local mediation and
+group mediation. In the former, the agents exchange their
+intentions. When an agent receives another"s intention
+which conflicts with its own, the agent must mediate 
+between the intentions, by either changing its own intention
+or informing the other agent to change its intention. In the
+latter, there is an agent which acts as a group mediator.
+This mediator will collect the intentions from the group - a
+union of the agent and its neighbors - and determine which
+intention is to be executed. The result of this mediation is
+passed back to the agents in the group. Following 
+mediation, the agent may proceed to the next reasoning step to
+execute its intention or begin a new negotiation round.
+• Execution. This is the last step of a negotiation round.
+The agent will execute by updating its variable assignment
+if the intention obtained at this step is its own. Following
+execution, the agent will inform its neighbors about its new
+variable assignment and updated priority. To do so, the
+agent will send out an info message.
+3.2 The strategy
+A strategy plays an important role in the negotiation process.
+Within the protocol, it will often determine the efficiency of the
+Percept
+Belief
+Desire
+Intention
+Mediation
+Execution
+P
+B
+D
+I
+Info Message
+Info Message
+Negotiation Message
+Negotiation Message
+Negotiation Message
+Figure 2: BDI protocol with Asynchronous 
+Backtracking strategy
+search process in terms of computational cycles and message 
+communication costs.
+The design space when devising a strategy is influenced by the
+following dimensions: (i) asynchronous or synchronous, (ii) 
+dynamic or static priority, (iii) dynamic or static constraint weight,
+(iv) number of negotiation messages to be communicated, (v) the
+negotiation message format and (vi) the completeness property.
+In other words, these dimensions provide technical considerations
+for a strategy design.

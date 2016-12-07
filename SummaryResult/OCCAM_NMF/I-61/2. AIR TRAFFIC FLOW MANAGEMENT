@@ -1,0 +1,36 @@
+the exponential penalty is intended to provide strong feedback to return the number of aircraft in a sector to below the faa mandated capacities. 
+each sector capacity is computed using various metrics which include the number of air traffic controllers available.
+intuitively, cs(z) penalizes a system state where the number of aircraft in a sector exceeds the faas official sector capacity.
+similarly, the total congestion penalty is a sum over the congestion penalties over the sectors of observation, s: c(z) = x s∈s cs(z) (4) where cs(z) = a x t θ(ks,t − cs)eb(ks,t−cs) , (5) where a and b are normalizing constants, and cs is the  capacity of sector s as defined by the faa.
+in this paper the value of τs is determined by assessing aircraft counts in the sector in the absence of any intervention or any deviation from predicted paths.
+this definition is based on the assumption that most aircraft should have reached the sector by time τs and that aircraft arriving after this time are late.
+in this manner bs(z) provides a delay factor that not only accounts for all aircraft that are late, but also provides a scale to measure their lateness.
+intuitively, bs(z) provides the total number of aircraft that remain in a sector s past a predetermined time τs, and scales their contribution to count by the amount by which they are late.
+the  relative importance of these two penalties is determined by the value of α, and we explore various trade-offs based on α in section 4. the total delay, b, is a sum of delays over a set of sectors s and is given by: b(z) = x s∈s bs(z) (2) where bs(z) = x t θ(t − τs)kt,s(t − τs) , (3) where ks,t is the number of aircraft in sector s at a  particular time, τs is a predetermined time, and θ(·) is the step function that equals 1 when its argument is greater or equal to zero, and has a value of zero otherwise.
+the linear  combination of these two terms gives the full system evaluation function, g(z) as a function of the full system state z. more precisely, we have: g(z) = −((1 − α)b(z) + αc(z)) , (1) where b(z) is the total delay penalty for all aircraft in the system, and c(z) is the total congestion penalty.
+instead it  focuses on the amount of congestion in a particular sector and on the amount of measured air traffic delay.
+2.2 system evaluation the system performance evaluation function we select  focuses on delay and congestion but does not account for  fairness impact on different commercial entities.
+the agents then produce their rewards based on receive feedback from facet about the impact of these meterings.
+in this paper, agents use facet directly through batch mode, where agents send scripts to facet asking it to simulate air  traffic based on metering orders imposed by the agents.
+the user can then observe the effects of these changes to congestion.
+facet also allows the user to change the flow patterns of the aircraft through a number of mechanisms, including metering aircraft through fixes.
+facet simulates air traffic based on flight plans and through a graphical user interface allows the user to analyze congestion patterns of different sectors and centers (figure 1).
+on autonomous agents and multi-agent systems (aamas 07) 343 the faa, nasa and industry (over 40 organizations and 5000 users) [11].
+joint conf.
+facet is extensively used by the sixth intl.
+facet can be used to either simulate and display air traffic (a 24 hour slice with 60,000 flights takes 15 minutes to simulate on a 3 ghz, 1 gb ram computer) or provide rapid statistics on recorded data (4d trajectories for 10,000 flights including sectors, airports, and fix statistics in 10 seconds on the same computer) [11].
+it is based on propagating the trajectories of proposed flights forward in time.
+2.1 facet facet (future atm concepts evaluation tool), a physics based model of the us airspace was developed to accurately model the complex air traffic flow problem [4].
+figure 1: facet screenshot displaying traffic routes and air flow statistics.
+below, we discuss how we addressed both issues, namely, we present facet a widely used simulation tool and discuss our system  evaluation function.
+two of the fundamental problems in addressing the flow problem are: (i) modeling and simulating such a large complex system as the fidelity required to provide reliable  results is difficult to achieve; and (ii) establishing the method by which the flow management is evaluated, as directly  minimizing the total delay may lead to inequities towards  particular regions or commercial entities.
+the flow control problem has to address the integration of policies across these sectors and centers, account for the complexity of the system (e.g., over 5200 public use airports and 16,000 air traffic controllers) and handle changes to the policies caused by weather  patterns.
+the continental us airspace consists of 20 regional centers (handling 200-300 flights on a given day) and 830 sectors (handling 10-40 flights).
+the proposed algorithm will fit between long term planning by the faa and the very short term decisions by air traffic controllers.
+instead, we will focus on the regional and national flow management problems, restricting our impact to decisions with time  horizons between twenty minutes and eight hours.
+similarly, because of the business and political impact of dynamic airspace configuration, we will not address the outermost flow control level either.
+because of the strict guidelines and safety concerns  surrounding aircraft separation, we will not address that control level in this paper.
+2. regional flow (20 minutes to 2 hours); 3. national flow (1-8 hours); and 4. dynamic airspace configuration (6 hours to 1 year).
+in order to address such issues, the management of this traffic flow occurs over four hierarchical levels: 1. separation assurance (2-30 minute decisions); 1 we discuss how flight plans with few fixes can be handled in more detail in section 2.
+not only are there concerns for the efficiency of the system, but also for  fairness (e.g., different airlines), adaptability (e.g., developing weather patterns), reliability and safety (e.g., airport  management).
+with over 40,000 flights operating within the united states airspace on an average day, the management of traffic flow is a complex and demanding problem.

@@ -1,0 +1,97 @@
+Since MPEG-7 descriptions are purely quantitative but some of the most sophisticated distance measures are defined exclusively on predicates, a model is mandatory that allows the application of predicate-based distance measures on quantitative data.
+Some of the measures presented in this section are distance measures while others are similarity measures.
+For both predicate data and quantitative data it can be shown that the quantisation model is reasonable.
+The major advantages of the quantisation model are: (1) it is application domain independent, (2) the implementation is straightforward, (3) the model is easy to use and finally, (4) the new parameter p allows to control the similarity measurement process in a new way (discriminance on property level).
+Unfortunately, their model suffered from several shortcomings they described in [12], [13] (for example, the quantitative model worked only for one specific version of the original predicate-based measure).
+Additionally, the recommended MPEG-7 distances were implemented with the following parameters: In the distance measure of the Color Layout descriptor all weights were set to "1" (as in all other implemented measures).
+Every property is selected by the extent to which it is present (a and d: mean, b and c: difference) and only if the amount to which it is present exceeds a certain threshold (depending on the mean and standard deviation over all elements of descriptor space).
+Essentially, there are two extreme cases of data vectors (and distance measures):  predicatebased (all vector elements are binary, e.g.
+If the identity matrix was used in this case, the Mahalanobis distance would degenerate to a Minkowski distance.
+The Mahalanobis distance was not considered, because different descriptors would require different covariance matrices and for some descriptors it is simply impossible to define a covariance matrix.
+If description vectors consist of binary elements only, p should be used as follows (for example, p can easily be set automatically): ( )σµεε ,min..,0,0 21 ==⇒→ pgep In this case, a, b, c, d measure like the set operators they replace.
+In P1, the sum is used for Tversky's f() (as Tversky himself does in [17]) and α, β are weights for element b and c. In [5] the author's investigated Tversky's Feature Contrast Model and found α=1, β=0 to be the optimum parameters.
+Obviously, one important distance measure is missing.
+The first in visual information retrieval to follow this approach were Santini and Jain, who tried to apply Tversky's Feature Contrast Model [17] to content-based image retrieval [12], [13].
+That means, each element expresses that the measured property is "more or less" present ("0": not at all, "M": fully present).
+Xi Xj a b c d (1) (1) 1 0 0 0 (1) (0) 0 1 0 0 (0) (1) 0 0 1 0 (0) (0) 0 0 0 1 132 ∑ ∑ −==− −==− k ikjkkk k jkikkk xxswheresbc xxswherescb This means, for sufficiently high p every predicate-based distance measure that is either not using b and c or just as b+c, b-c or c-b, can be transformed into a continuous quantitative distance measure.
+0 1 , 2 2 1 minmax maxmin + ∈ − =     ≥      − = =     ≥      − = −= ∈= ∑ ∑ ∑ ∑ Rp ki x where else pif p M ki x where else pif p M xxM xxxwithxX i k ik i k ik ikiki µ σ σ σ ε µ µ µ ε a selects properties that are present in both data vectors (Xi, Xj representing media objects), b and c select properties that are present in just one of them and d selects properties that are present in neither of the two data vectors.
+For purely quantitative feature vectors, p should be used as follows (again, p can easily be set automatically): 1, 21 =⇒∞→ εεp Then, a and d become continuous functions: ∑ ∑ + −==⇒≡≤ + + ==⇒≡≤ + − k jkik kk jkik k jkik kk jkik xx MswheresdtrueM xx xx swheresatrueM xx M 22 22 b and c can be made continuous for the following expressions: ( ) ( ) ∑ ∑ ∑ −==+⇒    ≥−− ==⇒ ≥−≡≤−−    ≥−− ==⇒ ≥−≡≤−− k jkikkk k ikjkikjk kk ikjkikjk k jkikjkik kk jkikjkik xxswherescb else xxifxx swheresc xxMxxM else xxifxx swheresb xxMxxM 0 0 0 0 0 0 Table 1.
+Each measure implementing the model can be used as a substitute for the original predicate-based measure.
+For example, the L1 metric (Manhattan metric) degenerates to the Hamming distance (from [9], without weights): distanceHammingcbxxL k jkik =+≡−= ∑1 If it can be shown that the quantisation model is able to reconstruct the quantitative measure from the degenerated predicate-based measure, the model is obviously able to extend predicate-based measures to the quantitative domain.
+As can be seen, the statistical measures work like set operators.
+In the distance measure of the Dominant Color descriptor the following parameters were used: 20,1,3.0,7.0 21 ==== dTww α (as recommended).
+This means, it selects a subset of all available description vector elements for distance measurement.
+Because they work on differently quantised data, Subsection 3.2 sketches a model for unification on the basis of quantitative descriptions.
+Introducing p (called discriminance-defining parameter) for the thresholds 21 ,εε has the positive consequence that a, b, c, d can then be controlled through a single parameter.
+P7 is a correlation coefficient for predicates developed by Pearson.
+In the following it will be used to extend successful predicate-based distance measures on the quantitative domain.
+In consequence, all properties of a descriptor are used by the operators.
+media objects) can exist in both objects (denoted as a), in just one (b, c) or in none of them (d).
+3.3 Implemented measures For the evaluation described in this work next to predicate-based (based on the quantisation model) and quantitative measures, the distance measures recommended in the MPEG-7 standard were implemented (all together 38 different distance measures).
+Table 2 summarises those predicate-based measures that performed best in the evaluation (in sum 20 predicate-based measures were investigated).
+Predicates are often employed in psychology, sociology and other human-related sciences and most predicate-based distance measures were therefore developed in these areas.
+Finally, Q8 is a measure that takes the differences between adjacent vector elements into account.
+Between these limits, a distance measure that uses the quantisation model is - depending on p - more or less discriminant for properties.
+The main idea of the presented quantisation model is that set operators are replaced by statistical functions.
+Q1 and Q2 are metric-based and were implemented as representatives for the entire group of Minkowski distances.
+Table 3 shows the best quantitative distance measures that were used.
+It is easy to show that for predicate data some quantitative distance measures degenerate to  predicatebased measures.
+In Q5, ii σµ , are mean and standard deviation for the elements of descriptor Xi.
+The distance measures used in this work have been collected from various areas (Subsection 3.1).
+Some of the predicate-based measures are very simple (e.g.
+{0, 1}) and quantitative (all vector elements are continuous, e.g.
+3.2 Quantisation model The goal of the quantisation model is to redefine the set operators that are usually used in predicate-based distance measures on continuous data.
+The distance measure is then highly discriminant for properties.
+In the Homogeneous Texture descriptor's distance all ( )kα were set to "1" and matching was done rotation- and scale-invariant.
+For these measures, K is the number of predicates in the data vectors Xi and Xj.
+p is an additional criterion for the behaviour of a distance measure and determines the thresholds used in the operators.
+Q6 is a further-developed correlation coefficient that is invariant against sign changes.
+This makes it structurally different from all other measures.
+The goal of this work is to compare the MPEG-7 distance measures with the most powerful distance measures developed in other areas.
+3.1 Sources Distance measurement is used in many research areas such as psychology, sociology (e.g.
+It is assumed that vector elements measure on interval scale.
+Then, the distance measure is not discriminant for properties.
+Predicates express the existence of properties and represent  highlevel information while quantitative values can be used to measure and mostly represent low-level information.
+This is easy to illustrate.
+To show that the model is reasonable for quantitative data the following fact is used.
+It is not specific to one distance measure, but can be applied to any predicate-based measure.
+Mp →⇒∞→ 21 ,εε In this case, all elements (=properties) are assumed to be continuous (high quantisation).
+Pattern difference (P6) - a very powerful measure - is used in the statistics package SPSS for cluster analysis.
+For the tests, it is important to notice, that all similarity measures were inverted to distance measures. 
+comparing test results), medicine (e.g.
+Actually, the quantisation model works accurate on predicate data for any p≠∞.
+Finally, Subsection 3.3 introduces the distance measures as well as their origin and the idea they implement.
+The model offers a solution for the descriptors considered in the evaluation.
+comparing parameters of test persons), economics (e.g.
+For example, the Hamming distance (again, without weights): 1 Lxxxxswherescb k jkik k jkikkk =−=−==+ ∑∑ The quantisation model successfully reconstructs the L1 metric and no distance measure-specific modification has to be made to the model.
+Below, it will be shown that the model does not only work for predicate data but for quantitative data as well.
+Interesting are the limits: 1.
+Consequently, mostly quantitative distance measures are used in visual information retrieval.
+In consequence, only binary elements (=predicates) are used by the operators (1-bit quantisation).
+In [5] the authors could show that this interpretation of set operators is reasonable.
+For example, Table 1 shows their behaviour for two  onedimensional feature vectors Xi and Xj.
+0,0 21 →⇒→ εεp In this case, all properties are assumed to be predicates.
+The implementation of these operators is based on one assumption.
+p can be set by the user or automatically.
+In the quantisation model they are replaced as follows (see [5] for further details).
+The wi are weights.
+This measure is used even though its particular properties are of minor importance for this application domain.
+It expresses how accurate data items are present (quantisation) and consequently, how accurate they should be investigated.
+This is true for most visual descriptors and all MPEG-7 descriptors.
+They interpreted continuous data as fuzzy predicates and used fuzzy set operators.
+The operator needed for these relationships are UNION, MINUS and NOT.
+Descriptions in visual information retrieval are nearly ever (if they do not integrate semantic information) quantitative.
+This demonstrates that the model is reasonable.
+Naturally, the character of data available in these areas differs significantly.
+Generally, binary properties of two objects (e.g.
+Quantisation model on predicate vectors.
+Q3, the Canberra metric, is a normalised form of Q1.
+comparing balance sheet ratios), etc.
+The model developed for this purpose is presented in the next section.
+Similarly, Q4, Clark's divergence coefficient is a normalised version of Q2.
+A natural origin as it is assumed here ("0") is not needed.
+P2, P4) but have been heavily exploited in psychological research.
+In Q6, m is 2 M (=0.5).
+0 1 .
+131 ∑     ≤ + − + ==∩= k jkikjkik kkji else xx Mif xx ssXXa 0 22, 1ε ( ) ( ) ∑ ∑ ∑     ≤ ++ −==¬∩¬=    ≤−−− ==−=    ≤−−− ==−= k jkikjkik kkji k ikjkikjk kkij k jkikjkik kkji else xx if xx MssXXd else xxMifxx ssXXc else xxMifxx ssXXb 0 22, 0 , 0 , 1 2 2 ε ε ε with: ( ) [ ] ( ) { }0\ .
+[0, 1]).

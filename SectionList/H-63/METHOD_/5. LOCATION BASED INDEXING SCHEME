@@ -1,0 +1,171 @@
+This section discusses our location based indexing scheme
+(LBIS). The scheme is designed to conform to the LDD broadcast
+in our project DAYS. As discussed earlier, we use the
+containment property of LDD in the indexing scheme. This
+significantly limits the search of our required data to a particular
+portion of broadcast. Thus, we argue that the scheme provides
+bounded tuning time.
+We describe the architecture of our indexing scheme. Our scheme
+contains separate data buckets and index buckets. The index
+buckets are of two types. The first type is called the Major index.
+The Major index provides information about the types of data
+broadcasted. For example, if we intend to broadcast information
+like Entertainment, Weather, Traffic etc., then the major index
+points to either these major types of information and/or their main
+subtypes of information, the number of main subtypes varying
+from one information to another. This strictly limits number of
+accesses to a Major index. The Major index never points to the
+original data. It points to the sub indexes called the Minor index.
+The minor indexes are the indexes which actually points to the
+original data. We called these minor index pointers as Location
+Pointers as they points to the data which are associated with a
+location. Thus, our search for a data includes accessing of a major
+index and some minor indexes, the number of minor index
+varying depending on the type of information.
+Thus, our indexing scheme takes into account the hierarchical
+nature of the LDD, the Containment property, and requires our
+broadcast schedule to be clustered based on data type and
+location. The structure of the location hierarchy requires the use
+of different types of index at different levels. The structure and
+positions of index strictly depend on the location hierarchy as
+described in our mapping scheme earlier. We illustrate the
+implementation of our scheme with an example. The rules for
+framing the index are mentioned subsequently.
+20
+A1
+Entertainment
+Resturant
+Movie
+A2
+A3
+A4
+R1
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+Weather
+KC
+SL
+JC
+SF
+Entertainment
+R1 R2 R3 R4 R5 R6 R7 R8 KC SL JC SF
+(A, R, NEXT = 8)
+3, R5
+4, R7
+Type (S, L)
+ER
+W
+E
+EM
+(1, 4)
+(5, 4)
+(1, 4), (9, 4)
+(9, 4)
+Type (S, L)
+W
+E
+EM
+ER
+(1, 4)
+(5, 8)
+(5, 4)
+(9, 4)
+Type (S, L)
+E
+EM
+ER
+W
+(1, 8)
+(1, 4)
+(5, 4)
+(9, 4)
+A1 A2 A3 A4
+Movie Resturant Weather
+1 2 3 4 5 6 7 8 9 10 11 12
+Major index Major index Major index
+Minor index
+Major index Minor index
+Figure 3. Location Mapped Information for Broadcast Figure 4. Data coupled with Location based Index
+Example: Let us suppose that our broadcast content contains
+ICentertainment and ICweather which is represented as shown in Fig. 3.
+Ai represents Areas of City and Ri represents roads in a certain
+area. The leaves of Weather structure represent four cities. The
+index structure is given in Fig. 4 which shows the position of
+major and minor index and data in the broadcast schedule.
+We propose the following rules for the creation of the air indexed
+broadcast schedule:
+• The major index and the minor index are created.
+• The major index contains the position and range of different
+types of data items (Weather and Entertainment, Figure 3)
+and their categories. The sub categories of Entertainment,
+Movie and Restaurant, are also in the index. Thus, the major
+index contains Entertainment (E), Entertainment-Movie
+(EM), Entertainment-Restaurant (ER), and Weather (W). The
+tuple (S, L) represents the starting position (S) of the data
+item and L represents the range of the item in terms of
+number of data buckets.
+• The minor index contains the variables A, R and a pointer
+Next. In our example (Figure 3), road R represents the first
+node of area A. The minor index is used to point to actual
+data buckets present at the lowest levels of the hierarchy. In
+contrast, the major index points to a broader range of
+locations and so it contains information about main and sub
+categories of data.
+• Index information is not incorporated in the data buckets.
+Index buckets are separate containing only the control
+information.
+• The number of major index buckets m=#(IC), IC = {ic1, ic2,
+ic3,…,icn} where ici represent information type and #
+represents the cardinality of the Information Content set IC.
+In this example, IC= {icMovie, icWeather, icRestaurant} and so
+#(IC) =3. Hence, the number of major index buckets is 3.
+• Mechanism to resolve the query is present in the java based
+coordinator in MU. For example, if a query Q is presented as
+Q (Entertainment, Movie, Road_1), then the resultant search
+will be for the EM information in the major index. We say,
+Q EM.
+Our proposed index works as follows: Let us suppose that an MU
+issues a query which is represented by Java Coordinator present in
+the MU as Restaurant information on Road 7. This is resolved
+by the coordinator as Q ER. This means one has to search for
+ER unit of index in the major index. Let us suppose that the MU
+logs into the channel at R2. The first index it receives is a minor
+index after R2. In this index, value of Next variable = 4, which
+means that the next major index is present after bucket 4. The MU
+may go into doze mode. It becomes active after bucket 4 and
+receives the major index. It searches for ER information which is
+the first entry in this index. It is now certain that the MU will get
+the position of the data bucket in the adjoining minor index. The
+second unit in the minor index depicts the position of the required
+data R7. It tells that the data bucket is the first bucket in Area 4.
+The MU goes into doze mode again and becomes active after
+bucket 6. It gets the required data in the next bucket. We present
+the algorithm for searching the location based Index.
+Algorithm 1 Location based Index Search in DAYS
+1. Scan broadcast for the next index bucket, found=false
+2. While (not found) do
+3. if bucket is Major Index then
+4. Find the Type & Tuple (S, L)
+5. if S is greater than 1, go into doze mode for S seconds
+6. end if
+7. Wake up at the Sth
+bucket and observe the Minor Index
+8. end if
+9. if bucket is Minor Index then
+10. if TypeRequested not equal to Typefound and (A,R)Request not
+equal to (A,R)found then
+11. Go into doze mode till NEXT & repeat from step 3
+12. end if
+13. else find entry in Minor Index which points to data
+14. Compute time of arrival T of data bucket
+15. Go into doze mode till T
+16. Wake up at T and access data, found = true
+17. end else
+18. end if
+19. end While
+21

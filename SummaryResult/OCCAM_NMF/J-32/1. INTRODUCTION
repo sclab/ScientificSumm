@@ -1,0 +1,45 @@
+to prove theorem 4, we use recent ppad-completeness results for games, in particular the papers [7, 4] which show that the problem of finding nash equilibria in graphical games of degree d (for d ≥ 3) is computationally equivalent to the problem of solving r-player normal-form games (for r ≥ 4), both of which are ppad-complete. 
+theorem 4 limits the extent to which we can exploit path-like properties of the underlying graph, in order to find nash equilibria.
+theorem 4. consider the problem of finding a nash  equilibrium for a graphical game in which the underlying graph has  maximum degree 3 and pathwidth k. there is a constant k such that this problem is ppad-complete.
+we prove the following theorem.
+it is an open question whether our algorithm runs in polynomial time for graphs of pathwidth 1. this question can be viewed as a  generalization of a very natural computational geometry problem - we describe it in more detail in section 8. in section 7, we give a complexity-theoretic intractability result for the problem of finding a nash equilibrium of a graphical game on a graph with small pathwidth.
+it is interesting to note that the trees used in the proof of theorem 3 have pathwidth 2, that is, they are very close to being paths.
+theorem 3. there is an infinite family of graphical games on bounded-degree trees with pathwidth 2 such that any two-pass  algorithm for finding nash equilibria on these trees requires  exponential time and space.
+in particular, we show the following.
+we show that this is inevitable by constructing a family of graphical games on bounded-degree trees for which best response policies of some of the vertices have exponential size, and any  twopass algorithm (i.e., an algorithm that is similar in spirit to that of [8]) has to store almost all points of the best response policies.
+even when the tree has bounded degree, the running time can be  exponential.
+theorem 2. there is a polynomial-time algorithm that finds a nash equilibrium of a graphical game with two actions per player on a graph with maximum degree 2. in section 6 we extend our algorithm so that it can be used to find a nash equilibrium of a graphical game on an arbitrary tree.
+in section 5 we extend the results of section 4 to general  degree2 graphs, obtaining the following theorem.
+there is an o(n3 ) algorithm that computes a representation of all nash equilibria of such a game.
+we obtain the following theorem theorem 1. there is an o(n2 ) algorithm that finds a nash equilibrium of a graphical game with two actions per player on an n-vertex path.
+in particular, we give an o(n2 ) algorithm for finding a nash equilibrium of a graphical game on a path of length n. instead of storing best response policies, this algorithm stores appropriately-defined subsets, which, following [9], we call  breakpoint policies (modifying the definition as necessary).
+we can improve the running time of the generic algorithm  using the ideas of [9].
+(this algorithm is a special case of the generic algorithm of [8] - we show that it runs in polynomial time when the underlying graph is a path.)
+this gives us an o(n3 ) algorithm for finding a nash equilibrium, and for  computing a representation of all nash equilibria.
+section 4 considers the case in which the underlying graph is a path of length n. for this case, we show that the number of  rectangles in each of the best response policies is o(n2 ).
+in sections 4, 5 and 6 we show how to fix the algorithm of [9] so that it always produces correct output.
+in section 3 we describe a simple example for which the algorithm of [9] outputs a vector of strategies that does not constitute a nash equilibrium of the  underlying game.
+1.2 our results one of the main contributions of our paper is to show that the algorithm proposed by [9] is incorrect.
+the main idea of [9] is that it is not  necessary to keep track of all rectangles in the best response policies; rather, at each step of the upstream pass, it is possible to select a polynomial-size subset of the corresponding policy (in [9], this subset is called a breakpoint policy), and still ensure that the  downstream pass can proceed successfully (a sufficient condition for this is that the subset of the best response policy for v stored by the  algorithm contains a continuous path from w = 0 to w = 1).
+to bound the running time of this algorithm, the paper [8] shows that any best response policy can be represented as a union of an exponential number of rectangles; the polynomial time  approximation algorithm is obtained by combining this representation with a polynomial-sized grid.
+the action of the child is chosen to be any strategy from the pre-computed potential best responses to the chosen strategy of the parent.
+the equilibrium then propagates  downstream, with each vertex selecting its children"s actions.
+a necessary and sufficient condition for the  algorithm to proceed is that the strategy of the root is a best response to the strategies of its children and, for each child, the chosen  strategy is one of the pre-computed potential best responses to the  chosen strategy of the root.
+it also selects a  strategy for each child.
+in the beginning of the downstream pass, the root selects its  strategy and informs its children about its choice.
+by the end of the upstream pass, all children of the root have computed their best response policies.
+, uk.
+the computation is performed inductively: the best response policy for v is computed based on the best response policies of v "s children u1, .
+the generic algorithm does not address the problem of representing the best response policy; in fact, the most important difference between the two instantiations of the generic algorithm described in [8] is in their approach to this issue.
+the output of this stage can be viewed as a (continuous) table t(w, v), where t(w, v) = 1 if and only if v is a potential best response to w; we refer to this table as the best response policy for v .
+100 there is a nash equilibrium in the graphical game downstream of v (inclusive) given that w plays w (for a more technical definition, the reader is referred to section 2).
+it is assumed that each player has two pure strategies (actions), which are denoted by 0 and 1; it follows that any mixed strategy can be represented as a single number x ∈ [0, 1], where x is the probability that the player selects 1. during the upstream pass, each vertex v computes the set of its potential best responses to every mixed strategy w of its parent w ; a strategy v is a potential best response to w if 1 note that the terminology upstream and downstream are  reversed in [8, 9] - our trees are rooted at the top.
+1.1 background the generic algorithm of [8] consists of two phases which we will refer to as the upstream pass and the downstream pass; 1 the former starts at the leaves of the tree and ends at the root, while the latter starts at the root and ends at the leaves.
+this does not quite work, as we show in section 3, though it introduces a useful idea.
+the first of these papers describes a generic algorithm for this problem that can be specialized in two ways: as an algorithm that computes approximations to all nash equilibria in time polynomial in the input size and the  approximation quality, or as an exponential-time algorithm that allows the exact computation of all nash equilibria in g. in [9], the authors propose a modification to the latter algorithm that aims to find a single nash equilibrium in polynomial time.
+the papers [8, 9] give a dynamic-programming algorithm for finding nash equilibria in graphical games where there are two  actions per player and g is a tree.
+a graphical game associates each player with a vertex of an  underlying graph g, and the payoff to that player is a function of the actions chosen by himself and his neighbours in g; if g has low degree, this is a concise way to represent a game with many players.
+the classical normal form (or  matrix form) representation has a size that is exponential in the number of players, making it unsuitable for large-scale distributed games.
+[9] as a succinct representation of games with a large number of players.
+[8] and littman et al.
+graphical games were introduced in the papers of kearns et al.

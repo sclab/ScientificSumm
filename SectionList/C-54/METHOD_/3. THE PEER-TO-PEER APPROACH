@@ -1,0 +1,124 @@
+Many users may want to work on a complete spatial data
+set for a prolonged period of time. In this case, making an
+initial investment of downloading the whole data set may be
+needed to guarantee a satisfactory session. Unfortunately,
+spatial data tends to be large. A few download requests
+to a large data set from a set of idle clients waiting to be
+served can slow the server to a crawl. This is due to the fact
+that the common client-server approach to transferring data
+between the two ends of a connection assumes a designated
+role for each one of the ends (i.e, some clients and a server).
+We built APPOINT as a centralized peer-to-peer system
+to demonstrate our approach for improving the common
+client-server systems. A server still exists. There is a 
+central source for the data and a decision mechanism for the
+service. The environment still functions as a client-server
+environment under many circumstances. Yet, unlike many
+common client-server environments, APPOINT maintains
+more information about the clients. This includes, 
+inventories of what each client downloads, their availabilities, etc.
+When the client-server service starts to perform poorly or
+a request for a data item comes from a client with a poor
+connection to the server, APPOINT can start appointing
+appropriate active clients of the system to serve on behalf
+of the server, i.e., clients who have already volunteered their
+services and can take on the role of peers (hence, moving
+from a client-server scheme to a peer-to-peer scheme). The
+directory service for the active clients is still performed by
+the server but the server no longer serves all of the requests.
+In this scheme, clients are used mainly for the purpose of
+sharing their networking resources rather than introducing
+new content and hence they help oﬄoad the server and scale
+up the service. The existence of a server is simpler in terms
+of management of dynamic peers in comparison to pure 
+peerto-peer approaches where a flood of messages to discover
+who is still active in the system should be used by each peer
+that needs to make a decision. The server is also the main
+source of data and under regular circumstances it may not
+forward the service.
+Data is assumed to be formed of files. A single file forms
+the atomic means of communication. APPOINT optimizes
+requests with respect to these atomic requests. Frequently
+accessed data sets are replicated as a byproduct of having
+been requested by a large number of users. This opens up
+the potential for bypassing the server in future downloads for
+the data by other users as there are now many new points of
+access to it. Bypassing the server is useful when the server"s
+bandwidth is limited. Existence of a server assures that
+unpopular data is also available at all times. The service
+depends on the availability of the server. The server is now
+more resilient to congestion as the service is more scalable.
+Backups and other maintenance activities are already 
+being performed on the server and hence no extra 
+administrative effort is needed for the dynamic peers. If a peer goes
+down, no extra precautions are taken. In fact, APPOINT
+does not require any additional resources from an already
+existing client-server environment but, instead, expands its
+capability. The peers simply get on to or get off from a table
+on the server.
+Uploading data is achieved in a similar manner as 
+downloading data. For uploads, the active clients can again be
+utilized. Users can upload their data to a set of peers other
+than the server if the server is busy or resides in a distant
+location. Eventually the data is propagated to the server.
+All of the operations are performed in a transparent 
+fashion to the clients. Upon initial connection to the server,
+they can be queried as to whether or not they want to share
+their idle networking time and disk space. The rest of the
+operations follow transparently after the initial contact. 
+APPOINT works on the application layer but not on lower 
+layers. This achieves platform independence and easy 
+deployment of the system. APPOINT is not a replacement but
+an addition to the current client-server architectures. We
+developed a library of function calls that when placed in a
+client-server architecture starts the service. We are 
+developing advanced peer selection schemes that incorporate the
+location of active clients, bandwidth among active clients,
+data-size to be transferred, load on active clients, and 
+availability of active clients to form a complete means of selecting
+the best clients that can become efficient alternatives to the
+server.
+With APPOINT we are defining a very simple API that
+could be used within an existing client-server system easily.
+Instead of denial of service or a slow connection, this API
+can be utilized to forward the service appropriately. The
+API for the server side is:
+start(serverPortNo)
+makeFileAvailable(file,location,boolean)
+callback receivedFile(file,location)
+callback errorReceivingFile(file,location,error)
+stop()
+Similarly the API for the client side is:
+start(clientPortNo,serverPortNo,serverAddress)
+makeFileAvailable(file,location,boolean)
+receiveFile(file,location)
+sendFile(file,location)
+stop()
+The server, after starting the APPOINT service, can make
+all of the data files available to the clients by using the
+makeFileAvailable method. This will enable APPOINT
+to treat the server as one of the peers.
+The two callback methods of the server are invoked when
+a file is received from a client, or when an error is 
+encountered while receiving a file from a client. APPOINT 
+guar7
+Figure 2: The localization operation in APPOINT.
+antees that at least one of the callbacks will be called so
+that the user (who may not be online anymore) can always
+be notified (i.e., via email). Clients localizing large data
+files can make these files available to the public by using the
+makeFileAvailable method on the client side.
+For example, in our SAND Internet Browser, we have the
+localization of spatial data as a function that can be chosen
+from our menus. This functionality enables users to 
+download data sets completely to their local disks before starting
+their queries or analysis. In our implementation, we have
+calls to the APPOINT service both on the client and the
+server sides as mentioned above. Hence, when a localization
+request comes to the SAND Internet Browser, the browser
+leaves the decisions to optimally find and localize a data set
+to the APPOINT service. Our server also makes its data
+files available over APPOINT. The mechanism for the 
+localization operation is shown with more details from the
+APPOINT protocols in Figure 2. The upload operation is
+performed in a similar fashion.

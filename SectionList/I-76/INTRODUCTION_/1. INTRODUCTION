@@ -1,0 +1,90 @@
+Automated negotiation has been received increasing 
+attention in multi-agent systems, and a number of frameworks
+have been proposed in different contexts ([1, 2, 3, 5, 10, 11,
+13, 14], for instance). Negotiation usually proceeds in a 
+series of rounds and each agent makes a proposal at every
+round. An agent that received a proposal responds in two
+ways. One is a critique which is a remark as to whether
+or not (parts of) the proposal is accepted. The other is a
+counter-proposal which is an alternative proposal made in
+response to a previous proposal [13].
+To see these proposals in one-to-one negotiation, suppose
+the following negotiation dialogue between a buyer agent B
+and a seller agent S. (Bi (or Si) represents an utterance of
+B (or S) in the i-th round.)
+B1: I want to buy a personal computer of the brand b1,
+with the specification of CPU:1GHz, Memory:512MB,
+HDD: 80GB, and a DVD-RW driver. I want to get it
+at the price under 1200 USD.
+S1: We can provide a PC with the requested specification
+if you pay for it by cash. In this case, however, service
+points are not added for this special discount.
+B2: I cannot pay it by cash.
+S2: In a normal price, the requested PC costs 1300 USD.
+B3: I cannot accept the price. My budget is under 1200
+USD.
+S3: We can provide another computer with the requested
+specification, except that it is made by the brand b2.
+The price is exactly 1200 USD.
+B4: I do not want a PC of the brand b2. Instead, I can
+downgrade a driver from DVD-RW to CD-RW in my
+initial proposal.
+S4: Ok, I accept your offer.
+In this dialogue, in response to the opening proposal B1,
+the counter-proposal S1 is returned. In the rest of the 
+dialogue, B2, B3, S4 are critiques, while S2, S3, B4 are 
+counterproposals.
+Critiques are produced by evaluating a proposal in a 
+knowledge base of an agent. In contrast, making counter-proposals
+involves generating an alternative proposal which is more
+favorable to the responding agent than the original one.
+It is known that there are two ways of producing 
+counterproposals: extending the initial proposal or amending part
+of the initial proposal. According to [13], the first type 
+appears in the dialogue: A: I propose that you provide me
+with service X. B: I propose that I provide you with 
+service X if you provide me with service Z. The second type
+is in the dialogue: A: I propose that I provide you with
+service Y if you provide me with service X. B: I propose
+that I provide you with service X if you provide me with 
+service Z. A negotiation proceeds by iterating such 
+give-andtake dialogues until it reaches an agreement/disagreement.
+In those dialogues, agents generate (counter-)proposals by
+reasoning on their own goals or objectives. The objective
+of the agent A in the above dialogues is to obtain service
+X. The agent B proposes conditions to provide the 
+service. In the process of negotiation, however, it may happen
+that agents are obliged to weaken or change their initial
+goals to reach a negotiated compromise. In the dialogue of
+1022
+978-81-904262-7-5 (RPS) c 2007 IFAAMAS
+a buyer agent and a seller agent presented above, a buyer
+agent changes its initial goal by downgrading a driver from
+DVD-RW to CD-RW. Such behavior is usually represented
+as specific meta-knowledge of an agent or specified as 
+negotiation protocols in particular problems. Currently, there is
+no computational logic for automated negotiation which has
+general inference rules for producing (counter-)proposals.
+The purpose of this paper is to mechanize a process of
+building (counter-)proposals in one-to-one negotiation 
+dialogues. We suppose an agent who has a knowledge base
+represented by a logic program. We then introduce 
+methods for generating three different types of proposals. First,
+we use the technique of extended abduction in artificial 
+intelligence [8, 15] to construct a conditional proposal as an
+extension of the original one. Second, we use the technique
+of relaxation in cooperative query answering for databases
+[4, 6] to construct a neighborhood proposal as an amendment
+of the original one. Third, combining extended abduction
+and relaxation, conditional neighborhood proposals are 
+constructed as amended extensions of the original proposal. We
+develop a negotiation protocol between two agents based on
+the exchange of these counter-proposals and critiques. We
+also provide procedures for computing proposals in logic 
+programming.
+This paper is organized as follows. Section 2 introduces
+a logical framework used in this paper. Section 3 presents
+methods for constructing proposals, and provides a 
+negotiation protocol. Section 4 provides methods for computing
+proposals in logic programming. Section 5 discusses related
+works, and Section 6 concludes the paper.

@@ -1,0 +1,45 @@
+we will prove hardness in this case in the next section.
+however, it does not yet imply hardness for the special case where payments are not possible.
+because payment-maximizing amd is just the special case of amd for a self-interested designer where the designer has no preferences over the outcome chosen, this immediately implies hardness for the general case of amd for a  selfinterested designer where payments are possible.
+because our mechanism achieves the goal, it follows that v |θ|+s|θ|+(|c|−s)(|θ|+1) θ ≥ g, which by simple algebraic manipulations is equivalent to s ≤ k. so there is a solution to the minsat instance.
+finally, for any  unsatisfied clause c, by the ir constraint, the maximum payment we can extract for the corresponding type θc is |θ| + 1. it follows that the expected payment from our mechanism is at most v |θ|+s|θ|+(|c|−s)(|θ|+1) θ , where s is the number of satisfied clauses.
+(for if we extracted more from this type, the agent"s utility in this case would be less than 1; and if v is the variable  satisfying c in the assignment, so that o(θv) = ol where l occurs in c, then the agent would be better off reporting θv instead of the truthful report θc, to get an outcome worth |θ|+1 to it while having to pay at most |θ|.)
+because there can be no incentives for the agent to report falsely, for any clause c satisfied by the given assignment, the maximum payment we can extract for the corresponding type θc is |θ|.
+by the ir constraint, the maximum payment we can extract from any type θv is |θ|.
+we claim this assignment is a solution to the minsat instance.
+136 we can interpret this as an assignment of truth values to the variables: v is set to true if o(θv) = o+v, and to false if o(θv) = o−v.
+it follows that in the solution to the amd instance, for every v ∈ v , o(θv) ∈ {o+v, o−v}.
+because, again by ir, the maximum payment that can be  extracted for any other type is |θ| + 1, it follows that the maximum expected payment that could be obtained is at most (|θ|−1)(|θ|+1) |θ| < |θ| < g, contradicting that this is a solution to the amd instance.
+then the utility that the agent derives from the given outcome for this type is 0, and hence, by ir, no payment can be extracted from the agent for this type.
+now suppose there is a solution to the amd instance, given by an outcome function o and a payment function π. first, suppose there is some v ∈ v such that o(θv) /∈ {o+v, o−v}.
+if s is the number of satisfied clauses in the minsat solution (so that s ≤ k), the expected payment from this mechanism is |v ||θ|+s|θ|+(|c|−s)(|θ|+1) |θ| ≥ |v ||θ|+k|θ|+(|c|−k)(|θ|+1) |θ| = |θ| + |c|−k |θ| = g. so there is a solution to the amd  instance.
+finally, we show that the goal is reached.
+clearly the agent is better off reporting truthfully, for a total utility of 0. this establishes that the agent never has an incentive to misreport.
+because also, no type besides θc leads to the outcome oc, reporting any other type will give an outcome with utility 0, while still forcing a payment of at least |θ| from the agent.
+in this case, we observe that for none of the types, reporting it leads to an outcome ol for a literal l ∈ c, precisely because the clause is not satisfied in the minsat instance.
+the final case to check is where the agent"s type is some θc where c is an unsatisfied clause.
+if the agent"s type is some θc where c is a satisfied clause, again, any other report will give it an outcome that is no better, for a payment that is no less, so it has no  incentive to misreport.
+if the agent"s type is some θv, then any other report will give it an outcome that is no better, for a payment that is no less, so it has no incentive to  misreport.
+we now check that the agent has no incentive to misreport.
+it is straightforward to check that the ir constraint is satisfied.
+for every c ∈ c, let o(θc) = oc; let π(θc) = |θ| + 1 if c is not satisfied in the minsat solution, and π(θc) = |θ| if c is satisfied.
+then, for every v ∈ v , let o(θv) = of(v) and π(θv) = |θ|.
+let the  assignment of truth values to the variables in this solution be given by the function f : v → l (where v(f(v)) = v for all v ∈ v ).
+first, suppose there is a solution to the minsat instance.
+we show the instances are equivalent.
+let l ∈ c denote that the literal l occurs in clause c. then, let the agent"s utility function be given by u(θc, ol) = |θ| + 1 for all l ∈ l with l ∈ c; u(θc, ol) = 0 for all l ∈ l with l /∈ c; u(θc, oc) = |θ| + 1; u(θc, oc ) = 0 for all c ∈ c with c = c ; u(θv, ol) = |θ| for all l ∈ l with v(l) = v; u(θv, ol) = 0 for all l ∈ l with v(l) = v; u(θv, oc) = 0 for all c ∈ c. the goal of the amd instance is g = |θ| + |c|−k |θ| , where k is the goal of the minsat  instance.
+let the notation v(l) = v denote that v is the variable corresponding to the literal l, that is, l ∈ {+v, −v}.
+let the outcome set be o = {o0} ∪ {oc : c ∈ c} ∪ {ol : l ∈ l}, where l is the set of literals, that is, l = {+v : v ∈ v } ∪ {−v : v ∈ v }.
+let the probability distribution over these types be uniform.
+let the agent"s type set be θ = {θc : c ∈ c} ∪ {θv : v ∈ v }, where c is the set of clauses in the minsat instance, and v is the set of  variables.
+to show np-hardness, we reduce an arbitrary minsat instance to the following single-agent payment-maximizing deterministic amd instance.
+it is easy to show that the problem is in np.
+theorem 1. payment-maximizing deterministic amd is np-complete, even for a single agent, even with a uniform distribution over types.
+minsat was recently shown to be np-complete [14].
+we can now present our result.
+we are asked whether there exists an assignment to the variables in v such that at most k clauses in φ are satisfied.
+we are given a formula φ in conjunctive normal form, represented by a set of boolean variables v and a set of clauses c, and an integer k (k < |c|).
+definition 9 (minsat).
+to demonstrate  nphardness, we reduce from the minsat problem.
+we show that this problem is hard even in the single-agent setting, thereby immediately showing it hard for both ir concepts, for both solution concepts.
+in this section we demonstrate that it is np-complete to design a deterministic mechanism that maximizes the expected sum of the payments collected from the agents.

@@ -1,0 +1,29 @@
+Local lag can achieve significant high consistency, but it is based on operation transmission, which forwards every operation on a shared entity to remote sites.
+Due to network transmission delay, when a remote site receives a state update of an entity the state of the entity might have changed at the site sending the state update.
+It synchronizes the physical clocks of all sites in a system.
+Through state estimation, DR can not only maintain consistency but also decrease the number of transmitted state updates.
+In replication based games, network transmission delay makes the states of local and remote sites to be inconsistent, which can cause serious problems, such as reducing the fairness of a game and leading to paradoxical situations etc.
+When a state update is available, GS-DR immediately updates the state of local site and then transmits the state update to remote sites, which causes the states of local site and remote sites to be inconsistent in the transmission procedure.
+In order to make DR maintain high consistency, Aggarwal et al [8] proposed Globally Synchronized DR (GS-DR), which synchronizes the physical clocks of all sites in a system and adds time stamps to transmitted state updates.
+In addition to the high fidelity model that maintains the accurate states of its own entities, each site also has a DR model that estimates the states of all entities (including its own entities).
+The rest of this paper is organized as follows: Section 2 gives the definition of consistency and corresponding metrics; the cause of the inconsistency of DR is analyzed in Section 3; Section 4 describes how GS-DR-LL works; performance evaluation is presented in Section 5; Section 6 concludes the paper. 
+In order to maintain consistency for distributed systems, many different approaches have been proposed, among which local lag and Dead-Reckoning (DR) are two representative approaches.
+Like other distributed applications, CDMG also suffer from the consistency problem caused by network transmission delay.
+In such games, the states of entities are changed not only by the operations of players, but also by the passing of time [1, 2].
+In this paper, we propose a new method named globally synchronized DR with Local Lag (GS-DR-LL), which combines local lag and GS-DR. By delaying the update to local site, GS-DR-LL can achieve higher consistency than GS-DR.
+Compared with aforementioned local lag, DR cannot maintain high consistency.
+After each update of its own entities, a site compares the accurate state with the estimated one.
+In order to tackle the inconsistency caused by exceptional network transmission delay, a time warp based mechanism is proposed to repair the state.
+If the difference exceeds a pre-defined threshold, a state update would be transmitted to all sites and all DR models would be corrected.
+After an operation is issued at local site, it delays the execution of the operation for a short time.
+Mauve et al [1] proposed local lag to maintain high consistency for replicated continuous applications.
+Thus with the synchronization of physical clocks, GS-DR can eliminate after inconsistency, but it cannot tackle before inconsistency [8].
+DR is based on state transmission mechanism.
+Since operation transmission mechanism requests that all operations should be transmitted in a reliable way, message filtering is difficult to be deployed and the scalability of a system is limited.
+During this short time period the operation is transmitted to remote sites, and all sites try to execute the operation at a same physical time.
+There are many studies about the effects of network transmission delay in different applications [4, 5, 6, 7].
+QoS) can reduce or at least bound the delay, they can not completely eliminate it, as there exists the physical speed limitation of light, for instance, 100 ms is needed for light to propagate from Europe to Australia [3].
+Although new network techniques (e.g.
+These games are referred to as Continuous Distributed Multiplayer Games (CDMG).
+Nowadays, many distributed multiplayer games adopt replicated architectures.
+Detailed description of GS-DR can be found in Section 3.

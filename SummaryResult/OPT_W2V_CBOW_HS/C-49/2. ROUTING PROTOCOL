@@ -1,0 +1,45 @@
+Nodes share their link-state weights when they can communicate with each other, and messages are forwarded to the node that have the path with the lowest link-state weight.
+2.1 Direct Delivery Protocol In this simple protocol, a message is transmitted only when the source node can directly communicate with the destination node of the message.
+2.3 Random Routing An obvious approach between the above two extremes is to  select a transfer probability between 0 and 1 to forward messages at each contact.
+Thus, by examining the index messages, a node only transfers  messages that are not yet contained on the other nodes.
+2.4 PRoPHET Protocol PRoPHET [16] is a Probabilistic Routing Protocol using History of past Encounters and Transitivity to estimate each node"s delivery probability for each other node.
+In this paper, we consider only messages that are unicast (single destination).
+When node i receives node j"s delivery  probabilities, node i may compute the transitive delivery probability through j to z with piz = piz + (1 − piz)pijpjzβ, (3) where β is a design parameter for the impact of transitivity; we used β = 0.25 as did Lindgren [16].
+When node i does not meet j for some time, the delivery probability decreases by pij = αk pij, (2) where α is the aging factor (α < 1), and k is the number of time units since the last update.
+When node i meets node j, the delivery probability of node i for j is updated by pij = (1 − pij)p0 + pij, (1) where p0 is an initial probability, a design parameter for a given network.
+Although we are aware that wireless technologies differ, we assume that a node can reliably detect the beginning and end time of a contact with nearby nodes.
+DTN routing protocols could be described in part by their  transfer probability and replication probability; that is, when one node meets another node, what is the probability that a message should be transfered and if so, whether the sender should retain its copy.
+A routing protocol is designed for forwarding messages from one node (source) to another node (destination).
+The contact history of a node is a sequence of contacts with other nodes.
+All other protocols are between the two extremes.
+A node may be in contact with several other nodes at the same time.
+The message has some chance of  being transferred to a highly mobile node, and thus may have a better chance to reach its destination before the message expires.
+Any node may  generate messages for any other node, and may carry messages destined for other nodes.
+We record the start and end time for each contact; however, the last contacts in the node"s contact history may not have ended.
+First, we define the notion of contact between two nodes.
+The nodes that receive a copy of the message also send a copy of the message to every node that they meet.
+Eventually, a copy of the message arrives at the destination of the message.
+The exponentially aged inter-contact duration of node i and j is computed by wij = αwij + (1 − α)I, (4) where I is the new inter-contact duration and α is the aging factor.
+Node i has a contact history Hi(j), for each other node j, which denotes the historical contacts between node i and node j.
+The source node sends a copy of the message to every node that it meets.
+After a message expires, the message will not be transmitted and will be deleted from the storage of any node that holds the message.
+Two extremes are the direct-delivery protocol and the epidemic protocol.
+A contact is defined as a period of time during which two nodes have the opportunity to communicate.
+2.2 Epidemic Routing Protocol The epidemic routing protocol [23] floods messages into the  network.
+At a minimum, each node must expire messages after some amount of time or stop forwarding them after a certain number of hops.
+The former transfers with probability 1 when the node meets the destination, 0 for others, and no replication.
+The PRoPHET protocol exchanges index messages as well as  delivery probabilities.
+Moreover, since each node keeps a copy of each message, storage is not used efficiently, and the capacity of the network is limited.
+Both these protocols have their advantages and disadvantages.
+In mobile opportunistic networks, however, the probability for the sender to meet the destination may be low, or even zero.
+An optimization to reduce the communication cost is to  transfer index messages before transferring any data message.
+[22] use a link-state approach to estimate the weight of each path from the source of a message to the destination.
+Then we describe five existing protocols before presenting our own  proposal.
+The latter uses transfer probability 1 for all nodes and unlimited replication.
+The  index messages contain IDs of messages that a node currently holds.
+We use a simple replication strategy that allows only the source node to make replicas, and limits the replication to a specific number of copies.
+This protocol is simple, but may use significant resources;  excessive communication may drain each node"s battery quickly.
+They use the median inter-contact duration or exponentially aged  intercontact duration as the weight on links.
+2.5 Link-State Protocol Su et al.
+[16] chose 0.75, as did we in our  evaluation.
+Lindgren et al.

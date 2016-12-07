@@ -1,0 +1,66 @@
+2.1 MPEG-7: visual descriptors
+The visual part of the MPEG-7 standard defines several
+descriptors. Not all of them are really descriptors in the sense that
+they extract properties from visual media. Some of them are just
+structures for descriptor aggregation or localisation. The basic
+descriptors are Color Layout, Color Structure, Dominant Color,
+Scalable Color, Edge Histogram, Homogeneous Texture, Texture
+Browsing, Region-based Shape, Contour-based Shape, Camera
+Motion, Parametric Motion and Motion Activity.
+Other descriptors are based on low-level descriptors or semantic
+information: Group-of-Frames/Group-of-Pictures Color (based on
+Scalable Color), Shape 3D (based on 3D mesh information),
+Motion Trajectory (based on object segmentation) and Face
+Recognition (based on face extraction).
+Descriptors for spatiotemporal aggregation and localisation are:
+Spatial 2D Coordinates, Grid Layout, Region Locator (spatial),
+Time Series, Temporal Interpolation (temporal) and
+SpatioTemporal Locator (combined). Finally, other structures
+exist for colour spaces, colour quantisation and multiple 2D views
+of 3D objects.
+These additional structures allow combining the basic descriptors
+in multiple ways and on different levels. But they do not change
+the characteristics of the extracted information. Consequently,
+structures for aggregation and localisation were not considered in
+the work described in this paper.
+2.2 Similarity measurement on visual data
+Generally, similarity measurement on visual information aims at
+imitating human visual similarity perception. Unfortunately,
+human perception is much more complex than any of the existing
+similarity models (it includes perception, recognition and
+subjectivity).
+The common approach in visual information retrieval is
+measuring dis-similarity as distance. Both, query object and
+candidate object are represented by their corresponding feature
+vectors. The distance between these objects is measured by
+computing the distance between the two vectors. Consequently,
+the process is independent of the employed querying paradigm
+(e.g. query by example). The query object may be natural (e.g. a
+real object) or artificial (e.g. properties of a group of objects).
+Goal of the measurement process is to express a relationship
+between the two objects by their distance. Iteration for multiple
+candidates allows then to define a partial order over the
+candidates and to address those in a (to be defined)
+neighbourhood being similar to the query object. At this point, it
+has to be mentioned that in a multi-descriptor 
+environmentespecially in MPEG-7 - we are only half way towards a statement
+on similarity. If multiple descriptors are used (e.g. a descriptor
+scheme), a rule has to be defined how to combine all distances to
+a global value for each object. Still, distance measurement is the
+most important first step in similarity measurement.
+Obviously, the main task of good distance measures is to
+reorganise descriptor space in a way that media objects with the
+highest similarity are nearest to the query object. If distance is
+defined minimal, the query object is always in the origin of
+distance space and similar candidates should form clusters around
+the origin that are as large as possible. Consequently, many well
+known distance measures are based on geometric assumptions of
+descriptor space (e.g. Euclidean distance is based on the metric
+axioms). Unfortunately, these measures do not fit ideally with
+human similarity perception (e.g. due to human subjectivity). To
+overcome this shortage, researchers from different areas have
+developed alternative models that are mostly predicate-based
+(descriptors are assumed to contain just binary elements, e.g.
+Tversky's Feature Contrast Model [17]) and fit better with human
+perception. In the following distance measures of both groups of
+approaches will be considered.

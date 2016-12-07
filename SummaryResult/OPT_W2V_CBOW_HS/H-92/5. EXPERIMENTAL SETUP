@@ -1,0 +1,56 @@
+The ranking methods above span the range of the information used for ranking, from not using the implicit or explicit feedback at all (i.e., BM25F) to a modern web search engine using hundreds of features and tuned on explicit judgments (RN).
+As we will show next, incorporating user behavior into these ranking systems dramatically improves the relevance of the returned documents. 
+• RN+All: Ranking derived by training the 2-layer RankNet ranking algorithm (Section 3.3) over the union of all content, dynamic, and implicit feedback features (i.e., all of the features described above as well as all of the new implicit feedback features we introduced).
+This system automatically learns weights for all features (including the BM25F score for a document) based on explicit human labels for a large set of queries.
+This is a special case of the ranking method in Section 3.1, with the weight wI set to 1000 and the ranking Id is simply the number of clicks on the result corresponding to d. In effect, this ranking brings to the top all returned web search results with at least one click (and orders them in decreasing order by number of clicks).
+BM25F-RerankAll The ranking produced by reordering the BM25F results using all user behavior features (Section 4).
+• MAP: Average precision for each query is defined as the mean of the precision at K values computed after each relevant document was retrieved.
+In order to compute various statistics, documents with label Good or better will be considered relevant, and with lower labels to be non-relevant.
+The BM25F variant we used for our experiments computes separate match scores for each field for a result document (e.g., body text, title, and anchor text), and incorporates query-independent  linkbased information (e.g., PageRank, ClickDistance, and URL depth).
+To create the training, validation, and test query sets, we created three different random splits of 1,500 training, 500 validation, and 1000 test queries.
+For a given query q, the ranked results are examined from the top ranked down, and the NDCG computed as:   = +−= K j jr qq jMN 1 )( )1log(/)12( Where Mq is a normalization constant calculated so that a perfect ordering would obtain NDCG of 1; and each r(j) is an integer relevance label (0=Bad and 5=Perfect) of result returned at position j.
+Note that the experiments were performed over the results already highly ranked by a web search engine, which corresponds to a typical user experience which is limited to the small number of the highly ranked results for a typical web search query.
+The ultimate goal of incorporating implicit feedback into ranking is to improve the relevance of the returned web search results.
+• RN: The ranking produced by a neural net ranker (RankNet, described in Section 3.3) that learns to rank web search results by incorporating BM25F and a large number of additional static and dynamic features describing each search result.
+This metric is the most commonly used single-value summary of a run over a set of queries.
+This method learns a model of user preferences by correlating feature values with explicit relevance labels using the RankNet neural net algorithm (Section 4.2).
+• Precision at K: As the most intuitive metric, P(K) reports the fraction of documents ranked in the top K results that are labeled as relevant.
+The splits were done randomly by query, so that there was no overlap in training, validation, and test queries.
+Note that unlabeled and Bad documents do not contribute to the sum, but will reduce NDCG for the query pushing down the relevant labeled documents, reducing their contributions.
+In order for the evaluation to be realistic we obtained a random sample of queries from web search logs of a major search engine, with associated results and traces for user actions.
+• BM25F-RerankCT: The ranking produced by incorporating clickthrough statistics to reorder web search results ranked by BM25F above.
+• BM25F: As a strong web search baseline we used the BM25F scoring, which was used in one of the best performing systems in the TREC 2004 Web track [23,27].
+• NDCG at K: NDCG is a retrieval measure devised specifically for web search evaluation [10].
+The position of relevant documents within the top K is irrelevant, and hence this metric measure overall user satisfaction with the top K results.
+At runtime, for a given query the implicit score Ir is computed for each result r with available user interaction features, and the implicit ranking is produced.
+5.1 Datasets We compared our ranking methods over a random sample of 3,000 queries from the search engine query logs.
+• BM25F+All: Ranking derived by training the RankNet (Section 3.3) learner over the features set of the BM25F score as well as all implicit feedback features (Section 3.2).
+We used the 2-layer implementation of RankNet [5] trained on the queries and labels in the training and validation sets.
+The final MAP value is defined as the mean of average precisions of all queries in the test set.
+NDCG is well suited to web search evaluation, as it rewards relevant documents in the top ranked results more heavily than those ranked lower.
+The relative ranking of the remainder of results is unchanged and they are inserted below all clicked results.
+The queries were drawn from the logs uniformly at random by token without replacement, resulting in a query sample representative of the overall query distribution.
+Based on the experiments over the development set we fix the value of wI to 3 (the effect of the wI parameter for this ranker turned out to be negligible).
+5.3 Ranking Methods Compared Recall that our goal is to quantify the effectiveness of implicit behavior for real web search.
+In our setting, we require a relevant document to be labeled Good or higher.
+5.2 Evaluation Metrics We evaluate the ranking algorithms over a range of accepted information retrieval metrics, namely Precision at K (P(K)), Normalized Discounted Cumulative Gain (NDCG), and Mean Average Precision (MAP).
+Hence, we compare the ranking methods over a large set of judged queries with explicit relevance labels provided by human judges.
+In total, over 1.2 million unique queries were instrumented, resulting in over 12 million individual interactions with the search engine.
+Overall, there were over 83,000 results with explicit relevance judgments.
+Specifically, we compare effectiveness of implicit user behaviors with content-based matching, static page quality features, and combinations of all features.
+Our metrics are described in Section 5.2 that we use to evaluate the ranking alternatives, listed in Section 5.3 in the experiments of Section 6.
+On average, 30 results were explicitly labeled by human judges using a six point scale ranging from Perfect down to Bad.
+One dimension is to compare the utility of implicit feedback with other information available to a web search engine.
+These actions were aggregated across users and search sessions and converted to features in Table 4.1.
+A system incorporating an implementation of RankNet is currently in use by a major search engine and can be considered representative of the state of the art in web search.
+Each metric focuses on a deferent aspect of system performance, as we describe below.
+Clickthrough is a particularly important special case of implicit feedback, and has been shown to correlate with result relevance.
+performed after a query was submitted.
+This method serves as our baseline implicit feedback reranking method.
+The scoring function and field-specific tuning is described in detail in [23].
+The data consisted of user interactions with the web search engine (e.g., clicking on a result link, going back to search results, etc.)
+The merged ranking is computed as described in Section 3.1.
+Note that BM25F does not directly consider explicit or implicit feedback for tuning.
+The user interactions were collected over a period of 8 weeks using voluntary opt-in information.
+BM25F and its variants have been extensively described and evaluated in IR literature, and hence serve as a strong, reproducible baseline.
+We describe this dataset in detail next.

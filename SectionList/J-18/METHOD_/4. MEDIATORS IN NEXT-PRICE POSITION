@@ -1,0 +1,125 @@
+AUCTIONS
+We now show that there exists a valid mediator, which 
+implements the VCG outcome function in next-price position
+auctions. Although in the following section we prove a more
+general result, we present this result first, given the 
+importance of next-price position auctions in the literature and
+in practice. Our proof makes use of the following technical
+lemma.
+Lemma 1. Let pvcg
+be the VCG payment scheme.
+1. pvcg
+j (b) ≤ b(j+1) for every j ∈ K.
+2. pvcg
+j (b) ≥ pvcg
+j+1(b) for every j = 1, ..., m − 1 and for
+every b ∈ B, where for every j, equality holds if and
+only if b(j+1) = b(j+2) = · · · = b(m+1).
+The proof of Lemma 1 is given in the full version. We can
+now show:
+Theorem 2. Let G be a next-price position auction. There
+exists a valid mediator that implements ϕvcg
+in G.
+Theorem 2 follows from a more general theorem given in the
+next section. However, we still provide a proof since a more
+simple and intuitive mediator is constructed for this case.
+Proof of Theorem 2. We define a mediator m, which will
+implement the VCG outcome function in G: For every v ∈
+V let mN (v) = b(v), where b(v) is defined as follows:
+For every player i such that 2 ≤ s(v, i) ≤ m let bi(v) =
+pvcg
+s(v,i)−1(v).8
+For every i ∈ δ(v, m + 1), bi(v) = pvcg
+m (v).
+Let bδ(v,1)(v) = 1 + max{i:s(v,i)≥2}bi(v).
+For every S ⊆ N such that S = N and for every vS ∈ VS
+let mS(v) = vS. This completes the description of the
+mediator m.
+We show that ϕm
+(v) = ϕvcg
+(v) for every v ∈ V . Let
+v ∈ V be an arbitrary valuation vector.
+We have to show that s(b(v)) = s(v) and that q(b(v)) =
+qvcg
+(v):
+We begin by showing that s(b(v)) = s(v). It is sufficient
+to show that whenever 1 ≤ s(v, i) < s(v, l) ≤ m + 1 for
+some i = l, then s(b(v), i) < s(b(v), l).
+We first show it for s(v, i) = 1, that is δ(v, 1) = i. In
+this case bδ(v,1)(v) > bj(v) for every j = i, s(b(v), i) = 1.
+Therefore s(b(v), i) < s(b(v), l). If s(v, i) > 1, we 
+distinguish between two cases.
+1. vi = vl. Since s(v, i) < s(v, l), the fixed priority rule
+implies that i < l. By the second part of Lemma 1,
+pvcg
+s(v,i)−1(v) ≥ pvcg
+s(v,l)−1(v). Therefore bi(v) ≥ bl(v),
+which yields s(b(v), i) < s(b(v), l).
+2. vi > vl. Let j + 1 = s(v, i). That is v(j+1) = vi, and
+therefore by the second part of Lemma 1, pvcg
+s(v,i)−1(v) >
+pvcg
+s(v,i)(v). Since s(v, i) ≤ s(v, l) − 1, by the second
+part of Lemma 1, pvcg
+s(v,i)(v) ≥ pvcg
+s(v,l)−1(v). 
+Therefore pvcg
+s(v,i)−1(v) > pvcg
+s(v,l)−1(v), which yields bi(v) >
+bl(v). Therefore s(b(v), i) < s(b(v), l).
+This completes the proof that s(b(v)) = s(v) for all v ∈ V .
+Observe that for every player i such that s(b(v), i) ∈ K
+ps(b(v),i)(b(v)) = pvcg
+s(v,i)(v).
+Therefore qi(b(v)) = qvcg
+i (v) for every i ∈ N. This shows
+that q(b(v)) = qvcg
+(v) for all v ∈ V . Hence, ϕm
+= ϕvcg
+.
+We proceed to prove that the T-strategy is an ex-post
+equilibrium. Note that by the truthfulness of VCG, it is not
+beneficial for any player i to miss report her value to the
+mediator, given that all other players use the T-strategy.
+Next we show that it is not beneficial for a single player i ∈
+N to participate in the auction directly if all other players
+use the T-strategy. Fix some v ∈ V . Assume that player i
+is the only player that participates directly in the auction.
+Hence, v−i is the vector of bids submitted by the mediator.
+Let bi be player i"s bid. Let k = s(v, i). Therefore, since
+ϕm
+= ϕvcg
+, s(b(v), i) = k. Let j be player i"s position in the
+deviation. Hence j = s((v−i, bi), i). If j /∈ K then player i"s
+8
+Recall that s(b, i) denotes the position of player i under the
+bid profile b, and δ(b, j) denotes the set of players assigned
+to position j. Whenever j ∈ K, we slightly abuse notations,
+and also refer to δ(b, j) as the player that is assigned to
+position j.
+283
+utility is zero and therefore deviating is not worthwhile for
+i. Suppose j ∈ K. Then
+αk(vi − pk(b(v))) = αk(vi − pvcg
+k (v)) ≥
+αj(vi − pvcg
+j (v−i, bi)) ≥ αj(vi − v(j+1)),
+where the first equality follows from ϕm
+= ϕvcg
+, the first
+inequality follows since VCG is truthful, and the second 
+inequality follows from the first part of Lemma 1. Since pj
+is position j"s payment function in the next-price position
+auction, αj(vi − v(j+1)) = αj(vi − pj(v−i, bi)). Therefore
+αk(vi − pk(b(v))) ≥ αj(vi − pj(v−i, bi)).
+Hence, player i does not gain from participating directly in
+the auction.
+Finally we show that m is valid. If all players choose
+the mediator then by the first part of Lemma 1 each player
+which uses the T-strategy will not pay more than his value.
+Consider the situation in which a subset of players, S, 
+participate directly in the auction. Since the mediator submits
+the reported values on behalf of the other players, these
+other players will not pay more than their reported values.
+Hence a player which used the T-strategy will not pay more
+than his value. 2

@@ -1,0 +1,45 @@
+We can map different deployed and proposed Internet routing
+schemes to the various models we have considered in this work.
+Border Gateway Protocol (BGP), the current inter-domain 
+routing protocol in the Internet, computes routes based on path vectors.
+Since the protocol reveals only the autonomous systems (AS"s)
+along a route but not the cost associated to them, the current BGP
+routing is best characterized by lack of a priori information about
+transit costs. In this case, the principal (e.g., a multi-homed site
+or a tier-1 AS) can implement one of the mechanisms proposed in
+Section 4 by contracting with individual nodes on the path. Such
+contracts involve paying some premium over the real cost, and it
+is not clear whether recursive contacts can be implemented in this
+scenario. In addition, the current protocol does not have the 
+infrastructure to support implementation of direct contracts between
+endpoints and the network.
+Recently, several new architectures have been proposed in the
+context of the Internet to provide the principal not only with a set
+of paths from which it can chose (like BGP does) but also with
+the performance along those paths and the network topology. One
+approach to obtain such information is through end-to-end 
+probing [1]. Another approach is to have the edge networks perform
+measurements and discover the network topology [32]. Yet another
+approach is to delegate the task of obtaining topology and 
+performance information to a third-party, like in the routing-as-a-service
+proposal [21]. These proposals are quite different in nature, but
+they are common in their attempt to provide more visibility and
+transparency into the network. If information about topology and
+transit costs is obtained, the scenario is mapped to the known 
+transit costs model (Section 3). In this case, first-best contracts can be
+achieved through individual contracts with nodes along the path.
+However, as we have shown in Section 5, as long as each agent can
+chose the next hop, the principal can gain full benefit by 
+contracting with only the first hop (through the implementation of recursive
+contracts).
+However, the various proposals for acquiring network topology
+and performance information do not deal with strategic behavior
+by the intermediate nodes. With the realization that the 
+information collected may be used by the principal in subsequent 
+contractual relationships, the intermediate nodes may behave strategically,
+misrepresenting their true costs to the entities that collect and 
+aggregate such information. One recent approach that can alleviate
+this problem is to provide packet obituaries by having each packet
+to confirm its delivery or report its last successful AS hop [4]. 
+Another approach is to have third parties like Keynote independently
+monitor the network performance.

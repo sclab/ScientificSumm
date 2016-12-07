@@ -1,0 +1,53 @@
+Distributed Partially Observable Markov Decision Problems 
+(Distributed POMDPs) are emerging as a popular approach for 
+modeling sequential decision making in teams operating under 
+uncertainty [9, 4, 1, 2, 13]. The uncertainty arises on account of 
+nondeterminism in the outcomes of actions and because the world state
+may only be partially (or incorrectly) observable. Unfortunately, as
+shown by Bernstein et al. [3], the problem of finding the optimal
+joint policy for general distributed POMDPs is NEXP-Complete.
+Researchers have attempted two different types of approaches
+towards solving these models. The first category consists of highly
+efficient approximate techniques, that may not reach globally 
+optimal solutions [2, 9, 11]. The key problem with these techniques
+has been their inability to provide any guarantees on the quality
+of the solution. In contrast, the second less popular category of 
+approaches has focused on a global optimal result [13, 5, 10]. Though
+these approaches obtain optimal solutions, they typically consider
+only two agents. Furthermore, they fail to exploit structure in the
+interactions of the agents and hence are severely hampered with
+respect to scalability when considering more than two agents.
+To address these problems with the existing approaches, we 
+propose approximate techniques that provide guarantees on the 
+quality of the solution while focussing on a network of more than two
+agents. We first propose the basic SPIDER (Search for Policies
+In Distributed EnviRonments) algorithm. There are two key novel
+features in SPIDER: (i) it is a branch and bound heuristic search
+technique that uses a MDP-based heuristic function to search for an
+optimal joint policy; (ii) it exploits network structure of agents by
+organizing agents into a Depth First Search (DFS) pseudo tree and
+takes advantage of the independence in the different branches of the
+DFS tree. We then provide three enhancements to improve the 
+efficiency of the basic SPIDER algorithm while providing guarantees
+on the quality of the solution. The first enhancement uses 
+abstractions for speedup, but does not sacrifice solution quality. In 
+particular, it initially performs branch and bound search on abstract 
+policies and then extends to complete policies. The second 
+enhancement obtains speedups by sacrificing solution quality, but within
+an input parameter that provides the tolerable expected value 
+difference from the optimal solution. The third enhancement is again
+based on bounding the search for efficiency, however with a 
+tolerance parameter that is provided as a percentage of optimal.
+We experimented with the sensor network domain presented in
+Nair et al. [10], a domain representative of an important class of
+problems with networks of agents working in uncertain 
+environments. In our experiments, we illustrate that SPIDER dominates
+an existing global optimal approach called GOA [10], the only
+known global optimal algorithm with demonstrated experimental
+results for more than two agents. Furthermore, we demonstrate
+that abstraction improves the performance of SPIDER significantly
+(while providing optimal solutions). We finally demonstrate a key
+feature of SPIDER: by utilizing the approximation enhancements
+it enables principled tradeoffs in run-time versus solution quality.
+822
+978-81-904262-7-5 (RPS) c 2007 IFAAMAS

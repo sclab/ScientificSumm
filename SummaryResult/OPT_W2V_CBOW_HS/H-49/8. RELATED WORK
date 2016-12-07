@@ -1,0 +1,32 @@
+Much previous work-particularly in the context of  TRECfocuses on predicting the performance of systems.
+In this section we draw more general comparisons to other work in performance prediction and spatial data analysis.
+The task here is not to test the hypothesis system A is superior to system B but to test the hypothesis retrieval A is superior to retrieval B. Autocorrelation manifests itself in many classification tasks.
+We present correlations between the classic Clarity measure (DV KL), the ranking robustness measure (P), and autocorrelation (ρ(y, ˜y)) each with mean average precision in terms of Kendall"s τ.
+Our task differs because we focus on ranking retrievals independent of the generating system.
+In our work, we focus on the behavior of the function over the relationships between documents.
+The task is, given these retrievals, to predict the ranking of systems according to some performance measure.
+We predict the ranking of large sets of retrievals for various collections and retrieval systems.
+Neville and Jensen define relational autocorrelation for  relational learning problems and demonstrate that many  classification tasks manifest autocorrelation [13].
+τ adjusted R2 DV KL P ρ(y, ˜y) DV KL P ρ(y, ˜y) DV KL, P DV KL, ρ(y, ˜y) Pρ(y, ˜y) β trec4 0.353 0.548 0.513 0.168 0.363 0.422 0.466 0.420 0.557 0.553 trec5 0.311 0.329 0.357 0.116 0.190 0.236 0.238 0.244 0.266 0.269 robust04 0.418 0.398 0.373 0.256 0.304 0.278 0.403 0.373 0.402 0.442 terabyte04 0.139 0.150 0.454 0.059 0.045 0.292 0.076 0.293 0.289 0.284 terabyte05 0.171 0.208 0.383 0.022 0.072 0.193 0.120 0.225 0.218 0.257 Table 1: Comparison to Robustness and Clarity measures for language model scores.
+Kendall"s τ correlations are computed between the predicted ranking and a ranking based on the retrieval"s average precision.
+multiple run (a) (b) (c) τ τ adjusted R2 DKL ρ(y, ˜y) Dn KL ρ(y, yµ) ρ(˜y, yµ) Dn KL ρ(y, ˜y) ρ(y, yµ) ρ(˜y, yµ) β trec3 0.201 0.461 0.461 0.439 0.456 0.444 0.395 0.394 0.386 0.498 trec4 0.252 0.396 0.455 0.482 0.489 0.379 0.263 0.429 0.482 0.483 trec5 0.016 0.277 0.433 0.459 0.393 0.280 0.157 0.375 0.323 0.386 trec6 0.230 0.227 0.352 0.428 0.418 0.203 0.089 0.323 0.325 0.325 trec7 0.083 0.326 0.341 0.430 0.483 0.264 0.182 0.363 0.442 0.400 trec8 0.235 0.396 0.454 0.508 0.567 0.402 0.272 0.490 0.580 0.523 robust03 0.302 0.354 0.377 0.385 0.447 0.269 0.206 0.274 0.392 0.303 robust04 0.183 0.308 0.301 0.384 0.453 0.200 0.182 0.301 0.393 0.335 robust05 0.224 0.249 0.371 0.377 0.404 0.341 0.108 0.313 0.328 0.336 terabyte04 0.043 0.245 0.544 0.420 0.392 0.516 0.105 0.357 0.343 0.365 terabyte05 0.068 0.306 0.480 0.434 0.390 0.491 0.168 0.384 0.309 0.403 trec4-spanish 0.307 0.388 0.488 0.398 0.395 0.423 0.299 0.282 0.299 0.388 trec5-spanish 0.220 0.458 0.446 0.484 0.475 0.411 0.398 0.428 0.437 0.529 trec5-chinese 0.092 0.199 0.367 0.379 0.384 0.379 0.199 0.273 0.276 0.310 trec6-chinese 0.144 0.276 0.265 0.353 0.376 0.115 0.128 0.188 0.223 0.199 ent05 - 0.181 0.324 0.305 0.282 0.211 0.043 0.158 0.155 0.179 Table 2: Large scale prediction experiments.
+There is a growing body of work which attempts to predict the performance of individual retrievals [7, 3, 11, 9, 19].
+We note, though, that our experiments cover a larger and more diverse set of retrievals, collections, and topics than previously examined.
+In columns (b) and (c) we present performance for predictors which incorporate information from multiple retrievals.
+We have attempted to place our work in the context of much of this work in Section 4.
+The adjusted coefficient of determination is presented to measure the effectiveness of combining predictors.
+However, a complete comparison is beyond the scope of this paper.
+Some work even attempts to use zero judgments by  leveraging multiple retrievals for the same query [17].
+In column (a), we have predictors which do not use information from other retrievals for the same query.
+Therefore, we believe that our work provides explanation for why regularization-based re-ranking works. 
+Temporal  autocorrelation of initial retrievals has also been used to predict performance [9].
+Several papers attempt to  address this task under the constraint of few judgments [2, 4].
+Finally, regularization-based re-ranking processes are also closely-related to our work [8].
+The adjusted coefficient of determination is computed to determine effectiveness of combining predictors.
+Here, each system generates k retrievals.
+These techniques seek to maximize the agreement between scores of related  documents by solving a constrained optimization problem.
+However, temporal autocorrelation is  performed by projecting the retrieval function into the temporal embedding space.
+The maximization of consistency is equivalent to maximizing the Moran autocorrelation.
+Measures in bold represent the strongest correlation for that test/collection pair.
+Measures in bold represent the strongest correlation for that test/collection pair.
+Evaluation replicates experiments from [19].

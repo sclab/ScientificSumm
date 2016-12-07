@@ -1,0 +1,103 @@
+This result is in some sense tight, since we show that any k-term XOR formula can be fully elicited by k−1  nondeterministic (i.e., when some exogenous teacher  instructs the auctioneer on how to increase the prices) ascending auctions.12 We also show that item-price ascending auctions and  iterative auctions that are limited to a polynomial number of queries (of any kind, not necessarily ascending) are  incomparable in their power: ascending auctions, with small enough increments, can elicit the preferences in cases where any polynomial number of queries cannot.
+However, we also observe that these auctions, as well as the whole class of similar  ascending bundle-price auctions, require an exponential time even for simple additive valuations.
+This is in contrast to both the power of bundle-price  ascending auctions and to the power of general item-price  demand queries (see above), both of which can always find the optimal allocation and in fact even provide full preference elicitation.
+More generally, wi may be viewed as the weight given to bidder i"s welfare, qj may be viewed as the quantity of units of good j, and di may be viewed as duplicity of the number of bidders of type i. Theorem: Any GWDR linear program may be solved in polynomial time (in n, m, and the number of bits of precision t) using only demand queries with item prices.11 2.2 Ascending Auctions Ascending item-price auctions: It is well known that the item-price ascending auctions of Kelso and Crawford [22] and its variants [12, 16] find the optimal allocation as long as all players" valuations have the substitutes property.
+It is interesting to note that for the restricted class of substitutes valuations,  demand queries may be simulated by polynomial number of value queries [6].
+In contrast, item-price auctions can find the optimal allocation for this class within polynomial cost.10 This put doubts on the applicability of bundle-price  auctions like [3, 37], and it may justify the use of hybrid pricing methods such as Ausubel, Cramton and Milgrom"s Clock-Proxy auction ([10]).
+However, we show that this is impossible: Theorem: Any iterative auction that uses a polynomial (in n and m) number of value queries can not achieve an approximation factor that is better than O( m log m ).9 Note however that auctions with only value queries are not completely trivial in power: the bundling auctions of  Holzman et al.
+For item-price auctions this is not an issue since a query needs only to specify a small number, m, of prices.
+Welfare approximation The next question that we ask is how well can a  computationally-efficient auction that uses only demand queries approximate the optimal allocation?
+We show that although a single ascending auction can determine the optimal allocation among any number of  bidders with substitutes valuations, it cannot fully-elicit such a valuation even for a single bidder.
+A computational bound with the same value applies even for the case of single-minded bidders, but under the assumption of NP = ZPP [39].
+Finally, we study the performance of the existing  computationally-efficient ascending auctions.
+We also give several results separating the power of  different models for ascending combinatorial auctions that use item-prices: we prove, not surprisingly, that adaptive  ascending auctions are more powerful than oblivious  ascending auctions and that non-deterministic ascending auctions are more powerful than deterministic ascending auctions.
+7 This is exactly the utility achieved by the bundle which would be returned in a demand query with the same prices.
+Note that all bundle-price auctions that do not explicitly specify a bidding language must implicitly use this language or a weaker one, since without a specific language one would need to list prices for all bundles,  perhaps except for trivial ones (those with value 0, or more generally, those with a value that is determined by one of their proper subsets.)
+Relative-demand query: the auctioneer presents a set of non-zero prices p1...pm, and the bidder reports the bundle that maximizes his value per unit of money, i.e., some set that maximizes v(S)P i∈S pi .8 Theorem: Each of these queries can be efficiently (i.e., in time polynomial in n, m, and the number of bits of precision t needed to represent a single value vi(S)) simulated by a sequence of demand queries with item prices.
+33 • At least k − 1 ascending item-price trajectories are needed to elicit XOR formulae with k terms.
+Demand query (with item prices): The auctioneer  presents a vector of item prices p1...pm; the bidder reports his demand under these prices, i.e., some set S that maximizes v(S) − P i∈S pi.6 6 A tie breaking rule should be specified.
+Value Queries No [32] O( m√ log m ) [19] O( m log m ) Anonymous Item-Price AA No - min(O(n), O(m1/2− )) Non-anonymous Item-Price AA No  -Anonymous Bundle-Price AA No - min(O(n), O(m1/2− )) Non-anonymous Bundle-Price AA Yes [37] 1 1 Poly Number of Item-Price AA No min(n, O(m1/2  ))Figure 3: This paper studies the economic efficiency of auctions that follow certain communication constraints.
+X i∈N, S|j∈S xi,S ≤ qj ∀j ∈ M X S⊆M xi,S ≤ di ∀i ∈ N xi,S ≥ 0 ∀i ∈ N, S ⊆ M The case where wi = 1, di = 1, qj = 1 (for every i, j) is the usual linear relaxation of the winner determination problem.
+This is avoidable and indeed the ascending item-price auctions of [22] can find the  optimal allocation for these simple valuations with polynomial communication. 
+Since in a single bundle-price demand query an  exponential number of prices can be presented, this algorithm can have an exponential communication cost.
+We strengthen this result significantly by showing that anonymous ascending auctions cannot produce a better than O( √ m) approximation - the approximation ratio that can be achieved with a polynomial number of queries ([26, 32]) and, as mentioned, with a polynomial number of item-price demand queries.
+While our result may be a small step in that direction (a polynomial full elicitation may still be possible with other communication protocols), we note that our impossibility result also holds for valuations in the class OXS defined by [25], valuations that we are able to show have a compact representation.
+Our main result here is a strong negative result: Theorem: There is a 2-item 2-player problem where no ascending item-price auction can find the optimal allocation.
+This bound is regardless of the running time, and it also holds for descending auctions and non-deterministic  auctions.
+Surprisingly, such a separation oracle can be implemented using a single demand query (with item prices) to each of the bidders.
+Ascending bundle-price auctions: All known ascending bundle-price auctions that are able to find the optimal allocation between general valuations (with free disposal) use non-anonymous prices.
+We consider bundle-price auctions where the prices must be given as a XOR-bid, i.e., the protocol must explicitly indicate the price of every bundle whose value is different than that of all of its proper subsets.
+Representing bundle-prices We then deal with a critical issue with bundle-price  auctions that was side-stepped by our model, as well as by all previous works that used bundle-price auctions: how are 9 This was also proven independently by Shahar Dobzinski and Michael Schapira.
+11 The produced optimal solution will have polynomial  support and thus can be listed fully.
+What could such a language for denoting prices for all bundles look like?
+Indirect-utility query: The auctioneer presents a set of item prices p1...pm, and the bidder responds with his indirect-utility under these prices, that is, the  highest utility he can achieve from a bundle under these prices: maxS⊆M (v(S) − P i∈S pi).7 5.
+This  iterative auction may be implemented with bundle-price  demand queries but, as far as we see, not as one with item prices.
+In Section 4.2, we describe a different item-price auction that achieves the same approximation factor with a polynomial number of queries (and thus with a polynomial communication).
+Theorem: There exists a computationally-efficient  iterative auction with item-price demand queries that finds an allocation that approximates the optimal welfare between arbitrary valuations to within a factor of min(n, O( √ m)).
+Finally,  motivated by Dutch auctions, we consider descending auctions, and how they compare to ascending ones; we show classes of valuations that can be elicited by ascending item-price  auctions but not by descending item-price auctions, and vice versa.
+We prove that  exponentially many value queries may be needed in order to simulate a single demand query.
+While it was shown in [25] that the set of substitutes valuations has measure zero in the space of general valuations, its dimension is not known, and in particular it is still open whether a polynomial amount of information suffices to describe a substitutes valuation.
+First note that specifying a price for each bundle is equivalent to specifying a valuation.
+All of our results 31 Communication Constraint Can find an optimal allocation?
+For each class of auctions, the table shows whether the optimal allocation can be achieved, or else, how well can it be approximated (both upper bounds and lower bounds).
+Motivated by several recent papers that studied the  relation between eliciting and fully-eliciting the preferences in combinatorial auctions (e.g., [7, 24]), we explore the  difference between these problems in the context of ascending  auctions.
+- means that nothing is currently known except trivial solutions.
+Theorem: For some class of valuations, bundle price  auctions that use the XOR-language require an exponential cost for finding the optimal allocation.
+More extension of this result: • Eliciting some classes of valuations requires an  exponential number of ascending item-price trajectories.
+The obvious question is whether the optimal allocation can be found for a larger class of valuations.
+In many cases solving the linear-program relaxation of this integer program is useful: for some restricted classes of valuations it finds the optimum of the integer program (e.g., substitute valuations [22, 17]) or helps approximating the optimum (e.g., by randomized rounding [13, 14]).
+We also compare different kinds of non-anonymous auctions (e.g., simultaneous or sequential), and observe that  anonymous bundle-price auctions and non-anonymous item-price auctions are incomparable in their power.
+The treatment of [32] was somewhat ad-hoc to the  problem at hand (the case of substitute valuations).
+We show that this is no mistake: Theorem: No ascending auction with anonymous prices can find the optimal allocation between general valuations.
+In particular this shows that demand queries can elicit all information about a valuation by simulating all 2m −1 value queries.
+Two separate  obstacles are known: In [32], a lower bound of min(n, m1/2− ), for any fixed > 0, was shown for the approximation factor apply for any fixed tie breaking rule.
+However, the linear program has an exponential number of variables.
+8 Note that when all the prices are 1, the bidder actually  reports the bundle with the highest per-item price.
+One may then attempt obtaining such an approximation factor using iterative auctions that use only the weaker value queries.
+The same lower bound clearly holds for anonymous item-price ascending auctions since such  auctions can be simulated by anonymous bundle-price  ascending auctions.
+We first discuss the power of demand-query iterative auctions, and then we turn our attention to ascending auctions.
+As noted in [32], the  computationallyefficient greedy algorithm of [26] can be adapted to become a polynomial-time iterative auction that achieves a nearly matching approximation factor of min(n, O( √ m)).
+A finer model would fix a  specific language for denoting bundle prices, force the protocol to represent the bundle-prices in this language, and require that the representations of the bundle-prices also be  polynomial.
+We show that once the  representation length of bundle prices is taken into account (using the XOR-language), bundle-price auctions are no more strictly stronger than item-price auctions.
+Value query: The auctioneer presents a bundle S, the bidder reports his value v(S) for this bundle.
+In some settings, deterministic and non-deterministic models have equal power (e.g., computation with finite automata).
+(Polynomial number/size), AA (ascending auctions).
+This point of view opens up the general issue of which language should be used in bundle-price auctions and what are the implications of this choice.
+Nisan and Segal [32] observed the surprising fact that despite the  ex10 Our proof relies on the sophisticated known lower bounds for constant depth circuits.
+We currently do not have any lower bound on the approximation achievable by non-anonymous item-price ascending auctions.
+We also observe that value queries and  marginalvalue queries can simulate each other in polynomial time and that demand queries and indirect-utility queries can also simulate each other in polynomial time.
+Second, as noted in [31], most of the proposed bidding languages are really just languages for representing valuations, i.e., a syntactic representation of valuations - thus we could use any of them.
+32 the bundle prices represented?
+We do not know how to close the (tiny) gap between this upper bound and our lower bound.
+Our basic model (like all  previous work that used bundle prices, e.g., [37, 34, 3]), ignores this issue, and only requires that the prices be determined, somehow, by the protocol.
+Define the cost of an  iterative auction as the total length of the queries and answers used throughout the auction (in the worst case).
+These protocols ([37, 3]) require exponential time in the worst case, and this is  unavoidable as shown by [32].
+Marginal-value query: The auctioneer presents a  bundle A and an item j, the bidder reports how much he is willing to pay for j, given that he already owns A, i.e., v(j|A) = v(A ∪ {j}) − v(A).
+In bundle-price auctions that  situation is more difficult since there are exponentially many bundles that require pricing.
+[19] can easily be implemented by a polynomial number of value queries and can achieve an approximation factor of O( m√ log m ) by using O(log m) equi-sized bundles.
+Here is a list of such queries that are either natural, have been used in the  literature, or that we found useful.
+We found this type of query useful, for example, in the design of the approximation algorithm described in Figure 5 in Section 4.2. obtained using any polynomial amount of communication.
+The same proof proves a similar impossibility result for other types of auctions (e.g., descending auctions, non-anonymous auctions).
+Demand queries and linear programs The winner determination problem in combinatorial  auctions may be formulated as an integer program.
+Lower bound for welfare approx.
+We were not able to find an elementary proof.
+The Ellipsoid algorithm runs in polynomial time even on such programs, provided that a separation oracle is given for the set of constraints.
+Anonymous ascending-price auctions (e.g., [42, 21, 37]) are only known to be able to find the optimal allocation among  superadditive valuations or few other simple classes ([36]).
+Here we give a somewhat more general form of this important  observation.
+2.1 Demand Queries Comparison of query types We first ask what other natural types of queries could we imagine iterative auctions using?
+Item-Price Demand Queries No [32] min(n, O(m1/2 )) min(n, m1/2− ) [32] Poly.
+Upper bound for welfare approx.
+Our systematic analysis is composed of the combination of a rather large number of results characterizing the power and limitations of various classes of auctions.
+The dual program has a polynomial number of variables, but an exponential number of constraints.
+The basic idea is to solve the dual program using the Ellipsoid method (see, e.g., [20]).
+Item-Price Demand Queries Yes 1 1 Poly.
+ponential number of variables, this linear program may be solved within polynomial communication.
+This notion relates to the Indirect-utility function studied in the Microeconomic literature (see, e.g., [27]).
+12 Non-deterministic computation is widely used in CS and also in economics (e.g, a Walrasian equilibrium or [38]).
+Here we initiate this line of investigation.
+Communication No [32] min(n, O(m1/2 )) [26] min(n, m1/2− ) [32] Poly.
+In this section, we will present an exposition describing our new results.
+Let us call the following class of linear programs generalized-winner-determination-relaxation (GWDR) LPs: Maximize X i∈N,S⊆M wi xi,S vi(S) s.t.
+Figure 3 summarizes some of our main results.
+New results are highlighted.
+Abbreviations: Poly.

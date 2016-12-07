@@ -1,0 +1,49 @@
+the challenge is that the current literature is still restricted to non-combinatorial settings. 
+instead, the mechanism is a continuous scheme that accepts bids as they arrive and makes allocation decisions immediately, thus removing any need to clear auctions.
+alternatively, the new class of online mechanisms[7, 11] assumes dynamic arrival and departure of bidders and does not hold auctions at fixed intervals.
+i will instead be charged the lowest payment and will thus have no incentive to temporally game the system.
+specifically, it tracks what i would have paid in all following auctions during i"s patience (i.e., the maximum time i is willing to wait for an  allocation) and keeps track of the lowest possible payment.
+what vw does is, after bidder i wins, it tracks what would have happened if i had submitted in a subsequent auction instead.
+the first is a wrapper scheme such as the one employed by virtual worlds (vw) [13] that makes  sequences of individually strategyproof auctions (e.g., los) strategyproof.
+there are two techniques we can use to address  temporal strategies.
+this, however, may create various problems as total revenue, total value, as well as allocative efficiency across the auctions may be adversely affected.
+in this case, the user will gain additional utility due to a lower payment.
+this same bidder may be better off by waiting until the next auction, if the user can still win and face bidders that have even lower values.
+for example, in a particular auction, suppose the highest bidder wants all nodes and pays, using gva payment scheme for simplicity, the next bidder"s value.
+across auctions,  however, there may be temporal strategies that are possible.
+for instance, our discussion so far focuses on  strategyproofness within a single auction.
+realistically, even with a strategyproof los scheme for complex bidders there will likely be further strategies we have yet to encounter and that we should consider in our design.
+thus, los is vulnerable to s4 and to avoid it we must find a way to extend los and its  strategyproof property to satisfy complex-bidders.
+unfortunately, this is highly restrictive and contradicts what mirage currently offers its users, namely the ability to select any subset of nodes for any slots and submit multiple bids.
+the main downside, however, is that it assumes users are single-minded, meaning that each  bidder only cares about a specific set of goods (e.g., a specific list of nodes for specific durations) and they do not value anything else.
+this feature makes it strategyproof.
+node hours) that i won.
+essentially, a winner i pays the norm of the first bidder denied access times the amount of units (i.e.
+the advantage of los is its special payment scheme that is tightly linked to the greedy allocation.
+it is a fast  algorithm as the allocation rule is a greedy mechanism,  ranking bids with some norm such as value per node hour.
+among the potential mechanisms we can extend, the los scheme [12] seems to be a good starting point.
+finally, our mechanism should compute near-optimal allocations given our compute time budget.
+strategyproofness or, minimally, making the system hard to manipulate is also key given the behavior we have observed.
+computational tractability is a fundamental requirement for  operational reasons.
+4.2 towards a strategyproof mechanism clearly, we need to evaluate our goals and identify where we can make trade-offs in designing a new mechanism.
+in effect, this allows bids for overlapping allocations but creates a disincentive for users to place such bids.
+finally, another approach to eliminating s4 is to modify the greedy algorithm such that if users do have bids whose allocations could overlap in time, then those potential  allocations are considered from lowest to highest value per node hour.
+with such fees in place, a user who  understates a bid and intends to iteratively refine it will have a disincentive to do so given that each iteration incurs a fee.
+to mitigate s1 and s2, we could add transaction fees.
+to eliminate s4, two possibilities are to restrict each user to having either one outstanding bid at a time or to mandate that users are not allowed to have multiple overlapping  allocations in time.
+second, we can also augment the auction with additional rules and fees to further mitigate strategic behavior.
+we can then run both the mip  alongside the greedy algorithm in parallel and select the higher quality result each time the auction clears.
+our first step is to test and optimize our mip-based algorithm on auction data from the past four months.
+like the gva, however, the mip is computationally demanding and thus careful formulation of the mip and optimizations based on the observed workloads from mirage will be required to  ensure timely clearing of the auction.
+while the mip does not provide strategyproofness, it is able to compute approximately-optimal allocations.
+this is aimed directly at eliminating strategy s4.
+4.1 ongoing improvements our first improvement is a mixed-integer programming 102 (mip) formulation as an alternative to the greedy algorithm.
+with this in mind, we now present a two-phase roadmap for improving mirage: (i) short-term improvements to the current mechanism that mitigate the effects of existing  strategies; and (ii) designing a new mechanism that approximately achieves our three goals simultaneously.
+we thus must make certain trade-offs.
+these goals are in conflict for vcg and in general [10].
+in this case, however, strategyproofness is no longer available [16].
+other vcg-based  mechanisms exist that replace the allocation algorithms in gva with approximate ones to provide tractability.
+however, it also is  computationally intractable as it is np-hard to calculate the allocations as well as individual payments.
+the  generalized vickrey auction (gva) [8, 18] is the only known  combinatorial mechanism that provides both strategyproofness and optimal allocation.
+specifically, our goals for such a mechanism include: (i) strategyproofness, (ii)  computational tractability, and (iii) optimal allocation.
+designing an appropriate auction mechanism is key to  addressing the above strategies.

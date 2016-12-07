@@ -1,0 +1,46 @@
+the goal of the dr vector scheduling algorithm to be described in the next section is to make this  (cumulative) export error equal at every player independently for each of the entities that make up the game. 
+each of these players receives dr0 and dr1 after varying delays thereby creating different export error values at different players.
+but in reality, dr vectors dr0 and dr1 are sent by the sender to all the participating players.
+the above figure and example illustrates one receiver only.
+as we discussed earlier, this export error is unavoidable.
+starting from time t1 onwards, there is a deviation between the real and the exported paths.
+this is not shown in the figure but it serves to remind the reader that the export error is cumulative when a sequence of dr vectors are received.
+note that there would have been an export error created due to the reception of dr0 at which time the placed path would have been based on a previous dr vector.
+note that there could be other ways of  representing this error as well, but in this paper, we use the integral of the distance between the two trajectories as a measure of the export error.
+in the figure, the export error due to dr1 is computed as the integral of the distance between the trajectories ac and bd over the time interval [t1, t1 + dt1].
+we represent the integral of the distances between the placed and exported paths due to some dr dri over a time interval [t1, t2] as err(dri, t1, t2).
+a way to represent the export error is to compute the integral of the distance between the two trajectories over the time when they are out of sync.
+the deviation between the exported and placed paths creates an error component which we refer to as the export error.
+only at time t1 + dt1 did the entity get moved to point c from which point onwards the exported and the placed paths are the same.
+this means, although the exported path based on dr1 at the sender at time t1 is the  trajectory ac, until time t1 + dt1, at the receiver, this entity was being rendered at trajectory bd based on dr0.
+although dr1 was computed at time t1 and sent to the receiver, it did not reach the receiver until time t1 + dt1.
+let us now consider the error due to network delay.
+the velocity components vx1 and vy1 are used to project and render this entity further.
+when this dr vector is received, assume that the entity is at point d. a new position for the entity is computed as (x1 + vx1 × dt1, y1 + vy0 × dt1) and the entity is moved to this position (point c).
+assume that dr1 is received at the receiver after a delay of dt1 time units.
+at time t1 a dr vector dr1 is computed for the same entity and immediately sent to the receiver2 .
+the thick line ebd represents the projected and rendered trajectory at the receiver based on the  velocity components vx0 and vy0 (placed path).
+the receiver  computes the initial position of the entity as (x0 + vx0 × dt0, y0 + vy0 × dt0) (shown as point e).
+assume that dr0 is received at the receiver after a delay of dt0 time units.
+assume that at time t0 a dr vector dr0 is computed by the sender and immediately sent to the receiver.
+the vertical axis tries to  conceptually capture the two-dimensional position of an entity.
+the horizontal axis shows the time which is synchronized among all the players.
+the figure shows the reception of dr vectors at a player (henceforth called the receiver).
+ing of dr vectors and the different errors that are encountered.
+based on this model, figure 1 illustrates the sending and  receiv1 other type of dr vectors include quadratic dr vectors which specify the acceleration of the entity and cubic spline dr vectors that consider the starting position and velocity and the ending  position and velocity of the entity.
+timet1 real exported placed dt1 a b c d dr1 = (t1, x1, y1, vx1, vy1) computed at time t1 and sent to the receiver dr0 = (t0, x0, y0, vx0, vy0) computed at time t0 and sent to the receiver t0 dt0 placed e figure 1: trajectories and deviations.
+this trajectory is followed until a new dr vector is received which changes the position and/or velocity of the entity.
+the receiving player then uses the velocity components to project and render the  trajectory of the entity.
+note that the computation of time difference is  feasible since all the clocks are synchronized.
+the receiving player computes the starting position for the entity based on xi, yi and the time difference  between when the dr vector is received and the time ti at which it was computed.
+hence we use dri to denote the ith such dr vector represented as the tuple (ti, xi, yi, vxi, vyi).
+for simplicity, we consider a two dimensional game space rather than a three dimensional one.
+without loss of generality, in the rest of the discussion, we  consider a sequence of dr vectors sent by only one player and for only one entity.
+specifically, the ith dr vector sent by player j about the kth entity is denoted by drj ik and is represented by the following tuple (tj ik, xj ik, yj ik, zj ik, vxj ik, vyj ik, vzj ik).
+thus, the dr vectors sent by a player specifies the current time at the player when the dr vector is computed (not the time at which this dr vector is sent to the other players as we will explain later), the current position of the player/entity in terms of the x, y, z coordinates and the velocity vector in the direction of x, y and z coordinates.
+such a dr vector contains information about the starting position and velocity of the player/entity where the  velocity is constant1 .
+we assume a linear dr vector in that the information contained in the dr vector is only enough at the receiving player to compute the trajectory and render the entity in a straight line path.
+each dr vector sent from one player to another specifies the  trajectory of exactly one player/entity.
+as mentioned before, we assume  synchronized clocks among the participating players.
+the dr  vectors could either be sent directly from one player to another  (peerto-peer model) or could be sent through a game server which  receives the dr vector from a player and forwards it to other players (client-server model).
+the game architecture is based on players distributed across the internet and exchanging dr vectors to each other.

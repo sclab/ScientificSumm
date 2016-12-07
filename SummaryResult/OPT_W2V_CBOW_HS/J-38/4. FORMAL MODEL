@@ -1,0 +1,79 @@
+We can simply take the set of attributes as equal to the set of agents, i.e., M = N, an identity matrix for A, aggregators of sums, and the  aggregate value function w to be v. 172 4.2 An Example Let us illustrate how MACG can be used to represent a game with a simple example.
+Therefore, in what follows, we will refer to the aggregate value function as a function over the attributes.
+Given the attribute matrix, an aggregator assigns a value to each coalition S ⊆ N. Thus, each aggregator defines a game over N. For aggregator aj , we refer to this induced game as the game of attribute j, and denote it with aj (A).
+However, for many problems that we found in the literature, such as the transportation domain of [12] and the flow game setting of [4], the distribution of attributes does not affect the value of the coalitions.
+When the attribute matrix is clear from the context, we may drop A and simply denote the game as aj .
+Consider again the problem of forming a soccer team discussed in the introduction, where we model the attributes of the agents as their ability to take the four positions of the field, and the value of a team  depends on the positions covered.
+Analogous to the notion of simple games, we call an aggregator simple if its range is {0, 1}.
+We first define the attribute model.
+In this section, we will give a formal definition of  multiattribute coalitional games, and show how it is related to some of the representations discussed in the literature.
+A multi-attribute coalitional game is defined by the tuple N, M, A, a, w , where • N, M, A is an attribute model; • a is a set of aggregators, one for each attribute; we can treat the set together as a vector function, mapping Rm×n × 2N → Rm • w : Rm → R is an aggregate value function.
+This induces a coalitional game with transferable payoffs N, v with players N and the value function defined by v(S) = w(a(A, S)) Note that MACG as defined is fully capable of  representing any coalitional game N, v .
+An attribute model is a tuple N, M, A , where • N denotes the set of agents, of size n; • M denotes the set of attributes, of size m; • A ∈ Rm×n , the attribute matrix, describes the values of the attributes of the agents, with Aij denoting the value of attribute i for agent j.
+For example, it may compute the sum of the  attributes, or evaluate a Boolean expression by treating the agents i ∈ S as true and j /∈ S as false.
+In other words, we will not be able to distinguish between two teams, one of which has a player for each position, the other has one player who can play all positions, but the rest can only play the same one position.
+Consider the parity game N, v where coalition S ⊆ N has value v(S) = 1 if |S| is odd, and v(S) = 0 otherwise.
+4.1 Multi-Attribute Coalitional Games A multi-attribute coalitional game (MACG) consists of two parts: a description of the attributes of the agents, which we termed an attribute model, and a function that assigns values to combination of attributes.
+Similarly, a rule of a marginal contribution net corresponds to an attribute in MACG.
+A second important difference of MACG is that the  attribute model and the value function is cleanly separated.
+We now define the second step of the computation with the help of aggregators.
+Therefore, MACG is very suitable for representing multiple games.
+4.3 Relationship with Other Representations As briefly discussed in Section 2, MACG is closely related to two other representations in the literature, the  multiissue representation of Conitzer and Sandholm [3], and our work on marginal contribution nets [7].
+Suppose there are four types of resources in the world: gold, silver, copper, and iron, that each agent is endowed with some amount of these resources, and there is a fixed price for each of the resources in the market.
+Note that when all aggregators are simple, the aggregate value function implicitly defines a game over the attributes, as it assigns a value to each set of attributes T ⊆ M. We refer to this as the game among attributes.
+We can directly define a function that maps combinations of attributes to real values.
+The coalitional game N, v induced by a marginal contribution net has player set N = Ëm i=1 Ni, and for each coalition S ⊆ N, v(S) = È i:pi(S)=true wi.
+An issue of a multi-issue representation corresponds to an attribute in MACG.
+This is an  important generalization over the linear combination of issues or rules in the other two approaches.
+A coalition S is said to satisfy the pattern pi, if we treat the agents i ∈ S as true, an agent j /∈ S as false, pi(S)  evaluates to true.
+However, for many problems, we can describe the function more compactly by computing it in two steps: we first compute an aggregate value for each attribute, then compute the values of combination of attributes using only the aggregated information.
+If we first aggregate each of the attribute individually, we will lose the distributional information of the attributes.
+We now define multi-attribute coalitional game.
+The games vi are assumed to be represented in characteristic form.
+From these definitions, we can see the relationships among these three representations clearly.
+The  coalitional game N, v induced by multi-issue representation has player set N = Ëm i=1 Ni, and for each coalition S ⊆ N, v(S) = Èm i=1 v(S ∩ Ni).
+An aggregating function (or aggregator) takes as input a row of the attribute matrix and a coalition S, and summarizes the attributes of the agents in S with a single number.
+Firstly, there is no restriction on the operations performed by the aggregate value function over the attributes.
+This game can be described using MACG with an attribute matrix A, where Aij denote the amount of resource i that agent j is endowed.
+We believe the problems of updating games and representing multiple games are interesting future directions to explore.
+An agent i is  irrelevant to aggregator aj if aj (S ∪ {i}) = aj (S) for all S ⊆ N. A relevant agent is one not irrelevant.
+An aggregate value function takes as input the values of the aggregators and maps these to a real value.
+Together, they induce a coalitional game over the agents.
+As suggested in the example in Section 4.2, this often  allows us more efficient update of the values of the game as it changes.
+However, MACG differs in two important way.
+Also, the same attribute model can be evaluated using different value functions, and the same value function can be used to evaluate different attribute model.
+Therefore, we will focus on the representation as defined in Definition 8. 
+For any aggregator, there is a set of relevant agents, and a set of irrelevant agents.
+The aggregate value functions are simple sums and weighted sums for the respective  representations.
+Alternatively, if we leave such attributes untouched, we can leave the burden of correctly evaluating these attributes to the  aggregate value function.
+In this paper, we will focus on having one aggregator per attribute.
+The unfortunate answer is yes, best  illustrated by the following.
+MACG can represent the game in O(n) space.
+This loss of distributional information can be recovered by using aggregators that take as input multiple rows of the attribute matrix rather than just a single row.
+To make their  relationships clear, we first review these two representations.
+For each resource, the  aggregator sums together the amount of resources the agents have.
+4.4 Limitation of One Aggregator per Attribute Before focusing on one aggregator per attribute for the rest of the paper, it is natural to wonder if any is lost per such restriction.
+The proof of the following proposition can be found in the Appendix.
+A multi-issue representation is given as a vector of coalitional games, (v1, v2, .
+Denote the set of literals involved in rule i by Ni.
+We can treat it as a mapping from Rn × 2N → R. Aggregators often perform basic arithmetic or logical  operations.
+In particular, there are games for which MACG can be exponentially more compact.
+Finally, the aggregate value function takes the dot product between the market price vector and the aggregate vector.
+We may refer to the game as the aggregator when no ambiguities arise.
+A marginal contribution net is given as a set of rules (r1, r2, .
+In  addition, the problem may become unmanageably complex as we introduce more complicated aggregators.
+vm), each possibly with a varying set of agents, say N1, .
+Note the inherent flexibility in the model: only limited work would be required to update the game as the market price changes, or when a new agent arrives.
+The agents are represented as literals.
+We have changed the notations from the original papers to highlight their similarities.
+Both multi-issue representation and marginal contribution nets requires O(2n ) space.
+Formally, Definition 6.
+, rm), where rule ri has a weight wi, and a pattern pi that is a conjunction over literals  (positive or negative).
+Definition 5.
+Therefore, it is clear that MACG will be no less succinct than either representation.
+Proposition 1.
+We will also discuss some limitations to our proposed approach.
+Definition 9.
+Definition 7.
+Definition 8.
+Definition 10.

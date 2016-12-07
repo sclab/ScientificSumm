@@ -1,0 +1,3 @@
+The client keeps track of objects that are read and modified by its transaction; it sends this information, along with new copies of modified objects, to the servers when it tries to commit the transaction.
+That is, a client includes the page version number corresponding to each object in the read object set sent in the commit request to the server.
+When a transaction aborts , its client restores the cached copies of modified objects to the state they had before the transaction started ; this is possible because a client makes a copy of an object the first time 

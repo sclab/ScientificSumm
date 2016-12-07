@@ -1,0 +1,38 @@
+it improves dynamic co-allocation and reduces waiting time, thus improving overall transfer performance. 
+thus, we propose an efficient approach called recursive-adjustment co-allocation and based 799 on a co-allocation architecture.
+in most cases, this wastes much time and decreases overall performance.
+the co-allocation strategies described above do not handle the shortcoming of faster servers having to wait for the slowest server to deliver its final block.
+the aggressive load balancing dynamic co-allocation strategy presented in [17] adds functions that change block size de-liveries by: (1) progressively increasing the amounts of data requested from faster servers, and (2) reducing the amounts of data requested from slower servers or ceasing to request data from them altogether.
+aggressive load balancing: another dynamic  coallocation strategy, presented in [17], is the aggressive load balancing.
+the loadings on the co-allocated flows are automatically adjusted because the faster servers will deliver more quickly providing larger portions of the file.
+when a server finishes delivering a block, another is requested, and so on, till the entire file is downloaded.
+available servers are assigned single blocks to deliver in parallel.
+the conservative load balancing dynamic co-allocation strategy divides requested datasets into k disjoint blocks of equal size.
+conservative load balancing: one of their dynamic  coallocation is conservative load balancing.
+history-based co-allocation: the history-based  coallocation scheme keeps block sizes per flow proportional to predicted transfer rates.
+it does not address the bandwidth differences among the various client-server links.
+brute-force co-allocation: brute-force co-allocation works by dividing the file size equally among available flows.
+it also provides brute-force, history-base, and dynamic load balancing for allocating data block.
+in [17], the author proposes co-allocation architecture for co-allocating grid data transfers across multiple connections by exploiting the partial copy feature of gridftp.
+in our previous work [23, 24], we proposed a replica selection cost model and a replica selection service to perform replica selection.
+for instance, vazhkudai and schopf [18, 20, 21] used past data transfer histories to estimate current data transfer throughputs.
+several prediction metrics have been developed to help replica selection.
+a replica location service (rls) [4] provides a mechanism for discovering and registering existing replicas.
+as datasets are replicated within grid environments for reliability and performance, clients require the abilities to discover existing data replicas, and create and register new replicas.
+and it uses gridftp [1, 11, 16], a reliable, secure, and efficient data transport protocol to provide efficient management and transfer of terabytes or petabytes of data in a wide-area, distributed-resource environment.
+it provides a uniform and flexible interface for data collected by lower-level information providers in two modes: static (e.g., os, cpu types, and system architectures) and dynamic data (e.g., disk availability, memory availability, and loading).
+one of its primary components is mds [6, 11, 16, 25], which is designed to provide a standard mechanism for discovering and publishing resource status and configuration information.
+the globus toolkit provides solutions for such considerations as security, resource management, data management, and information services.
+in this study we used the grid middleware globus toolkit [16] as the data grid infrastructure.
+data grids consist of scattered computing and storage resources located in different countries/regions yet accessible to users [8].
+its partial file transfer ability allows files to be retrieved from data servers by specifying the start and end offsets of file sections.
+among its many features are security, parallel streams, partial file transfers, third-party transfers, and reusable data channels.
+gridftp is a high-performance, secure, reliable data transfer protocol optimized for high-bandwidth  widearea networks.
+in these researches, gridftp [1, 11, 16] was used to enable parallel data transfers.
+the co-allocation agent then downloads the data in parallel from the selected servers.
+this replica selection service provides estimates of candidate transfer performance based on a cost model and chooses appropriate amounts to request from the better locations.
+figure 1. data grid co-allocation architecture [17] the candidate replica locations are passed to a replica selection service [19], which was presented in a previous work [23].
+the broker queries available resources and gets replica locations from information services [6] and replica management services [19], and then gets a list of physical locations for the desired files.
+applications specify the characteristics of desired data and pass the attribute description to a broker.
+figure 1 shows the co-allocation of grid data transfers, which is an extension of the basic template for resource management [7] provided by globus toolkit.
+and related work the co-allocation architecture proposed in [17] consists of three main components: an information service, a broker/co-allocator, and local storage systems.

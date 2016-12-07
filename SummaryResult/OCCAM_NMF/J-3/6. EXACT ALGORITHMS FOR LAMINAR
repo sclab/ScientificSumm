@@ -1,0 +1,29 @@
+doing so yields the obvious improvement in the bounds. 
+for many problems, you only need to choose from a discrete set of bid levels (e.g., multiples of one cent).
+the bounds in this section make pessimistic assumptions about having to try every budget and every level.
+48 lemma 13. if the graph g has the laminar property, then, by applying lemma 11, the dynamic programming recurrence in (5), and lemma 9, we can find an optimal solution to the budget optimization problem in o(b3 u3 n) time.
+observe that in the dynamic program, we have already solved the instance for every  budget u ≤ u, so we can find the randomized solution with no additional asymptotic overhead.
+in addition, we can apply lemma 9 to compute the  optimal (randomized) solution.
+lemma 12. if the graph g has the laminar property, then, after applying lemma 11, the dynamic programming  recurrence in (5) finds an optimal deterministic solution to the budget optimization problem exactly in o(b3 u3 n) time.
+now we define f[i, b, u] as max b, b ,u ,u ∈z(b,u) j f[j , b , u ] + f[j , b , u ] + ˆt(i, b) ff (5) if (ˆs(i, b) ≤ u − u − u and i > 0), and f[i, b, u] = 0 otherwise.
+qj ⊆ qi (and exactly b on keyword i) while spending at most u. for this definition, we use z(b, u) to denote set of allowable bids and budgets over children: z(b, u) = {b, b , u , u : b ≥ b, u ≤ u, b ≥ b, u ≤ u, u + u ≤ u} given a keyword i and a bid ai, compute an incremental spend and traffic associated with bidding ai on keyword i, that is ˆt(i, ai) = x q∈qi\qi−1 clicksq(ai), and ˆs(i, ai) = x q∈qi\qi−1 costq(ai).
+furthermore, g has at most twice as many nodes as g. given a graph with at most two children per node, we  define f[i, b, u] to be the maximum number of clicks achievable by bidding at least b on each of keywords j s.t.
+there exists another graph g with the same optimal solution to the budget optimization problem, where each node has at most two children in the laminar ordering.
+lemma 11. let g be a graph with the laminar property.
+we can solve this problem by showing that given any laminar ordering, there is an equivalent one in which each keyword has at most 2 children.
+a complication is that a node may have many children and thus a term of uc would not even be pseudopolynomial.
+, ic, we now need to enumerate over all ways to allocate the budget among the children and also over all possible minimum bids for the children.
+in this case we say that j is a child of i. given a keyword j with c children i1, .
+we can view the laminar order as a tree with keyword j as a parent of keyword i if qj is the minimal set containing qi.
+lemma 10. for keywords i, j ∈ k, if qi ⊆ qj then there exists an optimal deterministic solution to the budget  optimization problem with ai ≥ aj.
+the following lemma will be useful for giving a structure to the optimal solution, and will allow dynamic programming.
+we call a solution deterministic if it consists of one bid vector, rather than a general distribution over bid vectors.
+note that a laminar  interaction graph would naturally fall out as a consequence of designing a hierarchical keyword set (e.g., shoes,  highheel shoes, athletic shoes).
+given a keyword interaction graph g, we associate a set of neighboring queries qk = {q : (k, q) ∈ e} with each  keyword k. if this collection of sets if laminar, we say that the graph has the laminar property.
+, s2 is laminar if, for any two sets si and sj, if si ∩ sj = ∅ then either si ⊆ sj or sj ⊆ si.
+a collection s of n sets s1, .
+the proof (omitted) uses ideas similar to observation 1 and lemma 1. lemma 9. let i be an input to the budget  optimization problem and suppose that we find the optimal  deterministic solution for every possible budget u ≤ u. then we can find the optimal solution in time o(u log u).
+we first show that to solve the budget optimization problem (for general graphs) optimally in pseudopolynomial time, it suffices to provide an algorithm that solves the  deterministic case.
+here we  generalize this to the case when the graph has a laminar structure, which will allow us to impose a (partial) ordering on the possible bid values, and thereby give a pseudopolynomial algorithm via dynamic programming.
+note that the knapsack algorithm in section 2 solves the problem for the case when the graph is a simple matching.
+graphs if a graph has special structure, we can sometimes solve the budget optimization problem exactly.

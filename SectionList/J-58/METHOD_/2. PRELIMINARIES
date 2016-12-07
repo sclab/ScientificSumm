@@ -1,0 +1,211 @@
+2.1 Mechanism Design
+As usually done in the literatures about the designing of 
+algorithms or protocols with inputs from individual agents, we adopt
+the assumption in neoclassic economics that all agents are rational,
+i.e., they respond to well-defined incentives and will deviate from
+the protocol only if the deviation improves their gain.
+A standard model for mechanism design is as follows. There
+are n agents 1, . . . , n and each agent i has some private 
+information ti, called its type, only known to itself. For example, the type
+ti can be the cost that agent i incurs for forwarding a packet in
+a network or can be a payment that the agent is willing to pay
+for a good in an auction. The agents" types define the type 
+vector t = (t1, t2, . . . , tn). Each agent i has a set of strategies Ai
+from which it can choose. For each input vector a = (a1, . . . , an)
+where agent i plays strategy ai ∈ Ai, the mechanism M = (O, P)
+computes an output o = O(a) and a payment vector p(a) =
+(p1(a), . . . , pn(a)). Here the payment pi(·) is the money given to
+agent i and depends on the strategies used by the agents. A game
+is defined as G = (S, M), where S is the setting for the game
+G. Here, S consists the parameters of the game that are set before
+the game starts and do not depend on the players" strategies. For
+example, in a unicast routing game [14], the setting consists of the
+topology of the network, the source node and the destination node.
+Throughout this paper, unless explicitly mentioned otherwise, the
+setting S of the game is fixed and we are only interested in how to
+design P for a given allocation rule O.
+A valuation function v(ti, o) assigns a monetary amount to agent
+i for each possible output o. Everything about a game S, M , 
+including the setting S, the allocation rule O and the payment scheme
+P, is public knowledge except the agent i"s actual type ti, which
+is private information to agent i. Let ui(ti, o) denote the utility of
+agent i at the outcome of the game o, given its preferences ti. Here,
+following a common assumption in the literature, we assume the
+utility for agent i is quasi-linear, i.e., ui(ti, o) = v(ti, o) + Pi(a).
+Let a|i
+ai = (a1, · · · , ai−1, ai, ai+1, · · · , an), i.e., each agent
+j = i plays an action aj except that the agent i plays ai. Let a−i =
+(a1, · · · , ai−1, ai+1, · · · , an) denote the actions of all agents 
+except i. Sometimes, we write (a−i, bi) as a|i
+bi. An action ai is
+called dominant for i if it (weakly) maximizes the utility of i for all
+possible strategies b−i of other agents, i.e., ui(ti, O(b−i, ai)) ≥
+ui(ti, O(b−i, ai)) for all ai = ai and b−i.
+A direct-revelation mechanism is a mechanism in which the only
+actions available to each agent are to report its private type either
+truthfully or falsely to the mechanism. An incentive compatible
+(IC) mechanism is a direct-revelation mechanism in which if an
+agent reports its type ti truthfully, then it will maximize its 
+utility. Then, in a direct-revelation mechanism satisfying IC, the 
+payment scheme should satisfy the property that, for each agent i,
+v(ti, O(t)) + pi(t) ≥ v(ti, O(t|i
+ti)) + pi(t|i
+ti). Another 
+common requirement in the literature for mechanism design is so called
+individual rationality or voluntary participation: the agent"s utility
+of participating in the output of the mechanism is not less than the
+utility of the agent of not participating. A direct-revelation 
+mechanism is strategproof if it satisfies both IC and IR properties.
+Arguably the most important positive result in mechanism 
+design is the generalized Vickrey-Clarke-Groves (VCG) mechanism
+by Vickrey [21], Clarke [5], and Groves [11]. The VCG 
+mechanism applies to (affine) maximization problems where the 
+objective function is utilitarian g(o, t) =
+P
+i v(ti, o) (i.e., the sum of
+all agents" valuations) and the set of possible outputs is assumed
+to be finite. A direct revelation mechanism M = (O(t), P(t))
+belongs to the VCG family if (1) the allocation O(t) maximizesP
+i v(ti, o), and (2) the payment to agent i is pi(t) =
+P
+j=i vj(tj, O(t))+
+hi
+(t−i), where hi
+() is an arbitrary function of t−i. Under mild 
+assumptions, VCG mechanisms are the only truthful implementations
+for utilitarian problems [10].
+The allocation rule of a VCG mechanism is required to 
+maximize the objective function in the range of the allocation function.
+This makes the mechanism computationally intractable in many
+cases. Furthermore, replacing an optimal algorithm for 
+computing the output with an approximation algorithm usually leads to
+untruthful mechanisms if a VCG payment scheme is used. In this
+paper, we study how to design a truthful mechanism that does not
+optimize a utilitarian objective function.
+2.2 Binary Demand Games
+A binary demand game is a game G = (S, M), where M =
+(O, P) and the range of O is {0, 1}n
+. In other words, the 
+output is a n-tuple vector O(t) = (O1(t), O2(t), . . . , On(t)), where
+Oi(t) = 1 (respectively, 0) means that agent i is (respectively, is
+not) selected. Examples of binary demand games include: unicast
+[14, 22, 9] and multicast [23, 24, 8] (generally subgraph 
+construction by selecting some links/nodes to satisfy some property), 
+facility location [7], and a certain auction [12, 2, 13].
+Hereafter, we make the following further assumptions.
+1. The valuation of the agents are not correlated, i.e., v(ti, o) is
+a function of v(ti, oi) only is denoted as v(ti, oi).
+2. The valuation v(ti, oi) is a publicly known value and is 
+normalized to 0. This assumption is needed to guarantee the IR
+property.
+Thus, throughout his paper, we only consider these direct-revelation
+mechanisms in which every agent only needs to reveal its valuation
+vi = v(ti, 1).
+214
+Notice that in applications where agents providing service and
+receiving payment, e.g., unicast and job scheduling, the valuation
+vi of an agent i is usually negative. For the convenience of 
+presentation, we define the cost of agent as ci = −v(ti, 1), i.e., it costs
+agent i ci to provide the service. Throughout this paper, we will
+use ci instead of vi in our analysis. All our results can apply to
+the case where the agents receive the service rather than provide by
+setting ci to negative, as in auction.
+In a binary demand game, if we want to optimize an 
+objective function g(o, t), then we call it a binary optimization demand
+game. The main differences between the binary demand games and
+those problems that can be solved by VCG mechanisms are:
+1. The objective function is utilitarian (or affine maximization
+problem) for a problem solvable by VCG while there is no 
+restriction on the objective function for a binary demand game.
+2. The allocation rule O studied here does not necessarily 
+optimize an objective function, while a VCG mechanism only
+uses the output that optimizes the objective function. We
+even do not require the existence of an objective function.
+3. We assume that the agents" valuations are not correlated in
+a binary demand game, while the agents" valuations may be
+correlated in a VCG mechanism.
+In this paper, we assume for technical convenience that the 
+objective function g(o, c), if exists, is continuous with respect to the
+cost ci, but most of our results are directly applicable to the discrete
+case without any modification.
+2.3 Previous Work
+Lehmann et al. [12] studied how to design an efficient truthful
+mechanism for single-minded combinatorial auction. In a 
+singleminded combinatorial auction, each agent i (1 ≤ i ≤ n) only wants
+to buy a subset Si ⊆ S with private price ci. A single-minded 
+bidder i declares a bid bi = Si, ai with Si ⊆ S and ai ∈ R+
+.
+In [12], it is assumed that the set of goods allocated to an agent
+i is either Si or ∅, which is known as exactness. Lehmann et al.
+gave a greedy round-based allocation algorithm, based on the rank
+ai
+|Si|1/2 , that has an approximation ratio
+√
+m, where m is the 
+number of goods in S. Based on the approximation algorithm, they
+gave a truthful payment scheme. For an allocation rule satisfying
+(1) exactness: the set of goods allocated to an agent i is either Si or
+∅; (2) monotonicity: proposing more money for fewer goods 
+cannot cause a bidder to lose its bid, they proposed a truthful payment
+scheme as follows: (1) charge a winning bidder a certain amount
+that does not depend on its own bidding; (2) charge a losing 
+bidder 0. Notice the assumption of exactness reveals that the single
+minded auction is indeed a binary demand game. Their payment
+scheme inspired our payment scheme for binary demand game.
+In [1], Archer et al. studied the combinatorial auctions where
+multiple copies of many different items are on sale, and each 
+bidder i desires only one subset Si. They devised a randomized 
+rounding method that is incentive compatible and gave a truthful 
+mechanism for combinatorial auctions with single parameter agents that
+approximately maximizes the social value of the auction. As they
+pointed out, their method is strongly truthful in sense that it is 
+truthful with high probability 1 − , where is an error probability. On
+the contrary, in this paper, we study how to design a deterministic
+mechanism that is truthful based on some given allocation rules.
+In [2], Archer and Tardos showed how to design truthful 
+mechanisms for several combinatorial problems where each agent"s 
+private information is naturally expressed by a single positive real
+number, which will always be the cost incurred per unit load. The
+mechanism"s output could be arbitrary real number but their 
+valuation is a quasi-linear function t · w, where t is the private per
+unit cost and w is the work load. Archer and Tardos characterized
+that all truthful mechanism should have decreasing work curves
+w and that the truthful payment should be Pi(bi) = Pi(0) +
+biwi(bi) −
+R bi
+0
+wi(u)du Using this model, Archer and Tardos 
+designed truthful mechanisms for several scheduling related 
+problems, including minimizing the span, maximizing flow and 
+minimizing the weighted sum of completion time problems. Notice
+when the load of the problems is w = {0, 1}, it is indeed a binary
+demand game. If we apply their characterization of the truthful
+mechanism, their decreasing work curves w implies exactly the
+monotonicity property of the output. But notice that their proof
+is heavily based on the assumption that the output is a continuous
+function of the cost, thus their conclusion can"t directly apply to
+binary demand games.
+The paper of Ahuva Mu"alem and Noam Nisan [13] is closest
+in spirit to our work. They clearly stated that we only discussed a
+limited class of bidders, single minded bidders, that was introduced
+by [12]. They proved that all truthful mechanisms should have
+a monotonicity output and their payment scheme is based on the
+cut value. With a simple generalization, we get our conclusion for
+general binary demand game. They proposed several combination
+methods including MAX, IF-THEN-ELSE construction to perform
+partial search. All of their methods required the welfare function
+associated with the output satisfying bitonic property.
+Distinction between our contributions and previous results:
+It has been shown in [2, 6, 12, 13] that for the single minded
+combinatorial auction, there exists a payment scheme which 
+results in a truthful mechanism if the allocation rule satisfies a certain
+monotonicity property. Theorem 4 also depends on the 
+monotonicity property, but it is applicable to a broader setting than the 
+single minded combinatorial auction. In addition, the binary demand
+game studied here is different from the traditional packing IP"s: we
+only require that the allocation to each agent is binary and the 
+allocation rule satisfies a certain monotonicity property; we do not put
+any restrictions on the objective function. Furthermore, the main
+focus of this paper is to design some general techniques to find the
+truthful payment scheme for a given allocation rule O satisfying a
+certain monotonicity property.

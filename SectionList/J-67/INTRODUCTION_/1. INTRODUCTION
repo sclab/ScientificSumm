@@ -1,0 +1,100 @@
+We consider the problem of online scheduling of jobs on
+a single processor. Each job is characterized by a release
+time, a deadline, a processing time, and a value for successful
+completion by its deadline. The objective is to maximize the
+sum of the values of the jobs completed by their respective
+deadlines. The key challenge in this online setting is that
+the schedule must be constructed in real-time, even though
+nothing is known about a job until its release time.
+Competitive analysis [6, 10], with its roots in [12], is a
+well-studied approach for analyzing online algorithms by
+comparing them against the optimal oﬄine algorithm, which
+has full knowledge of the input at the beginning of its 
+execution. One interpretation of this approach is as a game 
+between the designer of the online algorithm and an adversary.
+First, the designer selects the online algorithm. Then, the
+adversary observes the algorithm and selects the sequence of
+jobs that maximizes the competitive ratio: the ratio of the
+value of the jobs completed by an optimal oﬄine algorithm
+to the value of those completed by the online algorithm.
+Two papers paint a complete picture in terms of 
+competitive analysis for this setting, in which the algorithm is
+assumed to know k, the maximum ratio between the value
+densities (value divided by processing time) of any two jobs.
+For k = 1, [4] presents a 4-competitive algorithm, and proves
+that this is a lower bound on the competitive ratio for 
+deterministic algorithms. The same paper also generalizes the
+lower bound to (1 +
+√
+k)2
+for any k ≥ 1, and [15] then
+presents a matching (1 +
+√
+k)2
+-competitive algorithm.
+The setting addressed by these papers is completely 
+nonstrategic, and the algorithm is assumed to always know the
+true characteristics of each job upon its release. However,
+in domains such as grid computing (see, for example, [7,
+8]) this assumption is invalid, because buyers of processor
+time choose when and how to submit their jobs. 
+Furthermore, sellers not only schedule jobs but also determine
+the amount that they charge buyers, an issue not addressed
+in the non-strategic setting.
+Thus, we consider an extension of the setting in which
+each job is owned by a separate, self-interested agent. 
+Instead of being released to the algorithm, each job is now
+released only to its owning agent. Each agent now has four
+different ways in which it can manipulate the algorithm: it
+decides when to submit the job to the algorithm after the
+true release time, it can artificially inflate the length of the
+job, and it can declare an arbitrary value and deadline for
+the job. Because the agents are self-interested, they will
+choose to manipulate the algorithm if doing so will cause
+61
+their job to be completed; and, indeed, one can find 
+examples in which agents have incentive to manipulate the
+algorithms presented in [4] and [15].
+The addition of self-interested agents moves the problem
+from the area of algorithm design to that of mechanism 
+design [17], the science of crafting protocols for self-interested
+agents. Recent years have seen much activity at the 
+interface of computer science and mechanism design (see, e.g.,
+[9, 18, 19]). In general, a mechanism defines a protocol for
+interaction between the agents and the center that 
+culminates with the selection of an outcome. In our setting, a
+mechanism will take as input a job from each agent, and 
+return a schedule for the jobs, and a payment to be made by
+each agent to the center. A basic solution concept of 
+mechanism design is incentive compatibility, which, in our setting,
+requires that it is always in each agent"s best interests to
+immediately submit its job upon release, and to truthfully
+declare its value, length, and deadline.
+In order to evaluate a mechanism using competitive 
+analysis, the adversary model must be updated. In the new
+model, the adversary still determines the sequence of jobs,
+but it is the self-interested agents who determine the 
+observed input of the mechanism. Thus, in order to achieve a
+competitive ratio of c, an online mechanism must both be
+incentive compatible, and always achieve at least 1
+c
+of the
+value that the optimal oﬄine mechanism achieves on the
+same sequence of jobs.
+The rest of the paper is structured as follows. In 
+Section 2, we formally define and review results from the 
+original, non-strategic setting. After introducing the incentive
+issues through an example, we formalize the mechanism 
+design setting in Section 3. In Section 4 we present our first
+main result, a ((1 +
+√
+k)2
++ 1)-competitive mechanism, and
+formally prove incentive compatibility and the competitive
+ratio. We also show how we can simplify this mechanism for
+the special case in which k = 1 and each agent cannot alter
+the length of its job. Returning the general setting, we show
+in Section 5 that this competitive ratio is a lower bound for
+deterministic mechanisms that do not pay agents. Finally,
+in Section 6, we discuss related work other than the directly
+relevant [4] and [15], before concluding with Section 7.

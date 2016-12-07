@@ -1,0 +1,48 @@
+As we mentioned in the introduction, a number of prediction
+techniques have been proposed recently that focus on 
+contentbased queries in the topical relevance (ad-hoc) task. We know of
+no published work that addresses other types of queries such as
+NP queries, let alone a mixture of query types. Next we review
+some representative models.
+The major difficulty of performance prediction comes from the
+fact that many factors have an impact on retrieval performance.
+Each factor affects performance to a different degree and the
+overall effect is hard to predict accurately. Therefore, it is not
+surprising to notice that simple features, such as the frequency of
+query terms in the collection [4] and the average IDF of query
+terms [5], do not predict well. In fact, most of the successful
+techniques are based on measuring some characteristics of the
+retrieved document set to estimate topic difficulty. For example,
+the clarity score [6] measures the coherence of a list of documents
+by the KL-divergence between the query model and the collection
+model. The robustness score [1] quantifies another property of a
+ranked list: the robustness of the ranking in the presence of
+uncertainty. Carmel et al. [2] found that the distance measured by
+the Jensen-Shannon divergence between the retrieved document
+set and the collection is significantly correlated to average
+precision. Vinay et al.[7] proposed four measures to capture the
+geometry of the top retrieved documents for prediction. The most
+effective measure is the sensitivity to document perturbation, an
+idea somewhat similar to the robustness score. Unfortunately,
+their way of measuring the sensitivity does not perform equally
+well for short queries and prediction accuracy drops considerably
+when a state-of-the-art retrieval technique (like Okapi or a
+language modeling approach) is adopted for retrieval instead of
+the tf-idf weighting used in their paper [16].
+The difficulties of applying these models in web search
+environments have already been mentioned. In this paper, we
+mainly adopt the clarity score and the robustness score as our
+baselines. We experimentally show that the baselines, even after
+being carefully tuned, are inadequate for the web environment.
+One of our prediction models, WIG, is related to the Markov
+random field (MRF) model for information retrieval [8]. The
+MRF model directly models term dependence and is found be to
+highly effective across a variety of test collections (particularly
+web collections) and retrieval tasks. This model is used to
+estimate the joint probability distribution over documents and
+queries, an important part of WIG. The superiority of WIG over
+other prediction techniques based on unigram features, which will
+be demonstrated later in our paper, coincides with that of MRF
+for retrieval. In other word, it is interesting to note that term
+dependence, when being modeled appropriately, can be helpful
+for both improving and predicting retrieval performance.

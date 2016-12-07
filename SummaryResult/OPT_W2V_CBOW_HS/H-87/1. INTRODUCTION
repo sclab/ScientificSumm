@@ -1,0 +1,35 @@
+These conditions make adaptive filtering a difficult task in statistical learning (online classification), for the following reasons: 1) it is difficult to learn accurate models for prediction based on extremely sparse training data; 2) it is not obvious how to correct the sampling bias (i.e., relevance feedback on system-accepted documents only) during the adaptation process; 3) it is not well understood how to effectively tune parameters in AF methods using cross-corpus validation where the validation and evaluation topics do not overlap, and the documents may be from different sources or different epochs.
+Stimulated by those findings, we decided to include Rocchio and LR in our  crossbenchmark evaluation for robustness testing.
+Furthermore, a recent paper [13] reported that the joint use of Rocchio and LR in a Bayesian framework outperformed the results of using each method alone on the TREC11 corpus.
+Specifically, we focus on how much the performance of these methods depends on parameter tuning, what the most influential parameters are in these methods, how difficult (or how easy) to optimize these influential parameters using cross-corpus validation, how strong these methods perform on multiple benchmarks with the systematic tuning of parameters on other corpora, and how efficient these methods are in running AF on large benchmark corpora.
+• TDT2004 was the first time that TREC and TDT metrics were jointly used in evaluating AF methods on the same benchmark (the TDT5 corpus) where non-stationary topics dominate.
+Notice that the validation-set topics often do not overlap with the test-set topics, thus the parameter optimization is performed under the tough condition that the validation data and the test data may be quite different from each other.
+Starting from 1997 in the Topic Detection and Tracking (TDT) area and 1998 in the Text Retrieval Conferences (TREC), benchmark evaluations have been conducted by NIST under the following conditions[6][7][8][3][4]: • A very small number (1 to 4) of positive training examples was provided for each topic at the starting point.
+In this paper we address the above question by conducting a cross-benchmark evaluation with two effective approaches in AF: incremental Rocchio and regularized logistic regression (LR).
+It was recently evaluated in adaptive filtering and was found to have relatively strong performance (Section 5.1).
+Although these works provide valuable insights for understanding the problems and possible solutions, it is difficult to draw conclusions regarding the effectiveness and robustness of current methods because the third problem has not been thoroughly investigated.
+In TDT5, for example, there is only one labeled training example per topic at the start; parameter optimization on such training data is doomed to be ineffective.
+Now the important question is: which methods (if any) are robust under the condition of using cross-corpus validation to tune parameters?
+We argue that robustness is an important measure for evaluating and comparing AF methods.
+Rocchio-style classifiers have been popular in AF, with good performance in benchmark evaluations (TREC and TDT) if appropriate parameters were used and if combined with an effective threshold calibration strategy [2][4][7][8][9][11][13].
+The task is for the system to make an online topic membership decision (yes or no) for every document, as soon as it arrives, with respect to each pre-defined topic of interest.
+Most AF methods have pre-specified parameters that may influence the performance significantly and that must be determined before the test process starts.
+The organization of the paper is as follows: Section 2 introduces the four benchmark corpora (TREC10 and TREC11, TDT3 and TDT5) used in this study.
+The first two problems have been studied in the adaptive filtering literature, including topic profile adaptation using incremental Rocchio, Gaussian-Exponential density models, logistic regression in a Bayesian framework, etc., and threshold optimization strategies using probabilistic calibration or local fitting techniques [1][2][9][10][11][12][13].
+That is, the user would be willing to provide a few positive examples for each topic of interest at the start, and might or might not be able to provide additional labeling on a small portion of incoming documents through relevance feedback.
+None of these problems is addressed in the literature of statistical learning for batch classification where all the training data are given at once.
+Current literature does not offer an answer because no thorough investigation on the robustness of AF methods has been reported.
+• Relevance feedback was available but only for the  systemaccepted documents (with a yes decision) in the TREC evaluations for AF.
+Logistic regression is a classical method in statistical learning, and one of the best in batch-mode text categorization [15][14].
+Section 3 analyzes the differences among the TREC and TDT metrics (utilities and tracking cost) and the potential implications of those differences.
+By robust we mean consistent and strong performance across benchmark corpora with a systematic method for parameter tuning across multiple corpora.
+Furthermore, topics of interest might change over time, with new topics appearing and growing, and old topics shrinking and diminishing.
+This leaves only one option (assuming tuning on the test set is not an alternative), that is, choosing an external corpus as the validation set.
+Section 5 reports the experiments and results.
+• Relevance feedback (RF) was not allowed in the TDT evaluations for AF (or topic tracking in the TDT terminology) until 2004.
+The above conditions attempt to mimic realistic situations where an AF system would be used.
+Available training examples, on the other hand, are often insufficient for tuning the parameters.
+Addressing the third issue is the main focus in this paper.
+Adaptive filtering (AF) has been a challenging research topic in information retrieval.
+Section 6 concludes the main findings in this study. 
+Section 4 outlines the Rocchio and LR approaches to AF, respectively.

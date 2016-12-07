@@ -1,0 +1,388 @@
+In this section, we evaluate the efficacy of TSAR using our 
+prototype and simulations. The testbed for our experiments consists
+of four Stargate proxies and twelve Mica2 and Mica2dot sensors;
+three sensors each are assigned to each proxy. Given the limited
+size of our testbed, we employ simulations to evaluate the 
+behavior of TSAR in larger settings. Our simulation employs the EmTOS
+emulator [10], which enables us to run the same code in simulation
+and the hardware platform.
+Rather than using live data from a real sensor, to ensure 
+repeatable experiments, we seed each sensor node with a dataset
+(i.e., a trace) that dictates the values reported by that node to the
+proxy. One section of the flash memory on each sensor node is
+programmed with data points from the trace; these observations
+are then replayed during an experiment, logged to the local archive
+(located in flash memory, as well), and reported to the proxy. The
+first dataset used to evaluate TSAR is a temperature dataset from
+James Reserve [27] that includes data from eleven temperature 
+sensor nodes over a period of 34 days. The second dataset is 
+synthetically generated; the trace for each sensor is generated using a
+uniformly distributed random walk though the value space.
+Our experimental evaluation has four parts. First, we run 
+EmTOS simulations to evaluate the lookup, update and delete overhead
+for sparse interval skip graphs using the real and synthetic datasets.
+Second, we provide summary results from micro-benchmarks of
+the storage component of TSAR, which include empirical 
+characterization of the energy costs and latency of reads and writes for the
+flash memory chip as well as the whole mote platform, and 
+comparisons to published numbers for other storage and 
+communication technologies. These micro-benchmarks form the basis for our
+full-scale evaluation of TSAR on a testbed of four Stargate proxies
+and twelve Motes. We measure the end-to-end query latency in our
+multi-hop testbed as well as the query processing overhead at the
+mote tier. Finally, we demonstrate the adaptive summarization 
+capability at each sensor node. The remainder of this section presents
+our experimental results.
+6.1 Sparse Interval Skip Graph Performance
+This section evaluates the performance of sparse interval skip
+graphs by quantifying insert, lookup and delete overheads.
+We assume a proxy tier with 32 proxies and construct sparse 
+interval skip graphs of various sizes using our datasets. For each skip
+0
+5
+10
+15
+20
+25
+30
+35
+409620481024512
+NumberofMessages
+Index size (entries)
+Initial lookup
+Traversal
+(a) James Reserve Data
+0
+2
+4
+6
+8
+10
+12
+14
+409620481024512
+NumberofMessages
+Index size (entries)
+Initial lookup
+Traversal
+(b) Synthetic Data
+Figure 9: Skip Graph Lookup Performance
+0
+10
+20
+30
+40
+50
+60
+70
+1 4 8 16 24 32 48
+Numberofmessages
+Number of proxies
+Skipgraph insert
+Sparse skipgraph insert
+Initial lookup
+(a) Impact of Number of
+Proxies
+0
+20
+40
+60
+80
+100
+120
+512 1024 2048 4096
+NumberofMessages
+Index size (entries)
+Insert (redundant)
+Insert (non-redundant)
+Lookup (redundant)
+Lookup (non-redundant)
+(b) Impact of Redundant
+Summaries
+Figure 10: Skip Graph Overheads
+graph, we evaluate the cost of inserting a new value into the index.
+Each entry was deleted after its insertion, enabling us to quantify
+the delete overhead as well. Figure 8(a) and (b) quantify the insert
+overhead for our two datasets: each insert entails an initial traversal
+that incurs log n messages, followed by neighbor pointer update at
+increasing levels, incurring a cost of 4 log n messages. Our results
+demonstrate this behavior, and show as well that performance of
+delete-which also involves an initial traversal followed by pointer
+updates at each level-incurs a similar cost.
+Next, we evaluate the lookup performance of the index 
+structure. Again, we construct skip graphs of various sizes using our
+datasets and evaluate the cost of a lookup on the index structure.
+Figures 9(a) and (b) depict our results. There are two components
+for each lookup-the lookup of the first interval that matches the
+query and, in the case of overlapping intervals, the subsequent 
+linear traversal to identify all matching intervals. The initial lookup
+can be seen to takes log n messages, as expected. The costs of
+the subsequent linear traversal, however, are highly data dependent.
+For instance, temperature values for the James Reserve data exhibit
+significant spatial correlations, resulting in significant overlap 
+between different intervals and variable, high traversal cost (see 
+Figure 9(a)). The synthetic data, however, has less overlap and incurs
+lower traversal overhead as shown in Figure 9(b).
+Since the previous experiments assumed 32 proxies, we evaluate
+the impact of the number of proxies on skip graph performance. We
+vary the number of proxies from 10 to 48 and distribute a skip graph
+with 4096 entries among these proxies. We construct regular 
+interval skip graphs as well as sparse interval skip graphs using these
+entries and measure the overhead of inserts and lookups. Thus, the
+experiment also seeks to demonstrate the benefits of sparse skip
+graphs over regular skip graphs. Figure 10(a) depicts our results.
+In regular skip graphs, the complexity of insert is O(log2n) in the
+47
+expected case (and O(n) in the worst case) where n is the number
+of elements. This complexity is unaffected by changing the 
+number of proxies, as indicated by the flat line in the figure. Sparse
+skip graphs require fewer pointer updates; however, their overhead
+is dependent on the number of proxies, and is O(log2Np) in the
+expected case, independent of n. This can be seen to result in 
+significant reduction in overhead when the number of proxies is small,
+which decreases as the number of proxies increases.
+Failure handling is an important issue in a multi-tier sensor 
+architecture since it relies on many components-proxies, sensor nodes
+and routing nodes can fail, and wireless links can fade. Handling
+of many of these failure modes is outside the scope of this 
+paper; however, we consider the case of resilience of skip graphs
+to proxy failures. In this case, skip graph search (and subsequent
+repair operations) can follow any one of the other links from a
+root element. Since a sparse skip graph has search trees rooted
+at each node, searching can then resume once the lookup request
+has routed around the failure. Together, these two properties 
+ensure that even if a proxy fails, the remaining entries in the skip
+graph will be reachable with high probability-only the entries on
+the failed proxy and the corresponding data at the sensors becomes
+inaccessible.
+To ensure that all data on sensors remains accessible, even in the
+event of failure of a proxy holding index entries for that data, we 
+incorporate redundant index entries. TSAR employs a simple 
+redundancy scheme where additional coarse-grain summaries are used
+to protect regular summaries. Each sensor sends summary data
+periodically to its local proxy, but less frequently sends a 
+lowerresolution summary to a backup proxy-the backup summary 
+represents all of the data represented by the finer-grained summaries,
+but in a lossier fashion, thus resulting in higher read overhead (due
+to false hits) if the backup summary is used. The cost of 
+implementing this in our system is low - Figure 10(b) shows the overhead of
+such a redundancy scheme, where a single coarse summary is send
+to a backup for every two summaries sent to the primary proxy.
+Since a redundant summary is sent for every two summaries, the
+insert cost is 1.5 times the cost in the normal case. However, these
+redundant entries result in only a negligible increase in lookup 
+overhead, due the logarithmic dependence of lookup cost on the index
+size, while providing full resilience to any single proxy failure.
+6.2 Storage Microbenchmarks
+Since sensors are resource-constrained, the energy consumption
+and the latency at this tier are important measures for evaluating the
+performance of a storage architecture. Before performing an 
+endto-end evaluation of our system, we provide more detailed 
+information on the energy consumption of the storage component used
+to implement the TSAR local archive, based on empirical 
+measurements. In addition we compare these figures to those for other 
+local storage technologies, as well as to the energy consumption of
+wireless communication, using information from the literature. For
+empirical measurements we measure energy usage for the storage
+component itself (i.e. current drawn by the flash chip), as well as
+for the entire Mica2 mote.
+The power measurements in Table 3 were performed for the
+AT45DB041 [15] flash memory on a Mica2 mote, which is an older
+NOR flash device. The most promising technology for low-energy
+storage on sensing devices is NAND flash, such as the Samsung
+K9K4G08U0M device [16]; published power numbers for this 
+device are provided in the table. Published energy requirements for
+wireless transmission using the Chipcon [4] CC2420 radio (used
+in MicaZ and Telos motes) are provided for comparison, assuming
+Energy Energy/byte
+Mote flash
+Read 256 byte page 58µJ* /
+136µJ* total
+0.23µJ*
+Write 256 byte page 926µJ* /
+1042µJ* total
+3.6µJ*
+NAND Flash
+Read 512 byte page 2.7µJ 1.8nJ
+Write 512 byte page 7.8µJ 15nJ
+Erase 16K byte sector 60µJ 3.7nJ
+CC2420 radio
+Transmit 8 bits
+(-25dBm)
+0.8µJ 0.8µJ
+Receive 8 bits 1.9µJ 1.9µJ
+Mote AVR processor
+In-memory search,
+256 bytes
+1.8µJ 6.9nJ
+Table 3: Storage and Communication Energy Costs (*measured
+values)
+0
+200
+400
+600
+800
+1000
+1 2 3
+Latency(ms)
+Number of hops
+(a) Multi-hop query 
+performance
+0
+100
+200
+300
+400
+500
+1 5121024 2048 4096
+Latency(ms)
+Index size (entries)
+Sensor communication
+Proxy communication
+Sensor lookup, processing
+(b) Query Performance
+Figure 11: Query Processing Latency
+zero network and protocol overhead. Comparing the total energy
+cost for writing flash (erase + write) to the total cost for 
+communication (transmit + receive), we find that the NAND flash is almost
+150 times more efficient than radio communication, even assuming
+perfect network protocols.
+6.3 Prototype Evaluation
+This section reports results from an end-to-end evaluation of the
+TSAR prototype involving both tiers. In our setup, there are four
+proxies connected via 802.11 links and three sensors per proxy. The
+multi-hop topology was preconfigured such that sensor nodes were
+connected in a line to each proxy, forming a minimal tree of depth
+0
+400
+800
+1200
+1600
+0 20 40 60 80 100 120 140 160
+Retrievallatency(ms)
+Archived data retrieved (bytes)
+(a) Data Query and Fetch
+Time
+0
+2
+4
+6
+8
+10
+12 4 8 16 32
+Latency(ms)
+Number of 34-byte records searched
+(b) Sensor query 
+processing delay
+Figure 12: Query Latency Components
+48
+3. Due to resource constraints we were unable to perform 
+experiments with dozens of sensor nodes, however this topology ensured
+that the network diameter was as large as for a typical network of
+significantly larger size.
+Our evaluation metric is the end-to-end latency of query 
+processing. A query posed on TSAR first incurs the latency of a sparse
+skip graph lookup, followed by routing to the appropriate sensor
+node(s). The sensor node reads the required page(s) from its local
+archive, processes the query on the page that is read, and transmits
+the response to the proxy, which then forwards it to the user. We
+first measure query latency for different sensors in our multi-hop
+topology. Depending on which of the sensors is queried, the total
+latency increases almost linearly from about 400ms to 1 second, as
+the number of hops increases from 1 to 3 (see Figure 11(a)).
+Figure 11(b) provides a breakdown of the various components
+of the end-to-end latency. The dominant component of the total
+latency is the communication over one or more hops. The 
+typical time to communicate over one hop is approximately 300ms.
+This large latency is primarily due to the use of a duty-cycled MAC
+layer; the latency will be larger if the duty cycle is reduced (e.g.
+the 2% setting as opposed to the 11.5% setting used in this 
+experiment), and will conversely decrease if the duty cycle is increased.
+The figure also shows the latency for varying index sizes; as 
+expected, the latency of inter-proxy communication and skip graph
+lookups increases logarithmically with index size. Not surprisingly,
+the overhead seen at the sensor is independent of the index size.
+The latency also depends on the number of packets transmitted
+in response to a query-the larger the amount of data retrieved by a
+query, the greater the latency. This result is shown in Figure 12(a).
+The step function is due to packetization in TinyOS; TinyOS sends
+one packet so long as the payload is smaller than 30 bytes and splits
+the response into multiple packets for larger payloads. As the data
+retrieved by a query is increased, the latency increases in steps,
+where each step denotes the overhead of an additional packet.
+Finally, Figure 12(b) shows the impact of searching and 
+processing flash memory regions of increasing sizes on a sensor. Each
+summary represents a collection of records in flash memory, and
+all of these records need to be retrieved and processed if that 
+summary matches a query. The coarser the summary, the larger the
+memory region that needs to be accessed. For the search sizes 
+examined, amortization of overhead when searching multiple flash
+pages and archival records, as well as within the flash chip and its
+associated driver, results in the appearance of sub-linear increase
+in latency with search size. In addition, the operation can be seen
+to have very low latency, in part due to the simplicity of our query
+processing, requiring only a compare operation with each stored
+element. More complex operations, however, will of course incur
+greater latency.
+6.4 Adaptive Summarization
+When data is summarized by the sensor before being reported
+to the proxy, information is lost. With the interval summarization
+method we are using, this information loss will never cause the
+proxy to believe that a sensor node does not hold a value which it in
+fact does, as all archived values will be contained within the interval
+reported. However, it does cause the proxy to believe that the sensor
+may hold values which it does not, and forward query messages to
+the sensor for these values. These false positives constitute the cost
+of the summarization mechanism, and need to be balanced against
+the savings achieved by reducing the number of reports. The goal
+of adaptive summarization is to dynamically vary the summary size
+so that these two costs are balanced.
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0 5 10 15 20 25 30
+Fractionoftruehits
+Summary size (number of records)
+(a) Impact of summary
+size
+0
+5
+10
+15
+20
+25
+30
+35
+0 5000 10000 15000 20000 25000 30000
+Summarizationsize(num.records)
+Normalized time (units)
+query rate 0.2
+query rate 0.03
+query rate 0.1
+(b) Adaptation to query
+rate
+Figure 13: Impact of Summarization Granularity
+Figure 13(a) demonstrates the impact of summary granularity
+on false hits. As the number of records included in a summary
+is increased, the fraction of queries forwarded to the sensor which
+match data held on that sensor (true positives) decreases. Next,
+in Figure 13(b) we run the a EmTOS simulation with our 
+adaptive summarization algorithm enabled. The adaptive algorithm 
+increases the summary granularity (defined as the number of records
+per summary) when Cost(updates)
+Cost(falsehits)
+> 1 + and reduces it if
+Cost(updates)
+Cost(falsehits)
+> 1 − , where is a small constant. To 
+demonstrate the adaptive nature of our technique, we plot a time series
+of the summarization granularity. We begin with a query rate of 1
+query per 5 samples, decrease it to 1 every 30 samples, and then
+increase it again to 1 query every 10 samples. As shown in 
+Figure 13(b), the adaptive technique adjusts accordingly by sending
+more fine-grain summaries at higher query rates (in response to the
+higher false hit rate), and fewer, coarse-grain summaries at lower
+query rates.

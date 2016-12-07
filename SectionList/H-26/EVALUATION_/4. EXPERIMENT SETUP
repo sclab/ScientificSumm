@@ -1,0 +1,114 @@
+The main goal of our experiments is to evaluate whether
+directly optimizing MAP leads to improved MAP 
+performance compared to conventional SVM methods that 
+optimize a substitute loss such as accuracy or ROCArea. We
+empirically evaluate our method using two sets of TREC
+Web Track queries, one each from TREC 9 and TREC 10
+(topics 451-500 and 501-550), both of which used the WT10g
+corpus. For each query, TREC provides the relevance 
+judgments of the documents. We generated our features using
+the scores of existing retrieval functions on these queries.
+While our method is agnostic to the meaning of the 
+features, we chose to use existing retrieval functions as a simple
+yet effective way of acquiring useful features. As such, our
+3
+http://www.cs.cornell.edu/~tomf/svmpython/
+4
+http://svmlight.joachims.org/svm_struct.html
+Dataset Base Funcs Features
+TREC 9 Indri 15 750
+TREC 10 Indri 15 750
+TREC 9 Submissions 53 2650
+TREC 10 Submissions 18 900
+Table 5: Dataset Statistics
+experiments essentially test our method"s ability to re-rank
+the highly ranked documents (e.g., re-combine the scores of
+the retrieval functions) to improve MAP.
+We compare our method against the best retrieval 
+functions trained on (henceforth base functions), as well as against
+previously proposed SVM methods. Comparing with the
+best base functions tests our method"s ability to learn a 
+useful combination. Comparing with previous SVM methods
+allows us to test whether optimizing directly for MAP (as
+opposed to accuracy or ROCArea) achieves a higher MAP
+score in practice. The rest of this section describes the base
+functions and the feature generation method in detail.
+4.1 Choosing Retrieval Functions
+We chose two sets of base functions for our experiments.
+For the first set, we generated three indices over the WT10g
+corpus using Indri5
+. The first index was generated using
+default settings, the second used Porter-stemming, and the
+last used Porter-stemming and Indri"s default stopwords.
+For both TREC 9 and TREC 10, we used the 
+description portion of each query and scored the documents using
+five of Indri"s built-in retrieval methods, which are Cosine
+Similarity, TFIDF, Okapi, Language Model with Dirichlet
+Prior, and Language Model with Jelinek-Mercer Prior. All
+parameters were kept as their defaults.
+We computed the scores of these five retrieval methods
+over the three indices, giving 15 base functions in total. For
+each query, we considered the scores of documents found in
+the union of the top 1000 documents of each base function.
+For our second set of base functions, we used scores from
+the TREC 9 [8] and TREC 10 [9] Web Track submissions.
+We used only the non-manual, non-short submissions from
+both years. For TREC 9 and TREC 10, there were 53 and
+18 such submissions, respectively. A typical submission 
+contained scores of its top 1000 documents.
+b ca
+wT
+φ(x,d)
+f(d|x)
+Figure 2: Example Feature Binning
+4.2 Generating Features
+In order to generate input examples for our method, a
+concrete instantiation of φ must be provided. For each 
+doc5
+http://www.lemurproject.org
+TREC 9 TREC 10
+Model MAP W/L MAP W/L
+SVM∆
+map 0.242 - 
+0.236Best Func. 0.204 39/11 ** 0.181 37/13 **
+2nd Best 0.199 38/12 ** 0.174 43/7 **
+3rd Best 0.188 34/16 ** 0.174 38/12 **
+Table 6: Comparison with Indri Functions
+ument d scored by a set of retrieval functions F on query x,
+we generate the features as a vector
+φ(x, d) = 1[f(d|x)>k] : ∀f ∈ F, ∀k ∈ Kf ,
+where f(d|x) denotes the score that retrieval function f 
+assigns to document d for query x, and each Kf is a set of
+real values. From a high level, we are expressing the score
+of each retrieval function using |Kf | + 1 bins.
+Since we are using linear kernels, one can think of the
+learning problem as finding a good piecewise-constant 
+combination of the scores of the retrieval functions. Figure 2
+shows an example of our feature mapping method. In this
+example we have a single feature F = {f}. Here, Kf =
+{a, b, c}, and the weight vector is w = wa, wb, wc . For any
+document d and query x, we have
+wT
+φ(x, d) =
+8
+>><
+>>:
+0 if f(d|x) < a
+wa if a ≤ f(d|x) < b
+wa + wb if b ≤ f(d|x) < c
+wa + wb + wc if c ≤ f(d|x)
+.
+This is expressed qualitatively in Figure 2, where wa and wb
+are positive, and wc is negative.
+We ran our main experiments using four choices of F: the
+set of aforementioned Indri retrieval functions for TREC 9
+and TREC 10, and the Web Track submissions for TREC
+9 and TREC 10. For each F and each function f ∈ F,
+we chose 50 values for Kf which are reasonably spaced and
+capture the sensitive region of f.
+Using the four choices of F, we generated four datasets
+for our main experiments. Table 5 contains statistics of
+the generated datasets. There are many ways to generate
+features, and we are not advocating our method over others.
+This was simply an efficient means to normalize the outputs
+of different functions and allow for a more expressive model.

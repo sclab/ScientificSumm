@@ -1,0 +1,78 @@
+There has been considerable research on all the sub-problems of
+distributed information retrieval. We survey the most related
+work in this section.
+The first problem of distributed information retrieval is resource
+representation. The STARTS protocol is one solution for
+acquiring resource descriptions in cooperative environments [8].
+However, in uncooperative environments, even the databases are
+willing to share their information, it is not easy to judge whether
+the information they provide is accurate or not. Furthermore, it
+is not easy to coordinate the databases to provide resource
+representations that are compatible with each other. Thus, in
+uncooperative environments, one common choice is query-based
+sampling, which randomly generates and sends queries to
+individual search engines and retrieves some documents to build
+the descriptions. As the sampled documents are selected by
+random queries, query-based sampling is not easily fooled by
+any adversarial spammer that is interested to attract more traffic.
+Experiments have shown that rather accurate resource
+descriptions can be built by sending about 80 queries and
+downloading about 300 documents [1].
+Many resource selection algorithms such as gGlOSS/vGlOSS
+[8] and CORI [1] have been proposed in the last decade. The
+CORI algorithm represents each database by its terms, the
+document frequencies and a small number of corpus statistics
+(details in [1]). As prior research on different datasets has shown
+the CORI algorithm to be the most stable and effective of the
+three algorithms [1,17,18], we use it as a baseline algorithm in
+this work. The relevant document distribution estimation
+(ReDDE [21]) resource selection algorithm is a recent algorithm
+that tries to estimate the distribution of relevant documents
+across the available databases and ranks the databases
+accordingly. Although the ReDDE algorithm has been shown to
+be effective, it relies on heuristic constants that are set
+empirically [21].
+The last step of the document retrieval sub-problem is results
+merging, which is the process of transforming database-specific
+33
+document scores into comparable database-independent
+document scores. The semi supervised learning (SSL) [20,22]
+result merging algorithm uses the documents acquired by 
+querybased sampling as training data and linear regression to learn the
+database-specific, query-specific merging models. These linear
+models are used to convert the database-specific document
+scores into the approximated centralized document scores. The
+SSL algorithm has been shown to be effective [22]. It serves as
+an important component of our unified utility maximization
+framework (Section 3).
+In order to achieve accurate document retrieval results, many
+previous methods simply use resource selection algorithms that
+are effective of database recommendation system. But as
+pointed out above, a good resource selection algorithm
+optimized for high-recall may not work well for document
+retrieval, which targets the high-precision goal. This type of
+inconsistency has been observed in previous research [4,21].
+The research in [21] tried to solve the problem with a heuristic
+method.
+The research most similar to what we propose here is the
+decision-theoretic framework (DTF) [7,15]. This framework
+computes a selection that minimizes the overall costs (e.g.,
+retrieval quality, time) of document retrieval system and several
+methods [15] have been proposed to estimate the retrieval
+quality. However, two points distinguish our research from the
+DTF model. First, the DTF is a framework designed specifically
+for document retrieval, but our new model integrates two
+distinct applications with different requirements (database
+recommendation and distributed document retrieval) into the
+same unified framework. Second, the DTF builds a model for
+each database to calculate the probabilities of relevance. This
+requires human relevance judgments for the results retrieved
+from each database. In contrast, our approach only builds one
+logistic model for the centralized sample database. The
+centralized sample database can serve as a bridge to connect the
+individual databases with the centralized logistic model, thus the
+probabilities of relevance of documents in different databases
+can be estimated. This strategy can save large amount of human
+judgment effort and is a big advantage of the unified utility
+maximization framework over the DTF especially when there
+are a large number of databases.

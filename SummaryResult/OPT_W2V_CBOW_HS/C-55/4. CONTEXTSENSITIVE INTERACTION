@@ -1,0 +1,140 @@
+The maybe more important one is to display location information in the contact list of the instant messenger, right beside the name, thus being always visible while not drawing the user"s attention on it (compared with a  twodimensional view for example, which requires a own window for displaying a map of the environment).
+a list of profiles of all people registered with the instant messenger, which is visualized by listing their names as it can be seen in Figure 5), is also used to display locations of other members of the groups a user belongs to.
+All readers of a post-it are logged and displayed when viewing it, providing some sort of awareness about the group members" activities in the past.
+In this floor-plan-based view, the current locations are shown in the manner of ICQ2 contacts, which are placed at the currently sensed location of the respective person.
+Furthermore, we believe that interaction in groups also has to take into account the current context of the group itself and not only the context of individual group members.
+These features cannot be carried out in the messenger network itself, so whenever a message to a group account is sent, we intercept it and route it through our system to all the recipients, which are available at a certain time.
+Although this information can be only defined in a very coarse granularity, we have decided to use these means of gathering activity context, because the introduction of an additional one would strongly decrease the usability of the system.
+Information about the activity or a certain user is only available in a very restricted area, namely the activity at the computer itself.
+In a first approach, we use the location- and activity-context of the group members to determine a meeting.
+On showing up the reminder, the user has the chance to resubmit it to be reminded again, for example five minutes later or the next time a certain user is in spatial proximity.
+Dynamic groups are also not only formed granularity of rooms, but also on higher levels in the hierarchy, for example with the people currently residing in the area of a department.
+Besides location and time, we also use context information of user"s activity and identity, where we exploit the functionality provided by the underlying instant messenger system.
+When the mouse is moved over the name of a certain user in the  2Dview, footprints of a user, placed at the locations he has been, are faded out the stronger, the older the location information is.
+On top of the image, the heightened, integrated GISS-toolbar is shown, which currently contains the following, implemented functionality (from left to right): Asynchronous communication for groups (see chapter 4.4.4), context-aware reminders (see chapter 4.4.6), two-dimensional visualisation of  locationinformation, forming and managing groups (see chapter 4.4.2), context-aware availability-management (see chapter 4.4.5) and finally a button for terminating GISS.
+Information about the context of a group includes how many members the group currently has, if the group meets right now, which members are participating at a meeting, how many members have read which of the available posts from other team members and so on.
+As we use a hierarchical location model, we are able to determine the most accurate common location of two users.
+95 4.4.2 Forming and Managing Groups To support interaction in groups, it is first necessary to form groups.
+During the meeting, the comment-feature of virtual post-its provides a means to take notes for all of the participants.
+With knowledge about a user"s context and the context of the groups he belongs to, we can provide several context-aware services to the user, which enhance his interaction abilities.
+Furthermore, groups can only be formed of members in one"s contact list, thus being not able to send messages to a group, where not all of its members are known (which may be the case in settings, where the participants of a lecture form a group).
+Furthermore, our system uses an instant messenger account as an identifier, so that the user does not have to register a further account anywhere else (for example, the user can use his already existing ICQ2 -account).
+Communication via a group account is also stored centrally, enabling people to query missed messages or simply viewing the message history.
+Although we think that the user interface that has been implemented now offers the best trade-off between seamless integration of features and ease of use, it would be no problem to extend the architecture with other user interfaces, even on different platforms.
+We have evaluated several ways of presenting context-aware means of interaction to the user, until we came to the solution we use right now.
+As already described in chapter 2, we use two different forms of visualisation.
+Furthermore, the floor-plan-view shows so-called the virtual post-its, which are virtual counterparts of real-life post-its and serve as our means of asynchronous communication (more about virtual post-its can be found in chapter 4.4.4).
+4.2 Instant Messenger Integration Our system is based upon an existing instant messenger, the  socalled Simple Instant Messenger (SIM)3 .
+Classification of implemented context-aware activities Service L T I A G P A T Location Visualisation X X X Group Building Support X X X X Support for Synchronous Communication X X X X Support for Asynchronous Communication X X X X X X X Availability Management X X X Task Management Support X X X X Meeting Support X X X X X X Reasons for implementing these very features are to take advantage of all four types of context information in order to support group interaction by utilizing a comprehensive knowledge about the situation a single user or a whole group is in.
+4.3 Sources of Context Information While the location-context of a user is obtained from our location sensing subsystem described in chapter 3, we consider further types of context than location relevant for the support of group interaction, too.
+If, for example, user A currently resides in room P121 at the first floor of a building and user B, which has to be displayed in the contact list of user A, is in room P304 at the third floor, the most accurate common location of these two users is the building they are in.
+Closed groups enable users for example to create a group of their friends, thus being able to communicate with them easily.
+The creation of dynamic groups is only performed at locations, where it makes sense to form groups, for example in lecture halls or meeting rooms, but not on corridors or outdoor.
+As stated before, we also take into account the context of the group the user is interaction with, so that we could add a fifth type of context  informationgroup awareness (G) - to the classification.
+Due to lacks in navigational and usability issues, we decided to use a  twodimensional view of the floor (it is referred to as level in the location hierarchy, cf.
+The determination of the criteria, when the system recognizes a group having a meeting, is part of the ongoing work.
+one level beyond the common location, namely the building) of user B is displayed in the contact list of user A.
+GISS integration in Simple Instant Messenger3 As displaying just this short form of location may not be enough for the user, because he may want to see the most accurate position available, a fully qualified position is shown if a name in the contact-list is clicked (e.g.
+94 4.4 Group Interaction Support 4.4.1 Visualisation of Location Information An important feature is the visualisation of location information, thus allowing users to be aware of the location of other users and members of groups he joined, respectively.
+4.1 Overview In most of today"s systems supporting interaction in groups, the provided means lack any awareness of the user"s current context, thus being unable to adapt to his needs.
+In out work, we aim at the combination of asynchronous communication with location awareness.
+All protocols as well as parts of the user-interface are implemented as plug-ins.
+Furthermore, group messages are only delivered to persons, who are currently not busy, thus preventing a disturbance by a message, which is possibly unimportant for the user.
+Virtual post-its can also be commented by others, thus providing some from of forum-like interaction, where each post-it forms a thread.
+The 4 http://sourceforge.net/ 5 http://www.aim.com/ 6 http://messenger.msn.com/ functionality of the plug-in was extended in several ways, for example to accept messages for an account (as if they would have been sent via the messenger network).
+4.4.3 Synchronous Communication for Groups The most important form of synchronous communication on computers today is instant messaging; some people even see instant messaging to be the real killer application on the Internet.
+The only context-information used is the instant messenger"s availability state, thus only providing a very coarse classification of the user"s activity (online, offline, away, busy etc.).
+For this reason, we also retrieve information about the group"s current context, derived from the contexts of the group members together with some sort of meta-information (see chapter 4.3).
+Although this may not seem to be very much information, it is surely relevant and can be used to improve or even enable several services.
+Figure 5 shows a screenshot of the Simple Instant Messenger3 , where the current location of those people, whose location is known by GISS, is displayed in brackets right beside their name.
+Every time the context of a single group member changes, the context of the whole group is changing and has to be recalculated.
+As we store the complete history of a user"s locations together with a timestamp, we are able to provide information about the locations he has been back in time.
+The table also shows which types of context information are used for each activity and the category the activity could be classified in.
+Whenever more than 50 % of the members of a group are available at a location, where a meeting is considered to make sense (e.g.
+In contrast to that, we also support the creation of dynamic groups.
+Reminders can be bound to a certain place or time, but also to spatial proximity of users or groups.
+The messenger, more exactly the contact list (i.e.
+Virtual post-its are displayed automatically, whenever a user (available) passes by the first time.
+The availability-status of a user, for example away if he is not on the computer right now, or busy if he does not want to be disturbed, is visualized by colour-coding the ICQ2 -flower left beside the name.
+The chosen solution is based on an existing instant messenger, which offers several possibilities to integrate our system (see chapter 4.2).
+4.4.5 Context-aware Availability Management Instant messengers in general provide some kind of availability information about a user.
+3D-view of the floor (VRML) Figure 7 shows the two-dimensional map of a certain floor, where several users are currently located (visualized by their name and the flower left beside).
+Often, only sending a message to multiple recipients is supported, lacking means to take into account the current state of the recipients.
+Local time as a very important context dimension can be easily retrieved from the real time clock of the user"s system.
+To support the user managing his availability, we provide an interface that lets the user define rules to adapt his availability to the current context.
+2D view of the floor Another feature of the 2D-view is the visualisation of  locationhistory of users.
+Identity (or more exactly, the mapping of IDs to names as well as additional information from the user"s profile) can be distilled out of the contents of the user"s contact list.
+campus) are also provided.
+Due to the restricted space in the contact list, it has been necessary to implement some sort of level-of-detail concept.
+Using this context information, we can trigger context-aware activities in all of the three categories described in chapter 1.1 - presentation of information (P), automatic execution of services (A) and tagging of context to information for later retrieval (T).
+Thus, a reminder can be seen as a post-it to oneself, which is only visible in certain cases.
+This remote control interface is extensively used by GISS for retrieving the contact list, setting the user"s availability-state or sending messages.
+not on a corridor), a meeting minutes post-it is created at this location and all absent group members are notified of the meeting and the location it takes place.
+So-called static groups are groups, which are built up manually by people joining and leaving them.
+In our approach, we use context information to enhance interaction and provide further services, which offer new possibilities to the user.
+In the contact list, the current symbolic location one level below the previously calculated common location is then displayed.
+They are formed among persons, who are at the same location at the same time.
+The biggest advantage of this approach is that the user is confronted with a graphical user interface he is already used to in most cases.
+Other activities like making a phone call or something similar, cannot be recognized with the current implementation of the activity sensor.
+The location of the client, on which the map is displayed, is visualized by a green circle.
+We introduce group-entries in the user"s contact list; enable him or his to send messages to this group easily, without knowing who exactly is currently a member of this group.
+The implementation of this messenger is carried out as a project at Sourceforge4 .
+As the members of dynamic groups constantly change, it is possible to create an open static group out of them.
+The sources of context used for our application correspond with the four primary context types given in chapter 1.1 - identity (I), location (L), time (T) and activity (A).
+These criteria can be combined with Boolean operators, thus providing a powerful means to remind the user of tasks that he wants to carry out when a certain context occurs.
+Table 2 gives an overview of activities we have already implemented; they are described comprehensively in chapter 4.4.
+The condition itself is defined by the user, who can demand the change of his availability status as the action in the rule.
+Having collected the context information from all available users, it is now possible to distil some information about the context of a certain group.
+Down to the right, two virtual post-its can be seen.
+Closed static groups have an owner, who decides, which persons are allowed to join, although everybody could leave again at any time.
+For that reason, the floor (i.e.
+4.4.6 Context-Aware Reminders Reminders [14] are used to give the user the opportunity of defining tasks and being reminded of those, when certain criteria are fulfilled.
+It also supports connections to multiple accounts at the same time.
+As groups can have different purposes, we distinguish two types of groups.
+Other levels of granularity like section (e.g.
+It would also be not very meaningful to form a group only of the people residing in the left front sector of a hall; instead, the complete hall should be considered.
+In open static groups, everybody can join and leave anytime, useful for example to form a group of lecture attendees of some sort of interest group.
+For these reasons, all the defined locations in the hierarchy are tagged, whether they allow the formation of groups or not.
+A brief description of these services is given in chapter 4.4.
+However, when it comes to communication in groups, the support is rather poor most of the time.
+Afterwards, post-its can be accessed via the 2D-viewer, where all visible post-its are shown.
+If the end of the meeting is recognized, all group members get the complete list of comments as a meeting protocol at the end of the meeting. 
+If both people reside on the same floor or even in the same room, the room would be taken.
+Like the recognition of the beginning of a meeting, the recognition of its end is still part of ongoing work.
+96 4.4.7 Context-Aware Recognition and Notification of Group Meetings With the available context information, we try to recognize meetings of a group.
+A more comprehensive description of these features is given in chapter 4.4.
+When members are joining or leaving the meeting, this is automatically added as a note to the list of comments.
+Moreover, a virtual post-it can also have an expiry date after which it is dropped and not displayed anymore.
+A critical issue for the user acceptance of such a system is the usability of its interface.
+The second possible form of visualisation is a graphical one.
+As a condition, the user can define his location, a certain time (also triggering daily, every week or every month) or any logical combination of these criteria.
+Therefore, some additional information like a list of members for each group is needed.
+We have evaluated a three-dimensional view, which was based on a VRML model of the respective area (cf.
+[13]), which are messages that are bound to physical locations.
+These virtual post-its could be either visible for all users that are passing by or they can be restricted to be visible for certain groups of people only.
+in the form of desk@room2@department1@1stfloor@building 1@campus).
+The context of a group is secondary context and is aggregated from the available contexts of the group members.
+The goal of this approach is not to reinvent the wheel, as email is maybe the most widely used form of asynchronous communication on computers and is broadly accepted and standardized.
+These rules follow the form on event (E) if condition (C) then action (A), which is directly supported by the ECA-rules of the Context Framework described in chapter 1.3.
+These lists can be assembled manually (by users joining and leaving groups) or retrieved automatically.
+Static groups can be further divided into two subtypes.
+This has also motivated the decision to build GISS upon an instant messaging system.
+A reminder will only pop up the first time the actual context meets the defined criterion.
+For this purpose, a remote control plug-in is provided, by which SIM can be controlled from external applications via socket connection.
+This provides location awareness without taking too much space or requesting the user"s full attention.
+The testing of conditions is periodically triggered by throwing events (whenever the context of a user changes).
+Its architecture is also used to extend the application"s abilities to communicate with external applications.
+In today"s messenger systems, peer-to-peer-communication is extensively supported.
+4.4.4 Asynchronous Communication for Groups Asynchronous communication in groups is not a new idea.
+Furthermore, full support for SMS-notification (where provided from the used protocol) is given.
+SIM supports multiple messenger protocols such as AIM5 , ICQ2 and MSN6 .
+For this reason, we introduce the concept of so-called virtual  postits (cp.
+building) and region (e.g.
+Figure 4).
+Our approach does not have the mentioned restrictions.
+SIM is based on a plug-in concept.
+Figure 6.
+Figure 6).
+Figure 5.
+Figure 7.
+93 Table 2.

@@ -1,0 +1,71 @@
+So far, the description of MSP has been solely in the 
+context of straight-line scan. However, we note that MSP is 
+conceptually independent of how the event is propagated as long
+as node sequences can be obtained. Clearly, we can also 
+support wave-propagation-based events (e.g., ultrasound 
+propagation, air blast propagation), which are polar coordinate 
+equivalences of the line scans in the Cartesian coordinate system.
+This section illustrates the effects of MSP"s implementation in
+the wave propagation-based situation. For easy modelling, we
+have made the following assumptions:
+• The wave propagates uniformly in all directions, 
+therefore the propagation has a circle frontier surface. Since
+MSP does not rely on an accurate space-time relationship,
+a certain distortion in wave propagation is tolerable. If any
+directional wave is used, the propagation frontier surface
+can be modified accordingly.
+1
+3
+5
+9
+Target node
+Anchor node
+Previous Event location
+A
+2
+Center of Gravity
+4
+8
+7
+B
+6
+C
+A line of preferred locations for next event
+Figure 11. Example of Wave Propagation Situation
+• Under the situation of line-of-sight, we allow obstacles to
+reflect or deflect the wave. Reflection and deflection are
+not problems because each node reacts only to the first
+detected event. Those reflected or deflected waves come
+later than the line-of-sight waves. The only thing the 
+system needs to maintain is an appropriate time interval 
+between two successive localization events.
+• We assume that background noise exists, and therefore we
+run a band-pass filter to listen to a particular wave 
+frequency. This reduces the chances of false detection.
+The parameter that affects the localization event generation
+here is the source location of the event. The different 
+distances between each node and the event source determine the
+rank of each node in the node sequence. Using the node 
+sequences, the MSP algorithm divides the whole area into many
+non-rectangular areas as shown in Figure 11. In this figure,
+the stars represent two previous event sources. The previous
+two propagations split the whole map into many areas by those
+dashed circles that pass one of the anchors. Each node is 
+located in one of the small areas. Since sequence-based MSP,
+iterative MSP and DBE MSP make no assumptions about the
+type of localization events and the shape of the area, all three
+optimization algorithms can be applied for the wave 
+propagation scenario.
+However, adaptive MSP needs more explanation. Figure 11
+illustrates an example of nodes" voting for next event source
+locations. Unlike the straight-line scan, the critical parameter
+now is the location of the event source, because the distance
+between each node and the event source determines the rank of
+the node in the sequence. In Figure 11, if the next event breaks
+out along/near the solid thick gray line, which perpendicularly
+bisects the solid dark line between anchor C and the center of
+gravity of node 9"s area (the gray area), the wave would reach
+anchor C and the center of gravity of node 9"s area at roughly
+the same time, which would relatively equally divide node 9"s
+area. Therefore, node 9 prefers to vote for the positions around
+the thick gray line.

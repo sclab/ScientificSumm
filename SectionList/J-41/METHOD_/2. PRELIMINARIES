@@ -1,0 +1,128 @@
+We focus on a slot auction for a single keyword. In a
+setting of incomplete information, a bidder knows only 
+distributions over others" private information (value per click
+and relevance). With complete information, a bidder knows
+others" private information, and so does not need to rely on
+distributions to strategize. We first describe the model for
+the case with incomplete information, and drop the 
+distributional information from the model when we come to the
+complete-information case in Section 4.
+2.1 The Model
+There is a fixed number K of slots to be allocated among
+N bidders. We assume without loss of generality that K ≤
+N, since superfluous slots can remain blank. Bidder i assigns
+a value of Xi to each click received on its advertisement,
+regardless of this advertisement"s rank.9
+The probability
+that i"s advertisement will be clicked if viewed is Ai ∈ [0, 1].
+We refer to Ai as bidder i"s relevance. We refer to Ri =
+AiXi as bidder i"s revenue. The Xi, Ai, and Ri are random
+9
+Indeed Kitts et al. [10] find that in their sample of actual
+click data, the correlation between rank and conversion rate
+is not statistically significant. However, for the purposes
+of our model it is also important that bidders believe that
+conversion rate does not vary with rank.
+variables and we denote their realizations by xi, αi, and ri
+respectively. The probability that an advertisement will be
+viewed if placed in slot j is γj ∈ [0, 1]. We assume γ1 >
+γ2 > . . . > γK. Hence bidder i"s advertisement will have a
+clickthrough rate of γjαi if placed in slot j. Of course, an
+advertisement does not receive any clicks if it is not allocated
+a slot.
+Each bidder"s value and relevance pair (Xi, Ai) is 
+independently and identically distributed on [0, ¯x] × [0, 1] according
+to a continuous density function f that has full support on
+its domain. The density f and slot probabilities γ1, . . . , γK
+are common knowledge. Only bidder i knows the 
+realization xi of its value per click Xi. Both bidder i and the seller
+know the realization αi of Ai, but this realization remains
+unobservable to the other bidders.
+We assume that bidders have quasi-linear utility 
+functions. That is, the expected utility to bidder i of obtaining
+the slot of rank j at a price of b per click is
+ui(j, b) = γjαi(xi − b)
+If the advertising firms bidding in the slot auction are 
+riskneutral and have ample liquidity, quasi-linearity is a 
+reasonable assumption.
+The assumptions of independence, symmetry, and 
+riskneutrality made above are all quite standard in single-item
+auction theory [11, 19]. The assumption that clickthrough
+rate decays monotonically with lower slots-by the same
+factors for each agent-is unique to the slot auction 
+problem. We view it as a main contribution of our work to
+show that this assumption allows for tractable analysis of
+the slot auction problem using standard tools from 
+singleitem auction theory. It also allows for interesting results in
+the complete information case. A common model of 
+decaying clickthrough rate is the exponential decay model, where
+γk = 1
+δk−1 with decay δ > 1. Feng et al. [7] state that
+their actual clickthrough data is fitted extremely well by an
+exponential decay model with δ = 1.428.
+Our model lacks budget constraints, which are an 
+important feature of real slot auctions. With budget constraints
+keyword auctions cannot be considered independently of one
+another, because the budget must be allocated across 
+multiple keywords-a single advertiser typically bids on multiple
+keywords relevant to his business. Introducing this element
+into the model is an important next step for future work.10
+2.2 Auction Formats
+In a slot auction a bidder provides to the seller a declared
+value per click ˜xi(xi, αi) which depends on his true value
+and relevance. We often denote this declared value (bid)
+by ˜xi for short. Since a bidder"s relevance αi is observable
+to the seller, the bidder cannot misrepresent it. We denote
+the kth
+highest of the N declared values by ˜x(k)
+, and the
+kth
+highest of the N declared revenues by ˜r(k)
+, where the
+declared revenue of bidder i is ˜ri = αi ˜xi. We consider two
+types of allocation rules, rank by bid (RBB) and rank
+by revenue (RBR):
+10
+Models with budget constraints have begun to appear in
+this research area. Abrams [1] and Borgs et al. [3] design
+multi-unit auctions for budget-constrained bidders, which
+can be interpreted as slot auctions, with a focus on revenue
+optimization and truthfulness. Mehta et al. [14] address
+the problem of matching user queries to budget-constrained
+advertisers so as to maximize revenue.
+220
+RBB. Slot k goes to bidder i if and only if ˜xi = ˜x(k)
+.
+RBR. Slot k goes to bidder i if and only if ˜ri = ˜r(k)
+.
+We will commonly represent an allocation by a one-to-one
+function σ : [K] → [N], where [n] is the set of integers
+{1, 2, . . . , n}. Hence slot k goes to bidder σ(k).
+We also consider two different types of payment rules.
+Note that no matter what the payment rule, a bidder that
+is not allocated a slot will pay 0 since his listing cannot
+receive any clicks.
+First-price. The bidder allocated slot k, namely σ(k), pays
+˜xσ(k) per click under both the RBB and RBR 
+allocation rules.
+Second-price. If k < N, bidder σ(k) pays ˜xσ(k+1) per click
+under the RBB rule, and pays ˜rσ(k+1)/ασ(k) per click
+under the RBR rule. If k = N, bidder σ(k) pays 0 per
+click.11
+Intuitively, a second-price payment rule sets a bidder"s 
+payment to the lowest bid it could have declared while 
+maintaining the same ranking, given the allocation rule used.
+Overture introduced the first slot auction design in 1997,
+using a first-price RBB scheme. Google then followed in
+2000 with a second-price RBR scheme. In 2002, Overture
+(at this point acquired by Yahoo!) then switched to second
+pricing but still allocates using RBB. One possible reason
+for the switch is given in Section 4.
+We assume that ties are broken as follows in the event
+that two agents make the exact same bid or declare the
+same revenue. There is a permutation of the agents κ :
+[N] → [N] that is fixed beforehand. If the bids of agents i
+and j are tied, then agent i obtains a higher slot if and only
+if κ(i) < κ(j). This is consistent with the practice in real
+slot auctions where ties are broken by the bidders" order of
+arrival.

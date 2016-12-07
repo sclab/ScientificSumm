@@ -1,0 +1,37 @@
+We study the improvements of our  incremental gossip protocols over standard gossiping in two  dimensions: execution time and network overhead.
+These improvements carry over to a PLRG topology as well (as shown in Figure 4(c)), where IRWP is 1.33 times faster than random walk.
+In each run of the simulation, we induce a change in the measured signal at one or more devices.
+Finally, in order to isolate the effect of protocol  operation on performance, we do not model the complexities of the wireless channel in our simulations.
+We also assume nodes are loosely time  synchronized, the implications of which are discussed further in [3].
+Here we focus on how incremental  extensions to gossip protocols can lead to further improvements over standard gossiping techniques, for the problem of  coordinated spectrum sensing.
+Incremental Protocols Reduce Network Overhead: Figure 5(a) shows the ratio of data transmitted using  uniform gossip relative to incremental gossip on a clique.
+Although random walk and IRWP both use k random walks (in our simulations k = number of nodes), IRWP initiates walks only from  updated nodes (as explained in Section 5.2), resulting in faster information convergence.
+A run ends when the new average signal level has converged in the network.
+To compute the AVERAGE aggregate, four bit vectors need to be transmitted: the original SUM vector, the SUM delete vector, the original COUNT vector, and the COUNT delete vector.
+We use two topologies to represent device connectivity: a clique, to  eliminate the effects of the underlying topology on protocol  performance, and a BRITE-generated [13] power-law random graph (PLRG), to illustrate how our results extend to more realistic scenarios.
+We simulate a large deployment of 1,000 devices to analyze protocol scalability.
+Because spectrum  utilization is characterized by incremental changes to usage, incremental protocols are ideally suited to solve this  problem in an efficient and cost effective manner. 
+Incremental Protocols Reduce Execution Time: Figure 4(a) compares the performance of incremental gossip (IGP) with uniform gossip on a clique topology.
+Although each protocol uses the same number of random walks, IRWP uses fewer network resources than random walk because it takes less time to converge.
+Each transmission also includes a time stamp of when the update was generated.
+From these results it is clear that incremental techniques yield significant improvements over standard approaches to gossip, even on complex topologies.
+We observe that both protocols have almost identical execution times.
+As more signal changes are introduced into the system, gossip and incremental  gossip incur approximately the same overhead.
+In our simulations, we compute the average signal level in a particular band by disseminating FM bit vectors.
+Sequential use of the control channel is a worst case for our protocols; in practice, multiple control channels could be used in parallel to reduce execution time.
+This improvement also holds true on more  complex PLRG topologies (as shown in Figure 5(c)), where we observe a 33% reduction in network overhead.
+We now provide a preliminary evaluation of GUESS in simulation.
+This is expected as IGP operates in a similar fashion to 16 uniform gossip, taking O(log(N)) time-steps to converge.
+Therefore, one time-step of protocol  execution corresponds to the time required for 1,000 nodes to sequentially send 70 bits at 2 Mbps.
+For a small number of signal changes, incremental gossip incurs 2.4 times less overhead than uniform gossip.
+We assume nodes communicate on a common control  channel at 2 Mbps.
+Figure 4(b) compares the execution times of  incremental random walk (IRWP) and standard random walk on a clique.
+IRWP reduces execution time by a factor of 2.7 for a small number of measured signal changes.
+Simulation Parameters: Each transmission involves sending 70 bits of information to a neighboring node.
+Figure 5(b) shows a 2.7 fold reduction in overhead for small numbers of  signal changes on a clique.
+This is because in the early steps of protocol execution, only devices which detect signal changes communicate.
+Similarly, incremental random walk (IRWP) incurs much less overhead than standard random walk.
+Non-incremental protocols do not transmit the delete vectors.
+Simulation Setup: We implemented a custom  simulator in C++.
+A more detailed evaluation of this approach can be found in [3].
+For each data point, we ran 100 simulations and 95%  confidence intervals (error bars) are shown.

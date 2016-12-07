@@ -1,0 +1,44 @@
+(b) detailed cost structure view for the case of rec3_2 and the case of rec4. 
+(a) overall performances for various sets of servers.
+table 2. the sets of replica servers for all cases case servers pu1 pu dl1 dl rec2 pu, dl rec3_1 pu, dl, lz rec3_2 pu, dl, hit rec4 pu, dl, hit, lz 0 10 20 30 40 50 60 70 10 50 100 500 1000 1500 2000 file size (mb) overallperformance(mbits) pu1 dl1 rec2 rec3_1 rec3_2 rec4 0 10 20 30 40 50 60 70 rec3_2 rec4 rec3_2 rec4 rec3_2 rec4 rec3_2 rec4 rec3_2 rec4 rec3_2 rec4 rec3_2 rec4 10 50 100 500 1000 1500 2000 file size (mb) overallperformance(mbits) authentication time transmission time combination time figure 8.
+0 100 200 300 400 500 600 pu1 dl1 hit1 bru3 his3 con3 rec3 pu1 dl1 hit1 bru3 his3 con3 rec3 pu1 dl1 hit1 bru3 his3 con3 rec3 pu1 dl1 hit1 bru3 his3 con3 rec3 500 1000 1500 2000 file size (mb) completiontime(sec) authentication time transmission time combination time figure 7. completion times for various methods; servers are at pu, dl, and hit.
+the detailed cost consists of authentication time, transfer time and combination time.
+we show the detailed cost structure view for the case of rec3_2 and the case of rec4 in figure 8(b).
+we must choose appropriate numbers of flows to achieve optimum performance.
+this means that more download flows do not necessarily result in higher performance.
+we can infer that the co-allocation efficiency reached saturation in the rec3_2 case, and that additional flows caused additional overhead and reduced overall performance.
+however, in the rec4 case, when we added one flow to the set of replica servers, the performance did not increase.
+on the contrary, it decreased.
+we observed that for our testbed and our co-allocation technology, overall performance reached its highest value in the rec3_2 case.
+they also show that in most cases, overall performance increased as the number of co-allocated flows increased.
+the results in figure 8(a) show that using  coallocation technologies yielded no improvement for smaller file sizes such as 10mb.
+in the next experiment, we used the recursive-adjustment  coallocation strategy with various sets of replica servers and measured overall performances, where overall performance is: total performance = file size/total completion time (5) table 2 lists all experiments we performed and the sets of replica servers used.
+(b) combination times for various methods; servers are at pu, dl, and hit.
+(a) idle times for various methods; servers are at pu, dl, and hit.
+0 20 40 60 80 100 120 140 160 180 200 100 500 1000 1500 2000 file size (mb) waittime(sec) brute3 history3 conservative3 recursive3 0 10 20 30 40 50 60 70 80 90 100 500 1000 1500 2000 file size (mb) combinationtime(sec) brute3 history3 conservative3 recursive3 figure 6.
+thus, we may infer that the main gains our technology offers are lower transmission and combination times than other co-allocation strategies.
+our co-allocation scheme finished the job faster than the other co-allocation strategies.
+the first three bars for each file size denote the time to download the entire file from single server, while the other bars show co-allocated downloads using all three servers.
+servers were at pu, dl, and hit, with the client at thu.
+figure 7 shows total completion time experimental results in a detailed cost structure view.
+the experimental results shown in figure 6(b) indicate that our scheme beginning block reassembly as soon as the first blocks have been completely delivered reduces combination time, thus aiding co-allocation strategies like conservative load balancing and  recursiveadjustment co-allocation that produce more blocks during data transfers.
+these results demonstrate that our approach efficiently reduces the differences in servers finish times.
+note that our  recursiveadjustment co-allocation scheme achieved significant performance improvements over other schemes for every file size.
+figure 6(a) shows total idle time for various file sizes.
+table 1. gridftp end-to-end transmission rate from thu to various servers server average transmission rate hit 61.5 mbps lz 59.5 mbps dl 32.1 mbps pu 26.7 mbps 802 figure 5. our gridftp client tool we analyzed the effect of faster servers waiting for the slowest server to deliver the last block for each scheme.
+these numbers were obtained by transferring files of 500mb, 1000mb, and 2000mb from a single replica server using our gridftp client tool, and each number is an average over several runs.
+table 1 shows average transmission rates between thu and each replica server.
+it allows easier and more rapid application development by encouraging collaborative code reuse and avoiding duplication of effort among problem-solving environments, science portals, grid middleware, and collaborative pilots.
+this client tool is developed by using java cog.
+figure 5 shows a snapshot of our gridftp client tool.
+for comparison, we measured the performance of conservative load balancing on each size using the same block numbers.
+internet thu li-zen high school (lz) hitceleron 900 mhz 256 mb ram 60 gb hd amd athlon(tm) xp 2400+ 1024 mb ram 120 gb hd pentium 4 2.8 ghz 512 mb ram 80 gb hd pu da-li high school (dl) athlon mp 2000 mhz *2 1 gb ram 60 gb hd pentium 4 1.8 ghz 128 mb ram 40 gb hd pentium 4 2.5 ghz 512 mb ram 80 gb hd figure 4. our data grid testbed in the following experiments, we set = 0.5, the leastsize threshold to 10mb, and experimented with file sizes of 10 mb, 50mb, 100mb, 500mb, 1000mb, 2000mb, and 4000mb.
+our servers have globus 3.0.2 or above installed.
+figure 4 shows our data grid testbed.
+all these institutions are in taiwan, and each is at least 10 km from thu.
+we executed our co-allocation client tool on our testbed at tunghai university (thu), taichung city, taiwan, and fetched files from four selected replica servers: one at providence university (pu), one at li-zen high school (lz), one at hsiuping institute of technology school (hit), and one at da-li high school (dl).
+we performed wide-area data transfer experiments using our gridftp gui client tool.
+we also analyze the overall performances in the various cases.
+we analyze the performance of each scheme by comparing their transfer finish time, and the total idle time faster servers spent waiting for the slowest server to finish delivering the last block.
+we evaluate four  coallocation schemes: (1) brute-force (brute), (2) history-based (history), (3) conservative load balancing (conservative) and (4) recursive-adjustment co-allocation (recursive).
+analysis in this section, we discuss the performance of our  recursiveadjustment co-allocation strategy.

@@ -1,0 +1,75 @@
+We present the prior work in localization in two major
+categories: the range-based, and the range-free schemes.
+The range-based localization techniques have been 
+designed to use either more expensive hardware (and hence
+higher accuracy) or just the radio transceiver. Ranging 
+techniques dependent on hardware are the time-of-flight (ToF)
+and the time-difference-of-arrival(TDoA). Solutions that use
+the radio are based on the received signal strength indicator
+(RSSI) and more recently on radio interferometry.
+The ToF localization technique that is most widely used is
+the GPS. GPS is a costly solution for a high accuracy 
+localization of a large scale sensor network. AHLoS [6] employs
+a TDoA ranging technique that requires extensive hardware
+and solves relatively large nonlinear systems of equations.
+The Cricket location-support system (TDoA) [7] can achieve
+a location granularity of tens of inches with highly 
+directional and short range ultrasound transceivers. In [2] the 
+location of a sniper is determined in an urban terrain, by 
+using the TDoA between an acoustic wave and a radio beacon.
+The PushPin project [8] uses the TDoA between ultrasound
+pulses and light flashes for node localization. The RADAR
+system [9] uses the RSSI to build a map of signal strengths
+as emitted by a set of beacon nodes. A mobile node is 
+located by the best match, in the signal strength space, with a
+previously acquired signature. In MAL [10], a mobile node
+assists in measuring the distances (acting as constraints) 
+between nodes until a rigid graph is generated. The localization
+problem is formulated as an on-line state estimation in a 
+nonlinear dynamic system [11]. A cooperative ranging that 
+attempts to achieve a global positioning from distributed local
+optimizations is proposed in [12]. A very recent, remarkable,
+localization technique is based on radio interferometry, RIPS
+[13], which utilizes two transmitters to create an interfering
+signal. The frequencies of the emitters are very close to each
+other, thus the interfering signal will have a low frequency
+envelope that can be easily measured. The ranging technique
+performs very well. The long time required for localization
+and multi-path environments pose significant challenges.
+Real environments create additional challenges for the
+range based localization schemes. These have been 
+emphasized by several studies [14] [15] [16]. To address these 
+challenges, and others (hardware cost, the energy expenditure,
+the form factor, the small range, localization time), several
+range-free localization schemes have been proposed. Sensor
+nodes use primarily connectivity information for inferring
+proximity to a set of anchors. In the Centroid localization
+scheme [17], a sensor node localizes to the centroid of its
+proximate beacon nodes. In APIT [18] each node decides its
+position based on the possibility of being inside or outside of
+a triangle formed by any three beacons within node"s 
+communication range. The Gradient algorithm [19], leverages
+the knowledge about the network density to infer the average
+one hop length. This, in turn, can be transformed into 
+distances to nodes with known locations. DV-Hop [20] uses the
+hop by hop propagation capability of the network to forward
+distances to landmarks. More recently, several localization
+schemes that exploit the sensing capabilities of sensor nodes,
+have been proposed. Spotlight [21] creates well controlled
+(in time and space) events in the network while the sensor
+nodes detect and timestamp this events. From the 
+spatiotemporal knowledge for the created events and the temporal
+information provided by sensor nodes, nodes" spatial 
+information can be obtained. In a similar manner, the Lighthouse
+system [22] uses a parallel light beam, that is emitted by an
+anchor which rotates with a certain period. A sensor node
+detects the light beam for a period of time, which is 
+dependent on the distance between it and the light emitting device.
+Many of the above localization solutions target specific
+sets of requirements and are useful for specific applications.
+StarDust differs in that it addresses a particular demanding
+set of requirements that are not yet solved well. StarDust is
+meant for localizing air dropped nodes where node 
+passiveness, high accuracy, low cost, small form factor and rapid 
+localization are all required. Many military applications have
+such requirements.

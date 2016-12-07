@@ -1,0 +1,42 @@
+when the results are examined, considering semantic closeness increases the performance. 
+wu palmer"s metric and rp similarity measure nearly give the same performance and better than others.
+lin"s performance are better than tversky but worse than others.
+tversky"s metric gives the worst results since it does not consider the semantic similarity.
+table 5 gives the performance evaluation in terms of the number of interactions needed to reach a consensus.
+the first seven scenarios are tested with the first dataset that  contains a total of 19 services and the last three scenarios are tested with the second dataset that contains 50 services.
+there are two available products.
+• the customer wants to buy delicate white wine whose  producer in the category of expensive winery.
+there are five available products.
+• the customer wants to buy expensive red wine, which is  located around california region or cheap white wine, which is located in around texas region.
+there is only one product meeting these requirements.
+the category of winery should be moderate winery.
+• the customer wants to buy moderate rose wine, which is  located around french region.
+there are two products meeting all these requirements.
+furthermore, the winery of the wine should be an expensive winery.
+the flavor should be delicate or moderate where the body should be medium or light.
+the sweetness degree is wished to be dry or off dry.
+in addition, the location of wine should be in europe.
+• the customer wants to buy wine whose color is red or rose and grape type is red grape.
+there are only four products meeting these conditions.
+moreover, the winery of the wine should not be expensive.
+• the customer wants to buy wine whose winery is located in california and whose grape is a type of white grape.
+in addition to the scenarios shown in table 3, we add following five new scenarios considering the hierarchical information.
+of all cases: 1.64 2 5.08 1.51+no offer 1.56 7.2 comparison of similarity metrics to compare the similarity metrics that were explained in  section 5, we fix the learning algorithm to dcea.
+their performance is comparable and they can handle all cases including scenario 5. table 4: comparison of learning algorithms in terms of average number of interactions run dcea scr ro cea id3 scenario 1: 1.2 1.4 1.2 1.2 1.2 scenario 2: 1.4 1.4 2.6 1.4 1.4 scenario 3: 1.4 1.8 4.4 1.4 1.4 scenario 4: 2.2 2.8 9.6 1.8 2 scenario 5: 2 2.6 7.6 1.75+ no offer 1.8 avg.
+cea gives the best results when it can generate an answer but  cannot handle the cases containing disjunctive preferences, such as the one in scenario 5. id3 and dcea achieve the best results.
+the second worst method is scr since it only considers the customer"s most recent request and does not learn from previous requests.
+as the number of compatible services drops, ro performs poorly as expected.
+when the large parts of inventory is compatible with the customer"s preferences as in the first test case, the performance of all techniques are nearly same (e.g., scenario 1).
+table 4 compares the approaches using different learning  algorithm.
+as is customary, we test each  algorithm with the same initial requests.
+we take the average of these numbers in order to evaluate these systems fairly.
+in each  experiment, we count the number of iterations that were needed to reach an agreement.
+consequently, for each case, we run the algorithms five times with several variations of the initial requests.
+since the performance also depends on the initial request, we repeat our experiments with different initial  requests.
+with these test cases, we are interested in finding the number of  iterations that are required for the producer to generate an acceptable offer for the consumer.
+table 3: availability of wines in different test scenarios id preference of consumer availability (out of 19) 1 dry wine 15 2 red and dry wine 8 3 red, dry and moderate wine 4 4 red and strong wine 2 5 red or rose, and strong 3 7.1 comparison of learning algorithms in comparison of learning algorithms, we use the five scenarios in table 3. here, first we use tversky"s similarity measure.
+note that these preferences are internal to the consumer and the producer tries to learn these during negotiation.
+table 3 shows these preferences and availability of those products in the inventory for first five scenarios.
+each test scenario contains a list of  preferences for the user and number of matches from the product list.
+we apply a variety of scenarios on this dataset in order to see the performance differences.
+we evaluate the performance of the proposed systems in respect to learning technique they used, dcea and id3, by comparing them with the cea, ro (for random offering), and scr (offering based on current request only).

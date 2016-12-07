@@ -1,0 +1,103 @@
+In a combinatorial auction, agents may bid on bundles of
+goods rather than individual goods alone. Since there are
+an exponential number of bundles (in the number of goods),
+communicating values over these bundles can be 
+problematic. Communicating valuations in a one-shot fashion can
+be prohibitively expensive if the number of goods is only
+moderately large. Furthermore, it might even be hard for
+agents to determine their valuations for single bundles [14].
+It is in the interest of such agents to have auction protocols
+which require them to bid on as few bundles as possible.
+Even if agents can efficiently compute their valuations, they
+might still be reluctant to reveal them entirely in the course
+of an auction, because such information may be valuable to
+their competitors. These considerations motivate the need
+for auction protocols that minimize the communication and
+information revelation required to determine an optimal 
+allocation of goods.
+There has been recent work exploring the links between
+the preference elicitation problem in combinatorial auctions
+and the problem of learning an unknown function from 
+computational learning theory [5, 19]. In learning theory, the
+goal is to learn a function via various types of queries, such
+as What is the function"s value on these inputs? In 
+preference elicitation, the goal is to elicit enough partial 
+information about preferences to be able to compute an optimal
+allocation. Though the goals of learning and preference 
+elicitation differ somewhat, it is clear that these problems share
+similar structure, and it should come as no surprise that
+techniques from one field should be relevant to the other.
+We show that any exact learning algorithm with 
+membership and equivalence queries can be converted into a 
+preference elicitation algorithm with value and demand queries.
+The resulting elicitation algorithm guarantees elicitation in
+a polynomial number of value and demand queries. Here
+we mean polynomial in the number of goods, agents, and
+the sizes of the agents" valuation functions in a given 
+encoding scheme. Preference elicitation schemes have not 
+traditionally considered this last parameter. We argue that
+complexity guarantees for elicitation schemes should allow
+dependence on this parameter. Introducing this parameter
+also allows us to guarantee polynomial worst-case 
+communication, which usually cannot be achieved in the number
+of goods and agents alone. Finally, we use our conversion
+procedure to generate combinatorial auction protocols from
+learning algorithms for polynomials, monotone DNF, and
+linear-threshold functions.
+Of course, a one-shot combinatorial auction where agents
+provide their entire valuation functions at once would also
+have polynomial communication in the size of the agents"
+valuations, and only require one query. The advantage of
+our scheme is that agents can be viewed as black-boxes
+that provide incremental information about their valuations.
+There is no burden on the agents to formulate their 
+valuations in an encoding scheme of the auctioneer"s choosing.
+We expect this to be an important consideration in practice.
+Also, with our scheme entire revelation only happens in the
+worst-case.
+180
+For now, we leave the issue of incentives aside when 
+deriving elicitation algorithms. Our focus is on the time and
+communication complexity of preference elicitation 
+regardless of incentive constraints, and on the relationship between
+the complexities of learning and preference elicitation.
+Related work. Zinkevich et al. [19] consider the problem
+of learning restricted classes of valuation functions which can
+be represented using read-once formulas and Toolbox DNF.
+Read-once formulas can represent certain substitutabilities,
+but no complementarities, whereas the opposite holds for
+Toolbox DNF. Since their work is also grounded in learning
+theory, they allow dependence on the size of the target 
+valuation as we do (though read-once valuations can always be
+succinctly represented anyway). Their work only makes use
+of value queries, which are quite limited in power. Because
+we allow ourselves demand queries, we are able to derive an
+elicitation scheme for general valuation functions.
+Blum et al. [5] provide results relating the complexities
+of query learning and preference elicitation. They consider
+models with membership and equivalence queries in query
+learning, and value and demand queries in preference 
+elicitation. They show that certain classes of functions can be
+efficiently learned yet not efficiently elicited, and vice-versa.
+In contrast, our work shows that given a more general (yet
+still quite standard) version of demand query than the type
+they consider, the complexity of preference elicitation is no
+greater than the complexity of learning. We will show that
+demand queries can simulate equivalence queries until we
+have enough information about valuations to imply a 
+solution to the elicitation problem.
+Nisan and Segal [12] study the communication 
+complexity of preference elicitation. They show that for many rich
+classes of valuations, the worst-case communication 
+complexity of computing an optimal allocation is exponential.
+Their results apply to the black-box model of 
+computational complexity. In this model algorithms are allowed to
+ask questions about agent valuations and receive honest 
+responses, without any insight into how the agents internally
+compute their valuations. This is in fact the basic 
+framework of learning theory. Our work also addresses the issue
+of communication complexity, and we are able to derive 
+algorithms that provide significant communication guarantees
+despite Nisan and Segal"s negative results. Their work 
+motivates the need to rely on the sizes of agents" valuation
+functions in stating worst-case results.

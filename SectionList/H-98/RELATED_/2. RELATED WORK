@@ -1,0 +1,46 @@
+Parametric models have been employed to obtain probability 
+estimates in several areas of information retrieval. Lewis & Gale [17]
+use logistic regression to recalibrate na¨ıve Bayes though the quality
+of the probability estimates are not directly evaluated; it is simply
+performed as an intermediate step in active learning. Manmatha
+et. al [20] introduced models appropriate to produce probability
+estimates from relevance scores returned from search engines and
+demonstrated how the resulting probability estimates could be 
+subsequently employed to combine the outputs of several search 
+engines. They use a different parametric distribution for the relevant
+and irrelevant classes, but do not pursue two-sided asymmetric 
+distributions for a single class as described here. They also survey the
+long history of modeling the relevance scores of search engines.
+Our work is similar in flavor to these previous attempts to model
+search engine scores, but we target text classifier outputs which we
+have found demonstrate a different type of score distribution 
+behavior because of the role of training data.
+Focus on improving probability estimates has been growing lately.
+Zadrozny & Elkan [26] provide a corrective measure for decision
+trees (termed curtailment) and a non-parametric method for 
+recalibrating na¨ıve Bayes. In more recent work [27], they investigate
+using a semi-parametric method that uses a monotonic 
+piecewiseconstant fit to the data and apply the method to na¨ıve Bayes and a
+linear SVM. While they compared their methods to other 
+parametric methods based on symmetry, they fail to provide significance
+test results. Our work provides asymmetric parametric methods
+which complement the non-parametric and semi-parametric 
+methods they propose when data scarcity is an issue. In addition, their
+methods reduce the resolution of the scores output by the classifier
+(the number of distinct values output), but the methods here do not
+have such a weakness since they are continuous functions.
+There is a variety of other work that this paper extends. Platt
+[22] uses a logistic regression framework that models noisy class
+labels to produce probabilities from the raw output of an SVM.
+His work showed that this post-processing method not only can
+produce probability estimates of similar quality to SVMs directly
+trained to produce probabilities (regularized likelihood kernel 
+methods), but it also tends to produce sparser kernels (which generalize
+better). Finally, Bennett [1] obtained moderate gains by applying
+Platt"s method to the recalibration of na¨ıve Bayes but found there
+were more problematic areas than when it was applied to SVMs.
+Recalibrating poorly calibrated classifiers is not a new problem.
+Lindley et. al [19] first proposed the idea of recalibrating classifiers,
+and DeGroot & Fienberg [5, 6] gave the now accepted standard
+formalization for the problem of assessing calibration initiated by
+others [4, 24].

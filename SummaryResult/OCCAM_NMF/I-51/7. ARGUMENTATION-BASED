@@ -1,0 +1,41 @@
+the voting mechanism uses the joint confidence measure as the voting weights, as follows: s = arg max sk∈s αi∈ht|αi.s=sk c(αi) moreover, in order to avoid infinite iterations, if an agent sends twice the same argument or counterargument to the same agent, the message is not considered. 
+5. the protocol ends yielding a joint prediction, as follows: if the arguments in ht agree then their prediction is the joint prediction, otherwise a voting mechanism is used to decide the joint prediction.
+then, ai sends the token to the next agent, a new round t + 1 starts, and the protocol moves back to step 2.
+4. the agent aj that has received the counterexample c retains it into its case base and generates a new argument αt+1 j that takes into account c, and informs the rest of the agents by sending assert(αt+1 j ) to all of them.
+any of the two situations start a new round t + 1, ai sends the token to the next agent, and the protocol moves back to state 2.
+caj (βt i ) ≤ caj (αt j)), aj will not accept the counterargument, and will inform the other agents  accordingly.
+otherwise (i.e.
+if caj (βt i ) > caj (αt j), then aj will accept the counterargument as stronger than its own argument, and it will send assert(βt i ) to the other agents.
+3. the agent aj that has received the counterargument βt i ,  locally compares it against its own argument, αt j, by locally assessing their confidence.
+• if ai cannot generate any counterargument or  counterexample, the token is sent to the next agent, a new round t + 1 starts, and the protocol moves to state 2.
+the protocol moves to step 4.
+• if βt i is a counterexample c, then ai sends rebut(c, αt j) to aj.
+in any of the two situations the protocol moves to step 3.
+cai (βt i ) ≤ cai (αt i)), ai will send only rebut(βt i , αt j) to aj.
+if cai (βt i ) > cai (αt i), then ai  considers that βt i is stronger than its previous argument, changes its argument to βt i by sending assert(βt i ) to the rest of the agents (the intuition behind this is that since a counterargument is also an argument, ai checks if the newly counterargument is a better argument than the one he was previously holding) and rebut(βt i , αt j) to aj.
+to send to aj).
+on autonomous agents and multi-agent systems (aamas 07) 979 sponge spikulate skeleton external features external features gemmules: no growing: spikulate skeleton megascleres uniform length: no megascleres smooth form: tylostyle growing grow: massive case base of a2 lid solution: astrophorida justification: d2 figure 4: generation of a counterargument using lid in the sponges data set.
+joint conf.
+• if βt i is a counterargument, then, ai locally compares αt i with βt i by assessing their confidence against its  individual case base ci (see section 5) (notice that ai is comparing its previous argument with the  counterargument that ai itself has just generated and that is about the sixth intl.
+then, the counterargument βt i against the prediction αt j with the  lowest confidence c(αt j) is selected (since αt j is the prediction more likely to be successfully rebutted).
+if they do, the protocol moves to step 5. moreover, if during the last n rounds no agent has sent any counterexample or counterargument, the protocol also moves to step 5. otherwise, the agent ai owner of the token tries to generate a counterargument for each of the opposing  arguments in contradict(αt i) ⊆ ht (see section 6.1).
+2. at each round t (other than 0), the agents check whether their arguments in ht agree.
+once all the predictions have been sent the token is given to the first agent a1.
+thus, the agents know h0 = α0 i , ..., α0 n .
+then, each agent ai sends the performative assert(α0 i ) to the other agents.
+after that, the agent informs all the other agents about the problem p to solve, and the protocol starts: 1. at round t = 0, each one of the agents individually solves p, and builds a justified prediction using its own cbr method.
+the set of arguments at round t that support a different solution class than αt i. the protocol is initiated because one of the agents receives a problem p to be solved.
+• rebut(β, α): the agent has found a counterargument β to the prediction α. we will define ht = αt 1, ..., αt n as the predictions that each of the n agents hold at a round t. moreover, we will also define contradict(αt i) = {α ∈ ht|α.s = αt i.s} as the set of  contradicting arguments for an agent ai in a round t, i.e.
+at each iteration, agents can use the following performatives: • assert(α): the justified prediction held during the next round will be α. an agent can only hold a single prediction at each round, thus is multiple asserts are send, only the last one is considered as the currently held prediction.
+moreover, if at the end of the argumentation the agents have not reached an agreement, then a voting mechanism that uses the confidence of each prediction as weights is used to decide the final solution (thus, amal follows the same mechanism as human committees, first each individual member of a committee exposes his arguments and discuses those of the other members (joint deliberation), and if no consensus is reached, then a voting mechanism is required).
+if at any time in the protocol, all the agents agree or during the last n rounds no agent has generated any counterargument, the protocol ends.
+when all the agents have had the token once, the token returns to the first agent, and so on.
+moreover, agents have also the opportunity to answer to counterarguments when they receive the token, by trying to  generate a counterargument to the counterargument.
+when an agent  receives a counterargument or counterexample, it informs the other agents if it accepts the counterargument (and changes its  prediction) or not.
+specifically, each agent is allowed to send one  counterargument or counterexample each time he gets the token (notice that this restriction is just to simplify the protocol, and that it does not restrict the number of counterargument an agent can sent, since they can be delayed for subsequent rounds).
+the protocol uses a token passing  mechanism so that agents (one at a time) can send counterarguments or counterexamples if they disagree with the prediction made by any other agent.
+in the initial round, each agent states which is its individual prediction for p. then, at each round an agent can try to rebut the prediction made by any of the other agents.
+the amal protocol consists on a series of rounds.
+moreover, amal also allows the agents to learn from the  counterexamples received from other agents.
+if the argumentation process arrives to a consensual solution, the joint deliberation ends;  otherwise a weighted vote is used to determine the joint solution.
+multi-agent learning the interaction protocol of amal allows a group of agents a1, ..., an to deliberate about the correct solution of a problem p by means of an argumentation process.

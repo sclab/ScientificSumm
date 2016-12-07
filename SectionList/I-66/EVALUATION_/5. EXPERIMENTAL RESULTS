@@ -1,0 +1,67 @@
+All our experiments were conducted on the sensor network 
+domain from Section 2. The five network configurations employed
+are shown in Figure 4. Algorithms that we experimented with
+are GOA, SPIDER, SPIDER-ABS, PAX and VAX. We compare
+against GOA because it is the only global optimal algorithm that
+considers more than two agents. We performed two sets of 
+experiments: (i) firstly, we compared the run-time performance of the
+above algorithms and (ii) secondly, we experimented with PAX and
+VAX to study the tradeoff between run-time and solution quality.
+Experiments were terminated after 10000 seconds1
+.
+Figure 5(a) provides run-time comparisons between the optimal
+algorithms GOA, SPIDER, SPIDER-Abs and the approximate 
+algorithms, PAX ( of 30) and VAX(δ of 80). X-axis denotes the
+1
+Machine specs for all experiments: Intel Xeon 3.6 GHZ processor,
+2GB RAM
+sensor network configuration used, while Y-axis indicates the 
+runtime (on a log-scale). The time horizon of policy computation was
+3. For each configuration (3-chain, 4-chain, 4-star and 5-star), there
+are five bars indicating the time taken by GOA, SPIDER, 
+SPIDERAbs, PAX and VAX. GOA did not terminate within the time limit
+for 4-star and 5-star configurations. SPIDER-Abs dominated the
+SPIDER and GOA for all the configurations. For instance, in the 
+3chain configuration, SPIDER-ABS provides 230-fold speedup over
+GOA and 2-fold speedup over SPIDER and for the 4-chain 
+configuration it provides 58-fold speedup over GOA and 2-fold speedup
+over SPIDER. The two approximation approaches, VAX and PAX
+provided further improvement in performance over SPIDER-Abs.
+For instance, in the 5-star configuration VAX provides a 15-fold
+speedup and PAX provides a 8-fold speedup over SPIDER-Abs.
+Figures 5(b) provides a comparison of the solution quality 
+obtained using the different algorithms for the problems tested in 
+Figure 5(a). X-axis denotes the sensor network configuration while
+Y-axis indicates the solution quality. Since GOA, SPIDER, and
+SPIDER-Abs are all global optimal algorithms, the solution 
+quality is the same for all those algorithms. For 5-P configuration,
+the global optimal algorithms did not terminate within the limit of
+10000 seconds, so the bar for optimal quality indicates an upper
+bound on the optimal solution quality. With both the 
+approximations, we obtained a solution quality that was close to the optimal
+solution quality. In 3-chain and 4-star configurations, it is 
+remarkable that both PAX and VAX obtained almost the same actual 
+quality as the global optimal algorithms, despite the approximation 
+parameter and δ. For other configurations as well, the loss in quality
+was less than 20% of the optimal solution quality.
+Figure 5(c) provides the time to solution with PAX (for 
+varying epsilons). X-axis denotes the approximation parameter, δ 
+(percentage to optimal) used, while Y-axis denotes the time taken to
+compute the solution (on a log-scale). The time horizon for all
+the configurations was 4. As δ was decreased from 70 to 30, the
+time to solution decreased drastically. For instance, in the 3-chain
+case there was a total speedup of 170-fold when the δ was changed
+from 70 to 30. Interestingly, even with a low δ of 30%, the actual
+solution quality remained equal to the one obtained at 70%.
+Figure 5(d) provides the time to solution for all the 
+configurations with VAX (for varying epsilons). X-axis denotes the 
+approximation parameter, used, while Y-axis denotes the time taken to
+compute the solution (on a log-scale). The time horizon for all the
+configurations was 4. As was increased, the time to solution 
+decreased drastically. For instance, in the 4-star case there was a total
+speedup of 73-fold when the was changed from 60 to 140. Again,
+the actual solution quality did not change with varying epsilon.
+Figure 4: Sensor network configurations
+828 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+Figure 5: Comparison of GOA, SPIDER, SPIDER-Abs and VAX for T = 3 on (a) Runtime and (b) Solution quality; (c) Time to solution for PAX
+with varying percentage to optimal for T=4 (d) Time to solution for VAX with varying epsilon for T=4

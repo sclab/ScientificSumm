@@ -1,0 +1,35 @@
+this was simply an efficient means to normalize the outputs of different functions and allow for a more expressive model. 
+there are many ways to generate features, and we are not advocating our method over others.
+table 5 contains statistics of the generated datasets.
+we ran our main experiments using four choices of f: the set of aforementioned indri retrieval functions for trec 9 and trec 10, and the web track submissions for trec 9 and trec 10. for each f and each function f ∈ f, we chose 50 values for kf which are reasonably spaced and capture the sensitive region of f. using the four choices of f, we generated four datasets for our main experiments.
+this is expressed qualitatively in figure 2, where wa and wb are positive, and wc is negative.
+for any document d and query x, we have wt φ(x, d) = 8 >>< >>: 0 if f(d|x) < a wa if a ≤ f(d|x) < b wa + wb if b ≤ f(d|x) < c wa + wb + wc if c ≤ f(d|x) .
+here, kf = {a, b, c}, and the weight vector is w = wa, wb, wc .
+in this example we have a single feature f = {f}.
+figure 2 shows an example of our feature mapping method.
+since we are using linear kernels, one can think of the learning problem as finding a good piecewise-constant  combination of the scores of the retrieval functions.
+from a high level, we are expressing the score of each retrieval function using |kf | + 1 bins.
+0.204 39/11 ** 0.181 37/13 ** 2nd best 0.199 38/12 ** 0.174 43/7 ** 3rd best 0.188 34/16 ** 0.174 38/12 ** table 6: comparison with indri functions ument d scored by a set of retrieval functions f on query x, we generate the features as a vector φ(x, d) = 1[f(d|x)>k] : ∀f ∈ f, ∀k ∈ kf , where f(d|x) denotes the score that retrieval function f  assigns to document d for query x, and each kf is a set of real values.
+for each  doc5 http://www.lemurproject.org trec 9 trec 10 model map w/l map w/l svm∆ map 0.242 -  0.236best func.
+b ca wt φ(x,d) f(d|x) figure 2: example feature binning 4.2 generating features in order to generate input examples for our method, a concrete instantiation of φ must be provided.
+a typical submission  contained scores of its top 1000 documents.
+for trec 9 and trec 10, there were 53 and 18 such submissions, respectively.
+we used only the non-manual, non-short submissions from both years.
+for our second set of base functions, we used scores from the trec 9 [8] and trec 10 [9] web track submissions.
+for each query, we considered the scores of documents found in the union of the top 1000 documents of each base function.
+we computed the scores of these five retrieval methods over the three indices, giving 15 base functions in total.
+all parameters were kept as their defaults.
+for both trec 9 and trec 10, we used the  description portion of each query and scored the documents using five of indri"s built-in retrieval methods, which are cosine similarity, tfidf, okapi, language model with dirichlet prior, and language model with jelinek-mercer prior.
+the first index was generated using default settings, the second used porter-stemming, and the last used porter-stemming and indri"s default stopwords.
+for the first set, we generated three indices over the wt10g corpus using indri5 .
+4.1 choosing retrieval functions we chose two sets of base functions for our experiments.
+the rest of this section describes the base functions and the feature generation method in detail.
+comparing with previous svm methods allows us to test whether optimizing directly for map (as opposed to accuracy or rocarea) achieves a higher map score in practice.
+comparing with the best base functions tests our method"s ability to learn a  useful combination.
+we compare our method against the best retrieval  functions trained on (henceforth base functions), as well as against previously proposed svm methods.
+as such, our 3 http://www.cs.cornell.edu/~tomf/svmpython/ 4 http://svmlight.joachims.org/svm_struct.html dataset base funcs features trec 9 indri 15 750 trec 10 indri 15 750 trec 9 submissions 53 2650 trec 10 submissions 18 900 table 5: dataset statistics experiments essentially test our method"s ability to re-rank the highly ranked documents (e.g., re-combine the scores of the retrieval functions) to improve map.
+while our method is agnostic to the meaning of the  features, we chose to use existing retrieval functions as a simple yet effective way of acquiring useful features.
+we generated our features using the scores of existing retrieval functions on these queries.
+for each query, trec provides the relevance  judgments of the documents.
+we empirically evaluate our method using two sets of trec web track queries, one each from trec 9 and trec 10 (topics 451-500 and 501-550), both of which used the wt10g corpus.
+the main goal of our experiments is to evaluate whether directly optimizing map leads to improved map  performance compared to conventional svm methods that  optimize a substitute loss such as accuracy or rocarea.

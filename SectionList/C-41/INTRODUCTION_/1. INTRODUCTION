@@ -1,0 +1,58 @@
+Achieving end-to-end real-time quality of service (QoS)
+is particularly important for open distributed real-time and
+embedded (DRE) systems that face resource constraints, such
+as limited computing power and network bandwidth. 
+Overutilization of these system resources can yield unpredictable
+and unstable behavior, whereas under-utilization can yield
+excessive system cost. A promising approach to meeting
+these end-to-end QoS requirements effectively, therefore, is
+to develop and apply adaptive middleware [10, 15], which is
+software whose functional and QoS-related properties can be
+modified either statically or dynamically. Static 
+modifications are carried out to reduce footprint, leverage 
+capabilities that exist in specific platforms, enable functional 
+subsetting, and/or minimize hardware/software infrastructure
+dependencies. Objectives of dynamic modifications include
+optimizing system responses to changing environments or 
+requirements, such as changing component interconnections,
+power-levels, CPU and network bandwidth availability, 
+latency/jitter, and workload.
+In open DRE systems, adaptive middleware must make
+such modifications dependably, i.e., while meeting 
+stringent end-to-end QoS requirements, which requires the 
+specification and enforcement of upper and lower bounds on
+system resource utilization to ensure effective use of 
+system resources. To meet these requirements, we have 
+developed the Hybrid Adaptive Resource-management 
+Middleware (HyARM), which is an open-source1
+distributed 
+resource management middleware.
+HyARM is based on hybrid control theoretic techniques [8],
+which provide a theoretical framework for designing 
+control of complex system with both continuous and discrete
+dynamics. In our case study, which involves a distributed
+real-time video distribution system, the task of adaptive 
+resource management is to control the utilization of the 
+different resources, whose utilizations are described by 
+continuous variables. We achieve this by adapting the resolution
+of the transmitted video, which is modeled as a continuous
+variable, and by changing the frame-rate and the 
+compression, which are modeled by discrete actions. We have 
+implemented HyARM atop The ACE ORB (TAO) [13], which
+is an implementation of the Real-time CORBA 
+specification [12]. Our results show that (1) HyARM ensures 
+effective system resource utilization and (2) end-to-end QoS
+requirements of higher priority applications are met, even in
+the face of fluctuations in workload.
+The remainder of the paper is organized as follows: 
+Section 2 describes the architecture, functionality, and resource
+utilization model of our DRE multimedia system case study;
+Section 3 explains the structure and functionality of HyARM;
+Section 4 evaluates the adaptive behavior of HyARM via 
+experiments on our multimedia system case study; Section 5
+compares our research on HyARM with related work; and
+Section 6 presents concluding remarks.
+1
+The code and examples for HyARM are available at www.
+dre.vanderbilt.edu/∼nshankar/HyARM/.
+Article 7

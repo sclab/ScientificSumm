@@ -1,0 +1,148 @@
+In Figure 1 we show the performance of fRank trained with only the popularity feature set vs. the amount of data we have for the popularity feature set.
+Further experiments found that, of the page features, those based on the text of the page (as opposed to the URL) performed the best.
+Shown is the decrease in accuracy when we train a network that has all but the given set of features.
+Beginning with no features, we greedily added the feature set that improved performance the most.
+For each URL in our train and test sets, we provided a feature to fRank which was how many times it had been visited by a toolbar user.
+It is also informative to see how the performance of fRank depends on the amount of popularity data that we have collected.
+Because we evaluated the pages on queries that occur frequently, our data indicates the correct index ordering, and assigns high value to pages that are likely to be relevant to a common query.
+As seen in Table 7, adding the domain counts significantly improved the quality of the popularity feature, and adding the numerous backoff functions listed in Table 6 improved the accuracy even further.
+For training, we presented the network with 5 million pairings of pages, where one page had a higher rating than the other.
+Table 3 shows the results of this experiment, where the decrease in accuracy is the difference in pairwise accuracy between the network trained with all of the features, and the network missing the given feature set.
+To convert the data from query-dependent to query-independent, we simply removed the query, taking the maximum over judgments for a URL that appears in more than one query.
+With a pairwise accuracy of 67.4%, fRank more than doubles the accuracy of PageRank (relative to the baseline of 50%, which is the accuracy that would be achieved by a random ordering of Web pages).
+To reduce the dynamic range, and hopefully make the feature more useful, we presented the network with both the unpreprocessed, as well as the logarithm, of the popularity features (As with the others, the logarithmic feature values were also normalized to have zero mean and unit standard deviation).
+This bias is good when evaluating the quality of static ranking for the purposes of index ordering and returning relevant documents.
+First, the discrete human judgments provide only a partial ordering over Web pages, making it difficult to apply a measure such as the Spearman rank order correlation coefficient (in the pairwise accuracy measure, a pair of documents with the same human judgment does not affect the score).
+Table 1: Basic Results Technique Accuracy (%) None (Baseline) 50.00 PageRank 56.70 fRank 67.43 There are a number of decisions that go into the computation of PageRank, such as how to deal with pages that have no outlinks, the choice of α, numeric precision, convergence threshold, etc.
+Table 7: Effect of adding backoff to the popularity feature set Features Accuracy (%) URL count 58.15 URL and Domain counts 59.31 All backoff functions (Table 6) 60.82 Table 5: Top ten URLs for PageRank vs. fRank PageRank fRank google.com google.com apple.com/quicktime/download yahoo.com amazon.com americanexpress.com yahoo.com hp.com microsoft.com/windows/ie target.com apple.com/quicktime bestbuy.com mapquest.com dell.com ebay.com autotrader.com mozilla.org/products/firefox dogpile.com ftc.gov bankofamerica.com 712 Backing off to subsets of the URL is one technique for dealing with the sparsity of data.
+do in fact contain useful information regarding the overall quality of a page.
+This is surprising because these are features that do not depend on the overall graph structure of the Web, nor even on what pages point to a given page.
+Each set contains all of the ratings for a given query, and no query appears in more than one set.
+The only exception was the popularity features.
+fRank, by knowing the actual visitation popularity of a site (the popularity feature set), is able to eliminate some of that bias.
+710 Applying fRank to a document is computationally efficient, taking time that is only linear in the number of input features; it is thus within a constant factor of other simple machine learning methods such as naïve Bayes.
+We took this one step further and used the built-in hierarchical structure of URLs to construct many levels of backoff between the full URL and the domain.
+First, we see that qualitatively, fRank"s ordering of Web pages has a more favorable bias than PageRank"s. fRank"s ordering seems to correspond to what Web users, rather than Web page authors, prefer.
+We thus concluded that the quality of the PageRank is not sensitive to these minor variations in algorithm, nor was PageRank"s low accuracy due to problems with our implementation of it.
+If S(x) is the static ranking assigned to page x, and H(x) is the human judgment of relevance for x, then consider the following sets: )}()(:,{ yHxHyx >=pH and )}()(:,{ ySxSyx >=pS The pairwise accuracy is the portion of Hp that is also contained in Sp: p pp H SH ∩ =accuracypairwise This measure was chosen for two reasons.
+The training rate at each epoch was thus set to: Training rate = 1+ε κ Where κ is the initial rate (0.001), and ε is the number of times the training set error has increased.
+Feature Set Decrease in Accuracy PageRank 0.18 Popularity 0.78 Anchor 0.47 Page 5.42 Domain Anchor, PageRank & Domain 0.10 0.60 The results of the ablation study are consistent with the individual feature set study.
+At each row, the feature set that gave the greatest increase in accuracy was added to the list of features (i.e., we conducted a greedy search over feature sets).
+We then compared the performance of the resulting network to the performance of the network with all of the features.
+In order to obtain experimental results on crawl prioritization, we would need ratings on a random sample of Web pages.
+Perhaps the most interesting result is that the Page-level features had the highest performance out of all the feature sets.
+This provides significantly more information than randomly selecting documents on the Web, the vast majority of which would be irrelevant to a given query.
+The pairwise accuracy is the fraction of time that the ranking algorithm and human judges agree on the ordering of a pair of Web pages.
+The value of the feature was the count of the number of times a toolbar user visited a URL, where the function applied to that URL matches the function applied to the URL in question.
+In summary, we have found that the popularity features provide a useful boost to the overall fRank accuracy.
+Second, the pairwise accuracy has an intuitive meaning: it is the fraction of pairs of documents that, when the humans claim one is better than the other, the static rank algorithm orders them correctly.
+Because of this process, the judged pages tend to be of higher quality than the average page on the Web, and tend to be pages that will be returned for common search queries.
+For each query, a number of results are manually assigned a rating, from 0 to 4, by human judges.
+Second, the page level and popularity features were the most significant contributors to pairwise accuracy.
+As with most Web phenomenon, we found that the distribution of site popularity is Zipfian.
+When forming the pairs, we ignored the magnitude of the difference between the ratings (the rating spread) for the two URLs.
+The toolbar provides information about which Web pages people find interesting right now, whereas links are added to pages more slowly, as authors find the time and interest. 
+Though these pages are important, they are not as important as it may seem by looking at the link structure alone.
+For example, the fourth line of the table shows that fRank using the page, popularity, and anchor features outperformed any network that used the page, popularity, and some other feature set, and that the performance of this network was 67.25%.
+The reasoning behind this is that a page that is relevant for some query and irrelevant for another is probably a decent page and should have a high static rank.
+Both show that the most important feature set is the Page-level feature set, and the second most important is the popularity feature set.
+Each day, we receive additional popularity data, and as can be seen in the plot, this increases the performance of fRank.
+We also wanted to find how well each feature set performed.
+Though we had the option of preprocessing any of the features before they were input to the neural network, we refrained from doing so on most of them.
+The rating is meant to be a measure of how relevant the result is for the query, where 0 means poor and 4 means excellent.
+We used tanh as the transfer function from the inputs to the hidden layer, and a linear function from the hidden layer to the output.
+As an example of how diverse the queries are, the first four queries in the training set are chef schools, chicagoland speedway, eagles fan club, and Turkish culture.
+As can be seen, every single feature set individually outperformed PageRank on this test.
+The other bias comes from the fact that the population of Web site authors is different than the population of Web users.
+The network with the highest pairwise accuracy on the validation set was selected, and then tested on the test set.
+First, there are many pages with buttons at the bottom suggesting that the site is optimized for Internet Explorer, or that the visitor needs QuickTime.
+For example, a user"s visit to cnn.com/2005/sports.html would increment the Domain and Domain+1 features for the URL cnn.com/2005/tech/wikipedia.html.
+Finally, we wished to see how the performance of fRank improved as we added features; we wanted to find at what point adding more feature sets became relatively useless.
+To measure the final contribution of a feature set, in the context of all the other features, we performed an ablation study.
+The validation set was used to select the model that had the highest performance.
+The documents selected for judging are those that we expected would, on average, be reasonably relevant (for example, the top ten documents returned by MSN"s search engine).
+5.1 Data In order to evaluate the quality of a static ranking, we needed a gold standard defining the correct ordering for a set of pages.
+One solution was to provide an additional feature which was the number of times any URL at the given domain was visited by a toolbar user.
+The probability that a query is selected is proportional to its frequency among all 709 of the queries.
+Adding this feature dramatically improved the performance of fRank.
+Third, by collecting more popularity data, we can continue to improve fRank"s performance.
+Hence, the weight for each pair was constant (one), and the probability of a pair being selected was independent of its rating spread.
+It has the ability to depend more on where actual Web users visit rather than where the Web site authors have linked.
+As a result, common queries are more likely to be judged than uncommon queries.
+In our experiments, computing the fRank for all five billion Web pages was approximately 100 times faster than computing the PageRank for the same set.
+To answer this, for each feature set, we trained and tested fRank using only that set of features.
+This is surprising, as the page features consisted only of a few (8) simple features.
+One fix for this is to add information about the link to the PageRank computation, such as the size of the text, whether it was at the bottom of the page, etc.
+We randomly assigned queries to a training, validation, or test set, such that they contained 84%, 8%, and 8% of the queries, respectively.
+This is contrary to the common belief that the Web graph structure is the key to finding a good static ranking of Web pages.
+Table 6: URL functions used to compute the Popularity feature set.
+We report the pairwise accuracy on the test set, calculated using all possible pairs.
+5.2 Measure We chose to use pairwise accuracy to evaluate the quality of a static ranking.
+The relation is logarithmic: doubling the amount of popularity data provides a constant improvement in pairwise accuracy.
+This is because the most important portion of the index to be well-ordered and relevant is the portion that is frequently returned for search queries.
+Note that one of fRank"s input features is the PageRank of the page, so we would expect it to perform no worse than PageRank.
+Before the results, we first discuss the data, the performance metric, and the training method.
+This means that a particular feature that appears to have little value in isolation could actually be very important when used in combination with other features.
+The queries are selected by randomly choosing queries from among those issued to the MSN search engine.
+Table 4: fRank performance as feature sets are added.
+In particular, the choice of initial training rate, number of epochs, and training rate decay function were taken directly from Burges et al [7].
+That is, for each set of features, we trained a network to contain all of the features except that set.
+Because of this bias, however, the results in this paper are not applicable to crawl prioritization.
+The test set was used for the final results.
+First, fRank performs significantly better than PageRank, even without any information about the Web graph.
+For privacy reasons, we had access only to an aggregate count of, for each URL, how many times it was visited by any toolbar user.
+After each epoch, we measured the performance of the neural network on the validation set, using 1 million pairs (chosen randomly with replacement).
+This data gives us a query-independent ordering of pages.
+Feature Set Accuracy (%) PageRank 56.70 Popularity 60.82 Anchor 59.09 Page 63.93 Domain 59.03 All Features 67.43 Because we are using a two-layer neural network, the features in the learned network can interact with each other in interesting, nonlinear ways.
+This limited the possible features we could derive from this data.
+Gathering more popularity data, as well as employing simple backoff strategies, improve this boost even further.
+There are approximately 500k judgments in all, or an average of 18 ratings per query.
+The popularity data provides two benefits to fRank.
+Web authors tend to be technologically-oriented, and thus their linking behavior reflects those interests.
+The two most important feature sets are the page and popularity features.
+These parameters were determined and fixed before the static rank experiments in this paper.
+However, this feature was quite noisy and sparse, particularly for URLs with query parameters (e.g.,  http://search.msn.com/results.aspx?q=machine+learning&form=QBHP).
+We were able to obtain a computation of PageRank from a completely independent implementation (provided by Marc Najork) that varied somewhat in these parameters.
+These generally link back to, in these examples, the Internet Explorer and QuickTime download sites.
+The significant increase in accuracy implies that the other features (anchor, popularity, etc.)
+If the error had increased, then we decreased the training rate, under the hypothesis that the network had probably overshot.
+We did this by using the set of features shown in Table 6.
+The last line is shows the effect of removing the anchor, PageRank, and domain features, hence a model containing no network or link-based information whatsoever.
+Table 2: Results for individual feature sets.
+The features in the training set were normalized to have zero mean and unit standard deviation.
+Second, the popularity data is more timely than PageRank"s link information.
+For this, we employed a dataset which contains human judgments for 28000 queries.
+Feature Set Accuracy (%) None 50.00 +Page 63.93 +Popularity 66.83 +Anchor 67.25 +PageRank 67.31 +Domain 67.43 711 Finally, we present a qualitative comparison of PageRank vs. fRank.
+In this section, we will demonstrate that we can out perform PageRank by applying machine learning to a straightforward set of features.
+5.5 Popularity Data As mentioned in section 4, our popularity data came from MSN toolbar users.
+At each epoch, we checked the error on the training set.
+5.4 Results As Table 1 shows, fRank significantly outperforms PageRank for the purposes of static ranking.
+The same linear transformation was then applied to the features in the validation and test sets.
+It contains two QuickTime URLs (Apple"s video playback software), as well as Internet Explorer and FireFox URLs (both of which are Web browsers).
+The output layer (just a single node) weights were initialized using a uniform random distribution in the range [-0.1, 0.1].
+In the next section, we explore the popularity feature in more detail.
+The goal for a static ranking algorithm will be to reproduce this ordering as closely as possible.
+fRank, on the other hand, contains more consumer-oriented sites such as American Express, Target, Dell, etc.
+In Table 5 are the top ten URLs returned for PageRank and for fRank.
+Function Example Exact URL cnn.com/2005/tech/wikipedia.html?v=mobile No Params cnn.com/2005/tech/wikipedia.html Page wikipedia.html URL-1 cnn.com/2005/tech URL-2 cnn.com/2005 … Domain cnn.com Domain+1 cnn.com/2005 … Each URL was assigned one feature for each function shown in the table.
+5.6 Summary of Results The experiments provide a number of conclusions.
+On each epoch, the training pairs were randomly shuffled.
+The results are shown in Table 4.
+The training set was used to train fRank.
+The results are shown in Table 2.
+The pairings were chosen uniformly at random (with replacement) from all possible pairings.
+It achieved a pairwise accuracy of 56.52%, nearly identical to that obtained by our implementation.
+The results confirm that fRank outperforms PageRank in pairwise accuracy.
+Consequently, PageRank ranks those pages highly.
+The input weights to this layer were all initialized to be zero.
+We trained the network for 30 epochs.
+In the next section, we describe the measure we used to evaluate this.
+5.3 Method We trained fRank (a RankNet based neural network) using the following parameters.
+The initial training rate was 0.001.
+PageRank"s results are heavily weighted towards technology sites.
+PageRank"s bias toward technology can be explained through two processes.
+The cost function is the pairwise cross entropy cost function as discussed in section 3.
+The hidden layer had 10 hidden nodes.
+Table 3: Ablation study.
+For possible extensions, see section 6.3, future work.
+We used a fully connected 2 layer network.

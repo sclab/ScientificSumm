@@ -1,0 +1,49 @@
+As for (iii), each agent uses a single model merging  operator taken from the following two classes of operators (hj is the receiver"s own model and hi is the provider"s model): • ph→h (hi, hj) : - m-join: The m best clusters (in terms of coverage of Dj) from hypothesis hi are appended to hj.
+In our experiments, g and g are calculated by an additional agent that acts as a global  validation mechanism for all agents (in a more realistic setting a comparison mechanism for different g functions would have to be provided).
+We assume that agents are sincere when advertising their model quality, but note that this quality might be of limited relevance to other agents as they may specialise on specific regions of the data space not related to the test set of the sender of the CfP.
+- m-select: The set of the m best clusters (in terms of coverage of Dj) from the union hi ∪hj is chosen as a new model.
+Regarding 1., our agents are equipped with their own private datasets in the form of vessel descriptions.
+To describe what is necessary for 3., we have to specify (i) under which conditions agents submit bids in response to a CfP, (ii) when they accept bids in the CNP negotiation process, and (iii) how they integrate the received  information in their own learning process.
+In section 4 we analyse the performance of each of these two classes for different choices of m. It is noteworthy that this agent-based distributed data mining system is one of the simplest conceivable instances of our abstract architecture.
+Such behaviour might include things such as deviation from the standard routes between the declared origin and destination of the journey, unexpected close encounters between  different vessels on sea, or unusual patterns in the choice of destination over multiple journeys, taking the type of  vessel and reported freight into account.
+For this, we assign a confidence value r(h, d) to every ship d: r(h, d) = 1 |d − cC(h,d)| where C(h, d) is the index of the nearest centroid.
+• ph→D (hi, Dj) : - m-filter: The m best clusters (as above) from hi are identified and appended to a new model formed by using those samples not covered by these clusters applying the own learning  algorithm fj.
+Concerning (i) and (ii), we employ a very simple rule that is identical in both cases: let g be one"s own model quality and g that advertised by the CfP (or highest bid, respectively).
+For evaluation purposes, each dataset pertaining to a  particular agent i is initially split into a training set Di and a validation Vi.
+The datasets and clustering algorithms available to  individual agents, 2. the interaction mechanism used for exchanging  descriptions of learning processes, and 3. the decision mechanism agents apply to make learning decisions.
+These two sets assess the agent"s ability to detect suspicious vessels.
+Considering that this is the reality of the domain in the real world, it is easy to see that a  framework like the one we have suggested above might be useful to exploit the cooperation potential that is not exploited by current systems.
+To support this automated pre-processing task, software used by these agencies applies clustering methods in order to identify outliers and flag those as potentially suspicious entities to the human user.
+In our application domain, different commercial and  governmental agencies track the journeys of ships over time  using AIS data which contains structured information  automatically provided by ships equipped with shipborne  mobile AIS stations to shore stations, other ships and aircrafts.
+However, many agencies active in this domain are competing enterprises and use their  (partially overlapping, but distinct) datasets and learning  hypotheses (models) as assets and hence cannot be expected to collaborate in a fully cooperative way to improve  overall learning results.
+Then, we generate a set of fake vessels Fi such that |Fi| = |Vi|.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) bids (if any) are accepted by the initiator of the protocol who issued the CfP, the agents exchange their hypotheses and the next learning iteration ensues.
+3.2 Agent-based distributed learning system design To describe a concrete design for the AIS domain, we need to specify the following elements of the overall system: 1.
+Learning samples are represented by tuples containing data about individual vessels in terms of attributes A = {1, .
+In terms of learning algorithm, we consider clustering with a fixed number of k clusters using the k-means and k-medoids clustering algorithms [5] (fixed meaning that the learning algorithm will always output k clusters;  however, we allow agents to change the value of k over different learning cycles).
+As concerns 2., we use a simple Contract-Net Protocol (CNP) [20] based hypothesis trading mechanism: Before each learning iteration, agents issue (publicly broadcasted) Calls-For-Proposals (CfPs), advertising their own numerical model quality.
+the set of all possible sets of k cluster centroids in |A|-dimensional  Euclidean space.
+(Unlike m-join this method does not prefer own clusters over others".)
+While the reasons for such unusual behaviour may range from pure coincidence or technical problems to criminal activity (such as smuggling, piracy, terrorist/military attacks) it is obviously useful to pre-process the huge amount of vessel (tracking) data that is available before engaging in further analysis by human experts.
+Subsequently, (some) agents may issue bids in which they advertise, in turn, the quality of their own model.
+This means that the hypothesis space can be defined as H = { c1, .
+d is assigned to that cluster whose centroid is closest to the data point in terms of Euclidean distance.
+If g > g we respond to the CfP (accept the bid), else respond to the CfP  (accept the bid) with probability P(g /g) and ignore (reject) it else.
+, ck and any data point d ∈ ×n i=1[Ai] given domain [Ai] for the ith  attribute of each sample, the assignment to clusters is given by C( c1, .
+If the 682 The Sixth Intl.
+3.1 Domain description As an illustration of our framework, we present an  agentbased data mining system for clustering-based surveillance using AIS (Automatic Identification System [1]) data.
+While we have previously  applied it also to a more complex market-based architecture using Inductive Logic Programming learners in a transport logistics domain [22], we believe that the system described here is complex enough to illustrate the key design decisions involved in using our framework and provides simple  example solutions for these design issues. 
+If two agents make a deal, they exchange their  learning hypotheses (models).
+With this, we can compute the quality gi(h) ∈ R as the ratio between all correctly classified vessels and all vessels in Fi ∪ Vi.
+In other words, the initiator of a CNP describes its own current learning state as (∗, ∗, ∗, gi(h), ∗) where h is their current hypothesis/model.
+Whenever m is large enough to encompass all clusters, we simply write join or filter for them.
+It is the task of AIS agencies to detect anomalous  behaviour so as to alarm police/coastguard units to further investigate unusual, potentially suspicious behaviour.
+This data contains the ship"s identity, type, position, course, speed, navigational status and other safety-related  information.
+Based on this measure, we classify any vessel in Fi ∪ Vi as fake if its r-value is below the median of all the confidences r(h, d) for d ∈ Fi ∪ Vi.
+with real-valued domains ([Ai] = R for all i).
+For each hypothesis h = c1, .
+, n} including things such as width, length, etc.
+Joint Conf.
+, ck |ci ∈ R|A| } i.e.
+Figure 2 shows a screenshot of our simulation system.
+, ck , d) = arg min 1≤j≤k |d − cj| i.e.

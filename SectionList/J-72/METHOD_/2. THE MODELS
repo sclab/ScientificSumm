@@ -1,0 +1,234 @@
+2.1 Query Learning
+The query learning model we consider here is called exact
+learning from membership and equivalence queries,
+introduced by Angluin [2]. In this model the learning 
+algorithm"s objective is to exactly identify an unknown target
+function f : X → Y via queries to an oracle. The target
+function is drawn from a function class C that is known to
+the algorithm. Typically the domain X is some subset of
+{0, 1}m
+, and the range Y is either {0, 1} or some subset
+of the real numbers Ê. As the algorithm progresses, it 
+constructs a manifest hypothesis ˜f which is its current estimate
+of the target function. Upon termination, the manifest 
+hypothesis of a correct learning algorithm satisfies ˜f(x) = f(x)
+for all x ∈ X.
+It is important to specify the representation that will be
+used to encode functions from C. For example, consider the
+following function from {0, 1}m
+to Ê: f(x) = 2 if x 
+consists of m 1"s, and f(x) = 0 otherwise. This function may
+simply be represented as a list of 2m
+values. Or it may be
+encoded as the polynomial 2x1 · · · xm, which is much more
+succinct. The choice of encoding may thus have a significant
+impact on the time and space requirements of the learning
+algorithm. Let size(f) be the size of the encoding of f with
+respect to the given representation class. Most 
+representation classes have a natural measure of encoding size. The
+size of a polynomial can be defined as the number of non-zero
+coefficients in the polynomial, for example. We will usually
+only refer to representation classes; the corresponding 
+function classes will be implied. For example, the representation
+class of monotone DNF formulae implies the function class
+of monotone Boolean functions.
+Two types of queries are commonly used for exact 
+learning: membership and equivalence queries. On a membership
+query, the learner presents some x ∈ X and the oracle replies
+with f(x). On an equivalence query, the learner presents
+its manifest hypothesis ˜f. The oracle either replies ‘YES" if
+˜f = f, or returns a counterexample x such that ˜f(x) = f(x).
+An equivalence query is proper if size( ˜f) ≤ size(f) at the
+time the manifest hypothesis is presented.
+We are interested in efficient learning algorithms. The 
+following definitions are adapted from Kearns and Vazirani [9]:
+Definition 1. The representation class C is 
+polynomialquery exactly learnable from membership and 
+equivalence queries if there is a fixed polynomial p(·, ·) and an
+algorithm L with access to membership and equivalence 
+queries of an oracle such that for any target function f ∈ C, L
+outputs after at most p(size(f), m) queries a function ˜f ∈ C
+such that ˜f(x) = f(x) for all instances x.
+Similarly, the representation class C is efficiently 
+exactly learnable from membership and equivalence
+queries if the algorithm L outputs a correct hypothesis in
+time p(size(f), m), for some fixed polynomial p(·, ·).
+Here m is the dimension of the domain. Since the target
+function must be reconstructed, we also necessarily allow
+polynomial dependence on size(f).
+2.2 Preference Elicitation
+In a combinatorial auction, a set of goods M is to be 
+allocated among a set of agents N so as to maximize the sum of
+the agents" valuations. Such an allocation is called efficient
+in the economics literature, but we will refer to it as optimal
+and reserve the term efficient to refer to computational
+efficiency. We let n = |N| and m = |M|. An allocation
+is a partition of the objects into bundles (S1, . . . , Sn), such
+that Si ∩ Sj = ∅ for all distinct i, j ∈ N. Let Γ be the set
+of possible allocations. Each agent i ∈ N has a valuation
+function vi : 2M
+→ Ê over the space of possible bundles.
+Each valuation vi is drawn from a known class of valuations
+Vi. The valuation classes do not need to coincide.
+We will assume that all the valuations considered are 
+normalized, meaning v(∅) = 0, and that there are no 
+externalities, meaning vi(S1, ..., Sn) = vi(Si), for all agents i ∈ N,
+for any allocation (S1, ..., Sn) ∈ Γ (that is, an agent cares
+only about the bundle allocated to her). Valuations 
+satisfying these conditions are called general valuations.1
+We
+1
+Often general valuations are made to satisfy the additional
+181
+also assume that agents have quasi-linear utility functions,
+meaning that agents" utilities can be divided into monetary
+and non-monetary components. If an agent i is allocated
+bundle S at price p, it derives utility ui(S, p) = vi(S) − p.
+A valuation function may be viewed as a vector of 2m
+− 1
+non-negative real-values. Of course there may also be more
+succinct representations for certain valuation classes, and
+there has been much research into concise bidding languages
+for various types of valuations [11]. A classic example which
+we will refer to again later is the XOR bidding language.
+In this language, the agent provides a list of atomic bids,
+which consist of a bundle together with its value. To 
+determine the value of a bundle S given these bids, one searches
+for the bundle S of highest value listed in the atomic bids
+such that S ⊆ S. It is then the case that v(S) = v(S ).
+As in the learning theory setting, we will usually only refer
+to bidding languages rather than valuation classes, because
+the corresponding valuation classes will then be implied. For
+example, the XOR bidding language implies the class of 
+valuations satisfying free-disposal, which is the condition that
+A ⊆ B ⇒ v(A) ≤ v(B).
+We let size(v1, . . . , vn) =
+Èn
+i=1 size(vi). That is, the size
+of a vector of valuations is the size of the concatenation of
+the valuations" representations in their respective encoding
+schemes (bidding languages).
+To make an analogy to computational learning theory, we
+assume that all representation classes considered are 
+polynomially interpretable [11], meaning that the value of a bundle
+may be computed in polynomial time given the valuation
+function"s representation. More formally, a representation
+class (bidding language) C is polynomially interpretable if
+there exists an algorithm that given as input some v ∈ C
+and an instance x ∈ X computes the value v(x) in time
+q(size(v), m), for some fixed polynomial q(·, ·).2
+In the intermediate rounds of an (iterative) auction, the
+auctioneer will have elicited information about the agents"
+valuation functions via various types of queries. She will
+thus have constructed a set of manifest valuations, denoted
+˜v1, . . . , ˜vn.3
+The values of these functions may correspond
+exactly to the true agent values, or they may for example
+be upper or lower bounds on the true values, depending
+on the types of queries made. They may also simply be
+default or random values if no information has been acquired
+about certain bundles. The goal in the preference elicitation
+problem is to construct a set of manifest valuations such
+that:
+arg max
+(S1,...,Sn)∈Γ
+i∈N
+˜vi(Si) ⊆ arg max
+(S1,...,Sn)∈Γ
+i∈N
+vi(Si)
+That is, the manifest valuations provide enough information
+to compute an allocation that is optimal with respect to the
+true valuations. Note that we only require one such optimal
+allocation.
+condition of free-disposal (monotonicity), but we do not
+need it at this point.
+2
+This excludes OR∗
+, assuming P = NP, because 
+interpreting bids from this language is NP-hard by reduction from
+weighted set-packing, and there is no well-studied 
+representation class in learning theory that is clearly analogous to
+OR∗
+.
+3
+This view of iterative auctions is meant to parallel the
+learning setting. In many combinatorial auctions, manifest
+valuations are not explicitly maintained but rather simply
+implied by the history of bids.
+Two typical queries used in preference elicitation are value
+and demand queries. On a value query, the auctioneer
+presents a bundle S ⊆ M and the agent responds with
+her (exact) value for the bundle v(S) [8]. On a demand
+query, the auctioneer presents a vector of non-negative prices
+p ∈ Ê(2m )
+over the bundles together with a bundle S. The
+agent responds ‘YES" if it is the case that
+S ∈ arg max
+S ⊆M
+ 
+v(S ) − p(S )
+¡
+or otherwise presents a bundle S such that
+v(S ) − p(S ) > v(S) − p(S)
+That is, the agent either confirms that the presented bundle
+is most preferred at the quoted prices, or indicates a 
+better one [15].4
+Note that we include ∅ as a bundle, so the
+agent will only respond ‘YES" if its utility for the proposed
+bundle is non-negative. Note also that communicating 
+nonlinear prices does not necessarily entail quoting a price for
+every possible bundle. There may be more succinct ways of
+communicating this vector, as we show in section 5.
+We make the following definitions to parallel the query
+learning setting and to simplify the statements of later 
+results:
+Definition 2. The representation classes V1, . . . , Vn can
+be polynomial-query elicited from value and demand
+queries if there is a fixed polynomial p(·, ·) and an 
+algorithm L with access to value and demand queries of the
+agents such that for any (v1, . . . , vn) ∈ V1 × . . . × Vn, L
+outputs after at most p(size(v1, . . . , vn), m) queries an 
+allocation (S1, . . . , Sn) ∈ arg max(S1,...,Sn)∈Γ
+È
+vi(Si).
+Similarly, the representation class C can be efficiently
+elicited from value and demand queries if the 
+algorithm L outputs an optimal allocation with communication
+p(size(v1, . . . , vn), m), for some fixed polynomial p(·, ·).
+There are some key differences here with the query 
+learning definition. We have dropped the term exactly since
+the valuation functions need not be determined exactly in
+order to compute an optimal allocation. Also, an efficient
+elicitation algorithm is polynomial communication, rather
+than polynomial time. This reflects the fact that 
+communication rather than runtime is the bottleneck in elicitation.
+Computing an optimal allocation of goods even when given
+the true valuations is NP-hard for a wide range of 
+valuation classes. It is thus unreasonable to require polynomial
+time in the definition of an efficient preference elicitation
+algorithm. We are happy to focus on the communication
+complexity of elicitation because this problem is widely 
+believed to be more significant in practice than that of winner
+determination [11].5
+4
+This differs slightly from the definition provided by Blum
+et al. [5] Their demand queries are restricted to linear prices
+over the goods, where the price of a bundle is the sum of
+the prices of its underlying goods. In contrast our demand
+queries allow for nonlinear prices, i.e. a distinct price for
+every possible bundle. This is why the lower bound in their
+Theorem 2 does not contradict our result that follows.
+5
+Though the winner determination problem is NP-hard for
+general valuations, there exist many algorithms that solve
+it efficiently in practice. These range from special 
+purpose algorithms [7, 16] to approaches using off-the-shelf IP
+solvers [1].
+182
+Since the valuations need not be elicited exactly it is
+initially less clear whether the polynomial dependence on
+size(v1, . . . , vn) is justified in this setting. Intuitively, this
+parameter is justified because we must learn valuations 
+exactly when performing elicitation, in the worst-case. We
+address this in the next section.

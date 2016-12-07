@@ -1,0 +1,186 @@
+Generalising to more than two interaction participants requires
+revisiting how turn management is done, since it is no longer 
+possible to assume alternating turns [7].
+In fact, perhaps surprisingly, even in the two participant setting,
+an alternating turn setup is an unreasonable assumption! For 
+example, consider the path (in figure 1) from state 1 to 15 (sendGoods)
+then to state 12 (sendAccept). The result, in an alternating turn
+setup, is a dead-end: there is only a single possible action in state
+12, namely sendEPO, but this action is done by the customer, and
+it is the merchant"s turn to act! Figure 7 shows the FSM for NetBill
+with alternating initiative.
+A solution to this problem that works in this example, but doesn"t
+generalise7
+, is to weaken the alternating turn taking regime by 
+allowing an agent to act twice in a row if its second action is driven
+by a commitment.
+A general solution is to track whose turn it is to act. This can be
+done by working out which agents have actions that are able to be
+performed in the current state. If there is only a single active agent,
+then it is clearly that agent"s turn to act. However, if more than
+one agent is active then somehow the agents need to work out who
+should act next. Working this out by negotiation is not a particularly
+good solution for two reasons. Firstly, this negotiation has to be
+done at every step of the interaction where more than one agent is
+active (in the NetBill, this applies to seven out of sixteen states), so
+it is highly desirable to have a light-weight mechanism for doing
+this. Secondly, it is not clear how the negotiation can avoid an
+infinite regress situation (you go first, no, you go first, . ..)
+without imposing some arbitrary rule. It is also possible to resolve
+who should act by imposing an arbitrary rule, for example, that the
+customer always acts in preference to the merchant, or that each
+agent has a numerical priority (perhaps determined by the order in
+which they joined the interaction?) that determines who acts.
+An alternative solution, which exploits the symmetrical 
+properties of commitment machines, is to not try and manage turn taking.
+7
+Consider actions A1(C) ⇒ p, A2(C) ⇒ q, and A3(M) : p ∧
+q ⇒ r.
+Figure 7: NetBill with alternating initiative
+Instead of tracking and controlling whose turn it is, we simply allow
+the agents to act freely, and rely on the properties of the interaction
+space to ensure that things work out, a notion that we shall make
+precise, and prove, in the remainder of this section.
+The issue with having multiple agents be active simultaneously
+is that instead of all agents agreeing on the current interaction state,
+agents can be in different states. This can be visualised as each
+agent having its own copy of the FSM that it navigates through
+where it is possible for agents to follow different paths through the
+FSM. The two specific issues that need to be addressed are:
+1. Can agents end up in different final states?
+2. Can an agent be in a position where an error occurs because
+it cannot perform an action corresponding to a received 
+message?
+We will show that, because actions commute under certain 
+assumptions, agents cannot end up in different final states, and 
+furthermore, that errors cannot occur (again, under certain 
+assumptions).
+By actions commute we mean that the state resulting from 
+performing a sequence of actions A1 . . . An is the same, regardless of
+the order in which the actions are performed. This means that even
+if agents take different paths through the FSM, they still end up in
+the same resulting state, because once all messages have been 
+processed, all agents will have performed the same set of actions. This
+addresses the issue of ending up in different final states. We return
+to the possibility of errors occurring shortly.
+Definition 1 (Monotonicity) An action is monotonic if it does not
+delete8
+any fluents or commitments. A Commitment Machine is
+8
+That is directly deletes, it is fine to discharge commitments by
+adding fluents/commitments.
+878 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+monotonic if all of its actions are monotonic. (Adapted from [14,
+Definition 6])
+Theorem 1 If A1 and A2 are monotonic actions, then performing
+A1 followed by A2 has the same effect on the agent"s beliefs as
+performing A2 followed by A1. (Adapted from [14, Theorem 2]).
+This assumes that both actions can be performed. However, it is
+possible for the performance of A1 to disable A2 from being done.
+For example, if A1 has the effect +p, and A2 has precondition
+¬p, then although both actions may be enabled in the initial state,
+they cannot be performed in either order. We can prevent this by
+ensuring that actions" preconditions do not contain negation (or 
+implication), since a monotonic action cannot result in a precondition
+that is negation-free becoming false. Note that this restriction only
+applies to the original action precondition, P, not to any additional
+preconditions imposed by the agent (P ). This is because only P
+is used to determine whether another agent is able to perform the
+action.
+Thus monotonic CMs with preconditions that do not contain
+negations have actions that commute. However, in fact, the 
+restriction to monotonic CMs is unnecessarily strong: all that is needed
+is that whenever there is a choice of agent that can act, then the
+possible actions are monotonic. If there is only a single agent that
+can act, then no restriction is needed on the actions: they may or
+may not be monotonic.
+Definition 2 (Locally Monotonic) A commitment machine is 
+locally monotonic if for any state S either (a) only a single agent
+has actions that can be performed; or (b) all actions that can be
+performed in S are monotonic.
+Theorem 2 In a locally monotonic CM, once all messages have
+been processed, all agents will be in the same state. Furthermore,
+no errors can occur.
+Proof: Once all messages have been processed we have that all
+agents will have performed the same action set, perhaps in a 
+different order. The essence of the proof is to argue that as long as
+agents haven"t yet converged to the same state, all actions must
+be monotonic, and hence that these actions commute, and cannot
+disable any other actions.
+Consider the first point of divergence, where an agent performs
+action A and at the same time another agent (call it XB) performs
+action B. Clearly, this state has actions of more than one agent 
+enabled, so, since the CM is locally monotonic, the relevant actions
+must be monotonic. Therefore, after doing A, the action B must
+still be enabled, and so the message to do B can be processed by
+updating the recipient agent"s beliefs with the effects of B. 
+Furthermore, because monotonic actions commute, the result of doing
+A before B is the same as doing B before A:
+S
+A
+−−−−−→ SA
+?
+?
+yB B
+?
+?
+y
+SB −−−−−→
+A
+SAB
+However, what happens if the next action after A is not B, but
+C? Because B is enabled, and C is not done by agent XB (see
+below), we must have that C is also monotonic, and hence (a) the
+result of doing A and B and C is the same regardless of the order
+in which the three actions are done; and (b) C doesn"t disable B,
+so B can still be done after C.
+S
+A
+−−−−−→ SA
+C
+−−−−−→ SAC
+?
+?
+yB B
+?
+?
+y B
+?
+?
+y
+SB −−−−−→
+A
+SAB −−−−−→
+C
+SABC
+The reason why C cannot be done by XB is that messages are
+processed in the order of their arrival9
+. From the perspective of
+XB the action B was done before C, and therefore from any other
+agent"s perspective the message saying that B was done must be
+received (and processed) before a message saying that C is done.
+This argument can be extended to show that once agents start
+taking different paths through the FSM all actions taken until the
+point where they converge on a single state must be monotonic,
+and hence it is always possible to converge (because actions aren"t
+disabled), so the interaction is error free; and the resulting state
+once convergence occurs is the same (because monotonic actions
+commute).
+This theorem gives a strong theoretical guarantee that not 
+doing turn management will not lead to disaster. This is analogous
+to proving that disabling all traffic lights would not lead to any 
+accidents, and is only possible because the refined CM axioms are
+symmetrical.
+Based on this theorem the generic transformation from CM to
+code should allow agents to act freely, which is achieved by simply
+changing ı : P ∧ P ∧ ¬E ← +E; ↑A to
+ı : P ∧ P ∧ ¬E ← +E; ↑A; ı
+For example, instead of ı : ¬request ← +request; ↑sendRequest
+we have ı : ¬request ← +request; ↑sendRequest; ı.
+One consequence of the theorem is that it is not necessary to
+ensure that agents process messages before continuing to 
+interact. However, in order to avoid unnecessary parallelism, which can
+make debugging harder, it may still be desirable to process 
+messages before performing actions.
+Figure 8 shows a number of runs from the 3APL implementation
+that has been modified to allow free, non-alternating, interaction.

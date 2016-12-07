@@ -1,0 +1,86 @@
+The inverse document frequency (idf ) is one of the most
+successful parameters for a relevance-based ranking of 
+retrieved objects. With N being the total number of 
+documents, and n(t) being the number of documents in which
+term t occurs, the idf is defined as follows:
+idf(t) := − log
+n(t)
+N
+, 0 <= idf(t) < ∞
+Ranking based on the sum of the idf -values of the query
+terms that occur in the retrieved documents works well, this
+has been shown in numerous applications. Also, it is well
+known that the combination of a document-specific term
+weight and idf works better than idf alone. This approach
+is known as tf-idf , where tf(t, d) (0 <= tf(t, d) <= 1) is
+the so-called term frequency of term t in document d. The
+idf reflects the discriminating power (informativeness) of a
+term, whereas the tf reflects the occurrence of a term.
+The idf alone works better than the tf alone does. An 
+explanation might be the problem of tf with terms that occur
+in many documents; let us refer to those terms as noisy
+terms. We use the notion of noisy terms rather than 
+frequent terms since frequent terms leaves open whether we
+refer to the document frequency of a term in a collection or
+to the so-called term frequency (also referred to as 
+withindocument frequency) of a term in a document. We 
+associate noise with the document frequency of a term in a
+collection, and we associate occurrence with the 
+withindocument frequency of a term. The tf of a noisy term might
+be high in a document, but noisy terms are not good 
+candidates for representing a document. Therefore, the removal
+of noisy terms (known as stopword removal) is essential
+when applying tf . In a tf-idf approach, the removal of 
+stopwords is conceptually obsolete, if stopwords are just words
+with a low idf .
+From a probabilistic point of view, tf is a value with a
+frequency-based probabilistic interpretation whereas idf has
+an informative rather than a probabilistic interpretation.
+The missing probabilistic interpretation of idf is a problem
+in probabilistic retrieval models where we combine uncertain
+knowledge of different dimensions (e.g.: informativeness of
+terms, structure of documents, quality of documents, age
+of documents, etc.) such that a good estimate of the 
+probability of relevance is achieved. An intuitive solution is a
+normalisation of idf such that we obtain values in the 
+interval [0; 1]. For example, consider a normalisation based on
+the maximal idf -value. Let T be the set of terms occurring
+in a collection.
+Pfreq (t is informative) :=
+idf(t)
+maxidf
+maxidf := max({idf(t)|t ∈ T}), maxidf <= − log(1/N)
+minidf := min({idf(t)|t ∈ T}), minidf >= 0
+minidf
+maxidf
+≤ Pfreq (t is informative) ≤ 1.0
+This frequency-based probability function covers the interval
+[0; 1] if the minimal idf is equal to zero, which is the case
+if we have at least one term that occurs in all documents.
+Can we interpret Pfreq , the normalised idf , as the probability
+that the term is informative?
+When investigating the probabilistic interpretation of the
+227
+normalised idf , we made several observations related to 
+disjointness and independence of document events. These 
+observations are reported in section 3. We show in section 3.1
+that the frequency-based noise probability n(t)
+N
+used in the
+classic idf -definition can be explained by three assumptions:
+binary term occurrence, constant document containment and
+disjointness of document containment events. In section 3.2
+we show that by assuming independence of documents, we
+obtain 1 − e−1
+≈ 1 − 0.37 as the upper bound of the noise
+probability of a term. The value e−1
+is related to the 
+logarithm and we investigate in section 3.3 the link to 
+information theory. In section 4, we link the results of the previous
+sections to probability theory. We show the steps from 
+possible worlds to binomial distribution and Poisson distribution.
+In section 5, we emphasise that the theoretical framework
+of this paper is applicable for both idf and tf . Finally, in
+section 6, we base the definition of the probability of 
+being informative on the results of the previous sections and
+compare frequency-based and Poisson-based definitions.

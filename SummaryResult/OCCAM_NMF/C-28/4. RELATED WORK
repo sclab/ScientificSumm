@@ -1,0 +1,19 @@
+master slaveslaveslave internet database segment but only part of it is processed in each node the database is replicated in the nodes, figure 2: packageblast segmentation and  distribution mechanism. 
+if the node is not available, the less loaded node is chosen and the database is copied to it.
+if so, it is selected.
+it then verifies if the node that contains the database is available.
+gbtk is a master/slave application that receives the sequences and the name of the genetic database.
+grid blast toolkit (gbtk) [12] is a web portal to execute blast searches in globus 3. all genetic databases are  statically placed on the grid nodes (without replication).
+when the search finishes, the results are compacted and sent to the master.
+having decided which sequences will be compared by each node, gridblast sends the sequences, the executable files and the whole database to the chosen node.
+however, to use minmax, the total execution time of each blast task must be known.
+of those, only the last one takes into account the current load and the heterogeneity of the environment.
+gridblast [9] is a master/slave grid application that uses globus 2. it distributes sequences among the grid nodes using two allocation policies: fcfs and minmax.
+each worker executes blast++ independently and, finally, the results are collected and  combined by the master.
+a master/slave approach is used that allocates the queries to the slaves according to the fixed policy (section 3.3).
+blast++ [10] groups multiple sequences to reduce the number of database accesses.
+a method is proposed that associates data fragments to nodes, trying to minimize the number of copies.
+if the node does not have a database fragment, a local copy is made.
+then, the queries are evenly distributed among the nodes.
+first, the genetic database is segmented.
+mpiblast [2] was proposed for clusters and has two phases.

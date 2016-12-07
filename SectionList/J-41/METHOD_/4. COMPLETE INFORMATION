@@ -1,0 +1,421 @@
+In typical slot auctions such as those run by Yahoo! and
+Google, bidders can adjust their bids up or down at any
+time. As B¨orgers et al. [2] and Edelman et al. [6] have
+noted, this can be viewed as a continuous-time process in
+which bidders learn each other"s bids. If the process 
+stabilizes the result can then be modeled as a Nash equilibrium
+in pure strategies of the static one-shot game of complete 
+information, since each bidder will be playing a best-response
+to the others" bids.16
+This argument seems especially 
+appropriate for Yahoo!"s slot auction design where all bids are
+14
+To be entirely rigorous and consistent with our initial 
+assumptions, we should have constructed a continuous 
+probability density with full support over an appropriate domain.
+Taking the domain to be e.g. [0, 1] × [0, 1] and a continuous
+density with full support that is sufficiently concentrated
+around (1, 1/2) and (1/2, 1), with roughly equal mass around
+both, would yield the same conclusion.
+15
+Claim 3 should serve as a word of caution, because Feng
+et al. [7] find through their simulations that with a 
+bivariate normal distribution over value-relevance pairs, and with
+5 slots, 15 bidders, and δ = 2, RBR dominates RBB in
+terms of revenue for any level of correlation between value
+and relevance. However, they assume that bidding behavior
+in a second-price slot auction can be well approximated by
+truthful bidding.
+16
+We do not claim that bidders will actually learn each 
+others" private information (value and relevance), just that for
+a stable set of bids there is a corresponding equilibrium of
+the complete information game.
+223
+made public. Google keeps bids private, but 
+experimentation can allow one to discover other bids, especially since
+second pricing automatically reveals to an agent the bid of
+the agent ranked directly below him.
+4.1 Equilibrium Analysis
+In this section we ask whether a pure-strategy Nash 
+equilibrium exists in a RBB or RBR slot auction, with either
+first or second pricing.
+Before dealing with the first-price case there is a technical
+issue involving ties. In our model we allow bids to be 
+nonnegative real numbers for mathematical convenience, but
+this can become problematic because there is then no bid
+that is just higher than another. We brush over such
+issues by assuming that an agent can bid infinitesimally
+higher than another. This is imprecise but allows us to
+focus on the intuition behind the result that follows. See
+Reny [17] for a full treatment of such issues.
+For the remainder of the paper, we assume that there are
+as many slots as bidders. The following result shows that
+there can be no pure-strategy Nash equilibrium with first
+pricing.17
+Note that the argument holds for both RBB and
+RBR allocation rules. For RBB, bids should be interpreted
+as declared values, and for RBR as declared revenues.
+Theorem 2. There exists no complete information Nash
+equilibrium in pure strategies in the first-price slot auction,
+for any possible values of the agents, whether using a RBB
+or RBR allocation rule.
+Proof. Let σ : [K] → [N] be the allocation of slots to
+the agents resulting from their bids. Let ri and bi be the
+revenue and bid of the agent ranked ith
+, respectively. Note
+that we cannot have bi > bi+1, or else the agent in slot
+i can make a profitable deviation by instead bidding bi −
+> bi+1 for small enough > 0. This does not change
+its allocation, but increases its profit. Hence we must have
+bi = bi+1 (i.e. with one bidder bidding infinitesimally higher
+than the other). Since this holds for any two consecutive
+bidders, it follows that in a Nash equilibrium all bidders
+must be bidding 0 (since the bidder ranked last matches the
+bid directly below him, which is 0 by default because there
+is no such bid). But this is impossible: consider the bidder
+ranked last. The identity of this bidder is always clear given
+the deterministic tie-breaking rule. This bidder can obtain
+the top spot and increase his revenue by (γ1 −γK)rK > 0 by
+bidding some > 0, and for small enough this is necessarily
+a profitable deviation. Hence there is no Nash equilibrium
+in pure strategies.
+On the other hand, we find that in a second-price slot 
+auction there can be a multitude of pure strategy Nash 
+equilibria. The next two lemmas give conditions that characterize
+the allocations that can occur as a result of an equilibrium
+profile of bids, given fixed agent values and revenues. Then
+if we can exhibit an allocation that satisfies these conditions,
+there must exist at least one equilibrium. We first consider
+the RBR case.
+17
+B¨orgers et al. [2] have proven this result in a model with
+three bidders and three slots, and we generalize their 
+argument. Edelman et al. [6] also point out this non-existence
+phenomenon. They only illustrate the fact with an example
+because the result is quite immediate.
+Lemma 2. Given an allocation σ, there exists a Nash 
+equilibrium profile of bids b leading to σ in a second-price RBR
+slot auction if and only if
+„
+1 −
+γi
+γj+1
+«
+rσ(i) ≤ rσ(j)
+for 1 ≤ j ≤ N − 2 and i ≥ j + 2.
+Proof. There exists a desired vector b which constitutes
+a Nash equilibrium if and only if the following set of 
+inequalities can be satisfied (the variables are the πi and bj):
+πi ≥ γj(rσ(i) − bj) ∀i, ∀j < i (3)
+πi ≥ γj(rσ(i) − bj+1) ∀i, ∀j > i (4)
+πi = γi(rσ(i) − bi+1) ∀i (5)
+bi ≥ bi+1 1 ≤ i ≤ N − 1 (6)
+πi ≥ 0, bi ≥ 0 ∀i
+Here rσ(i) is the revenue of the agent allocated slot i, and
+πi and bi may be interpreted as this agent"s surplus and
+declared revenue, respectively. We first argue that 
+constraints (6) can be removed, because the inequalities above
+can be satisfied if and only if the inequalities without (6) can
+be satisfied. The necessary direction is immediate. Assume
+we have a vector (π, b) which satisfies all inequalities above
+except (6). Then there is some i for which bi < bi+1. 
+Construct a new vector (π, b ) identical to the original except
+with bi+1 = bi. We now have bi = bi+1. An agent in slot
+k < i sees the price of slot i decrease from bi+1 to bi+1 = bi,
+but this does not make i more preferred than k to this agent
+because we have πk ≥ γi−1(rσ(k) − bi) ≥ γi(rσ(k) − bi) =
+γi(rσ(k) −bi+1) (i.e. because the agent in slot k did not 
+originally prefer slot i − 1 at price bi, he will not prefer slot i
+at price bi). A similar argument applies for agents in slots
+k > i + 1. The agent in slot i sees the price of this slot
+go down, which only makes it more preferred. Finally, the
+agent in slot i + 1 sees no change in the price of any slot, so
+his slot remains most preferred. Hence inequalities (3)-(5)
+remain valid at (π, b ). We first make this change to the bi+1
+where bi < bi+1 and index i is smallest. We then recursively
+apply the change until we eventually obtain a vector that
+satisfies all inequalities.
+We safely ignore inequalities (6) from now on. By the
+Farkas lemma, the remaining inequalities can be satisfied if
+and only if there is no vector z such that
+X
+i,j
+(γj rσ(i)) zσ(i)j > 0
+X
+i>j
+γjzσ(i)j +
+X
+i<j
+γj−1zσ(i)j−1 ≤ 0 ∀j (7)
+X
+j
+zσ(i)j ≤ 0 ∀i (8)
+zσ(i)j ≥ 0 ∀i, ∀j = i
+zσ(i)i free ∀i
+Note that a variable of the form zσ(i)i appears at most once
+in a constraint of type (8), so such a variable can never be
+positive. Also, zσ(i)1 = 0 for all i = 1 by constraint (7),
+since such variables never appear with another of the form
+zσ(i)i.
+Now if we wish to raise zσ(i)j above 0 by one unit for j = i,
+we must lower zσ(i)i by one unit because of the constraint
+of type (8). Because γjrσ(i) ≤ γirσ(i) for i < j, raising
+224
+zσ(i)j with i < j while adjusting other variables to maintain
+feasibility cannot make the objective
+P
+i,j(γjrσ(i))zσ(i)j 
+positive. If this objective is positive, then this is due to some
+component zσ(i)j with i > j being positive.
+Now for the constraints of type (7), if i > j then zσ(i)j
+appears with zσ(j−1)j−1 (for 1 < j < N). So to raise the
+former variable γ−1
+j units and maintain feasibility, we must
+(I) lower zσ(i)i by γ−1
+j units, and (II) lower zσ(j−1)j−1 by
+γ−1
+j−1 units. Hence if the following inequalities hold:
+rσ(i) ≤
+„
+γi
+γj
+«
+rσ(i) + rσ(j−1) (9)
+for 2 ≤ j ≤ N − 1 and i > j, raising some zσ(i)j with
+i > j cannot make the objective positive, and there is no
+z that satisfies all inequalities above. Conversely, if some
+inequality (9) does not hold, the objective can be made 
+positive by raising the corresponding zσ(i)j and adjusting other
+variables so that feasibility is just maintained. By a slight
+reindexing, inequalities (9) yield the statement of the 
+theorem.
+The RBB case is entirely analogous.
+Lemma 3. Given an allocation σ, there exists a Nash 
+equilibrium profile of bids b leading to σ in a second-price RBB
+slot auction if and only if
+„
+1 −
+γi
+γj+1
+«
+xσ(i) ≤ xσ(j)
+for 1 ≤ j ≤ N − 2 and i ≥ j + 2.
+Proof Sketch. The proof technique is the same as in the
+previous lemma. The desired Nash equilibrium exists if and
+only if a related set of inequalities can be satisfied; by the
+Farkas lemma, this occurs if and only if an alternate set of
+inequalities cannot be satisfied. The conditions that 
+determine whether the latter holds are given in the statement of
+the lemma.
+The two lemmas above immediately lead to the following
+result.
+Theorem 3. There always exists a complete information
+Nash equilibrium in pure strategies in the second-price RBB
+slot auction. There always exists an efficient complete 
+information Nash equilibrium in pure strategies in the 
+secondprice RBR slot auction.
+Proof. First consider RBB. Suppose agents are ranked
+according to their true values. Since xσ(i) ≤ xσ(j) for i > j,
+the system of inequalities in Lemma 3 is satisfied, and the
+allocation is the result of some Nash equilibrium bid profile.
+By the same type of argument but appealing to Lemma 2
+for RBR, there exists a Nash equilibrium bid profile such
+that bidders are ranked according to their true revenues.
+By Theorem 1, this latter allocation is efficient.
+This theorem establishes existence but not uniqueness.
+Indeed we expect that in many cases there will be multiple
+allocations (and hence equilibria) which satisfy the 
+conditions of Lemmas 2 and 3. In particular, not all equilibria of
+a second-price RBR auction will be efficient. For instance,
+according to Lemma 2, with two agents and two slots any
+allocation can arise in a RBR equilibrium because no 
+constraints apply.
+Theorems 2 and 3 taken together provide a possible 
+explanation for Yahoo!"s switch from first to second pricing.
+We saw in Section 3.1 that this does not induce truthfulness
+from bidders. With first pricing, there will always be some
+bidder that feels compelled to adjust his bid. Second pricing
+is more convenient because an equilibrium can be reached,
+and this reduces the cost of bid management.
+4.2 Efficiency
+For a given allocation rule, we call the allocation that
+would result if the bidders reported their values truthfully
+the standard allocation. Hence in the standard RBB 
+allocation bidders are ranked by true values, and in the standard
+RBR allocation they are ranked by true revenues. 
+According to Lemmas 2 and 3, a ranking that results from a Nash
+equilibrium profile can only deviate from the standard 
+allocation by having agents with relatively similar values or
+revenues switch places. That is, if ri > rj then with RBR
+agent j can be ranked higher than i only if the ratio rj/ri is
+sufficiently large; similarly for RBB. This suggests that the
+value of an equilibrium allocation cannot differ too much
+from the value obtained in the standard allocation, and the
+following theorems confirms this.
+For an allocation σ of slots to agents, we denote its 
+total value by f(σ) =
+PN
+i=1 γirσ(i). We denote by g(σ) =
+PN
+i=1 γixσ(i) allocation σ"s value when assuming all agents
+have identical relevance, normalized to 1. Let
+L = min
+i=1,...,N−1
+min
+
+γi+1
+γi
+, 1 −
+γi+2
+γi+1
+ff
+(where by default γN+1 = 0). Let ηx and ηr be the standard
+allocations when using RBB and RBR, respectively.
+Theorem 4. For an allocation σ that results from a 
+purestrategy Nash equilibrium of a second-price RBR slot 
+auction, we have f(σ) ≥ Lf(ηr).
+Proof. We number the agents so that agent i has the
+ith
+highest revenue, so r1 ≥ r2 ≥ . . . ≥ rN . Hence the
+standard allocation has value f(ηr) =
+PN
+i=1 γiri. To prove
+the theorem, we will make repeated use of the fact thatP
+k akP
+k bk
+≥ mink
+ak
+bk
+when the ak and bk are positive. Note
+that according to Lemma 2, if agent i lies at least two slots
+below slot j, then rσ(j) ≥ ri
+
+1 −
+γj+2
+γj+1
+
+.
+It may be the case that for some slot i, we have σ(i) > i
+and for slots k > i + 1 we have σ(k) > i. We then say that
+slot i is inverted. Let S be the set of agents with indices at
+least i + 1; there are N − i of these. If slot i is inverted, it is
+occupied by some agent from S. Also all slots strictly lower
+than i + 1 must be occupied by the remaining agents from
+S, since σ(k) > i for k ≥ i + 2. The agent in slot i + 1 must
+then have an index σ(i + 1) ≤ i (note this means slot i + 1
+cannot be inverted). Now there are two cases. In the first
+case we have σ(i) = i + 1. Then
+γirσ(i) + γi+1rσ(i+1)
+γiri + γi+1ri+1
+≥
+γi+1ri + γiri+1
+γiri + γi+1ri+1
+≥ min
+
+γi+1
+γi
+,
+γi
+γi+1
+ff
+=
+γi+1
+γi
+In the second case we have σ(i) > i+1. Then since all agents
+in S except the one in slot i lie strictly below slot i + 1, and
+225
+the agent in slot i is not agent i + 1, it must be that agent
+i+1 is in a slot strictly below slot i+1. This means that it is
+at least two slots below the agent that actually occupies slot
+i, and by Lemma 2 we then have rσ(i) ≥ ri+1
+
+1 −
+γi+2
+γi+1
+
+.
+Thus,
+γirσ(i) + γi+1rσ(i+1)
+γiri + γi+1ri+1
+≥
+γi+1ri + γirσ(i)
+γiri + γi+1ri+1
+≥ min
+
+γi+1
+γi
+, 1 −
+γi+2
+γi+1
+ff
+If slot i is not inverted, then on one hand we may have
+σ(i) ≤ i, in which case rσ(i)/ri ≥ 1. On the other hand we
+may have σ(i) > i but there is some agent with index j ≤ i
+that lies at least two slots below slot i. Then by Lemma 2,
+rσ(i) ≥ rj
+
+1 −
+γi+2
+γi+1
+
+≥ ri
+
+1 −
+γi+2
+γi+1
+
+.
+We write i ∈ I if slot i is inverted, and i ∈ I if neither i nor
+i − 1 are inverted. By our arguments above two consecutive
+slots cannot be inverted, so we can write
+f(σ)
+f(γr)
+=
+P
+i∈I
+`
+γirσ(i) + γi+1rσ(i+1)
+´
++
+P
+i∈I γirσ(i)
+P
+i∈I (γiri + γi+1ri+1) +
+P
+i∈I γiri
+≥ min
+
+min
+i∈I
+
+γirσ(i) + γi+1rσ(i+1)
+γiri + γi+1ri+1
+ff
+, min
+i∈I
+
+γirσ(i)
+γiri
+ffff
+≥ L
+and this completes the proof.
+Note that for RBR, the standard value is also the 
+efficient value by Theorem 1. Also note that for an exponential
+decay model, L = min
+˘1
+δ
+, 1 − 1
+δ
+¯
+. With δ = 1.428 (see 
+Section 2.1), the factor is L ≈ 1/3.34, so the total value in a
+pure-strategy Nash equilibrium of a second-price RBR slot
+auction is always within a factor of 3.34 of the efficient value
+with such a discount.
+Again for RBB we have an analogous result.
+Theorem 5. For an allocation σ that results from a 
+purestrategy Nash equilibrium of a second-price RBB slot 
+auction, we have g(σ) ≥ Lg(ηx).
+Proof Sketch. Simply substitute bidder values for bidder
+revenues in the proof of Theorem 4, and appeal to Lemma 3.

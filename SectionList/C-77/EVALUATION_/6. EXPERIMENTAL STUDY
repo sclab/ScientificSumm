@@ -1,0 +1,144 @@
+This section compares the behaviors of the previous 
+protocols. This comparison is done with a simulation study.
+IPT1 denotes the protocol presented in Section 3.3 that 
+uses the condition K1(m, k) (which is always equal to false).
+IPT2 denotes the protocol presented in Section 5.2 that uses
+the condition K2(m, k) where messages carry triples. 
+Finally, IPT3 denotes the protocol presented in Section 5.3 that
+also uses the condition K2(m, k) but where messages carry
+additional boolean vectors.
+This section does not aim to provide an in-depth 
+simulation study of the protocols, but rather presents a general
+view on the protocol behaviors. To this end, it compares
+IPT2 and IPT3 with regard to IPT1. More precisely, for
+IPT2 the aim was to evaluate the gain in terms of triples
+(k, V Ci[k], IPi[k]) not transmitted with respect to the 
+systematic transmission of whole vectors as done in IPT1. For
+IPT3, the aim was to evaluate the tradeoff between the 
+additional boolean vectors transmitted and the number of saved
+triples. The behavior of each protocol was analyzed on a set
+of programs.
+6.1 Simulation Parameters
+The simulator provides different parameters enabling to
+tune both the communication and the processes features.
+These parameters allow to set the number of processes for
+the simulated computation, to vary the rate of 
+communication (send/receive) events, and to alter the time duration
+between two consecutive relevant events. Moreover, to be
+independent of a particular topology of the underlying 
+network, a fully connected network is assumed. Internal events
+have not been considered.
+Since the presence of the triples (k, V Ci[k], IPi[k]) 
+piggybacked by a message strongly depends on the frequency at
+which relevant events are produced by a process, different
+time distributions between two consecutive relevant events
+have been implemented (e.g., normal, uniform, and Poisson
+distributions). The senders of messages are chosen 
+according to a random law. To exhibit particular configurations
+of a distributed computation a given scenario can be 
+provided to the simulator. Message transmission delays follow
+a standard normal distribution. Finally, the last parameter
+of the simulator is the number of send events that occurred
+during a simulation.
+6.2 Parameter Settings
+To compare the behavior of the three IPT protocols, we
+performed a large number of simulations using different 
+parameters setting. We set to 10 the number of processes
+participating to a distributed computation. The number of
+communication events during the simulation has been set to
+10 000. The parameter λ of the Poisson time distribution (λ
+is the average number of relevant events in a given time 
+interval) has been set so that the relevant events are generated
+at the beginning of the simulation. With the uniform time
+distribution, a relevant event is generated (in the average)
+every 10 communication events. The location parameter of
+the standard normal time distribution has been set so that
+the occurrence of relevant events is shifted around the third
+part of the simulation experiment.
+As noted previously, the simulator can be fed with a 
+given scenario. This allows to analyze the worst case scenarios
+for IPT2 and IPT3. These scenarios correspond to the case
+where the relevant events are generated at the maximal 
+frequency (i.e., each time a process sends or receives a message,
+it produces a relevant event).
+Finally, the three IPT protocols are analyzed with the
+same simulation parameters.
+6.3 Simulation Results
+The results are displayed on the Figures 3.a-3.d. These
+figures plot the gain of the protocols in terms of the number
+of triples that are not transmitted (y axis) with respect to
+the number of communication events (x axis). From these
+figures, we observe that, whatever the time distribution 
+followed by the relevant events, both IPT2 and IPT3 exhibit
+a behavior better than IPT1 (i.e., the total number of 
+piggybacked triples is lower in IPT2 and IPT3 than in IPT1),
+even in the worst case (see Figure 3.d).
+Let us consider the worst scenario. In that case, the gain
+is obtained at the very beginning of the simulation and lasts
+as long as it exists a process Pj for which ∀k : V Cj[k] = 0.
+In that case, the condition ∀k : K(m, k) is satisfied. As soon
+as ∃k : V Cj[k] = 0, both IPT2 and IPT3 behave as IPT1
+(the shape of the curve becomes flat) since the condition
+K(m, k) is no longer satisfied.
+Figure 3.a shows that during the first events of the 
+simulation, the slope of curves IPT2 and IPT3 are steep. The
+same occurs in Figure 3.d (that depicts the worst case 
+scenario). Then the slope of these curves decreases and remains
+constant until the end of the simulation. In fact, as soon as
+V Cj[k] becomes greater than 0, the condition ¬K(m, k) 
+reduces to (Mi[j, k] = 0 ∨ IPi[k] = 0).
+Figure 3.b displays an interesting feature. It considers λ =
+100. As the relevant events are taken only during the very
+beginning of the simulation, this figure exhibits a very steep
+slope as the other figures. The figure shows that, as soon as
+no more relevant events are taken, on average, 45% of the
+triples are not piggybacked by the messages. This shows
+the importance of matrix Mi. Furthermore, IPT3 benefits
+from transmitting additional boolean vectors to save triple
+transmissions. The Figures 3.a-3.c show that the average
+gain of IPT3 with respect to IPT2 is close to 10%.
+Finally, Figure 3.c underlines even more the importance
+217
+of matrix Mi. When very few relevant events are taken,
+IPT2 and IPT3 turn out to be very efficient. Indeed, this
+figure shows that, very quickly, the gain in number of triples
+that are saved is very high (actually, 92% of the triples are
+saved).
+6.4 Lessons Learned from the Simulation
+Of course, all simulation results are consistent with the
+theoretical results. IPT3 is always better than or equal to
+IPT2, and IPT2 is always better than IPT1. The simulation
+results teach us more:
+• The first lesson we have learnt concerns the matrix Mi.
+Its use is quite significant but mainly depends on the time
+distribution followed by the relevant events. On the one
+hand, when observing Figure 3.b where a large number of
+relevant events are taken in a very short time, IPT2 can save
+up to 45% of the triples. However, we could have 
+expected a more sensitive gain of IPT2 since the boolean vector
+IP tends to stabilize to [1, ..., 1] when no relevant events
+are taken. In fact, as discussed in Section 5.3, the 
+management of matrix Mi within IPT2 does not allow a transitive
+transmission of information but only a direct transmission
+of this information. This explains why some columns of Mi
+may remain equal to 0 while they could potentially be equal
+to 1. Differently, as IPT3 benefits from transmitting 
+additional boolean vectors (providing a transitive transmission
+information) it reaches a gain of 50%.
+On the other hand, when very few relevant events are 
+taken in a large period of time (see Figure 3.c), the behavior of
+IPT2 and IPT3 turns out to be very efficient since the 
+transmission of up to 92% of the triples is saved. This comes from
+the fact that very quickly the boolean vector IPi tends to
+stabilize to [1, ..., 1] and that matrix Mi contains very few
+0 since very few relevant events have been taken. Thus, a
+direct transmission of the information is sufficient to quickly
+get matrices Mi equal to [1, ..., 1], . . . , [1, ..., 1].
+• The second lesson concerns IPT3, more precisely, the
+tradeoff between the additional piggybacking of boolean 
+vectors and the number of triples whose transmission is saved.
+With n = 10, adding 10 booleans to a triple does not 
+substantially increases its size. The Figures 3.a-3.c exhibit the
+number of triples whose transmission is saved: the average
+gain (in number of triples) of IPT3 with respect to IPT2 is
+about 10%.

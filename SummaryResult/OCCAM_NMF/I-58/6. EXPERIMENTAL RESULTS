@@ -1,0 +1,38 @@
+however, an increase in the number of variables can sometimes allow for a policy to be constructed more quickly due to more flexibility in the problem. 
+in general, runtime should increase since a larger multiset means a larger domain for the variables in the milp, and thus a larger search space.
+the runtime does not always increase strictly with the multiset size; indeed in one example (scenario 2 with 20 robber types), using a multiset of 10 elements took 1228 seconds, while using 80 elements only took 617 seconds.
+in all cases, the reward given by a multiset of 10 elements was within at least 96% of the reward given by an 80-element multiset.
+not surprisingly, the reward increases monotonically as the multiset size increases, but what is interesting is that there is relatively little benefit to using a large multiset in this domain.
+the trend is that as as the multiset size is increased, the runtime and reward level both increase.
+results here are for the three-house domain.
+the third set of graphs, shown in figure 3 shows the effect of the multiset size on runtime in seconds (left column) and reward (right column), again expressed as the reward received by the security agent in the patrolling game, and not a percentage of the optimal figure 2: reward for various algorithms on problems of 3 and 4 houses.
+this difference clearly illustrates the gains in the patrolling domain from committing to a strategy as the leader in a stackelberg game, rather than playing a standard bayes-nash strategy.
+the highest-reward bayes-nash equilibria, provided by the  mipnash method, produced rewards higher than the uniform method, but lower than asap.
+the asap method remains consistently close to the optimal, even as the number of robber types increases.
+the uniform policy consistently provides the lowest  reward in both domains; while the optimal method of course  produces the optimal reward.
+this reward is the utility received by the security agent in the patrolling game, and not as a percentage of the optimal reward, since it was not  possible to obtain the optimal reward as the number of robber types increased.
+the second set of graphs, figure 2, shows the reward to the patrol agent given by each method for three scenarios in the three-house (left column) and four-house (right column) domains.
+the runtime of asap does not increase strictly with the number of robber types for each scenario, but in general, the addition of more types increases the runtime required.
+on the other hand, asap runs much faster, and is able to solve for at least 20 adversaries for the three-house scenarios and for at least 12 adversaries in the four-house  scenarios within the cutoff time.
+mip-nash solves for even fewer robber types within the cutoff time.
+domain of three houses, the optimal method cannot reach a  solution for more than seven robber types, and for four houses it  cannot solve for more than six types within the cutoff time in any of the three scenarios.
+on autonomous agents and multi-agent systems (aamas 07) figure 1: runtimes for various algorithms on problems of 3 and 4 houses.
+joint conf.
+for a 316 the sixth intl.
+the asap algorithm clearly outperforms the optimal,  multiplelp method as well as the mip-nash algorithm for finding the  highestreward bayes-nash equilibrium with respect to runtime.
+the runtime for the uniform policy is always negligible irrespective of the number of adversaries and hence is not shown.
+all experiments that were not concluded in 30 minutes (1800 seconds) were cut off.
+the x-axis shows the number of robber types the  security agent faces and the y-axis of the graph shows the runtime in seconds.
+each of the three rows of graphs corresponds to a different randomly-generated scenario.
+the first set of graphs, shown in figure 1 shows the runtime graphs for three-house (left column) and four-house (right column) domains.
+in the first two sets of graphs, asap is run using a multiset of 80 elements; in the third set this number is varied.
+based on our experiments we present three sets of graphs to demonstrate (1) the runtime of asap compared to other common methods for finding a strategy, (2) the reward guaranteed by asap compared to other methods, and (3) the effect of varying the  parameter k, the size of the multiset, on the performance of asap.
+the highest-reward bayes-nash equilibria were used in order to demonstrate the higher reward gained by looking for an optimal policy rather than an equilibria in stackelberg games such as our security domain.
+we anticipated that the uniform policy would perform reasonably well since maximum-entropy policies have been shown to be effective in multiagent security domains [14].
+we use this method as a simple baseline to measure the  performance of our heuristics.
+the uniform randomization method is simply choosing a uniform random policy over all possible patrol routes.
+using the data generated, we performed the experiments using four methods for generating the security agent"s strategy: • uniform randomization • asap • the multiple linear programs method from [5] (to find the true optimal strategy) • the highest reward bayes-nash equilibrium, found using the mip-nash algorithm [17] the last three methods were applied using cplex 8.1. because the last two methods are designed for normal-form games rather than bayesian games, the games were first converted using the harsanyi transformation [8].
+all games are normalized so that, for each robber type, the minimum and maximum payoffs to the security agent and robber are 0 and 1, respectively.
+the payoff tables for additional robber types are constructed and added to the game by adding a random distribution of varying size to the payoffs in the base case.
+the description given in section 2 is used to generate a base case for both the security agent and robber payoff functions.
+the patrolling domain and the payoffs for the associated game are detailed in sections 2 and 3. we performed experiments for this game in worlds of three and four houses with patrols consisting of two houses.

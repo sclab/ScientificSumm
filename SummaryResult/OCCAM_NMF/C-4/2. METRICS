@@ -1,0 +1,48 @@
+as they yielded very similar results (though mnb results generally exhibited less variability) we only present embsd results. 
+for all  simulations in this paper we employed both schemes.
+5 we show an axis with approximate corresponding mos values).
+both metrics are distance measures, i.e., a ib suit value of 0 implies perfect quality, the larger the value, the worse the speech quality is (in fig.
+these two objective quality measure.~ are reported to have a very high correlation with subjective tests, their relation to the range of subjective test result values (mos) is close to being linear and they are recommended as being suitable for the  evaluation of speech degraded by transmission errors in real  network environments such as bit errors and frame erasures ([18, 211).
+in our evaluation we use two objective quality measures: the enhanced mod&d bark spectral distortion (embsd, [21]) and the measw ing normalizing blocks (mnb) described in the appendix ii of the itu-t recommendation p.861 ([18]).
+2.2 objective speech quality metrics unlike the conventional methods like the signal-t-noise  ratio (snr), novel objective quality measures attempt to  estimate the subjective quality as closely as possible by  modeling the human auditory system.
+as in equation 2 we can compute an estimate for the  probability of a burst loss length of k packets for a higher order model representation: b(y = k) = clpk-‘(1 - clp) (4) figure 3: loss run-length (gilbert model) model with two states figure 4: components of the end-to-end loss  recovery/control measurement setup.
+for pal = elp the gilbert model is  equivalent to a l-state (bernotilli) model with zllp = elp (no loss correlation).
+only one conditional loss probability clp for the transition 1 --t 1 exists: p~,e-d = cfl(~ -  lbd (3) if losses of one flow are correlated (i.e., the loss  probability of an arriving packet is itiuenced by the contribution to the state of the queue by a previous packet of the same flow and/or both the previous and the current packet see busty arrivals of other traffic, [15]) we have pal < clp and thus ulp 5 clp.
+= pi,,,,).
+then the probability of being in state m can be seen bs the uncow ditional loss probability ulp and approximated by the mean loss (pr.
+3) to characterize the loss process (x being the associated random variable with x = 0: no packet lost, x = 1 a packet lost).
+for p(y = k): p(y = k) = p(y=k)=l-pm: k=l pn p;;" (1 -pm): k 2 2 c-4 for the special case of a system with a memory of only the previous packet (m = l), we can use the runlength  distribution for a simple computation of the parameters of the commonly-used gilbert model (fig.
+for a three state model we have e.g.
+the run-length model implies a geometric distribution for residing in state x = m. for the probability of a burst loss length of k packets we thus can compute estimates for  performance parameters in a higher order model representation (note that here y represent the random variable used in the higher-order models).
+thus, the mean burst loss length is g = h = e = ct==, kgb corresponding to e[y] (average loss gap, [5]).
+we have the burst loss length rate ga = * as an estimate for p(y = k).
+(1) additionally, we also define a random variable y which de scribes the distribution of burst loss lengths with respect to the bunt loss events j (and not to packet events like in the definition of x).
+2 shows the markov chain for the model.
+the transition probabilities for 1 < lc < m can be computed easily as: p(k--l)(k) = p(x>klx>k-l)= p(x>knx>k-1) p(x>k-1) zz p ( x > k ) p(x>k-1) these conditional loss probabilities again can be  approxpzl,cum(k) _ cnm,k on i m a t e d by pl,cond@) = pl,cum(k-l) - c;ek--l 0,. for 443 figure 2: loss run-length model with m + 1 states p(x = m]x = m) we have: pl,,,d(rn) = %lf;:p fig.
+we can also approximate the state probabilities of the model by the cumulative loss rate p~,~,,~(k) = crskp~,,, (0 < k < m) and p~,~ = cr.p=, (n--mzl)ot (k = m).
+an approximation for the expectation of the random variable x can be computed as pi = cr==, #+l,k and identified with the mean loss rate.
+given the case of a finite number of packets a for a flow, which experiences d = cpc1 ]cok packet drops, we have the  relative frequency pl,k = 2 (p(x = k) for a + 00) for the occurence of a loss burst of length lc.
+due to the limited memory of the system, the last state x = m is just defined as crm consecutive packets lost, with p(x = m) being the state probability.
+if a packet is successfully received, the state returns to x = 0. thus, the state probability of the system for 0 < ic < m is p(x 2 zc).
+in the model, for every additional lost packet which adds to the length of a loss burst a state transition takes place.
+with this definition, we establish a loss run-length model with a finite number of states (m + 1) which gives loss probabilities dependent on the burst length.
+note that the parameters of the model become independent of the sequence number s and can now rather be described by the occurence ok of a loss run length k. we define the random variable x as follows: x = 0: no packet lost, x = k (0 < lc < m): ezactly lc consecutive packets lost, and x 2 k (0 < k < m): at least k  consecutive packets lost.
+we define a loss run length lc for a sequence of ic consecutively lost packets detected at sj (sj > ic > 0) with z(sj - k - 1) = o,z(sj) = 0 and z(sj - k + i) = 1 v i e [0, ic - 11, j being the j-th ‘<burst loss event.
+,z(s - 1) ) with z(s - ic + i) = 1 v i e [0, ic - 11, where ic (0 < k 5 m) is a variable parameter.
+the number of states of the model can be reduced from 2m to m + 1. this means that we only consider the state transition probability p( z(s) ] z(s - k), .
+thus, in the following we employ a model ([12]) which only considers the past loss events for the state transition  probability.
+this implies that patterns of short loss bursts interspersed with short periods of successful packet arrivals occur rarely (note in this context that in ‘&able 1 the pattern 101 has by far the lowest state probability).
+they came to the result that such correlation is very weak.
+([20]) both confirmed this by measuring the cross correlation of the loss- and  no-loss-runlengths.
+([l]) as well as yajnik et.
+andren et.
+intuitively this seems to make sense, because a successfully arriving packet can be seen as a indicator for congestion relief.
+it is interesting to note that for all states with z(s - 1) = 0 the probability for the next packet not to be lost (z(s) = 0) is generally very high (> 0.8, in bold typeface) whereas when z(s- 1) = 1 the state transition probabilities to that event cover the range of 0.15 to 0.61. that means that past no loss events do not affect the loss process as much as past loss events.
+([19]).
+table 1 shows some values for the state and transition probabilities for a general markov model of third order measured end-to-end in the internet by yajnik et.
+even for relatively small m this amount of parameters is difficult to be evaluated and compared.
+thus, the number of parameters which have to be computed is 2m+1.
+the number of states of the model is 2. two state transitions can take place from any of the states.
+as an example p( z(s) = 1 ] z(s -  2),z(s1) = 01 ) gives the state transition probability when the current packet s is lost, the previous packet s - 1 has also been lost and packet s - 2 has not been lost.
+, z(s-2),z(s-1) appear in the state space.
+2.1 packet-level metrics a general markov model ([19, s]) which describes the loss process is defined as follows: let p( z(s) ] z(s - m),... ,z(s - 2),z(s - 1) ) be the state transition probability of a general markov model of order m, where z(s) is the loss indicator function for the packet with the sequence number s. all combinations for the values (0 and 1) of the sequence z(s-m), .

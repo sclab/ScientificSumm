@@ -1,0 +1,302 @@
+OPTIMAL NASH EQUILIBRIUM
+We have seen that the Nash equilibrium that maximizes the 
+social welfare may involve strategies that are not in Q. Hence, in this
+section we focus on finding a Nash equilibrium that is almost 
+optimal from the social welfare perspective. We propose an algorithm
+that for any > 0 finds a Nash equilibrium whose total payoff
+is within from optimal. The running time of this algorithm is
+polynomial in 1/ , n and |Pmax| (recall that Pmax is the maximum
+absolute value of an entry of a payoff matrix).
+While the negative result of the previous section is for graphical
+games on paths, our algorithm applies to a wider range of 
+scenarios. Namely, it runs in polynomial time on bounded-degree trees
+166
+as long as the best response policy of each vertex, given its parent,
+can be represented as a union of a polynomial number of 
+rectangles. Note that path graphs always satisfy this condition: in [9] we
+showed how to compute such a representation, given a graph with
+maximum degree 2. Consequently, for path graphs the running time
+of our algorithm is guaranteed to be polynomial. (Note that [9]
+exhibits a family of graphical games on bounded-degree trees for
+which the best response policies of some of the vertices, given their
+parents, have exponential size, when represented as unions of 
+rectangles.)
+Due to space restrictions, in this version of the paper we present
+the algorithm for the case where the graph underlying the graphical
+game is a path. We then state our result for the general case; the
+proof can be found in the full version of this paper [10].
+Suppose that s is a strategy profile for a graphical game G. That
+is, s assigns a mixed strategy to each vertex of G. let EPV (s)
+be the expected payoff of player V under s and let EP(s) =P
+V EPV (s). Let
+M(G) = max{EP(s) | s is a Nash equilibrium for G}.
+THEOREM 3. Suppose that G is a graphical game on an 
+nvertex path. Then for any > 0 there is an algorithm that 
+constructs a Nash equilibrium s for G that satisfies EP(s ) ≥ M(G)−
+. The running time of the algorithm is O(n4
+P3
+max/ 3
+)
+PROOF. Let {V1, . . . , Vn} be the set of all players. We start by
+constructing the best response policies for all Vi, i = 1, . . . , n − 1.
+As shown in [9], this can be done in time O(n3
+).
+Let N > 5n be a parameter to be selected later, set δ = 1/N,
+and define X = {jδ | j = 0, . . . , N}. We say that vj is an event
+point for a player Vi if it is a Vi-event point for B(Vi, Vi−1) or
+B(Vi+1, Vi). For each player Vi, consider a finite set of strategies
+Xi given by
+Xi = X ∪ {vj |vj is an event point for Vi}.
+It has been shown in [9] that for any i = 2, . . . , n, the best response
+policy B(Vi, Vi−1) has at most 2n + 4 Vi-event points. As we
+require N > 5n, we have |Xi| ≤ 2N; assume without loss of
+generality that |Xi| = 2N. Order the elements of Xi in increasing
+order as x1
+i = 0 < x2
+i < · · · < x2N
+i . We will refer to the strategies
+in Xi as discrete strategies of player Vi; a strategy profile in which
+each player has a discrete strategy will be referred to as a discrete
+strategy profile.
+We will now show that even we restrict each player Vi to 
+strategies from Xi, the players can still achieve a Nash equilibrium, and
+moreover, the best such Nash equilibrium (with respect to the 
+social welfare) has total payoff at least M(G) − as long as N is
+large enough.
+Let s be a strategy profile that maximizes social welfare. That is,
+let s = (s1, . . . , sn) where si is the mixed strategy of player Vi and
+EP(s) = M(G). For i = 1, . . . , n, let ti = max{xj
+i | xj
+i ≤ si}.
+First, we will show that the strategy profile t = (t1, . . . , tn) is a
+Nash equilibrium for G.
+Fix any i, 1 < i ≤ n, and let R = [v1, v2]×[u1, u2] be the 
+rectangle in B(Vi, Vi−1) that contains (si, si−1). As v1 is a Vi-event
+point of B(Vi, Vi−1), we have v1 ≤ ti, so the point (ti, si−1) is 
+inside R. Similarly, the point u1 is a Vi−1-event point of B(Vi, Vi−1),
+so we have u1 ≤ ti−1, and therefore the point (ti, ti−1) is inside R.
+This means that for any i, 1 < i ≤ n, we have ti−1 ∈ pbrVi−1
+(ti),
+which implies that t = (t1, . . . , tn) is a Nash equilibrium for G.
+Now, let us estimate the expected loss in social welfare caused
+by playing t instead of s.
+LEMMA 3. For any pair of strategy profiles t, s such that |ti −
+si| ≤ δ we have |EPVi (s) − EPVi (t)| ≤ 24Pmaxδ for any i =
+1, . . . , n.
+PROOF. Let Pi
+klm be the payoff of the player Vi, when he plays
+k, Vi−1 plays l, and Vi+1 plays m. Fix i = 1, . . . , n and for
+k, l, m ∈ {0, 1}, set
+tklm
+= tk
+i−1(1 − ti−1)1−k
+tl
+i(1 − ti)1−l
+tm
+i+1(1 − ti+1)1−m
+sklm
+= sk
+i−1(1 − si−1)1−k
+sl
+i(1 − si)1−l
+sm
+i+1(1 − si+1)1−m
+.
+We have
+|EPVi (s) − EPVi (t)| ≤
+X
+k,l,m=0,1
+|Pi
+klm(tklm
+− sklm
+)| ≤
+8Pmax max
+klm
+|tklm
+− sklm
+|
+We will now show that for any k, l, m ∈ {0, 1} we have |tklm
+−
+sklm
+| ≤ 3δ; clearly, this implies the lemma.
+Indeed, fix k, l, m ∈ {0, 1}. Set
+x = tk
+i−1(1 − ti−1)1−k
+, x = sk
+i−1(1 − si−1)1−k
+,
+y = tl
+i(1 − ti)1−l
+, y = sl
+i(1 − si)1−l
+,
+z = tm
+i+1(1 − ti+1)1−m
+, z = sm
+i+1(1 − si+1)1−m
+.
+Observe that if k = 0 then x − x = (1 − ti−1) − (1 − si−1),
+and if k = 1 then x − x = ti−1 − si−1, so |x − x | ≤ δ. A
+similar argument shows |y − y | ≤ δ, |z − z | ≤ δ. Also, we have
+x, x , y, y , z, z ∈ [0, 1]. Hence, |tklm
+−sklm
+| = |xyz−x y z | =
+|xyz − x yz + x yz − x y z + x y z − x y z | ≤ |x − x |yz +
+|y − y |x z + |z − z |x y ≤ 3δ.
+Lemma 3 implies
+Pn
+i=1 |EPVi (s) − EPVi (t)| ≤ 24nPmaxδ,
+so by choosing δ < /(24nPmax), or, equivalently, setting N >
+24nPmax/ , we can ensure that the total expected payoff for the
+strategy profile t is within from optimal.
+We will now show that we can find the best discrete Nash 
+equilibrium (with respect to the social welfare) using dynamic 
+programming. As t is a discrete strategy profile, this means that the strategy
+profile found by our algorithm will be at least as good as t.
+Define ml,k
+i to be the maximum total payoff that V1, . . . , Vi−1
+can achieve if each Vj , j ≤ i, chooses a strategy from Xj , for each
+j < i the strategy of Vj is a potential best response to the strategy
+of Vj+1, and, moreover, Vi−1 plays xl
+i−1, Vi plays xk
+i . If there is
+no way to choose the strategies for V1, . . . , Vi−1 to satisfy these
+conditions, we set ml,k
+i = −∞. The values ml,k
+i , i = 1, . . . , n;
+k, l = 1, . . . , N, can be computed inductively, as follows.
+We have ml,k
+1 = 0 for k, l = 1, . . . , N. Now, suppose that we
+have already computed ml,k
+j for all j < i; k, l = 1, . . . , N. To
+compute mk,l
+i , we first check if (xk
+i , xl
+i−1) ∈ B(Vi, Vi−1). If this
+is not the case, we have ml,k
+i = −∞. Otherwise, consider the set
+Y = Xi−2 ∩ pbrVi−2
+(xl
+i−1), i.e., the set of all discrete strategies
+of Vi−2 that are potential best responses to xl
+i−1. The proof of
+Theorem 1 in [9] implies that the set pbrVi−2
+(xl
+i−1) is non-empty:
+the player Vi−2 has a potential best response to any strategy of
+Vi−1, in particular, xl
+i−1. By construction of the set Xi−2, this
+implies that Y is not empty. For each xj
+i−2 ∈ Y , let pjlk be the
+payoff that Vi−1 receives when Vi−2 plays xj
+i−2, Vi−1 plays xl
+i−1,
+and Vi plays xk
+i . Clearly, pjlk can be computed in constant time.
+Then we have ml,k
+i = max{mj,l
+i−1 + pjlk | xj
+i−2 ∈ Y }.
+Finally, suppose that we have computed ml,k
+n for l, k = 1, . . . , N.
+We still need to take into account the payoff of player Vn. Hence,
+167
+we consider all pairs (xk
+n, xl
+n−1) that satisfy xl
+n−1 ∈ pbrVn−1
+(xk
+n),
+and pick the one that maximizes the sum of mk,l
+n and the payoff of
+Vn when he plays xk
+n and Vn−1 plays xl
+n−1. This results in the
+maximum total payoff the players can achieve in a Nash 
+equilibrium using discrete strategies; the actual strategy profile that 
+produces this payoff can be reconstructed using standard dynamic 
+programming techniques.
+It is easy to see that each ml,k
+i can be computed in time O(N),
+i.e., all of them can be computed in time O(nN3
+). Recall that
+we have to select N ≥ (24nPmax)/ to ensure that the strategy
+profile we output has total payoff that is within from optimal. We
+conclude that we can compute an -approximation to the best Nash
+equilibrium in time O(n4
+P3
+max/ 3
+). This completes the proof of
+Theorem 3.
+To state our result for the general case (i.e., when the underlying
+graph is a bounded-degree tree rather than a path), we need 
+additional notation. If G has n players, let q(n) be an upper bound
+on the number of event points in the representation of any best
+response policy. That is, we assume that for any vertex U with
+parent V , B(V, U) has at most q(n) event points. We will be 
+interested in the situation in which q(n) is polynomial in n.
+THEOREM 4. Let G be an n-player graphical game on a tree
+in which each node has at most Δ children. Suppose we are given a
+set of best-response policies for G in which each best-response 
+policy B(V, U) is represented by a set of rectangles with at most q(n)
+event points. For any > 0, there is an algorithm that constructs a
+Nash equilibrium s for G that satisfies EP(s ) ≥ M(G) − . The
+running time of the algorithm is polynomial in n, Pmax and −1
+provided that the tree has bounded degree (that is, Δ = O(1)) and
+q(n) is a polynomial in n. In particular, if
+N = max((Δ + 1)q(n) + 1, n2Δ+2
+(Δ + 2)Pmax
+−1
+)
+and Δ > 1 then the running time is O(nΔ(2N)Δ
+.
+For the proof of this theorem, see [10].
+4.1 A polynomial-time algorithm for 
+multiplicative approximation
+The running time of our algorithm is pseudopolynomial rather
+than polynomial, because it includes a factor which is polynomial
+in Pmax, the maximum (in absolute value) entry in any payoff 
+matrix. If we are interested in multiplicative approximation rather than
+additive one, this can be improved to polynomial.
+First, note that we cannot expect a multiplicative 
+approximation for all inputs. That is, we cannot hope to have an algorithm
+that computes a Nash equilibrium with total payoff at least (1 −
+)M(G). If we had such an algorithm, then for graphical games
+G with M(G) = 0, the algorithm would be required to output
+the optimal solution. To show that this is infeasible, observe that
+we can use the techniques of Section 3.2 to construct two 
+integercoefficient graphical games on paths of length O(n) such that for
+some X ∈ R the maximal total payoff in the first game is X,
+the maximal total payoff in the second game is −X, and for both
+games, the strategy profiles that achieve the maximal total payoffs
+involve algebraic numbers of degree n. By combining the two
+games so that the first vertex of the second game becomes 
+connected to the last vertex of the first game, but the payoffs of all
+players do not change, we obtain a graphical game in which the
+best Nash equilibrium has total payoff 0, yet the strategies that lead
+to this payoff have high algebraic complexity.
+However, we can achieve a multiplicative approximation when
+all entries of the payoff matrices are positive and the ratio between
+any two entries is polynomially bounded. Recall that we assume
+that all payoffs are integer, and let Pmin > 0 be the smallest entry
+of any payoff matrix. In this case, for any strategy profile the payoff
+to player i is at least Pmin, so the total payoff in the social-welfare
+maximizing Nash equilibrium s satisfies M(G) ≥ nPmin. 
+Moreover, Lemma 3 implies that by choosing δ < /(24Pmax/Pmin),
+we can ensure that the Nash equilibrium t produced by our 
+algorithm satisfies
+nX
+i=1
+EPVi (s) −
+nX
+i=1
+EPVi (t) ≤ 24Pmaxδn ≤ nPmin ≤ M(G),
+i.e., for this value of δ we have
+Pn
+i=1 EPVi (t) ≥ (1 − )M(G).
+Recall that the running time of our algorithm is O(nN3
+), where N
+has to be selected to satisfy N > 5n, N = 1/δ. It follows that if
+Pmin > 0, Pmax/Pmin = poly(n), we can choose N so that our
+algorithm provides a multiplicative approximation guarantee and
+runs in time polynomial in n and 1/ .

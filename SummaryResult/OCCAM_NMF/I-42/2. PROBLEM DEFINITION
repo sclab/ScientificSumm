@@ -1,0 +1,28 @@
+our heuristics that generate cross-edged pseudotrees use a distributed best-first search traversal. 
+this includes dfs, breadth-first search, and best-first search based traversals.
+we define an edge-traversal based method as any method that produces a pseudotree in which all parent/child pairs share an edge in the original graph.
+one common heuristic is to perform a guided depth-first search (dfs) as the resulting traversal is a pseudotree, and a dfs can easily be performed in a distributed fashion.
+first, the dcop instance < x, d, u > translates directly into a graph with x as the set of vertices and an edge for each pair of variables represented in u. next, various heuristics are used to arrange this graph into a pseudotree.
+our dcpop algorithm generates a cross-edged pseudotree in the same fashion.
+on autonomous agents and multi-agent systems (aamas 07) current algorithms usually have a pre-execution phase to  generate a traditional pseudotree from a general dcop instance.
+joint conf.
+this definition also yields two additional types of relationships that may exist between nodes: • bp(x) - the branch-parents of a node x: the set of nodes higher in the pseudotree that are connected to x but are not in the primary path from x to the root (in figure 2, d = bp(e)) • bc(x) - the branch-children of a node x: the set of nodes lower in the pseudotree that are connected to x but are not in any primary path from x to any leaf node (in figure 2, e = bc(d)) 2.3 pseudotree generation 742 the sixth intl.
+the parent, child, pseudo-parent, and pseudo-child relationships from the traditional pseudotree are now defined in the context of this  primary edge spanning tree.
+the set of primary edges defines a spanning tree of the nodes.
+in a cross-edged pseudotree we designate certain edges as primary.
+figure 2 shows a cross-edged pseudotree with a cross-edge (d-e).
+a cross-edged  pseudotree is a traditional pseudotree with the addition of cross-edges.
+the bolded node, b, is the merge point for node e. 2.2 cross-edged pseudotrees we define a cross-edge as an edge from node x to a node y that is above x but not in the path from x to the root.
+solid line edges represent parent-child relationships, the dashed line represents a  pseudoparent-pseudo-child relationship, and the dotted line  represents a branch-parent-branch-child relationship.
+figure 2: a cross-edged pseudotree.
+solid line edges  represent parent-child relationships and the dashed line represents a pseudo-parent-pseudo-child relationship.
+also defined in [6] are four types of relationships between nodes exist in a pseudotree: • p(x) - the parent of a node x: the single node higher in the pseudotree that is connected to x directly through a tree edge • c(x) - the children of a node x: the set of nodes lower in the pseudotree that are connected to x directly through tree edges • pp(x) - the pseudo-parents of a node x: the set of nodes higher in the pseudotree that are connected to x directly through back-edges (in figure 1, a = pp(c)) • pc(x) - the pseudo-children of a node x: the set of nodes lower in the pseudotree that are connected to x directly through back-edges (in figure 1, c = pc(a)) figure 1: a traditional pseudotree.
+figure 1 shows a pseudotree with four nodes, three edges (a-b, b-c,  bd), and one back-edge (a-c).
+as defined in [6], a pseudotree is an arrangement of a graph g into a rooted tree t such that vertices in g that share an edge are in the same branch in t. a back-edge is an edge between a node x and any node which lies on the path from x to the root (excluding x"s parent).
+2.1 traditional pseudotrees pseudotrees are a common structure used in search procedures to allow parallel processing of independent branches.
+higher order utility functions can be modeled with minor changes to the algorithm, but they also substantially increase the complexity.
+for this paper we only consider binary utility functions involving two variables.
+the utility functions represent soft constraints but can also represent hard constraints by using arbitrarily large negative values.
+problem domains that require minimum cost instead of maximum utility can map costs into negative utilities.
+a distributed constraint optimization problem with n nodes and m constraints consists of the tuple < x, d, u > where: • x = {x1,..,xn} is a set of variables, each one assigned to a unique agent • d = {d1,..,dn} is a set of finite domains for each variable • u = {u1,..,um} is a set of utility functions such that each function involves a subset of variables in x and defines a utility for each combination of values among these variables an optimal solution to a dcop instance consists of an assignment of values in d to x such that the sum of utilities in u is maximal.
+dcop has been formalized in slightly different ways in recent literature, so we will adopt the definition as presented in [6].

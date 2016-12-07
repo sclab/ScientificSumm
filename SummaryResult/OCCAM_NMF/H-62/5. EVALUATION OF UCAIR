@@ -1,0 +1,38 @@
+ranking method prec@5 prec@10 prec@20 prec@30 google 0.538 0.472 0.377 0.308 ucair 0.581 0.556 0.453 0.375 improvement 8.0% 17.8% 20.2% 21.8% table 2: table of average precision at top n documents for 32 query topics the plot in figure 6 shows the precision-recall curves for ucair and google, where it is clearly seen that the performance of ucair 0 0.2 0.4 0.6 0.8 1 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 ucair prec@10 googleprec@10 scatterplot of precision at top 10 documents figure 4: precision at top 10 documents of ucair and google is consistently and considerably better than that of google at all levels of recall. 
+thus the retrieval system can build more precise implicit user models, which lead to better retrieval accuracy.
+one explanation for this is that the more interaction the user has with the system, the more  clickthrough data ucair can be expected to collect.
+moreover, the performance  improvement is more dramatic for precision at top 20 documents than that at precision at top 10 documents.
+from figure 4, figure 5 and table 2, we see that the search results from ucair are consistently better than those from google by all the measures.
+table 2 shows the average precision at top n documents among 32 topics.
+each point of the scatter plots represents the  precisions of google and ucair on one query topic.
+scatter plots of precision at top 10 and top 20 documents are shown in figure 4 and figure 5 respectively (the scatter plot of precision at top 30 documents is very similar to precision at top 20 documents).
+altogether, 368 documents judged as relevant from google search results and 429 documents judged as relevant from ucair by  participants.
+we also evaluate precisions at different recall levels.
+we measure precision at top n (n = 5, 10, 20, 30) documents of google and ucair.
+the participant would then judge the relevance of these results.
+at the time of evaluation, 30 top ranked results from google and ucair (some are overlapping) are randomly mixed together so that the participant would not know whether a result comes from google or ucair.
+when the participant plans to change the search topic, he/she will simply press a button 2 text retrieval conference: http://trec.nist.gov/ 829 figure 2: screen shots for result reranking to evaluate the search results before actually switching to the next topic.
+there is no requirement or restriction on how many queries the participant must submit or when the  participant should stop the search for one topic.
+during this process, the participant may view the search results and possibly click on some interesting ones to view the web pages, just as in a normal web search.
+for each picked topic, the participant would essentially do the  normal web search using ucair to find many relevant web pages by using the title of the query topic as the initial keyword query.
+initially, each participant would browse 50 topics either from terabyte track or web track and pick 5 or 7 most interesting topics.
+finally the narrative supplies additional information necessary to fully specify the requirement, expressed in the form of a short paragraph.
+the description field provides a slightly longer statement of the topic requirement, usually expressed as a single complete sentence or question.
+an example topic from trec 2004 terabyte track appears in figure 3. the title is a short phrase and may be used as a query to the retrieval system.
+we use query topics from trec 2 2004 terabyte track [2] and trec 2003 web track [4] topic distillation task in the way to be described below.
+</top> figure 3: an example of trec query topic, expressed in a form which might be given to a human assistant or librarian istry).
+documents which describe laws to limit spam without giving details of lawsuits or criminal trials are not relevant.
+<narr> narrative: instances of arrests, prosecutions, convictions, and punishments of spammers, and lawsuits against them are relevant.
+we recruited 6 graduate students for this user study, who have different backgrounds (3 computer science, 2 biology, and 1  chem<top> <num> number: 716 <title> spammer arrest sue <desc> description: have any spammers been arrested or sued for sending unsolicited e-mail?
+here, we design a user study, in which participants would do normal web search and judge a randomly and anonymously mixed set of results from google and ucair at the end of the search session; participants do not know whether a result comes from google or ucair.
+it is a challenge to quantitatively evaluate the potential  performance improvement of our proposed model and ucair over google in an unbiased way [7].
+5.2 quantitative evaluation to further evaluate ucair quantitatively, we conduct a user study on the effectiveness of the eager implicit feedback  component.
+however, after the user views the web page content of the second result (about jaguar car) and returns to the search result page by clicking back  button, ucair automatically nominates two new search results about jaguar cars (shown on the right side), while the original two results about jaguar software are pushed down on the list (unseen from the picture).
+in this case, the initial retrieval results using jaguar (shown on the left side) contain two results about the jaguar cars followed by two results about the jaguar software.
+in figure 2, we show how ucair can successfully disambiguate an ambiguous query jaguar by exploiting a viewed document  summary.
+the eager implicit feedback component is designed to  immediately respond to a user"s activity such as viewing a document.
+due to implicit user modeling, ucair intelligently figures out to add indonesia and class, respectively, to the user"s query java map, which would  otherwise be ambiguous as shown in the original results from google on march 21, 2005. ucair"s results are much more accurate than google"s results and reflect personalization in search.
+in table 1, we show how ucair can successfully distinguish two different search contexts for the query java map, corresponding to two different previous queries (i.e., travel indonesia vs. hashtable).
+in practice, whenever it chooses to expand the query, the  expansion usually makes sense.
+5.1 sample results the query expansion strategy implemented in ucair is  intentionally conservative to avoid misinterpretation of implicit user  models.
+we now present some results on evaluating the two major ucair functions: selective query expansion and result reranking based on user clickthrough data.

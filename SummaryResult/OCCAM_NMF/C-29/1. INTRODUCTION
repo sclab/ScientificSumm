@@ -1,0 +1,30 @@
+of the conflex system is presented in section2, and the implementation and design of conflex-g are described in section 3. we report experimental results obtained using conflex-g and discuss its performance in section 4. in section 6, we present conclusions and discuss subjects for future study. 
+an overview selection of initial structure conformations database local perturbation geometry optimization comparison and registration figure 1: algorithm of conformational space search in the original conflex.
+the rest of this paper is organized as follows.
+in addition, the user can easily build a private grid environment.
+furthermore, by using omnirpc, the user can grid-parallelize the existing application, and move from the cluster to the grid  environment without modifying program code and compiling the program.
+the omnirpc facility of the automatic initializable module (aim) allows the system to efficiently calculate numerous conformers.
+we  demonstrate conflex-g on our grid testbed using the actual protein as a sample molecule.
+this paper demonstrates that conflex-g is able to  exploit the huge computer resources of a grid environment and search large-scale molecular conformers.
+in the omnirpc system, once a remote executable is invoked, the client attempts to use the invoked remote executable and its initialized state for subsequent rpc calls to the same remote functions in order to eliminate the  invocation cost of each call.
+in the current gridrpc system[10], the data set by the previous call cannot be used by subsequent calls.
+in order to support a typical application for a grid  environment, such as a parametric search application, in which the same function is executed with different input parameters on the same data set.
+in this paper, we propose the omnirpc persistence model to a grid rpc system and demonstrate its effectiveness.
+in order to support parallel programming, an rpc client can issue asynchronous call requests to a different remote computer to exploit  networkwide parallelism via omnirpc.
+the  rpcstyle system provides an easy-to-use, intuitive programming interface, allowing users of the grid system to easily  create grid-enabled applications.
+several systems adopt the concept of the rpc as the basic model for grid environment computing, including ninf-g[7], netsolve[8] and corba[9].
+omnirpc[2, 3, 4] is a thread-safe implementation of ninf rpc[5, 6] which is a grid rpc facility for grid  environment computing.
+in addition, we compare the performance of conflex-g in a local pc cluster to that in a grid testbed.
+the prototype conflex-g allocates calculation trial structures  optimization, which is a very time-consuming task, to worker nodes in the grid environment in order to obtain high throughput.
+in this paper, we describe conflex-g, a grid-enabled molecular conformational search program, using omnirpc and report its performance in a grid of several pc  clusters which are geographically distributed.
+this requires the vast computer resources of a grid computing environment.
+therefore, for high polymers from live organisms, such as hiv protease, the use one pc cluster is insufficient due to the requirement for optimization of a huge number of trial structures.
+although the parallelized version of conflex was used to calculate in parallel the structure optimization, which takes up over 90% of the processing in the molecular  conformation search, sufficient improvement in the speedup could not be achieved by this method alone.
+since trial structure optimization in conflex is calculated via molecular mechanics, conformational space search can be performed quickly compared to that using molecular orbital calculation.
+the  performance of the parallelized conflex enables exploration of the lower-energy region of the conformational space of small peptides within an available elapsed time using a local pc cluster.
+we have applied this 154 program to parallelization using global computing.
+conflex is one of the most efficient and reliable  conformational space search programs[1].
+rapid advances in wide-area  networking technology and infrastructure have made it possible to construct large-scale, high-performance distributed  computing environments, or computational grids, that provide  dependable, consistent and pervasive access to enormous  computational resources.
+recently, the concept of the computational grid has begun to attract significant interest in the field of high-performance network computing.
+while some of the most  common secondary structures (e.g., certain types of helix, the beta-strand, and the coil) are well known, precise  analysis of the thousands of chemically important conformers and pico-second-order analysis of their conformational  interconversions via the transition states on the potential energy surface are required for the microsecond-order investigation of the folding process toward the tertiary structure  formations.
+elucidation of the stable conformations and the folding process of proteins is one of the most fundamental and  challenging goals in life science.

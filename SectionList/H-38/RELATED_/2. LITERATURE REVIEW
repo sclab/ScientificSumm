@@ -1,0 +1,76 @@
+The importance of a Web page is determined by either
+the textual content of pages or the hyperlink structure or
+both. As in previous work [7, 13], we focus on ranking
+methods solely determined by hyperlink structure of the
+Web graph. All the mentioned ranking algorithms are 
+established on a graph. For our convenience, we first give some
+notations. Denote a static graph by G = (V, E), where V =
+{v1, v2, . . . , vn}, E = {(vi, vj) | there is an edge from vi to
+vj}. Ii and di denote the in-degree and the out-degree of
+page i respectively.
+2.1 PageRank
+The importance of a Web page is an inherently subjective
+matter, which depends on the reader"s interests, knowledge
+and attitudes [13]. However, the average importance of all
+readers can be considered as an objective matter. PageRank
+tries to find such average importance based on the Web link
+structure, which is considered to contain a large amount of
+statistical data. The Web is modelled by a directed graph G
+in the PageRank algorithms, and the rank or importance
+xi for page vi ∈ V is defined recursively in terms of pages
+which point to it: xi = (j,i)∈E aijxj, where aij is assumed
+to be 1/dj if there is a link from j to i, and 0 otherwise. Or
+in matrix terms, x = Ax. When the concept of random
+jump is introduced, the matrix form is changed to
+x = [(1 − α)g1T
++ αA]x, (1)
+where α is the probability of following the actual link from a
+page, (1 − α) is the probability of taking a random jump,
+and g is a stochastic vector, i.e., 1T
+g = 1. Typically, α =
+0.85, and g = 1
+n
+1 is one of the standard settings, where 1 is
+the vector of all ones [6, 13].
+2.2 TrustRank
+TrustRank [7] is composed of two parts. The first part
+is the seed selection algorithm, in which the inverse 
+PageRank was proposed to help an expert of determining a good
+node. The second part is to utilize the biased PageRank,
+in which the stochastic distribution g is set to be shared by
+all the trusted pages found in the first part. Moreover, the
+initial input of x is also set to be g. The justification for
+the inverse PageRank and the solid experiments support its
+advantage in combating the Web spam. Although there are
+many variations of PageRank, e.g., a family of link-based
+ranking algorithms in [2], TrustRank is especially chosen for
+comparisons for three reasonss: (1) it is designed for 
+combatting spamming; (2) its fixed parameters make a 
+comparison easy; and (3) it has a strong theoretical relations with
+PageRank and DiffusionRank.
+2.3 Manifold Ranking
+In [17], the idea of ranking on the data manifolds was 
+proposed. The data points represented as vectors in Euclidean
+space are considered to be drawn from a manifold. From
+the data points on such a manifold, an undirected weighted
+graph is created, then the weight matrix is given by the
+Gaussian Kernel smoothing. While the manifold ranking
+algorithm achieves an impressive result on ranking images,
+the biased vector g and the parameter k in the general 
+personalized PageRank in [17] are unknown in the Web graph
+setting; therefore we do not include it in the comparisons.
+2.4 Heat Diffusion
+Heat diffusion is a physical phenomena. In a medium,
+heat always flow from position with high temperature to
+position with low temperature. Heat kernel is used to 
+describe the amount of heat that one point receives from 
+another point. Recently, the idea of heat kernel on a manifold
+is borrowed in applications such as dimension reduction [3]
+and classification [9, 10, 14]. In these work, the input data
+is considered to lie in a special structure.
+All the above topics are related to our work. The readers
+can find that our model is a generalization of PageRank in
+order to resist Web manipulation, that we inherit the first
+part of TrustRank, that we borrow the concept of ranking on
+the manifold to introduce our model, and that heat diffusion
+is a main scheme in this paper.

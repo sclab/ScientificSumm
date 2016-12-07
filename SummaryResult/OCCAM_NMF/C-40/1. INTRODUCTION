@@ -1,0 +1,35 @@
+finally, we conclude and address future research directions in section 7. 
+section 5 reports on the quantitative analysis and section 6 presents preliminary results of our simulation based experiments.
+we also discuss its optimization issues.
+in  section 4, we present assumptions on our target application and  introduce a new spatial indexing method designed to support real-time visibility computations.
+section 3 describes our new view method.
+section 2 presents related work.
+the organization of this paper is as follows.
+our two novel methods represent the main contributions of this work.
+to address these challenges, we propose a method that identifies the most relevant visible objects from a given geometry database (view model) and then put forth a fast indexing method that  computes the visible objects for each user (spatial indexing).
+this challenge is illustrated by the fact that the maximum number of concurrent users per server of second life is still an order of magnitude smaller than for stationary worlds.
+the visibility calculation for each user not only needs to be  accurate, but also fast.
+if δ is small, or the house is large enough to collide with the user, it will disrupt the user"s  navigational experience.
+as the user moves forward, the house will suddenly appear at time (t + δ) as shown in figure 1(b).
+for example, a house outside a user"s visible range is not drawn at time t, illustrated in figure 1(a).
+the traditional visibility determination approach, however, has an object popping problem.
+one of the main operations in mmog applications that stream 3d objects is to accurately calculate all objects that are visible to a user.
+as a result, this  extensible gaming environment has accelerated the deployment of  usercreated content and provides users with unlimited freedom to  pursue a navigational experience in its space.
+in this model, a server continuously transmits both update events and geometry data to every connected user.
+employs a client/server based 3d object streaming model [5].
+402 avatar object poppingautonomous entities (a) at time t (b) at time t+δ figure 1: object popping occurred as a user moves forward (screenshots from second life) where δ = 2 seconds.
+but we acknowledge that these requirements are also valid for new virtual environments.
+to mitigate the dynamics of the game world, where a large number of autonomous objects are  continuously moving, it partitions the space in a grid-like manner and 2 originally, these requirements were specified for their dedicated platform.
+second life [4] is the first successfully deployed mmog  system that meets both requirements.
+typically, the maximum  number of users in the same world managed by a single server or a server-cluster is limited to several thousands, assuming a rather stationary world [2, 3].
+by  carefully partitioning the world into multiple sub-worlds or replicating worlds at geographically dispersed locations, massive numbers of concurrent users can be supported.
+although mmog developers proclaim that their systems can support hundreds of thousands of concurrent users, it usually does not mean that all the users can interact with each other in the same world.
+another important requirement is scalability.
+full support for dynamic extensibility will, thus, continue to be one of the biggest challenges for game developers.
+this is a powerful concept, but unfortunately, user-created content tends to create imbalances among the  existing scene complexity, causing system-wide performance problems.
+dynamic extensibility allows regular game-users to deploy their own created content.
+in this paper, we mainly focus on the first two  requirements.
+[1] identified four new requirements2 : dynamic extensibility (a system allows the addition or the change of components at run time);  scalability (although the number of concurrent users increases, the  system continues to function effectively); interactibility; and  interoperability.
+to enable a virtual landscape in next-generation environments that is seamless, endless, and limitless, marshall et al.
+many mmog applications, however, still limit themselves to a traditional design approach where their 3d scene complexity is carefully controlled in advance to meet real-time rendering  constraints at the client console side.
+recently, massively multiplayer online games (mmogs) have been studied as a framework for next-generation virtual  environments.

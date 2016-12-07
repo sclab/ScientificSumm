@@ -1,0 +1,76 @@
+In this section, we present the basic New Event Detection model
+which is similar to what most current systems apply. Then, we
+propose our new model by extending the basic model.
+New Event Detection systems use news story stream as input, in
+which stories are strictly time-ordered. Only previously received
+stories are available when dealing with current story. The output is
+a decision for whether the current story is on a new event or not
+and the confidence of the decision. Usually, a NED model consists
+of three parts: story representation, similarity calculation and
+detection procedure.
+3.1 Story Representation
+Preprocessing is needed before generating story representation.
+For preprocessing, we tokenize words, recognize abbreviations,
+normalize abbreviations, add part-of-speech tags, remove
+stopwords included in the stop list used in InQuery [14], replace
+words with their stems using K-stem algorithm[15], and then
+generate word vector for each news story.
+We use incremental TF-IDF model for term weight calculation
+[4]. In a TF-IDF model, term frequency in a news document is
+weighted by the inverse document frequency, which is generated
+from training corpus. When a new term occurs in testing process,
+there are two solutions: simply ignore the new term or set df of the
+term as a small const (e.g. df = 1). The new term receives too low
+weight in the first solution (0) and too high weight in the second
+solution. In incremental TF-IDF model, document frequencies are
+updated dynamically in each time step t:
+1( ) ( ) ( )t t D tdf w df w df w−= + (1)
+where Dt represents news story set received in time t, and dfDt(w)
+means the number of documents that term w occurs in, and dft(w)
+means the total number of documents that term w occurs in before
+time t. In this work, each time window includes 50 news stories.
+Thus, each story d received in t is represented as follows:
+1 2{ ( , , ), ( , , ),..., ( , , )}nd weight d t w weight d t w weight d t w→
+where n means the number of distinct terms in story d, and
+( , , )weight d t w means the weight of term w in story d at time t:
+'
+log( ( , ) 1) log(( 1) /( ( ) 0.5))
+( , , )
+log( ( , ') 1) log(( 1) /( ( ') 0.5))
+t t
+t t
+w d
+tf d w N df w
+weight d t w
+tf d w N df w
+∈
++ + +
+=
++ + +∑
+(2)
+where Nt means the total number of news stories before time t, and
+tf(d,w) means how many times term w occurs in news story d.
+3.2 Similarity Calculation
+We use Hellinger distance for the calculation of similarity
+between two stories, for two stories d and d" at time t, their
+similarity is defined as follows:
+, '
+( , ', ) ( , , ) * ( ', , )
+w d d
+sim d d t weight d t w weight d t w
+∈
+= ∑ (3)
+3.3 Detection Procedure
+For each story d received in time step t, the value
+( ') ( )
+( ) ( ( , ', ))
+time d time d
+n d max sim d d t
+<
+= (4)
+is a score used to determine whether d is a story about a new topic
+and at the same time is an indication of the confidence in our
+decision [8]. time(d) means the publication time of story d. If the
+score exceeds the thresholdθ new, then there exists a sufficiently
+similar document, thus d is a old story, otherwise, there is no
+sufficiently similar previous document, thus d is an new story.

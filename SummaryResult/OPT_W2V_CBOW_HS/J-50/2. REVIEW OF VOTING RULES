@@ -1,0 +1,63 @@
+All of the rules that we study are rank-based rules, which means that a vote is defined as an ordering of the candidates (with the exception of the plurality rule, for which a vote is a  single candidate, and the approval rule, for which a vote is a subset of the candidates).
+We emphasize that these definitions of voting rules do not concern themselves with how the votes are elicited from the voters; all the voting rules, including those that are  suggestively defined in terms of rounds, are in actuality just functions mapping the vector of all the voters" votes to a winner.
+preferences over candidates) to one of the m candidates (the winner) in the candidate set C. In some cases (such as the Condorcet rule), the rule may also declare that no winner exists.
+This rule determines an order on all the candidates, and the winner is the candidate at the top of this order.
+That is, if we say that a voter approves her top l candidates, then we repeatedly increase l by 1 until some candidate is approved by more than half the voters, and this candidate is the winner.
+For each voter, a candidate receives α1 points if it is ranked first by the voter, α2 if it is ranked second etc.
+We will consider the following voting rules.
+The cup rule is defined by a balanced3 binary tree T with one leaf per  candidate, and an assignment of candidates to leaves (each leaf gets one candidate).
+The maximin score of i is s(i) = minj=i N(i, j)-that is, i"s worst performance in a pairwise election.
+We do not concern ourselves with what happens in case of a tie  between candidates (our lower bounds hold regardless of how ties are broken, and the communication protocols used for our upper bounds do not attempt to break the ties).
+2 The term voting protocol is often used to describe the same concept, but we seek to draw a sharp distinction between the rule mapping preferences to outcomes, and the  communication/elicitation protocol used to implement this rule.
+For any two distinct candidates i and j, let C(i, j) = 1 if N(i, j) > N(j, i), C(i, j) = 1/2 if N(i, j) = N(j, i) and C(i, j) = 0 if N(i, j) < N(j, i).
+In each round, the candidate with the lowest plurality score (that is, the least number of voters ranking it first among the remaining candidates) is  eliminated (and each of the votes for that candidate transfer to the next remaining candidate in the order given in that vote).
+For example, in the plurality with runoff rule, one way of eliciting the votes is to ask every voter to declare her entire ordering of the candidates up front.
+If there is a candidate i that is preferred to any other candidate by a majority of the voters (that is, N(i, j) > N(j, i) for all j = i-that is, i wins every pairwise election), then candidate i wins.
+A voting rule2 is a function  mapping a vector of the n voters" votes (i.e.
+The winner is the last remaining candidate.
+Multistage communication protocols may reveal to the  voters some information about how the other voters are voting (for example, in the two-stage communication protocol just given for plurality with runoff, in the second stage voters 3 Balanced means that the difference in depth between two leaves can be at most one.
+Starting with the pair (i, j) with the highest N(i, j), we lock in the result of their pairwise election (i j).
+Each non-leaf node is assigned the winner of the pairwise election of the node"s children; the candidate assigned to the root wins.
+It is interesting to note that the choice of the  communication protocol may affect the strategic behavior of the voters.
+Thus, we distinguish between the voting rule (the mapping from vectors of votes to outcomes) and the communication protocol (which determines how the relevant parts of the votes are actually elicited from the voters).
+In this rule, a first round  eliminates all candidates except the two with the highest plurality scores.
+Sort all ordered pairs of candidates (i, j) by N(i, j), the number of voters who prefer i to j.
+The plurality rule is the scoring rule with α = 1, 0, .
+Of course, even the single-stage communication protocol is not strategy-proof4 for any reasonable voting rule, by the Gibbard-Satterthwaite theorem [10, 19].
+Alternatively, we can first ask every voter to declare only her most preferred candidate; then, we will know the two candidates in the runoff, and we can ask every voter which of these two  candidates she prefers.
+Votes are transferred to these as in the STV rule, and a second round determines the winner from these two.
+For any candidate i and integer l, let B(i, l) be the number of voters that rank candidate i among the top l candidates.
+The Copeland score of candidate i is s(i) = j=i C(i, j).
+• single transferable vote (STV).
+The candidate approved by the greatest number of voters wins.
+For any two candidates i and j, let N(i, j) be the number of voters who prefer i to j.
+(In prior work [8], we do give an example where an elicitation  protocol for the approval voting rule introduces strategic voting, and give principles for designing elicitation protocols that do not introduce strategic problems.)
+In general, when the voters receive such  information, it may give them incentives to vote differently than they would have in a single-stage communication protocol in which all voters declare their entire votes simultaneously.
+will know which two candidates have the highest plurality scores).
+The goal of this paper is to give efficient communication  protocols for the voting rules just defined, and to prove that there do not exist any more efficient communication protocols.
+Each voter labels each candidate as either approved or disapproved.
+The Borda rule is the scoring rule with α = m−1, m−2, .
+Nevertheless, there are always many different ways of eliciting the votes (or the relevant parts thereof) from the voters.
+Now that we have reviewed voting rules, we move on to a brief review of communication complexity theory. 
+The rule proceeds through a series of m − 1 rounds.
+(For rules that define a score, the candidate with the highest score wins.)
+The score sα of a candidate is the total number of points the candidate receives.
+• scoring rules.
+The candidate with the highest maximin score wins.
+We continue to lock every pairwise result that does not contradict the ordering established so far.
+• ranked pairs.
+• plurality with run-off.
+In this section, we review the common voting rules that we study in this paper.
+Then, we move to the next pair, and we lock the result of their pairwise election.
+However, this does not mean that we should not be concerned about adding even more opportunities for strategic voting.
+• approval.
+In fact, many of the communication protocols introduced in this paper do introduce additional opportunities for strategic voting, but we do not have the space to discuss this here.
+, αm be a vector of integers such that α1 ≥ α2 .
+79 • maximin (aka.
+The winner is arg mini(min{l : B(i, l) > n/2}).
+• cup (sequential binary comparisons).
+• Bucklin.
+• Copeland.
+• Condorcet.
+Let α = α1, .
+≥ αm.

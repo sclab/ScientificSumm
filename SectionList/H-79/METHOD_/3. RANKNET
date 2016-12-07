@@ -1,0 +1,47 @@
+Much work in machine learning has been done on the problems of
+classification and regression. Let X={xi} be a collection of feature
+vectors (typically, a feature is any real valued number), and
+Y={yi} be a collection of associated classes, where yi is the class
+of the object described by feature vector xi. The classification
+problem is to learn a function f that maps yi=f(xi), for all i. When
+yi is real-valued as well, this is called regression.
+Static ranking can be seen as a regression problem. If we let xi
+represent features of page i, and yi be a value (say, the rank) for
+each page, we could learn a regression function that mapped each
+page"s features to their rank. However, this over-constrains the
+problem we wish to solve. All we really care about is the order of
+the pages, not the actual value assigned to them.
+Recent work on this ranking problem [7][13][18] directly
+attempts to optimize the ordering of the objects, rather than the
+value assigned to them. For these, let Z={<i,j>} be a collection of
+pairs of items, where item i should be assigned a higher value than
+item j. The goal of the ranking problem, then, is to learn a
+function f such that,
+)()(,, ji ffji xxZ >∈∀
+708
+Note that, as with learning a regression function, the result of this
+process is a function (f) that maps feature vectors to real values.
+This function can still be applied anywhere that a 
+regressionlearned function could be applied. The only difference is the
+technique used to learn the function. By directly optimizing the
+ordering of objects, these methods are able to learn a function that
+does a better job of ranking than do regression techniques.
+We used RankNet [7], one of the aforementioned techniques for
+learning ranking functions, to learn our static rank function.
+RankNet is a straightforward modification to the standard neural
+network back-prop algorithm. As with back-prop, RankNet
+attempts to minimize the value of a cost function by adjusting
+each weight in the network according to the gradient of the cost
+function with respect to that weight. The difference is that, while a
+typical neural network cost function is based on the difference
+between the network output and the desired output, the RankNet
+cost function is based on the difference between a pair of network
+outputs. That is, for each pair of feature vectors <i,j> in the
+training set, RankNet computes the network outputs oi and oj.
+Since vector i is supposed to be ranked higher than vector j, the
+larger is oj-oi, the larger the cost.
+RankNet also allows the pairs in Z to be weighted with a
+confidence (posed as the probability that the pair satisfies the
+ordering induced by the ranking function). In this paper, we used
+a probability of one for all pairs. In the next section, we will
+discuss the features used in our feature vectors, xi.

@@ -1,0 +1,108 @@
+Event correlation is only mentioned in the resource management, but it is not used in the service level.
+As next step in the event  correlation process the service events should be correlated with each other using the service dependencies, because the  service dependencies have no direct relationship to the resource level.
+The result of this step, which is performed by the  service event correlator, is a list of services/subservices which could contain a failure in a resource.
+The probing can be done from a customer point of view or by testing the resources which are part of the services.
+The results of active probing are reported via service or resource events to the event correlator (or if the test was demanded by the Intelligent Assistant the result is reported to it, too).
+In addition to these two passive ways to get the events, a provider can also perform active tests.
+These tests can either deal with the resources (resource active probing) or can assume the role of a virtual customer and test a service or one of its subservices by performing interactions at the service access points (service active probing).
+The aim is find out where event correlation can be found in the process structure and how detailed the frameworks currently are.
+Service Problem Management: In this process reports about customer-affecting service failures are received and transformed.
+It is also a task of this process to inform the 186 QoS/SLA management about the impact of current errors on the SLAs.
+It can also be used to subscribe services or to allow the customer to manage his services in a restricted way.
+In the fault detection phase resource events and service events can be generated from different sources.
+In the last step the aggregate event correlator matches the lists from resource event correlator and service event correlator to find the problem"s possible root cause.
+services ) AND relationship b) OR relationship resources Figure 3: Modeling of no redundancy (a) and of redundancy (b) As both ITIL and eTOM contain no description how event correlation and especially service-oriented event correlation should actually be performed, we propose the following  design for such a workflow (see Fig.
+The resource event correlator is used to perform this step.
+2 shows a general service scenario which we will use as basis for the workflow modeling for the service-oriented event correlation.
+The service management is described by 11 modules which are grouped into Service Support Set (provider internal processes) and Service Delivery Set (processes at the customer-provider  interface).
+In general, ITIL describes contents, processes, and aims at a high abstraction level and contains no information about management architectures and tools.
+4.4 Customer Service Management and  Intelligent Assistant The Customer Service Management (CSM) access point was proposed by [13] as a single interface between customer 187 fault detection fault diagnosis resource active probing resource event resource event correlator resource management candidate list fault recovery resource usage service active probing intelligent assistant service event correlator aggregate event correlator service eventCSM AP Figure 4: Event correlation workflow and provider.
+Resource Trouble Management: A subprocess of the Resource Trouble Management is responsible for  resource failure event analysis, alarm correlation &  filtering, and failure event detection & reporting.
+Problem Management: The Problem Management"s tasks are to solve problems, take care of keeping  priorities, minimize the reoccurrence of problems, and to provide management information.
+The output of this correlation is a list of  services/subservices which could be affected by a failure in an associated resource.
+Problem Handling: The purpose of this process is to  receive trouble reports from customers and to solve them by using the Service Problem Management.
+While the events that are received from  management tools and customers denote negative events (something does not work), the events from active probing should also contain positive events for a better discrimination.
+The  resource events are issued during the use of a resource, e.g., via SNMP traps.
+If, e.g., there are  service events from customers that two services do not work and both services depend on a common subservice, it seems more likely that the resource failure can be found inside the subservice.
+The service could be seen as working properly if one of the servers is working or a certain percentage of them is working.
+4.1 IT Infrastructure Library (ITIL) The British Office of Government Commerce (OGC) and the IT Service Management Forum (itSMF) [9] provide a collection of best practices for IT processes in the area of IT service management which is called ITIL.
+service dependency resources subservices provider services resource dependency Figure 2: Different kinds of dependencies for the service-oriented event correlation The dependencies depicted in Figure 2 reflect a situation with no redundancy in the service provisioning.
+These two kinds of  dependencies are in most cases not used for the event correlation performed today.
+These cases could then be used to improve the modeling in a way that RBR or the codebook approach can deal with them in future correlations. 
+The aim is to identify and react to problems before a customer notices them.
+After receiving  requests from the Incident Management, the problem has to be identified and information about necessary countermeasures is transferred to the Change  Management.
+The event correlation techniques presented in Section 2 could be used to perform the correlation inside the three event correlators.
+The service events are originated from  customer trouble reports, which are reported via the Customer Service Management (see below) access point.
+In the following we examine the established IT process management frameworks IT Infrastructure Library (ITIL) and enhanced Telecom Operations Map (eTOM).
+4.6 Event Correlator The event correlation should not be performed by a single event correlator, but by using different steps.
+The next subsections present different elements of the event correlation process.
+The first one is performed by the resource event correlator which can be regarded as the event  correlator in today"s commercial systems.
+The provider could select to test important services and resources in regular time intervals.
+If the correlation result in one of the  correlation steps shall be improved, it is possible to go back to the fault detection phase and start the active probing to get additional events.
+Therefore, it deals only with resource events.
+In the service-oriented scenario there are also service and resource dependencies.
+The aim is also to keep the customer informed about the  current status of the trouble report processing as well as about the general network status (e.g., planned  maintenance).
+The information which is needed for a preclassification of the problem is gathered from a list of questions to the customer.
+It is useful to have a check list which aspects for these processes have to be taken into account, but there is no detailed  modeling of the relationships and no methodology for applying the framework.
+After that we present our solution for a workflow modeling for the service-oriented event correlation.
+The service event correlator does a correlation of the service events, while the aggregate event correlator finally performs a correlation of both resource and service events.
+Incident Management: The Incident Management  contains the service desk as interface to customers (e.g., receives reports about service problems).
+A horizontal grouping into processes for  customer care, service development & operations, network &  systems management, and partner/supplier is performed.
+Another  possibility for the use of active probing is a request from the event correlator, if the current correlation result needs to be  improved.
+The fault diagnosis phase is composed of three event  correlation steps.
+This is done by using the resource dependencies.
+The result of this step is a list of resources which could be the problem"s root cause.
+Reports about problems with a service can be sent to the customer via CSM.
+To reduce the effort for the provider"s first level support, an Intelligent Assistant can be added to the CSM.
+The provider offers different services which depend on other services called subservices (service  dependency).
+Each module describes processes, functions, roles, and responsibilities as well as necessary databases and  interfaces.
+The ITIL processes describe only what has to be done, but contain no information how this can be actually performed.
+The ITIL incidents could be regarded as input for the service-oriented event correlation, while the output could be used as a query to the ITIL Problem Management.
+In the area of fault management three processes have been defined along the horizontal process grouping.
+As a consequence, event correlation is not part of the  modeling.
+At this stage, the integration of service events does not seem to be helpful.
+Another subprocess is used to execute different tests to find a resource failure.
+At the LRZ a customer of the E-Mail Service can, e.g., use the Intelligent Assistant to perform ping requests to the mail server.
+The workflow is divided into the phases fault detection, fault diagnosis, and fault recovery.
+4.3 Workflow Modeling for the  Service-Oriented Event Correlation Fig.
+After the event correlation an ordered list of possible root causes is checked by the resource management.
+Similar to ITIL a process-oriented framework has been developed at first, but the framework was designed for a narrower focus, i.e., the market of information and communications service providers.
+Other tests could be initiated by a user who traverses the decision tree of the Intelligent Assistant including active tests.
+4.2 Enhanced Telecom Operations Map (eTOM) The TeleManagement Forum (TMF) [18] is an  international non-profit organization from service providers and suppliers in the area of telecommunications services.
+In case of severe errors structured queries are transferred to the Problem Management.
+This resource-oriented event correlation deals only with relationships on the resource level (e.g.,  network topology).
+Different schedules are possible to perform the active  probing.
+There is also another  subprocess which keeps track about the status of the trouble report processing.
+This last step is performed in the fault recovery phase.
+The  Intelligent Assistant structures the customer"s information about a service problem.
+These events can be helpful to confirm a correlation result or to reduce the list of possible root causes.
+Another kind of dependency exists between  services/subservices and resources.
+The fault management is divided into Incident  Management process and Problem Management process.
+It can also be useful to  perform tests of subservices (own subservices or subservices  offered by suppliers).
+The tests allow the customer to gain a controlled access to the provider"s  management.
+The task of the Diagnose Problem  subprocess is to find the root cause of the problem by performing appropriate tests.
+In case of  redundancy, if e.g., a provider has 3 independent web servers, another modeling (see Figure 3) should be used (OR  relationship).
+The list is not static as the  current question depends on the answers to prior questions or from the result of specific tests.
+Its functionality is to provide information to the customer about his subscribed services, e.g., reports about the fulfillment of agreed SLAs.
+But also more complex requests could be possible, e.g., requests of a combination of SNMP variables.
+If the switch is down, events are reported that other network components which are located behind the switch are also not reachable.
+4.5 Active Probing Active probing is useful for the provider to check his  offered services.
+Their root causes are identified and a problem solution or a temporary workaround is  established.
+This subprocess is similar to the functionality of a trouble ticket system.
+When correlating these events it can be figured out that the switch is the likely error cause.
+An  example for this could be a switch linking separate LANs.
+The additional  components which are not part of a device-oriented event  correlation are depicted with a gray background.
+The reason for this are the different characteristics of the dependencies (see Fig.
+These dependencies are called resource dependencies.
+In such a case different relationships are possible.
+On the resource level there are only relationships between resources (network topology, systems configuration).
+The CSM is also contained in the MNM Service Model (see Section 5).
+If the dependencies can be found precisely, an RBR or codebook approach seems to be appropriate.
+The process description in eTOM is not very detailed.
+We assume that the dependencies are already known (e.g., by using the approaches mentioned in Section 2).
+When the root cause is found, the failure repair starts.
+A case database (CBR) could be used if there are cases which could not be covered by RBR or the codebook approach.
+Nothing is said how this can be done (e.g., no event correlation is mentioned).
+The  relationships can be seen as AND relationships.
+A decision tree is used to structure the questions and tests.
+The vertical grouping (fulfillment, assurance, billing) reflects the service life cycle.

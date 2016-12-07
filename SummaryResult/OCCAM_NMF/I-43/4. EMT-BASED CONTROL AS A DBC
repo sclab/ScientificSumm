@@ -1,0 +1,38 @@
+notice that both of these limitations of emt-based control are absent from the general dbc framework, since it may have a  tracking algorithm capable of considering pure sensory actions and,  unlike kullback-leibler divergence, a distribution deviation measure that is capable of dealing with negative preference. 
+since the world state does not change, emt-based control would not be able to differentiate between different sensory actions.
+the second limitation comes from the fact that standard  environment modeling can create pure sensory actions-actions that do not change the state of the world, and differ only in the way  observations are received and the quality of observations received.
+avoidance is thus unnatural in native emt-based control.
+for emt-based control, however, negative preference means that one would like to avoid a certain distribution over  system development sequences; emt-based control, however,  concentrates on getting as close as possible to a distribution.
+on autonomous agents and multi-agent systems (aamas 07) 793 the appearance of values with different signs within the reward structure.
+joint conf.
+in the pomdp framework for example, this is captured simply, through the sixth intl.
+the first limitation is the problem of negative preference.
+both already have partial  solutions and are subjects of ongoing research.
+there are two further, emt-specific, limitations to emt-based control that are evident at this point.
+although further development of emt-based controllers is necessary, evidence so far suggests that even the simplest form of the algorithm possesses a great deal of power, and displays trends that are optimal in the dbc sense of the word.
+this kind of combination, however, is common for on-line algorithms.
+it limits the user by forcing emt to be its dynamic tracking algorithm, and replaces agent optimization by greedy action selection.
+4.2 emt-based control limitations emt-based control is a sub-optimal (in the dbc sense)  representative of the dbc structure.
+this balancing method is also seamlessly integrated into the emt-based control flow of  operation.
+- select a∗ = arg min a k k=1 w(k)vk(a) the weights vector w = (w1, ..., wk ) allows the additional tuning of importance among target dynamics without the need to redesign the targets themselves.
+let vk(a) = 1 zk v (a, k), where zk = a∈a v (a, k) is a normalization factor.
+this requires replacement of standard emt-based action selection by the algorithm below [15]: • given: - a set of target dynamics {qk}k k=1, - vector of weights w(k) • select action as follows - for each action a ∈ a predict the future state  distribution ¯pa t+1 = ta ∗ pt; - for each action, compute da = h(¯pa t+1, pt, pdt) - for each a ∈ a and qk tactical target, denote v (a, k) = dkl (da qk) pt .
+if these preference  vectors are normalized, they can be combined into a single unified  preference.
+note that emt-based control, while selecting an action, creates a preference vector over the set of actions based on their predicted performance with respect to a given target.
+a balancing mechanism can be applied to resolve this issue.
+for emt-based control, this would mean facing several tactical targets {qk}k k=1, and the question  becomes how to merge and balance them.
+successful museum security would demand that the guards adhere to, and  balance, both of these behaviors.
+on the other hand, no corner of the museum is to be left unchecked, which demands constant motion.
+for example, in the case of museum guards, some art items are more heavily guarded, requiring that the guards stay more often in their close vicinity.
+4.1 multi-target emt at times, there may exist several behavioral preferences.
+yet as we mentioned, naive  emtbased control is suboptimal in the dbc sense, and has several  additional limitations that do not exist in the general dbc framework (discussed in section 4.2).
+the prediction is based on the  environment model provided by the environment design level, so that if we denote by ta the environment"s transition  function limited to action a, and pt−1 is the auxiliary bayesian system state estimator, then the emt-based control choice is described by a∗ = arg min a∈a dkl(h[ta × pt, pt, τt emt ] qemt × pt−1) note that this follows the markovian dbc framework precisely: the rewarding optimality of pomdps is discarded, and in its place a dynamics estimator (emt in this case) is manipulated via action effects on the environment to produce an estimate close to the  specified target system dynamics.
+pt(s ) = s (τ × pt−1)(s , s) pt−1(s) = s (τ × pt−1)(s , s) • agent level in emt-based control is suboptimal with  respect to dbc (though it remains within the dbc  framework), performing greedy action selection based on  prediction of emt"s reaction.
+on autonomous agents and multi-agent systems (aamas 07) table 1: structure of pomdp vs. dynamics-based control in markovian environment level approach mdp markovian dbc environment < s, a, t, o, ω >,where s - set of states a - set of actions design t : s × a → π(s) - transition o - observation set ω : s × a × s → π(o) user r : s × a × s → r q : s × a → π(s) f(π∗ ) → r l(o1, ..., ot) → τ r - reward function q - ideal dynamics f - reward remodeling l - dynamics estimator θ - threshold agent π∗ = arg max π e[ γt rt] π∗ = arg min π prob(d(τ q) > θ) minimization problem: τt emt = h[pt, pt−1, τt−1 emt ] = arg min τ dkl(τ × pt−1 τt−1 emt × pt−1) s.t.
+since τt emt and pt−1,t are respectively the conditional and marginal probabilities over the system"s state space, explanation simply means that pt(s ) = s τt emt (s |s)pt−1(s), and the dynamics estimate update is performed by solving a 792 the sixth intl.
+the algorithm keeps a system dynamics estimate τt emt that is capable of explaining recent change in an auxiliary bayesian system state estimator from pt−1 to pt, and updates it conservatively using kullback-leibler divergence.
+it then utilizes the kullback-leibler divergence measure to compose a momentary system dynamics estimator-the  extended markov tracking (emt) algorithm.
+• user level of emt-based control defines a limited-case  target system dynamics independent of action: qemt : s → π(s).
+emt-based control is based on the markovian environment definition, as in the case with pomdps, but its user and agent levels are of the markovian dbc type of optimality.
+although it provides an approximate greedy solution in the dbc sense, initial experiments using emt-based control have been encouraging [14, 15].
+recently, a control algorithm was introduced called emt-based control [13], which instantiates the dbc framework.

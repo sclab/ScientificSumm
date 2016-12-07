@@ -1,0 +1,49 @@
+this is resolved by using selection functions: so selects one of the applicable plan instances to handle a given event, si selects which of the plan  instances that can be executed should be executed next, and sa  selects which agent should execute (a step) next. 
+the choice of plan to execute from a set of applicable plans.
+note that there is non-determinism in saapl, e.g.
+the transition relation is defined using rules of the form s −→ s or of the form s −→ sr s −→ sr ; the latter are  conditional with the top (numerator) being the premise and the bottom (denominator) being the conclusion.
+we annotate the arrow with an indication of whether the configuration in question is basic, an agent configuration, or a mas configuration.
+a transition s0 −→ s1 specifies that executing s0 a single step yields s1.
+the global message queue is a sequence of triplets of the form sender:recipient:message.
+we also define an agent configuration, where instead of a single plan body p there is a set of plan instances, γ. finally, a complete mas is a pair q, as of a global message queue q and a set of agent configurations (without the queue, q).
+the intention).
+we define a basic configuration s = q, n, b, p where q is a (global) message queue (modelled as a sequence5 where messages are added at one end and removed from the other end), n is the name of the agent, b is the beliefs of the agent and p is the plan body being executed (i.e.
+more sophisticated belief management methods may be used, but are not considered here.
+in the case of beliefs being a set of ground atoms these operations are respectively consequence  checking (b |= c), and set addition (b ∪ {b}) and deletion (b \ {b}).
+on autonomous agents and multi-agent systems (aamas 07) figure 1: finite state machine for netbill (shaded = final states) follows from a belief set, that add a belief to a belief set, and that delete a belief from a belief set.
+joint conf.
+the  semantics is in the style of plotkin"s structural operational semantics, and assumes that operations exist that check whether a condition 4 we use ↓n m as short hand for the event corresponding to  receiving message m from agent n. 874 the sixth intl.
+c ::= b | c ∧ c | c ∨ c | ¬c | ∃x.c p ::= | +b | −b | e | ↑n m | p; p formal semantics for this language is given in figure 2. this  semantics is based on the semantics for agentspeak given by [12], which in turn is based on the semantics for can [16].
+these can be sequenced (p; p).
+we have the empty step which always succeeds and does nothing, operations to add (+b) and delete (−b) beliefs, sending a message m to agent n (↑n m), and posting an event4 (e).
+the plan body is built up from the following constructs.
+an agent program (denoted by π) consists of a collection of plan clauses of the form e : c ← p where e is an event, c is a context condition (a logical formula over the agent"s beliefs), and p is the plan body.
+thus, it is intentionally incomplete in some areas, for instance it doesn"t commit to a particular mechanism for dealing with plan failure, since different mechanisms are used by different aopls.
+this language is intended to be an abstraction that is in the common subset of such languages as jason [1, chapter 1], 3apl [1,  chapter 2], and can [16].
+we now briefly define the formal syntax and semantics of a  simple abstract (bdi) agent programming language (saapl).
+one of these is chosen and is executed.
+given a collection of plans and an event e that has been posted the agent first collects all plans types that are triggered by that event (the  relevant plans), then evaluates the context conditions of these plans to obtain a set of applicable plan instances.
+dmars, jam, prs, um-prs, jack, agentspeak(l), jason, 3apl, can, jadex) define agent behaviour in terms of event-triggered plans, where each plan specifies what it is triggered by, under what  situations it can be considered to be applicable (defined using a so-called context condition), and a plan body: a sequence of steps that can include posting events which in turn triggers further plans.
+2.2 an abstract agent programminglanguage agent programming languages in the bdi tradition (e.g.
+as seen in figure 1, commitment machines can support a range of interaction sequences.
+the commitment accept is the customer"s promise to pay once goods have been sent, promisegoods is the merchant"s promise to send the goods once the customer accepts, and promisereceipt is the merchant"s promise to send a receipt once payment has been made.
+3 we use the notation a(x) : p ⇒ e to indicate that action a is performed by entity x, has precondition p (with : p omitted if empty) and effect e. • sendrequest(c) ⇒ request • sendquote(m) ⇒ offer where offer ≡ promisegoods ∧ promisereceipt and promisegoods ≡ cc(m, c, accept, goods) and promisereceipt ≡ cc(m, c, pay, receipt) • sendaccept(c) ⇒ accept where accept ≡ cc(c, m, goods, pay) • sendgoods(m) ⇒ promisereceipt ∧ goods where promisereceipt ≡ cc(m, c, pay, receipt) • sendepo(c) : goods ⇒ pay • sendreceipt(m) : pay ⇒ receipt.
+2 the finite state machine is software-generated: the nodes and  connections were computed by an implementation of the axioms  (available from http://www.winikoff.net/cm) and were then laid out by graphviz (http://www.graphviz.org/).
+for example, figure 1 gives the fsm2 corresponding to the netbill [18] commitment machine: a simple cm where a customer (c) and merchant (m) attempt to trade using the following actions3 : 1 unlike standard interaction protocols, or finite state machines, there is no designated initial state for the interaction.
+one way of visualising the interactions that are  possible with a given commitment machine is to generate the finite state machine corresponding to the cm.
+a final state is one that has no base-level commitments.
+a commitment machine (cm) defines a range of possible  interactions that each start in some state1 , and perform actions until reaching a final state.
+an interaction is defined by specifying the entities involved, the possible contents of the interaction state (both fluents and  commitments), and (most importantly) the actions that each entity can  perform along with the preconditions and effects of each action,  specified as add and delete lists.
+in brief, these semantics deal with a number of more complex cases, such as where commitments are created when conditions already hold: if p holds when cc(p q) is meant to be created, then c(q) is created instead of cc(p q).
+in this paper we use the more symmetric semantics proposed by [15] and subsequently  reformalised by [14].
+for example, the commitment c(p) (or cc(q p)) is  discharged when p becomes true; and the commitment cc(q p) is replaced by c(p) when q becomes true.
+the semantics of commitments (both base-level and conditional) is defined with rules that specify how commitments change over time.
+for example, a commitment to make the fluent paid true once goods have been received would be written cc(goods paid).
+a conditional social commitment is an undertaking by debtor a to creditor b that should condition q become true, a will then  commit to bringing about condition p. this is denoted by cc(a, b, q, p), and, where the identity of the entities involved is unimportant (or obvious), is abbreviated to cc(q p) where the arrow is a  reminder of the causal link between q becoming true and the creation of a commitment to make p true.
+for example, a  commitment by customer c to merchant m to make the fluent paid true would be written as c(c, m, paid).
+this is sometimes abbreviated to c(p), where it is not important to specify the identities of the entities in question.
+a base-level social commitment is an undertaking by debtor a to creditor b to bring about condition p, denoted c(a, b, p).
+this interact state consists of fluents (predicates that change value over time), but also social commitments, both base-level and conditional.
+agents, services,  processes) in terms of actions that change the interaction state.
+a commitment machine (cm) [19] specifies an interaction between entities (e.g.
+2.1 commitment machines the aim of the commitment machine framework is to allow for the definition of interactions that are more flexible than traditional message-centric approaches.

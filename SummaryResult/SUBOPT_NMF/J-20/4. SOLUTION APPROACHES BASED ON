@@ -1,0 +1,5 @@
+If so, we generate a set of these constraints, add them to the ILP, and repeat.
+In these cases, CPLEX branches on a variable (we used CPLEX"s default branching strategy), and generates one new search node corresponding to each of the children.
+Therefore, we use a tree search with an incremental  formulation approach.
+4.1 Constraint Seeder The main constraint seeder we developed forbids any path of length L − 1 that does not have an edge closing the cycle from its head to its tail.
+In our first constraint generator , we simply search for length-L paths with 

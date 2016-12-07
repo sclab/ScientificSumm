@@ -1,0 +1,88 @@
+We assume that a sensor node can only be responsible to monitor a circular area centered at the node with a radius equal to R. This is a usual assumption in work that addresses sensor-coverage related problems.
+This issue is usually formulated as how to ensure that an event signal omitted in an arbitrary point in the network area can be  detected by sensor nodes.
+Based on this notion, to be more reasonable, researchers propose collaborative sensing model to capture application requirements: Area coverage can be maintained by a set of collaborative sensor nodes: For a point with physical location L, the point is considered covered by the collaboration of i sensors (denoted by k1, ..., ki) if and only if the following two equations holds [7][10][12].
+The major feature of the aforementioned protocols is that they employ online distributed and localized algorithms in which a  sensor node determines its sleeping eligibility and/or sleeping time based on the coverage requirement of its sensing area with some information provided by its neighbors.
+3.2 A General Sensing Model As WSNs are usually employed to monitor possible events in a given area, it is therefore a design requirement that an event  occurring in the network area must/may be successfully detected by sensors.
+For example, sensor nodes are usually deployed in a random manner and the location of each in-network sensor node is determined only after a node is deployed.
+Each set of sensor nodes are able to maintain the required area surveillance work.
+Yan et al  introduced a differentiated service in which a sensor node finds out its responsible working duration with cooperation of its neighbors to ensure the coverage of sampled points [17].
+The NP-completeness of the problem is proved and a heuristic that computes the sets are proposed.
+Given: • The set of each sensor node i"s sensing neighbors N(i) and the location of each member in N(i); • A sensing model which quantitatively describes how a point P in area φ is covered by sensor nodes that are responsible to monitor this point.
+Boolean sensing model assumes that a sensor node can always detect an event occurring in its responsible  sensing area.
+Specifically, the signal strength E(d) of an event that is received by a sensor node satisfies: E(d) = α dβ (3) where d is the physical distance from the event to the sensor node; α is related to the signal strength omitted by the event; and β is signal fading factor which is typically a positive number larger than or equal to 2.
+It is followed by discussion in  Subsection 3.2 on a general sensing model, which serves as a given condition of the sensor-grouping problem formulation.
+We consider the probability P(L, kj ) that an event located at L can be detected by sensor kj is related to the signal strength sensed by kj.
+We call this quantity the coverage quality of P. • The coverage quality requirement in φ, denoted by s. When the coverage of a point is larger than this threshold, we say this point is covered.
+In [5] by Cardei et al, disjoint sensor sets are  modeled as disjoint dominating sets.
+∀j = 1, ..., i; L(kj) − L < R. (4) C(L) = iX j=1 (E( L(kj) − L ) > s. (5) C(L) is regarded as the coverage quality of location L in the network area [7][10][12].
+The solution of sensor-grouping problem should only base on  locally obtainable information of a sensor node.
+It is a greedy algorithm in which the  priority of selecting a given sensor is determined by how many  uncovered regions this sensor covers and the redundancy caused by this sensor.
+This is because sensors nodes in this area, together with node i, may be cooperative to ensure the coverage of a point inside node i"s sensing area.
+The larger the  distance, the weaker the event signals that can be sensed by the sensor, which results in a reduction of the probability that the event can be successfully detected by the sensor.
+The major advantage of this approach is that it avoids the  overhead caused by the processes of coordination of sensor nodes to make decision on whether a sensor node is a candidate to sleep or 1172 work and how long it should sleep or work.
+The sensor nodes are scheduled according to which set they belong to.
+Therefore, the given conditions can all be easily obtained by a sensor-grouping scheme with fully distributed implementation.
+Wang et al designed an approach called Coverage Configuration Protocol (CCP) which introduced the  notion that the coverage degree of intersection-points of the  neighboring nodes" sensing-perimeters indicates the coverage of a convex region [15].
+How to provide this mechanism is beyond the scope of this paper and yet to be explored.
+For each sensor node i, make a decision on which group S(j) it should join so that: • Area φ can be covered by sensor nodes in each set S(j) • m, the number of sets S(j) is maximized.
+In [13] by Slijepcevic et al, the sensing area is divided into  regions.
+But most sensors detect events according to the signal strength sensed.
+Obviously, a sensing model is required to address this problem so that how a point in the network area is  covered can be modeled and quantified.
+(7) As the detection probability P (L) reasonably determines how an event occurring at location L can be detected by the networks, it is a good measure of the coverage quality of location L in a WSN.
+• φ: The area monitored by the network: i.e., the sensing area of the network.
+In this formulation, we call sensor nodes within a circular area centered at a sensor node i with a radius equal to 2 · R the sensing neighbors of node i.
+It is therefore locally  obtainable information.
+Ye et al developed PEAS in which sensor nodes wake up randomly over time, probe their neighboring nodes, and decide whether they should begin to take charge of surveillance work [18].
+Event signals usually fade in relation to the  physical distance between an event and the sensor.
+The probability that an event located at L can be detected by any collaborative sensors that satisfied Equation (4) is: P (L) = 1 − iY j=1 (1 − P(L, kj )).
+Cardei et al also studied similar problem in the domain of covering target points in [4].
+We reify this problem with a realistic sensing model in next  subsection.
+We assume that the communication range of a sensor node is larger than 2 · R, which is also a general assumption in work that addresses sensor-coverage related problems.
+However, we notice that defining the sensibility as the sum of the sensed signal strength by each collaborative sensor implies a very special application: Applications must employ the sum of the  signal strength to achieve decision-making.
+We call this circular area the sensing area of a node.
+Specifically, Equation (5) is modified to: C(L) = P (L) = 1 − iY j=1 [1 − δ ( L(kj) − L / + 1)β ] > s. (8) To sum it up, we consider a point at location L is covered if Equation (4) and (8) hold. 
+A node sleeping-working schedule scheme is  therefore highly desired to exploit the redundancy of working sensors and let as many nodes as possible sleep.
+Thus the coverage quality of a WSN can be evaluated.
+Sensor nodes are grouped with the most-constrained  leastconstraining algorithm.
+2 Note that if some nodes die, a re-grouping process might also be performed to exploit the remaining nodes in a set of sensor nodes.
+Only one set of sensor nodes work at any time.
+As in WSNs, event signals are usually electromagnetic, acoustic, or photic signals, they fade exponentially with the increasing of 1173 their transmit distance.
+Xing et al exploited a  probabilistic distributed detection model with a protocol called  Coordinating Grid (Co-Grid) [16].
+Although maximum dominating sets computation is NP-complete, the authors proposed a  graphcoloring based algorithm.
+The approximate location information is obtainable if each sensor node carries a GPS receiver or if some localization algorithms are employed (e.g., [3]).
+To capture generally  realistic application requirement, we modify the definition described in Equation (5).
+Sensor nodes in a network are divided into several disjoint sets.
+Also it is usually infeasible to obtain such  information before sensor nodes are deployed.
+In Subsection 3.1, we provide a general problem formulation of the sensor-grouping problem.
+The last two given conditions in this problem formulation can be programmed into a node before it is deployed or by a node-programming protocol (e.g., [9]) during network  runtime.
+• R: The sensing radius of a sensor node.
+These algorithms are centralized solutions of  sensorgrouping problem.
+A simple theoretical sensing model is the Boolean sensing model [15][18][17][14].
+However, global information (e.g., the location of each in-network sensor node) of a large scale WSN is also very expensive to  obtained online.
+Another major approach for sensor node sleeping-working  scheduling issue is to group sensor nodes.
+On the contrary, roughly speaking, this approach groups sensor nodes in one time and  schedules when each set of sensor nodes should be on duty.
+The model we adopt in this paper is described in details as follows.
+We call the issue sensor-grouping problem.
+3.1 Problem Formulation We assume that each sensor node can know its approximate  physical location.
+In our recent work [7], we also provided a sleeping configuration protocol, namely SSCP, in which sleeping eligibility of a sensor node is determined by a local Voronoi diagram.
+Distributed-solution requirement is formulated in this problem.
+• n: The number in-network sensor nodes.
+Therefore, to fulfill different application  requirements, different sensing models should be constructed based on the characteristics of the sensors employed.
+These sets work successively.
+Here locally obtainable information refers to a node"s local information and the information that can be directly obtained from its adjacent nodes, i.e., nodes within its communication range.
+normalizes the distance to a proper scale and the +1 item is to avoid infinite value of P(L, kj).
+Different applications of WSNs employ different types of  sensors, which surely have widely different theoretical and physical characteristics.
+Formally, P(L, kj) = γE(d) = δ ( L(kj) − L / + 1)β , (6) where γ is a constant and δ = γα is a constant too.
+That is to say, nodes should determine which group they should join in a fully  distributed way.
+Much work in the literature is on this issue [6].
+To facilitate our discussions, the notations in our following  discussions are described as follows.
+Such processes should be performed from time to time during the lifetime of a network in many online distributed and localized algorithms.
+It does not require frequent decision-making on working/sleeping eligibility2 .
+That is to say, the first given condition in Problem 1 is the information that can be obtained directly from a node"s adjacent nodes.
+The large  overhead caused by such processes is the main drawback of the  online distributed and localized algorithms.
+In many application scenarios, to achieve fault tolerance, a WSN contains a large number of redundant nodes in order to tolerate node failures.
+• S(j) (j = 1, 2, ..., m): The jth set of sensor nodes where m is the number of sets.
+SSCP can provide different levels of redundancy to maintain different  requirements of fault tolerance.
+Usually, α and β are considered as constants.
+• L(i) (i = 1, 2, ..., n): The physical location of node i.
+Problem 1.

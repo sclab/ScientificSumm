@@ -1,0 +1,448 @@
+In this section we experimentally evaluate the performance of
+the various algorithms for Hidden Web crawling presented in this
+paper. Our goal is to validate our theoretical analysis through 
+realworld experiments, by crawling popular Hidden Web sites of 
+textual databases. Since the number of documents that are discovered
+and downloaded from a textual database depends on the selection
+of the words that will be issued as queries5
+to the search interface
+of each site, we compare the various selection policies that were
+described in section 3, namely the random, generic-frequency, and
+adaptive algorithms.
+The adaptive algorithm learns new keywords and terms from the
+documents that it downloads, and its selection process is driven by
+a cost model as described in Section 3.2. To keep our experiment
+and its analysis simple at this point, we will assume that the cost for
+every query is constant. That is, our goal is to maximize the number
+of downloaded pages by issuing the least number of queries. Later,
+in Section 4.4 we will present a comparison of our policies based
+on a more elaborate cost model. In addition, we use the 
+independence estimator (Section 3.1) to estimate P(qi) from downloaded
+pages. Although the independence estimator is a simple estimator,
+our experiments will show that it can work very well in practice.6
+For the generic-frequency policy, we compute the frequency 
+distribution of words that appear in a 5.5-million-Web-page corpus
+5
+Throughout our experiments, once an algorithm has submitted a
+query to a database, we exclude the query from subsequent 
+submissions to the same database from the same algorithm.
+6
+We defer the reporting of results based on the Zipf estimation to a
+future work.
+downloaded from 154 Web sites of various topics [26]. Keywords
+are selected based on their decreasing frequency with which they
+appear in this document set, with the most frequent one being 
+selected first, followed by the second-most frequent keyword, etc.7
+Regarding the random policy, we use the same set of words 
+collected from the Web corpus, but in this case, instead of selecting
+keywords based on their relative frequency, we choose them 
+randomly (uniform distribution). In order to further investigate how
+the quality of the potential query-term list affects the random-based
+algorithm, we construct two sets: one with the 16, 000 most 
+frequent words of the term collection used in the generic-frequency
+policy (hereafter, the random policy with the set of 16,000 words
+will be referred to as random-16K), and another set with the 1 
+million most frequent words of the same collection as above (hereafter,
+referred to as random-1M). The former set has frequent words that
+appear in a large number of documents (at least 10, 000 in our 
+collection), and therefore can be considered of high-quality terms.
+The latter set though contains a much larger collection of words,
+among which some might be bogus, and meaningless.
+The experiments were conducted by employing each one of the
+aforementioned algorithms (adaptive, generic-frequency, 
+random16K, and random-1M) to crawl and download contents from three
+Hidden Web sites: The PubMed Medical Library,8
+Amazon,9
+and
+the Open Directory Project[2]. According to the information on
+PubMed"s Web site, its collection contains approximately 14 
+million abstracts of biomedical articles. We consider these abstracts
+as the documents in the site, and in each iteration of the adaptive
+policy, we use these abstracts as input to the algorithm. Thus our
+goal is to discover as many unique abstracts as possible by 
+repeatedly querying the Web query interface provided by PubMed. The
+Hidden Web crawling on the PubMed Web site can be considered
+as topic-specific, due to the fact that all abstracts within PubMed
+are related to the fields of medicine and biology.
+In the case of the Amazon Web site, we are interested in 
+downloading all the hidden pages that contain information on books.
+The querying to Amazon is performed through the Software 
+Developer"s Kit that Amazon provides for interfacing to its Web site,
+and which returns results in XML form. The generic keyword
+field is used for searching, and as input to the adaptive policy we
+extract the product description and the text of customer reviews
+when present in the XML reply. Since Amazon does not provide
+any information on how many books it has in its catalogue, we use
+random sampling on the 10-digit ISBN number of the books to 
+estimate the size of the collection. Out of the 10, 000 random ISBN
+numbers queried, 46 are found in the Amazon catalogue, therefore
+the size of its book collection is estimated to be 46
+10000
+· 1010
+= 4.6
+million books. It"s also worth noting here that Amazon poses an
+upper limit on the number of results (books in our case) returned
+by each query, which is set to 32, 000.
+As for the third Hidden Web site, the Open Directory Project
+(hereafter also referred to as dmoz), the site maintains the links to
+3.8 million sites together with a brief summary of each listed site.
+The links are searchable through a keyword-search interface. We
+consider each indexed link together with its brief summary as the
+document of the dmoz site, and we provide the short summaries
+to the adaptive algorithm to drive the selection of new keywords
+for querying. On the dmoz Web site, we perform two Hidden Web
+crawls: the first is on its generic collection of 3.8-million indexed
+7
+We did not manually exclude stop words (e.g., the, is, of, etc.)
+from the keyword list. As it turns out, all Web sites except PubMed
+return matching documents for the stop words, such as the.
+8
+PubMed Medical Library: http://www.pubmed.org
+9
+Amazon Inc.: http://www.amazon.com
+105
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0 50 100 150 200
+fractionofdocuments
+query number
+Cumulative fraction of unique documents - PubMed website
+adaptive
+generic-frequency
+random-16K
+random-1M
+Figure 9: Coverage of policies for Pubmed
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0 100 200 300 400 500 600 700
+fractionofdocuments
+query number
+Cumulative fraction of unique documents - Amazon website
+adaptive
+generic-frequency
+random-16K
+random-1M
+Figure 10: Coverage of policies for Amazon
+sites, regardless of the category that they fall into. The other crawl
+is performed specifically on the Arts section of dmoz (http://
+dmoz.org/Arts), which comprises of approximately 429, 000
+indexed sites that are relevant to Arts, making this crawl 
+topicspecific, as in PubMed. Like Amazon, dmoz also enforces an upper
+limit on the number of returned results, which is 10, 000 links with
+their summaries.
+4.1 Comparison of policies
+The first question that we seek to answer is the evolution of the
+coverage metric as we submit queries to the sites. That is, what
+fraction of the collection of documents stored in the Hidden Web
+site can we download as we continuously query for new words 
+selected using the policies described above? More formally, we are
+interested in the value of P(q1 ∨ · · · ∨ qi−1 ∨ qi), after we submit
+q1, . . . , qi queries, and as i increases.
+In Figures 9, 10, 11, and 12 we present the coverage metric for
+each policy, as a function of the query number, for the Web sites
+of PubMed, Amazon, general dmoz and the art-specific dmoz, 
+respectively. On the y-axis the fraction of the total documents 
+downloaded from the website is plotted, while the x-axis represents the
+query number. A first observation from these graphs is that in 
+general, the generic-frequency and the adaptive policies perform much
+better than the random-based algorithms. In all of the figures, the
+graphs for the random-1M and the random-16K are significantly
+below those of other policies.
+Between the generic-frequency and the adaptive policies, we can
+see that the latter outperforms the former when the site is topic 
+spe0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0 100 200 300 400 500 600 700
+fractionofdocuments
+query number
+Cumulative fraction of unique documents - dmoz website
+adaptive
+generic-frequency
+random-16K
+random-1M
+Figure 11: Coverage of policies for general dmoz
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0 50 100 150 200 250 300 350 400 450
+fractionofdocuments
+query number
+Cumulative fraction of unique documents - dmoz/Arts website
+adaptive
+generic-frequency
+random-16K
+random-1M
+Figure 12: Coverage of policies for the Arts section of dmoz
+cific. For example, for the PubMed site (Figure 9), the adaptive
+algorithm issues only 83 queries to download almost 80% of the
+documents stored in PubMed, but the generic-frequency algorithm
+requires 106 queries for the same coverage,. For the dmoz/Arts
+crawl (Figure 12), the difference is even more substantial: the 
+adaptive policy is able to download 99.98% of the total sites indexed in
+the Directory by issuing 471 queries, while the frequency-based 
+algorithm is much less effective using the same number of queries,
+and discovers only 72% of the total number of indexed sites. The
+adaptive algorithm, by examining the contents of the pages that it
+downloads at each iteration, is able to identify the topic of the site as
+expressed by the words that appear most frequently in the result-set.
+Consequently, it is able to select words for subsequent queries that
+are more relevant to the site, than those preferred by the 
+genericfrequency policy, which are drawn from a large, generic collection.
+Table 1 shows a sample of 10 keywords out of 211 chosen and 
+submitted to the PubMed Web site by the adaptive algorithm, but not
+by the other policies. For each keyword, we present the number of
+the iteration, along with the number of results that it returned. As
+one can see from the table, these keywords are highly relevant to
+the topics of medicine and biology of the Public Medical Library,
+and match against numerous articles stored in its Web site.
+In both cases examined in Figures 9, and 12, the random-based
+policies perform much worse than the adaptive algorithm, and the
+generic-frequency. It is worthy noting however, that the 
+randombased policy with the small, carefully selected set of 16, 000 
+quality words manages to download a considerable fraction of 42.5%
+106
+Iteration Keyword Number of Results
+23 department 2, 719, 031
+34 patients 1, 934, 428
+53 clinical 1, 198, 322
+67 treatment 4, 034, 565
+69 medical 1, 368, 200
+70 hospital 503, 307
+146 disease 1, 520, 908
+172 protein 2, 620, 938
+Table 1: Sample of keywords queried to PubMed exclusively by
+the adaptive policy
+from the PubMed Web site after 200 queries, while the coverage
+for the Arts section of dmoz reaches 22.7%, after 471 queried 
+keywords. On the other hand, the random-based approach that makes
+use of the vast collection of 1 million words, among which a large
+number is bogus keywords, fails to download even a mere 1% of the
+total collection, after submitting the same number of query words.
+For the generic collections of Amazon and the dmoz sites, shown
+in Figures 10 and 11 respectively, we get mixed results: The 
+genericfrequency policy shows slightly better performance than the 
+adaptive policy for the Amazon site (Figure 10), and the adaptive method
+clearly outperforms the generic-frequency for the general dmoz site
+(Figure 11). A closer look at the log files of the two Hidden Web
+crawlers reveals the main reason: Amazon was functioning in a
+very flaky way when the adaptive crawler visited it, resulting in
+a large number of lost results. Thus, we suspect that the slightly
+poor performance of the adaptive policy is due to this 
+experimental variance. We are currently running another experiment to 
+verify whether this is indeed the case. Aside from this experimental
+variance, the Amazon result indicates that if the collection and the
+words that a Hidden Web site contains are generic enough, then the
+generic-frequency approach may be a good candidate algorithm for
+effective crawling.
+As in the case of topic-specific Hidden Web sites, the 
+randombased policies also exhibit poor performance compared to the other
+two algorithms when crawling generic sites: for the Amazon Web
+site, random-16K succeeds in downloading almost 36.7% after 
+issuing 775 queries, alas for the generic collection of dmoz, the 
+fraction of the collection of links downloaded is 13.5% after the 770th
+query. Finally, as expected, random-1M is even worse than 
+random16K, downloading only 14.5% of Amazon and 0.3% of the generic
+dmoz.
+In summary, the adaptive algorithm performs remarkably well in
+all cases: it is able to discover and download most of the documents
+stored in Hidden Web sites by issuing the least number of queries.
+When the collection refers to a specific topic, it is able to identify
+the keywords most relevant to the topic of the site and consequently
+ask for terms that is most likely that will return a large number of
+results . On the other hand, the generic-frequency policy proves to
+be quite effective too, though less than the adaptive: it is able to 
+retrieve relatively fast a large portion of the collection, and when the
+site is not topic-specific, its effectiveness can reach that of 
+adaptive (e.g. Amazon). Finally, the random policy performs poorly in
+general, and should not be preferred.
+4.2 Impact of the initial query
+An interesting issue that deserves further examination is whether
+the initial choice of the keyword used as the first query issued by
+the adaptive algorithm affects its effectiveness in subsequent 
+iterations. The choice of this keyword is not done by the selection of the
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0 10 20 30 40 50 60
+fractionofdocuments
+query number
+Convergence of adaptive under different initial queries - PubMed website
+pubmed
+data
+information
+return
+Figure 13: Convergence of the adaptive algorithm using 
+different initial queries for crawling the PubMed Web site
+adaptive algorithm itself and has to be manually set, since its query
+statistics tables have not been populated yet. Thus, the selection is
+generally arbitrary, so for purposes of fully automating the whole
+process, some additional investigation seems necessary.
+For this reason, we initiated three adaptive Hidden Web crawlers
+targeting the PubMed Web site with different seed-words: the word
+data, which returns 1,344,999 results, the word information
+that reports 308, 474 documents, and the word return that 
+retrieves 29, 707 pages, out of 14 million. These keywords 
+represent varying degrees of term popularity in PubMed, with the first
+one being of high popularity, the second of medium, and the third
+of low. We also show results for the keyword pubmed, used in
+the experiments for coverage of Section 4.1, and which returns 695
+articles. As we can see from Figure 13, after a small number of
+queries, all four crawlers roughly download the same fraction of
+the collection, regardless of their starting point: Their coverages
+are roughly equivalent from the 25th query. Eventually, all four
+crawlers use the same set of terms for their queries, regardless of
+the initial query. In the specific experiment, from the 36th query 
+onward, all four crawlers use the same terms for their queries in each
+iteration, or the same terms are used off by one or two query 
+numbers. Our result confirms the observation of [11] that the choice of
+the initial query has minimal effect on the final performance. We
+can explain this intuitively as follows: Our algorithm approximates
+the optimal set of queries to use for a particular Web site. Once
+the algorithm has issued a significant number of queries, it has an
+accurate estimation of the content of the Web site, regardless of
+the initial query. Since this estimation is similar for all runs of the
+algorithm, the crawlers will use roughly the same queries.
+4.3 Impact of the limit in the number of results
+While the Amazon and dmoz sites have the respective limit of
+32,000 and 10,000 in their result sizes, these limits may be larger
+than those imposed by other Hidden Web sites. In order to 
+investigate how a tighter limit in the result size affects the 
+performance of our algorithms, we performed two additional crawls to
+the generic-dmoz site: we ran the generic-frequency and adaptive
+policies but we retrieved only up to the top 1,000 results for 
+every query. In Figure 14 we plot the coverage for the two policies
+as a function of the number of queries. As one might expect, by
+comparing the new result in Figure 14 to that of Figure 11 where
+the result limit was 10,000, we conclude that the tighter limit 
+requires a higher number of queries to achieve the same coverage.
+For example, when the result limit was 10,000, the adaptive 
+pol107
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0 500 1000 1500 2000 2500 3000 3500
+FractionofUniquePages
+Query Number
+Cumulative fraction of unique pages downloaded per query - Dmoz Web site (cap limit 1000)
+adaptive
+generic-frequency
+Figure 14: Coverage of general dmoz after limiting the number
+of results to 1,000
+icy could download 70% of the site after issuing 630 queries, while
+it had to issue 2,600 queries to download 70% of the site when
+the limit was 1,000. On the other hand, our new result shows that
+even with a tight result limit, it is still possible to download most
+of a Hidden Web site after issuing a reasonable number of queries.
+The adaptive policy could download more than 85% of the site 
+after issuing 3,500 queries when the limit was 1,000. Finally, our
+result shows that our adaptive policy consistently outperforms the
+generic-frequency policy regardless of the result limit. In both 
+Figure 14 and Figure 11, our adaptive policy shows significantly larger
+coverage than the generic-frequency policy for the same number of
+queries.
+4.4 Incorporating the document download
+cost
+For brevity of presentation, the performance evaluation results
+provided so far assumed a simplified cost-model where every query
+involved a constant cost. In this section we present results regarding
+the performance of the adaptive and generic-frequency algorithms
+using Equation 2 to drive our query selection process. As we 
+discussed in Section 2.3.1, this query cost model includes the cost for
+submitting the query to the site, retrieving the result index page,
+and also downloading the actual pages. For these costs, we 
+examined the size of every result in the index page and the sizes of the
+documents, and we chose cq = 100, cr = 100, and cd = 10000,
+as values for the parameters of Equation 2, and for the particular
+experiment that we ran on the PubMed website. The values that
+we selected imply that the cost for issuing one query and retrieving
+one result from the result index page are roughly the same, while
+the cost for downloading an actual page is 100 times larger. We
+believe that these values are reasonable for the PubMed Web site.
+Figure 15 shows the coverage of the adaptive and 
+genericfrequency algorithms as a function of the resource units used 
+during the download process. The horizontal axis is the amount of
+resources used, and the vertical axis is the coverage. As it is 
+evident from the graph, the adaptive policy makes more efficient use of
+the available resources, as it is able to download more articles than
+the generic-frequency, using the same amount of resource units.
+However, the difference in coverage is less dramatic in this case,
+compared to the graph of Figure 9. The smaller difference is due
+to the fact that under the current cost metric, the download cost of
+documents constitutes a significant portion of the cost. Therefore,
+when both policies downloaded the same number of documents,
+the saving of the adaptive policy is not as dramatic as before. That
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0 5000 10000 15000 20000 25000 30000
+FractionofUniquePages
+Total Cost (cq=100, cr=100, cd=10000)
+Cumulative fraction of unique pages downloaded per cost unit - PubMed Web site
+adaptive
+frequency
+Figure 15: Coverage of PubMed after incorporating the 
+document download cost
+is, the savings in the query cost and the result index download cost
+is only a relatively small portion of the overall cost. Still, we 
+observe noticeable savings from the adaptive policy. At the total cost
+of 8000, for example, the coverage of the adaptive policy is roughly
+0.5 while the coverage of the frequency policy is only 0.3.

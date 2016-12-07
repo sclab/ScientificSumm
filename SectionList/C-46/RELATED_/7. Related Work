@@ -1,0 +1,62 @@
+In this section, we review prior work on storage and indexing
+techniques for sensor networks. While our work addresses both
+problems jointly, much prior work has considered them in isolation.
+The problem of archival storage of sensor data has received
+limited attention in sensor network literature. ELF [7] is a 
+logstructured file system for local storage on flash memory that 
+provides load leveling and Matchbox is a simple file system that is
+packaged with the TinyOS distribution [14]. Both these systems
+focus on local storage, whereas our focus is both on storage at the
+remote sensors as well as providing a unified view of distributed
+data across all such local archives. Multi-resolution storage [9] is
+intended for in-network storage and search in systems where there
+is significant data in comparison to storage resources. In contrast,
+TSAR addresses the problem of archival storage in two-tier systems
+where sufficient resources can be placed at the edge sensors. The
+RISE platform [21] being developed as part of the NODE project
+at UCR addresses the issues of hardware platform support for large
+amounts of storage in remote sensor nodes, but not the indexing
+and querying of this data.
+In order to efficiently access a distributed sensor store, an index
+needs to be constructed of the data. Early work on sensor networks
+such as Directed Diffusion [17] assumes a system where all useful
+sensor data was stored locally at each sensor, and spatially scoped
+queries are routed using geographic co-ordinates to locations where
+the data is stored. Sources publish the events that they detect, and
+sinks with interest in specific events can subscribe to these events.
+The Directed Diffusion substrate routes queries to specific locations
+49
+if the query has geographic information embedded in it (e.g.: find
+temperature in the south-west quadrant), and if not, the query is
+flooded throughout the network.
+These schemes had the drawback that for queries that are not 
+geographically scoped, search cost (O(n) for a network of n nodes)
+may be prohibitive in large networks with frequent queries. 
+Local storage with in-network indexing approaches address this 
+issue by constructing indexes using frameworks such as Geographic
+Hash Tables [24] and Quad Trees [9]. Recent research has seen
+a growing body of work on data indexing schemes for sensor 
+networks[26][11][18]. One such scheme is DCS [26], which provides
+a hash function for mapping from event name to location. DCS
+constructs a distributed structure that groups events together 
+spatially by their named type. Distributed Index of Features in 
+Sensornets (DIFS [11]) and Multi-dimensional Range Queries in Sensor
+Networks (DIM [18]) extend the data-centric storage approach to
+provide spatially distributed hierarchies of indexes to data.
+While these approaches advocate in-network indexing for sensor
+networks, we believe that indexing is a task that is far too 
+complicated to be performed at the remote sensor nodes since it involves
+maintaining significant state and large tables. TSAR provides a 
+better match between resource requirements of storage and indexing
+and the availability of resources at different tiers. Thus complex
+operations such as indexing and managing metadata are performed
+at the proxies, while storage at the sensor remains simple.
+In addition to storage and indexing techniques specific to sensor
+networks, many distributed, peer-to-peer and spatio-temporal index
+structures are relevant to our work. DHTs [25] can be used for
+indexing events based on their type, quad-tree variants such as 
+Rtrees [12] can be used for optimizing spatial searches, and K-D
+trees [2] can be used for multi-attribute search. While this paper
+focuses on building an ordered index structure for range queries, we
+will explore the use of other index structures for alternate queries
+over sensor data.

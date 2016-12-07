@@ -1,0 +1,105 @@
+Logic programs considered in this paper are extended 
+disjunctive programs (EDP) [7]. An EDP (or simply a program)
+is a set of rules of the form:
+L1 ; · · · ; Ll ← Ll+1 , . . . , Lm, not Lm+1 , . . . , not Ln
+(n ≥ m ≥ l ≥ 0) where each Li is a positive/negative 
+literal, i.e., A or ¬A for an atom A, and not is negation as
+failure (NAF). not L is called an NAF-literal. The symbol
+; represents disjunction. The left-hand side of the rule
+is the head, and the right-hand side is the body. For each
+rule r of the above form, head(r), body+
+(r) and body−
+(r)
+denote the sets of literals {L1, . . . , Ll}, {Ll+1, . . . , Lm}, and
+{Lm+1, . . . , Ln}, respectively. Also, not body−
+(r) denotes
+the set of NAF-literals {not Lm+1, . . . , not Ln}. A 
+disjunction of literals and a conjunction of (NAF-)literals in a rule
+are identified with its corresponding sets of literals. A rule
+r is often written as head(r) ← body+
+(r), not body−
+(r) or
+head(r) ← body(r) where body(r) = body+
+(r)∪not body−
+(r).
+A rule r is disjunctive if head(r) contains more than one 
+literal. A rule r is an integrity constraint if head(r) = ∅; and
+r is a fact if body(r) = ∅. A program is NAF-free if no
+rule contains NAF-literals. Two rules/literals are identified
+with respect to variable renaming. A substitution is a 
+mapping from variables to terms θ = {x1/t1, . . . , xn/tn}, where
+x1, . . . , xn are distinct variables and each ti is a term 
+distinct from xi. Given a conjunction G of (NAF-)literals, Gθ
+denotes the conjunction obtained by applying θ to G. A
+program, rule, or literal is ground if it contains no variable.
+A program P with variables is a shorthand of its ground
+instantiation Ground(P), the set of ground rules obtained
+from P by substituting variables in P by elements of its
+Herbrand universe in every possible way.
+The semantics of an EDP is defined by the answer set
+semantics [7]. Let Lit be the set of all ground literals in
+the language of a program. Suppose a program P and a
+set of literals S(⊆ Lit). Then, the reduct P S
+is the 
+program which contains the ground rule head(r) ← body+
+(r)
+iff there is a rule r in Ground(P) such that body−
+(r)∩S = ∅.
+Given an NAF-free EDP P, Cn(P) denotes the smallest set
+of ground literals which is (i) closed under P, i.e., for 
+every ground rule r in Ground(P), body(r) ⊆ Cn(P) implies
+head(r) ∩ Cn(P) = ∅; and (ii) logically closed, i.e., it is 
+either consistent or equal to Lit. Given an EDP P and a set
+S of literals, S is an answer set of P if S = Cn(P S
+). A
+program has none, one, or multiple answer sets in general.
+An answer set is consistent if it is not Lit. A program P is
+consistent if it has a consistent answer set; otherwise, P is
+inconsistent.
+Abductive logic programming [9] introduces a mechanism
+of hypothetical reasoning to logic programming. An 
+abductive framework used in this paper is the extended 
+abduction introduced by Inoue and Sakama [8, 15]. An abductive
+program is a pair P, H where P is an EDP and H is
+a set of literals called abducibles. When a literal L ∈ H
+contains variables, any instance of L is also an abducible.
+An abductive program P, H is consistent if P is 
+consistent. Throughout the paper, abductive programs are 
+assumed to be consistent unless stated otherwise. Let G =
+L1, . . . , Lm, not Lm+1, . . . , not Ln be a conjunction, where
+all variables in G are existentially quantified at the front and
+range-restricted, i.e., every variable in Lm+1, . . . , Ln appears
+in L1, . . . , Lm. A set S of ground literals satisfies the 
+conjunction G if { L1θ, . . . , Lmθ } ⊆ S and { Lm+1θ, . . . , Lnθ }∩
+S = ∅ for some ground instance Gθ with a substitution θ.
+Let P, H be an abductive program and G a conjunction
+as above. A pair (E, F) is an explanation of an observation
+G in P, H if1
+1. (P \ F) ∪ E has an answer set which satisfies G,
+2. (P \ F) ∪ E is consistent,
+3. E and F are sets of ground literals such that E ⊆ H\P
+and F ⊆ H ∩ P.
+When (P \ F) ∪ E has an answer set S satisfying the above
+three conditions, S is called a belief set of an abductive 
+program P, H satisfying G (with respect to (E, F)). Note
+that if P has a consistent answer set S satisfying G, S
+is also a belief set of P, H satisfying G with respect to
+(E, F) = (∅, ∅). Extended abduction introduces/removes
+hypotheses to/from a program to explain an observation.
+Note that normal abduction (as in [9]) considers only 
+introducing hypotheses to explain an observation. An 
+explanation (E, F) of an observation G is called minimal if for
+any explanation (E , F ) of G, E ⊆ E and F ⊆ F imply
+E = E and F = F.
+Example 2.1. Consider the abductive program P, H :
+P : flies(x) ← bird(x), not ab(x) ,
+ab(x) ← broken-wing(x) ,
+bird(tweety) ← , bird(opus) ← ,
+broken-wing(tweety) ← .
+H : broken-wing(x) .
+The observation G = flies(tweety) has the minimal 
+explanation (E, F) = (∅, {broken-wing(tweety)}).
+1
+This defines credulous explanations [15]. Skeptical 
+explanations are used in [8].
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1023

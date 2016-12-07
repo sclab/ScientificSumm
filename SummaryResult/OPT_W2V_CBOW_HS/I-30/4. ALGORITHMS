@@ -1,0 +1,90 @@
+If the maximum flow in each network is equal to the total required resources of that type, the current combination of tasks is feasible.
+A bid consists of all the resources the agent is able to supply for this task.
+For each combination we use a maximum-flow algorithm to check whether the resources are sufficient for the selected subset of tasks.
+The problem is to find out which tasks to execute, and which resources of which contractors to use for these tasks.
+Our method for efficiently calculating an upper bound for STAP makes use of this special case by converting any given STAP instance P into a new problem P where each task only has one resource type.
+Each manager a requests help for t from all its  neighbors (of a) by informing these neighbors of the  efficiency e(t) and the required resources for t. 3.
+Each agent has a set of resources of different types at its disposal.
+(c) For each task t ∈ T create a task node and an edge from this node to s with capacity equal to the amount of resources of type r task T requires.
+From this it is easy to see that the solution of P gives an upper bound of the solution of the original problem P. To compute the optimal solution for P , we transform it to a minimum cost flow problem.
+4.1 Protocol for distributed task allocation We can summarize the description of the task allocation problem in social networks from Section 2 as follows.
+4.3 Upper bound for social task allocation Given a social task allocation problem, if the number of resource types for every task t ∈ T is bounded by 1, the Algorithm 3 An upper bound for social task allocation (UB).
+, rm}) and each task has a fair share of the utility, i.e., the efficiency of t from  Definition 5 times the amount of this resource type rsc(ti, ri).
+The  resulting minimum cost flow represents a maximum allocation of the tasks for P .
+In each iteration in the worst case (i.e., a fully connected network), for each of the O(n) managers, O(m) messages are sent.
+The efficiency of a task is defined as follows: Definition 5.
+All manager agents a ∈ A try to find neighboring contractors to help them with their task(s) Ta = {ti ∈ T | loc(ti) = a}.
+The efficiency e of a task t ∈ T is defined by the utility of this task divided by the sum of all required resources: e(t) = u(t)P r∈R rsc(t,r) .
+For each resource type ri ∈ R and for each agent a connect the agent-resource node ai to all task-resource nodes ti for neighboring tasks t ∈ {t ∈ T | (a, loc(t)) ∈ AE or a = loc(t)}.
+This protocol is such that, when no two tasks have exactly the same  efficiency, in every iteration at least one task is removed from a task list.1 From this the computation and communication property of the algorithm follows.
+Next the task with the highest efficiency can be selected by each contractor in O(n).
+(b) For each agent a ∈ A create an agent node and an edge from s to this node with capacity equal to the amount of resources of type r agent a has.
+Out of all tasks  offered, contractors select the task with the highest efficiency, and send a bid to the related manager.
+We also have a set of tasks.
+The costs of the resulting network is an upper bound for the social task allocation problem.
+4.2 Optimal social task allocation The optimal task allocation algorithm should deal with the restrictions posed by the social network.
+For each task t ∈ T and each resource type ri ∈ R,  create a task-resource node ti, and an edge from this node to s with capacity equal to the amount of resources of type r task t requires and costs −e(t).
+Each manager a calculates the efficiency e(t) for each of their tasks t ∈ Ta, and then while Ta = ∅: 1.
+To establish the quality of our  protocol for large instances, we use the following method to determine an upper bound.
+For a STAP with n tasks and m agents, the run time of the distributed algorithm is O(nm), and the number of communication messages is O(n2 m).
+Clearly, we cannot expect this optimal algorithm to be able to find solutions for larger problem sizes.
+More specifically, for every task t ∈ T with utility u(t), we do the following.
+A polynomial-time implementation of a scaling minimum cost flow algorithm [9] is used for the computation.
+We introduce this algorithm by describing the protocol for the agents.
+If the maximum flow is equal to the sum of all  resources required by the subset of tasks, we know that a  feasible solution exists (see Algorithm 2).
+They start with offering the task that is most efficient in terms of the ratio between benefit and required resources.
+The flow network describes which resources can be used for which tasks, depending on the social  network.
+Repeat the following for each combination of tasks: 1.
+The managers that have received sufficient offers  allocate their tasks, and inform each contractor which part of the offer is accepted.
+For each agent a ∈ A and each resource type ri ∈ R, create an agent-resource node ai, and an edge from s to this node with capacity equal to the amount of resources of type r agent a has available and with costs 0.
+Here it is also defined how to determine when a task should not be offered anymore, because it is impossible to fulfill locally.
+After that we give the optimal, centralized algorithm and an upper bound algorithm, which we use in Section 5 to  benchmark the quality of our distributed algorithm.
+For example, the implementation can ensure that the contractors choose the task with the lowest task-id.
+We model the cost in the flow network by the negation of the new task"s utility.
+Note that the set of valid allocations in P is only a subset of the set of valid allocations in P , because it is now possible to partially allocate a task.
+Preferably, we compare the results to the optimal solution.
+When a task is  allocated, or when a manager has received offers from all neighbors, but still cannot satisfy its task, the task is removed from the task list Ta.
+, rm} required by t. We then split t into a set of m tasks T = {t1, .
+(d) For each agent a connect the agent node to all task nodes of neighboring tasks, i.e., t ∈ {t ∈ T | (a, loc(t)) ∈ AE}.
+This leads to a total of O(n + m)  operations for each iteration, and thus O(n2 + nm) operations in total.
+Solve the maximum flow problem for the created flow networks.
+Each manager a selects the most efficient task t ∈ Ta such that for each task t ∈ Ta: e(t ) ≤ e(t).
+We only allow neighboring agents to help with a task.
+In that case, this is the current best combination of tasks.
+To deal with the problem of allocating tasks in a social network, we present a distributed algorithm.
+Create a network flow problem for each resource type r ∈ R (separately) as follows: (a) Create a source s and a sink s .
+Contractors receive and store all requests, and then offer all relevant resources to the manager for the task with the highest efficiency.
+In the next section, we use this upper bound to estimate the quality of the GDAP for large-scale instances. 
+A more detailed description of this protocol can be found in Algorithm 1.
+This agent is called a manager.
+Solve the minimum cost flow network problem for this  network.
+Let m be the number of resource types {r1, .
+If  sufficient resources have been offered, the manager selects the required resources and informs all contractors of its choice.
+For this  NPcomplete problem we used an exponential brute-force  algorithm to consider relevant combinations of tasks to execute.
+Each task requires some resources, has a fixed benefit, and is located at a certain agent.
+Assigning an allocation can be done in O(m).
+The idea of the protocol is as follows.
+problem is polynomially solvable by transforming it to a flow network problem.
+, tm} where each task ti only has one unique resource type (of {r1, .
+In the worst case, in each iteration exactly one task is removed from a task list, so there are n iterations.
+502 The Sixth Intl.
+These agents are called contractors.
+If the total reward for this combination is higher than any previous combination, test if this combination is feasible as follows: 2.
+Agents can fulfill the role of manager as well as contractor.
+After polynomially performing this conversion for every task in T , the original problem P becomes the special case P .
+We establish the quality of this protocol experimentally (in Section 5).
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) Algorithm 2 Optimal social task allocation (OPT).
+1 Even when some tasks have the same efficiency, it is straightforward to make this result work.
+Create a network flow problem with costs as follows: 1.
+We Algorithm 1 Greedy distributed allocation protocol (GDAP).
+Contractors update their used resources.
+The number of messages sent is O(n(nm + nm + nm)) = O(n2 m).
+have a (social) network of agents.
+Obviously, a task is also not offered anymore when it has been allocated.
+Create an edge directly from s to s with unlimited capacity and zero costs.
+The detailed modeling is described in  Algorithm 3.
+Create a source s and a sink s .
+Give this connection unlimited capacity and zero costs.
+Give this connection unlimited capacity.
+Joint Conf.
+Proposition 1.

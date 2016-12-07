@@ -1,0 +1,133 @@
+In this paper we introduce the concept of negotiation
+based mechanisms in the context of the theory of efficient
+truthful markets. A market consists of multiple buyers and
+sellers who wish to exchange goods. The market"s main 
+objective is to produce an allocation of sellers" goods to buyers
+as to maximize the total gain from trade.
+A commonly studied model of participant behavior is taken
+from the field of economic mechanism design [3, 4, 11]. In
+this model each player has a private valuation function that
+assigns real values to each possible allocation. The 
+algorithm motivates players to participate truthfully by handing
+payments to them.
+The mechanism in an exchange collects buyer bids and
+seller bids and clears the exchange by computing:(i) a set of
+trades, and (ii) the payments made and received by players.
+In designing a mechanism to compute trades and payments
+we must consider the bidding strategies of self-interested
+players, i.e. rational players that follow expected-utility
+maximizing strategies. We set allocative efficiency as our
+primary goal. That is the mechanism must compute a set
+of trades that maximizes gain from trade. In addition we
+require individual rationality (IR) so that all players have
+positive expected utility to participate, budget balance (BB)
+so that the exchange does not run at a loss, and incentive
+compatibility (IC) so that reporting the truth is a dominant
+strategy for each player.
+Unfortunately, Myerson and Satterthwaite"s (1983) well
+known result demonstrates that in bilateral trade it is 
+impossible to simultaneously achieve perfect efficiency, BB, and
+IR using an IC mechanism [10]. A unique approach to 
+overcome Myerson and Satterthwaite"s impossibility result was
+attempted by Parkes, Kalagnanam and Eso [12]. This result
+designs both a regular and a combinatorial bilateral trade
+mechanism (which imposes BB and IR) that approximates
+truth revelation and allocation efficiency.
+In this paper we circumvent Myerson and Satterthwaite"s
+impossibility result by introducing a new model of 
+negotiationrange markets. A negotiation-range mechanism does not
+produce payment prices for the market participants. Rather,
+is assigns each buyer-seller pair a price range, called Zone
+Of Possible Agreements (ZOPA). The buyer is provided with
+the high end of the range and the seller with the low end
+of the range. This allows the trading parties to engage in
+negotiation over the final price with guarantee that the deal
+is beneficial for both of them. The negotiation process is not
+considered part of the mechanism but left up to the 
+interested parties, or to some external mechanism to perform. In
+effect a negotiation-range mechanism operates as a mediator
+between the market participants, offering them the grounds
+to be able to finalize the terms of the trade by themselves.
+This concept is natural to many real-world market 
+environments such as the real estate market.
+1
+We focus on the single-unit heterogeneous setting: n 
+sellers offer one unique good each by placing sealed bids 
+specifying their willingness to sell, and m buyers, interested in
+buying a single good each, placing sealed bids specifying
+their willingness to pay for each good they may be 
+interested in.
+Our main result is a single-unit heterogeneous bilateral
+trade negotiation-range mechanism (ZOPAS) that is 
+efficient, individually rational, incentive compatible and budget
+balanced.
+Our result does not contradict Myerson and 
+Satterthwaite"s important theorem. Myerson-Satterthwaite"s proof
+relies on a theorem assuring that in two different efficient
+IC markets; if the sellers have the same upper bound utility
+then they will receive the same prices in each market and
+if the buyers have the same lower bound utility then they
+will receive the same prices in each market. Our single-unit
+heterogeneous mechanism bypasses Myerson and 
+Satterthwaite"s theorem by producing a price range, defined by a
+seller"s floor and a buyer"s ceiling, for each pair of matched
+players. In our market mechanism the seller"s upper bound
+utility may be the same while the seller"s floor is different
+and the buyer"s lower bound utility may be the same while
+the buyer"s ceiling is different. Moreover, the final price is
+not fixed by the mechanism at all. Instead, it is determined
+by an independent negotiation between the buyer and seller.
+More specifically, in a negotiation-range mechanism, the
+range of prices each matched pair is given is resolved by a
+negotiation stage where a final price is determined. This
+negotiation stage is crucial for our mechanism to be IC. 
+Intuitively, a negotiation range mechanism is incentive 
+compatible if truth telling promises the best ZOPA from the
+point of view of the player in question. That is, he would
+tell the truth if this strategy maximizes the upper and lower
+bounds on his utility as expressed by the ZOPA boundaries.
+Yet, when carefully examined it turns out that it is 
+impossible (by [10]) that this goal will always hold. This is simply
+because such a mechanism could be easily modified to 
+determine final prices for the players (e.g. by taking the average of
+the range"s boundaries). Here, the negotiation stage come
+into play. We show that if the above utility maximizing
+condition does not hold then it is the case that the player
+cannot influence the negotiation bound that is assigned to
+his deal partner no matter what value he declares. This
+means that the only thing that he may achieve by reporting
+a false valuation is modifying his own negotiation bound,
+something that he could alternatively achieve by reporting
+his true valuation and incorporating the effect of the 
+modified negotiation bound into his negotiation strategy. This
+eliminates the benefit of reporting false valuations and 
+allows our mechanism to compute the optimal gain from trade
+according to the players" true values.
+The problem of computing the optimal allocation which
+maximizes gain from trade can be conceptualized as the
+problem of finding the maximum weighted matching in a
+weighted bipartite graph connecting buyers and sellers, where
+each edge in the graph is assigned a weight equal to the 
+difference between the respective buyer bid and seller bid. It
+is well known that this problem can be solved efficiently in
+polynomial time.
+VCG IC payment schemes [2, 7, 13] support efficient and
+IR bilateral trade but not simultaneously BB. Our particular
+approach adapts the VCG payment scheme to achieve 
+budget balance. The philosophy of the VCG payment schemes
+in bilateral trade is that the buyer pays the seller"s 
+opportunity cost of not selling the good to another buyer and not
+keeping the good to herself. The seller is paid in addition to
+the buyer"s price a compensation for the damage the 
+mechanism did to the seller by not extracting the buyer"s full
+bid. Our philosophy is a bit different: The seller is paid at
+least her opportunity cost of not selling the good to another
+buyer and not keeping the good for herself. The buyer pays
+at most his alternate seller"s opportunity cost of not selling
+the good to another buyer and not keeping the alternate
+good for herself.
+The rest of this paper is organized as follows. In 
+Section 2 we describe our model and definitions. In section 3
+we present the single-unit heterogeneous negotiation-range
+mechanism and show that it is efficient, IR, IC and BB.
+Finally, we conclude with a discussion in Section 4.

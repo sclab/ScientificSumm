@@ -1,0 +1,148 @@
+In this section we will present some examples in order to
+illustrate our general framework.
+Example 7 (No argumentation). Let O = {o1, o2}
+be the set of all possible offers. Let P and C be two agents,
+equipped with the same theory: A, F, , R, Def such that
+A = ∅, F(o1) = F(o2) = ∅, = ∅, R = ∅, Def = ∅. In
+this case, it is clear that the two offers o1 and o2 are 
+nonsupported. The proposed protocol (see Definition 16) will
+generate one of the following dialogues:
+972 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+P: m1 = P, θ, o1, 0
+C: m2 = C, θ, o1, 1
+This dialogue ends with o1 as a compromise. Note that this
+solution is not considered as optimal since it is not an 
+acceptable offer for the agents.
+P: m1 = P, θ, o1, 0
+C: m2 = C, θ, o2, 1
+P: m3 = P, θ, o2, 2
+This dialogue ends with o2 as a compromise.
+P: m1 = P, θ, o2, 0
+C: m2 = C, θ, o2, 1
+This dialogue also ends with o2 as a compromise. The last
+possible dialgue is the following that ends with o1 as a 
+compromise.
+P: m1 = P, θ, o2, 0
+C: m2 = C, θ, o1, 1
+P: m3 = P, θ, o1, 2
+Note that in the above example, since there is no exchange
+of arguments, the theories of both agents do not change. Let
+us now consider the following example.
+Example 8 (Static theories). Let O = {o1, o2} be
+the set of all possible offers. The theory of agent P is AP
+,
+FP
+, P
+, RP
+, DefP
+such that: AP
+= {a1, a2}, FP
+(o1) =
+{a1}, FP
+(o2) = {a2}, P
+= {(a1, a2)}, RP
+= {(a1, a2), (a2, a1)},
+DefP
+= {a1, a2}. The argumentation system AP
+, DefP
+of
+this agent will return a1 as an accepted argument, and a2 as
+a rejected one. Consequently, the offer o1 is acceptable and
+o2 is rejected.
+The theory of agent C is AC
+, FC
+, C
+, RC
+, DefC
+such
+that: AC
+= {a1, a2}, FC
+(o1) = {a1}, FC
+(o2) = {a2}, C
+=
+{(a2, a1)}, RC
+= {(a1, a2), (a2, a1)}, DefC
+= {a2, a1}. The
+argumentation system AC
+, DefC
+of this agent will return
+a2 as an accepted argument, and a1 as a rejected one. 
+Consequently, the offer o2 is acceptable and o1 is rejected.
+The only possible dialogues that may take place between
+the two agents are the following:
+P: m1 = P, θ, o1, 0
+C: m2 = C, θ, o2, 1
+P: m3 = P, a1, o1, 2
+C: m4 = C, a2, o2, 3
+The second possible dialogue is the following:
+P: m1 = P, θ, o1, 0
+C: m2 = C, a2, o2, 1
+P: m3 = P, a1, o1, 2
+C: m4 = C, θ, o2, 3
+Both dialogues end with failure. Note that in both dialogues,
+the theories of both agents do not change. The reason is that
+the exchanged arguments are already known to both agents.
+The negotiation fails because the agents have conflicting 
+preferences.
+Let us now consider an example in which argumentation will
+allow agents to reach an agreement.
+Example 9 (Dynamic theories). Let O = {o1, o2} be
+the set of all possible offers. The theory of agent P is AP
+,
+FP
+, P
+, RP
+, DefP
+such that: AP
+= {a1, a2}, FP
+(o1)
+= {a1}, FP
+(o2) = {a2}, P
+= {(a1, a2), (a3, a1)}, RP
+=
+{(a1, a2), (a2, a1)}, DefP
+= {(a1, a2)}. The argumentation
+system AP
+, DefP
+of this agent will return a1 as an accepted
+argument, and a2 as a rejected one. Consequently, the offer
+o1 is acceptable and o2 is rejected.
+The theory of agent C is AC
+, FC
+, C
+, RC
+, DefC
+such
+that: AC
+= {a1, a2, a3}, FC
+(o1) = {a1}, FC
+(o2) = {a2},
+C
+= {(a1, a2), (a3, a1)}, RC
+= {(a1, a2), (a2, a1), (a3, a1)},
+DefC
+= {(a1, a2), (a3, a1)}. The argumentation system
+AC
+, DefC
+of this agent will return a3 and a2 as accepted
+arguments, and a1 as a rejected one. Consequently, the offer
+o2 is acceptable and o1 is rejected.
+The following dialogue may take place between the two
+agents:
+P: m1 = P, θ, o1, 0
+C: m2 = C, θ, o2, 1
+P: m3 = P, a1, o1, 2
+C: m4 = C, a3, θ, 3
+C: m5 = P, θ, o2, 4
+At step 4 of the dialogue, the agent P receives the 
+argument a3 from P. Thus, its theory evolves as follows: AP
+= {a1, a2, a3}, RP
+= {(a1, a2), (a2, a1), (a3, a1)}, DefP
+=
+{(a1, a2), (a3, a1)}. At this step, the argument a1 which was
+accepted will become rejected, and the argument a2 which
+was at the beginning of the dialogue rejected will become 
+accepted. Thus, the offer o2 will be acceptable for the agent,
+whereas o1 will become rejected. At this step 4, the offer o2
+is acceptable for both agents, thus it is an optimal solution.
+The dialogue ends by returning this offer as an outcome.

@@ -1,0 +1,25 @@
+This double dependency results from the fact, that the expected reward for starting the execution of method mj at time t also depends on the probability that method mj will be enabled by time t. Consequently, if time is discretized, one needs to consider Δ|M| candidate policies in order to find π∗ .
+While such state representation is beneficial, in that the problem can be solved with a standard value iteration  algorithm, it blurs the intuitive mapping from time t to the expected total reward for starting the execution of mj at time t.  Consequently, if some method mi enables method mj, and the values Vj,[τ,τ ]∀τ,τ ∈[0,Δ] are known, the operation that calculates the  values Vi,[τ,τ ]∀τ, τ ∈ [0, Δ] (during the value propagation phase), runs in time O(I2 ), where I is the number of time intervals 3 .
+At each iteration, the algorithm starts with some policy π, which uniquely determines the probabilities Pi,[τ,τ ] that method mi will be performed in the time interval [τ, τ ].
+As a result, methods that precede the method mj  overestimate the value for enabling mj which, as we show later, can have disastrous consequences.
+This propagation uses the probabilities Pi,[τ,τ ] from previous algorithm iteration.
+Second, while OC-DEC-MDP emphasizes on precise calculation of values Vj,[τ,τ ], it fails to address a critical issue that determines how the values Vj,[τ,τ ] are split given that the method mj has  multiple enabling methods.
+The idea of the  OC-DECMDP algorithm is to start with the earliest starting time policy π0 (according to which an agent will start executing the method m as soon as m has a non-zero chance of being already enabled), and then improve it iteratively, until no further improvement is  possible.
+The complexity of our model could be reduced if we considered its more restricted version; in particular, if each method mj was allowed to be  enabled at time points t ∈ Tj ⊂ [0, Δ], the Coverage Set Algorithm (CSA) [1] could be used.
+Since the runtime of the whole algorithm is proportional to the runtime of this operation, especially for big time horizons Δ, the OC-  DECMDP algorithm runs slow.
+4.2 Locally Optimal Algorithms Following the limited applicability of globally optimal algorithms for DEC-MDPs with Temporal Constraints, locally optimal  algorithms appear more promising.
+Step 2: Given the values Vi,[τ,τ ] from Step 1, the algorithm chooses the most profitable method execution intervals which are stored in a new policy π .
+4.1 Optimal Algorithms Optimal joint policy π∗ is usually found by using the Bellman  update principle, i.e., in order to determine the optimal policy for method mj, optimal policies for methods mk ∈ {m| mj, m ∈ C≺} are used.
+It then performs two steps: Step 1: It propagates from sink methods to source methods the values Vi,[τ,τ ], that represent the expected utility for executing method mi in the time interval [τ, τ ].
+Unfortunately, for our model, the optimal  policy for method mj also depends on policies for methods mi ∈ {m| m, mj ∈ C≺}.
+We call this step a value propagation phase.
+First, each of OC-DEC-MDP states is a pair mj, [τ, τ ] , where [τ, τ ] is a time interval in which method mj can be executed.
+It then propagates the new probabilities Pi,[τ,τ ] from source methods to sink methods.
+We call this step a  probability propagation phase.
+As we show later, OC-DEC-MDP splits Vj,[τ,τ ] into parts that may overestimate Vj,[τ,τ ] when summed up again.
+Thus,  globally optimal algorithms used for solving real-world problems are unlikely to terminate in reasonable time [11].
+If policy π does not improve π, the algorithm terminates.
+There are two shortcomings of the OC-DEC-MDP algorithm that we address in this paper.
+However, CSA complexity is double  exponential in the size of Ti, and for our domains Tj can store all values ranging from 0 to Δ.
+In the next two sections, we address both of these shortcomings. 
+Specially, the OC-DEC-MDP  algorithm [4] is particularly significant, as it has shown to easily scale up to domains with hundreds of methods.

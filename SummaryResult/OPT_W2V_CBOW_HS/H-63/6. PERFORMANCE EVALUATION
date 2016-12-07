@@ -1,0 +1,40 @@
+As the length of the broadcast increases, after a certain point, though the tuning time increases as a result of factors which we have described before, the scheme always performs better than the other two schemes.
+The scheme performs better than the other two schemes in terms of tuning time in most of the cases.
+This large tuning time is due to the fact that after reaching the lowest minor index, the MU may have to access few buckets sequentially to get the required data bucket.
+We compare our scheme with the distributed indexing and exponential scheme.
+As the number of internal locations vary for item to item (for example, Weather is generally associated with a City whereas traffic is granulated up to major and minor roads of a city), we argue that the structure of the location mapped information may be visualized as a forest which is a collection of general trees, the number of general trees depending on the types of information broadcasted and depth of a tree depending on the granularity of the location information associated with the information.
+Table 1 Simulation Parameters P Definition Values N Number of data Items 5000 - 25000 m Number of internal location nodes 3, 4, 5, 6 B Capacity of bucket without index (for exponential index) 10,64,128,256 i Index base for exponential index 2,4,6,8 k Index size for distributed tree 8 bytes The simulation results establish some facts about our location based indexing scheme.
+An efficient scheme should allow the mobile device to access its required data by staying active for a minimum amount of time.
+Thus, if the number of data items is d and the height of the tree is m, then n= (m*d-1)/(m-1) where n is the number of vertices in the tree and i= (d-1)/(m-1) where i is the number of internal vertices.
+But as the length of broadcast increases, it is clearly visible the LBIS outperforms the other two schemes.
+Here we can see that the exponential and the distributed perform almost similarly, though the former seems to perform slightly better as the broadcast length increases.
+The tuning time in LBIS ranges from approx 6.8 to 8.
+The mobile unit has to access a larger major index and a relatively much smaller minor index to get information about the time of arrival of data.
+Conservation of energy is the main concern when we try to access data from wireless broadcast.
+This is in contrast to the exponential scheme where the indexes are of equal sizes.
+Figure 8, in contrast, shows us that the tuning time in LBIS, though less than the other two schemes, tends to increase sharply as the broadcast length becomes greater than the 15000 pages.
+The example discussed and Algorithm 1 reveals that to access any data, we need to access the major index only once followed by one or more accesses to the minor index.
+The Distributed tree indexing shows similar behavior like the LBIS.
+The tuning time in LBIS remains low because the algorithm allows the MU to skip some intermediate Minor Indexes.
+This action is not possible in the distributed tree indexing and hence we can observe that its tuning time is more than the LBIS scheme, although it performs better than the exponential scheme.
+Tuning time for a data item involves 1 unit of time required to access the major index plus time required to access the data items present in the leaves of the tree.
+But we can observe that the slope of the LBIS curve is significantly less than the other two curves.
+This may be attributed both due to increase in time required to scan the intermediate Minor Indexes and the length of the broadcast.
+This allows the MU to move into lower levels directly after coming into active mode, thus saving valuable energy.
+For our experiments, we assume the forest as a collection of balanced M-ary trees.
+For smaller broadcast size, the LBIS seems to have larger tuning time than the other two schemes.
+We can see that the tuning time tends to become stable as the length of broadcast increases.
+This would save considerable amount of energy.
+We can see that LBIS significantly outperforms both the other schemes.
+Figure 5-8 shows the relative tuning times of three indexing algorithms, ie, the LBIS, exponential scheme and the distributed tree scheme.
+Figure 5 shows the result for number of internal location nodes = 3.
+The number of minor index access depends on the number of internal locations.
+Due to the prescribed limit of the number of pages in the paper, we are unable to show more results.
+But these omitted results show similar trend as the results depicted in figure 5-8. 
+We assume a flat broadcast and number of pages varying from 5000 to 25000.
+A very interesting pattern is visible in figure 7.
+We further assume the M-ary trees to be full by assuming the presence of dummy nodes in different levels of a tree.
+The various simulation parameters are shown in Table 1.
+Since items are distributed based on types and are mapped to suitable locations, we argue that our broadcast deals with clustered data types.
+Thus, tuning time with d data items is t = logmd+1 We can say that tuning time is bounded by O(logmd).
+In figure 6 we consider m= 4.

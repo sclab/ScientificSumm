@@ -1,0 +1,21 @@
+Despite the mechanism to reduce control packets, high overhead may still be unavoidable, especially when there are many clients trying to locate different services, due to the fact that the algorithm relies on flooding, For resource replication, Yin and Cao [6] design and evaluate cooperative caching techniques for MANETs.
+With limited control over how control and data packets are routed in the network, it is difficult to avoid the inefficiency of the general-purpose routing protocols which are often reactive and flooding-based.
+In this way, the number of  control packets on the network is constrained, thus providing good scalability.
+Our proposed resource replication mechanism, in contrast, attempts to replicate a data item in appropriate areas, instead of a large area around the server, where the item is requested frequently. 
+For instance, Konark [2] makes use of a underlying multicast protocol such that service providers and queriers advertise and search services via a predefined multicast group, respectively.
+Caching, however, is performed reactively by intermediate nodes when a querier requests data from a server.
+7DS [4], which is the pioneering work deploying P2P system on mobile devices, exploits data  locality and node mobility to dissemination data in a single-hop fashion.
+Since data replication is triggered by the request frequency alone, it is possible that there are replicas unnecessarily created in a large scope even though only nodes within a small range request this data.
+A layered  approach adopts a P2P-like [1] solution, where resource discovery is facilitated as an application layer protocol and query/reply  messages are delivered by the underlying MANET routing protocols.
+For MANETs, P2P systems can be classified based on the design principle, into layered and cross-layer approaches.
+Specifically, a service provider/querier broadcasts  advertisement/query only when the number of nodes advertising or  querying, which is estimated by received control packets, is below a threshold during a period of time.
+[5] propose an adaptive service discovery algorithm that combines both push and pull models.
+In contrast, cross-layer approaches either relies on its own routing mechanism or augments existing MANET routing algorithms to support resource discovery.
+Hence, long search latency may be resulted as a 7DS node can get data of interest only if the node that holds the data is in its radio coverage.
+[7] propose a lightweight content replication scheme using an expanding ring technique.
+It defines a transport protocol that sits on top of the existing TCP/IP stack, hence relying on an existing routing protocol to operate.
+Data items or resources are never pushed into other nodes proactively.
+If a server detects the number of requests exceed a threshold within a time period, it begins to replicate its data onto nodes capable of storing replicas, whose hop counts from the server are of certain values.
+Proem [3] is a high-level mobile computing platform for P2P systems over MANETs.
+Thanedar et al.
+Mohan et al.

@@ -1,0 +1,36 @@
+therefore, while recursive contracts under known transit costs are strategically equivalent to direct contracts, it is not clear whether this is the case under unknown transit costs. 
+transit nodes, who know this is a plausible scenario, may no longer truthfully  reveal their cost.
+thus, every node has incentive to offer lower payments than promised and keep the profit.
+transit nodes, who design the contracts in the second stage, know that their downstream nodes will forward the packet as long as the expected payment exceeds the expected cost, even if it is less than the promised amount.
+however, in the case of recursive contracts, the entity that pledges to pay in the cost discovery stage (the principal) is not the same as the entity that  defines and executes the payments in the forwarding stage (the transit nodes).
+we assume that payments are  enforceable if made by the same entity that pledge to pay.
+for  example, in fpss , the principal guarantees to pay each node an  expected payment of pi > ci.
+therefore, transit nodes may not have the appropriate incentive to follow the principal"s guarantee during the payment phase.
+unlike contracts in known transit costs, the expected payment to a node usually exceeds its expected cost.
+sb 1 = 0 sg 1 = nx i=1 pi (1 − k)i the answer is not clear.
+suppose the principal has implemented the distributed algorithm that calculates the necessary payments, pi for truthful 123 revelation, would the following payment schedule to the first node induce cooperative behavior?
+finally, is it possible to design recursive contracts under  unknown transit costs, and, if so, what should be the structure of such contracts?
+therefore, while the principal only needs to communicate with the first node on the forwarding path and does not have to know the identities of the other nodes, it still needs to know the number of nodes on the path and their individual transit costs.
+like in direct payments, the expected payment is not affected solely by the total payment on the path, but also by the topology.
+what information should the principal posess in order to  implement recursive contracts?
+6. because the payment is contingent on the final outcome, and the expected payment to a node equals its expected cost, nodes have no incentive to offer their downstream nodes lower payment than necessary, since if they do, their downstream nodes will not forward the packet.
+= nx i=1 ci (1 − k)i and the expected total payment is e[s] = (1 − k)n+1 sg 1 = (1 − k)n+1 nx i=1 ci (1 − k)n−i+1 which equals the total expected payment in direct payments, as  expressed in eq.
+because sb i = 0 in the drop / forward model, both constraints can be reduced to: pr(xg i→r|aj = 1∀j)(sg i − sg i+1) − ci = 0 ⇔ (1 − k)n−i+1 (sg i − sg i+1) − ci = 0 which yields, for all 1 ≤ i ≤ n: sg i = ci (1 − k)n−i+1 + sg i+1 thus, sg n = cn 1 − k sg n−1 = cn−1 (1 − k)2 + sg n = cn−1 (1 − k)2 + cn 1 − k · · · sg 1 = c1 (1 − k)n + sg 2 = .
+in order to calculate the expected total payment, we have to find the payment to the first node on the path that will  induce appropriate behavior.
+proposition 5.1. the expected total payments by the  principal under direct and recursive contracts are equal.
+8).
+(ir) :pr(xg s→a|as = 1)(e[ss→a − sa→b|ai = 1∀i] − c) + pr(xb s→a|as = 1)sb s→a ≥ 0 (ic) : e[ss→a − sa→b|ai = 1∀i] − c ≥ e[ss→a − sa→b|aa = 0, ab = 1] where: e[ss→a − sa→b|ai = 1∀i] = pr(xg a→d|ai = 1∀i)(sg s→a − sg a→b) +pr(xb a→d|ai = 1∀i)(sb s→a − sb a→b) and e[ss→a − sa→b|aa = 0, ab = 1] = pr(xg a→d|aa = 0, ab = 1)(sg s→a − sg a→b) +pr(xb a→d|aa = 0, ab = 1)(sb s→a − sb a→b) solving for sb s→a and sg s→a, we get: sb s→a = 0 sg s→a = c(2 − k) 1 − 2k + k2 the expected total payment is e[s] = sg s→apr(xg s→d) + sb s→apr(xb s→d) = c(2 − k)(1 − k) (13) which is equal to the expected total payment under direct contracts (see eq.
+(ir) :pr(xg a→b|aa = 1)(e[s|ab = 1] − c)+ pr(xb a→b|aa = 1)sb a→b ≥ 0 (ic) :e[s|ab = 1] − c ≥ e[s|ab = 0] where: e[s|ab = 1] = pr(xg b→d|ab = 1)sg a→b + pr(xb b→d|ab = 1)sb a→b and e[s|ab = 0] = pr(xg b→d|ab = 0)sg a→b + pr(xb b→d|ab = 0)sb a→b these (binding) constraints yield the values of sb a→b and sg a→b: sb a→b = 0 sg a→b = c/(1 − k) based on these values, s can express the constraints it should  satisfy in a contract with a.
+when the principal comes to design a contract with node a, he needs to consider the subsequent contract that a should sign with b, which should satisfy the following constrints.
+for example, consider the topology given in figure 3 (a).
+when the principal designs a contract with the first node, he should take into account the  incentives that the first node should provide to the second node, and so on all the way to the destination.
+in order to answer the questions outlined above, we look at the ir and ic constraints that the principal needs to satisfy when  contracting with the first node on the path.
+122 figure 6: structure of the multihop routing game under known  topology and recursive contracts.
+• is it possible to design recursive contracts in scenarios of  unknown transit costs?
+• what is the relation between the total expected payment  under direct and recursive contracts?
+• what should be the structure of recursive contracts that  induce cooperative behavior?
+several questions arise in this context: • what knowledge should the principal have in order to induce cooperative behavior through recursive contracts?
+with recursive payments, every node needs to communicate only with its downstream node.
+in recursive payment, the principal contracts with the first node on the path, which in turn contracts with the second, and so on, such that each node contracts with its downstream node and makes the payment based on the final result, as demonstrated in figure 6. with direct payments, the principal needs to know the identity and cost of each node on the path and to have some communication channel with the node.
+in direct contracts, the principal contracts directly with each node on the path and pays it directly.
+in this section, we distinguish between direct and recursive  contracts.

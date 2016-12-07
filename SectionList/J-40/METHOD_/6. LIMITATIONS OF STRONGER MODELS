@@ -1,0 +1,98 @@
+In this section we show that if one tried to strengthen
+the model described in Section 3 in two natural ways, one
+would not be able to prove results as strong as Theorems 5.1
+and 5.2, which hold for every 2-player, symmetric game.
+6.1 Stronger Contraction for the Mutant Set
+In Section 3 we alluded to the fact that we made certain
+design decisions in arriving at Definitions 3.1, 3.2 and 3.3.
+One such decision was to require that all but o(n) mutants
+have incumbent neighbors of higher fitness. Instead, we
+could have required that all mutants have an incumbent
+neighbor of higher fitness. The two theorems in this 
+subsection show that if one were to strengthen our notion of
+contraction for the mutant set, given by Definition 3.1, in
+this way, it would be impossible to prove theorems analogous
+to Theorems 5.1 and 5.3.
+Recall that Definition 3.1 gave the notion of contraction
+for a linear sized subset of mutants. In what follows, we
+will say an edge (i, j) contracts if i is an incumbent, j is a
+mutant, and F(i) > F(j). Also, recall that Theorem 5.1
+stated that if s is a classical ESS, then it is an ESS for
+random graphs with adversarial mutations. Next, we prove
+that if we instead required every incumbent-mutant edge to
+contract, this need not be the case.
+Theorem 6.1. Let F be a 2-player, symmetric game that
+has a classical ESS s for which there exists a mutant 
+strategy t = s with F(t|t) > F(s|s) and F(t|t) > F(s|t). Let
+G = {Gn}∞
+n=0 be an infinite family of random graphs drawn
+according to Gn,p, where p = Ω(1/nc
+) for any constant
+0 ≤ c < 1. Then with probability approaching 1 as n → ∞,
+there exists a mutant family M = {Mn}∞
+n=0, where tn >
+|Mn| > n and t, > 0, in which there is an edge that does
+not contract.
+Proof. (Sketch) With probability approaching 1 as n →
+∞, there exists a vertex j where deg(j) is arbitrarily close
+to n. So label j mutant, label one of its neighbors 
+incumbent, denoted i, and label the rest of j"s neighborhood
+mutant. Also, label all of i"s neighbors incumbent, with
+the exception of j and j"s neighbors (which were already
+labeled mutant). In this setting, one can show that F(j)
+will be arbitrarily close to F(t|t) and F(i) will be a convex
+combination of F(s|s) and F(s|t), which are both strictly
+less than F(t|t).
+Theorem 5.3 stated that if s is a classical ESS, then for
+graphs where |En| ≥ n1+γ
+, for some γ > 0, and where each
+organism is labeled a mutant with probability , one edge
+must contract. Below we show that, for certain graphs and
+certain games, there will always exist one edge that will not
+contract.
+Theorem 6.2. Let F be a 2-player, symmetric game that
+has a classical ESS s, such that there exists a mutant 
+strategy t = s where F(t|s) > F(s|t). There exists an infinite
+family of graphs {Gn = (Vn, En)}∞
+n=0, where |En| = Θ(n2
+),
+such that for a mutant family M = {Mn}∞
+n=0, which is 
+determined by labeling each vertex a mutant with probability
+> 0, the probability there exists an edge in En that does
+not contract approaches 1 as n → ∞.
+Proof. (Sketch) Construct Gn as follows. Pick n/4 
+vertices u1, u2, . . . , un/4 and add edges such that they from
+a clique. Then, for each ui, i ∈ [n/4] add edges (ui, vi),
+(vi, wi) and (wi, xi). With probability 1 as n → ∞, there
+exists an i such that ui and wi are mutants and vi and xi
+are incumbents. Observe that F(vi) = F(xi) = F(s|t) and
+F(wi) = F(t|s).
+6.2 Stronger Contraction for Individuals
+The model of Section 3 requires that for an edge (i, j) to
+contract, the fitness of i must be greater than the fitness of j.
+One way to strengthen this notion of contraction would be
+to require that the maximum fitness incumbent in the 
+neighborhood of j be more fit than the maximum fitness mutant
+in the neighborhood of j. This models the idea that each
+organism is trying to take over each place in its 
+neighborhood, but only the most fit organism in the neighborhood
+of a vertex gets the privilege of taking it. If we assume that
+we adopt this notion of contraction for individual mutants,
+and require that all incumbent-mutant edges contract, we
+will next show that Theorems 6.1 and 6.2 still hold, and
+thus it is still impossible to get results such as Theorems 5.1
+and 5.3 which hold for every 2-player, symmetric game.
+In the proof of Theorem 6.1 we proved that F(i) is strictly
+less than F(j). Observe that maximum fitness mutant in
+the neighborhood of j must have fitness at least F(j). Also
+observe that there is only 1 incumbent in the neighborhood
+of j, namely i. So under this stronger notion of contraction,
+the edge (i, j) will not contract.
+Similarly, in the proof of Theorem 6.2, observe that the
+only mutant in the neighborhood of wi is wi itself, which
+has fitness F(t|s). Furthermore, the only incumbents in the
+neighborhood of wi are vi and xi, both of which have fitness
+F(s|t). By assumption, F(t|s) > F(s|t), thus, under this
+stronger notion of contraction, neither of the 
+incumbentmutant edges, (vi, wi) and (xi, wi), will contract.

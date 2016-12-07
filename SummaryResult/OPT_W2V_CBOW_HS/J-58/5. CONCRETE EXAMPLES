@@ -1,0 +1,116 @@
+Thus, for an agent i, we first focus on the output of one round r. In round r, if i is  selected by Algorithm 7, then it has the minimum ratio ci |Si−Tr| among all remaining agents.
+Algorithm 7 Greedy Set Cover (GSC) Input: Agent i"s subset Si covered and cost ci.
+Remember the updating rule only updates the game setting but not the cost of the agent, thus we have gr(x) = x ≥ r for 1 ≤ r ≤ t. Therefore, the final cut value for agent i is κi(GSC, c−i) = max r { cir |Sir − T−i r | · |Si − T−i r |} The payment to an agent i is κi if i is selected; otherwise its payment is 0.
+Find the cut value: To calculate the cut value for agent i with fixed cost vector c−i, we follow the steps in Algorithm 4.
+1: Set r = 1, G1 = G, Q1 = Q and s1 = s. 2: repeat 3: In graph Gr, find the receiver, say qi, that is closest to the source s, i.e., LCP(s, qi, c) has the least cost among the shortest paths from s to all receivers in Qr .
+Then it is easy to show that τ(i,j) = |LE(qi, qj, MST(h|(i,j) ∞))| is the cut value for output VMST.
+(a) Given a link weighted complete graph K(d) on Q, we should find the cut value function for edge ek = (qi, qj) based on MST.
+This equals to  update the cost of every bidder having conflict with j to 0, which satisfies crossing-independence.
+The mechanism M = (V MST, pV CG ) is not truthful [24], where the payment pV CG to a node is based on the VCG  mechanism.
+5.1 Set Cover In the set cover problem, there is a set U of m elements needed to be covered, and each agent 1 ≤ i ≤ n can cover a subset of elements Si with a cost ci.
+Consequently, agent i is still  selected in round r, which means the output of round r satisfies MP.
+2: while R = U do 3: Find the set Sj with the minimum density cj |Sj −Tr| .
+Algorithm 8 Find LinkWeighted SteinerTree (LST) Input: Network G = (V, E, c) where c is the cost vector for link set E. Source node s and receiver set Q.
+In a  singleminded combinatorial auction, there is a set of items S to be sold and there is a set of agents 1 ≤ i ≤ n who wants to buy some of the items: agent i wants to buy a subset Si ⊆ S with maximum price mi.
+In addition, in any round, if  bidder i is selected with ai then it will still be selected when it  declares ai > ai.
+Then the cut value for round r is r = wi r(c−i) − |Πi r(c−i)| where |Πi r(c−i)| is the cost of the path Πi r(c−i) excluding node vi.
+5.2 Link Weighted Steiner Trees Consider any link weighted network G = (V, E, c), where E = {e1, e2, · · · , em} are the set of links and ci is the weight of the link ei.
+This problem now looks similar to the combinatorial auction with single minded bidder studied in [12], but with the  following differences: in the set cover problem we want to cover all the elements and the sets chosen can have some overlap while in combinatorial auction the chosen sets are disjoint.
+In other words, we implicitly defined |Q|(|Q| − 1)/2  functions fi,j, for all i < j and qi ∈ Q and qj ∈ Q, with fi,j(d) = |LCP(qi, qj, d)|.
+The link weighted Steiner tree problem is to find a tree rooted at source node s spanning a given set of nodes Q = {q1, q2, · · · , qk} ⊂ V .
+5.3 Virtual Minimal Spanning Trees To connect the given set of receivers to the source node, besides the Steiner tree constructed by the algorithms described before, a virtual minimum spanning tree is also often used.
+We then show how to design a truthful payment scheme  using our general framework.
+Let S = {S1, S2, · · · , Sn} and c = (c1, c2, · · · , cn).
+5: r = r + 1 6: Output R. Let GSC(S) be the sets selected by the Algorithm 7.Notice that the output set is a function of S and c. Some works assume that the type of an agent could be ci, i.e., Si is assumed to be a  public knowledge.
+In round r, the cut value for a link ei can be obtained by using the VCG mechanism.
+Thus, lying its set as Si will not increase the cut value for each round.
+Clearly, this is a utilitarian and thus VCG mechanism can be applied if we can find the subset of S that covers U with the minimum cost.
+Thus, the cut value can be represented as κk(MST, d) = LE(qi, qj, MST(d|k ∞)) (b) We find the value-cost function for LCP.
+For every round, we only update the Tr+1 = Tr S Sj and R = R S j, which is obviously cross-independent.
+We want to find a subset of agents D such that U ⊆ S i∈D Si.
+We pay agent k κk(V MST, d−k) if and only if k is selected in V MST(d); else we pay it 0.
+The total cost of links in a graph H ⊆ G is called the weight of H, denoted as ω(H).
+Check the monotonicity property: Remember that in the complete graph K(d), the weight of a link qiqj is |LCP(qi, qj, d)|.
+Thus, the payment by agent i is |Si|1/2 · aj |Sj |1/2 if ai ≥ |Si|1/2 · aj |Sj |1/2 , and 0 otherwise.
+Given a spanning tree T and a pair of terminals p and q, clearly there is a unique path  connecting them on T. We denote this path as ΠT (p, q), and the edge with the maximum length on this path as LE(p, q, T).
+Thus, for every round, it satisfies MP and the cut value is |Si|1/2 · ajr |Sjr |1/2 where jr is the bidder selected in round r if we did not consider the agent i at all.
+Find the cut value: Notice VMST is the combination of MST and function fi,j, so cut value for VMST can be  computed based on Algorithm 6 as follows.
+First the bids are sorted by some criterion ( ai |Si|1/2 is used in[12]) in an increasing order and let L be the list of sorted bids.
+Set h(i,j) = |LCP(qi, qj, d|∞ ))| for every pair of node i = j and let h = {h(i,j)} be the vector.
+For simplicity, we assume that qi = vi, for 1 ≤ i ≤ k. Here the links are agents.
+We then show how to design a truthful mechanism based on the framework we described.
+Output: A set of agents that can cover all elements.
+Let ir be the agent selected in round r and T−i r+1 be the corresponding set.
+5: for every virtual link qiqj in V MST(d) do 6: Find the corresponding least cost path LCP(qi, qj, d) in the original network.
+It is shown in [24] that mechanism M = (LST, pV CG ) is not truthful, where pV CG is the payment calculated based on VCG mechanism.
+Let w−i r (ci) be the cost of the path Pr(ci) selected in the rth round and Πi r(ci) be the  shortest path selected in round r if the cost of ci is temporarily set to −∞.
+We can show that the function fi,j(d) = |LCP(qi, qj, d)| satisfies FMP, LCP satisfies MP, and the output MST satisfies SMP.
+A single-minded bidder i declares a bid bi = Si, ai with Si ⊆ S and ai ∈ R+ .
+We can show that the mechanism M = (GSC, PV CG ), using Algorithm 7 to find a set cover and apply VCG mechanism to  compute the payment to the selected agents, is not truthful.
+Observe that the output Pr, for any round r, satisfies MP, and the update rule for every round  satisfies crossing-independence.
+The cut value for agent k is κk(V MST, d−k) = max0≤i,j≤r κij k (V MST, d−k).
+The new graph is denoted as Gr+1.
+Remember after bidder j is selected for round r, every bidder has conflict 221 with j will not be selected in the rounds after.
+Algorithm 9 Construct VMST 1: for all pairs of receivers qi, qj ∈ Q do 2: Calculate the least cost path LCP(qi, qj, d).
+They proved that this greedy allocation scheme using criterion ai |Si|1/2 approximates the optimal allocation within a factor of √ m, where m is the number of goods in S. In the auction settings, we have ci = −ai.
+The selected subsets is called the set cover for U.
+Here, we consider a more general case in which the type of an agent is (Si, ci).
+This payment scheme is exactly the same as the payment scheme in [12]. 
+Using Algorithm 4, we obtain the final cut value for agent i: κi(LST, c−i) = maxr{ r}.
+3: Construct a virtual complete link weighted graph K(d)  using Q as its node set, where the link qiqj corresponds to the least cost path LCP(qi, qj, d), and its weight is w(qiqj) = |LCP(qi, qj, d)|.
+Notice ajr |Sjr |1/2 does not increase when round r increases, so the final cut value is |Si|1/2 · aj |Sj |1/2 where bj is the first bid that has been denied but would have been selected were it not only for the presence of bidder i.
+Notice that the cut value computed for round r is r = cir |Sir −T −i r | · |Si − T−i r |.
+The social efficiency of the output D is defined as P i∈D ci, which is the objective function to be minimized.
+It easy to verify that min{h(i,j), τ(i,j)} = |LE(qi, qj, MST(h)|.
+Assume that Q is the set of receivers, including the sender.
+Now consider the case when i lies its cost to ci < ci, obviously ci |Si−Tr| is still minimum among all remaining agents.
+We show how to design a truthful mechanism by applying our general framework.
+Then the cut value of round r is r = cir |Sir − T−i r | · |Si − T−i r |.
+(c) Remove vk and calculate the value K(d|k ∞).
+Here, LCPvk (qi, qj, d) is the least cost path between qi and qj with node vk on this path.
+Assume that the nodes in a node-weighted graph are all agents.
+Thus, we know κ (i,j) k (V MST, d) is |LE(qi, qj, MST(h)|− |LCPvk (qi, qj, d|k 0)|.
+Thus, the payment to a link ei is κi(LST, c−i) if its reported cost is di < κi(LST, d−i);  otherwise, its payment is 0.
+Now we set ci = ∞ and execute Algorithm 8.
+Hereafter, let LST(G) be the final tree constructed using the above method.
+Two bids Si, ai and Sj, aj conflict if Si ∩ Sj = ∅.
+Assume that agent i cannot lie upward, i.e., it can only report a set Si ⊆ Si.
+4: Set Tr+1 = Tr S Sj and R = R S j.
+It is easy to verify the output of the greedy algorithm is a round-based output.
+Then the algorithm exams each bid of L in order and grants the bid if it does not conflict with any of the bids previously granted.
+Assume vk ∈ LCP(qi, qj, d), then the value-cost function is xk = yk − |LCPvk (qi, qj, d|k 0)|.
+It is NP-hard to find the minimum cost multicast tree when given an arbitrary link weighted 220 graph G [17, 20].
+First, we set ci = ∞ and apply Algorithm 7.
+In [4], an algorithm of approximation ratio of Hm has been proposed and it has been proved that this is the best ratio possible for the set cover problem.
+In other words, we assume that every agent i can not only lie about its cost ci but also can lie about the set Si.
+4: Select all links on LCP(s, qi, c) as relay links and set their cost to 0.
+[12] studied how to design an efficient truthful mechanism for single-minded combinatorial auction.
+Thus, from Theorem 8, the  roundbased output LST satisfies MP.
+Obviously |Si − T−i r | ≤ |Si − T−i r | for any Si ⊆ Si.
+Thus, by applying Theorem 8, we know the output by Algorithm 7 satisfies MP.
+For the moment, we assume that agent i won"t be able to lie about Si.
+Obviously, the set cover problem is a binary demand game.
+Given the bids b1, b2, · · · , bn, they gave a greedy round-based algorithm as follows.
+We now consider the scenario when agent i can lie about Si.
+Check the monotonicity property: The output of  Algorithm 7 is a round-based output.
+1: Initialize r = 1, T0 = ∅, and R = ∅.
+4: Build the minimum spanning tree on K(d), denoted as V MST(d).
+It is well-known that finding the optimal solution is NP-hard.
+We argue that agent i will not lie about its elements Si.
+Output: A tree LST rooted at s and spanned all receivers.
+From Theorem 9, the  allocation rule VMST satisfies the monotonicity property.
+Thus lying about Si will not improve agent i"s utility.
+Now we look into the updating rules.
+7: Mark the agents on LCP(qi, qj, d) selected.
+7: until all receivers are spanned.
+If it does, it is denied.
+The virtual minimum  spanning tree is constructed as follows.
+5: Set tr as qi and Pr = LCP(s, qi, c).
+The first bid is granted.
+6: Set Qr+1 = Qr \qi and r = r + 1.
+(1 ≤ i ≤ n).
+The currently best polynomial time method has approximation ratio 1 + ln 3 2 [17].
+Here, we review and discuss the first approximation method by Takahashi and Matsuyama [20].
+For the completeness of presentation, we review their method here.
+We will drop this assumption later.
+5.4 Combinatorial Auctions Lehmann et al.

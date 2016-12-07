@@ -1,0 +1,77 @@
+Recently, Massively Multiplayer Online Games (MMOGs) have
+been studied as a framework for next-generation virtual 
+environments. Many MMOG applications, however, still limit themselves
+to a traditional design approach where their 3D scene complexity
+is carefully controlled in advance to meet real-time rendering 
+constraints at the client console side.
+To enable a virtual landscape in next-generation environments
+that is seamless, endless, and limitless, Marshall et al. [1] identified
+four new requirements2
+: dynamic extensibility (a system allows
+the addition or the change of components at run time); 
+scalability (although the number of concurrent users increases, the 
+system continues to function effectively); interactibility; and 
+interoperability. In this paper, we mainly focus on the first two 
+requirements.
+Dynamic extensibility allows regular game-users to deploy their
+own created content. This is a powerful concept, but unfortunately,
+user-created content tends to create imbalances among the 
+existing scene complexity, causing system-wide performance problems.
+Full support for dynamic extensibility will, thus, continue to be one
+of the biggest challenges for game developers.
+Another important requirement is scalability. Although MMOG
+developers proclaim that their systems can support hundreds of
+thousands of concurrent users, it usually does not mean that all
+the users can interact with each other in the same world. By 
+carefully partitioning the world into multiple sub-worlds or replicating
+worlds at geographically dispersed locations, massive numbers of
+concurrent users can be supported. Typically, the maximum 
+number of users in the same world managed by a single server or a
+server-cluster is limited to several thousands, assuming a rather
+stationary world [2, 3].
+Second Life [4] is the first successfully deployed MMOG 
+system that meets both requirements. To mitigate the dynamics of the
+game world, where a large number of autonomous objects are 
+continuously moving, it partitions the space in a grid-like manner and
+2
+Originally, these requirements were specified for their dedicated
+platform. But we acknowledge that these requirements are also
+valid for new virtual environments.
+402
+Avatar
+Object PoppingAutonomous Entities
+(a) At time t (b) At time t+Δ
+Figure 1: Object popping occurred as a user moves forward
+(screenshots from Second Life) where Δ = 2 seconds.
+employs a client/server based 3D object streaming model [5]. In
+this model, a server continuously transmits both update events and
+geometry data to every connected user. As a result, this 
+extensible gaming environment has accelerated the deployment of 
+usercreated content and provides users with unlimited freedom to 
+pursue a navigational experience in its space.
+One of the main operations in MMOG applications that stream
+3D objects is to accurately calculate all objects that are visible to
+a user. The traditional visibility determination approach, however,
+has an object popping problem. For example, a house outside a
+user"s visible range is not drawn at time t, illustrated in Figure 1(a).
+As the user moves forward, the house will suddenly appear at time
+(t + Δ) as shown in Figure 1(b). If Δ is small, or the house is
+large enough to collide with the user, it will disrupt the user"s 
+navigational experience.
+The visibility calculation for each user not only needs to be 
+accurate, but also fast. This challenge is illustrated by the fact that the
+maximum number of concurrent users per server of Second Life is
+still an order of magnitude smaller than for stationary worlds.
+To address these challenges, we propose a method that identifies
+the most relevant visible objects from a given geometry database
+(view model) and then put forth a fast indexing method that 
+computes the visible objects for each user (spatial indexing). Our two
+novel methods represent the main contributions of this work.
+The organization of this paper is as follows. Section 2 presents
+related work. Section 3 describes our new view method. In 
+Section 4, we present assumptions on our target application and 
+introduce a new spatial indexing method designed to support real-time
+visibility computations. We also discuss its optimization issues.
+Section 5 reports on the quantitative analysis and Section 6 presents
+preliminary results of our simulation based experiments. Finally,
+we conclude and address future research directions in Section 7.

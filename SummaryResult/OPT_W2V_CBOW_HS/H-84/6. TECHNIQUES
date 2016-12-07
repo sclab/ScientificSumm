@@ -1,0 +1,57 @@
+The direction of dependency is determined by the time-ordering of the first stories in the respective events.
+We will also use average cosine similarity between two events as a feature and it is defined as follows.
+We have three different ways to compute the similarity  between two events Ù and Ú: ¯ Average link: In this case the similarity is the average of the similarities of all pairs of stories between Ù and Ú as shown below: × Ñ´ Ù Ú µ È×Ù¾ Ù È×Ú¾ Ú × Ñ´×Ù ×Ú µ Ù Ú (14) ¯ Complete link: The similarity between two events is given by the smallest of the pair-wise similarities.
+In the rest of the discussion in this subsection, we assume that we are already given the mapping ¼ Ë and we focus only on modeling the edges ¼.
+We believe a robust model should incorporate such domain  knowledge in capturing dependencies, but in this work, as a first step, we will rely on surface-features such as time-ordering of news stories and word distributions to model them.
+We define the set of dependencies as follows.
+× Ñ´ Ù Ú µ Ñ Ò ×Ù¾ Ù ×Ú¾ Ú × Ñ´×Ù ×Ú µ (15) ¯ Single link: Here the similarity is given by the best similarity between all pairs of stories.
+¼ ´ Ù Úµ Ú Ë Ñ´ Ù Ú µ Ì Ø ´ Úµ Ø ´ Ùµ · ½ (21) Thus, for each event Ú , the nearest parent model considers only the event preceding it as defined by Ø as a potential candidate.
+Mathematically, this can be expressed as: ¼ ´ Ù Ú µ Ú Ë Ñ´ Ù Úµ Ì Ù Ö Ñ Ü Û Ø ´ Ûµ Ø ´ Úµ Ú Ë Ñ´ Û Ú µ (22) 6.2.5 Maximum Spanning Tree model In this model, we first build a maximum spanning tree (MST)  using a greedy algorithm on the following fully connected weighted, undirected graph whose vertices are the events and whose edges are defined as follows: ´ Ù Ú µ Û´ Ù Ú µ Ú Ë Ñ´ Ù Úµ (23) Let ÅËÌ´ µ be the set of edges in the maximum spanning tree of ¼.
+First we define a 1-1 time-ordering function Ø Ë ½ ¡ ¡ ¡ Ò that sorts stories in ascending order by their time of publication.
+The similarity Û×ÙÑ´×½ ×¾µ between two  stories ×½ and ×¾ is given by the following formula: Û×ÙÑ´×½ ×¾µ ½ Ó×´×½ ×¾µ · ¾ÄÓ ´×½ ×¾µ · ¿È Ö´×½ ×¾µ (12) Here ½, ¾, ¿ are the weights on different features.
+In many text clustering systems, the similarity between two  stories is the inner product of their tf-idf vectors, hence we use it as one of our features.
+In each iteration, we find the most similar event pair and merge them.
+Now our directed dependency edges are defined as follows.
+In this subsection, we present an agglomerative clustering  algorithm that combines all these features.
+× Ñ´ Ù Ú µ Ñ Ü ×Ù¾ Ù ×Ú¾ Ú × Ñ´×Ù ×Ú µ (16) This process continues until the maximum similarity falls below the threshold or the number of clusters is smaller than a given  number.
+Formally, ¼ ´ Ù Úµ Ú Ë Ñ´ Ù Ú µ Ì Ø ´ Ùµ Ø ´ Ú µ (20) 6.2.3 Nearest Parent Model In this model, we assume that each event can have at most one parent.
+A human annotator decides on dependencies not just based on the information in the events but also based on his/her vast repertoire of domain-knowledge and general understanding of how things  operate in the world.
+So the similarity between two events, to start with, is exactly the similarity between the  corresponding stories.
+Ø ½ ¡ ¡ ¡ Ñ × Ø Ù Ú ¾ Ø ´ Ùµ Ø ´ Úµ ´µ Ñ Ò ×Ù¾ Ù Ø´×Ùµ Ñ Ò ×Ú¾ Ú Ø´×Úµ (17) In other words, Ø time-orders events based on the time-ordering of their respective first stories.
+6.2.4 Best Similarity Model This model also assumes that each event can have at most one parent.
+Ó×´×½ ×¾µ is the cosine similarity of the term vectors.
+In this subsection, we describe the models we considered for  capturing dependencies.
+6.2.2 Simple Thresholding This model is an extension of the complete link model with an additional constraint that there is a dependency between any two events Ù and Ú only if the average cosine similarity between event Ù and event Ú is greater than a threshold Ì.
+The time decay adjusted similarity 449 × Ñ´×½ ×¾µ is given by × Ñ´×½ ×¾µ Û×ÙÑ´×½ ×¾µ  « Ø½ Ø¾ Ì (13) where Ø½ and Ø¾ are the time stamps for story 1 and 2 respectively.
+For simplicity, all stories in the same topic are assumed to be available at one time, rather than coming in a text stream.
+First we define a couple of features that the following models will employ.
+6.1 Clustering Each topic is composed of multiple events, so stories must be clustered into events before we can model the dependencies among them.
+Our experiments in later  sections demonstrate that such features are indeed useful in capturing dependencies to a large extent.
+¼ ´ Ù Ú µ ´ Ù Ú µ ¾ ÅËÌ´ µ Ø ´ Ùµ Ø ´ Úµ Ú Ë Ñ´ Ù Ú µ Ì (24) 450 Thus in this model, we assign dependencies between the most  similar events in the topic. 
+Ú Ë Ñ´ Ù Ú µ È×Ù¾ Ù È×Ú¾ Ú Ó×´×Ù ×Ú µ Ù Ú (18) 6.2.1 Complete-Link model In this model, we assume that there are dependencies between all pairs of events.
+We use time decay when calculating similarity of story pairs, i.e., the larger time difference between two stories, the smaller their similarities.
+Stories in the same event tend to be related to the same person(s) and locations(s).
+The task of event modeling can be split into two parts: clustering the stories into unique events in the topic and constructing  dependencies among them.
+In our experiments,  however, we study the effect of each feature on the performance  separately using modified versions of this algorithm.
+So we normalize the time difference using the whole duration of that topic.
+Stories in the same event tend to follow  temporal locality, so the time stamp of each story can be a useful feature.
+Now, the event-time-ordering function Ø is defined as follows.
+In this work, we determined them empirically, but in the future, one can  consider more sophisticated learning techniques to determine them.
+T is the time difference between the earliest and the latest story in the given topic.
+Formally, the system edges are defined as follows.
+In other words, the dependency edge is directed from event Ù to event Ú , if the first story in event Ù is earlier than the first story in event Ú .
+6.1.1 Agglomerative clustering with time decay (ACDT) We initialize our events to singleton events (clusters), i.e., each cluster contains exactly one story.
+In the following subsections, we describe techniques we developed for each of these sub-tasks.
+We point out that this is not to be confused with the complete-link algorithm in clustering.
+È Ö´×½ ×¾µ is similarly defined for person name.
+An event Ú is assigned a parent Ù if and only if Ù is the most similar earlier event to Ú and the similarity exceeds a threshold Ì.
+Although we use the same names, it will be clear from the context which one we refer to.
+This task is similar to traditional clustering but features other than word distributions may also be critical in our application.
+¼ ´ Ù Ú µ Ø ´ Ùµ Ø ´ Ú µ (19) where Ø is the event-time-ordering function.
+« is the time decay factor.
+Additionally, named-entities such as person and location names are another obvious feature when forming events.
+ÄÓ ´×½ ×¾µ is 1 if there is some location that appears in both stories, otherwise it is 0.
+6.2 Dependency modeling Capturing dependencies is an extremely hard problem because it may require a ‘deeper understanding" of the events in question.
+The candidate is assigned as the parent only if the average similarity exceeds a pre-defined threshold Ì.
+The time period of each topic differs a lot, from a few days to a few months.
+For example, in Figure 1 a human knows ‘Trial and indictment of Osama" is influenced by ‘Evidence gathered by CIA" because he/she understands the process of law in general.

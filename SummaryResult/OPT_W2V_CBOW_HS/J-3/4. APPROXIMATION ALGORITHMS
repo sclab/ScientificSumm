@@ -1,0 +1,126 @@
+To calculate the spend of this strategy consider two cases: if u = 0 then we are bidding h(v) with probability pv = α/v.
+For any C, U > 0 and non-decreasing  function f : [0, C] → R+ such that R C 0 f(r)dr = U, and any small > 0, there exists an instance of Budget  Optimization with budget U + , where the optimal solution achieves C clicks at cost U + , and all uniform bidding strategies are convex combinations of single-bid strategies that achieve exactly r clicks at cost exactly rf(r) by bidding f(r) on all keywords.
+The click-price curve says that if we bid h(r ) on every keyword (and therefore every query), we get at least r traffic, since this bid would ensure that for all q such that b∗ q ≤ h(r ) we win as many clicks as Ω.
+Using this set of uniform strategies as constraints, we can characterize a set of worst-case click-price curves by the  constraints Z CΩ 0 h(r)dr ≤ U ∀(u, v) ∈ S p1(u, v)uh(u) + p2(u, v)vh(v) ≥ U A curve h that satisfies these constraints has the property that all uniform strategies that obtain αCΩ clicks spend more than U. Discretizing this set of inequalities, and  pushing the first constraint into the objective function, we get the following LP over variables hr representing the curve: min X r∈{0, ,2 ,...,CΩ} · hr s.t.
+Interestingly, the equivalence between this polytope and the LP dual above shows that there is a mixture over values r ∈ [0, C] that achieves an α-approximation for any curve h. After a search for the appropriate α (which turned out to be 1 − 1 e ), we solved these two LPs and came up with the plots in Figure 3, which reveal not only the right  approximation ratio, but also a picture of the worst-case distribution and the approximation-achieving strategy.9 From the  pic9 The parameters U and CΩ can be set arbitrarily using  scaling arguments.
+Here the variables can be interpreted as weights on strategies in S. A point in this polytope represents a convex  combination over strategies in S, with the property that for any click-price curve h, the cost of the mixed strategy is at most U.
+For any r ∈ [0, CΩ], there exists a single-bid strategy that randomizes between bidding h(r) and bidding zero, and this strategy receives exactly r traffic with total spend at most r · h(r).
+After solving the LP numerically, we were also able to see that there is a uniform strategy for the player that always obtains (1 − 1 e )CΩ clicks; and then from the solution were easily able to guess the optimal distribution.
+4.3 A (1 − 1 e )-approximation algorithm The key to the proof of Theorem 3 is to show that there is a distribution over single-bid strategies from Lemma 4 that obtains at least (1 − 1 e )CΩ clicks.
+Applying Lemma 4 with r = CΩ/2, we see that there is a strategy that achieves traffic CΩ/2 with spend CΩ/2·h(CΩ/2).
+Thus we have shown that there exists a uniform bidding strategy that is (1 − 1 e )-optimal.
+4.3.2 Proof of Theorem 3 By Lemma 4, we know that for each r ≤ UΩ, there is a strategy that can obtain traffic r at cost r · h(r).
+Without loss of generality we can assume that Ω bids so that for each query q, the cost per click is equal to b∗ q , i.e.
+Consider the adversary"s problem of finding a click-price curve for which no uniform bidding strategy can achieve αCΩ clicks.
+By mixing strategies for multiple values of r, we construct a uniform strategy that is guaranteed to achieve at least 1−e−1 = 0.63 fraction of Ω"s traffic and remain within budget.
+Now, using the fact that h is a non-decreasing function combined with Claim 1, we have (CΩ/2)h(CΩ/2) ≤ Z CΩ CΩ/2 h(r)dr ≤ Z CΩ 0 h(r)dr = UΩ, (4) which shows that we spend at most UΩ.
+Another way to construct this curve is to sort the queries in increasing order by b∗ q = costq(b∗ q)/clicksq(b∗ q), then make a step function where the qth step has height b∗ q and width clicksq(b∗ q ) (see Figure 2).
+To achieve α clicks, the two bids must be on values h(u) and h(v) with probabilities pu and pv such that pu + pv = 1, 0 ≤ u ≤ α ≤ v and puu + pvv = α.
+We turn to the case u > 0.
+4.1 Click-price curves Consider a set of queries Q, and for each query q ∈ Q, let (clicksq(·), costq(·)) be the corresponding bid landscape.
+The optimal solution will always bid exactly h(ri) on query qi, and if it did so on all queries, it would spend U := Pm i=1(ri − ri−1)h(ri).
+Define small enough so that U = U + , which is always possible since U ≤ Z C 0 f(r)dr + mX i=1 (ri − ri−1)(h(ri) − h(ri−1)) ≤ U + 2 m ≤ U + (C + f(C)).
+Query x has two positions, with bids of bx 1 = 1/α and bx 2 = , and with identical click-through rates αx [1] = αx [2] = α. Query y has one position, with a bid of by 1 = 1/α and a click-through rate of αy [1] = α.
+To obtain a strategy for the advertiser, we look at the dual, constraining the objective to be equal to U in order to get the polytope of optimum solutions: X (u,v)∈S wu,v = 1 ∀(u, v) ∈ S, X v :(u,v )∈S p1(u, v ) · u · wu,v ≤ and X u :(u ,v)∈S p2(u , v) · v · wu ,v ≤ .
+It is straightforward to show that the second set of  constraints is equivalent to the following: ∀h ∈ RCΩ/ : X r hr = U, X (u,v)∈S wu,v(p1(u, v) · u · hu + p2(u, v) · v · hv) ≤ U.
+Using Lemma 5, we construct an actual instance where the best uniform strategies are convex combinations of strategies that bid h(u) and achieve u clicks and u · h(u) cost.
+The optimal solution is to bid on u (and therefore x) and bid 1/α on v (and therefore y), both with probability 1.
+Thus we see that for any r ∈ [0, CΩ], if we bid h(r ) on every keyword, we receive at least r traffic at a total spend of at most h(r ) per click.
+Recall that by Lemma 1 we can assume that a uniform strategy randomizes between two bids u and v. We also assume that the uniform strategy uses a convex  combination of strategies from Lemma 4, which we can assume by Lemma 5.
+Any single-bid solution that uses as its non-zero bid gets at most α clicks.
+Note that the final resulting bid distribution will have some weight on the zero bid, since the single-bid strategies from Lemma 4 put some weight on bidding zero.
+First we define the following click-price curve over the domain [0, 1]: h(r) = 8 < : 0 for r < e−1 1 e − 2 „ e − 1 r « for r ≥ e−1 Note that h is non-decreasing and non-negative.
+4.2 A 1 2 -approximation algorithm Using Lemma 4 we can now show that there is a uniform single-bid strategy that is 1 2 -optimal.
+Thus in both cases the spend of our strategy is over the budget of 1.
+Consider the following probability density function over such strategies (also depicted in Figure 3): g(r) = j 0 for r < CΩ/e, 1/r for r ≥ CΩ/e.
+Formally the curve is a non-decreasing function h : [0, CΩ] → R+ defined as h(r) = min{c | P q:b∗ q ≤c clicksq(b∗ q ) ≥ r}.
+We may assume this because for some query q, if costq(b∗ q)/clicksq(b∗ q) < b∗ q , we can always lower b∗ q and without changing the cost and clicks.
+Note that by bidding h(r ) on every keyword, we may actually get even more than r traffic, since for queries q where b∗ q is much less than h(r ) we may win more clicks than Ω.
+This definition makes it simple to show that there is always a single-bid strategy that is a 1 2  approximation (and this is tight); we then build on this to prove Theorem 3.
+(This is possible by choosing ri"s spaced by min( , f(ri)−f(ri−1))) Now make a query qi for all i ∈ [m] with bidders bidding h(ri), h(ri+1), .
+Using v ≥ α and then α > 1 − 1 e we get spend ≥ αe − 1 e − 2 > (1 − 1/e)e − 1 e − 2 = 1, contradicting the assumption.
+The final inequality follows from α > 1 − 1 e .
+The x-axis is the  budget (units removed), and the y-axis is the number of clicks obtained (again without units) by the optimal bid(s) under each respective strategy.
+We will prove that for all > 0 there exists an instance for which all uniform strategies are at most (1 − 1 e + )-optimal.
+Thus, to achieve αCΩ clicks, a uniform strategy must randomize between bids h(u) and h(v) where u ≤ αCΩ and v ≥ αCΩ.
+Note that by randomizing between bidding zero and bidding h(r ), we can receive exactly r traffic at a total spend of at most r · h(r ).
+Since all strategies in S get at least αCΩ clicks, we have a strategy that achieves an α-approximation.
+∀(u, v) ∈ S, p1(u, v)uhu + p2(u, v)vhv ≥ U In this LP, S is defined in the discrete domain as S = {(u, v) ∈ {0, , 2 , .
+Since the curve is over the domain [0, 1] it corresponds to an instance where CΩ = 1.
+For our lower bounds, we will need to show that given any continuous function, there exists a discrete landscape that approximates it arbitrarily well.
+The only useful bids are 0, and 1/α, since for both queries all other bids are identical in terms of cost and clicks to one of those three.
+46 0 0 C/e C 0 0 C/e C Figure 3: The worst-case click-price curve and (1 − 1/e)-approximate uniform bidding strategy, as found by linear programming.
+The expected total spend of this strategy is at most spend = Z CΩ 0 g(r) · rh(r) dr = Z CΩ CΩ/e h(r) dr ≤ Z CΩ 0 h(r) dr = UΩ.
+By Lemma 1 there is always a two-bid optimal uniform bidding strategy and so we may assume that the strategy achieving α clicks randomizes over two bids.
+Note that for r ∈ (0, 1] we have h(r) ≥ 1 e−2 (e − 1 r ).
+Lemma 4 describes a landscape as a continuous function.
+Suppose this strategy bids b∗ q for each query q.
+Thus spend ≥ pu · uh(u) + pv · vh(v) = (v − α)(ue − 1) + (α − u)(ve − 1) (v − u)(e − 2) = αe − 1 e − 2 > 1.
+Thus, Ω achieves traffic CΩ = P i clicks(b∗ i ), and incurs total spend UΩ = P i cost(b∗ i ).
+The data clearly demonstrate that the best single  uniform bid obtains almost all the possible clicks in practice.
+Bidding 1/α on both keywords results in 2α clicks and total cost 2.
+Solving this LP for a particular α, if we get an objective less than U, we know (up to some discretization) that an instance of Budget Optimization exists that cannot be approximated better than α.
+Thus, since the budget is U = 1 + α < 2, a single-bid solution using 1/α can put weight at most (1+ α)/2 on the 1/α bid.
+Call the set of such strategies S. Given a (u, v) ∈ S, the necessary probabilities in order to achieve αCΩ clicks are easily determined, and we denote them by p1(u, v) and p2(u, v) respectively.
+The spend in this case is: spend = pv · v · h(v) = αh(v) = αe − α/v e − 2 .
+Note that the area of each step is costq(b∗ q ).
+, f(rm), and  bidding uniformly with f(ri) results in Pi j=1 ri − ri−1 = ri clicks at cost h(ri)ri.
+We conclude that there is a 1 2 -optimal single-bid strategy randomizing between bidding CΩ/2 and zero.
+Note that the only possible bids (i.e., all others have the same results as one of these) are f(r0), .
+For the second part of the theorem, we construct a tight example using two queries Q = {x, y}, two keywords K = {u, v}, and edges E = {(u, x), (v, y)}.
+costq(b∗ q )/clicksq(b∗ q ) = b∗ q .
+This achieves a total of 2α clicks and spends the budget exactly.
+Thus, this curve corresponds to an instance where UΩ = 1.
+(The instance is constructed as in the proof of Lemma 5.)
+Note also that R 1 0 h(r) dr = 1 e−2 R 1 1/e e − 1 r dr = 1.
+In the LP, she is actually going to  compute a distribution over pairs of strategies in S, which we will then interpret as a distribution over strategies.
+Furthermore, for any > 0, there exists an instance for which all uniform strategies are at most (1 − 1 e + )-optimal.
+However, all of these extra clicks still cost at most h(r ) per click.
+For reference, we include the lower bound of a (e − 1)/e fraction of the top curve.
+There always exists a uniform bidding  strategy that is (1 − 1 e )-optimal.
+Here we have pu = v−α v−u and pv = α−u v−u .
+The traffic achieved by our strategy is equal to traffic = Z CΩ 0 g(r)·r dr = Z CΩ CΩ/e 1 r ·r dr = „ 1 − 1 e « CΩ.
+The graph is a matching with one keyword per query, and so we can imagine the optimal solution as bidding on queries.
+The budget is U = 1 + α.
+Suppose for the sake of contradiction that there exists a uniform bidding strategy that achieves α > 1−e−1 traffic on this instance.
+Note that R CΩ 0 g(r)dr = R CΩ CΩ/e 1 r dr = 1, i.e.
+Furthermore, for any > 0 there exists an instance for which all single-bid strategies are at most (1 2 + )-optimal.
+This results in at most α(1 + α) clicks.
+Note further that the  advertiser is trying to figure out which of these strategies to use, and ultimately wants to compute a distribution over uniform strategies.
+, rm = C such that ri−1 < ri ≤ ri−1 + , f(ri−1) ≤ f(ri) ≤ f(ri−1)+ , and m ≤ (C +f(C))/ .
+Suppose we wanted to buy some fraction r /CΩ of the traffic that Ω is getting.
+The uniform bidding curves represent the results of applying our algorithm: deterministic uses a single bid level, while randomized uses a distribution.
+The following claim follows immediately: Claim 1.
+We now show that no uniform strategy can do better.
+There always exists a uniform single-bid  strategy that is 1 2 -optimal.
+We took a large  advertising campaign, and, using the set of keywords in the  campaign, computed three different curves (see Figure 4) for three different bidding strategies.
+UΩ = R CΩ 0 h(r)dr.
+4.3.1 An LP for the worst-case click-price curve.
+In section we prove that there is always a good uniform strategy: Theorem 3.
+Note that this bidder is more powerful than an optimal bidder, which has to bid on the keywords.
+Let > 0 be a small number that we will later define in terms of .
+Construct an instance as follows.
+Of course in a more realistic environment without full  knowledge, it is not always possible to find the best such bid, so further investigation is required to make this approach  useful.
+In order to figure out the best distribution, we wrote a linear program that models the behavior of a player who is trying to maximize clicks and an adversary who is trying to create an input that is hard for the player.
+A binary search yields the smallest such α where the objective is exactly U.
+, CΩ}2 : 0 ≤ u ≤ αCΩ ≤ v ≤ CΩ}.
+In the previous section we proposed using uniform  strategies and gave an efficient algorithm to compute the best such strategy.
+Fix some α where 0 < α ≤ 1, and fix some very small > 0.
+We summarize this discussion in the following lemma: Lemma 4.
+Consider an adversarial bidder Ω with the power to bid  independently on each query.
+, h(rm), and ctrs α[1] = α[2] = · · · = α[m− i+1] = ri −ri−1.
+Query bidding represents our (unachievable) upper bound Ω, bidding on each query  independently.
+However, just knowing that there is such a bid available should make the on-line versions of the problem simpler. 
+This can be made arbitrarily close to α by lowering .
+To aid our discussion, we introduce the notion of a  clickprice curve (an example of which is shown in Figure 2), which describes the cpc distribution obtained by Ω.
+g is a  probability density function.
+Theorem 6.
+In addition to being an interesting result in its own right, it also serves as a warm-up for our main result.
+We introduce the notion of a click-price curve, which is central to our analysis.
+Then using linear programming duality, we were able to derive both an optimal strategy and a tight instance.
+Lemma 5.
+tures, we were able to quickly guess the optimal strategy and worst case example.
+4.4 Experimental Results We ran simulations using the data available at Google which we briefly summarize here.
+This methodology is similar to that used in work on factor-revealing LPs [8, 10].
+Define r0 = 0, r1, r2, .
+45 Proof.

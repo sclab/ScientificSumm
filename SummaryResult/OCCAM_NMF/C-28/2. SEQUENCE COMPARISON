@@ -1,0 +1,26 @@
+the combination of parameters w, t, x and s is used to determine the sensitivity and speed of blast searches. 
+a new parameter, s, is used to sort alignments.
+the significant ones are termed hsps (high-scoring segment pairs).
+the alignments are evaluated to determine if they are statistically significant.
+once seeds are extended, the last step begins.
+a parameter x maintains the recent alignment history and controls this step.
+in the seeding step, a query  sequence is split in portions called words of size w. these words are matched to database sequences and used as  alignment seeds if their scores are higher than a threshold t. in the extension step, alignments are generated from seeds.
+basically, the algorithm proceeds in three steps: seeding, extension and evaluation.
+in 1996-1997, two gapped versions of blast emerged: ncbi-blast [3] and wu-blast [6].
+table 1: some of the blast family programs program database query translation blastn nucleotide nucleotide none blastp protein protein none blastx protein nucleotide query the first version of blast searched for local similarities without taking spaces (gaps) into account.
+blast provides programs to compare many combinations of query and database sequence types (table 1).
+it is designed to obtain high  performance with low impact in terms of sensibility.
+2.1 the blast algorithm blast (basic local alignment tool) [1] is a set of  programs used to search dna and protein databases for  similarities between sequences.
+blast [1] is the most widely used heuristic method for sequence comparison.
+sensitivity is the rate at which the method fails to identify similar sequences whereas sensibility is the rate at which the method identifies sequences that are not similar [7].
+usually, these heuristic methods are  evaluated using the concepts of sensitivity and sensibility.
+for this reason, faster heuristic methods are proposed which do not guarantee that the best alignment will be produced.
+in this scenario, the use of exact methods such as sw is prohibitive.
+due to the 156 g a c g g a t t a g g a t c g g a a t a g +1 +1 −2 +1 +1 +1 +1 −1 +1 +1 +1 σ = 6 figure 1: example of an alignment with score 6 current growth rate, these databases will soon achieve  terabytes.
+by now, there are millions of entries  composed of billions of nucleotides at genbank, which is one of the most important public gene repositories.
+usually, one given biological sequence is compared against thousands or even millions of sequences that compose  genetic data banks.
+to compute exact local sequence alignments, [14]  proposed an algorithm (sw), based on dynamic programming, with quadratic time and space complexity.
+the score is the sum of all the values and the maximal score is the similarity between the sequences.
+for each column, we associate, for instance, +1 if the two characters are  identical, -1 if the characters are different and -2 if one of them is a space.
+given an alignment between two sequences, a score is  usually associated for it as follows (figure 1).
+to compare two sequences, we must find the best  alignment, which is to place one sequence above the other making clear the correspondence between similar characters [7].

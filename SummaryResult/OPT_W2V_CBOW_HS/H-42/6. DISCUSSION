@@ -1,0 +1,62 @@
+Two topics that are very close on this graph give the same information, and therefore one of them could be discarded without changes in TREC results.
+For this reason we have not attempted in this paper to point to the specific high hubness topics as being good for evaluation.
+• Differences in the hubness of systems reveal that some systems are better than others at distinguishing easy and difficult topics; thus we have some confirmation of Hypothesis 3.
+6.6 Selecting topics The confirmation of Hypothesis 4 leads, as indicated, to the idea that we could do reliable system evaluation on a much smaller set of topics, provided we could select such an appropriate set.
+It might be argued that (in the case of APA, for example) the amount we have subtracted from each AP value is  topicdependent, therefore the range of the resulting APA value is also topic-dependent (e.g.
+5 above), and it appears to provide very similar  results to the GMAP results already given.
+Note that no notion of single documents is involved in the above analysis.
+It is  therefore easier to look at experimental data, which confirm that the normalizations are needed: the correlations between AP, Inlinks, Outlinks, Hub, and/or Authority are all very close to one (none of them is below 0.98).
+(c) if i, j ∈ S, then AT A[i, j] = P k∈T APA(i, k) · APA(j, k) measures how much agreement on the effectiveness of two systems i and j there is over all topics: high  values mean that many topics quite agree on the two  systems effectiveness; low values single out systems that are somehow controversial, and that need several topics to have a correct effectiveness assessment.
+For instance, the submatrix (b) corresponds to a weighted undirected complete graph, whose nodes are the topics and whose arc weights are a measure of how much two topics agree on systems effectiveness.
+From the theoretical point of view, the AP-only graph does not present the interesting  properties above discussed: since the AP-only graph is  symmetrical (the weight on each incoming link is equal to the weight on the corresponding outgoing link), Inlinks and Outlinks assume the same values.
+• If we use MAP as the measure of effectiveness, it is also true that the easiest topics are better at  distinguishing more or less effective systems.
+• Differences in the hubness of topics reveal that some topics are better than others at distinguising more or less effective systems; thus we have some confirmation of Hypothesis 4.
+Therefore, one might think that the normalizations are unuseful in this setting.
+However, on the whole, the more effective systems are better at distinguishing easy and difficult topics.
+This is not  surprising, since in practice the two functions are very similar over most of the operative range.
+We regard some results of the present study as in some way complementary to this work, in that we make a step towards answering the question Which topics are best for establishing differences?.
+Clearly these ideas need to be tested on other data sets.
+There is symmetry also in  computing hub and authority, that assume the same value for each node since the weights on the incoming and outgoing arcs are the same.
+(b) if i, j ∈ T, then AAT [i, j] = P k∈S APA(k, i)·APA(k, j) measures how much the two topics i and j agree in  estimating systems effectiveness (APA): high values mean that the two topics agree on systems effectiveness (and that TREC results would not change by leaving out one of the two topics).
+This could be stated in more precise and  formal terms, but one might still wonder if on the overall graph there are some sort of counterbalancing effects.
+• There are some relatively idiosyncratic systems which do badly on some topics generally considered easy but well on some hard topics.
+However, in the course of  applying this method to one set of TREC results, we have achieved some insights relating to the hypotheses formulated in Sect.
+What is the meaning, if any, of AAT and AT A in our Systems-Topics graph?
+One possible way to overcome this would be to use an unconstrained measure whose range is the full real line.
+This suggests that the cross-topic comparisons of these values suggested in Sect.
+It is easy to derive that: AAT [i, j] = 8 >< >: 0  if i ∈ S ∧ j ∈ T or i ∈ T ∧ j ∈ S P k A[i, k] · A[j, k] otherwise AT A[i, j] = 8 >< >: 0  if i ∈ S ∧ j ∈ T or i ∈ T ∧ j ∈ S P k A[k, i] · A[k, j] otherwise (where S is the set of indices corresponding to systems and T the set of indices corresponding to topics).
+Thus AAT and AT A are block diagonal matrices, with two blocks each, one relative to systems and one relative to topics: (a) if i, j ∈ S, then AAT [i, j] = P k∈T APM(i, k)·APM(j, k) measures how much the two systems i and j agree in estimating topics ease (APM): high values mean that the two systems agree on topics ease.
+It is possible that simply selecting the high  hubness topics will achieve this end; however, it is also possible that there are significant interactions between topics which would render such a simple rule ineffective.
+We have not addressed the question of individual documents in the present analysis, but this effect is certainly analogous to our results.
+The results on evaluation without relevance judgements such as [10] show that, to some extent, good systems agree on which are the good documents.
+It would be interesting to cluster the topics on this graph.
+This is not the case.
+At this point it is also worthwhile to analyze what would happen without the MAP- and AAP-normalizations defined in Sect.
+This is to be expected: a really bad system will do badly on everything, while even a good system may have difficulty with some topics.
+One way to achieve an unconstrainted range would be to use the logit function rather than the log [4,8].
+[2, 9]), and related questions of how many topics might be needed to establish differences (e.g.
+2: • We confirm Hypothesis 2 above, that some topics are easier than others.
+(d) if i, j ∈ T, then AT A[i, j] = P k∈S APM(k, i)·APM(k, j) measures how much agreement on the ease of the two topics i and j there is over all systems: high values mean that many systems quite agree on the two topics ease.
+Therefore, these matrices are meaningful and somehow interesting.
+However, they reveal that the method of analysis proposed in this paper can provide valuable information.
+Note that in applying the method to GMAP by using log AP, we avoid the problem with the lower limit but retain it for the upper limit.
+Furthermore, the matrix/graph (a) could be useful in TREC pool formation: systems that do not agree on topic ease would probably find different relevant  documents, and should therefore be complementary in pool  formation.
+This selection may not be straightforward, however.
+3.4) is still valid: both the APM and APA matrices are replaced by the AP one, and then everything goes on as above.
+We have also run this variant (as already reported in Sect.
+As argued in Sect.
+6.4 On AAT and AT A It is well known that h and a vectors are the principal left eigenvectors of AAT and AT A, respectively (this can be easily derived from Eqs.
+6.5 Insights As indicated, the primary contribution of this paper has been a method of analysis.
+6.1 Related work There has been considerable interest in recent years in questions of statistical significance of effectiveness  comparisons between systems (e.g.
+A similar issue arises for APM and comparisons across systems.
+(7)), and that, in the case of  citation graphs, AAT and AT A represent, respectively,  bibliographic coupling and co-citations.
+This  investigation would therefore require serious experimentation.
+The normalizations thus seem reliable.
+5, this is an undesirable property.
+Indeed, the process of graph construction (Sect.
+This is left for future work. 
+6.3 Are these normalizations sufficient?
+GMAP is more balanced.
+3.3 may not be reliable.
+6.2 Are normalizations necessary?
+the maximum is 1 − AAP(tj) and the minimum is − AAP(tj)).

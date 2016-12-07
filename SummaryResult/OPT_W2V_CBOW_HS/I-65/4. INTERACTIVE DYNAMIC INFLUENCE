@@ -1,0 +1,72 @@
+The probability that j"s updated model is, say mt+1,1 j,l−1 , depends on the probability of j performing the action and receiving the observation that led to this model, and the prior distribution over the models at time step t. Because the chance node At j assumes the distribution of each of the action nodes based on the value of Mod[Mt j ], the  probability of the action is given by this chance node.
+Next, we describe how the distribution over the updated set of models (the distribution over the chance node Mod[Mt+1 j ] in Mt+1 j,l−1) is computed.
+We adopt a two-phase approach: Given an I-ID of level l (described previously in Section 3) with all lower level models also represented as I-IDs or IDs (if level 0), the first step is to expand the level l I-ID over T time steps adding the dependency links and the conditional probability tables for each node.
+Consequently, each of j"s subintentional or level 0  models (represented using a standard DID) in the first time step must be solved to obtain its optimal set of actions.
+If the nesting of models is deeper, all models at all levels starting from 0 are solved in a bottom-up manner.
+Second, we compute the new distribution over the updated models given the original distribution and the probability of the agent performing the action and receiving the observation that led to the updated model.
+These actions are  combined with the set of possible observations that j could make in that model, resulting in an updated set of candidate models (that include the updated beliefs) that could describe the behavior of j. Beliefs over this updated set of candidate models are calculated using the standard inference methods using the dependency relationships  between the model nodes as shown in Fig.
+If each of the two level l − 1 models  ascribed to j at time step t results in one action, and j could make one of two possible observations, then the model node at time step t + 1 contains four updated models (mt+1,1 j,l−1 ,mt+1,2 j,l−1 , mt+1,3 j,l−1 , and mt+1,4 j,l−1 ).
+4 we show the two time-slice I-DID with the model nodes  replaced by the chance nodes and the relationships between them.
+These steps are a part of agent i"s belief update formalized using Eq.
+In  addition to the model nodes and the dashed policy link, what  differentiates an I-DID from a DID is the model update link shown as a dotted arrow in Fig.
+The Sixth Intl.
+For each mt j in Range(Mt j,l−1) do 4.
+Update j"s belief, bt+1 j ← SE(bt j, aj, oj) 9. mt+1 j ← New I-ID (or ID) with bt+1 j as the initial belief 10.
+In order to obtain the probability of j"s possible observation, we introduce the chance node Oj, which depending on the value of Mod[Mt j ] assumes the distribution of the observation node in the lower level model  denoted by Mod[Mt j ].
+Here, |Mt j,l−1| is the number of models at time step t, |Aj| and |Ωj| are the largest spaces of actions and observations respectively, among all the  models.
+The decision nodes in each of the I-DIDs or DIDs that represent the lower level models are mapped to the corresponding Figure 4: Transformed I-DID with the model nodes and model update link replaced with the chance nodes and the relationships (in bold).
+Notice that the model update link may be replaced by the dependency links between the chance nodes that constitute the model nodes in the two time slices.
+Add the chance, decision, and utility nodes for t + 1 time slice and the dependency links between them 13.
+These models differ in their initial beliefs, each of which is the result of j updating its beliefs due to its action and a possible observation.
+3(b), we show how the dotted model update link is  implemented in the I-DID.
+The solution method uses the standard look-ahead technique, projecting the agent"s action and observation sequences forward from the current belief state [17], and finding the possible beliefs that i could have in the next time step.
+chance nodes, as mentioned previously.
+Expansion of the I-DID over more time steps requires the  repetition of the two steps of updating the set of models that form the 2 Note that Oj represents j"s observation at time t + 1.
+level l I-DID expanded over T time steps with one other agent j in Fig.
+Because agent i has a belief over j"s models as well, the  lookahead includes finding out the possible models that j could have in the future.
+Because the probability of j"s observations depends on the physical state and the joint actions of both agents, the node Oj is linked with St+1 , At j, and At i.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 817 values of the model node and adding the relationships between the chance nodes, as many times as there are model update links.
+In the second phase, we use a standard look-ahead technique projecting the action and observation sequences over T time steps in the future, and backing up the utility values of the reachable beliefs.
+If l ≥ 1 then Populate Mt+1 j,l−1 3.
+Since the set of optimal actions for a model could include all the actions, and the agent may receive any one of |Ωj| possible observations, the updated set at time step t + 1 will have at most |Mt j,l−1||Aj||Ωj| models.
+Finally, the distribution over the prior models at time t is obtained from the chance node, Mod[Mt j ] in Mt j,l−1.
+For the purpose of illustration, let l=1 and T=2.
+4.2 Solution Analogous to I-IDs, the solution to a level l I-DID for agent i expanded over T time steps may be carried out recursively.
+I-DIDs may be used to optimize over a finite look-ahead given  initial beliefs while interacting with other, possibly similar, agents.
+We explained the semantics of the model node and the policy link in the previous section; we describe the model updates next.
+Chance nodes and dependency links that not in bold are standard, usually found in DIDs.
+The update of the model node over time involves two steps: First, given the models at time t, we identify the updated set of models that reside in the model node at time t + 1.
+Their solutions provide probability distributions over actions of the agent modeled at that level to I-DIDs at level 1.
+For each aj in OPT(mt j) do 7.
+Given probability distributions over other agent"s actions the level 1  IDIDs can themselves be solved as DIDs, and provide probability distributions to yet higher level models.
+As we mentioned previously, the 0-th level models are the  traditional DIDs.
+We note that the possible set of models of the other agent j grows  exponentially with the number of time steps.
+Add the model node, Mt+1 j,l−1, and the dependency links between Mt j,l−1 and Mt+1 j,l−1 (shown in Fig.
+Map the decision node of the solved I-ID (or ID), OPT(mt j), to a chance node Aj 6.
+2 Analogous to At j, the conditional probability table of Oj is also a multiplexer  modulated by Mod[Mt j ].
+DIAGRAMS Interactive dynamic influence diagrams (I-DIDs) extend I-IDs (and NIDs) to allow sequential decision-making over several time steps.
+We note the recursive nature of this solution: in solving agent i"s level 1 I-DID, j"s level 0 DIDs must be solved.
+Recall from Section 2 that an agent"s intentional model includes its belief.
+For each oj in Oj (part of mt j) do 8.
+Establish the CPTs for each chance node and utility node Look-Ahead Phase 14.
+Assume that the number of models considered at each level is bound by a number, M.  Solving an I-DID of level l in then equivalent to solving O(Ml ) DIDs. 
+Because the agents act and receive observations, their models are updated to reflect their changed beliefs.
+We particularly focus on establishing and populating the model nodes (lines 3-11).
+Recursively call algorithm with the l − 1 I-ID (or ID) that represents mt j and the horizon, T − t + 1 5.
+Note that Range(·) returns the values (lower level models) of the random variable given as input (model node).
+Range(Mt+1 j,l−1) ∪ ← {mt+1 j } 11.
+Similar to I-IDs, the I-DIDs reduce to DIDs in the absence of other agents.
+In Fig.
+For example, after T steps, there may be at most |Mt=1 j,l−1|(|Aj||Ωj|)T −1 candidate models  residing in the model node.
+In Fig.
+Consequently, the chance nodes, Mod[Mt j ], At j, and Oj, form the parents of Mod[Mt+1 j ] in Mt+1 j,l−1.
+We briefly outline the recursive algorithm for solving agent i"s Algorithm for solving I-DID Input : level l ≥ 1 I-ID or level 0 ID, T Expansion Phase 1.
+3(a).
+Just as DIDs are structured graphical representations of POMDPs, I-DIDs are the graphical online analogs for finitely nested I-POMDPs.
+3(a).
+4.1 Syntax We depict a general two time-slice I-DID in Fig.
+For t from 1 to T − 1 do 2.
+Apply the standard look-ahead and backup method to solve the expanded I-DID Figure 5: Algorithm for solving a level l ≥ 0 I-DID.
+Joint Conf.
+3(b).
+3(b)) 12.

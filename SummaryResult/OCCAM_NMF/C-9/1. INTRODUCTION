@@ -1,0 +1,36 @@
+section 6 describes related work and finally section 7 concludes the paper. 
+section 5 describes the framework for  decentralized adaptive services.
+section 4 explains the self-managing and rededication concepts of distributed adaptive resource management.
+the following section describes the used features of  aspectix followed by a brief overview of the core components and concepts of edas.
+finally a certain amount of node crashes can be tolerated.
+load of non-modifying requests can be evenly distributed across the replicas making overload situations less likely.
+in a  longterm-service grid infrastructure, active replication has  various benefits: replicas can join and leave the object group and therefore replicas can be migrated without service  unavailability.
+to reduce the implementation effort of such services a framework has been developed that supports the run-time evolution from a traditional client/server scenario to an  active replicated server with clients interacting in a hybrid peer-to-peer architecture as known from napster.
+the overall goal is to provide a generic service architecture that allows to implement the service functionality once, and then, ideally, run this  service with different service models and adapt it at run-time, thereby scaling from a single user local instance to a  multidomain-spanning scalable service.
+edas further supports flexible service models, including a fully centralized client/server structure, completely  peer-topeer based systems, and various configurations in between that allow a controlled use of peer resources based on the fragmented object model [5].
+in cases where rededication is not possible, the migration of the  demanding service is initiated.
+the whole process article 5 of rededication is scalable as it is decentralized and respects certain limits like the physically available resources of a node and the amount of resources dedicated to a project.
+to provide resources as needed, our approach automatically rededicates evenly free or not needed resources between  service instances across projects and nodes.
+it is not known how to optimally subdivide these resources for the services as the resource demand of services can change over time or even frequently fluctuate.
+our approach supports the adaptive resource management of all projects in scope of an institution based on an algorithm inspired by the diffusive algorithms for decentralized  loadbalancing [4].
+each institution represents an administrative domain that can support a project with a fixed set of resources.
+such an environment possibly spans multiple institutions.
+each project has a distributed execution scope called a service environment.
+theses services are organized in projects.
+the resource management focuses on the execution of  services that have a long, potentially infinite, operating time.
+the environment is built upon our aspectix [3] middleware infrastructure, which  directly supports qos-based, dynamic reconfiguration of  services.
+nodes can dynamically join and leave the  infrastructure, and all management tasks, especially the resource management, are decentralized.
+edas [2] aims at providing a grid-like infrastructure for user-accessed, long-term services that allows the dynamic adaptation at run-time, provides a management  infrastructure, and offers system-level support for scalability and fault tolerance.
+furthermore a service concept has to be  provided that evades overload in the first place, and secondly inhibits service unavailability if migration can"t be avoided.
+therefore the resource management has to avoid migration if possible.
+additionally a non-replicated service is not accessible during migration.
+migration however is expensive as the whole state of a service has to be transfered.
+to a more powerful and less loaded node).
+a node gets overloaded) the service has to be migrated within the grid (e.g.
+if the distribution turns out to be wrong (e.g.
+instead an infrastructure for long-term services has to place services based on their current demand and their estimated future requirements.
+the common three-phase approach of resource discovery, system selection and job execution fails for services that change their resource demand over time due to interactive user access and run for a long period of time.
+current grid computing infrastructures don"t  provide sufficient support for the execution of distributed,  useraccessed, long-term services as they are designed to solve compute- or data-intensive tasks with a more or less fixed set of parameters.
+such grid infrastructures are often  deployed at enterprise level, but projects like seti@home [1] have demonstrated the feasibility of more decentralized grids as well.
+resource management is a key issue in such systems, needed for an efficient and automated distribution of tasks on the grid.
+infrastructures for grid computing aim at virtualizing a group of computers, servers, and storage as one large  computing system.

@@ -1,0 +1,318 @@
+We analyze three indexing schemes quantitatively (node indexing,
+edge indexing, and two-table edge indexing) in terms of memory
+utilization and processing time. In this analysis, we assume that
+node and edge structures are implemented with hash tables.
+For hash table manipulations we assume three memory-access
+functions: token insertion, token removal, and token scan. Their
+processing costs are denoted by Ta, Td, and Ts, respectively. A 
+token scan operation reads the tokens in a hash bucket sequentially. It
+is extensively used during cell evaluations. Ts and Td are a function
+of the number of tokens in the bucket while Ta is constant.
+For the purpose of analysis, we define two random variables.
+One variable, denoted by mo, represents the side length of the AOI
+of an entity o. The side lengths are uniformly distributed in the
+range of [mmin, mmax]. The average value of mo is denoted by
+m. The second random variable v denotes the x-directional or 
+ydirectional maximum distance of a moving entity during a time 
+interval. The simulated movement of an entity during the given time
+is also uniformly distributed in the range of [0, v]. For a simple
+calculation, both random variables are expressed as the number of
+cell units.
+Table 1 summarizes the symbolic notations and their meaning.
+5.1 Memory Requirements
+Let the token size be denoted by s. Node indexing uses s · |Uq|
+memory units for user entities and s ·
+Èo∈U (mo + 1)2
+≈ s(m2
++
+2m + 1 + V ar(mo))|U| units for object entities. Single-table
+edge indexing consumes s · |Uq| storage units for the user entities
+and s ·
+Èo∈U 2(mo + 1) ≈ 2s(m + 1)|U| for the object entities.
+Two-table edge indexing occupies s · |Uq| units for the users and
+s{
+Èi∈O 2(mi+1)+
+Èj∈(U−O) 2(mj +1)} ≈ 2s(m+1)|U| units
+for the objects. Table 2 summarizes these results. In our target 
+apTable 2: Memory requirements of different indexing methods.
+indexing method user entities object entities
+node indexing s · |Uq| s((m + 1)2
++ V ar(mo))|U|
+single-table edge s · |Uq| 2s(m + 1)|U|
+two-table edge s · |Uq| 2s(m + 1)|U|
+plication, our edge indexing methods consume approximately m+1
+2
+times less memory space than node indexing.
+Different grid cell partitioning with edge methods will lead to
+different memory requirements. For example, here are two grids:
+a M × M grid and a 2M × 2M grid. The memory requirement
+for the user entities is unchanged because it depends only on the
+total number of user entities. The memory requirements for the
+object entities are approximately 2s(m + 1)|U| in the M × M
+grid case and 2s(2m + 1)|U| for the (2M) × (2M) grid. Thus, a
+four times larger cell size will lead to an approximately two times
+smaller number of tokens.
+5.2 Processing Cost
+In this section, we focus on the cost analysis of update operations
+and cell evaluations. For a fair comparison of the different methods,
+we only analyze the run-time complexity of moving objects and
+moving users.
+5.2.1 Update Cost
+We assume that a set of moving objects O and a set of moving
+users Q are known in advance.
+Similar to edge indexing, node indexing has two update 
+policies: full update and incremental update. Full update, implemented
+in Q-Index [13] and SINA [10], removes all the old tokens from
+the old cell node structures and inserts all the new tokens into the
+new cell nodes. The incremental update policy, implemented by no
+existing work, removes and inserts all the tokens whose spatial 
+condition changed during a period. In this analysis, we only consider
+incremental node indexing.
+To analyze the update cost of node indexing, we introduce the
+maximum reachable distance (v), where the next location of a 
+moving entity, whose previous location was at cell(0,0), is uniformly
+distributed over the (±v, ±v) grid cell space as illustrated in 
+Figure 5. We also assume that the given maximum reachable distance
+is less than any side length of the AOI of the objects in the 
+system; that is, v < mo where o ∈ O. As seen in Figure 5, the
+next location may fall into three categories: areas A, B, and the
+center cell area (0,0). If an object resides in the same cell, there
+will be no update. If the object moves into the area A, there will
+be (i + j)(mo + 1) − ij token insertions and removals, where
+1 ≤ i, j ≤ v. Otherwise, there will be k(mo + 1) token insertions
+and removals, where 1 ≤ k ≤ v. Thus, the expected 
+processing time of an object update for node indexing is the summation of
+three different movement types
+T
+node
+per update(o) =
+4 · (A) + 4 · (B)
+(2v + 1)2
+· (Ta + Td)
+=
+v(v + 1){v(4mo + 3 − v) + 2(mo + 1)}
+(2v + 1)2
+· (Ta + Td) (3)
+and the expected processing time of any object for node indexing
+is obtained by
+T
+node
+per update =
+Èo∈O,v<mo
+T node
+per update(o)
+|O|
+=
+v(v + 1){v(4m + 3 − v) + 2m + 1)}
+(2v + 1)2
+· (Ta + Td) (4)
+.
+407
+Table 3: Update time cost for any single update event where v < mq, mo and q ∈ Q.
+indexing method queries ×(Ta + Td) (seconds) objects ×(Ta + Td) (seconds)
+node indexing with incremental update |Q| |O| · v(v+1){v(4m+3−v)+2(m+1)}
+(2v+1)2
+single-table edge indexing with full update |Q| |O| · 2(m + 1)
+single-table edge indexing with incremental update |Q| |O| · v(4m(1+2v)+9v+5)
+(2v+1)2
+two-table edge indexing |Q| · Ta
+Ta+Td
+|O| · 2(m + 1) Ta
+Ta+Td
+Maximum Reachable Distance (v)
+(0,0)
+i
+j
+(i,j)
+A A
+AA
+B
+B
+B
+B
+Figure 5: Illustration of next cell location, cell(i, j), of a moving
+entity whose initial location was at cell (0, 0).
+The expected time of any single entity update for edge indexing
+with full update is:
+T
+edgefull
+per update
+=
+Èo∈O T
+edgefull
+per update
+(o)
+|O|
+= 2(m + 1)(Ta + Td) (5)
+The analysis of the expected time of any single entity update for
+edge indexing with incremental update becomes complicated 
+because the time cost depends both on the side length of the entity
+AOI and on the moving speed. Roughly speaking, its worst-case
+processing cost is the same as Tedgefull
+per update
+. Due to space 
+limitations we only show the analysis result of the expected processing
+time when v of any object o ∈ O is smaller than mo:
+Tedgeincremental
+per update
+=
+Èo∈O,v<mo
+Tedgeincremental
+per update
+(o)
+|O|
+=
+v(4m(1 + 2v) + 9v + 5)
+(2v + 1)2
+· (Ta + Td)
+=
+v(4m(1 + 2v) + 9v + 5)
+(2v + 1)2 · 2(m + 1)
+· Tedgefull
+per update
+(6)
+All update complexities are summarized in Table 3. In this 
+table, it is evident that while the update cost of the worst-case edge
+indexing (single-table edge indexing with full update policy) 
+depends only on m, that of the best-case node indexing (node 
+indexing with incremental update policy) is still proportional to two 
+variables, v and m. For a smaller value of v (v = 1), the update cost
+of node indexing slightly outperforms that of edge indexing (i.e.,
+12m+8
+9
+vs. 2(m + 1)). However, as v increases, the performance
+gain is then immediately reversed (i.e., 60m+24
+25
+versus 2(m + 1),
+where v = 2).
+Another interesting result is that two-table edge indexing 
+depends only on the token insertion cost, Ta. Typically, Td is slightly
+1 2 3 4 5
+0
+5
+10
+15
+20
+25
+30
+35
+40
+Maximum Reachable Distance (v) (%)
+#ofAffectedTokens
+Two−table Edge Indexing
+Incremental Edge Indexing
+Full Edge Indexing
+Incremental Node Indexing
+Figure 6: Simulation results of update complexity of 
+different indexing methods. The update complexity, the expected
+number of token removals and insertions per object update, is
+drawn as a function of maximum reachable distance (v). The
+average side length of object AOIs is 10% of the side length of
+a given 2-D map.
+greater than Ta because Td requires at least one token lookup 
+operation. After the lookup, Td executes the reverse operation of Ta.
+Thus, Td may well be expressed as (Ta + Tlookup) and can be 
+simplified as (Ta + |E|
+2·b
+·Ts) where |E| is the size of the edge structure
+and b is the number of its hash buckets. From this observation, we
+can infer that full update of single-table edge indexing takes at least
+twice as long as the update for two-table edge indexing.
+Figure 6 shows that full update of edge indexing when the 
+maximum reachable distance is less than the side length of any moving
+entities takes constant time to update the corresponding edge 
+structures, which mainly depends on the side length of the given AOI.
+In this figure we assume that the average side length of the AOI is
+0.1 (or 10 %). The node indexing method, however, depends not
+only on the side length but also on the reachable distance. Thus the
+entity update in node indexing is much heavier than the full update
+for edge indexing.
+As expected, these simulation results validate a common belief
+that in less dynamic environments, incremental updates reduce the
+amount of token insertions and removals noticeably while in 
+extremely dynamic environments the reduction ratio becomes 
+negligible.
+5.2.2 Cell Evaluation Cost
+Node indexing scans all entities and then collects the user 
+entities indexed on every cell node. Therefore, it would take |Q|×Ts to
+scan all user entities. If every node stores (m2
++2m+1+V ar(mo))|O|
+M2
+object entities on average, the expected completion time of one cell
+evaluation will then be
+Èo∈O
+(m2
++2m+1+V ar(mo))|O|
+M2 · Ts. If 
+every cell has at most one user entity, the expected completion time
+of all cell evaluations will be |Q| · (m2
++2m+1+V ar(mo))|O|
+M2 · Ts.
+The runtime complexity of the single-table cell evaluation can
+408
+Table 4: Summary of cell evaluation cost.
+indexing method expected elapsed time
+node indexing Ts · |Q| · (m2
++2m+1+V ar(mo))|O|
+M2
+single-table edge Ts · (|Q| + |O| · 2(m + 1))
+two-table edge (Ts + Td) · (|Q| + |O| · 2(m + 1))
+be simplified as Ts ·|O|·2(m +1). In this analysis, we do not 
+consider any data delivery overhead after a cell evaluation. Note that
+in single-table edge indexing we need to scan all the tokens for cell
+evaluations. Two-table edge indexing executes in Td to remove the
+evaluated tokens after a cell evaluation. Unlike the Td operation,
+the Td operation is much lighter because it does not require any
+lookup operation.
+Table 4 shows the expected complexities of different cell 
+evaluation scenarios. If previously computed result sets are re-used 
+during the next evaluation round, the expected elapsed time of node
+indexing will be bound by the total number of cell evaluations (i.e.,
+Ts(m2
++ 2m + 1 + V ar(mo))|O|). However, in the worst case,
+the cell evaluation of node indexing is still m+1
+2
+times longer than
+that of any edge indexing method.
+5.2.3 Putting it Together: Periodic Monitoring Cost
+As we saw in Section 5.2.1, edge indexing methods outperform
+node indexing in terms of updates and cell evaluations. In this 
+section we focus on evaluating the performance difference between
+single-table edge indexing and two-table edge indexing.
+The total elapsed time of full update based single-table edge 
+indexing for a given set of moving entities is the summation of the
+elapsed time of updates and cell evaluations:
+(Ta + Td + Ts) · {|Q| + |O|2(m + 1)} (7)
+Similarly, the total elapsed time of two-table edge indexing is as
+follows:
+(Ta + Td + Ts) · {|Q| + |O|2(m + 1)} (8)
+From Equation 7 and 8 we conclude that two-table edge 
+indexing, even though it represents a minor optimization of single-table
+edge indexing by replacing unpredictable Td with predictable Td,
+achieves a significant performance improvement. First of all, Td
+is very predictable and a more lightweight procedure than Td. All
+the data structure manipulation overheads, such as Ta, Ts, and Td
+can be easily profiled and all become constant. In addition, 
+twotable indexing is guaranteed to outperform single-table full update
+edge indexing. Another novelty of the two-table approach is that it
+is highly resilient to the underlying data distribution, regardless of
+whether it is highly skewed or uniform.
+Equation 8 also reveals the minimum time interval that satisfies
+the given input parameters, Ta, Ts, Td, |Q|, |O|, and m. While Ta,
+Ts and Td are system-specific parameters, |O|, |Q|, and m are all
+application-specific. The latter can be configured by the former
+and any given real-time constraint T. Thus, the system throughput
+- how many moving objects and users are supported by the given
+system - is obtained from Equation 9.
+Maximum System Throughput =
+|Q| + |O|2(m + 1) =
+T
+Ts + Ta + Td
+(9)
+For example, if a given sub-world is only filled with moving
+avatars, A = Q = O, whose average side length is 10% of the
+map side length, then Ts + Td takes 0.42 microseconds per token
+evaluation, and Ta takes 0.78 microseconds, and the system will
+handle about 36,231 avatars per second. Every avatar can navigate
+in the sub-world freely and the same number of remotely connected
+clients receive the latest update events continuously.

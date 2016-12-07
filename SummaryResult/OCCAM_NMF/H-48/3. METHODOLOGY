@@ -1,0 +1,30 @@
+removing terms  individually allows for a clear comparison of the contribution of qe in the absence of each individual query term. 
+the incremental additive removal of query terms from relevant documents allows the evaluation to show the  degree to which ir system performance degrades as more and more query terms are missing, thereby increasing the degree of query-document term mismatch.
+it must be  determined if s will remove the terms individually (i.e., remove just one different term each time) or additively (i.e., remove one term first, then that term in addition to another, and so on).
+once an order for removal has been decided, a manner for term removal/masking must be decided.
+based on the purpose of the evaluation and the retrieval algorithm being used, it might make more sense to choose a removal order for s based on query term idf or perhaps based on a measure of query term probability in the document collection.
+possible orders for removal could be based on metrics such as idf or the global probability of a term in a document collection.
+two  decisions must be made when choosing a removal strategy s. the first is the order in which s removes terms from the relevant documents.
+the choice of a query term removal strategy is relatively flexible; the only restriction in choosing a strategy s is that query terms must be removed one at a time.
+it is in this way that we can explicitly measure the degree to which an ir system overcomes query-document term mismatch.
+in  contrast, the controlled variable in this framework is the query term that has been removed from the documents relevant to that query, as determined by the removal strategy, s. query terms are removed one by one, in a manner and order  determined by s, so that collections differ only with respect to the one term that has been removed (or masked) in the documents relevant to that query.
+in other evaluations of qe effectiveness, the controlled variable is simply whether or not queries have been  expanded or not, compared in terms of some metric.
+in fact, using this framework stretches the value of existing test collections in that one  collection becomes several when query terms are removed from relevant documents, thereby increasing the amount of  information that can be gained from evaluating on a particular collection.
+although test collections are difficult to come by, it should be noted that this evaluation framework can be used on any available test collection.
+can be used to measure ir system performance.
+the strategy, s, determines the order and manner in which query terms are removed from the relevant documents in c. this evaluation framework is not metric-specific; any metric (map, p@10, recall, etc.)
+the evaluation framework presented in this paper consists of three elements: a test collection, c; a strategy for selecting which query terms to remove from the relevant documents in that collection, s; and a metric by which to compare  performance of the ir systems, m. the test collection, c, consists of a document collection, queries, and relevance judgments.
+it does not in any way change the conceptual relevancy of the documents.
+removing a query term from  relevant documents simply masks the presence of that query term in those documents.
+systematically removing query terms from known relevant documents introduces a controlled amount of query-document term mismatch by which we can  evaluate the degree to which particular qe techniques are able to retrieve conceptually relevant documents, despite a lack of actual term overlap.
+although, on the surface, we are changing the  distribution of terms between the relevant and non-relevant  documents sets by removing query terms from the relevant  documents, doing so does not change the conceptual relevancy of these documents.
+non-relevant  documents are left unchanged, even in the case that they contain query terms.
+notice that, for a given query, only relevant documents are modified.
+in the most extreme case (i.e., when the length of the query is less than or equal to the number of query terms removed from the relevant documents), there will be no term overlap between a query and its relevant documents.
+query terms are removed from documents one by one, so the differences in ir system performance can be  measured with respect to missing terms.
+the queries themselves remain  unaltered.
+this removal process affects only the relevant documents in the search collection.
+introducing query-document term mismatch into the test collection in this manner allows us to manipulate the degree of term  mismatch between relevant documents and queries in a  controlled manner.
+we systematically remove query terms from known relevant documents,  creating alternate versions of a test collection that differ only in how many or which query terms have been removed from the documents relevant to a particular query.
+our approach is to introduce  querydocument term mismatch into a corpus in a controlled  manner and then measure the performance of ir systems as the degree of term mismatch changes.
+in order to accurately measure ir system performance in the presence of query-term mismatch, we need to be able to adjust the degree of term mismatch in a test corpus in a principled manner.

@@ -1,0 +1,39 @@
+One is to extract topics and any associated query history and clickthrough history for each topic from the log of a retrieval system (e.g., search engine).
+The user needs to select the topic number from a  selection menu before submitting the query to the search engine so that we can easily detect the session boundary, which is not the focus of our study.
+The reason why we select difficult topics is that the user then would have to have several interactions with the retrieval system in order to get satisfactory results so that we can expect to collect a  relatively richer query history and clickthrough history data from the user.
+For each topic, the first query is the title of the topic given in the original TREC topic description.
+In our experiment, only the first 4 queries for each topic are used.
+In order to quantitatively evaluate our models, we need a data set which includes not only a text database and testing topics, but also query history and clickthrough history for each topic.
+The other choice is to use a TREC data set, which has a text database, topic description and relevance judgment file.
+After the subject submits the query, the search engine will do retrieval and return a ranked list of search results to the subject.
+Altogether there are 91 documents clicked to view.
+For each query, we store the query terms and the associated result pages.
+3.8% -2.9% 10.6% -2.9% -31.1% -36.3% 9.6% -4.3% q3 0.0421 0.1483 0.0421 0.1483 0.0421 0.1483 0.0421 0.1483 q3 + HQ + HC 0.0726 0.1967 0.0816 0.2067 0.0706 0.1783 0.0810 0.2067 Improve 72.4% 32.6% 93.8% 39.4% 67.7% 20.2% 92.4% 39.4% q4 0.0536 0.1933 0.0536 0.1933 0.0536 0.1933 0.0536 0.1933 q4 + HQ + HC 0.0891 0.2233 0.0955 0.2317 0.0792 0.2067 0.0950 0.2250 Improve 66.2% 15.5% 78.2% 19.9% 47.8% 6.9% 77.2% 16.4% Table 1: Effect of using query history and clickthrough data for document ranking.
+Unfortunately, there are no query  history and clickthrough history data.
+The average length of clicked summary FixInt BayesInt OnlineUp BatchUp Query (α = 0.1, β = 1.0) (µ = 0.2, ν = 5.0) (µ = 5.0, ν = 15.0) (µ = 2.0, ν = 15.0) MAP pr@20docs MAP pr@20docs MAP pr@20docs MAP pr@20docs q1 0.0095 0.0317 0.0095 0.0317 0.0095 0.0317 0.0095 0.0317 q2 0.0312 0.1150 0.0312 0.1150 0.0312 0.1150 0.0312 0.1150 q2 + HQ + HC 0.0324 0.1117 0.0345 0.1117 0.0215 0.0733 0.0342 0.1100 Improve.
+We decide to augment a TREC data set by collecting query history and clickthrough history data.
+We use a relational database to store user interactions, including the submitted queries and clicked documents.
+We select 30 relatively difficult topics from TREC topics 1-150.
+We use 3 subjects to do experiments to collect query history and clickthrough history data.
+And for each clicked document, we store the summary as shown on the search result page.
+But the problem is that we have no relevance judgments on such data.
+We select TREC AP88, AP89 and AP90 data as our text database, because AP data has been used in several TREC tasks and has  relatively complete judgments.
+The subject will browse the results and maybe click one or more results to browse the full text of article(s).
+The summary of the article is query  dependent and is computed online using fixed-length passage retrieval (KL divergence model with Bayesian prior smoothing).
+The subject may also modify the query to do another search.
+If not, we select the first sentence of the text as the  title.
+Among 120 (4 for each of 30 topics) queries which we study in the experiment, the average query length is 3.71 words.
+For each topic, the subject composes at least 4 queries.
+There are altogether 242918 news  articles and the average document length is 416 words.
+Among 91 clicked documents, 29 documents are judged relevant according to TREC judgment file.
+These 30 topics have the worst average precision performance among TREC topics 1-150 according to some baseline experiments using the KL-Divergence model with Bayesian prior smoothing [20].
+Each subject is assigned 10 topics and given the topic descriptions provided by TREC.
+We index the TREC AP data set and set up a search engine and web interface for TREC AP news articles.
+In real applications, we may also expect our models to be most useful for such difficult topics, so our data collection strategy reflects the real world applications well.
+So on average, there are around 3 clicks per topic.
+Most articles have titles.
+Since there is no such data set available to us, we have to create one.
+For the preprocessing, we only do case folding and do not do stopword removal or stemming.
+This data set is publicly available 1 . 
+is 34.4 words.
+There are two choices.

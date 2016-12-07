@@ -1,0 +1,43 @@
+finally, we provide some  concluding remarks and suggestions for future work in section 5. 
+our proposed laplacian optimal design algorithm is introduced in section 3. in section 4, we compare our algorithm with the state-or-the-art algorithms and present the experimental results on image retrieval.
+in section 2, we provide a brief description of the related work.
+the rest of the paper is organized as follows.
+it would be important to note that the most informative images may not be the top returned images.
+once the loss function is defined, we can select the most informative data points which are presented to the user for labeling.
+in other words, if two points are sufficiently close to each other in the input space, then they are expected to share the same label.
+the new loss function aims to find a classifier which is locally as smooth as possible.
+specifically, we introduce a locality preserving regularizer into the standard least-square-error based loss function.
+unlike  traditional experimental design methods whose loss functions are only defined on the measured points, the loss function of our proposed lod algorithm is defined on both measured and unmeasured points.
+benefit from recent progresses on optimal experimental design and semi-supervised learning, in this paper we  propose a novel active learning algorithm for image retrieval, called laplacian optimal design (lod).
+however, this kind of approaches takes only measured (or, labeled) data into account in their objective function, while the unmeasured (or, unlabeled) data is ignored.
+comparing to svm based active learning algorithms, experimental design approaches are much more efficient in computation.
+all of these approaches are based on a least squares regression model.
+classical experimental design  approaches include a-optimal design, d-optimal design, and e-optimal design.
+the intent of optimal experimental design is  usually to maximize confidence in a given model, minimize  parameter variances for system identification, or minimize the model"s output variance.
+the study of optimal experimental  design (oed) [1] is concerned with the design of experiments that are expected to minimize variances of a parameterized model.
+the sample x is referred to as experiment, and its label y is referred to as measurement.
+in statistics, the problem of selecting samples to label is typically referred to as experimental design.
+some other svm based active learning algorithms can be found in [7], [9].
+moreover, it may not be applied at the beginning of the retrieval when there is no labeled images.
+the major disadvantage of svm active learning is that the  estimated boundary may not be accurate enough.
+based on the observation that the closer to the svm  boundary an image is, the less reliable its classification is, svm active learning selects those unlabeled images closest to the boundary to solicit user feedback so as to achieve maximal refinement on the hyperplane between the two classes.
+despite many existing active learning techniques, support vector machine (svm) active learning [14] and regression based active learning [1] have received the most interests.
+thus active learning can be naturally introduced into image retrieval.
+unlike the standard classification problems where the labeled samples are  pregiven, in relevance feedback image retrieval the system can actively select the images to label.
+in the worst case, all the top images labeled by the user may be positive and thus the standard classification techniques can not be applied due to the lack of negative examples.
+however, in general the top returned images may not be the most informative ones.
+the labeled images are then used to train a classifier to separate images that match the query concept from those that do not.
+in many of the current relevance feedback driven cbir systems, the user is required to provide his/her relevance judgments on the top images returned by the system.
+to narrow down the semantic gap, relevance feedback is  introduced into cbir [12].
+however, the low level features may not accurately characterize the high level semantic concepts.
+are automatically extracted to represent the images.
+the low level visual features (color, texture, shape, etc.)
+rather than describe an image  using text, in these systems an image query is described using one or more example images.
+it is motivated by the fast growth of digital image databases which, in turn, require efficient search schemes.
+content-based image retrieval has attracted substantial interests in the last decade [13].
+particularly, we consider the problem of relevance feedback driven content-based image retrieval (cbir) [13].
+many real world applications can be casted into active learning framework.
+here the task is to minimize an overall cost, which depends both on the classifier accuracy and the cost of data  collection.
+this problem is typically called active learning [4].
+the challenge is thus to determine which unlabeled samples would be the most informative (i.e., improve the classifier the most) if they were labeled and used as training samples.
+in many machine learning and information retrieval tasks, there is no shortage of unlabeled data but labels are  expensive.

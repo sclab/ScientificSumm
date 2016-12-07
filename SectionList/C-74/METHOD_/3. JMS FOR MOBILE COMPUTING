@@ -1,0 +1,60 @@
+Mobile networks vary very widely in their characteristics,
+from nomadic networks in which modes relocate whilst 
+offline through to ad-hoc networks in which modes move freely
+and in which there is no infrastructure. Mobile ad-hoc 
+networks are most generally applicable in situations where 
+survivability and instant deployability are key: most notably in
+military applications and disaster relief. In between these
+two types of "mobile" networks, there are, however, a number
+of possible heterogeneous combinations, where nomadic and
+ad-hoc paradigms are used to interconnect totally unwired
+areas to more structured networks (such as a LAN or the
+Internet).
+Whilst the JMS specification has been extensively 
+implemented and used in traditional distributed systems, 
+adaptations for mobile environments have been proposed only
+recently. The challenges of porting JMS to mobile settings
+are considerable; however, in view of its widespread 
+acceptance and use, there are considerable advantages in allowing
+the adaptation of existing applications to mobile 
+environments and in allowing the interoperation of applications in
+the wired and wireless regions of a network.
+In [10], JMS was adapted to a nomadic mobile setting,
+where mobile hosts can be JMS clients and communicate
+through the JMS provider that, however, sits on a 
+backbone network, providing reliability and persistence. The
+client prototype presented in [10] is very lightweight, due
+to the delegation of all the heavyweight functionality to the
+Middleware for Pervasive and ad-hoc Computing 122
+provider on the wired network. However, this approach is
+somewhat limited in terms of widespread applicability and
+scalability as a consequence of the concentration of 
+functionality in the wired portion of the network.
+If JMS is to be adapted to completely ad-hoc 
+environments, where no fixed infrastructure is available, and where
+nodes change location and status very dynamically, more
+issues must be taken into consideration. Firstly, discovery
+needs to use a resilient but distributed model: in this 
+extremely dynamic environment, static solutions are 
+unacceptable. As discussed in Section 2, a JMS administrator defines
+queues and topics on the provider. Clients can then learn
+about them using the Java Naming and Directory Interface
+(JNDI). However, due to the way JNDI is designed, a JNDI
+node (or more than one) needs to be in reach in order to 
+obtain a binding of a name to an address (i.e., knowing where
+a specific queue/topic is). In mobile ad-hoc environments,
+the discovery process cannot assume the existence of a fixed
+set of discovery servers that are always reachable, as this
+would not match the dynamicity of ad-hoc networks.
+Secondly, a JMS Provider, as suggested by the JMS 
+specification, also needs to be reachable by each node in the
+network, in order to communicate. This assumes a very
+centralised architecture, which again does not match the 
+requirements of a mobile ad-hoc setting, in which nodes may
+be moving and sparse: a more distributed and dynamic 
+solution is needed. Persistence is, however, essential 
+functionality in asynchronous communication environments as hosts
+are, by definition, connected at different times.
+In the following section, we will discuss our experience
+in designing and implementing JMS for mobile ad-hoc 
+networks.

@@ -1,0 +1,23 @@
+in order to facilitate this transfer efficiently, index transfer will use an unsecured propagated pipe to communicate with all nodes in the apocrita network. 
+in the case of index transfer, a socket must be created between all nodes in the network in order to pass the index, which allows for all nodes to have a full and complete index of the entire network.
+in the case of file transfer, a socket is created between only two nodes.
+however, there is one key difference between file transfer and index transfer.
+in fact, the index transfer actually passes the index as a file.
+index transfer works exactly like a file transfer.
+file passing is also used within apocrita for index transfer.
+file passing uses an unsecured unicast pipe in order to transfer data.
+a jxta socket is similar to a standard java socket, however a jxta socket uses jxta pipes in underlying network transport.
+after a file has been searched for and located within the peer group, a jxta socket will be opened and file transfer will take place.
+file passing is used within apocrita for file transfer.
+idle nodes will reply with a status message to indicate they are available to start indexing.
+for example, a node attempting to find an idle node to participate in indexing will query nodes via the message facility.
+message passing is used to pass status messages between nodes in order to aid in indexing, searching, and retrieval.
+this includes an unsecured unicast pipe, a secured unicast pipe, and a propagated unsecured pipe.
+the pipe facility provides many different types of pipe advertisements.
+it uses the pipe facility in order to pass messages and files between nodes.
+by using jxta, apocrita takes advantage of a reliable, and proven peer-to-peer transport mechanism.
+jxta is used to pass both messages and files between nodes in the search network.
+apocrita uses the jxta framework [5] as a peer-to-peer transport library between nodes.
+in the current implementation, apocrita is only capable of indexing plain text documents.
+apache lucene is a high-performance, full-featured text search engine library written entirely in java.
+apocrita uses the lucene framework [7], which is a project under development by the apache software foundation.

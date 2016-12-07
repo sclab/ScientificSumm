@@ -1,0 +1,11 @@
+This paper describes a large-scale evaluation of the  effectiveness of HITS in comparison with other link-based ranking algorithms, in particular PageRank and in-degree, when applied in isolation or in combination with a text  retrieval algorithm exploiting anchor text (BM25F).
+A linear combination of any link-based features with BM25F produces a significant improvement in performance, and there is a clear difference between  combining BM25F with a feature based on incoming links  (indegree, PageRank, or HITS authority scores) and a feature based on outgoing links (HITS hub scores and out-degree), but within those two groups the precise choice of link-based feature matters relatively little.
+Going beyond PageRank and HITS, we would like to measure the effectiveness of other link-based ranking algorithms, such as SALSA.
+In particular, we would like to study the impact of changes to the PageRank damping factor on effectiveness, the  impact of various schemes meant to counteract the effects of link spam, and the effect of weighing hyperlinks differently depending on whether they are nepotistic or not.
+Evaluating link-based features in isolation, we found that web page in-degree  outperforms PageRank, and is about as effwective as HITS  authority scores.
+We believe that the measurements presented in this paper provide a solid evaluation of the best well-known link-based ranking schemes.
+HITS hub scores and web page out-degree are much less effective ranking features, but still outperform a random ordering.
+Finally, we are planning to experiment with more complex feature combinations. 
+There are many possible variants of these schemes, and many other link-based ranking algorithms have been proposed in the literature, hence we do not claim this work to be the last word on this subject, but rather the first step on a long road.
+Evaluation is carried out with respect to a large number of human evaluated queries, using three different measures of  effectiveness: NDCG, MRR, and MAP.
+Future work includes evaluation of different parameterizations of PageRank and HITS.

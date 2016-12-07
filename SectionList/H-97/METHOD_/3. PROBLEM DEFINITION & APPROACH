@@ -1,0 +1,150 @@
+In contrast to previous work, we explicitly focus on the benefits
+that finer-grained, more costly, sentence-level human judgments 
+offer over coarse-grained document-level judgments. Additionally,
+we consider multiple standard text classification approaches and
+analyze both the quantitative and qualitative differences that arise
+from taking a document-level vs. a sentence-level approach to 
+classification. Finally, we focus on the representation necessary to
+achieve the most competitive performance.
+3.1 Problem Definition
+In order to provide the most benefit to the user, a system would
+not only detect the document, but it would also indicate the specific
+sentences in the e-mail which contain the action-items. Therefore,
+there are three basic problems:
+1. Document detection: Classify a document as to whether or
+not it contains an action-item.
+2. Document ranking: Rank the documents such that all 
+documents containing action-items occur as high as possible in
+the ranking.
+3. Sentence detection: Classify each sentence in a document as
+to whether or not it is an action-item.
+As in most Information Retrieval tasks, the weight the 
+evaluation metric should give to precision and recall depends on the 
+nature of the application. In situations where a user will eventually
+read all received messages, ranking (e.g., via precision at recall of
+1) may be most important since this will help encourage shorter 
+delays in communications between users. In contrast, high-precision
+detection at low recall will be of increasing importance when the
+user is under severe time-pressure and therefore will likely not read
+all mail. This can be the case for crisis managers during disaster
+management. Finally, sentence detection plays a role in both 
+timepressure situations and simply to alleviate the user"s required time
+to gist the message.
+3.2 Approach
+As mentioned above, the labeled data can come in one of two
+forms: a document-labeling provides a yes/no label for each 
+document as to whether it contains an action-item; a phrase-labeling
+provides only a yes label for the specific items of interest. We term
+the human judgments a phrase-labeling since the user"s view of the
+action-item may not correspond with actual sentence boundaries or
+predicted sentence boundaries. Obviously, it is straightforward to
+generate a document-labeling consistent with a phrase-labeling by
+labeling a document yes if and only if it contains at least one
+phrase labeled yes.
+To train classifiers for this task, we can take several viewpoints
+related to both the basic problems we have enumerated and the form
+of the labeled data. The document-level view treats each e-mail as
+a learning instance with an associated class-label. Then, the 
+document can be converted to a feature-value vector and learning 
+progresses as usual. Applying a document-level classifier to document
+detection and ranking is straightforward. In order to apply it to
+sentence detection, one must make additional steps. For example,
+if the classifier predicts a document contains an action-item, then
+areas of the document that contain a high-concentration of words
+which the model weights heavily in favor of action-items can be
+indicated. The obvious benefit of the document-level approach is
+that training set collection costs are lower since the user only has
+to specify whether or not an e-mail contains an action-item and not
+the specific sentences.
+In the sentence-level view, each e-mail is automatically segmented
+into sentences, and each sentence is treated as a learning instance
+with an associated class-label. Since the phrase-labeling provided
+by the user may not coincide with the automatic segmentation, we
+must determine what label to assign a partially overlapping 
+sentence when converting it to a learning instance. Once trained, 
+applying the resulting classifiers to sentence detection is now 
+straightforward, but in order to apply the classifiers to document 
+detection and document ranking, the individual predictions over each
+sentence must be aggregated in order to make a document-level
+prediction. This approach has the potential to benefit from 
+morespecific labels that enable the learner to focus attention on the key
+sentences instead of having to learn based on data that the majority
+of the words in the e-mail provide no or little information about
+class membership.
+3.2.1 Features
+Consider some of the phrases that might constitute part of an
+action item: would like to know, let me know, as soon as
+possible, have you. Each of these phrases consists of common
+words that occur in many e-mails. However, when they occur in
+the same sentence, they are far more indicative of an action-item.
+Additionally, order can be important: consider have you versus
+you have. Because of this, we posit that n-grams play a larger
+role in this problem than is typical of problems like topic 
+classification. Therefore, we consider all n-grams up to size 4.
+When using n-grams, if we find an n-gram of size 4 in a segment
+of text, we can represent the text as just one occurrence of the 
+ngram or as one occurrence of the n-gram and an occurrence of each
+smaller n-gram contained by it. We choose the second of these
+alternatives since this will allow the algorithm itself to smoothly
+back-off in terms of recall. Methods such as na¨ıve Bayes may be
+hurt by such a representation because of double-counting.
+Since sentence-ending punctuation can provide information, we
+retain the terminating punctuation token when it is identifiable. 
+Additionally, we add a beginning-of-sentence and end-of-sentence 
+token in order to capture patterns that are often indicators at the 
+beginning or end of a sentence. Assuming proper punctuation, these
+extra tokens are unnecessary, but often e-mail lacks proper 
+punctuation. In addition, for the sentence-level classifiers that use 
+ngrams, we additionally code for each sentence a binary encoding
+of the position of the sentence relative to the document. This 
+encoding has eight associated features that represent which octile (the
+first eighth, second eighth, etc.) contains the sentence.
+3.2.2 Implementation Details
+In order to compare the document-level to the sentence-level 
+approach, we compare predictions at the document-level. We do not
+address how to use a document-level classifier to make predictions
+at the sentence-level.
+In order to automatically segment the text of the e-mail, we use
+the RASP statistical parser [4]. Since the automatically segmented
+sentences may not correspond directly with the phrase-level 
+boundaries, we treat any sentence that contains at least 30% of a marked
+action-item segment as an action-item. When evaluating 
+sentencedetection for the sentence-level system, we use these class labels
+as ground truth. Since we are not evaluating multiple segmentation
+approaches, this does not bias any of the methods. If multiple 
+segmentation systems were under evaluation, one would need to use a
+metric that matched predicted positive sentences to phrases labeled
+positive. The metric would need to punish overly long true 
+predictions as well as too short predictions. Our criteria for converting
+to labeled instances implicitly includes both criteria. Since the 
+segmentation is fixed, an overly long prediction would be predicting
+yes for many no instances since presumably the extra length
+corresponds to additional segmented sentences all of which do not
+contain 30% of action-item. Likewise, a too short prediction must
+correspond to a small sentence included in the action-item but not
+constituting all of the action-item. Therefore, in order to consider
+the prediction to be too short, there will be an additional 
+preceding/following sentence that is an action-item where we incorrectly
+predicted no.
+Once a sentence-level classifier has made a prediction for each
+sentence, we must combine these predictions to make both a 
+document-level prediction and a document-level score. We use the
+simple policy of predicting positive when any of the sentences is
+predicted positive. In order to produce a document score for 
+ranking, the confidence that the document contains an action-item is:
+ψ(d) =
+1
+n(d) s∈d|π(s)=1 ψ(s) if for any s ∈ d, π(s) = 1
+1
+n(d)
+maxs∈d ψ(s) o.w.
+where s is a sentence in document d, π is the classifier"s 1/0 
+prediction, ψ is the score the classifier assigns as its confidence that
+π(s) = 1, and n(d) is the greater of 1 and the number of (unigram)
+tokens in the document. In other words, when any sentence is 
+predicted positive, the document score is the length normalized sum of
+the sentence scores above threshold. When no sentence is predicted
+positive, the document score is the maximum sentence score 
+normalized by length. As in other text problems, we are more likely to
+emit false positives for documents with more words or sentences.
+Thus we include a length normalization factor.

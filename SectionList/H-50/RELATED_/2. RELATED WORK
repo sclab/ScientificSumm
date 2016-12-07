@@ -1,0 +1,149 @@
+As pointed out by Riker [25], we can distinguish two 
+families of rank aggregation methods: positional methods which
+assign scores to items to be ranked according to the ranks
+they receive and majoritarian methods which are based on
+pairwise comparisons of items to be ranked. These two 
+families of methods find their roots in the pioneering works of
+Borda [5] and Condorcet [7], respectively, in the social choice
+literature.
+2.1 Preliminaries
+We first introduce some basic notations to present the
+rank aggregation methods in a uniform way. Let D =
+{d1, d2, . . . , dnd } be a set of nd documents. A list or a 
+ranking j is an ordering defined on Dj ⊆ D (j = 1, . . . , n).
+Thus, di j di means di ‘is ranked better than" di in j.
+When Dj = D, j is said to be a full list. Otherwise, it
+is a partial list. If di belongs to Dj, rj
+i denotes the rank
+or position of di in j. We assume that the best answer
+(document) is assigned the position 1 and the worst one is
+assigned the position |Dj|. Let D be the set of all 
+permutations on D or all subsets of D. A profile is a n-tuple
+of rankings PR = ( 1, 2, . . . , n). Restricting PR to the
+rankings containing document di defines PRi. We also call
+the number of rankings which contain document di the rank
+hits of di [19].
+The rank aggregation or data fusion problem consists of
+finding a ranking function or mechanism Ψ (also called a 
+social welfare function in the social choice theory terminology)
+defined by:
+Ψ :
+n
+D → D
+PR = ( 1, 2, . . . , n) → σ = Ψ(PR)
+where σ is called a consensus ranking.
+2.2 Positional Methods
+2.2.1 Borda Count
+This method [5] first assigns a score n
+j=1 rj
+i to each 
+document di. Documents are then ranked by increasing order
+of this score, breaking ties, if any, arbitrarily.
+2.2.2 Linear Combination Methods
+This family of methods basically combine scores of 
+documents. When used for the rank aggregation problem, ranks
+are assumed to be scores or performances to be combined
+using aggregation operators such as the weighted sum or
+some variation of it [3, 31, 17, 28].
+For instance, Callan et al. [6] used the inference 
+networks model [30] to combine rankings. Fox and Shaw [15]
+proposed several combination strategies which are 
+CombSUM, CombMIN, CombMAX, CombANZ and CombMNZ.
+The first three operators correspond to the sum, min and
+max operators, respectively. CombANZ and CombMNZ 
+respectively divides and multiplies the CombSUM score by
+the rank hits. It is shown in [19] that the CombSUM and
+CombMNZ operators perform better than the others. 
+Metasearch engines such as SavvySearch and MetaCrawler use
+the CombSUM strategy to fuse rankings.
+2.2.3 Footrule Optimal Aggregation
+In this method, a consensus ranking minimizes the 
+Spearman footrule distance from the input rankings [21]. 
+Formally, given two full lists j and j , this distance is given
+by F( j, j ) = nd
+i=1 |rj
+i − rj
+i |. It extends to several lists
+as follows. Given a profile PR and a consensus ranking
+σ, the Spearman footrule distance of σ to PR is given by
+F(σ, PR) = n
+j=1 F(σ, j).
+Cook and Kress [8] proposed a similar method which 
+consists in optimizing the distance D( j, j ) = 1
+2
+nd
+i,i =1 |rj
+i,i −
+rj
+i,i |, where rj
+i,i = rj
+i −rj
+i . This formulation has the 
+advantage that it considers the intensity of preferences.
+2.2.4 Probabilistic Methods
+This kind of methods assume that the performance of the
+input methods on a number of training queries is indicative
+of their future performance. During the training process,
+probabilities of relevance are calculated. For subsequent
+queries, documents are ranked based on these probabilities.
+For instance, in [20], each input ranking j is divided into a
+number of segments, and the conditional probability of 
+relevance (R) of each document di depending on the segment
+k it occurs in, is computed, i.e. prob(R|di, k, j). For 
+subsequent queries, the score of each document di is given by
+n
+j=1
+prob(R|di,k, j )
+k
+. Le Calve and Savoy [18] suggest using
+a logistic regression approach for combining scores. Training
+data is needed to infer the model parameters.
+2.3 Majoritarian Methods
+2.3.1 Condorcet Procedure
+The original Condorcet rule [7] specifies that a winner of
+the election is any item that beats or ties with every other
+item in a pairwise contest. Formally, let C(diσdi ) = { j∈
+PR : di j di } be the coalition of rankings that are 
+concordant with establishing diσdi , i.e. with the proposition
+di ‘should be ranked better than" di in the final ranking σ.
+di beats or ties with di iff |C(diσdi )| ≥ |C(di σdi)|.
+The repetitive application of the Condorcet algorithm can
+produce a ranking of items in a natural way: select the 
+Condorcet winner, remove it from the lists, and repeat the 
+previous two steps until there are no more documents to rank.
+Since there is not always Condorcet winners, variations of
+the Condorcet procedure have been developed within the
+multiple criteria decision aid theory, with methods such as
+ELECTRE [26].
+2.3.2 Kemeny Optimal Aggregation
+As in section 2.2.3, a consensus ranking minimizes a 
+geometric distance from the input rankings, where the Kendall
+tau distance is used instead of the Spearman footrule 
+distance. Formally, given two full lists j and j , the Kendall
+tau distance is given by K( j, j ) = |{(di, di ) : i < i , rj
+i <
+rj
+i , rj
+i > rj
+i }|, i.e. the number of pairwise disagreements 
+between the two lists. It is easy to show that the consensus
+ranking corresponds to the geometric median of the input
+rankings and that the Kemeny optimal aggregation problem
+corresponds to the minimum feedback edge set problem.
+2.3.3 Markov Chain Methods
+Markov chains (MCs) have been used by Dwork et al. [11]
+as a ‘natural" method to obtain a consensus ranking where
+states correspond to the documents to be ranked and the
+transition probabilities vary depending on the interpretation
+of the transition event. In the same reference, the authors
+proposed four specific MCs and experimental testing had
+shown that the following MC is the best performing one
+(see also [24]):
+• MC4: move from the current state di to the next state
+di by first choosing a document di uniformly from D.
+If for the majority of the rankings, we have rj
+i ≤ rj
+i ,
+then move to di , else stay in di.
+The consensus ranking corresponds to the stationary 
+distribution of MC4.

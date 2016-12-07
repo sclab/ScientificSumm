@@ -1,0 +1,27 @@
+in this paper, we propose a new method named globally synchronized dr with local lag (gs-dr-ll), which combines local lag and gs-dr. by delaying the update to local site, gs-dr-ll can achieve higher consistency than gs-dr. the rest of this paper is organized as follows: section 2 gives the definition of consistency and corresponding metrics; the cause of the inconsistency of dr is analyzed in section 3; section 4 describes how gs-dr-ll works; performance evaluation is presented in section 5; section 6 concludes the paper. 
+thus with the synchronization of physical clocks, gs-dr can eliminate after inconsistency, but it cannot tackle before inconsistency [8].
+detailed description of gs-dr can be found in section 3. when a state update is available, gs-dr immediately updates the state of local site and then transmits the state update to remote sites, which causes the states of local site and remote sites to be inconsistent in the transmission procedure.
+in order to make dr maintain high consistency, aggarwal et al [8] proposed globally synchronized dr (gs-dr), which synchronizes the physical clocks of all sites in a system and adds time stamps to transmitted state updates.
+due to network transmission delay, when a remote site receives a state update of an entity the state of the entity might have changed at the site sending the state update.
+compared with aforementioned local lag, dr cannot maintain high consistency.
+through state estimation, dr can not only maintain consistency but also decrease the number of transmitted state updates.
+if the difference exceeds a pre-defined threshold, a state update would be transmitted to all sites and all dr models would be corrected.
+after each update of its own entities, a site compares the accurate state with the estimated one.
+in addition to the high fidelity model that maintains the accurate states of its own entities, each site also has a dr model that estimates the states of all entities (including its own entities).
+dr is based on state transmission mechanism.
+since operation transmission mechanism requests that all operations should be transmitted in a reliable way, message filtering is difficult to be deployed and the scalability of a system is limited.
+local lag can achieve significant high consistency, but it is based on operation transmission, which forwards every operation on a shared entity to remote sites.
+in order to tackle the inconsistency caused by exceptional network transmission delay, a time warp based mechanism is proposed to repair the state.
+during this short time period the operation is transmitted to remote sites, and all sites try to execute the operation at a same physical time.
+after an operation is issued at local site, it delays the execution of the operation for a short time.
+it synchronizes the physical clocks of all sites in a system.
+mauve et al [1] proposed local lag to maintain high consistency for replicated continuous applications.
+in order to maintain consistency for distributed systems, many different approaches have been proposed, among which local lag and dead-reckoning (dr) are two representative approaches.
+in replication based games, network transmission delay makes the states of local and remote sites to be inconsistent, which can cause serious problems, such as reducing the fairness of a game and leading to paradoxical situations etc.
+there are many studies about the effects of network transmission delay in different applications [4, 5, 6, 7].
+qos) can reduce or at least bound the delay, they can not completely eliminate it, as there exists the physical speed limitation of light, for instance, 100 ms is needed for light to propagate from europe to australia [3].
+although new network techniques (e.g.
+like other distributed applications, cdmg also suffer from the consistency problem caused by network transmission delay.
+these games are referred to as continuous distributed multiplayer games (cdmg).
+in such games, the states of entities are changed not only by the operations of players, but also by the passing of time [1, 2].
+nowadays, many distributed multiplayer games adopt replicated architectures.

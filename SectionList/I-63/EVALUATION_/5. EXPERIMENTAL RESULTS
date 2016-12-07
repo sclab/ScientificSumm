@@ -1,0 +1,292 @@
+Although the complexity of solving MILPs is in the worst
+case exponential in the number of integer variables, there
+are many efficient methods for solving MILPs that allow
+our algorithm to scale well for parameters common to 
+resource allocation and scheduling problems. In particular,
+this section introduces a problem domain-the repairshop
+problem-used to empirically evaluate our algorithm"s 
+scalability in terms of the number of agents |M|, the number of
+shared resources |Ω|, and the varied lengths of global time
+bτ during which agents may enter and exit the system.
+The repairshop problem is a simple parameterized MDP
+adopting the metaphor of a vehicular repair shop. Agents
+in the repair shop are mechanics with a number of 
+independent tasks that yield reward only when completed. In our
+MDP model of this system, actions taken to advance through
+the state space are only allowed if the agent holds certain
+resources that are publicly available to the shop. These 
+resources are in finite supply, and optimal policies for the shop
+will determine when each agent may hold the limited 
+resources to take actions and earn individual rewards. Each
+task to be completed is associated with a single action, 
+although the agent is required to repeat the action numerous
+times before completing the task and earning a reward.
+This model was parameterized in terms of the number
+of agents in the system, the number of different types of
+resources that could be linked to necessary actions, a global
+time during which agents are allowed to arrive and depart,
+and a maximum length for the number of time steps an agent
+may remain in the system.
+All datapoints in our experiments were obtained with 20
+evaluations using CPLEX to solve the MILPs on a 
+Pentium4 computer with 2Gb of RAM. Trials were conducted on
+both the static and the dynamic version of the 
+resourcescheduling problem, as defined earlier.
+Figure 3 shows the runtime and policy value for 
+independent modifications to the parameter set. The top row
+shows how the solution time for the MILP scales as we 
+increase the number of agents |M|, the global time horizon bτ,
+and the number of resources |Ω|. Increasing the number of
+agents leads to exponential complexity scaling, which is to
+be expected for an NP-complete problem. However, 
+increasing the global time limit bτ or the total number of resource
+types |Ω|-while holding the number of agents 
+constantdoes not lead to decreased performance. This occurs because
+the problems get easier as they become under-constrained,
+which is also a common phenomenon for NP-complete 
+problems. We also observe that the solution to the dynamic 
+version of the problem can often be computed much faster than
+the static version.
+The bottom row of Figure 3 shows the joint policy value
+of the policies that correspond to the computed optimal
+resource-allocation schedules. We can observe that the 
+dynamic version yields higher reward (as expected, since the
+reward for the dynamic version is always no less than the
+reward of the static version). We should point out that these
+graphs should not be viewed as a measure of performance of
+two different algorithms (both algorithms produce optimal
+solutions but to different problems), but rather as 
+observations about how the quality of optimal solutions change as
+more flexibility is allowed in the reallocation of resources.
+Figure 4 shows runtime and policy value for trials in which
+common input variables are scaled together. This allows
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1225
+2 4 6 8 10
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+2
+10
+3
+10
+4
+Number of Agents |M|
+CPUTime,sec
+|Ω| = 5, τ = 50
+static
+dynamic
+50 100 150 200
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+2
+10
+3
+Global Time Boundary τ
+CPUTime,sec
+|M| = 5, |Ω| = 5
+static
+dynamic
+10 20 30 40 50
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+2
+Number of Resources |Ω|
+CPUTime,sec
+|M| = 5, τ = 50
+static
+dynamic
+2 4 6 8 10
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+Number of Agents |M|
+Value
+|Ω| = 5, τ = 50
+static
+dynamic
+50 100 150 200
+400
+500
+600
+700
+800
+900
+1000
+1100
+1200
+1300
+1400
+Global Time Boundary τ
+Value
+|M| = 5, |Ω| = 5
+static
+dynamic
+10 20 30 40 50
+500
+600
+700
+800
+900
+1000
+1100
+1200
+1300
+1400
+Number of Resources |Ω|
+Value
+|M| = 5, τ = 50
+static
+dynamic
+Figure 3: Evaluation of our MILP for variable numbers of agents (column 1), lengths of global-time window (column
+2), and numbers of resource types (column 3). Top row shows CPU time, and bottom row shows the joint reward of
+agents" MDP policies. Error bars show the 1st and 3rd quartiles (25% and 75%).
+2 4 6 8 10
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+2
+10
+3
+Number of Agents |M|
+CPUTime,sec
+τ = 10|M|
+static
+dynamic
+2 4 6 8 10
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+2
+10
+3
+10
+4
+Number of Agents |M|
+CPUTime,sec
+|Ω| = 2|M|
+static
+dynamic
+2 4 6 8 10
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+2
+10
+3
+10
+4
+Number of Agents |M|
+CPUTime,sec
+|Ω| = 5|M|
+static
+dynamic
+2 4 6 8 10
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+1800
+2000
+2200
+Number of Agents |M|
+Value
+τ = 10|M|
+static
+dynamic
+2 4 6 8 10
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+1800
+2000
+Number of Agents |M|
+Value
+|Ω| = 2|M|
+static
+dynamic
+2 4 6 8 10
+0
+500
+1000
+1500
+2000
+2500
+Number of Agents |M|
+Value
+|Ω| = 5|M|
+static
+dynamic
+Figure 4: Evaluation of our MILP using correlated input variables. The left column tracks the performance and CPU
+time as the number of agents and global-time window increase together (bτ = 10|M|). The middle and the right column
+track the performance and CPU time as the number of resources and the number of agents increase together as
+|Ω| = 2|M| and |Ω| = 5|M|, respectively. Error bars show the 1st and 3rd quartiles (25% and 75%).
+1226 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+us to explore domains where the total number of agents
+scales proportionally to the total number of resource types
+or the global time horizon, while keeping constant the 
+average agent density (per unit of global time) or the average
+number of resources per agent (which commonly occurs in
+real-life applications).
+Overall, we believe that these experimental results 
+indicate that our MILP formulation can be used to effectively
+solve resource-scheduling problems of nontrivial size.

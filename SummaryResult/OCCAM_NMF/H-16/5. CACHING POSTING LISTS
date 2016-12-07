@@ -1,0 +1,27 @@
+the most important observation from our experiments is that the static qtfdf algorithm has a better hit rate than all the dynamic algorithms.
+an important benefit a static cache is that it requires no eviction and it is hence more efficient when evaluating queries.
+however, if the  characteristics of the query traffic change frequently over time, then it requires re-populating the cache often or there will be a significant impact on hit rate. 
+0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 0.1 0.2 0.3 0.4 0.5 0.6 0.7 hitrate cache size caching posting lists static qtf/df lru lfu dyn-qtf/df qtf figure 8: hit rate of different strategies for caching posting lists.
+for the static algorithms, we assume complete knowledge of the frequencies fq(t), that is, we estimate fq(t) from the whole query stream.
+as we show in section 7 the results do not change much if we compute the query-term frequencies using the first 3 or 4 weeks of the query log and measure the hit rate on the rest.
+for the dynamic algorithms, we load the cache with terms in order of fq(t) and we let the cache warm up for 1  million queries.
+the performance of all the above algorithms for 15 weeks of the query log and the uk dataset are shown in figure 8. performance is measured with hit rate.
+the cache size is measured as a fraction of the total space required to store the posting lists of all terms.
+in addition to the above two static algorithms we consider the following algorithms for dynamic caching: • lru: a standard lru algorithm, but many posting lists might need to be evicted (in order of least-recent usage) until there is enough space in the memory to place the currently accessed posting list; • lfu: a standard lfu algorithm (eviction of the  leastfrequently used), with the same modification as the lru; • dyn-qtfdf: a dynamic version of the qtfdf  algorithm; evict from the cache the term(s) with the lowest fq(t) fd(t) ratio.
+we call this algorithm qtfdf.
+thus, we employ a simple algorithm for the knapsack problem, which is selecting the posting lists of the terms with the highest values of the ratio fq(t) fd(t) .
+we tried other variations considering query frequencies instead of term frequencies, but the gain was minimal compared to the complexity added.
+in our case, value  corresponds to fq(t) and size corresponds to fd(t).
+in fact, the problem of selecting the best posting lists for the static cache corresponds to the  standard knapsack problem: given a knapsack of fixed  capacity, and a set of n items, such as the i-th item has value ci and size si, select the set of items that fit in the knapsack and maximize the overall value.
+on the other hand, terms with high fd(t) are not good candidates because they  correspond to long posting lists and consume a substantial amount of space.
+terms with high fq(t) are useful to keep in the cache because they are queried often.
+we observe that there is a trade-off between fq(t) and fd(t).
+the first strategy we consider is the algorithm proposed by baeza-yates and saint-jean [2], which consists in selecting the posting lists of the terms with the highest query-term frequencies fq(t).
+we call this algorithm qtf.
+we use fq(t) to denote the query-term frequency of a term t, that is, the number of queries  containing t in the query log, and fd(t) to denote the document frequency of t, that is, the number of documents in the  collection in which the term t appears.
+before discussing the static caching strategies, we  introduce some notation.
+for  dynamic caching, we use two well-known policies, lru and lfu, as well as a modified algorithm that takes posting-list size into account.
+we consider both dynamic and static caching.
+the posting lists have variable size (in fact, their size distribution follows a power law), so it is  beneficial for a caching policy to consider the sizes of the posting lists.
+in this section we study the problem of how to select  posting lists to place on a certain amount of available memory, assuming that the whole index is larger than the amount of memory available.
+the previous section shows that caching posting lists can obtain a higher hit rate compared to caching query answers.

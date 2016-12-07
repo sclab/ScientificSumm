@@ -1,0 +1,205 @@
+In this section, we will evaluate our approach. We will demonstrate
+the performance of our mechanism in a few scenarios. The first
+scenario is an ideal situation: the application runs on a 
+reasonable set of nodes (i.e., such that the efficiency is around 50%) and
+no problems such as overloaded networks and processors, 
+crashing processors etc. occur. This scenario allows us to measure the
+overhead of the adaptation support. The remaining scenarios are
+typical for grid environments and demonstrate that with our 
+adaptation support the application can avoid serious performance 
+bottlenecks such as overloaded processors or network links. For each 
+scenario, we compare the performance of an application with 
+adaptation support to a non-adaptive version. In the non-adaptive version,
+the coordinator does not collect statistics and no benchmarking (for
+measuring processor speeds) is performed. In the ideal scenario,
+0 5 10 15
+iteration number
+0
+200
+400
+600
+iterationduration(secs.)
+starting on 8 nodes
+starting on 16 nodes
+starting on 24 nodes
+starting on 8 nodes
+starting on 16 nodes
+starting on 24 nodes
+}no adaptation
+}with adaptation
+Figure 3. Barnes-Hut iteration durations with/without adaptation,
+too few processors
+0 5 10 15
+iteration number
+0
+200
+400
+600
+800
+1000
+iterationduration(secs.)
+no adaptation
+with adaptation
+CPU load introduced
+overloaded nodes removed
+started adding nodes
+36 nodes reached
+Figure 4. Barnes-Hut iteration durations with/without adaptation,
+overloaded CPUs
+we additionally measure the performance of an application with
+collecting statistics and benchmarking turned on but without 
+doing adaptation, that is, without allowing it to change the number
+of nodes. This allows us to measure the overhead of benchmarking
+and collecting statistics. In all experiments we used a monitoring
+period of 3 minutes for the adaptive versions of the applications.
+All the experiments were carried out on the DAS-2 wide-area 
+system (8), which consists of five clusters located at five Dutch 
+uni125
+versities. One of the clusters consists of 72 nodes, the others of 32
+nodes. Each node contains two 1 GHz Pentium processors. Within
+a cluster, the nodes are connected by Fast Ethernet. The clusters
+are connected by the Dutch university Internet backbone. In our
+experiments, we used the Barnes-Hut N-body simulation. 
+BarnesHut simulates the evolution of a large set of bodies under influence
+of (gravitational or electrostatic) forces. The evolution of N bodies
+is simulated in iterations of discrete time steps.
+5.1 Scenario 0: adaptivity overhead
+In this scenario, the application is started on 36 nodes. The nodes
+are equally divided over 3 clusters (12 nodes in each cluster). On
+this number of nodes, the application runs with 50% efficiency, so
+we consider it a reasonable number of nodes. As mentioned above,
+in this scenario we measured three runtimes: the runtime of the 
+application without adaptation support (runtime 1), the runtime with
+adaptation support (runtime 2) and the runtime with monitoring
+(i.e., collection of statistics and benchmarking) turned on but 
+without allowing it to change the number of nodes (runtime 3). Those
+runtimes are shown in Figure 2, first group of bars. The comparison
+between runtime 3 and 1 shows the overhead of adaptation support.
+In this experiment it is around 15%. Almost all overhead comes
+from benchmarking. The benchmark is run 1-2 times per 
+monitoring period. This overhead can be made smaller by increasing the
+length of the monitoring period and decreasing the benchmarking
+frequency. The monitoring period we used (3 minutes) is relatively
+short, because the runtime of the application was also relatively
+short (30-60 minutes). Using longer running applications would
+not allow us to finish the experimentation in a reasonable time.
+However, real-world grid applications typically need hours, days or
+even weeks to complete. For such applications, a much longer 
+monitoring period can be used and the adaptation overhead can be kept
+much lower. For example, with the Barnes-Hut application, if the
+monitoring period is extended to 10 minutes, the overhead drops to
+6%. Note that combining benchmarking with monitoring processor
+load (as described in Section 3.2) would reduce the benchmarking
+overhead to almost zero: since the processor load is not changing,
+the benchmarks would only need to be run at the beginning of the
+computation.
+5.2 Scenario 1: expanding to more nodes
+In this scenario, the application is started on fewer nodes than the
+application can efficiently use. This may happen because the user
+does not know the right number of nodes or because insufficient
+nodes were available at the moment the application was started. We
+tried 3 initial numbers of nodes: 8 (Scenario 1a), 16 (Scenario 1b)
+and 24 (Scenario 1c). The nodes were located in 1 or 2 clusters. In
+each of the three sub-scenarios, the application gradually expanded
+to 36-40 nodes located in 4 clusters. This allowed to reduce the
+application runtimes by 50% (Scenario 1a), 35% (Scenario 1b) and
+12% (Scenario 1c) with respect to the non-adaptive version. Those
+runtimes are shown in Figure 2. Since Barnes-Hut is an iterative
+application, we also measured the time of each iteration, as shown
+in Figure 3. Adaptation reduces the iteration time by a factor of 3
+(Scenario 1a), 1.7 (Scenario 1b) and 1.2 (Scenario 1c) which allows
+us to conclude that the gains in the total runtime would be even
+bigger if the application were run longer than for 15 iterations.
+5.3 Scenario 2: overloaded processors
+In this scenario, we started the application on 36 nodes in 3 clusters.
+After 200 seconds, we introduced a heavy, artificial load on the 
+processors in one of the clusters. Such a situation may happen when
+an application with a higher priority is started on some of the 
+resources. Figure 4 shows the iteration durations of both the adaptive
+and non-adaptive versions. After introducing the load, the iteration
+0 5 10 15
+iteration number
+0
+200
+400
+600
+800
+1000
+iterationduration(secs.)
+no adaptation
+with adaptation
+one cluster is badly connected
+badly connected cluster removed
+started adding nodes
+36 nodes reached
+Figure 5. Barnes-Hut iteration durations with/without adaptation,
+overloaded network link
+0 5 10 15
+iteration number
+0
+200
+400
+600
+800
+1000
+iterationduration(secs.)
+no adaptation
+with adaptation
+one cluster is badly connected
+12 nodes lightly overloaded
+removed badly connected cluster
+removed 2 lightly overloaded nodes
+Figure 6. Barnes-Hut iteration durations with/without adaptation,
+overloaded CPUs and an overloaded network link
+duration increased by a factor of 2 to 3. Also, the iteration times
+became very variable. The adaptive version reacted by removing
+the overloaded nodes. After removing these nodes, the weighted
+average efficiency rose to around 35% which triggered adding new
+nodes and the application expanded back to 38 nodes. So, the 
+overloaded nodes were replaced by better nodes, which brought the 
+iteration duration back to the initial values. This reduced the total
+runtime by 14%. The runtimes are shown in Figure 2.
+126
+5.4 Scenario 3: overloaded network link
+In this scenario, we ran the application on 36 nodes in 3 clusters.
+We simulated that the uplink to one of the clusters was overloaded
+and the bandwidth on this uplink was reduced to approximately
+100 KB/s. To simulate low bandwidth we use the traffic-shaping
+techniques described in (6). The iteration durations in this 
+experiment are shown in Figure 5. The iteration durations of the 
+nonadaptive version exhibit enormous variation: from 170 to 890 
+seconds. The adaptive version removed the badly connected cluster
+after the first monitoring period. As a result, the weighted 
+average efficiency rose to around 35% and new nodes were gradually
+added until their number reached 38. This brought the iteration
+times down to around 100 seconds. The total runtime was reduced
+by 60% (Figure 2).
+5.5 Scenario 4: overloaded processors and an overloaded
+network link
+In this scenario, we ran the application on 36 nodes in 3 clusters.
+Again, we simulated an overloaded uplink to one of the clusters.
+Additionally, we simulated processors with heterogeneous speeds
+by inserting a relatively light artificial load on the processors in one
+of the remaining clusters. The iteration durations are shown in 
+Figure 6. Again, the non-adaptive version exhibits a great variation in
+iteration durations: from 200 to 1150 seconds. The adaptive 
+version removes the badly connected cluster after the first monitoring
+period which brings the iteration duration down to 210 seconds on
+average. After removing one of the clusters, since some of the 
+processors are slower (approximately 5 times), the weighted average
+efficiency raises only to around 40%. Since this value lies between
+Emin and Emax, no nodes are added or removed. This example 
+illustrates what the advantages of opportunistic migration would be.
+There were faster nodes available in the system. If these nodes were
+added to the application (which could trigger removing the slower
+nodes) the iteration duration could be reduced even further. Still,
+the adaptation reduced the total runtime by 30% (Figure 2).
+5.6 Scenario 5: crashing nodes
+In the last scenario, we also run the application on 36 nodes in 3
+clusters. After 500 seconds, 2 out of 3 clusters crash. The iteration
+durations are shown in Figure 7. After the crash, the iteration
+duration raised from 100 to 200 seconds. The weighted efficiency
+rose to around 30% which triggered adding new nodes in the
+adaptive version. The number of nodes gradually went back to 35
+which brought the iteration duration back to around 100 seconds.
+The total runtime was reduced by 13% (Figure 2).

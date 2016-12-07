@@ -1,0 +1,19 @@
+in the next section, we introduce the challenges of mobile networks, and show how jms can be adapted to cope with these requirements. 
+queues and topics are created by an administrator on the provider and are registered with the jndi interface for look-up.
+clients learn about the available topics and queues through java naming and  directory interface (jndi) [14].
+messages are sent to topics by other clients and are then received in an asynchronous mode by all the subscribed clients.
+the publish-subscribe model is based on the use of topics that can be subscribed to by clients.
+receivers can be  registered with some specific queues, and can asynchronously retrieve the messages and then acknowledge them.
+in the point to point model, hosts send messages to queues.
+there are two types of communication supported: point to point and publish-subscribe models.
+clients can send and receive messages,  asynchronously, through the jms provider, which is in charge of the delivery and, possibly, of the persistence of the messages.
+the jms specification further defines providers as the components in charge of implementing the messaging system and providing the administrative and  control functionality (i.e., persistence and reliability) required by the system.
+jms users are usually referred to as clients.
+it provides a common way for java programs to create, send and receive messages.
+the java messaging service (jms) is a collection of  interfaces for asynchronous communication between distributed components.
+sun java message service [5], ibm websphere mq [6], microsoft msmq [12] are examples of very  successful message-oriented middleware for traditional distributed systems.
+however, given the way they are implemented, these middleware systems usually require resource-rich devices, especially in terms of memory and disk space, where persistent queues of messages that have been received but not yet processed, are stored.
+a sender is able to continue processing as soon as the middleware has accepted the message; eventually, the receiver will send an acknowledgment message and the sender will be able to collect it at a convenient time.
+message-oriented middleware thus supports asynchronous communication in a very natural way, achieving de-coupling of senders and receivers.
+a receiver retrieves the message from the queue at a different time and may acknowledge the reply using the same asynchronous mechanism.
+and java message service (jms) message-oriented middleware systems support  communication between distributed components via message-passing: the sender sends a message to identified queues, which  usually reside on a server.

@@ -1,0 +1,19 @@
+lookup messages are useful for polling a sensor, for  instance, to determine if a query matches too many records.
+in contrast, a fetch message not only 46 0 10 20 30 40 50 60 70 80 128512 1024 2048 4096 numberofmessages index size (entries) insert (skipgraph) insert (sparse skipgraph) initial lookup (a) james reserve data 0 10 20 30 40 50 60 70 80 512 1024 2048 4096 numberofmessages index size (entries) insert (skipgraph) insert (sparse skipgraph) initial lookup (b) synthetic data figure 8: skip graph insert performance triggers a search but also returns all matching data records to the proxy.
+a lookup message triggers a search within the corresponding region in flash memory and returns the number of matching records in that memory region (but does not retrieve data).
+given a list of matching intervals from the skip graph, tsar supports two types of  messages to query the sensor: lookup and fetch.
+spatial constraints are specified using sensor ids.
+our current implementation supports queries that request records matching a time interval (t1, t2) or a value range (v1, v2).
+the sensor updates are used to construct a sparse interval skip graph that is distributed across proxies, via network messages between proxies over the 802.11b wireless network.
+the report contains: (i) the address of the mote, (ii) a handle that contains an offset and the length of the region in flash memory containing data referred to by the summary, (iii) an interval (t1, t2) over which this report is  generated, (iv) a tuple (low, high) representing the minimum and the maximum values observed at the sensor in the interval, and (v) a  sequence number.
+the flash memory is assumed to be a circular append-only store and the format of the logged data is  depicted in figure 6. the mote sends a report to the proxy every n readings, summarizing the observed data.
+our prototype employs the multihoplepsm routing protocol with the bmac layer configured in the low-power mode with a 11% duty cycle (one of the default bmac [22] parameters) our tsar implementation on the mote involves a data  gathering task that periodically obtains sensor readings and logs these reading to flash memory.
+in addition, to reduce the power consumption of the radio while still making the sensor node available for queries, low power listening is enabled, in which the radio receiver is  periodically powered up for a short interval to sense the channel for transmissions, and the packet preamble is extended to account for the latency until the next interval when the receiving radio wakes up.
+since sensor nodes may be several hops away from the nearest proxy, the sensor tier employs multi-hop routing to communicate with the proxy tier.
+the proxy nodes can be equipped with external storage such as high-capacity compact flash (up to 4gb), 6gb micro-drives, or up to 60gb 1.8inch mobile disk drives.
+the  sensor nodes run tinyos 1.1.8. in addition to the on-board flash, the sensor nodes can be equipped with external mmc/sd flash cards using a custom connector.
+the  sensor tier consists of crossbow mica2s and mica2dots, each  consisting of a 915mhz cc1000 radio, a bmac protocol stack, a 4 mb on-board flash memory and an atmega 128l processor.
+the 802.11b wireless network is used for inter-proxy communication within the proxy tier, while the wireless bridge enables sensor-proxy communication.
+each stargate node employs a 400mhz intel xscale processor with 64mb ram and runs the linux 2.4.19 kernel and emstar release 2.1. the proxy nodes are equipped with two wireless radios, a cisco aironet 340-based 802.11b radio and a hostmote bridge to the mica2 sensor nodes using the emstar transceiver.
+our prototype employs crossbow stargate nodes to implement the proxy tier.
+we have implemented a prototype of tsar on a multi-tier  sensor network testbed.

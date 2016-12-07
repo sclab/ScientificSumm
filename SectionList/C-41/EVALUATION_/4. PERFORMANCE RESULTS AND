@@ -1,0 +1,173 @@
+ANALYSIS
+This section first describes the testbed that provides the
+infrastructure for our DRE multimedia system, which was
+used to evaluate the performance of HyARM. We then 
+describe our experiments and analyze the results obtained to
+empirically evaluate how HyARM behaves during 
+underand over-utilization of system resources.
+4.1 Overview of the Hardware and Software
+Testbed
+Our experiments were performed on the Emulab testbed
+at University of Utah. The hardware configuration consists
+of two nodes acting as UAVs, one acting as base station,
+and one as end receiver. Video from the two UAVs were
+transmitted to a base station via a LAN configured with
+the following properties: average packet loss ratio of 0.3 and
+bandwidth 1 Mbps. The network bandwidth was chosen to
+be 1 Mbps since each UAV in the DRE multimedia system
+is allocated 250 Kbps. These parameters were chosen to 
+emulate an unreliable wireless network with limited bandwidth
+between the UAVs and the base station. From the base 
+station, the video was retransmitted to the end receiver via a
+reliable wireline link of 10 Mbps bandwidth with no packet
+loss.
+The hardware configuration of all the nodes was chosen as
+follows: 600 MHz Intel Pentium III processor, 256 MB 
+physical memory, 4 Intel EtherExpress Pro 10/100 Mbps Ethernet
+ports, and 13 GB hard drive. A real-time version of Linux
+- TimeSys Linux/NET 3.1.214 based on RedHat Linux 
+9was used as the operating system for all nodes. The 
+following software packages were also used for our experiments: (1)
+Ffmpeg 0.4.9-pre1, which is an open-source library (http:
+//www.ffmpeg.sourceforge.net/download.php) that 
+compresses video into MPEG-2, MPEG-4, Real Video, and many
+other video formats. (2) Iftop 0.16, which is an 
+opensource library (http://www.ex-parrot.com/∼pdw/iftop/)
+we used for monitoring network activity and bandwidth 
+utilization. (3) ACE 5.4.3 + TAO 1.4.3, which is an 
+opensource (http://www.dre.vanderbilt.edu/TAO) 
+implementation of the Real-time CORBA [12] specification upon which
+HyARM is built. TAO provides the CORBA Audio/Video
+(A/V) Streaming Service that we use to transmit the video
+from the UAVs to end receivers via the base station.
+4.2 Experiment Configuration
+Our experiment consisted of two (emulated) UAVs that 
+simultaneously send video to the base station using the 
+experimentation setup described in Section 4.1. At the base 
+station, video was retransmitted to the end receivers (without
+any modifications), where it was stored to a file. Each UAV
+hosted two applications, one QoS-enabled application 
+(emergency response), and one best-effort application 
+(surveillance). Within each UAV, computational power is shared
+between the applications, while the network bandwidth is
+shared among all applications.
+To evaluate the QoS provided by HyARM, we monitored
+CPU utilization at the two UAVs, and network bandwidth
+utilization between the UAV and the base station. CPU 
+resource utilization was not monitored at the base station and
+the end receiver since they performed no 
+computationallyintensive operations. The resource utilization of the 10 Mpbs
+physical link between the base station and the end receiver
+does not affect QoS of applications and is not monitored by
+HyARM since it is nearly 10 times the 1 MB bandwidth
+of the LAN between the UAVs and the base station. The
+experiment also monitors properties of the video that affect
+the QoS of the applications, such as latency, jitter, frame
+rate, and resolution.
+The set point on resource utilization for each resource was
+specified at 0.69, which is the upper bound typically 
+recommended by scheduling techniques, such as rate monotonic
+algorithm [9]. Since studies [6] have shown that human eyes
+can perceive delays more than 200ms, we use this as the
+upper bound on jitter of the received video. QoS 
+requirements for each class of application is specified during system
+initialization and is shown in Table 1.
+4.3 Empirical Results and Analysis
+This section presents the results obtained from running
+the experiment described in Section 4.2 on our DRE 
+multimedia system testbed. We used system resource utilization
+as a metric to evaluate the adaptive resource management
+capabilities of HyARM under varying input work loads. We
+also used application QoS as a metric to evaluate HyARM"s
+capabilities to support end-to-end QoS requirements of the
+various classes of applications in the DRE multimedia 
+system. We analyze these results to explain the significant 
+differences in system performance and application QoS.
+Comparison of system performance is decomposed into
+comparison of resource utilization and application QoS. For
+system resource utilization, we compare (1) network 
+bandwidth utilization of the local area network and (2) CPU
+utilization at the two UAV nodes. For application QoS, we
+compare mean values of video parameters, including (1) 
+picture resolution, (2) frame rate, (3) latency, and (4) jitter.
+Comparison of resource utilization. Over-utilization
+of system resources in DRE systems can yield an unstable
+system. In contrast, under-utilization of system resources
+increases system cost. Figure 4 and Figure 5 compare the
+system resource utilization with and without HyARM. 
+Figure 4 shows that HyARM maintains system utilization close
+to the desired utilization set point during fluctuation in 
+input work load by transmitting video of higher (or lower) QoS
+for QoS-enabled (or best-effort) class of applications during
+over (or under) utilization of system resources.
+Figure 5 shows that without HyARM, network 
+utilization was as high as 0.9 during increase in workload 
+conditions, which is greater than the utilization set point of 0.7
+by 0.2. As a result of over-utilization of resources, QoS of
+the received video, such as average latency and jitter, was
+affected significantly. Without HyARM, system resources
+were either under-utilized or over-utilized, both of which
+are undesirable. In contrast, with HyARM, system resource
+utilization is always close to the desired set point, even
+during fluctuations in application workload. During 
+sudden fluctuation in application workload, system conditions
+may be temporarily undesirable, but are restored to the 
+desired condition within several sampling periods. Temporary
+over-utilization of resources is permissible in our multimedia
+system since the quality of the video may be degraded for
+a short period of time, though application QoS will be 
+degraded significantly if poor quality video is transmitted for
+a longer period of time.
+Comparison of application QoS. Figures 6, Figure 7,
+and Table 2 compare latency, jitter, resolution, and 
+frameArticle 7
+Class Resolution Frame Rate Latency (msec ) Jitter (msec)
+QoS Enabled 1024 x 768 25 200 200
+Best-effort 320 x 240 15 300 250
+Table 1: Application QoS Requirements
+Figure 4: Resource utilization with HyARM Figure 5: Resource utilization without HyARM
+rate of the received video, respectively. Table 2 shows that
+HyARM increases the resolution and frame video of 
+QoSenabled applications, but decreases the resolution and frame
+rate of best effort applications. During over utilization of
+system resources, resolution and frame rate of lower priority
+applications are reduced to adapt to fluctuations in 
+application workload and to maintain the utilization of resources
+at the specified set point.
+It can be seen from Figure 6 and Figure 7 that HyARM
+reduces the latency and jitter of the received video 
+significantly. These figures show that the QoS of QoS-enabled
+applications is greatly improved by HyARM. Although 
+application parameters, such as frame rate and resolutions,
+which affect the soft QoS requirements of best-effort 
+applications may be compromised, the hard QoS requirements,
+such as latency and jitter, of all applications are met.
+HyARM responds to fluctuation in resource availability
+and/or demand by constant monitoring of resource 
+utilization. As shown in Figure 4, when resources utilization 
+increases above the desired set point, HyARM lowers the 
+utilization by reducing the QoS of best-effort applications. This
+adaptation ensures that enough resources are available for
+QoS-enabled applications to meet their QoS needs. 
+Figures 6 and 7 show that the values of latency and jitter of
+the received video of the system with HyARM are nearly half
+of the corresponding value of the system without HyARM.
+With HyARM, values of these parameters are well below
+the specified bounds, whereas without HyARM, these value
+are significantly above the specified bounds due to 
+overutilization of the network bandwidth, which leads to network
+congestion and results in packet loss. HyARM avoids this
+by reducing video parameters such as resolution, frame-rate,
+and/or modifying the compression scheme used to compress
+the video.
+Our conclusions from analyzing the results described above
+are that applying adaptive middleware via hybrid control to
+DRE system helps to (1) improve application QoS, (2) 
+increase system resource utilization, and (3) provide better
+predictability (lower latency and inter-frame delay) to 
+QoSenabled applications. These improvements are achieved largely
+due to monitoring of system resource utilization, efficient
+system workload management, and adaptive resource 
+provisioning by means of HyARM"s network/CPU resource 
+monitors, application adapter, and central controller, 
+respectively.

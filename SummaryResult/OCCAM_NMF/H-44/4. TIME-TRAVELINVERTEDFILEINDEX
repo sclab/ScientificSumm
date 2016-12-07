@@ -1,0 +1,25 @@
+as a consequence, existing query-processing  techniques and most optimizations (e.g., compression techniques) remain equally applicable. 
+we note that our proposed extension of the inverted file index makes no assumptions about the sort-order of  index lists.
+as a remedy, we propose index organization techniques in section 6 that aim to reduce the i/o overhead significantly.
+whether a posting can be skipped can only be decided after the posting has been  transferred from disk into memory and therefore still incurs  significant i/o cost.
+to this end, sequential reading is extended by skipping all postings whose validity time-interval does not contain t (i.e., t ∈ [tb, te)).
+we transparently extend the  sequential reading, which is - to the best of our  knowledgecommon to all query processing techniques on inverted file indexes, thus making them suitable for time-travel  queryprocessing.
+then, index lists are  sequentially read from disk, thereby accumulating the information contained in the postings.
+4.3 query processing during processing of a time-travel query q t , for each query term the corresponding idf-score valid at time t is retrieved from the extended vocabulary.
+therefore, we take a simplified approach to idf-score maintenance, by  computing idf-scores for all terms in the corpus at specific (possibly periodic) times.
+unlike the tf-score, the idf-score of every term could vary with every change in the corpus.
+similarly, the extended vocabulary structure maintains for each term a time-series of idf-scores organized as a  b+tree.
+as a concrete example, in our implementation, for a  version dti having the okapi bm25 tf-score wtf (v, dti ) for term v, the index list lv contains the posting ( d, wtf (v, dti ), [ti, ti+1) ) .
+the postings in our time-travel inverted file index are thus of the form ( d, p, [tb, te) ) where d and p are defined as in the standard inverted file index above and [tb, te) is the validity time-interval.
+the main idea for inverted lists is that we include a validity  timeinterval [tb, te) in postings to denote when the payload  information was valid.
+4.2 time-travel inverted file index in order to prepare an inverted file index for time travel we extend both inverted lists and the vocabulary structure by explicitly incorporating temporal information.
+for an excellent recent survey about inverted file indexes we  refer to [35].
+a variety of compression techniques, such as encoding document identifiers more compactly, have been proposed [33, 35] to reduce the size of index lists.
+frequencyorder and impact-order sorted index lists are beneficial for ranked queries and enable optimized query processing that stops early after having identified the k most relevant  documents [1, 2, 9, 15, 31].
+for boolean queries it is  favorable to sort index lists in document-order.
+the sort-order of index lists depends on which queries are to be supported efficiently.
+the payload p contains information about the term frequency of v in d, but may also include positional  information about where the term appears in the document.
+the index list lv belonging to term v contains postings of the form ( d, p ) where d is a document-identifier and p is the so-called  payload.
+4.1 inverted file index an inverted file index consists of a vocabulary, commonly organized as a b+-tree, that maps each term to its  idfscore and inverted list.
+in this section, we briefly review this technique and present our extensions to the inverted file index that make it ready for time-travel text search.
+the inverted file index is a standard technique for text indexing, deployed in many systems.

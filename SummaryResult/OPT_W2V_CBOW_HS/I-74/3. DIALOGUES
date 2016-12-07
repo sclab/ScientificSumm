@@ -1,0 +1,63 @@
+Thus a dialogue corresponds to an argumentation graph if and only if every argument made in the dialogue corresponds to a node in the graph, and every node in the graph  corresponds to an argument made in the dialogue.
+Thus we can, for example, refer to the third node in the argumentation graph, meaning the node that represents the argument put forward in the third move of the dialogue. 
+Systems like those described in [2, 18], lay down sets of locutions that agents can make to put forward propositions and the arguments that support them, and protocols that  define precisely which locutions can be made at which points in the dialogue.
+To study this relationship, we need to establish a correspondence  between a dialogue and an argumentation graph.
+Given Definitions 2.5 and 2.6, the only ways in which A can affect the status of A is if A either undercuts A , or if A undercuts some argument A that undercuts A , or if A undercuts some A that undercuts some A that undercuts A , and so on.
+If a dialogue D always picks its moves m from the set M identified by protocol P, then D is said to conform to P. Even if a dialogue conforms to a protocol, it is typically the case that the agent engaging in the dialogue has to make a choice of move - it has to choose which of the moves in M to make.
+A protocol P is a function on a sequence of moves mi in a dialogue D that, for all i ≥ 0, identifies a set of possible moves Mi+1 from which the mi+1th move may be drawn: P : mi → Mi+1 In other words, for our purposes here, at every point in a dialogue, a protocol determines a set of possible moves that agents may make as part of the dialogue.
+Given an argumentation graph AG, if there is any argument A, denoted by node v that affects the status of another argument A , denoted by v , then v is  connected to v .
+Note that we do not require that the argumentation graph is connected.
+Since A only undercuts A if the edge runs from v to v , we cannot infer that A will affect the status of A from information about whether or not they are connected.
+If there is an edge e from vertex v to vertex v , then v is said to be the parent of v and v is said to be the child of v. In a reversal of the usual notion, we define a root of an argumentation graph1 as follows: Definition 3.4.
+An argumentation graph AG over a set of arguments A is a directed graph (V, E) such that every vertex v, v ∈ V denotes one argument A ∈ A, every  argument A is denoted by one vertex v, and every directed edge e ∈ E from v to v denotes that v undercuts v .
+When that set of arguments is constructed through a dialogue, there is a relationship between the structure of the argumentation graph and the protocol that governs the  dialogue.
+This  one-toone correspondence allows us to consider each node v in the graph to have an index i which is the index of the move in the dialogue that put forward the argument which that node represents.
+We do not discuss the detail of the mechanism that is used to put these arguments forward - we just  assume that arguments of the form (S, p) are inserted into an agent"s commitment store where they are then visible to other agents.
+As a result, we will consider only that agents are allowed to put forward arguments.
+v v" Figure 1: An example argument graph argument that is undercut, but which itself does no  undercutting.
+We then have a typical definition of a dialogue: Definition 3.1.
+Thus a root of a graph is a node to which directed edges may be connected, but from which no directed edges  connect to other nodes.
+In all such cases, a sequence of undercut relations relates the two arguments, and if they are both in an argumentation graph, this means that they are connected.
+The reason for the reversal of the usual notions of root and leaf is that, as we shall see, we will consider dialogues to  construct argumentation graphs from the roots (in our sense) to the leaves.
+Instead we are interested in the interplay between arguments that agents put forth.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1007 The sequence of arguments put forward in the dialogue is determined by the agents who are taking part in the  dialogue, but they are usually not completely free to choose what arguments they make.
+A dialogue D, consisting of a sequence of moves mn, and an argument graph AG = (V, E)  correspond to one another iff ∀m ∈ mn, the argument Ai that 1008 The Sixth Intl.
+Since the notion of path ignores the direction of the  directed arcs, nodes v and v are connected whether the edge between them runs from v to v or vice versa.
+In other words the notion of an argumentation graph allows for the representation of arguments that do not relate, by undercutting or being undercut, to any other arguments (we will come back to this point very shortly).
+In general, after several moves in a  dialogue, some arguments will undercut others.
+Since, as described above, argumentation graphs are  allowed to be not connected (in the usual graph theory sense), it is helpful to distinguish nodes that are connected to other nodes, in particular to the root of the tree.
+We are not concerned with such a level of detail here.
+While, in general, a dialogue can include moves that undercut several  arguments, in the remainder of this paper, we will only consider dialogues that put forward moves that undercut at most one argument.
+For now we place no additional constraints on the moves that make up a dialogue.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) is advanced at move mi is represented by exactly one node v ∈ V , and ∀v ∈ V , v represents exactly one argument Ai that has been advanced by a move m ∈ mn.
+Thus a root is a node representing an 1 Note that we talk of a root rather than the root - as defined, an argumentation graph need not be a tree.
+Since edges represent undercut relations, the notion of connectedness between nodes captures the influence that one argument may have on another: Proposition 3.1.
+We say that node v is connected to node v if and only if there is a path from v to v .
+Given the definitions we have so far, this is simple: Definition 3.6.
+We will use the term argument graph as a synonym for  argumentation graph.
+The reason that we need the concept of the argumentation graph is that the properties of the argumentation graph tell us something about the set of arguments A the graph  represents.
+A root of an argumentation graph AG = (V, E) is a node v ∈ V that has no children.
+We will denote the set of arguments {A1, A2, .
+As arguments are placed into commitment stores, and hence become public, agents can determine the relationships between them.
+A leaf of an argumentation graph AG = (V, E) is a node v ∈ V that has no parents.
+Thus a leaf in an argumentation graph represents an  argument that undercuts another argument, but does no  undercutting.
+As indicated earlier, their choice is typically limited by a protocol.
+, mj of a dialogue to be Aj - the relationship of the arguments in Aj can be described as an argumentation graph, similar to those described in, for example, [3, 4, 9]: Definition 3.3.
+Later we will see how different restrictions on moves lead to different kinds of dialogue.
+A dialogue D is a sequence of moves: m1, m2, .
+A given move mi is a pair α, Ai where Ai is an argument that α places into its commitment store CSα.
+The reversal of the terminology means that it matches the natural process of tree construction.
+Thus in Figure 1, v is a root, and v is a leaf.
+, mn as mn, and denote the empty  sequence as m0, then we can define a profocol in the following way: Definition 3.2.
+We adapt some standard graph theoretic notions in order to describe various aspects of the argumentation graph.
+The Sixth Intl.
+It is the extent of the relationship between structure and protocol that is the main subject of this paper.
+, Aj} asserted after moves m1, m2, .
+Moves in an argumentation-based dialogue typically attack moves that have been made previously.
+If we write the sequence of n moves m1, m2, .
+This excercise of choice is what we refer to as an agent"s use of rhetoric (in its oratorical sense of influencing the thought and conduct of an audience).
+Some of our results will give a sense of how much scope an agent has to exercise rhetoric under different protocols.
+The converse does not hold.
+Joint Conf.
+Joint Conf.
+Similarly: Definition 3.5.

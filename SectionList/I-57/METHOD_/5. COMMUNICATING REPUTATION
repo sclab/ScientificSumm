@@ -1,0 +1,61 @@
+Having described how an individual agent can use its own direct
+experience of contract outcomes in order to estimate the 
+probabil5
+Note that the plots are not smooth due to the fact that given a
+limited number of contract outcomes, then the mean of Va and Vb
+do not vary smoothly with ρ.
+1074 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+ity that a multi-dimensional contract will be successfully fulfilled,
+we now go on to consider how agents within an open multi-agent
+system can communicate these estimates to one another. This is
+commonly referred to as reputation and allows agents with limited
+direct experience of a supplier to make rational decisions.
+Both Jøsang and Ismail, and Teacy et al. present models whereby
+reputation is communicated between agents using the sufficient 
+statistics of the beta distribution [6, 11]. This approach is attractive since
+these sufficient statistics are simple aggregations of contract 
+outcomes (more precisely, they are simply the total number of 
+contracts observed, N, and the number of these that were successfully
+fulfilled, n). Under the probabilistic framework of the beta 
+distribution, reputation reports in this form may simply be aggregated with
+an agent"s own direct experience, in order to gain a more precise
+estimate based on a larger set of contract outcomes.
+We can immediately extend this approach to the multi-dimensional
+case considered here, by requiring that the agents exchange the 
+sufficient statistics of the Dirichlet distribution instead of the beta 
+distribution. In this case, for each pair of dimensions (i.e. a and b), the
+agents must communicate a vector of contract outcomes, N, which
+are the sufficient statistics of the Dirichlet distribution, given by:
+N =< nab
+ij > ∀a, b, i ∈ {0, 1}, j ∈ {0, 1} (18)
+Thus, an agent is able to communicate the sufficient statistics of
+its own Dirichlet distribution in terms of just 2d(d − 1) numbers
+(where d is the number of contract dimensions). For instance, in
+the case of three dimensions, N, is given by:
+N =< nab
+00, nab
+01, nab
+10, nab
+11, nac
+00, nac
+01, nac
+10, nac
+11, nbc
+00, nbc
+01, nbc
+10, nbc
+11 >
+and, hence, large sets of contract outcomes may be communicated
+within a relatively small message size, with no loss of information.
+Again, agents receiving these sufficient statistics may simply 
+aggregate them with their own direct experience in order to gain a
+more precise estimate of the trustworthiness of a supplier.
+Finally, we note that whilst it is not the focus of our work here,
+by adopting the same principled approach as Jøsang and Ismail, and
+Teacy et al., many of the techniques that they have developed (such
+as discounting reports from unreliable agents, and filtering 
+inconsistent reports from selfish agents) may be directly applied within
+this multi-dimensional model. However, we now go on to consider
+a new issue that arises in both the single and multi-dimensional
+models, namely the problems that arise when such aggregated 
+sufficient statistics are propagated within decentralised agent networks.

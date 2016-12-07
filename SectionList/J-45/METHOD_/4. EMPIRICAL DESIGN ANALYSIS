@@ -1,0 +1,583 @@
+Since our data comes in the form of payoff experience and not as
+the value of an objective function for given settings of the control
+variable, we can no longer rely on the methods for optimizing 
+functions using simulations. Indeed, a fundamental aspect of our design
+problem involves estimating the Nash equilibrium correspondence.
+Furthermore, we cannot rely directly on the convergence results
+that abound in the simulation optimization literature, and must 
+establish probabilistic analysis methods tailored for our problem 
+setting.
+4.1 TAC/SCM Design Problem
+We describe our empirical design analysis methods by presenting
+a detailed application to the TAC/SCM scenario introduced above.
+Recall that during the 2004 tournament, the designers of the 
+supplychain game chose to dramatically increase storage costs as a 
+measure aimed at curbing day-0 procurement, to little avail. Here we
+systematically explore the relationship between storage costs and
+5
+This is often the case for real games of interest, where natural
+language or algorithmic descriptions may substitute for a formal
+specification of strategy and payoff functions.
+the aggregate quantity of components procured on day 0 in 
+equilibrium. In doing so, we consider several questions raised during and
+after the tournament. First, does increasing storage costs actually
+reduce day-0 procurement? Second, was the excessive day-0 
+procurement that was observed during the 2004 tournament rational?
+And third, could increasing storage costs sufficiently have reduced
+day-0 procurement to an acceptable level, and if so, what should
+the setting of storage costs have been? It is this third question that
+defines the mechanism design aspect of our analysis.6
+To apply our methods, we must specify the agent strategy sets,
+the designer"s welfare function, the mechanism parameter space,
+and the source of data. We restrict the agent strategies to be a 
+multiplier on the quantity of the day-0 requests by one of the 
+finalists, Deep Maize, in the 2004 TAC/SCM tournament. We further
+restrict it to the set [0,1.5], since any strategy below 0 is illegal
+and strategies above 1.5 are extremely aggressive (thus unlikely to
+provide refuting deviations beyond those available from included
+strategies, and certainly not part of any desirable equilibrium). All
+other behavior is based on the behavior of Deep Maize and is 
+identical for all agents. This choice can provide only an estimate of the
+actual tournament behavior of a typical agent. However, we 
+believe that the general form of the results should be robust to changes
+in the full agent behavior.
+We model the designer"s welfare function as a threshold on the
+sum of day-0 purchases. Let φ(a) =
+P6
+i=1 ai be the 
+aggregation function representing the sum of day-0 procurement of the six
+agents participating in a particular supply-chain game (for mixed
+strategy profiles s, we take expectation of φ with respect to the 
+mixture). The designer"s welfare function W (N(θ), θ) is then given by
+I{sup{φ∗
+(θ)} ≤ α}, where α is the maximum acceptable level of
+day-0 procurement and I is the indicator function. The designer
+selects a value θ of storage costs, expressed as an annual 
+percentage of the baseline value of components in the inventory (charged
+daily), from the set Θ = R+
+. Since the designer"s decision 
+depends only on φ∗
+(θ), we present all of our results in terms of the
+value of the aggregation function.
+4.2 Estimating Nash Equilibria
+The objective of TAC/SCM agents is to maximize profits 
+realized over a game instance. Thus, if we fix a strategy for each agent
+at the beginning of the simulation and record the corresponding
+profits at the end, we will have obtained a data point in the form
+(a, U(a)). If we also have fixed the parameter θ of the simulator,
+the resulting data point becomes part of our data set D. This data
+set, then, contains data only in the form of pure strategies of 
+players and their corresponding payoffs, and, consequently, in order to
+formulate the designer"s problem as optimization, we must first 
+determine or approximate the set of Nash equilibria of each game Γθ.
+Thus, we need methods for approximating Nash equilibria for 
+infinite games. Below, we describe the two methods we used in our
+study. The first has been explored empirically before, whereas the
+second is introduced here as the method specifically designed to
+approximate a set of Nash equilibria.
+4.2.1 Payoff Function Approximation
+The first method for estimating Nash equilibria based on data
+uses supervised learning to approximate payoff functions of 
+mech6
+We do not address whether and how other measures (e.g., 
+constraining procurement directly) could have achieved design 
+objectives. Our approach takes as given some set of design options, in
+this case defined by the storage cost parameter. In principle our
+methods could be applied to a different or larger design space,
+though with corresponding complexity growth.
+308
+anism participants from a data set of game experience [17]. Once
+approximate payoff functions are available for all players, the Nash
+equilibria may be either found analytically or approximated using
+numerical techniques, depending on the learning model. In what
+follows, we estimate only a sample Nash equilibrium using this
+technique, although this restriction can be removed at the expense
+of additional computation time.
+One advantage of this method is that it can be applied to any
+data set and does not require the use of a simulator. Thus, we can
+apply it when Ds = ∅. If a simulator is available, we can generate
+additional data to build confidence in our initial estimates.7
+We tried the following methods for approximating payoff 
+functions: quadratic regression (QR), locally weighted average (LWA),
+and locally weighted linear regression (LWLR). We also used 
+control variates to reduce the variance of payoff estimates, as in our
+previous empirical game-theoretic analysis of TAC/SCM-03 [19].
+The quadratic regression model makes it possible to compute
+equilibria of the learned game analytically. For the other methods
+we applied replicator dynamics [7] to a discrete approximation of
+the learned game. The expected total day-0 procurement in 
+equilibrium was taken as the estimate of an outcome.
+4.2.2 Search in Strategy Profile Space
+When we have access to a simulator, we can also use directed
+search through profile space to estimate the set of Nash equilibria,
+which we describe here after presenting some additional notation.
+DEFINITION 4. A strategic neighbor of a pure strategy profile
+a is a profile that is identical to a in all but one strategy. We define
+Snb(a, D) as the set of all strategic neighbors of a available in
+the data set D. Similarly, we define Snb(a, ˜D) to be all strategic
+neighbors of a not in D. Finally, for any a ∈ Snb(a, D) we define
+the deviating agent as i(a, a ).
+DEFINITION 5. The -bound, ˆ, of a pure strategy profile a is
+defined as maxa ∈Snb(a,D) max{ui(a,a )(a )−ui(a,a )(a), 0}. We
+say that a is a candidate δ-equilibrium for δ ≥ ˆ.
+When Snb(a, ˜D) = ∅ (i.e., all strategic neighbors are represented
+in the data), a is confirmed as an ˆ-Nash equilibrium.
+Our search method operates by exploring deviations from 
+candidate equilibria. We refer to it as BestFirstSearch, as it selects
+with probability one a strategy profile a ∈ Snb(a, ˜D) that has the
+smallest ˆin D.
+Finally we define an estimator for a set of Nash equilibria.
+DEFINITION 6. For a set K, define Co(K) to be the convex
+hull of K. Let Bδ be the set of candidates at level δ. We define
+ˆφ∗
+(θ) = Co({φ(a) : a ∈ Bδ}) for a fixed δ to be an estimator of
+φ∗
+(θ).
+In words, the estimate of a set of equilibrium outcomes is the 
+convex hull of all aggregated strategy profiles with -bound below
+some fixed δ. This definition allows us to exploit structure 
+arising from the aggregation function. If two profiles are close in terms
+of aggregation values, they may be likely to have similar -bounds.
+In particular, if one is an equilibrium, the other may be as well. We
+present some theoretical support for this method of estimating the
+set of Nash equilibria below.
+Since the game we are interested in is infinite, it is necessary to
+terminate BestFirstSearch before exploring the entire space of 
+strat7
+For example, we can use active learning techniques [5] to improve
+the quality of payoff function approximation. In this work, we 
+instead concentrate on search in strategy profile space.
+egy profiles. We currently determine termination time in a 
+somewhat ad-hoc manner, based on observations about the current set of
+candidate equilibria.8
+4.3 Data Generation
+Our data was collected by simulating TAC/SCM games on a 
+local version of the 2004 TAC/SCM server, which has a configuration
+setting for the storage cost. Agent strategies in simulated games
+were selected from the set {0, 0.3, 0.6, . . . , 1.5} in order to have
+positive probability of generating strategic neighbors.9
+A 
+baseline data set Do was generated by sampling 10 randomly generated
+strategy profiles for each θ ∈ {0, 50, 100, 150, 200}. Between 5
+and 10 games were run for each profile after discarding games that
+had various flaws.10
+We used search to generate a simulated data
+set Ds, performing between 12 and 32 iterations of BestFirstSearch
+for each of the above settings of θ. Since simulation cost is 
+extremely high (a game takes nearly 1 hour to run), we were able to
+run a total of 2670 games over the span of more than six months.
+For comparison, to get the entire description of an empirical game
+defined by the restricted finite joint strategy space for each value
+of θ ∈ {0, 50, 100, 150, 200} would have required at least 23100
+games (sampling each profile 10 times).
+4.4 Results
+4.4.1 Analysis of the Baseline Data Set
+We applied the three learning methods described above to the
+baseline data set Do. Additionally, we generated an estimate of the
+Nash equilibrium correspondence, ˆφ∗
+(θ), by applying Definition 6
+with δ =2.5E6. The results are shown in Figure 1. As we can see,
+the correspondence ˆφ∗
+(θ) has little predictive power based on Do,
+and reveals no interesting structure about the game. In contrast, all
+three learning methods suggest that total day-0 procurement is a
+decreasing function of storage costs.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+0 50 100 150 200
+Storage Cost
+TotalDay-0Procurement
+LWA
+LWLR
+QR
+BaselineMin
+BaselineMax
+Figure 1: Aggregate day-0 procurement estimates based on Do.
+The correspondence ˆφ∗
+(θ) is the interval between 
+BaselineMin and BaselineMax.
+8
+Generally, search is terminated once the set of candidate equilibria
+is small enough to draw useful conclusions about the likely range
+of equilibrium strategies in the game.
+9
+Of course, we do not restrict our Nash equilibrium estimates to
+stay in this discrete subset of [0,1.5].
+10
+For example, if we detected that any agent failed during the
+game (failures included crashes, network connectivity problems,
+and other obvious anomalies), the game would be thrown out.
+309
+4.4.2 Analysis of Search Data
+To corroborate the initial evidence from the learning methods,
+we estimated ˆφ∗
+(θ) (again, using δ =2.5E6) on the data set D =
+{Do, Ds}, where Ds is data generated through the application of
+BestFirstSearch. The results of this estimate are plotted against the
+results of the learning methods trained on Do
+11
+in Figure 2. First,
+we note that the addition of the search data narrows the range of
+potential equilibria substantially. Furthermore, the actual point 
+predictions of the learning methods and those based on -bounds 
+after search are reasonably close. Combining the evidence gathered
+from these two very different approaches to estimating the outcome
+correspondence yields a much more compelling picture of the 
+relationship between storage costs and day-0 procurement than either
+method used in isolation.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+0 50 100 150 200
+Storage Cost
+TotayDay-0Procurement
+LWA
+LWLR
+QR
+SearchMin
+SearchMax
+Figure 2: Aggregate day-0 procurement estimates based on
+search in strategy profile space compared to function 
+approximation techniques trained on Do. The correspondence ˆφ∗
+(θ)
+for D = {Do, Ds} is the interval between SearchMin and
+SearchMax.
+This evidence supports the initial intuition that day-0 
+procurement should be decreasing with storage costs. It also confirms that
+high levels of day-0 procurement are a rational response to the 2004
+tournament setting of average storage cost, which corresponds to
+θ = 100. The minimum prediction for aggregate procurement at
+this level of storage costs given by any experimental methods is
+approximately 3. This is quite high, as it corresponds to an 
+expected commitment of 1/3 of the total supplier capacity for the 
+entire game. The maximum prediction is considerably higher at 4.5.
+In the actual 2004 competition, aggregate day-0 procurement was
+equivalent to 5.71 on the scale used here [9]. Our predictions 
+underestimate this outcome to some degree, but show that any rational
+outcome was likely to have high day-0 procurement.
+4.4.3 Extrapolating the Solution Correspondence
+We have reasonably strong evidence that the outcome 
+correspondence is decreasing. However, the ultimate goal is to be able to 
+either set the storage cost parameter to a value that would curb day-0
+procurement in equilibrium or conclude that this is not possible.
+To answer this question directly, suppose that we set a 
+conservative threshold α = 2 on aggregate day-0 procurement.12
+Linear
+11
+It is unclear how meaningful the results of learning would be if
+Ds were added to the training data set. Indeed, the additional data
+may actually increase the learning variance.
+12
+Recall that designer"s objective is to incentivize aggergate day-0
+procurement that is below the threshold α. Our threshold here still
+represents a commitment of over 20% of the suppliers" capacity for
+extrapolation of the maximum of the outcome correspondence 
+estimated from D yields θ = 320.
+The data for θ = 320 were collected in the same way as for other
+storage cost settings, with 10 randomly generated profiles followed
+by 33 iterations of BestFirstSearch. Figure 3 shows the detailed
+-bounds for all profiles in terms of their corresponding values of
+φ.
+0.00E+00
+5.00E+06
+1.00E+07
+1.50E+07
+2.00E+07
+2.50E+07
+3.00E+07
+3.50E+07
+4.00E+07
+4.50E+07
+5.00E+07
+2.1 2.4 2.7 3 3.3 3.6 3.9 4.2 4.5 4.8 5.1 5.4 5.7 6 6.3 6.6 6.9 7.2
+Total Day-0 Procurement
+ε−boundFigure 3: Values of ˆ for profiles explored using search when
+θ = 320. Strategy profiles explored are presented in terms of
+the corresponding values of φ(a). The gray region corresponds
+to ˆφ∗
+(320) with δ =2.5M.
+The estimated set of aggregate day-0 outcomes is very close to
+that for θ = 200, indicating that there is little additional benefit
+to raising storage costs above 200. Observe, that even the lower
+bound of our estimated set of Nash equilibria is well above the
+target day-0 procurement of 2. Furthermore, payoffs to agents are
+almost always negative at θ = 320. Consequently, increasing the
+costs further would be undesirable even if day-0 procurement could
+eventually be curbed. Since we are reasonably confident that φ∗
+(θ)
+is decreasing in θ, we also do not expect that setting θ somewhere
+between 200 and 320 will achieve the desired result.
+We conclude that it is unlikely that day-0 procurement could ever
+be reduced to a desirable level using any reasonable setting of the
+storage cost parameter. That our predictions tend to underestimate
+tournament outcomes reinforces this conclusion. To achieve the
+desired reduction in day-0 procurement requires redesigning other
+aspects of the mechanism.
+4.5 Probabilistic Analysis
+Our empirical analysis has produced evidence in support of the
+conclusion that no reasonable setting of storage cost was likely to
+sufficiently curb excessive day-0 procurement in TAC/SCM "04.
+All of this evidence has been in the form of simple interpolation and
+extrapolation of estimates of the Nash equilibrium correspondence.
+These estimates are based on simulating game instances, and are
+subject to sampling noise contributed by the various stochastic 
+elements of the game. In this section, we develop and apply methods
+for evaluating the sensitivity of our -bound calculations to such
+stochastic effects.
+Suppose that all agents have finite (and small) pure strategy sets,
+A. Thus, it is feasible to sample the entire payoff matrix of the
+game. Additionally, suppose that noise is additive with zero-mean
+the entire game on average, so in practice we would probably want
+the threshold to be even lower.
+310
+and finite variance, that is, Ui(a) = ui(a) + ˜ξi(a), where Ui(a) is
+the observed payoff to i when a was played, ui(a) is the actual 
+corresponding payoff, and ˜ξi(a) is a mean-zero normal random 
+variable. We designate the known variance of ˜ξi(a) by σ2
+i (a). Thus,
+we assume that ˜ξi(a) is normal with distribution N(0, σ2
+i (a)).
+We take ¯ui(a) to be the sample mean over all Ui(a) in D, and
+follow Chang and Huang [3] to assume that we have an improper
+prior over the actual payoffs ui(a) and sampling was independent
+for all i and a. We also rely on their result that ui(a)|¯ui(a) =
+¯ui(a)−Zi(a)/[σi(a)/
+p
+ni(a)] are independent with posterior 
+distributions N(¯ui(a), σ2
+i (a)/ni(a)), where ni(a) is the number of
+samples taken of payoffs to i for pure profile a, and Zi(a) ∼
+N(0, 1).
+We now derive a generic probabilistic bound that a profile a ∈
+A is an -Nash equilibrium. If ui(·)|¯ui(·) are independent for all
+i ∈ I and a ∈ A, we have the following result (from this point on
+we omit conditioning on ¯ui(·) for brevity):
+PROPOSITION 1.
+Pr
+„
+max
+i∈I
+max
+b∈Ai
+ui(b, a−i) − ui(a) ≤
+«
+=
+=
+Y
+i∈I
+Z
+R
+Y
+b∈Ai\ai
+Pr(ui(b, a−i) ≤ u + )fui(a)(u)du,
+(2)
+where fui(a)(u) is the pdf of N(¯ui(a), σi(a)).
+The proofs of this and all subsequent results are in the Appendix.
+The posterior distribution of the optimum mean of n samples,
+derived by Chang and Huang [3], is
+Pr (ui(a) ≤ c) = 1 − Φ
+"p
+ni(a)(¯ui(a) − c)
+σi(a)
+#
+, (3)
+where a ∈ A and Φ(·) is the N(0, 1) distribution function.
+Combining the results (2) and (3), we obtain a probabilistic 
+confidence bound that (a) ≤ γ for a given γ.
+Now, we consider cases of incomplete data and use the results
+we have just obtained to construct an upper bound (restricted to
+profiles represented in data) on the distribution of sup{φ∗
+(θ)} and
+inf{φ∗
+(θ)} (assuming that both are attainable):
+Pr{sup{φ∗
+(θ)} ≤ x} ≤D
+Pr{∃a ∈ D : φ(a) ≤ x ∧ a ∈ N(θ)} ≤
+X
+a∈D:φ(a)≤x
+Pr{a ∈ N(θ)} =
+X
+a∈D:φ(a)≤x
+Pr{ (a) = 0},
+where x is a real number and ≤D indicates that the upper bound
+accounts only for strategies that appear in the data set D. Since the
+events {∃a ∈ D : φ(a) ≤ x ∧ a ∈ N(θ)} and {inf{φ∗
+(θ)} ≤ x}
+are equivalent, this also defines an upper bound on the 
+probability of {inf{φ∗
+(θ)} ≤ x}. The values thus derived comprise the
+Tables 1 and 2.
+φ∗
+(θ) θ = 0 θ = 50 θ = 100
+<2.7 0.000098 0 0.146
+<3 0.158 0.0511 0.146
+<3.9 0.536 0.163 1
+<4.5 1 1 1
+Table 1: Upper bounds on the distribution of inf{φ∗
+(θ)} 
+restricted to D for θ ∈ {0, 50, 100} when N(θ) is a set of Nash
+equilibria.
+φ∗
+(θ) θ = 150 θ = 200 θ = 320
+<2.7 0 0 0.00132
+<3 0.0363 0.141 1
+<3.9 1 1 1
+<4.5 1 1 1
+Table 2: Upper bounds on the distribution of inf{φ∗
+(θ)} 
+restricted to D for θ ∈ {150, 200, 320} when N(θ) is a set of
+Nash equilibria.
+Tables 1 and 2 suggest that the existence of any equilibrium with
+φ(a) < 2.7 is unlikely for any θ that we have data for, although
+this judgment, as we mentioned, is only with respect to the profiles
+we have actually sampled. We can then accept this as another piece
+of evidence that the designer could not find a suitable setting of θ
+to achieve his objectives-indeed, the designer seems unlikely to
+achieve his objective even if he could persuade participants to play
+a desirable equilibrium!
+Table 1 also provides additional evidence that the agents in the
+2004 TAC/SCM tournament were indeed rational in procuring large
+numbers of components at the beginning fo the game. If we look at
+the third column of this table, which corresponds to θ = 100, we
+can gather that no profile a in our data with φ(a) < 3 is very likely
+to be played in equilibrium.
+The bounds above provide some general evidence, but ultimately
+we are interested in a concrete probabilistic assessment of our 
+conclusion with respect to the data we have sampled. Particularly, we
+would like to say something about what happens for the settings of
+θ for which we have no data. To derive an approximate 
+probabilistic bound on the probability that no θ ∈ Θ could have achieved the
+designer"s objective, let ∪J
+j=1Θj, be a partition of Θ, and assume
+that the function sup{φ∗
+(θ)} satisfies the Lipschitz condition with
+Lipschitz constant Aj on each subset Θj.13
+Since we have 
+determined that raising the storage cost above 320 is undesirable due to
+secondary considerations, we restrict attention to Θ = [0, 320]. We
+now define each subset j to be the interval between two points for
+which we have produced data. Thus,
+Θ = [0, 50]
+[
+(50, 100]
+[
+(100, 150]
+[
+(150, 200]
+[
+(200, 320],
+with j running between 1 and 5, corresponding to subintervals
+above. We will further denote each Θj by (aj , bj].14
+Then, the
+following Proposition gives us an approximate upper bound15
+on
+the probability that sup{φ∗
+(θ)} ≤ α.
+PROPOSITION 2.
+Pr{
+_
+θ∈Θ
+sup{φ(θ)} ≤ α} ≤D
+5X
+j=1
+X
+y,z∈D:y+z≤cj
+0
+@
+X
+a:φ(a)=z
+Pr{ (a) = 0}
+1
+A ×
+×
+0
+@
+X
+a:φ(a)=y
+Pr{ (a) = 0}
+1
+A ,
+where cj = 2α + Aj(bj − aj) and ≤D indicates that the upper
+bound only accounts for strategies that appear in the data set D.
+13
+A function that satisfies the Lipschitz condition is called Lipschitz
+continuous.
+14
+The treatment for the interval [0,50] is identical.
+15
+It is approximate in a sense that we only take into account 
+strategies that are present in the data.
+311
+Due to the fact that our bounds are approximate, we cannot use
+them as a conclusive probabilistic assessment. Instead, we take this
+as another piece of evidence to complement our findings.
+Even if we can assume that a function that we approximate from
+data is Lipschitz continuous, we rarely actually know the Lipschitz
+constant for any subset of Θ. Thus, we are faced with a task of
+estimating it from data. Here, we tried three methods of doing
+this. The first one simply takes the highest slope that the function
+attains within the available data and uses this constant value for
+every subinterval. This produces the most conservative bound, and
+in many situations it is unlikely to be informative.
+An alternative method is to take an upper bound on slope 
+obtained within each subinterval using the available data. This 
+produces a much less conservative upper bound on probabilities. 
+However, since the actual upper bound is generally greater for each
+subinterval, the resulting probabilistic bound may be deceiving.
+A final method that we tried is a compromise between the two
+above. Instead of taking the conservative upper bound based on
+data over the entire function domain Θ, we take the average of
+upper bounds obtained at each Θj. The bound at an interval is then
+taken to be the maximum of the upper bound for this interval and
+the average upper bound for all intervals.
+The results of evaluating the expression for
+Pr{
+_
+θ∈Θ
+sup{φ∗
+(θ)} ≤ α}
+when α = 2 are presented in Table 3. In terms of our claims in
+maxj Aj Aj max{Aj ,ave(Aj)}
+1 0.00772 0.00791
+Table 3: Approximate upper bound on probability that some
+setting of θ ∈ [0, 320] will satisfy the designer objective with
+target α = 2. Different methods of approximating the upper
+bound on slope in each subinterval j are used.
+this work, the expression gives an upper bound on the probability
+that some setting of θ (i.e., storage cost) in the interval [0,320] will
+result in total day-0 procurement that is no greater in any 
+equilibrium than the target specified by α and taken here to be 2. As we
+had suspected, the most conservative approach to estimating the
+upper bound on slope, presented in the first column of the table,
+provides us little information here. However, the other two 
+estimation approaches, found in columns two and three of Table 3, 
+suggest that we are indeed quite confident that no reasonable setting of
+θ ∈ [0, 320] would have done the job. Given the tremendous 
+difficulty of the problem, this result is very strong.16
+Still, we must be
+very cautious in drawing too heroic a conclusion based on this 
+evidence. Certainly, we have not checked all the profiles but only
+a small proportion of them (infinitesimal, if we consider the 
+entire continuous domain of θ and strategy sets). Nor can we expect
+ever to obtain enough evidence to make completely objective 
+conclusions. Instead, the approach we advocate here is to collect as
+much evidence as is feasible given resource constraints, and make
+the most compelling judgment based on this evidence, if at all 
+possible.

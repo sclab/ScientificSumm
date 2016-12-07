@@ -1,0 +1,22 @@
+in this way, if there are resources available in external groups, it is possible to send processes, controllers and activities to these groups in order to execute them in external process coordinators and activity managers, respectively. 
+each group manager exports coarse  availability information to group managers of adjacent groups and also receives requests from other external services to  furnish detailed availability information.
+additionally, group managers communicate to group managers of other groups.
+each group manager deals with requests of its group  (represented by dashed ellipses), in order to register local  machines and maintain correspondent availability.
+aiming to satisfy this intent, local groups are 89 middleware 2004 companion gm gm gm gm figure 3: inter-group relationships connected to others, directly or indirectly, through its group managers (see figure 3).
+3.2 inter-group relationships in order to model real grid architecture, the infrastructure must comprise several, potentially all, local networks, like internet does.
+they also have pendent activity queues, containing activities to be executed.
+it is responsible to execute activities in the hosted machine on behalf of the group process coordinators, and to inform the current availability of the associated machine to group managers.
+finally, in several group nodes there is an activity  manager.
+in order to persist and recover process execution and data, and also load process specification, they use group repositories.
+they are responsible to  instantiate and execute processes and controllers, select resources, and schedule and dispatch activities to workers.
+to control process execution, there are one or more  process coordinators per group.
+they use group repositories to persist and recover the location of nodes and their  availability.
+moreover, group managers maintain references to data resources of the group.
+they are responsible to maintain availability information of group machines.
+in a group there are one or more group managers, but only one acts as primary and the others, as replicas.
+this combination determines what kind of group node it represents: a group server, a process server, or  simply a worker (see figure 2).
+each machine in a group must have a java virtual machine (jvm) [11], and a java runtime library, besides a combination of the following grid support services: group manager (gm), process coordinator (pc) and activity  manager (am).
+generally, localized machines and repositories, such as in local networks or clusters, form a group.
+3.1 infrastructure architecture the support infrastructure architecture is composed of groups of machines and data repositories, which preserves its administrative autonomy.
+it has services to monitor availability of resources in the grid, to interpret processes and schedule activities and controllers, and to execute  activities.
+the support infrastructure comprises tools for  specification, and services for execution and monitoring of  structured processes in highly distributed, heterogeneous and  autonomous grid environments.

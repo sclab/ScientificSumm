@@ -1,0 +1,22 @@
+before we present in the final section the usage of the noise  probability for defining the probability of being informative, we emphasise in the next section that the results apply to the collection space as well as to the the document space. 
+pin (t is noisy|c) = n(t) k=1 n(t) k pk (1 − p)n −k pin (t is noisy|c) ≈ ppoi (t is noisy|c) we have defined a frequency-based and a poisson-based  probability of being noisy, where the latter is the limit of the independence-based probability of being noisy.
+for independent documents, the poisson distribution  approximates the probability of the disjunction for large n(t), since the independent term noise probability is equal to the sum over the binomial probabilities where at least one of n(t) document containment events is true.
+first, we define the poisson noise probability: definition 4. the poisson term noise probability: ppoi (t is noisy|c) := e−λ · n(t) k=1 λk k!
+after seeing the convergence of the binomial distribution, we can choose the poisson distribution as an approximation of the independent term noise probability.
+this shows the relationship of the poisson distribution and information theory.
+· e−λ the probability poisson(0, 1) is equal to e−1 , which is the probability of a maximal informative signal.
+· e−λ p(k) = poisson(k, λ) := λk k!
+lim n→∞ binom(n, k, p) = λk k!
+4.3 poisson distribution for an infinite number of events, the poisson probability function is the limit of the binomial probability function.
+lim n→∞ (1 − p)n−k = lim n→∞ 1 − λ n n −k = lim n→∞ e−λ · 1 − λ n −k = e−λ again, the limit is close to the actual value for k << n. for large k, the actual value is larger than the limit.
+the limit of (1−p)n −k follows from the limit limn→∞(1+ x n )n = ex .
+the limit is close to the actual value for k << n. for large k, the actual value is smaller than the limit.
+λ n k = λk k!
+· (n −k +1) k!
+with this definition of p, we obtain for an infinite number of documents the following limit for the product of the binomial coefficient and pk : lim n→∞ n k pk = = lim n→∞ n · (n −1) · .
+4.2 binomial distribution the binomial probability function yields the probability that k of n events are true where each event is true with the single event probability p. p(k) := binom(n, k, p) := n k pk (1 − p)n −k the single event probability is usually defined as p := λ/n, i. e. p is inversely proportional to n, the total number of events.
+world w probability µ(w) w7  λ n ¡3 ·  1 − λ n ¡0 w6  λ n ¡2 ·  1 − λ n ¡1 w5  λ n ¡2 ·  1 − λ n ¡1 w4  λ n ¡1 ·  1 − λ n ¡2 w3  λ n ¡2 ·  1 − λ n ¡1 w2  λ n ¡1 ·  1 − λ n ¡2 w1  λ n ¡1 ·  1 − λ n ¡2 w0  λ n ¡0 ·  1 − λ n ¡3 the sum over the possible worlds in which k documents are true and n −k documents are false is equal to the  probability function of the binomial distribution, since the binomial coefficient yields the number of possible worlds in which k documents are true.
+230 world w conjunction w7 d1 ∧ d2 ∧ d3 w6 d1 ∧ d2 ∧ ¬d3 w5 d1 ∧ ¬d2 ∧ d3 w4 d1 ∧ ¬d2 ∧ ¬d3 w3 ¬d1 ∧ d2 ∧ d3 w2 ¬d1 ∧ d2 ∧ ¬d3 w1 ¬d1 ∧ ¬d2 ∧ d3 w0 ¬d1 ∧ ¬d2 ∧ ¬d3 with each world w, we associate a probability µ(w), which is equal to the product of the single probabilities of the  document events.
+for example, consider the eight possible worlds for three documents (n = 3).
+4.1 possible worlds each conjunction of document events (for each document, we consider two document events: the document can be true or false) is associated with a so-called possible world.
+we review for independent documents three concepts of probability theory: possible worlds, binomial distribution and poisson distribution.

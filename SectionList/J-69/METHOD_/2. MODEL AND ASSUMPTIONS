@@ -1,0 +1,157 @@
+In this section, we present our assumptions about P2P systems and
+their users, and introduce a model that aims to capture the behavior
+of users in a P2P system.
+2.1 Assumptions
+We assume a P2P system in which users are strategic, i.e., they
+act rationally to maximize their benefit. However, to capture some
+of the real-life unpredictability in the behavior of users, we allow
+users to randomly change their behavior with a low probability (see
+Section 2.4).
+For simplicity, we assume a homogeneous system in which all peers
+issue and satisfy requests at the same rate. A peer can satisfy any
+request, and, unless otherwise specified, peers request service 
+uniformly at random from the population.1
+. Finally, we assume that all
+transactions incur the same cost to all servers and provide the same
+benefit to all clients.
+We assume that users can pollute shared history with false 
+recommendations (Section 4.2), switch identities at zero-cost 
+(Section 4.3), and spoof other users (Section 4.4). We do not assume
+any centralized trust or centralized infrastructure.
+2.2 Model
+To aid the development and study of the incentive schemes, in this
+section we present a model of the users" behaviors. In particular,
+we model the benefits and costs of P2P interactions (the game) and
+population dynamics caused by mutation, learning, and turnover.
+Our model is designed to have the following properties that 
+characterize a large set of P2P systems:
+• Social Dilemma: Universal cooperation should result in 
+optimal overall utility, but individuals who exploit the 
+cooperation of others while not cooperating themselves (i.e., 
+defecting) should benefit more than users who do cooperate.
+• Asymmetric Transactions: A peer may want service from
+another peer while not currently being able to provide the
+service that the second peer wants. Transactions should be
+able to have asymmetric payoffs.
+• Untraceable Defections: A peer should not be able to 
+determine the identity of peers who have defected on her. This
+models the difficulty or expense of determining that a peer
+could have provided a service, but didn"t. For example, in the
+Gnutella file sharing system [21], a peer may simply ignore
+queries despite possessing the desired file, thus preventing
+the querying peer from identifying the defecting peer.
+• Dynamic Population: Peers should be able to change their
+behavior and enter or leave the system independently and
+continuously.
+1The exception is discussed in Section 4.1.1
+103
+Cooperate
+Defect
+Cooperate DefectClient
+Server
+sc RR /
+sc ST / sc PP /
+sc TS /
+Figure 2: Payoff matrix for the Generalized Prisoner"s Dilemma. T, R,
+P, and S stand for temptation, reward, punishment and sucker, 
+respectively.
+2.3 Generalized Prisoner"s Dilemma
+The Prisoner"s Dilemma, developed by Flood, Dresher, and Tucker
+in 1950 [22] is a non-cooperative repeated game satisfying the 
+social dilemma requirement. Each game consists of two players who
+can defect or cooperate. Depending how each acts, the players 
+receive a payoff. The players use a strategy to decide how to act. 
+Unfortunately, existing work either uses a specific asymmetric payoff
+matrix or only gives the general form for a symmetric one [4].
+Instead, we use the Generalized Prisoner"s Dilemma (GPD), which
+specifies the general form for an asymmetric payoff matrix that 
+preserves the social dilemma. In the GPD, one player is the client and
+one player is the server in each game, and it is only the decision
+of the server that is meaningful for determining the outome of the
+transaction. A player can be a client in one game and a server in
+another. The client and server receive the payoff from a generalized
+payoff matrix (Figure 2). Rc, Sc, Tc, and Pc are the client"s payoff
+and Rs, Ss, Ts, and Ps are the server"s payoff. A GPD payoff 
+matrix must have the following properties to create a social dilemma:
+1. Mutual cooperation leads to higher payoffs than mutual 
+defection (Rs + Rc > Ps + Pc).
+2. Mutual cooperation leads to higher payoffs than one player
+suckering the other (Rs + Rc > Sc + Ts and Rs + Rc >
+Ss + Tc).
+3. Defection dominates cooperation (at least weakly) at the 
+individual level for the entity who decides whether to 
+cooperate or defect: (Ts ≥ Rs and Ps ≥ Ss and (Ts > Rs or
+Ps > Ss))
+The last set of inequalities assume that clients do not incur a cost
+regardless of whether they cooperate or defect, and therefore clients
+always cooperate. These properties correspond to similar properties
+of the classic Prisoner"s Dilemma and allow any form of 
+asymmetric transaction while still creating a social dilemma.
+Furthermore, one or more of the four possible actions (client 
+cooperate and defect, and server cooperate and defect) can be 
+untraceable. If one player makes an untraceable action, the other player
+does not know the identity of the first player.
+For example, to model a P2P application like file sharing or 
+overlay routing, we use the specific payoff matrix values shown in 
+Figure 3. This satisfies the inequalities specified above, where only the
+server can choose between cooperating and defecting. In addition,
+for this particular payoff matrix, clients are unable to trace server
+defections. This is the payoff matrix that we use in our simulation
+results.
+Request
+Service
+Don't Request
+7 / -1
+0 / 0
+0 / 0
+0 / 0
+Provide
+Service
+Ignore
+Request
+Client
+Server
+Figure 3: The payoff matrix for an application like P2P file sharing or
+overlay routing.
+2.4 Population Dynamics
+A characteristic of P2P systems is that peers change their 
+behavior and enter or leave the system independently and continuously.
+Several studies [4] [28] of repeated Prisoner"s Dilemma games use
+an evolutionary model [19] [34] of population dynamics. An 
+evolutionary model is not suitable for P2P systems because it only 
+specifies the global behavior and all changes occur at discrete times.
+For example, it may specify that a population of 5 100% 
+Cooperate players and 5 100% Defect players evolves into a population
+with 3 and 7 players, respectively. It does not specify which specific
+players switched. Furthermore, all the switching occurs at the end
+of a generation instead of continuously, like in a real P2P system. As
+a result, evolutionary population dynamics do not accurately model
+turnover, traitors, and strangers.
+In our model, entities take independent and continuous actions that
+change the composition of the population. Time consists of rounds.
+In each round, every player plays one game as a client and one game
+as a server. At the end of a round, a player may: 1) mutate 2) learn,
+3) turnover, or 4) stay the same. If a player mutates, she switches to
+a randomly picked strategy. If she learns, she switches to a strategy
+that she believes will produce a higher score (described in more 
+detail below). If she maintains her identity after switching strategies,
+then she is referred to as a traitor. If a player suffers turnover, she
+leaves the system and is replaced with a newcomer who uses the
+same strategy as the exiting player.
+To learn, a player collects local information about the performance
+of different strategies. This information consists of both her 
+personal observations of strategy performance and the observations of
+those players she interacts with. This models users communicating
+out-of-band about how strategies perform. Let s be the running 
+average of the performance of a player"s current strategy per round
+and age be the number of rounds she has been using the strategy. A
+strategy"s rating is
+RunningAverage(s ∗ age)
+RunningAverage(age)
+.
+We use the age and compute the running average before the ratio to
+prevent young samples (which are more likely to be outliers) from
+skewing the rating. At the end of a round, a player switches to 
+highest rated strategy with a probability proportional to the difference
+in score between her current strategy and the highest rated strategy.
+104

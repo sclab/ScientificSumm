@@ -1,0 +1,90 @@
+In most existing information retrieval models, the retrieval 
+problem is treated as involving one single query and a set of documents.
+From a single query, however, the retrieval system can only have
+very limited clue about the user"s information need. An optimal 
+retrieval system thus should try to exploit as much additional context
+information as possible to improve retrieval accuracy, whenever it
+is available. Indeed, context-sensitive retrieval has been identified
+as a major challenge in information retrieval research[2].
+There are many kinds of context that we can exploit. Relevance
+feedback [14] can be considered as a way for a user to provide
+more context of search and is known to be effective for 
+improving retrieval accuracy. However, relevance feedback requires that
+a user explicitly provides feedback information, such as specifying
+the category of the information need or marking a subset of 
+retrieved documents as relevant documents. Since it forces the user
+to engage additional activities while the benefits are not always 
+obvious to the user, a user is often reluctant to provide such feedback
+information. Thus the effectiveness of relevance feedback may be
+limited in real applications.
+For this reason, implicit feedback has attracted much attention 
+recently [11, 13, 18, 17, 12]. In general, the retrieval results using the
+user"s initial query may not be satisfactory; often, the user would
+need to revise the query to improve the retrieval/ranking accuracy
+[8]. For a complex or difficult information need, the user may need
+to modify his/her query and view ranked documents with many 
+iterations before the information need is completely satisfied. In such
+an interactive retrieval scenario, the information naturally available
+to the retrieval system is more than just the current user query and
+the document collection - in general, all the interaction history can
+be available to the retrieval system, including past queries, 
+information about which documents the user has chosen to view, and even
+how a user has read a document (e.g., which part of a document the
+user spends a lot of time in reading). We define implicit feedback
+broadly as exploiting all such naturally available interaction history
+to improve retrieval results.
+A major advantage of implicit feedback is that we can improve
+the retrieval accuracy without requiring any user effort. For 
+example, if the current query is java, without knowing any extra
+information, it would be impossible to know whether it is intended
+to mean the Java programming language or the Java island in 
+Indonesia. As a result, the retrieved documents will likely have both
+kinds of documents - some may be about the programming 
+language and some may be about the island. However, any particular
+user is unlikely searching for both types of documents. Such an
+ambiguity can be resolved by exploiting history information. For
+example, if we know that the previous query from the user is cgi
+programming, it would strongly suggest that it is the programming
+language that the user is searching for.
+Implicit feedback was studied in several previous works. In [11],
+Joachims explored how to capture and exploit the clickthrough 
+information and demonstrated that such implicit feedback 
+information can indeed improve the search accuracy for a group of 
+people. In [18], a simulation study of the effectiveness of different
+implicit feedback algorithms was conducted, and several retrieval
+models designed for exploiting clickthrough information were 
+proposed and evaluated. In [17], some existing retrieval algorithms are
+adapted to improve search results based on the browsing history of
+a user. Other related work on using context includes personalized
+search [1, 3, 4, 7, 10], query log analysis [5], context factors [12],
+and implicit queries [6].
+While the previous work has mostly focused on using 
+clickthrough information, in this paper, we use both clickthrough 
+information and preceding queries, and focus on developing new
+context-sensitive language models for retrieval. Specifically, we
+develop models for using implicit feedback information such as
+query and clickthrough history of the current search session to 
+improve retrieval accuracy. We use the KL-divergence retrieval model
+[19] as the basis and propose to treat context-sensitive retrieval as
+estimating a query language model based on the current query and
+any search context information. We propose several statistical 
+language models to incorporate query and clickthrough history into
+the KL-divergence model.
+One challenge in studying implicit feedback models is that there
+does not exist any suitable test collection for evaluation. We thus
+use the TREC AP data to create a test collection with implicit 
+feedback information, which can be used to quantitatively evaluate 
+implicit feedback models. To the best of our knowledge, this is the
+first test set for implicit feedback. We evaluate the proposed 
+models using this data set. The experimental results show that using
+implicit feedback information, especially the clickthrough data, can
+substantially improve retrieval performance without requiring 
+additional effort from the user.
+The remaining sections are organized as follows. In Section 2,
+we attempt to define the problem of implicit feedback and introduce
+some terms that we will use later. In Section 3, we propose several
+implicit feedback models based on statistical language models. In
+Section 4, we describe how we create the data set for implicit 
+feedback experiments. In Section 5, we evaluate different implicit 
+feedback models on the created data set. Section 6 is our conclusions
+and future work.

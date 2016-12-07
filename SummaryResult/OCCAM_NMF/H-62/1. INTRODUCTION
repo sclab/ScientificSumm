@@ -1,0 +1,49 @@
+section 6 concludes our work. 
+in section 5, we report our experiment results using the search agent.
+in section 4, we present the design and implementation of an  intelligent client-side web search agent (ucair) that performs eager implicit feedback.
+in section 3, we present a  decisiontheoretic interactive retrieval framework for implicit user modeling.
+in section 2, we discuss the related work.
+the remaining sections are organized as follows.
+thus the developed search agent can improve existing web search performance without additional effort from the user.
+since the implicit information we exploit already naturally exists through user interactions, the user does not need to make any extra effort.
+experiments on web search show that our search agent can improve search accuracy over google.
+using these techniques, we develop a client-side web search agent ucair (user-centered adaptive information retrieval) on top of a popular search engine (google).
+we further propose specific techniques to capture and exploit two types of implicit feedback information: (1) identifying related  immediately preceding query and using the query and the  corresponding search results to select appropriate terms to expand the current query, and (2) exploiting the viewed document summaries to  immediately rerank any documents that have not yet been seen by the user.
+the new retrieval paradigm is thus fundamentally different from the traditional paradigm, and is inherently more general.
+in the proposed new retrieval paradigm, the user"s search context plays an important role and the inferred implicit user model is exploited immediately to benefit the user.
+as a result, the retrieval process is a simple independent cycle of query and result display.
+in a  traditional retrieval paradigm, the retrieval problem is to match a query with documents and rank documents according to their relevance values.
+we present a decision-theoretic framework for optimizing interactive information retrieval based on eager user model  updating, in which the system responds to every action of the user by choosing a system action to optimize a utility function.
+that is, as soon as we observe any new piece of evidence from the user, we would update the system"s belief about the user"s information need and respond with improved retrieval results based on the updated user model.
+in order to maximally  benefit the user of a retrieval system through implicit user modeling, we propose to perform eager implicit feedback.
+in this paper, we study how to construct and update a user model based on the immediate search context and implicit feedback information and use the model to  improve the accuracy of ad-hoc retrieval.
+to the best of our knowledge, how to exploit such immediate and short-term search context to improve search has so far not been well addressed in the previous work.
+(2) in the search results, the user viewed a page where words such as programming, software, and applet occur many times.
+any of the  following immediate feedback information about the user could  potentially help determine the intended meaning of java in the query: (1) the previous query submitted by the user is hashtable (as  opposed to, e.g., travel indonesia).
+consider the query java again.
+in such cases, implicit feedback information collected over a long period of time is unlikely to be very useful, but the immediate search context and feedback information, such as which of the search results for the current information need are viewed, can be expected to be much more useful.
+for example, a user may be looking for information about used cars in order to buy one, but once the user has bought a car, he/she is generally no longer interested in such information.
+824 while a user may have general long term interests and  preferences for information, often he/she is searching for documents to satisfy an ad-hoc information need, which only lasts for a short period of time; once the information need is satisfied, the user would generally no longer be interested in such information.
+in [25], the clickthrough data collected over a long time period is exploited through query expansion to improve retrieval accuracy.
+in [10], user clickthrough data is collected as training data to learn a retrieval function, which is used to produce a customized ranking of search results that suits a group of users" preferences.
+it is shown that the dwelling time on a page, amount of scrolling on a page and the combination of time and scrolling have a strong correlation with explicit relevance ratings, which suggests that  implicit feedback may be helpful for inferring user information need.
+in [3], a web browser (curious browser) is developed to record a user"s explicit relevance ratings of web pages (relevance feedback) and browsing behavior when viewing a page, such as dwelling time, mouse click, mouse movement and scrolling (implicit feedback).
+indeed, several previous studies have shown that implicit user modeling can improve retrieval accuracy.
+it is thus very interesting to study how to infer a user"s  information need based on any implicit feedback information, which naturally exists through user interactions and thus does not require any extra user effort.
+unfortunately, in real world applications, users are usually reluctant to make the extra effort to provide relevant examples for feedback [11].
+this is called relevance feedback, which has been proved to be quite effective for improving retrieval accuracy [19, 20].
+an effective way to improve user modeling in information retrieval is to ask the user to explicitly specify which documents are relevant (i.e., useful for satisfying his/her information need), and then to improve user  modeling based on such examples of relevant documents.
+however, since a query is often extremely short, the user model constructed based on a keyword query is inevitably impoverished .
+indeed, most existing retrieval systems rely solely on the query to model a user"s information need.
+obviously, the user"s query provides the most direct evidence.
+what information is available for a system to infer a user"s  information need?
+indeed, it is even hard for a user to precisely describe what his/her information need is.
+the major goal of user modeling for information retrieval is to accurately model a user"s information need, which is, unfortunately, a very difficult task.
+in order to optimize retrieval accuracy, we clearly need to model the user appropriately and personalize search according to each  individual user.
+without recognizing the search context, it would be again impossible to recognize the correct sense.
+the same user may use java sometimes to mean the java island in indonesia and some other times to mean the programming language.
+(2) a user"s information needs may change over time.
+without considering the actual user, it is impossible to know which sense java refers to in a query.
+this  inherent non-optimality is seen clearly in the following two cases: (1) different users may use exactly the same query (e.g., java) to search for different information (e.g., the java island in indonesia or the java programming language), but existing ir systems return the same results for these users.
+a major  deficiency of existing retrieval systems is that they generally lack user modeling and are not adaptive to individual users [17].
+although many information retrieval systems (e.g., web search engines and digital library systems) have been successfully deployed, the current retrieval systems are far from optimal.

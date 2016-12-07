@@ -1,0 +1,180 @@
+3.1 Discrete Auctions for Continuous Values
+Our model aims to capture iterative auctions that operate
+on real-valued valuations. There is a slight technical 
+difficulty here in bridging the gap between the discrete nature
+of an iterative auction, and the continuous nature of the 
+valuations. This is exactly the same problem as in modeling
+a simple English auction. There are three standard formal
+ways to model it:
+1. Model the auction as a continuous process and study
+its trajectory in time. For example, the so-called Japanese
+auction is basically a continuous model of an English
+model.13
+2. Model the auction as discrete and the valuations as
+continuously valued. In this case we introduce a 
+parameter and usually require the auction to produce
+results that are -close to optimal.
+3. Model the valuations as discrete. In this case we will
+assume that all valuations are integer multiples of some
+small fixed quantity δ, e.g., 1 penny. All 
+communication in this case is then naturally finite.
+In this paper we use the latter formulation and assume
+that all values are multiples of some δ. Thus, in some parts
+of the paper we assume without loss of generality that δ = 1,
+hence all valuations are integral. Almost all (if not all) of
+our results can be translated to the other two models with
+little effort.
+3.2 Valuations
+A single auctioneer is selling m indivisible 
+non-homogeneous items in a single auction, and let M be the set of these
+13
+Another similar model is the moving knives model in the
+cake-cutting literature.
+34
+items and N be the set of bidders. Each one of the n 
+bidders in the auction has a valuation function vi : 2m
+→
+{0, δ, 2δ, ..., L}, where for every bundle of items S ⊆ M,
+vi(S) denotes the value of bidder i for the bundle S and is
+a multiple of δ in the range 0...L. We will sometimes 
+denote the number of bits needed to represent such values in
+the range 0...L by t = log L. We assume free disposal, i.e.,
+S ⊆ T implies vi(S) ≤ vi(T) and that vi(∅) = 0 for all
+bidders.
+We will mention the following classes of valuations:
+• A valuation is called sub-modular if for all sets of items
+A and B we have that v(A ∪ B) + v(A ∩ B) ≤ v(A) +
+v(B).
+• A valuation is called super-additive if for all disjoint
+sets of items A and B we have that v(A∪B) ≥ v(A)+
+v(B).
+• A valuation is called a k-bundle XOR if it can be 
+represented as a XOR combination of at most k atomic
+bids [30], i.e., if there are at most k bundles Si and
+prices pi such that for all S, v(S) = maxi|S⊇Si
+pi. Such
+valuations will be denoted by v = (S1 : p1) ⊕ (S2 :
+p2) ⊕ . . . ⊕ (Sk : pk).14
+3.3 Iterative Auctions
+The auctioneer sets up a protocol (equivalently an 
+algorithm), where at each stage of the protocol some 
+information q - termed the query - is sent to some bidder i,
+and then bidder i replies with some reply that depends on
+the query as well as on his own valuation. In this paper,
+we assume that we have complete control over the bidders"
+behavior, and thus the protocol also defines a reply function
+ri(q, vi) that specifies bidder i"s reply to query q. The 
+protocol may be adaptive: the query value as well as the queried
+bidder may depend on the replies received for past queries.
+At the end of the protocol, an allocation S1...Sn must be
+declared, where Si ∩ Sj = ∅ for i = j.
+We say that the auction finds an optimal allocation if
+it finds the allocation that maximizes the social welfareP
+i vi(Si). We say that it finds a c-approximation if
+P
+i vi(Si)
+≥
+P
+i vi(Ti)/c where T1...Tn is an optimal allocation. The
+running time of the auction on a given instance of the 
+bidders" valuations is the total number of queries made on this
+instance. The running time of a protocol is the worst case
+cost over all instances. Note that we impose no 
+computational limitations on the protocol or on the players.15
+This
+of course only strengthens our hardness results. Yet, our
+positive results will not use this power and will be efficient
+also in the usual computational sense.
+Our goal will be to design computationally-efficient 
+protocols. We will deem a protocol computationally-efficient if
+its cost is polynomial in the relevant parameters: the 
+number of bidders n, the number of items m, and t = log L,
+where L is the largest possible value of a bundle. However,
+when we discuss ascending-price auctions and their variants,
+a computationally-efficient protocol will be required to be
+14
+For example, v = (abcd : 5) ⊕ (ab : 3) ⊕ (c : 4) denotes the
+XOR valuation with the terms abcd, ab, c and prices 5, 3, 4
+respectively. For this valuation, v(abcd) = 5, v(abd) = 3,
+v(abc) = 4.
+15
+The running time really measures communication costs and
+not computational running time.
+pseudo-polynomial, i.e., it should ask a number of queries
+which is polynomial in m, n and L
+δ
+. This is because that 
+ascending auctions can usually not achieve such running times
+(consider even the English auction on a single item).16
+Note
+that all of our results give concrete bounds, where the 
+dependence on the parameters is given explicitly; we use the
+standard big-Oh notation just as a shorthand.
+We say than an auction elicits some class V of valuations,
+if it determines the optimal allocation for any profile of 
+valuations drawn from V ; We say that an auction fully elicits
+some class of valuations V , if it can fully learn any single
+valuation v ∈ V (i.e., learn v(S) for every S).
+3.4 Demand Queries and Ascending Auctions
+Most of the paper will be concerned with a common 
+special case of iterative auctions that we term demand 
+auctions. In such auctions, the queries that are sent to bidders
+are demand queries: the query specifies a price p(S) ∈ +
+for each bundle S. The reply of bidder i is simply the set
+most desired - demanded - under these prices. Formally,
+a set S that maximizes vi(S) − p(S). It may happen that
+more than one set S maximizes this value. In which case,
+ties are broken according to some fixed tie-breaking rule,
+e.g., the lexicographically first such set is returned. All of
+our results hold for any fixed tie-breaking rule.
+Ascending auctions are iterative auctions with 
+non-decreasing prices:
+Definition 1. In an ascending auction, the prices in the
+queries to the same bidder can only increase in time. 
+Formally, let p be a query made for bidder i, and q be a query
+made for bidder i at a later stage in the protocol. Then for
+all sets S, q(S) ≥ p(S). A similar variant, which we also
+study and that is also common in real life, is descending
+auctions, in which prices can only decrease in time.
+Note that the term ascending auction refers to an 
+auction with a single ascending trajectory of prices. It may
+be useful to define multi-trajectory ascending auctions, in
+which the prices maybe reset to zero a number of times (see,
+e.g., [4]).
+We consider two main restrictions on the types of allowed
+demand queries:
+Definition 2. Item Prices: The prices in each query
+are given by prices pj for each item j. The price of a set S
+is additive: p(S) =
+P
+j∈S pj.
+Definition 3. Anonymous prices: The prices seen by
+the bidders at any stage in the auction are the same, i.e.
+whenever a query is made to some bidder, the same query is
+also made to all other bidders (with the prices unchanged).
+In auctions with non-anonymous (discriminatory) prices,
+each bidder i has personalized prices denoted by pi
+(S).17
+In this paper, all auctions are anonymous unless otherwise
+specified.
+Note that even though in our model valuations are integral
+(or multiples of some δ), we allow the demand query to
+16
+Most of the auctions we present may be adapted to run in
+time polynomial in log L, using a binary-search-like 
+procedure, losing their ascending nature.
+17
+Note that a non-anonymous auction can clearly be 
+simulated by n parallel anonymous auctions.
+35
+use arbitrary real numbers in +. That is, we assume that
+the increment we use in the ascending auctions may be
+significantly smaller than δ. All our hardness results hold
+for any , even for continuous price increments. A practical
+issue here is how will the query be specified: in the general
+case, an exponential number of prices needs to be sent in a
+single query. Formally, this is not a problem as the model
+does not limit the length of queries in any way - the protocol
+must simply define what the prices are in terms of the replies
+received for previous queries. We look into this issue further
+in Section 4.3.

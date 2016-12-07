@@ -1,0 +1,148 @@
+We have seen that the system is well behaved if the agents
+all follow a threshold strategy; we now want to show that
+there is a nontrivial Nash equilibrium where they do so (that
+is, a Nash equilibrium where all the agents use Sk for some
+k > 0.) This is not true in general. If δ is small, then agents
+have no incentive to work. Intuitively, if future utility is
+sufficiently discounted, then all that matters is the present,
+and there is no point in volunteering to work. With small
+δ, S0 is the only equilibrium. However, we show that for δ
+sufficiently large, there is another equilibrium in threshold
+strategies. We do this by first showing that, if every other
+agent is playing a threshold strategy, then there is a best
+response that is also a threshold strategy (although not 
+necessarily the same one). We then show that there must be
+some (mixed) threshold strategy for which this best response
+is the same strategy. It follows that this tuple of threshold
+strategies is a Nash equilibrium.
+As a first step, we show that, for all k, if everyone other
+than agent i is playing Sk, then there is a threshold 
+strategy Sk that is a best response for agent i. To prove this,
+we need to assume that the system is close to the 
+steadystate distribution (i.e., the maximum-entropy distribution).
+However, as long as δ is sufficiently close to 1, we can ignore
+what happens during the period that the system is not in
+steady state.3
+We have thus far considered threshold strategies of the
+form Sk, where k is a natural number; this is a discrete set
+of strategies. For a later proof, it will be helpful to have
+a continuous set of strategies. If γ = k + γ , where k is
+a natural number and 0 ≤ γ < 1, let Sγ be the strategy
+that performs Sk with probability 1 − γ and Sk+1 with
+probability γ. (Note that we are not considering arbitrary
+mixed threshold strategies here, but rather just mixing 
+between adjacent strategies for the sole purpose of making out
+strategies continuous in a natural way.) Theorem 3.1 
+applies to strategies Sγ (the same proof goes through without
+change), where γ is an arbitrary nonnegative real number.
+Theorem 4.1. Fix a strategy Sγ and an agent i. There
+exists δ∗
+< 1 and n∗
+such that if δ > δ∗
+, n > n∗
+, and every
+agent other than i is playing Sγ in game G(n, δ), then there
+is an integer k such that the best response for agent i is Sk .
+Either k is unique (that is, there is a unique best response
+that is also a threshold strategy), or there exists an integer
+k such that Sγ is a best response for agent i for all γ in
+the interval [k , k +1] (and these are the only best responses
+among threshold strategies).
+Proof. (Sketch:) If δ is sufficiently large, we can ignore
+what happens before the system converges to the 
+maximumentropy distribution. If n is sufficiently large, then the 
+strategy played by one agent will not affect the distribution of
+money significantly. Thus, the probability of i moving from
+one state (dollar amount) to another depends only on i"s
+strategy (since we can take the probability that i will be
+chosen to make a request and the probability that i will
+be chosen to satisfy a request to be constant). Thus, from
+i"s point of view, the system is a Markov decision process
+(MDP), and i needs to compute the optimal policy 
+(strategy) for this MDP. It follows from standard results [23, 
+Theorem 6.11.6] that there is an optimal policy that is a 
+threshold policy.
+The argument that the best response is either unique or
+there is an interval of best responses follows from a more
+careful analysis of the value function for the MDP.
+We remark that there may be best responses that are not
+threshold strategies. All that Theorem 4.1 shows is that,
+among best responses, there is at least one that is a threshold
+strategy. Since we know that there is a best response that
+is a threshold strategy, we can look for a Nash equilibrium
+in the space of threshold strategies.
+Theorem 4.2. For all M, there exists δ∗
+< 1 and n∗
+such
+that if δ > δ∗
+and n > n∗
+, there exists a Nash equilibrium in
+the game G(n, δ) where all agents play Sγ for some integer
+γ > 0.
+Proof. It follows easily from the proof Theorem 4.1 that
+if br(δ, γ) is the minimal best response threshold strategy if
+all the other agents are playing Sγ and the discount factor is
+δ then, for fixed δ, br(δ, ·) is a step function. It also follows
+3
+Formally, we need to define the strategies when the system
+is far from equilibrium. However, these far from (stochastic)
+equilibrium strategies will not affect the equilibrium 
+behavior when n is large and deviations from stochastic 
+equilibrium are extremely rare.
+145
+from the theorem that if there are two best responses, then
+a mixture of them is also a best response. Therefore, if we
+can join the steps by a vertical line, we get a best-response
+curve. It is easy to see that everywhere that this 
+bestresponse curve crosses the diagonal y = x defines a Nash
+equilibrium where all agents are using the same threshold
+strategy. As we have already observed, one such 
+equilibrium occurs at 0. If there are only $M in the system, we can
+restrict to threshold strategies Sk where k ≤ M + 1. Since
+no one can have more than $M, all strategies Sk for k > M
+are equivalent to SM ; these are just the strategies where
+the agent always volunteers in response to request made by
+someone who can pay. Clearly br(δ, SM ) ≤ M for all δ, so
+the best response function is at or below the equilibrium at
+M. If k ≤ M/n, every player will have at least k dollars
+and so will be unwilling to work and the best response is
+just 0. Consider k∗
+, the smallest k such that k > M/n. It
+is not hard to show that for k∗
+there exists a δ∗
+such that
+for all δ ≥ δ∗
+, br(δ, k∗
+) ≥ k∗
+. It follows by continuity that if
+δ ≥ δ∗
+, there must be some γ such that br(δ, γ) = γ. This
+is the desired Nash equilibrium.
+This argument also shows us that we cannot in general
+expect fixed points to be unique. If br(δ, k∗
+) = k∗
+and
+br(δ, k + 1) > k + 1 then our argument shows there must be
+a second fixed point. In general there may be multiple fixed
+points even when br(δ, k∗
+) > k∗
+, as illustrated in the Figure
+4 with n = 1000 and M = 3000.
+0 5 10 15 20 25
+Strategy of Rest of Agents
+0
+5
+10
+15
+20
+25
+BestResponse
+Figure 4: The best response function for n = 1000
+and M = 3000.
+Theorem 4.2 allows us to restrict our design to agents
+using threshold strategies with the confidence that there will
+be a nontrivial equilibrium. However, it does not rule out
+the possibility that there may be other equilibria that do
+not involve threshold stratgies. It is even possible (although
+it seems unlikely) that some of these equilibria might be
+better.

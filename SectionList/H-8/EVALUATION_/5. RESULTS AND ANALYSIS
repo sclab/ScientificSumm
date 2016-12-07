@@ -1,0 +1,183 @@
+The comparison between MTC and RTC is shown in 
+Table 2. With MTC and uniform probabilities of relevance, the
+results are far from robust. We cannot reuse the relevance
+judgments with much confidence. But with RTC, the 
+results are very robust. There is a slight dip in accuracy when
+confidence gets above 0.95; nonetheless, the confidence 
+predictions are trustworthy. Mean Wi shows that RTC is much
+closer to 0 than MTC. The distribution of confidence scores
+shows that at least 80% confidence is achieved more than
+35% of the time, indicating that neither algorithm is being
+too conservative in its confidence estimates. The confidence
+estimates are rather low overall; that is because we have
+built a test collection from only two initial systems. 
+Recall from Section 1 that we cannot require (or even expect)
+a minimum level of confidence when we generalize to new
+systems.
+More detailed results for both algorithms are shown in
+Figure 2. The solid line is the ideal result that would give
+W = 0. RTC is on or above this line at all points until
+confidence reaches about 0.97. After that there is a slight
+dip in accuracy which we discuss below. Note that both
+MTC RTC
+confidence % in bin accuracy % in bin accuracy
+0.5 − 0.6 33.7% 61.7% 28.6% 61.9%
+0.6 − 0.7 18.1% 73.1% 20.1% 76.3%
+0.7 − 0.8 10.4% 70.1% 15.5% 78.0%
+0.8 − 0.9 9.4% 69.0% 12.1% 84.9%
+0.9 − 0.95 7.3% 78.0% 6.6% 93.1%
+0.95 − 0.99 17.9% 70.4% 12.4% 93.4%
+1.0 3.3% 68.3% 4.7% 98.9%
+W −5.34 −0.39
+median judged 251 235
+mean τ 0.393 0.555
+Table 2: Confidence that P(ΔMAP < 0) and 
+accuracy of prediction when generalizing a set of 
+relevance judgments acquired using MTC and RTC.
+Each bin contains over 1,000 trials from the adhoc
+3, 5-8 sets. RTC is much more robust than MTC.
+W is defined in Section 4.4; closer to 0 is better.
+Median judged is the number of judgments to reach
+95% confidence on the first two systems. Mean τ is
+the average rank correlation for all 10 systems.
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0.5 0.6 0.7 0.8 0.9 1
+accuracy
+confidence
+breakeven
+RTC
+MTC
+Figure 2: Confidence vs. accuracy of MTC and
+RTC. The solid line is the perfect result that would
+give W = 0; performance should be on or above this
+line. Each point represents at least 500 pairwise
+comparisons.
+algorithms are well above the line up to around confidence
+0.7. This is because the baseline performance on these data
+sets is high; it is quite easy to achieve 75% accuracy doing
+very little work [7].
+Number of Judgments: The median number of 
+judgments required by MTC to reach 95% confidence on the first
+two systems is 251, an average of 5 per topic. The median
+required by RTC is 235, about 4.7 per topic. Although the
+numbers are close, RTC"s median is significantly lower by a
+paired Wilcoxon test (p < 0.0001). For comparison, a pool
+of depth 100 would result in a minimum of 5,000 judgments
+for each pair.
+The difference in means is much greater. MTC required a
+mean of 823 judgments, 16 per topic, while RTC required a
+mean of 502, 10 per topic. (Recall that means are strongly
+skewed by a few pairs that take thousands of judgments.)
+This difference is significant by a paired t-test (p < 0.0001).
+Ten percent of the sets resulted in 100 or fewer judgments
+(less than two per topic). Performance on these is very high:
+W = 0.41, and 99.7% accuracy when confidence is at least
+0.9. This shows that even tiny collections can be reusable.
+For the 50% of sets with more than 235 judgments, accuracy
+is 93% when confidence is at least 0.9.
+Rank Correlation: MTC and RTC both rank the 10
+systems by EMAP (Eq. (1)) calculated using their respective
+probability estimates. The mean τ rank correlation between
+true MAP and EMAP is 0.393 for MTC and 0.555 for RTC.
+This difference is significant by a paired t-test (p < 0.0001).
+Note that we do not expect the τ correlations to be high,
+since we are ranking the systems with so few relevance 
+judgments. It is more important that we estimate confidence in
+each pairwise comparison correctly.
+We ran IP for the same number of judgments that MTC
+took for each pair, then ranked the systems by MAP 
+using only those judgments (all unjudged documents assumed
+nonrelevant). We calculated the τ correlation to the true
+ranking. The mean τ correlation is 0.398, which is not 
+significantly different from MTC, but is significantly lower than
+RTC. Using uniform estimates of probability is 
+indistinguishable from the baseline, whereas estimating relevance by
+expert aggregation boosts performance a great deal: nearly
+40% over both MTC and IP.
+Overfitting: It is possible to overfit: if too many
+judgments come from the first two systems, the variance
+in ΔMAP is reduced and the confidence estimates become
+unreliable. We saw this in Table 2 and Figure 2 where RTC
+exhibits a dip in accuracy when confidence is around 97%.
+In fact, the number of judgments made prior to a wrong
+prediction is over 50% greater than the number made prior
+to a correct prediction.
+Overfitting is difficult to quantify exactly, because 
+making more relevance judgments does not always cause it: at
+higher confidence levels, more relevance judgments are made,
+and as Table 2 shows, accuracy is greater at those higher
+confidences. Obviously having more relevance judgments
+should increase both confidence and accuracy; the 
+difference seems to be when one system has a great deal more
+judgments than the other.
+Pairwise Comparisons: Our pairwise comparisons fall
+into one of three groups:
+1. the two original runs from which relevance judgments
+are acquired;
+2. one of the original runs vs. one of the new runs;
+3. two new runs.
+Table 3 shows confidence vs. accuracy results for each of
+these three groups. Interestingly, performance is worst when
+comparing one of the original runs to one of the additional
+runs. This is most likely due to a large difference in the
+number of judgments affecting the variance of ΔMAP. 
+Nevertheless, performance is quite good on all three subsets.
+Worst Case: The case intuitively most likely to 
+produce an error is when the two systems being compared have
+retrieved very few documents in common. If we want the
+judgments to be reusable, we should to be able to generalize
+even to runs that are very different from the ones used to
+acquire the relevance judgments.
+A simple measure of similarity of two runs is the average
+percentage of documents they retrieved in common for each
+topic [2]. We calculated this for all pairs, then looked at 
+performance on pairs with low similarity. Results are shown in
+accuracy
+confidence two original one original no original
+0.5 − 0.6 - 48.1% 62.8%
+0.6 − 0.7 - 57.1% 79.2%
+0.7 − 0.8 - 67.9% 81.7%
+0.8 − 0.9 - 82.2% 86.3%
+0.9 − 0.95 95.9% 93.7% 92.6%
+0.95 − 0.99 96.2% 92.5% 93.1%
+1.0 100% 98.0% 99.1%
+W −1.11 −0.87 −0.27
+Table 3: Confidence vs. accuracy of RTC when 
+comparing the two original runs, one original run and
+one new run, and two new runs. RTC is robust in
+all three cases.
+accuracy when similar
+confidence 0 − 0.1 0.1 − 0.2 0.2 − 0.3
+0.5 − 0.6 68.4% 63.1% 61.4%
+0.6 − 0.7 84.2% 78.6% 76.6%
+0.7 − 0.8 82.0% 79.8% 78.9%
+0.8 − 0.9 93.6% 83.3% 82.1%
+0.9 − 0.95 99.3% 92.7% 92.4%
+0.95 − 0.99 98.7% 93.4% 93.3%
+1.0 99.9% 97.9% 98.1%
+W 0.44 −0.45 −0.49
+Table 4: Confidence vs. accuracy of RTC when a
+pair of systems retrieved 0-30% documents in 
+common (broken out into 0%-10%, 10%-20%, and 
+20%30%). RTC is robust in all three cases.
+Table 4. Performance is in fact very robust even when 
+similarity is low. When the two runs share very few documents
+in common, W is actually positive.
+MTC and IP both performed quite poorly in these cases.
+When the similarity was between 0 and 10%, both MTC
+and IP correctly predicted ΔMAP only 60% of the time,
+compared to an 87.6% success rate for RTC.
+By Data Set: All the previous results have only been
+on the ad-hoc collections. We did the same experiments on
+our additional data sets, and broke out the results by data
+set to see how performance varies. The results in Table 5
+show everything about each set, including binned accuracy,
+W, mean τ, and median number of judgments to reach 95%
+confidence on the first two systems. The results are highly
+consistent from collection to collection, suggesting that our
+method is not overfitting to any particular data set.

@@ -1,0 +1,112 @@
+Performance of PowerPoint document title extraction in DotCom Precisio n Recall F1 Model Perceptron 0.910 0.903 0.907 Largest font size 0.864 0.886 0.875Baselines First line 0.570 0.585 0.577 From the results, we see that the models can be adapted to different domains well.
+Sign test results Documents Type Sign test between p-value Perceptron vs. Largest 3.59e-26 Word Perceptron vs. First 7.12e-10 Perceptron vs. Largest 0.010 PowerPoint Perceptron vs. First 5.13e-40 We see, from the results, that the two baselines can work well for title extraction, suggesting that font size and position information are most useful features for title extraction.
+With the combination of different features (evidence in title judgment), Perceptron can outperform Largest and First.
+The portion of documents with titles Domain Type MS DotCom DotGov Word 75.7% 77.8% 75.6% PowerPoint 82.1% 93.4% 96.4% In our experiments, we conducted evaluations on title extraction in terms of precision, recall, and F-measure.
+Accuracies of title extraction with Word in Chinese Precision Recall F1 Model Perceptron 0.817 0.805 0.811 Largest font size 0.722 0.755 0.738Baselines First line 0.743 0.777 0.760 Table 14.
+Table 1 shows the percentages of the documents having titles.
+Figure 10 shows different document retrieval results with different ranking functions in terms of precision @10, precision @5 and reciprocal rank: • Blue bar - BM25 including the fields body, title (file property), and anchor text.
+The results indicate that the improvements of machine learning over baselines are statistically significant (in the sense p-value < 0.05) Table 6.
+Since we conduct extraction from the top regions, it is difficult to get rid of these errors with the current approach.
+Since we only labeled the main titles as titles, the extractions of both titles were considered incorrect.
+Comparison between different learning models for title extraction with PowerPoint Model Precision Recall F1 Perceptron 0.875 0.
+Here, ‘Largest" denotes the baseline of using the largest font size, ‘First" denotes the baseline of using the first line.
+6.7 Language Adaptation We apply the model trained with the data in English (MS) to the data set in Chinese.
+In these documents, the layouts of the first pages were difficult to understand, even for humans.
+Accuracies of titles in file properties File Type Domain Precision Recall F1 MS 0.299 0.311 0.305 DotCom 0.210 0.214 0.212Word DotGov 0.182 0.177 0.180 MS 0.229 0.245 0.237 DotCom 0.185 0.186 0.186PowerPoint DotGov 0.180 0.182 0.181 6.4 Comparison with Baselines We conducted title extraction from the first data set (Word and PowerPoint in MS).
+There are cases in which all the lines have the same font size (i.e., the largest font size), or cases in which the lines with the largest font size only contain general descriptions like ‘Confidential", ‘White paper", etc.
+Users were asked to provide judgments of the degree of document relevance from a scale of 1to 5 (1 meaning detrimental, 2 - bad, 3 - fair, 4 - good and 5 - excellent).
+152 Figure 10 shows the results.
+In the chart two sets of precision results were obtained by either considering good or excellent documents as relevant (left 3 bars with relevance threshold 0.5), or by considering only excellent documents as relevant (right 3 bars with relevance threshold 1.0) 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 P@10 P@5 Reciprocal P@10 P@5 Reciprocal 0.5 1 BM25 Anchor, Title, Body BM25 Anchor, Title, Body, ExtractedTitle Name All RelevanceThreshold Data Description Figure 10.
+50 queries were from the most popular set, while 50 queries other were chosen randomly.
+The evaluation measures are defined as follows: Precision: P = A / ( A + B ) Recall: R = A / ( A + C ) F-measure: F1 = 2PR / ( P + R ) Here, A, B, C, and D are numbers of documents as those defined in Table 2.
+Accuracies of title extraction with PowerPoint in Chinese Precision Recall F1 Model Perceptron 0.766 0.812 0.789 Largest font size 0.753 0.813 0.782Baselines First line 0.627 0.676 0.650 We see that the models can be adapted to a different language.
+Thus, it is safe to say that the use of extracted title can indeed improve the precision of document retrieval. 
+Accuracies of title extraction with Word in DotGov Precision Recall F1 Model Perceptron 0.716 0.759 0.737 Largest font size 0.549 0.619 0.582Baselines First line 0.462 0.521 0.490 Table 10.
+Contingence table with regard to title extraction Is title Is not title Extracted A B Not extracted C D 6.2 Baselines We test the accuracies of the two baselines described in section 4.2.
+We manually labeled the titles of all the documents, on the basis of our specification.
+For Word documents both precision and recall of the approach are 8 percent higher than those of the baselines.
+We see that the documents are indeed ‘general documents" as we define them.
+Comparison between different learning models for title extraction with Word Model Precision Recall F1 Perceptron 0.810 0.837 0.823 MEMM 0.797 0.824 0.810 PMM 0.827 0.823 0.825 ME 0.801 0.621 0.699 Table 8.
+In the evaluation, we use exact matching between the true titles annotated by humans and the extracted titles.
+6.5 Comparison between Models To compare the performance of different machine learning models, we conducted another experiment.
+Given string A and string B: if ( (D == 0) or ( D / ( La + Lb ) < θ ) ) then string A = string B D: Edit Distance between string A and string B La: length of string A Lb: length of string B θ: 0.1 ∑ × ++− + = t t n N wtf avwdl wdl bbk kwtf FBM )log( ))1(( )1( 25 1 1 150 Table 3.
+In general, the Markovian models perform better than or as well as their classifier counterparts.
+An example PowerPoint document.
+First, we downloaded and randomly selected 5,000 Word documents and 5,000 PowerPoint documents from an intranet of Microsoft.
+Accuracies of title extraction with Word in DotCom Precisio n Recall F1 Model Perceptron 0.832 0.880 0.855 Largest font size 0.676 0.753 0.712Baselines First line 0.577 0.643 0.608 Table 12.
+895 0.885 Largest font size 0.844 0.887 0.865 Baselines First line 0.639 0.671 0.655 We see that the machine learning approach can achieve good performance in title extraction.
+Not all the documents in the two data sets have titles.
+Figure 7 shows the distributions of the genres of the documents.
+6.8 Search with Extracted Titles We performed experiments on using title extraction for document retrieval.
+Accuracies of title extraction with PowerPoint Precision Recall F1 Model Perceptron 0.875 0.
+From the domain adaptation and language adaptation results, we conclude that the use of formatting information is the key to a successful extraction from general documents.
+We view the titles annotated by humans as true titles and test how many titles in the file properties can approximately match with the true titles.
+885 MEMM 0.841 0.861 0.851 PMM 0.873 0.896 0.885 ME 0.753 0.766 0.759 6.6 Domain Adaptation We apply the model trained with the first data set (MS) to the second data set (DotCom and DotGov).
+For PowerPoint both precision and recall of the approach are 2 percent higher than those of the baselines.
+This seems to be because the Markovian models are trained globally, while the classifiers are trained locally.
+Accuracies of title extraction with PowerPoint in DotGov Precision Recall F1 Model Perceptron 0.900 0.906 0.903 Largest font size 0.871 0.888 0.879Baselines First line 0.554 0.564 0.559 Table 11.
+Second, we downloaded and randomly selected 500 Word and 500 PowerPoint documents from the DotGov and DotCom domains on the internet, respectively.
+Thus, all the results reported here are those averaged over 4 trials.
+As a baseline, we employed BM25 without using extracted titles.
+An example Word document.
+This is because sometimes human annotated titles can be slightly different from the titles in file properties on the surface, e.g., contain extra spaces).
+(2) Nearly one fourth of the errors were from the documents which do not have true titles but only contain bullets.
+The evaluation was conducted on a corpus of 1.3 M documents crawled from the intranet of Microsoft using 100 evaluation queries obtained from this intranet"s search engine query logs.
+Accuracies of title extraction with Word Precision Recall F1 Model Perceptron 0.810 0.837 0.823 Largest font size 0.700 0.758 0.727 Baselines First line 0.707 0.767 0.736 Table 5.
+Table 7, 8 shows the results of all the four models.
+With the additional field of extracted title included in BM25 the precision @10 increased from 0.132 to 0.145, or by ~10%.
+6.1 Data Sets and Evaluation Measures We used two data sets in our experiments.
+This might be because PowerPoint documents published on the internet are more formal than those on the intranet.
+6.3 Accuracy of Titles in File Properties We investigate how many titles in the file properties of the documents are reliable.
+Distributions of document genres.
+We see that DotCom and DotGov have more PowerPoint documents with titles than MS.
+The results indicate that the patterns of title formats exist across different languages.
+Obviously, the linguistic features do not work for Chinese, but the effect of not using them is negligible.
+Tables 13-14 show the results.
+We investigate the performance of solely using linguistic features.
+For similar reasons, the ‘first line" method alone cannot work well, either.
+It includes 500 Word documents and 500 PowerPoint documents in Chinese.
+Tables 9-12 show the results.
+For those cases, the ‘largest font size" method cannot work well.
+• Purple bar - BM25 including the fields body, title (file property), anchor text, and extracted title.
+The results indicate that the patterns of title formats exist across different domains, and it is possible to construct a domain independent model by mainly using formatting information.
+This seems to be because the Perceptron based models are created to make better classifications, while ME models are constructed for better prediction.
+Figure 8 and 9 shows examples.
+We conducted an error analysis on the results of Perceptron.
+This type of error does little harm to document processing like search, however.
+The results are shown in Table 6.
+Table 9.
+We did not conduct optimization on the weights.
+The Perceptron based models perform better than the ME based counterparts.
+Table 4.
+Confusions between main titles and subtitles were another type of error.
+It turns out that Perceptron and PMM perform the best, followed by MEMM, and ME performs the worst.
+(1) About one third of the errors were related to ‘hard cases".
+It seems that the format features play important roles and the linguistic features are supplements..
+Table 7.
+We found that the errors fell into three categories.
+We see that Perceptron significantly outperforms the baselines.
+However, it is also obvious that using only these two features is not enough.
+Table 2.
+Third, a data set in Chinese was also downloaded from the internet.
+Figure 9.
+We conduct significance tests.
+Tables 4 and 5 show the results.
+The ranking mechanism was as described in Section 5.
+Table 13.
+Again, we perform 4-fold cross 151 validation on the first data set (MS).
+Figure 8.
+As the model, we used Perceptron.
+(Approximate match is only used in this evaluation).
+Figure 7.
+Search ranking results.
+Table 1.
+The weights were heuristically set.
+We conduct 4-fold cross validation.
+We use Edit Distance to conduct the approximate match.
+They are denoted as ‘largest font size" and ‘first line" respectively.
+We call it MS hereafter.
+There are only small drops in accuracy.
+We found that it does not work well.
+There is almost no drop in accuracy.
+895 0.

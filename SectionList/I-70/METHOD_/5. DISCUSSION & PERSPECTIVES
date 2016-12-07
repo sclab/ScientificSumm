@@ -1,0 +1,46 @@
+5.1 Current Limitation of our Approach
+The most important limitation of our current algorithm is that
+the result depends on the order the data gets added. When the 
+system works by itself on a fixed data set given during initialization,
+the final result is equivalent to what we could obtain with a 
+centralized algorithm. On the contrary, adding a new item after a first
+stabilization has an impact on the final result.
+Figure 11: Concept agent tree after autonomous stabilization
+of the system
+To illustrate our claims, we present another example of the 
+working system. By using test data and letting the system work by itself,
+we obtain the hierarchy of figure 11 after stabilization.
+Figure 12: Concept agent tree after taking in account 
+"hepatitis"
+Then, the ontologist interacts with the system and adds a new
+concept described by the term "hepatitis" and linked to the root.
+The system reacts and stabilizes, we then obtain figure 12 as a 
+result. "hepatitis" is located in the right branch, but we have not
+obtained the same organization as the figure 6 of the previous 
+example. We need to improve our distributed algorithm to allow a
+concept to move along a branch. We are currently working on the
+required rules, but the comparison with centralized algorithm will
+become very difficult. In particular since they will take into account
+criteria ignored by the centralized algorithm.
+5.2 Pruning for Ontologies Building
+In section 3, we presented the distributed clustering algorithm
+used in the Dynamo system. Since this work was first based on this
+algorithm, it introduced a clear bias toward binary trees as a result.
+But we have to keep in mind that we are trying to obtain taxonomies
+which are more refined and concise. Although the head coverage
+rule is an improvement because it is based on how the ontologists
+generally work, it only addresses low level structuring but not the
+intermediate levels of the tree.
+By looking at figure 7, it is clear that some pruning could be
+done in the taxonomy. In particular, since "lésion" moved, 
+"ConceptAgent:9" could be removed, it is not needed anymore. 
+Moreover the branch starting with "ConceptAgent:8" clearly respects the
+constraint to make a binary tree, but it would be more useful to the
+user in a more compact and meaningful form. In this case 
+"ConceptAgent:10" and "ConceptAgent:11" could probably be merged.
+Currently, our system has the necessary rules to create 
+intermediate levels in the taxonomy, or to have concepts shifting towards
+the leaf. As we pointed, it is not enough, so new rules are needed to
+allow removing nodes from the tree, or move them toward the root.
+Most of the work needed to develop those rules consists in finding
+the relevant statistic information that will support the ontologist.

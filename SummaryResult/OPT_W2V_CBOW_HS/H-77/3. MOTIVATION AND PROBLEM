@@ -1,0 +1,48 @@
+In another experiment, we found that Google uses the titles in file properties of Office documents in search and browsing, but the titles are not very accurate.
+Given a PowerPoint document, we are to extract the title from the first slide.
+The rules include a title is usually in consecutive lines in the same format, a document can have no title, titles in images are not considered, a title should not contain words like ‘draft", 147 ‘whitepaper", etc, if it is difficult to determine which is the title, select the one in the largest font size, and if it is still difficult to determine which is the title, select the first candidate.
+As baselines for title extraction, we use that of always using the first lines as titles and that of always using the lines with largest font sizes as titles.
+For Office documents, users can define titles as file properties using a feature provided by Office.
+By general documents, we mean documents that belong to one of any number of specific genres.
+More specifically, given a Word document, we are to extract the title from the top region of the first page.
+However, only 0.272 of them were correct.
+The documents can be presentations, books, book chapters, technical papers, brochures, reports, memos, specifications, letters, announcements, or resumes.
+For example, if one creates a new file by copying an old file, then the file property of the new file will also be copied from the old file.
+Figures 2 and 3 show examples of Office documents from which we conduct title extraction.
+Figure 1 shows an estimate on distributions of file formats on intranet and internet [15].
+(The specification covers all the cases we have encountered in data annotation.)
+Actually, ‘true" titles usually exist at the beginnings of the bodies of documents.
+We collected 6,000 Word and 6,000 PowerPoint documents from an intranet and the internet and examined how many titles in the file properties are correct.
+A number of reasons can be considered.
+In this paper, without loss of generality, we take Office documents as an example.
+We found that nearly all the titles presented in the search results were from the file properties of the documents.
+SETTING We consider the issue of automatically extracting titles from general documents.
+Office and PDF are the main file formats on the intranet.
+Figure 4 shows a snapshot of the tool.
+If we can accurately extract the titles from the bodies of documents, then we can exploit reliable title information in document processing.
+We only consider extraction of the main title.
+‘Microsoft Windows" on the top of this page is a picture and thus is ignored.
+Distributions of file formats in internet and intranet.
+A title sometimes consists of a main title and one or two subtitles.
+We found in an experiment, however, that users seldom use the feature and thus titles in file properties are usually very inaccurate.
+Even on the internet, the documents in the formats are still not negligible, given its extremely large size.
+In Figure 2, ‘Differences in Win32 API Implementations among Windows Operating Systems" is the title of the Word document.
+That is to say, titles in file properties are usually inconsistent with the ‘true" titles in the file bodies that are created by the authors and are visible to readers.
+Summary of the specification: The title of a document should be identified on the basis of common sense, if there is no difficulty in the identification.
+The annotated data will be used in training and testing of the title extraction methods.
+Next, we define a ‘specification" for human judgments in title data annotation.
+General documents are more widely available in digital libraries, intranets, and internet, and thus investigation on title extraction from them is sorely needed.
+We created 50 queries to search Word and PowerPoint documents and examined the top 15 results of each query returned by Google.
+Title extraction from PowerPoint document.
+However, there are many cases in which the identification is not easy.
+Title extraction from Word document.
+In Figure 3, ‘Building Competitive Advantages through an Agile Infrastructure" is the title of the PowerPoint document.
+There are some rules defined in the specification that guide identification for such cases.
+We found that surprisingly the accuracy was only 0.265 (cf., Section 6.3 for details).
+We have developed a tool for annotation of titles by human annotators.
+Figure 3.
+This is exactly the problem we address in this paper.
+Figure 4.
+Title annotation tool. 
+Figure 2.
+Figure 1.

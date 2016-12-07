@@ -1,0 +1,102 @@
+In many multiagent domains, agents must act in order to 
+provide security against attacks by adversaries. A common issue that
+agents face in such security domains is uncertainty about the 
+adversaries they may be facing. For example, a security robot may
+need to make a choice about which areas to patrol, and how often
+[16]. However, it will not know in advance exactly where a robber
+will choose to strike. A team of unmanned aerial vehicles (UAVs)
+[1] monitoring a region undergoing a humanitarian crisis may also
+need to choose a patrolling policy. They must make this decision
+without knowing in advance whether terrorists or other adversaries
+may be waiting to disrupt the mission at a given location. It may
+indeed be possible to model the motivations of types of adversaries
+the agent or agent team is likely to face in order to target these 
+adversaries more closely. However, in both cases, the security robot
+or UAV team will not know exactly which kinds of adversaries may
+be active on any given day.
+A common approach for choosing a policy for agents in such
+scenarios is to model the scenarios as Bayesian games. A Bayesian
+game is a game in which agents may belong to one or more types;
+the type of an agent determines its possible actions and payoffs.
+The distribution of adversary types that an agent will face may
+be known or inferred from historical data. Usually, these games
+are analyzed according to the solution concept of a Bayes-Nash
+equilibrium, an extension of the Nash equilibrium for Bayesian
+games. However, in many settings, a Nash or Bayes-Nash 
+equilibrium is not an appropriate solution concept, since it assumes that
+the agents" strategies are chosen simultaneously [5].
+In some settings, one player can (or must) commit to a strategy
+before the other players choose their strategies. These scenarios are
+known as Stackelberg games [6]. In a Stackelberg game, a leader
+commits to a strategy first, and then a follower (or group of 
+followers) selfishly optimize their own rewards, considering the action
+chosen by the leader. For example, the security agent (leader) must
+first commit to a strategy for patrolling various areas. This strategy
+could be a mixed strategy in order to be unpredictable to the 
+robbers (followers). The robbers, after observing the pattern of patrols
+over time, can then choose their strategy (which location to rob).
+Often, the leader in a Stackelberg game can attain a higher 
+reward than if the strategies were chosen simultaneously. To see the
+advantage of being the leader in a Stackelberg game, consider a
+simple game with the payoff table as shown in Table 1. The leader
+is the row player and the follower is the column player. Here, the
+leader"s payoff is listed first.
+1 2 3
+1 5,5 0,0 3,10
+2 0,0 2,2 5,0
+Table 1: Payoff table for example normal form game.
+The only Nash equilibrium for this game is when the leader plays
+2 and the follower plays 2 which gives the leader a payoff of 2.
+311
+978-81-904262-7-5 (RPS) c 2007 IFAAMAS
+However, if the leader commits to a uniform mixed strategy of
+playing 1 and 2 with equal (0.5) probability, the follower"s best
+response is to play 3 to get an expected payoff of 5 (10 and 0 with
+equal probability). The leader"s payoff would then be 4 (3 and 5
+with equal probability). In this case, the leader now has an 
+incentive to deviate and choose a pure strategy of 2 (to get a payoff of
+5). However, this would cause the follower to deviate to strategy
+2 as well, resulting in the Nash equilibrium. Thus, by committing
+to a strategy that is observed by the follower, and by avoiding the
+temptation to deviate, the leader manages to obtain a reward higher
+than that of the best Nash equilibrium.
+The problem of choosing an optimal strategy for the leader to
+commit to in a Stackelberg game is analyzed in [5] and found to
+be NP-hard in the case of a Bayesian game with multiple types of
+followers. Thus, efficient heuristic techniques for choosing 
+highreward strategies in these games is an important open issue. 
+Methods for finding optimal leader strategies for non-Bayesian games
+[5] can be applied to this problem by converting the Bayesian game
+into a normal-form game by the Harsanyi transformation [8]. If, on
+the other hand, we wish to compute the highest-reward Nash 
+equilibrium, new methods using mixed-integer linear programs (MILPs)
+[17] may be used, since the highest-reward Bayes-Nash 
+equilibrium is equivalent to the corresponding Nash equilibrium in the
+transformed game. However, by transforming the game, the 
+compact structure of the Bayesian game is lost. In addition, since the
+Nash equilibrium assumes a simultaneous choice of strategies, the
+advantages of being the leader are not considered.
+This paper introduces an efficient heuristic method for 
+approximating the optimal leader strategy for security domains, known as
+ASAP (Agent Security via Approximate Policies). This method has
+three key advantages. First, it directly searches for an optimal 
+strategy, rather than a Nash (or Bayes-Nash) equilibrium, thus allowing
+it to find high-reward non-equilibrium strategies like the one in the
+above example. Second, it generates policies with a support which
+can be expressed as a uniform distribution over a multiset of fixed
+size as proposed in [12]. This allows for policies that are simple
+to understand and represent [12], as well as a tunable parameter
+(the size of the multiset) that controls the simplicity of the policy.
+Third, the method allows for a Bayes-Nash game to be expressed
+compactly without conversion to a normal-form game, allowing for
+large speedups over existing Nash methods such as [17] and [11].
+The rest of the paper is organized as follows. In Section 2 we
+fully describe the patrolling domain and its properties. Section 3
+introduces the Bayesian game, the Harsanyi transformation, and
+existing methods for finding an optimal leader"s strategy in a 
+Stackelberg game. Then, in Section 4 the ASAP algorithm is presented
+for normal-form games, and in Section 5 we show how it can be
+adapted to the structure of Bayesian games with uncertain 
+adversaries. Experimental results showing higher reward and faster 
+policy computation over existing Nash methods are shown in Section
+6, and we conclude with a discussion of related work in Section 7.

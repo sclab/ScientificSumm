@@ -1,0 +1,40 @@
+in ganesh, it is merely a matter of replacing the hash algorithm. 
+if time reveals shortcomings in the hash algorithm, the effort involved in correcting the flaw is much greater.
+as discussed in section 2.2, the use of cryptographic hashes for addressing persistent data represents a deeper level of faith in their collision-resistance than that assumed by ganesh.
+single instance storage [6] and venti [29] are other examples of such systems.
+storage systems such as cfs [12] and past [13] that have been built using distributed hash tables fall into this category.
+the most aggressive use of hash-based techniques is by systems that use hashes as the primary identifiers for objects in persistent storage.
+ganesh instead uses row  boundaries as dividers for detecting similarity.
+however, as section 6 shows, the performance of this technique can show a dramatic drop in the presence of data reordering.
+this  approach is especially useful when data items are modified in-place through insertions, deletions, and updates.
+this and other hash-based systems such as the casper [37] and lbfs [26] filesystems, and layer-2 bandwidth optimizers such as riverbed and peribit use rabin  fingerprinting [30] to discover spans of commonality in data.
+using synchronized caches at both ends of a network link, duplicated data is replaced by smaller tokens for transmission and then restored at the remote end.
+spring and wetherall [35] apply similar principles at the network level.
+examples include peer-to-peer backup of personal computing files [11], storage-efficient archiving of data [29], and finding similar files [21].
+this simple yet elegant idea relies on  cryptographic hashing, as discussed earlier in section 2. successful  applications of this idea span a wide range of storage systems.
+at the heart of all these  systems is the idea of detecting similarity in data without requiring  interpretation of that data.
+8.2 hash-based systems the past few years have seen the emergence of many systems that exploit hash-based techniques.
+while ganesh is not used at the  presentation layer, the same principles have been applied in duplicate transfer detection [25] to increase web cache efficiency as well as for web access across bandwidth limited links [33].
+while fragment-based caching works at the edge, a recent proposal has proposed moving web page assembly to the clients to optimize content delivery [31].
+moving up to the presentation layer, there has been widespread adoption of fragment-based caching [14], which improves cache utilization by separately caching different parts of generated web pages.
+the approaches of these architectures and ganesh are  complementary and they would benefit each other.
+to improve database scalability, c-jdbc [10], sss [22], and ganymed [28] also advocate the use of an interposition-based architecture to  transparently cluster and replicate databases at the middleware level.
+our evaluation of ganesh has shown that it would benefit these scenarios.
+instead, the work advocates for an architecture in which all tiers  except the database should be offloaded to the edge.
+recent work in the evaluation of edge caching options for  dynamic web sites [38] has suggested that, without careful planning, employing complex offloading strategies can hurt performance.
+in  comparison, ganesh does not weaken any of the semantics provided by the underlying database.
+while systems that attempt to automate the partitioning and replication of an application"s database  exist [34], they do not provide full transaction semantics.
+these solutions require  substantial developer resources and detailed understanding of the  application being modified.
+[15] propose using a distributed object replication architecture where the data store"s consistency requirements are adapted on a per-application basis.
+gao et al.
+further, unlike ganesh, some of these mid-tier caching  solutions [2, 3], suffer from the complexity of having to participate in query planing and distributed query processing.
+these systems are also usually targeted towards  workloads that do not require strict consistency and can tolerate stale data.
+they require tight integration with the back-end database to ensure a time bound on the propagation of updates.
+these systems either cache entire tables in what is essentially a replicated database or use materialized views from previous query replies [19].
+8.1 caching dynamic content at the database layer, a number of systems have advocated  middletier caching where parts of the database are replicated at the edge or server [3, 4, 20].
+in this section, we first discuss alternative  approaches to caching dynamic content and then examine other uses of hash-based primitives in distributed systems.
+figure 9: normalized comparison of ganesh vs. rabin - bboard browsing mix detecting similarity.
+the maximum standard deviation for throughput and response time was 9.1% and 13.9% of the corresponding mean.
+mean of three trials.
+we also believe that it is also the first  system to demonstrate the benefits of using structural information for www 2007 / track: performance and scalability session: scalable systems for dynamic content 318 0.0 0.2 0.4 0.6 0.8 1.0 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 mb/s 20 mb/s 100 mb/s test clients norm.throughput 31.8 3.8 2.8 2.3 23.8 32.8 5.8 3.6 1.8 2.1 1.1 1.0 0 5 10 15 20 25 30 35 400 800 1200 1600 400 800 1200 1600 400 800 1200 1600 5 mb/s 20 mb/s 100 mb/s test clients norm.responsetime (a) normalized throughput: higher is better (b) normalized response time: higher is worse for throughput, a normalized result greater than 1 implies that rabin is better, for response time, a normalized result greater than 1 implies that ganesh is better.
+to the best of our knowledge, ganesh is the first system that combines the use of hash-based techniques with caching of database results to improve throughput and response times for applications with dynamic content.

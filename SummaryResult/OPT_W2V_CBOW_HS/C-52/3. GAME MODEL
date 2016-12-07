@@ -1,0 +1,46 @@
+The receiving player computes the starting position for the entity based on xi, yi and the time difference  between when the DR vector is received and the time Ti at which it was computed.
+The goal of the DR vector scheduling algorithm to be described in the next section is to make this  (cumulative) export error equal at every player independently for each of the entities that make up the game. 
+At time T1 a DR vector DR1 is computed for the same entity and immediately sent to the receiver2 .
+Based on this model, Figure 1 illustrates the sending and  receiv1 Other type of DR vectors include quadratic DR vectors which specify the acceleration of the entity and cubic spline DR vectors that consider the starting position and velocity and the ending  position and velocity of the entity.
+Thus, the DR vectors sent by a player specifies the current time at the player when the DR vector is computed (not the time at which this DR vector is sent to the other players as we will explain later), the current position of the player/entity in terms of the x, y, z coordinates and the velocity vector in the direction of x, y and z coordinates.
+Only at time T1 + dt1 did the entity get moved to point C from which point onwards the exported and the placed paths are the same.
+The receiving player then uses the velocity components to project and render the  trajectory of the entity.
+timeT1 Real Exported Placed dt1 A B C D DR1 = (T1, x1, y1, vx1, vy1) computed at time T1 and sent to the receiver DR0 = (T0, x0, y0, vx0, vy0) computed at time T0 and sent to the receiver T0 dt0 Placed E Figure 1: Trajectories and deviations.
+We assume a linear DR vector in that the information contained in the DR vector is only enough at the receiving player to compute the trajectory and render the entity in a straight line path.
+This is not shown in the figure but it serves to remind the reader that the export error is cumulative when a sequence of DR vectors are received.
+Specifically, the ith DR vector sent by player j about the kth entity is denoted by DRj ik and is represented by the following tuple (Tj ik, xj ik, yj ik, zj ik, vxj ik, vyj ik, vzj ik).
+The figure shows the reception of DR vectors at a player (henceforth called the receiver).
+This means, although the exported path based on DR1 at the sender at time T1 is the  trajectory AC, until time T1 + dt1, at the receiver, this entity was being rendered at trajectory BD based on DR0.
+When this DR vector is received, assume that the entity is at point D. A new position for the entity is computed as (x1 + vx1 × dt1, y1 + vy0 × dt1) and the entity is moved to this position (point C).
+The thick line EBD represents the projected and rendered trajectory at the receiver based on the  velocity components vx0 and vy0 (placed path).
+This trajectory is followed until a new DR vector is received which changes the position and/or velocity of the entity.
+In the figure, the export error due to DR1 is computed as the integral of the distance between the trajectories AC and BD over the time interval [T1, T1 + dt1].
+A way to represent the export error is to compute the integral of the distance between the two trajectories over the time when they are out of sync.
+But in reality, DR vectors DR0 and DR1 are sent by the sender to all the participating players.
+The receiver  computes the initial position of the entity as (x0 + vx0 × dt0, y0 + vy0 × dt0) (shown as point E).
+Each DR vector sent from one player to another specifies the  trajectory of exactly one player/entity.
+Assume that DR1 is received at the receiver after a delay of dt1 time units.
+The deviation between the exported and placed paths creates an error component which we refer to as the export error.
+We represent the integral of the distances between the placed and exported paths due to some DR DRi over a time interval [t1, t2] as Err(DRi, t1, t2).
+Assume that at time T0 a DR vector DR0 is computed by the sender and immediately sent to the receiver.
+Starting from time T1 onwards, there is a deviation between the real and the exported paths.
+Each of these players receives DR0 and DR1 after varying delays thereby creating different export error values at different players.
+The velocity components vx1 and vy1 are used to project and render this entity further.
+Without loss of generality, in the rest of the discussion, we  consider a sequence of DR vectors sent by only one player and for only one entity.
+ing of DR vectors and the different errors that are encountered.
+Although DR1 was computed at time T1 and sent to the receiver, it did not reach the receiver until time T1 + dt1.
+Note that there could be other ways of  representing this error as well, but in this paper, we use the integral of the distance between the two trajectories as a measure of the export error.
+Such a DR vector contains information about the starting position and velocity of the player/entity where the  velocity is constant1 .
+Assume that DR0 is received at the receiver after a delay of dt0 time units.
+The DR  vectors could either be sent directly from one player to another  (peerto-peer model) or could be sent through a game server which  receives the DR vector from a player and forwards it to other players (client-server model).
+Note that there would have been an export error created due to the reception of DR0 at which time the placed path would have been based on a previous DR vector.
+Note that the computation of time difference is  feasible since all the clocks are synchronized.
+The horizontal axis shows the time which is synchronized among all the players.
+The above figure and example illustrates one receiver only.
+As mentioned before, we assume  synchronized clocks among the participating players.
+Let us now consider the error due to network delay.
+As we discussed earlier, this export error is unavoidable.
+The game architecture is based on players distributed across the Internet and exchanging DR vectors to each other.
+The vertical axis tries to  conceptually capture the two-dimensional position of an entity.
+For simplicity, we consider a two dimensional game space rather than a three dimensional one.
+Hence we use DRi to denote the ith such DR vector represented as the tuple (Ti, xi, yi, vxi, vyi).

@@ -1,0 +1,16 @@
+now, ∆(s) = c(s) −   t s ∆(t) = c(s) −   i∈s   j∈s:j<i ∆({i, j}) −   i∈s ∆({i}) = c(s) −   i∈s   j∈s:j<i pjθi −   i∈s piθi = c(s) − c(s) = 0. this proves that ∆(s) = 0 if |s| > 2. using the shapley value formula now, svi =   s⊆n:i∈s ∆(s) |s| = ∆({i}) + 1 2   j∈n:j=i ∆({i, j}) = piθi + 1 2 ¡  j<i ∆({i, j}) +   j>i ∆({i, j})¢ = piθi + 1 2 ¡  j<i pjθi +   j>i piθj¢= piθi + 1 2 ¡li + ri¢. 
+so, ∆(s) = c(s) − ∆({i, j}) − ∆({j, k}) − ∆({i, k})−∆({i})−∆({j})−∆({k}) = c(s)−piθj −pjθk − piθk − piθi − pjθj − pkθk = c(s) − c(s) = 0. now, assume for t s, ∆(t) = 0 if |t| > 2. without loss of generality assume that σ to be the identity mapping.
+without loss of generality, assume θi pi ≥ θj pj ≥ θk pk .
+we will show by induction that ∆(s) = 0 if |s| > 2. for |s| = 3, let s = {i, j, k}.
+this gives ∆({i}) = c({i}) = piθi ∀i ∈ n. for any i, j ∈ n with i = j, we have ∆({i, j}) = c({i, j}) − c({i}) − c({j}) = min(piθi + pjθj + pjθi, piθi + pjθj + piθj) − piθi − pjθj = min(pjθi, piθj).
+another way to write the shapley value formula is the following [10], svi =   s⊆n:i∈s ∆(s) |s| , where ∆(s) = c(s) if |s| = 1 and ∆(s) = c(s)−£t s ∆(t).
+(1) the shapley value allocation rule says that jobs are ordered using an efficient ordering and transfers are assigned to jobs such that the cost share of job i is given by equation 1. lemma 3. let σ∗ be an efficient ordering of jobs in set n. for all i ∈ n, the shapley value is given by, svi = piθi + 1 2 ¡li + ri¢, where li = θi £j∈pi(σ∗) pj and ri = pi £j∈fi(σ∗) θj.
+¡c(s∪{i})−c(s)¢.
+(|n| − |s| − 1)!
+the shapley value (or cost share) of a job i is defined as, svi =   s⊆n\{i} |s|!
+other interesting ways to define the worth of a coalition in such games is discussed by chun [1], who assume that a coalition of jobs are served after the jobs not in the coalition are served.
+maniquet [15] observes another equivalent way to define the worth of a coalition is using the dual function of the cost function c(·).
+the worth of a coalition of s jobs is just −c(s).
+formally, the cost of a coalition s ⊆ n is, c(s) =   i∈s   j∈s:σ∗ j ≤σ∗ i θjpj, where σ∗ = σ∗ (s) is an efficient ordering considering jobs from s only.
+given a queue q ∈ q, the cost of a coalition of s ⊆ n jobs in the queue is defined as the cost incurred by jobs in s if these are the only jobs served in the queue using an efficient ordering.
+value in this section, we define the coalitional cost of this game and analyze the solution proposed by the shapley value.

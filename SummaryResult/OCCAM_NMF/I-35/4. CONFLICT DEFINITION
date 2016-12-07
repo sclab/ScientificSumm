@@ -1,0 +1,13 @@
+in this paper we focus on prohibition/obligation  conflicts, but the computational machinery introduced in  section 6.1 can equally be used to detect prohibition/permission inconsistencies, if we substitute modality obl for per. 
+inconsistencies caused by the same illocution being  simultaneously permitted and prohibited can be formalised  similarly.
+we assume that unify is a suitable implementation of a unification algorithm which i) always terminates (possibly failing, if a unifier cannot be found); ii) is correct; and iii) has linear computational complexity.
+that is, a prohibition and an obligation are in conflict if, and only if, their illocutions unify under σ. the  substitution σ, called here the conflict set, unifies the agents, roles and atomic formulae.
+9. a (deontic) conflict arises between two  normative positions n and n under a substitution σ, denoted as conflict(n, n , σ), if and only if n = prh(¯i), n = obl(¯i ) and unify(¯i,¯i , σ).
+we formally capture this notion: def.
+for  instance, an obligation obl(inform(a1, r1, a2, r2, p(c, x), t)) and a prohibition prh(inform(a1, r1, a2, r2, p(y, d), t )) are in conflict as they unify under σ = {a1/a1, r1/r1, a2/a2, r2/r2, y/c, x/d, t/t }).
+we propose to use the standard notion of unification [9] to detect when a prohibition and a permission overlap.
+therefore, a normative conflict arises when an illocution is simultaneously obliged and prohibited.
+the content of normative positions in this paper are illocutions.
+the situations when an action is simultaneously obliged and  prohibited are, however, deontic conflicts, as both obligations and prohibitions influence behaviours in a conflicting  fashion.
+however, in this paper we adopt the view of [7] in which the authors suggest that a deontic inconsistency arises when an action is simultaneously permitted and prohibited - since a  permission may not be acted upon, no real conflict occurs.
+the terms deontic conflict and deontic inconsistency have been used interchangeably in the literature.

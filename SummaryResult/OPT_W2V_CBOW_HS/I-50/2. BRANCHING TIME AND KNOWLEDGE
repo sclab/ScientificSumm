@@ -1,0 +1,18 @@
+A q-subpath is a sequence of states, starting from q, which is a subpath of some path in the model, i.e.
+The semantics of CTLK is based on Kripke models M = Q, R, ∼1, ..., ∼k, π , which include a nonempty set of states Q, a state transition relation R ⊆ Q × Q, epistemic  indistinguishability relations ∼a⊆ Q × Q (one per agent), and a valuation of propositions π : Π → P(Q).
+a sequence q0q1... such that q = q0 and there are q0 , ..., qi such that q0 ...qi q0q1... ∈ ΛM.2 The semantics of CTLK is defined as follows: M, q |= p iff q ∈ π(p); M, q |= ¬ϕ iff M, q |= ϕ; M, q |= ϕ ∧ ψ iff M, q |= ϕ and M, q |= ψ; M, q |= E fϕ iff there is a q-path λ such that M, λ[1] |= ϕ; M, q |= E2 ϕ iff there is a q-path λ such that M, λ[i] |= ϕ for every i ≥ 0; 1 Additional operators A (for every path) and ♦  (sometime in the future) are defined in the usual way.
+A path λ in M refers to a possible behavior (or  computation) of system M, and can be represented as an infinite sequence of states that follow relation R, that is, a sequence q0q1q2... such that qiRqi+1 for every i = 0, 1, 2, ... We  denote the ith state in λ by λ[i].
+We assume that relation R is serial and that all ∼a are equivalence relations.
+M, q |= EϕU ψ iff there is a q-path λ and i ≥ 0 such that M, λ[i] |= ψ, and M, λ[j] |= ϕ for every 0 ≤ j < i; M, q |= Kaϕ iff M, q |= ϕ for every q such that q ∼a q . 
+2 For CTLK models, λ is a q-subpath iff it is a q-path.
+Let Π be a set of atomic propositions with a typical  element p, and Agt = {1, ..., k} be a set of agents with a typical element a.
+CTL includes operators for temporal properties of  systems: i.e., path quantifier E (there is a path), together with temporal operators: f(in the next state), 2  (always from now on) and U (until).1 Every occurrence of a temporal operator is preceded by exactly one path  quantifier in CTL (this variant of the language is sometimes called vanilla CTL).
+Epistemic logic uses operators for  representing agents" knowledge: Kaϕ is read as agent a knows that ϕ.
+The set of all paths in M is denoted by ΛM (if the model is clear from context, M will be omitted).
+We will sometimes refer to formulae ϕ as (vanilla) state formulae and to formulae γ as (vanilla) path formulae.
+A q-path is a path that starts from q, i.e., λ[0] = q.
+Thus, we need a notion of time and change, plus a notion of what the agents are supposed to know in particular situations.
+The language of CTLK consists of formulae ϕ, given as follows: ϕ ::= p | ¬ϕ | ϕ ∧ ϕ | Eγ | Kaϕ γ ::= fϕ | 2 ϕ | ϕU ϕ.
+It will not always be so when plausible paths are introduced.
+In this paper we develop a framework for agents" beliefs about how the world can (or must) evolve.
+CTLK [19] is a straightforward combination of the computation tree logic CTL [4, 3] and standard epistemic logic [9, 5].

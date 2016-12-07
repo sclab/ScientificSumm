@@ -1,0 +1,71 @@
+Given an observation G as a conjunction of literals and NAF-literals possibly containing variables, we introduce a new ground literal O together with the rule O ← G. In this case, O has an explanation (E, F) iff G has the same explanation.
+If G is a ground literal and the program P ∪ { ← not G } has a  consistent answer set, put G in Sn.
+If P ∪ { ← not G } has a consistent answer set S, G has the  minimal explanation (E, F) = (∅, ∅) and S satisfies G. Now we provide methods for computing (counter-)proposals.
+For a ground literal O, if P ∪ { O ← G } ∪ { ← not O } has a consistent answer set satisfying G θ with a substitution θ, put G θ in Sn.
+In contrast, the rule −L ← not L derives the atom −L if an abducible L which is in P is not to be true.
+If G is a ground  literal and there is a rule H ← B in P such that G = Hσ and Bσ = G for some substitution σ, put G = Bσ.
+Sn) computed above  coincides with the set of conditional proposals (resp.
+Thus, update atoms represent the change of truth values of abducibles in a program.
+Given an abductive program P, H , the set UR of update rules is defined as: UR = { L ← not L, L ← not L | L ∈ H } ∪ { +L ← L | L ∈ H \ P } ∪ { −L ← not L | L ∈ H ∩ P } , where L, +L, and −L are new atoms uniquely associated with every L ∈ H. The atoms +L and −L are called update atoms.
+In what follows, E+ = { +L | L ∈ E } and F − = { −L | L ∈ F } for E ⊆ H and F ⊆ H. Proposition 4.1.
+In this case, the rule is shortly written as +p(x) ← p(x), x = a.
+To explain the observation G = flies(t) in the program P of Example 2.1, first construct the update program UP of P:3 UP : flies(x) ← bird(x), not ab(x), ab(x) ← broken-wing(x) , bird(t) ← , bird(o) ← , broken-wing(x) ← not broken-wing(x), broken-wing(x) ← not broken-wing(x), +broken-wing(x) ← broken-wing(x), x = t , −broken-wing(t) ← not broken-wing(t) .
+When p(x) ∈ H and p(a) ∈ P but p(t) ∈ P for t = a, the rule +L ← L precisely becomes +p(t) ← p(t) for any t = a.
+It has the single U-minimal answer set: S = { bird(t), bird(o), flies(t), flies(o), broken-wing(t), broken-wing(o), −broken-wing(t) }.
+First, conditional proposals are computed as follows.
+input : an abductive program P, H , a proposal G; output : a set Sn of proposals.
+For a ground literal O, if P ∪{ O ← G }∪{ ← not O } has a consistent answer set satisfying G θ with a  substitution θ, put G θ in Sn.
+If P ∪ { ← not G } has a consistent answer set  satisfying G θ with a substitution θ, put G θ in Sn.
+The unique minimal explanation (E, F) = (∅, {broken-wing(t)}) of G is expressed by the update atom −broken-wing(t) in S ∩ UH− .
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1027 P ∪{ O ← G }, H with a ground literal O. Compute a minimal explanation of O in P ∪ { O ← G }, H using its update program.
+Else if G is a conjunction possibly containing variables, do the following.
+With this replacement, an observation is assumed to be a ground literal without loss of generality.
+In  particular, (E, F) is a minimal explanation iff S is a U-minimal answer set.
+If G is a ground literal, compute its minimal  explanation (E, F) in P, H using the update program.
+For a ground  literal O, if P ∪ { O ← G } ∪ { ← not O } has a  consistent answer set satisfying G θ with a substitution θ and G θ = G, put G θ in Sn.
+Generally, the rule becomes +p(x) ← p(x), x = t1, .
+If O has a minimal  explanation (E, F) with a substitution θ for variables in G, put Gθ, E, not F in Sc.
+Else if G is a  conjunction possibly containing variables, do the following.
+Then, a pair (E, F) is an  explanation of G iff UP ∪ { ← not G } has a consistent answer set S such that E+ = S ∩ UH+ and F− = S ∩ UH− .
+Update programs are used for  computing (minimal) explanations of an observation.
+Else if G is a conjunction possibly containing variables, consider the abductive program 3 t represents tweety and o represents opus.
+For a replaced literal L ∈ G , if there is a rule H ← B in P such that L = Hσ and (G \ {L}) ∪ Bσ = G for some substitution σ, put G = (G \ {L}) ∪ Bσ.
+Next, consider the program UP ∪ { ← not flies(t) }.
+The set of all update atoms associated with the abducibles in H is denoted by UH, and UH = UH+ ∪ UH− where UH+ (resp.
+The pair of rules L ← not L and L ← not L specify the situation that an abducible L is true or not.
+In practice, an agent can prespecify literals in a proposal for possible relaxation or rules in a program for the usage of goal replacement. 
+Let P, H be an abductive program and G a ground literal representing an observation.
+An answer set S of UP is called U-minimal if there is no answer set T of UP such that T ∩ UH ⊂ S ∩ UH.
+The rule +L ← L derives the atom +L if an abducible L which is not in P is to be true.
+UH− ) is the set of update atoms of the form +L (resp.
+In this case, an update atom is semantically identified with its ground instances.
+([15]) Let P, H be an abductive  program, UP its update program, and G a ground literal  representing an observation.
+By the definition, the atom L becomes true iff L is not true.
+% neighborhood proposals by goal replacement; Construct G by goal replacement.
+input : an abductive program P, H , a proposal G; output : a set Sc of proposals.
+That is, +L means the introduction of L, while −L means the deletion of L. When an abducible L contains variables, the associated update atom +L or −L is supposed to have exactly the same variables.
+% neighborhood proposals by anti-instantiation; Construct G by anti-instantiation.
+Given an abductive program P, H , its update program UP is defined as the program UP = (P \ H) ∪ UR .
+Put G, E, not F in Sc.
+By the definition, U-minimal answer sets exist whenever UP has answer sets.
+Conditional neighborhood proposals are computed by  combining the above two procedures.
+The result for Sn follows from Definition 3.5 and Proposition 4.2.
+In this section, we provide methods of computing  proposals in terms of answer sets of programs.
+Note that the procedure for computing Sn contains some nondeterministic choices.
+% neighborhood proposals by dropping conditions; Construct G by dropping conditions.
+For instance, there are generally several candidates of literals to relax in a proposal.
+Next, neighborhood proposals are computed as follows.
+The result for Sc follows from Definition 3.3 and Proposition 4.1.
+The Sixth Intl.
+We first introduce some definitions from [15].
+The set Sc (resp.
+Also, there might be several rules in a program for the usage of goal replacement.
+, x = tn for n such instances.
+neighborhood proposals).
+Those proposals are  computed at each round.
+Proposition 4.2.
+Definition 4.1.
+Definition 4.2.
+Example 4.1.
+Joint Conf.
+Theorem 4.3.

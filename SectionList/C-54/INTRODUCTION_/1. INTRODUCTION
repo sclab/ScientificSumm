@@ -1,0 +1,72 @@
+In recent years, enterprises in the public and private 
+sectors have provided access to large volumes of spatial data
+over the Internet. Interactive work with such large volumes
+of online spatial data is a challenging task. We have been 
+developing an interactive browser for accessing spatial online
+databases: the SAND (Spatial and Non-spatial Data) 
+Internet Browser. Users of this browser can interactively and
+visually manipulate spatial data remotely. Unfortunately,
+interactive remote access to spatial data slows to a crawl
+without proper data access mechanisms. We developed two
+separate methods for improving the system performance, 
+together, form a dynamic network infrastructure that is highly
+scalable and provides a satisfactory user experience for 
+interactions with large volumes of online spatial data.
+The core functionality responsible for the actual database
+operations is performed by the server-based SAND system.
+SAND is a spatial database system developed at the 
+University of Maryland [12]. The client-side SAND Internet
+Browser provides a graphical user interface to the facilities
+of SAND over the Internet. Users specify queries by 
+choosing the desired selection conditions from a variety of menus
+and dialog boxes.
+SAND Internet Browser is Java-based, which makes it 
+deployable across many platforms. In addition, since Java has
+often been installed on target computers beforehand, our
+clients can be deployed on these systems with little or no
+need for any additional software installation or 
+customization. The system can start being utilized immediately 
+without any prior setup which can be extremely beneficial in
+time-sensitive usage scenarios such as emergencies.
+There are two ways to deploy SAND. First, any standard
+Web browser can be used to retrieve and run the client piece
+(SAND Internet Browser) as a Java application or an applet.
+This way, users across various platforms can continuously
+access large spatial data on a remote location with little or
+15
+no need for any preceding software installation. The second
+option is to use a stand-alone SAND Internet Browser along
+with a locally-installed Internet-enabled database 
+management system (server piece). In this case, the SAND Internet
+Browser can still be utilized to view data from remote 
+locations. However, frequently accessed data can be downloaded
+to the local database on demand, and subsequently accessed
+locally. Power users can also upload large volumes of spatial
+data back to the remote server using this enhanced client.
+We focused our efforts in two directions. We first aimed at
+developing a client-server architecture with efficient caching
+methods to balance local resources on one side and the 
+significant latency of the network connection on the other. The
+low bandwidth of this connection is the primary concern in
+both cases. The outcome of this research primarily addresses
+the issues of our first type of usage (i.e., as a remote browser
+application or an applet) for our browser and other similar
+applications. The second direction aims at helping users
+that wish to manipulate large volumes of online data for
+prolonged periods. We have developed a centralized 
+peerto-peer approach to provide the users with the ability to
+transfer large volumes of data (i.e., whole data sets to the
+local database) more efficiently by better utilizing the 
+distributed network resources among active clients of a 
+clientserver architecture. We call this architecture 
+APPOINTApproach for Peer-to-Peer Oﬄoading the INTernet. The
+results of this research addresses primarily the issues of the
+second type of usage for our SAND Internet Browser (i.e.,
+as a stand-alone application).
+The rest of this paper is organized as follows. Section 2 
+describes our client-server approach in more detail. Section 3
+focuses on APPOINT, our peer-to-peer approach. Section 4
+discusses our work in relation to existing work. Section 5
+outlines a sample SAND Internet Browser scenario for both
+of our remote access approaches. Section 6 contains 
+concluding remarks as well as future research directions.

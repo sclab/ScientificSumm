@@ -1,0 +1,28 @@
+existing metrics in standard ir, af and nd are insufficient, and new solutions must be explored, as we will discuss in section 4, after describing the technical cores of our system in the next section. 
+the combination of af, ir and nd with the new extensions raises an important research question regarding evaluation methodology: how can we measure the utility of such an information distillation system?
+compared to past work, this is the first evaluation of novelty detection integrated with adaptive filtering for sequenced queries that allows flexible user feedback over ranked passages.
+compared to conventional af, it enables a more active role of the user in refining his or her information needs and requesting new results by allowing relevance and novelty feedback via highlighting of arbitrary spans of text in passages returned by the system.
+compared to standard ir, our approach has the power of incrementally learning long-term information needs and modeling a sequence of queries within a task.
+our framework combines and extends the power of adaptive filtering (af), ad-hoc retrieval (ir) and novelty detection (nd).
+through the above example, we can see the main properties of our new framework for utility-based  information distillation over temporally ordered documents.
+without novelty detection, the old relevant passages would be shown to the user repeatedly in each ranked list.
+clearly, novelty detection is very important for the utility of such a system because of the iterative search.
+the user may modify the original queries or add a new query during the process; the query profiles will be changed accordingly.
+however, an article mentioning ‘...officials have doubled the reward money to $200,000..." might be ranked high since it is both relevant to the (updated) query profile and novel with respect to the (updated) user history.
+this piece of feedback is also added to the user history as a seen example, so that in future, the system will not place another passage mentioning ‘$100,000 reward" at the top of the ranked list.
+for example, if the user highlights ‘...officials have posted a $100,000 reward for their capture..." as relevant answer to the query what steps have been taken so far?, then the highlighted piece is used as an additional positive training example in the adaptation of the query profile.
+as soon as the query profile is updated, the system re-issues a search and returns another ranked list of passages where the previously seen passages are either removed or ranked low, based on user preference.
+passages not marked by the user are taken as negative examples.
+these spans of text are taken as positive examples in the adaptation of the query profile, and also added to the user"s history.
+when presented with a list of passages, the user may provide feedback by highlighting arbitrary spans of text that he or she found relevant.
+passage ranking here is based on how relevant a passage is with respect to the current query, how novel it is with respect to the current user history (of his or her interactions with the system), and how redundant it is compared to other passages with a higher rank in the list.
+a distillation system is supposed to monitor the incoming documents, process them chunk by chunk in a temporal order, select potentially relevant and novel passages from each chunk with respect to each query, and present a ranked list of passages to the user.
+we call such an information need a task, and the associated questions as the queries in this task.
+6. what steps have been taken so far?
+5. do they have any vehicles?
+4. how are they armed?
+3. who are their known contacts inside and outside the prison?
+2. where and when were they sighted?
+the associated lower-level questions could be: 1. how many prisoners escaped?
+assuming a user were interested in this event since its early stage, the information need could be: ‘find information about the escape of convicts from texas prison, and information related to their recapture".
+consider a news event - the escape of seven convicts from a texas prison in december 2000 and their capture a month later.

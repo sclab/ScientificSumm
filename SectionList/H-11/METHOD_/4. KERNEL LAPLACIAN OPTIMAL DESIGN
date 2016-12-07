@@ -1,0 +1,173 @@
+Canonical experimental design approaches (e.g. A-Optimal
+Design, D-Optimal Design, and E-Optimal) only consider
+linear functions. They fail to discover the intrinsic geometry
+in the data when the data space is highly nonlinear. In this
+section, we describe how to perform Laplacian 
+Experimental Design in Reproducing Kernel Hilbert Space (RKHS)
+which gives rise to Kernel Laplacian Experimental Design
+(KLOD).
+For given data points x1, · · · , xm ∈ X with a positive
+definite mercer kernel K : X ×X → R, there exists a unique
+RKHS HK of real valued functions on X. Let Kt(s) be the
+function of s obtained by fixing t and letting Kt(s)
+.
+= K(s, t).
+HK consists of all finite linear combinations of the form
+l
+i=1 αiKti with ti ∈ X and limits of such functions as the
+ti become dense in X. We have Ks, Kt HK = K(s, t).
+4.1 Derivation of LOD in Reproducing
+Kernel Hilbert Space
+Consider the optimization problem (5) in RKHS. Thus,
+we seek a function f ∈ HK such that the following objective
+function is minimized:
+min
+f∈HK
+k
+i=1
+f(zi)−yi
+2
++
+λ1
+2
+m
+i,j=1
+f(xi)−f(xj)
+2
+Sij+λ2 f 2
+HK
+(12)
+We have the following proposition.
+Proposition 4.1. Let H = { m
+i=1 αiK(·, xi)|αi ∈ R} be
+a subspace of HK , the solution to the problem (12) is in H.
+Proof. Let H⊥
+be the orthogonal complement of H, i.e.
+HK = H ⊕ H⊥
+. Thus, for any function f ∈ HK , it has
+orthogonal decomposition as follows:
+f = fH + fH⊥
+Now, let"s evaluate f at xi:
+f(xi) = f, Kxi HK
+= fH + fH⊥ , Kxi HK
+= fH, Kxi HK + fH⊥ , Kxi HK
+Notice that Kxi ∈ H while fH⊥ ∈ H⊥
+. This implies that
+fH⊥ , Kxi HK = 0. Therefore,
+f(xi) = fH, Kxi HK = fH(xi)
+This completes the proof.
+Proposition 4.1 tells us the minimizer of problem (12) admits
+a representation f∗
+= m
+i=1 αiK(·, xi). Please see [2] for the
+details.
+Let φ : Rd
+→ H be a feature map from the input space
+Rd
+to H, and K(xi, xj) =< φ(xi), φ(xj) >. Let X denote
+the data matrix in RKHS, X = (φ(x1), φ(x2), · · · , φ(xm)).
+Similarly, we define Z = (φ(z1), φ(z2), · · · , φ(zk)). Thus,
+the optimization problem in RKHS can be written as follows:
+min
+Z
+Tr XT
+ZZT
++ λ1XLXT
++ λ2I
+−1
+X (13)
+Since the mapping function φ is generally unknown, there
+is no direct way to solve problem (13). In the following, we
+apply kernel tricks to solve this optimization problem. Let
+X−1
+be the Moore-Penrose inverse (also known as pseudo
+inverse) of X. Thus, we have:
+XT
+ZZT
++ λ1XLXT
++ λ2I
+−1
+X
+= XT
+XX−1
+ZZT
++ λ1XLXT
++ λ2I
+−1
+(XT
+)−1
+XT
+X
+= XT
+X ZZT
+X + λ1XLXT
+X + λ2X
+−1
+(XT
+)−1
+XT
+X
+= XT
+X XT
+ZZT
+X + λ1XT
+XLXT
+X + λ2XT
+X
+−1
+XT
+X
+= KXX KXZKZX + λ1KXXLKXX + λ2KXX
+−1
+KXX
+where KXX is a m × m matrix (KXX,ij = K(xi, xj)), KXZ
+is a m×k matrix (KXZ,ij = K(xi, zj)), and KZX is a k×m
+matrix (KZX,ij = K(zi, xj)). Thus, the Kernel Laplacian
+Optimal Design can be defined as follows:
+Definition 2. Kernel Laplacian Optimal Design
+minZ=(z1,··· ,zk) Tr KXX KXZKZX + λ1KXXLKXX
+λ2KXX
+−1
+KXX (14)
+4.2 Optimization Scheme
+In this subsection, we discuss how to solve the 
+optimization problems (11) and (14). Particularly, if we select a
+linear kernel for KLOD, then it reduces to LOD. Therefore,
+we will focus on problem (14) in the following.
+It can be shown that the optimization problem (14) is
+NP-hard. In this subsection, we develop a simple sequential
+greedy approach to solve (14). Suppose n points have been
+selected, denoted by a matrix Zn
+= (z1, · · · , zn). The (n +
+1)-th point zn+1 can be selected by solving the following
+optimization problem:
+max
+Zn+1=(Zn,zn+1)
+Tr KXX KXZn+1 KZn+1X +
+λ1KXXLKXX + λ2KXX
+−1
+KXX (15)
+The kernel matrices KXZn+1 and KZn+1X can be rewritten
+as follows:
+KXZn+1 = KXZn , KXzn+1 , KZn+1X =
+KZnX
+Kzn+1X
+Thus, we have:
+KXZn+1 KZn+1X = KXZn KZnX + KXzn+1 Kzn+1X
+We define:
+A = KXZn KZnX + λ1KXXLKXX + λ2KXX
+A is only dependent on X and Zn
+. Thus, the (n + 1)-th
+point zn+1 is given by:
+zn+1 = arg min
+zn+1
+Tr KXX A + KXzn+1 Kzn+1X
+−1
+KXX
+(16)
+Each time we select a new point zn+1, the matrix A is 
+updated by:
+A ← A + KXzn+1 Kzn+1X
+If the kernel function is chosen as inner product K(x, y) =
+x, y , then HK is a linear functional space and the 
+algorithm reduces to LOD.

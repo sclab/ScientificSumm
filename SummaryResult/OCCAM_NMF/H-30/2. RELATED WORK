@@ -1,0 +1,29 @@
+however, it is unclear whether the same approach is also effective for ad hoc retrieval, due to the differences in the tasks. 
+results showed that combining single term and large window multi-term concepts significantly improved effectiveness.
+the concepts used in their work are more general than those used in lca, and include inquery query  language structures, such as #uw50(white house), which  corresponds to the concept the terms white and house occur, in any order, within 50 terms of each other.
+papka and allan investigate using relevance feedback to perform multi-term concept expansion for document  routing [19].
+however, it is not clear based on the analysis done how much the phrases helped over the single terms alone.
+expansion concepts were chosen and weighted using a metric based on co-occurrence statistics.
+xu and croft"s local context  analysis (lca) method combined passage-level retrieval with concept expansion, where concepts were single terms and phrases [28].
+however, there have been several attempts to expand using multi-term concepts.
+there has been relatively little work done in the area of query expansion in the context of dependence models [9].
+throughout the remainder of this work, we refer to this instantiation of relevance models as rm3.
+this can be thought of as expanding the original query by k weighted terms.
+this clipped distribution is then  interpolated with with the original, maximum likelihood query model [1].
+after the model is estimated, documents are ranked by clipping the relevance model by choosing the k most likely terms from p(·|q).
+these mild assumptions make computing the bayesian posterior more practical.
+it is computed as: p(w|q) = d p(w|d)p(d|q) ≈ d∈rq p(w|d)p(q|d)p(d) w d∈rq p(w|d)p(q|d)p(d) (1) where rq is the set of documents that are relevant or  pseudorelevant to query q. in the pseudo-relevant case, these are the top ranked documents for query q. furthermore, it is assumed that p(d) is uniform over this set.
+given a query q, a relevance model is a multinomial  distribution, p(·|q), that encodes the likelihood of each term given the query as evidence.
+instead, they model a more generalized notion of relevance, as we now show.
+the only difference  between the two approaches is that relevance models do not explicitly model the relevant or pseudo-relevant documents.
+much like model-based feedback, relevance models estimate an improved query model.
+therefore, we go into the details of the model.
+the other technique, relevance models, is more closely  related to our work.
+the content model is then interpolated with the original query model to form the  expanded query.
+this separates the content model from the background model.
+model-based feedback finds the model that best describes the relevant documents while taking a background (noise) model into consideration.
+both approaches  attempt to use pseudo-relevant or relevant documents to  estimate a better query model.
+a number of formalized query expansion techniques have been developed for the language modeling framework,  including zhai and lafferty"s model-based feedback and lavrenko and croft"s relevance models [12, 29].
+unfortunately, it is not possible to formally apply rocchio"s approach to a statistical retrieval model, such as language modeling for information retrieval.
+rocchio"s  approach, which was developed within the vector space model, reweights the original query vector by moving the weights towards the set of relevant or pseudo-relevant documents and away from the non-relevant documents.
+one of the classic and most widely used approaches to query expansion is the rocchio algorithm [21].

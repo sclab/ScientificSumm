@@ -1,0 +1,41 @@
+When the local storage of a zebroid is completely occupied, it needs to replace one of its existing items to carry the client requested data item.
+Large data items may be divided into smaller chunks enabling the dispatcher to schedule one or more zebroids to deliver each chunk to a client in a timely manner.
+We have considered local and global variants of the LRU/LFU policies which determine whether local or global knowledge of contents of the cars known at the dispatcher is used for the eviction decision at a zebroid (see [9] for more details).
+Hence, a zebroid scheduled on the basis of this inaccurate information may not rendezvous with its target client.
+This scheme computes the number of data item replicas as a function of their popularity.
+It is static because number of replicas in the system do not change and no replacements are performed.
+Note that the latency along the quickest delivery path that employs a relay team of z zebroids is similar to that obtained with epidemic routing [19] under the assumptions of infinite storage and no interference.
+The metrics considered in this study are aggregate availability  latency, δagg, percentage improvement in δagg with zebroids as  compared to the no-zebroids case and average number of replacements incurred per client request which is an indicator of the overhead incurred by zebroids.
+In such cases, even though a car may meet a requesting client earlier than other servers, if its local storage  contains data items with only a single copy in the system, then such a car is not chosen as a zebroid. 
+Hence, it determines the optimal set of forwarding decisions 76 that will enable the data item to be delivered to the client in the minimum amount of time.
+3.2 Carrier-based Replacement policies The replacement policies considered in this paper are reactive since a replacement occurs only in response to a request issued for a certain data item.
+New replicas are created as long as a car has a certain threshold of its storage unoccupied.
+Third, the average number of replacements incurred by the zebroids.
+The time required to transfer a data item from a server to a  zebroid depends on its size and the available link bandwidth.
+3.1 Zebroids When a client references a data item missing from its local  storage, the dispatcher identifies all cars with a copy of the data item as servers.
+Note that the dispatchers with the help of the control plane may ensure that no data item is lost from the system.
+Initially, number of replicas for each data item replicas might be computed using Equation 1.
+This may incur additional overhead due to redundant resource utilization to obtain the same latency improvements.
+Second, the bandwidth used to transfer a copy of a data item from a server to the zebroid.
+A simple instantiation of z-relay zebroids occurs when z = 1 and the client"s request triggers a transfer of a copy of the requested data item from a server to a zebroid in its vicinity.
+To minimize the likelihood of such scenarios, the dispatcher may schedule  multiple zebroids.
+In other words, at least one replica of every data item is maintained in the ad-hoc network at all times.
+Using this  information, the dispatcher schedules the quickest delivery path from any of the servers to the client using any other cars as intermediate  carriers.
+We quantify the performance of the various replacement policies with reference to this base-line that does not employ zebroids.
+One may assume a cold start phase, where initially only one or few copies of every data item exist in the system.
+Note that in the no-zebroids case neither overhead is incurred.
+With small data items, it is reasonable to assume that this transfer time is small, especially in the presence of the high bandwidth data plane.
+When the cars encounter one another they construct new replicas of some selected data items to occupy the empty slots.
+For this purpose, the zebroid must  select an appropriate candidate for eviction.
+The replacement policies incur the following overheads.
+Next, the dispatcher obtains the future routes of all cars for a finite time duration equivalent to the maximum time the client is willing to wait for its request to be serviced.
+The selection procedure may be to choose the data items uniformly at random.
+Eventually, majority of the storage capacity of a car will be  exhausted.
+Such a  zebroid is termed one-instantaneous zebroid.
+In some cases, the dispatcher might have inaccurate information about the routes of the cars.
+The carrier-based replacement policies employed in our study are Least Recently Used (LRU), Least Frequently Used (LFU) and Random (where a eviction candidate is chosen  uniformly at random).
+This decision process is analogous to that encountered in operating system paging where the goal is to maximize the cache hit ratio to prevent disk access  delay [18].
+Many storage slots of the cars may be unoccupied.
+First, the complexity associated with the implementation of a policy.
+Hence, this is referred to as the  ‘nozebroids" environment.
+This remains a future research  direction.

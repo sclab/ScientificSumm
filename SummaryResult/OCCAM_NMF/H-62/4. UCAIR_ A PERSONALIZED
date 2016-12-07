@@ -1,0 +1,49 @@
+828 google result (user query = java map) ucair result (user query =java map) previous query = travel indonesia previous query = hashtable expanded user query = java map indonesia expanded user query = java map class 1 java map projections of the world ... lonely planet - indonesia map map (java 2 platform se v1.4.2) www.btinternet.com/ se16/js/mapproj.htm www.lonelyplanet.com/mapshells/... java.sun.com/j2se/1.4.2/docs/... 2 java map projections of the world ... indonesia tourism : central java - map java 2 platform se v1.3.1: interface map www.btinternet.com/ se16/js/oldmapproj.htm www.indonesia-tourism.com/... java.sun.com/j2se/1.3/docs/api/java/... 3 java map indonesia tourism : west java - map an introduction to java map collection classes java.sun.com/developer/... www.indonesia-tourism.com/ ... www.oracle.com/technology/... 4 java technology concept map indostreets - java map an introduction to java map collection classes java.sun.com/developer/onlinetraining/... www.indostreets.com/maps/java/ www.theserverside.com/news/... 5 science@nasa home indonesia regions and islands maps, bali, java, ... koders - mappings.java science.nasa.gov/realtime/... www.maps2anywhere.com/maps/... www.koders.com/java/ 6 an introduction to java map collection classes indonesia city street map,... hibernate simplifies inheritance mapping www.oracle.com/technology/... www.maps2anywhere.com/maps/... www.ibm.com/developerworks/java/... 7 lonely planet - java map maps of indonesia tmap 30.map class hierarchy www.lonelyplanet.com/mapshells/ www.embassyworld.com/maps/... tmap.pmel.noaa.gov/... 8 onjava.com: java api map maps of indonesia by peter loud class scope www.onjava.com/pub/a/onjava/api map/ users.powernet.co.uk/... jalbum.net/api/se/datadosen/util/scope.html 9 gta san andreas : sam maps of indonesia by peter loud class printsafehashmap www.gtasanandreas.net/sam/ users.powernet.co.uk/mkmarina/indonesia/ jalbum.net/api/se/datadosen/... 10 indonesia tourism : west java - map indonesiaphoto.com java pro - union and vertical mapping of classes www.indonesia-tourism.com/... www.indonesiaphoto.com/... www.fawcette.com/javapro/... table 1: sample results of query expansion 
+5) of highest reranked results to be followed by any originally high ranked results.
+since implicit feedback is not completely  reliable, we bring up only a small number (e.g.
+to rerank any unseen document summaries, ucair uses the standard vector space retrieval model and scores each summary based on the similarity of the result and the current user information need vector x [21].
+in both cases, the current (updated) user model would be used to rerank the unseen results so that the user would see improved search results immediately.
+currently, ucair implements reranking in two cases, corresponding to the user clicking the back button and next link in the internet explorer.
+4.4 result reranking in general, we want to rerank all the unseen results as soon as the user model is updated.
+in our experiments, α is set to 0.5. note that we update the information need model whenever the user views a document.
+that is, x = αq + (1 − α) 1 k k i=1 si where q is the query vector, k is the number of summaries the user clicks immediately following the current query and α is a parameter that controls the influence of the clicked summaries on the inferred information need model.
+rocchio computes the centroid vector of all the summaries and interpolates it with the original query vector to obtain an updated term vector.
+according to the vector space retrieval model, each clicked summary si can be represented by a term weight vector si with each term weighted by a tf-idf weighting formula [21].
+we update our user model by computing a new information need vector with a standard feedback method in information retrieval (i.e., rocchio [19]).
+4.3 information need model updating suppose at time t, we have observed that the user has viewed k documents whose summaries are s1, ..., sk.
+currently, ucair only uses the immediate preceding query for query expansion; in principle, we could exploit all related past queries.
+in this case, ucair would send this expanded query rather than the original one to the search engine and return the results corresponding to the expanded query.
+5 results out of 50), the term would be added to the current query to form an expanded query.
+specifically, for each term in the previous query or the corresponding search results, if its frequency in the results of the current query is greater than a preset threshold (e.g.
+if the previous query and the current query are found to belong to the same search session, ucair would attempt to expand the current query with terms from the previous query and its search results.
+the cosine similarity between the two average results is calculated as s avg · savg/ s 2 avg · s2 avg if the similarity value exceeds a predefined threshold, the two queries will be considered to be in the same information session.
++ sn)/n.
+we define the  average result savg to be the centroid of all the result vectors, i.e., (s1 + s2 + .
+we use the pivoted normalization tf-idf weighting formula [24] to  compute a term weight vector si for each result si.
+, sn} be the result sets for the two queries.
+, sn } and {s1, s2, .
+let {s1, s2, .
+the similarity between the previous query q and the current query q is computed as follows.
+to compensate for the terseness of titles and summaries, we retrieve more results than a user would normally view for the purpose of detecting session boundaries  (typically 50 results).
+we only use the titles and summaries of the search results to  calculate the similarity since they are available in the retrieved search result page and fetching the full text of every result page would  significantly slow down the process.
+for example, for the above queries java island and travel  indonesia", the words java, bali, island, indonesia and travel may occur frequently in both queries" search results, yielding a high similarity score.
+therefore we use the search results of the two queries to help decide whether they are topically related.
+because related queries do not necessarily share the same words (e.g., java island and travel indonesia), it is insufficient to use only query text.
+since our  clientside agent does not have access to server query logs, we make  session boundary decisions based on textual similarity between two queries.
+existing work on session boundary detection is mostly in the context of web log analysis (e.g., [8]), and uses  statistical information rather than textual features.
+4.2 session boundary detection and query  expansion to effectively exploit previous queries and their corresponding clickthrough information, ucair needs to judge whether two  adjacent queries belong to the same search session (i.e., detect  session boundaries).
+(3) rerank a set of unseen documents based on the current model x. below we describe our algorithms for each of them.
+(2) update the information need model x based on a newly clicked document summary.
+for each of these four actions, the system responds with, respectively, (1) 1 ucair is available at: http://sifaka.cs.uiuc.edu/ir/ucair/download.html 827 search engine (e.g., google) search history log (e.g.,past queries, clicked results) query modification result re-ranking user modeling result buffer ucair userquery results clickthrough… figure 1: ucair architecture generating a ranked list of results by sending a possibly expanded query to a search engine; (2) updating the information need model x; (3) reranking the unseen results on the current result page based on the current model x; and (4) reranking the unseen pages and generating the next page of results based on the current model x. behind these responses, there are three basic tasks: (1) decide whether the previous query is related to the current query and if so expand the current query with useful terms from the previous query or the results of the previous query.
+in ucair, we consider four basic user actions: (1) submitting a keyword query; (2) viewing a document; (3) clicking the back button; (4) clicking the next link on a result page.
+(3) the result re-ranking module immediately re-ranks any unseen search results whenever the user model is updated.
+(2) the query modification module selectively  improves the query formulation according to the current user model.
+as shown in figure 1, the ucair toolbar has 3 major  components: (1) the (implicit) user modeling module captures a user"s search context and history information, including the submitted queries and any clicked search results and infers search session boundaries.
+furthermore, performing  personalized search on the client-side is more scalable than on the  serverside, since the overhead of computation and storage is distributed among clients.
+client-side personalization also  allows the system to easily observe a lot of user information that may not be easily available to a server.
+this way, the captured user information always resides on the  computer that the user is using, thus the user does not need to release any information to the outside.
+for this reason, ucair is strictly running as a client-side search agent, as opposed to a server-side application.
+the issue of privacy is a primary obstacle for deploying any real world applications involving serious user modeling, such as  personalized search.
+currently, it is only  implemented for internet explorer and google, but it is a matter of engineering to make it run on other web browsers and interact with other search engines.
+ucair is a web browser plug-in 1 that acts as a proxy for web search engines.
+search agent 4.1 design in this section, we present a client-side web search agent called ucair, in which we implement some of the methods discussed in the previous section for performing personalized search through implicit user modeling.

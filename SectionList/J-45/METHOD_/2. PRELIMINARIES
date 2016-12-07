@@ -1,0 +1,66 @@
+A normal form game2
+is denoted by [I, {Ri}, {ui(r)}], where I
+refers to the set of players and m = |I| is the number of players.
+Ri is the set of strategies available to player i ∈ I, with R =
+R1 ×. . .×Rm representing the set of joint strategies of all players.
+We designate the set of pure strategies available to player i by Ai,
+and denote the joint set of pure strategies of all players by A =
+A1 ×. . .×Am. It is often convenient to refer to a strategy of player
+i separately from that of the remaining players. To accommodate
+this, we use a−i to denote the joint strategy of all players other than
+player i.
+Let Si be the set of all probability distributions (mixtures) over
+Ai and, similarly, S be the set of all distributions over A. An s ∈ S
+is called a mixed strategy profile. When the game is finite (i.e., A
+and I are both finite), the probability that a ∈ A is played under
+s is written s(a) = s(ai, a−i). When the distribution s is not 
+correlated, we can simply say si(ai) when referring to the probability
+player i plays ai under s.
+Next, we define the payoff (utility) function of each player i by
+ui : A1 ×· · ·×Am → R, where ui(ai, a−i) indicates the payoff to
+player i to playing pure strategy ai when the remaining players play
+a−i. We can extend this definition to mixed strategies by assuming
+that ui are von Neumann-Morgenstern (vNM) utilities as follows:
+ui(s) = Es[ui], where Es is the expectation taken with respect to
+the probability distribution of play induced by the players" mixed
+strategy s.
+2
+By employing the normal form, we model agents as playing a 
+single action, with decisions taken simultaneously. This is appropriate
+for our current study, which treats strategies (agent programs) as
+atomic actions. We could capture finer-grained decisions about 
+action over time in the extensive form. Although any extensive game
+can be recast in normal form, doing so may sacrifice compactness
+and blur relevant distinctions (e.g., subgame perfection).
+Occasionally, we write ui(x, y) to mean that x ∈ Ai or Si and
+y ∈ A−i or S−i depending on context. We also express the set of
+utility functions of all players as u(·) = {u1(·), . . . , um(·)}.
+We define a function, : R → R, interpreted as the maximum
+benefit any player can obtain by deviating from its strategy in the
+specified profile.
+(r) = max
+i∈I
+max
+ai∈Ai
+[ui(ai, r−i) − ui(r)], (1)
+where r belongs to some strategy set, R, of either pure or mixed
+strategies.
+Faced with a game, an agent would ideally play its best strategy
+given those played by the other agents. A configuration where all
+agents play strategies that are best responses to the others 
+constitutes a Nash equilibrium.
+DEFINITION 1. A strategy profile r = (r1, . . . , rm) constitutes
+a Nash equilibrium of game [I, {Ri}, {ui(r)}] if for every i ∈ I,
+ri ∈ Ri, ui(ri, r−i) ≥ ui(ri, r−i).
+When r ∈ A, the above defines a pure strategy Nash equilibrium;
+otherwise the definition describes a mixed strategy Nash 
+equilibrium. We often appeal to the concept of an approximate, or -Nash
+equilibrium, where is the maximum benefit to any agent for 
+deviating from the prescribed strategy. Thus, (r) as defined above (1)
+is such that profile r is an -Nash equilibrium iff (r) ≤ .
+In this study we devote particular attention to games that exhibit
+symmetry with respect to payoffs, rendering agents strategically
+identical.
+DEFINITION 2. A game [I, {Ri}, {ui(r)}] is symmetric if for
+all i, j ∈ I, (a) Ri = Rj and (b) ui(ri, r−i) = uj (rj, r−j) 
+whenever ri = rj and r−i = r−j

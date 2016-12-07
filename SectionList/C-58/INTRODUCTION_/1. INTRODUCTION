@@ -1,0 +1,151 @@
+The goal of this research is to design and build a Scalable 
+Distributed Information Management System (SDIMS) that aggregates
+information about large-scale networked systems and that can serve
+as a basic building block for a broad range of large-scale distributed
+applications. Monitoring, querying, and reacting to changes in
+the state of a distributed system are core components of 
+applications such as system management [15, 31, 37, 42], service 
+placement [14, 43], data sharing and caching [18, 29, 32, 35, 46], sensor
+monitoring and control [20, 21], multicast tree formation [8, 9, 33,
+36, 38], and naming and request routing [10, 11]. We therefore
+speculate that a SDIMS in a networked system would provide a
+distributed operating systems backbone and facilitate the 
+development and deployment of new distributed services.
+For a large scale information system, hierarchical aggregation
+is a fundamental abstraction for scalability. Rather than expose all
+information to all nodes, hierarchical aggregation allows a node to
+access detailed views of nearby information and summary views of
+global information. In a SDIMS based on hierarchical aggregation,
+different nodes can therefore receive different answers to the query
+find a [nearby] node with at least 1 GB of free memory or find
+a [nearby] copy of file foo. A hierarchical system that aggregates
+information through reduction trees [21, 38] allows nodes to access
+information they care about while maintaining system scalability.
+To be used as a basic building block, a SDIMS should have
+four properties. First, the system should be scalable: it should
+accommodate large numbers of participating nodes, and it should
+allow applications to install and monitor large numbers of data 
+attributes. Enterprise and global scale systems today might have tens
+of thousands to millions of nodes and these numbers will increase
+over time. Similarly, we hope to support many applications, and
+each application may track several attributes (e.g., the load and
+free memory of a system"s machines) or millions of attributes (e.g.,
+which files are stored on which machines).
+Second, the system should have flexibility to accommodate a
+broad range of applications and attributes. For example, 
+readdominated attributes like numCPUs rarely change in value, while
+write-dominated attributes like numProcesses change quite often.
+An approach tuned for read-dominated attributes will consume high
+bandwidth when applied to write-dominated attributes. Conversely,
+an approach tuned for write-dominated attributes will suffer from
+unnecessary query latency or imprecision for read-dominated 
+attributes. Therefore, a SDIMS should provide mechanisms to handle
+different types of attributes and leave the policy decision of tuning
+replication to the applications.
+Third, a SDIMS should provide administrative isolation. In a
+large system, it is natural to arrange nodes in an organizational or
+an administrative hierarchy. A SDIMS should support 
+administraSession 10: Distributed Information Systems
+379
+tive isolation in which queries about an administrative domain"s 
+information can be satisfied within the domain so that the system can
+operate during disconnections from other domains, so that an 
+external observer cannot monitor or affect intra-domain queries, and
+to support domain-scoped queries efficiently.
+Fourth, the system must be robust to node failures and 
+disconnections. A SDIMS should adapt to reconfigurations in a timely
+fashion and should also provide mechanisms so that applications
+can tradeoff the cost of adaptation with the consistency level in the
+aggregated results when reconfigurations occur.
+We draw inspiration from two previous works: Astrolabe [38]
+and Distributed Hash Tables (DHTs).
+Astrolabe [38] is a robust information management system. 
+Astrolabe provides the abstraction of a single logical aggregation tree
+that mirrors a system"s administrative hierarchy. It provides a 
+general interface for installing new aggregation functions and provides
+eventual consistency on its data. Astrolabe is robust due to its use
+of an unstructured gossip protocol for disseminating information
+and its strategy of replicating all aggregated attribute values for a
+subtree to all nodes in the subtree. This combination allows any
+communication pattern to yield eventual consistency and allows
+any node to answer any query using local information. This high
+degree of replication, however, may limit the system"s ability to
+accommodate large numbers of attributes. Also, although the 
+approach works well for read-dominated attributes, an update at one
+node can eventually affect the state at all nodes, which may limit
+the system"s flexibility to support write-dominated attributes.
+Recent research in peer-to-peer structured networks resulted in
+Distributed Hash Tables (DHTs) [18, 28, 29, 32, 35, 46]-a data
+structure that scales with the number of nodes and that distributes
+the read-write load for different queries among the participating
+nodes. It is interesting to note that although these systems export
+a global hash table abstraction, many of them internally make use
+of what can be viewed as a scalable system of aggregation trees
+to, for example, route a request for a given key to the right DHT
+node. Indeed, rather than export a general DHT interface, Plaxton
+et al."s [28] original application makes use of hierarchical 
+aggregation to allow nodes to locate nearby copies of objects. It seems
+appealing to develop a SDIMS abstraction that exposes this internal
+functionality in a general way so that scalable trees for aggregation
+can be a basic system building block alongside the DHTs.
+At a first glance, it might appear to be obvious that simply 
+fusing DHTs with Astrolabe"s aggregation abstraction will result in a
+SDIMS. However, meeting the SDIMS requirements forces a 
+design to address four questions: (1) How to scalably map different
+attributes to different aggregation trees in a DHT mesh? (2) How to
+provide flexibility in the aggregation to accommodate different 
+application requirements? (3) How to adapt a global, flat DHT mesh
+to attain administrative isolation property? and (4) How to provide
+robustness without unstructured gossip and total replication?
+The key contributions of this paper that form the foundation of
+our SDIMS design are as follows.
+1. We define a new aggregation abstraction that specifies both
+attribute type and attribute name and that associates an 
+aggregation function with a particular attribute type. This 
+abstraction paves the way for utilizing the DHT system"s internal
+trees for aggregation and for achieving scalability with both
+nodes and attributes.
+2. We provide a flexible API that lets applications control the
+propagation of reads and writes and thus trade off update
+cost, read latency, replication, and staleness.
+3. We augment an existing DHT algorithm to ensure path 
+convergence and path locality properties in order to achieve 
+administrative isolation.
+4. We provide robustness to node and network reconfigurations
+by (a) providing temporal replication through lazy 
+reaggregation that guarantees eventual consistency and (b) 
+ensuring that our flexible API allows demanding applications gain
+additional robustness by using tunable spatial replication of
+data aggregates or by performing fast on-demand 
+reaggregation to augment the underlying lazy reaggregation or by
+doing both.
+We have built a prototype of SDIMS. Through simulations and
+micro-benchmark experiments on a number of department machines
+and PlanetLab [27] nodes, we observe that the prototype achieves
+scalability with respect to both nodes and attributes through use
+of its flexible API, inflicts an order of magnitude lower maximum
+node stress than unstructured gossiping schemes, achieves isolation
+properties at a cost of modestly increased read latency compared to
+flat DHTs, and gracefully handles node failures.
+This initial study discusses key aspects of an ongoing system
+building effort, but it does not address all issues in building a SDIMS.
+For example, we believe that our strategies for providing robustness
+will mesh well with techniques such as supernodes [22] and other
+ongoing efforts to improve DHTs [30] for further improving 
+robustness. Also, although splitting aggregation among many trees
+improves scalability for simple queries, this approach may make
+complex and multi-attribute queries more expensive compared to
+a single tree. Additional work is needed to understand the 
+significance of this limitation for real workloads and, if necessary, to
+adapt query planning techniques from DHT abstractions [16, 19]
+to scalable aggregation tree abstractions.
+In Section 2, we explain the hierarchical aggregation 
+abstraction that SDIMS provides to applications. In Sections 3 and 4, we
+describe the design of our system for achieving the flexibility, 
+scalability, and administrative isolation requirements of a SDIMS. In
+Section 5, we detail the implementation of our prototype system.
+Section 6 addresses the issue of adaptation to the topological 
+reconfigurations. In Section 7, we present the evaluation of our 
+system through large-scale simulations and microbenchmarks on real
+networks. Section 8 details the related work, and Section 9 
+summarizes our contribution.

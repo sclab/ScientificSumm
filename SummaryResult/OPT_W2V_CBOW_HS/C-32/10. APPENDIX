@@ -1,0 +1,33 @@
+Any response to an earlier request  initiated by the failed client is ignored except a commit reply, in which case the redirector distributes the retained committed updates to active clients caching the modified pages.
+Therefore, if a server receives a commit request from a client for a transaction T reading an object o after a failover in the client group, and the server has no unacknowledged invalidation for o pending for this group, the version of the object read by the transaction T is up-to-date independently of client or redirector failures.
+A client will restart the transaction and the commit request will be retransmitted after the failover.
+In the case of a redirector failure, the failover protocol reinitializes sessions with the servers and clients, and  rebuilds the page directory using a protocol similar to one in [6].
+Since the transaction validation procedure depends on the cache coherence protocol to ensure that transactions do not read stale data, we now need to argue that BuddyCache failover protocol does not compromise the correctness of the validation procedure.
+Now consider the validation using version numbers.
+To restart the BuddyCache protocol, the failover needs to resynchronize the redirector page directory and  clientserver request forwarding so that active clients can continue running transactions using their caches.
+The failover determines the active group participants, re-elects a redirector if needed, reinitializes the BuddyCache data structures in the new configuration and restarts the protocol.
+When a server receives an acknowledgement for an object o  modification (invalidation or update) from a client group, any client in the group caching the object o has either installed the latest value of object o, or has invalidated o.
+Retransmition of invalidations and updates maintains this invariant.
+The failover protocol has not been implemented yet.
+A transaction running at the client during a failover and committing after the failover is treated as a regular transaction, a transaction trying to commit during a failover is aborted by the failover  protocol.
+In the case of a client failure, the failover removes the crashed client pages from the directory.
+The redirector-based invalidation (and update)  acknowledgement propagation ensures the following invariant.
+Invalidations, updates or collected update acknowledgements lost at the crashed redirector could prevent the garbage collection of pending invalidations at the servers or the vcache in the clients.
+Here we describe how the failover manages the BuddyCache state.
+Unique version numbers in invalidations and updates ensure that duplicate retransmitted requests are detected and  discarded.
+Therefore, servers detecting a redirector crash  retransmit unacknowledged invalidations and commit replies.
+Recall that BuddyCache transaction validation uses two complementary mechanisms, page  version numbers and invalidation acknowledgements from the clients, to check that a transaction has read up-to-date data.
+A failure of a client or a redirector is detected by a  membership protocol that exchanges periodic I am alive  messages between group members and initiates a failover  protocol.
+The validation procedure checks that the version number in the commit record matches the version number in the  unacknowledged outstanding invalidation.
+The  BuddyCache design assumes that the client caches and the  redirector data structures do not survive node failures.
+The group reconfiguration protocol is similar to the one presented in [25].
+The transaction commit record contains a version number for each object read by the transaction.
+It is straightforward to see that since this check is an end-to-end client-server check it is unaffected by client or redirector failure.
+The version number protocol maintains the invariant V P that ensures that the value of object o read by the transaction corresponds to the highest version number for o received by the client.
+A lost fetch request will time out at the client and will be retransmitted.
+whether the pages are complete or incomplete.
+The newly restarted redirector asks the active group members for the list of pages they are caching and the  status of these pages, i.e.
+Requests outstanding at the redirector at the time of the crash may be lost.
+The  invariant holds since the client never applies an earlier  modification after a later modification has been received.
+This appendix outlines the BuddyCache failover protocol.
+To accommodate heterogeneous clients including  resourcepoor hand-helds we do not require the availability of  persistent storage in the BuddyCache peer group.

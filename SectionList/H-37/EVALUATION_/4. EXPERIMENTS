@@ -1,0 +1,214 @@
+In Section 2, we argued that the strong performance on
+content-based spam detection with SVMs with a high value
+of C show that the maximum margin criteria is overkill, 
+incurring unnecessary computational cost. In Section 3, we
+proposed ROSVM to address this issue, as both of these
+methods trade away guarantees on the maximum margin 
+hyperplane in return for reduced computational cost. In this
+section, we test these methods on the same benchmark data
+sets to see if state of the art performance may be achieved by
+these less costly methods. We find that ROSVM is capable
+of achieving these high levels of performance with greatly
+reduced cost. Our main tests on content-based spam 
+detection are performed on large benchmark sets of email data.
+We then apply these methods on the smaller data sets of
+blog comment spam and blogs, with similar performance.
+4.1 ROSVM Tests
+In Section 3, we proposed three approaches for reducing
+the computational cost of Online SMO: reducing the 
+prob0.005
+0.01
+0.025
+0.05
+0.1
+10 100 1000 10000 100000
+(1-ROCA)%
+Buffer Size
+trec05p-1
+trec06p
+0
+50000
+100000
+150000
+200000
+250000
+10 100 1000 10000 100000
+CPUSec.
+Buffer Size
+trec05p-1
+trec06p
+Figure 5: Reduced Size Tests.
+lem size, reducing the number of optimization iterations,
+and reducing the number of training updates. Each of these
+approaches relax the maximum margin criteria on the global
+set of previously seen data. Here we test the effect that each
+of these methods has on both effectiveness and efficiency. In
+each of these tests, we use the large benchmark email data
+sets, trec05p-1 and trec06p.
+4.1.1 Testing Reduced Size
+For our first ROSVM test, we experiment on the effect
+of reducing the size of the optimization problem by only
+considering the p most recent examples, as described in the
+previous section. For this test, we use the same 4-gram 
+mappings as for the reference experiments in Section 2, with the
+same value C = 100. We test a range of values p in a coarse
+grid search. Figure 5 reports the effect of the buffer size p in
+relationship to the (1-ROCA)% performance measure (top),
+and the number of CPU seconds required (bottom).
+The results show that values of p < 100 do result in 
+degraded performance, although they evaluate very quickly.
+However, p values from 500 to 10,000 perform almost as
+well as the original Online SMO (represented here as p =
+100, 000), at dramatically reduced computational cost.
+These results are important for making state of the art
+performance on large-scale content-based spam detection
+practical with online SVMs. Ordinarily, the training time
+would grow quadratically with the number of seen examples.
+However, fixing a value of p ensures that the training time
+is independent of the size of the data set. Furthermore, a
+lookback buffer allows the filter to adjust to concept drift.
+0.005
+0.01
+0.025
+0.05
+0.1
+10521
+(1-ROCA)%
+Max Iters.
+trec06p
+trec05p-1
+50000
+100000
+150000
+200000
+250000
+10521
+CPUSec.
+Max Iters.
+trec06p
+trec05p-1
+Figure 6: Reduced Iterations Tests.
+4.1.2 Testing Reduced Iterations
+In the second ROSVM test, we experiment with reducing
+the number of iterations. Our initial tests showed that the
+maximum number of iterations used by Online SMO was
+rarely much larger than 10 on content-based spam detection;
+thus we tested values of T = {1, 2, 5, ∞}. Other parameters
+were identical to the original Online SVM tests.
+The results on this test were surprisingly stable (see 
+Figure 6). Reducing the maximum number of SMO iterations
+per update had essentially no impact on classification 
+performance, but did result in a moderate increase in speed. This
+suggests that any additional iterations are spent attempting
+to find improvements to a hyperplane that is already very
+close to optimal. These results show that for content-based
+spam detection, we can reduce computational cost by 
+allowing only a single SMO iteration (that is, T = 1) with
+effectively equivalent performance.
+4.1.3 Testing Reduced Updates
+For our third ROSVM experiment, we evaluate the impact
+of adjusting the parameter M to reduce the total number of
+updates. As noted before, when M = 1, the hyperplane is
+globally optimal at every step. Reducing M allows a slightly
+inconsistent hyperplane to persist until it encounters an 
+example for which it is too inconsistent. We tested values of
+M from 0 to 1, at increments of 0.1. (Note that we used
+p = 10000 to decrease the cost of evaluating these tests.)
+The results for these tests are appear in Figure 7, and
+show that there is a slight degradation in performance with
+reduced values of M, and that this degradation in 
+performance is accompanied by an increase in efficiency. Values of
+0.005
+0.01
+0.025
+0.05
+0.1
+0 0.2 0.4 0.6 0.8 1
+(1-ROCA)%
+M
+trec05p-1
+trec06p
+5000
+10000
+15000
+20000
+25000
+30000
+35000
+40000
+0 0.2 0.4 0.6 0.8 1
+CPUSec.
+M
+trec05p-1
+trec06p
+Figure 7: Reduced Updates Tests.
+M > 0.7 give effectively equivalent performance as M = 1,
+and still reduce cost.
+4.2 Online SVMs and ROSVM
+We now compare ROSVM against Online SVMs on the
+email spam, blog comment spam, and splog detection tasks.
+These experiments show comparable performance on these
+tasks, at radically different costs. In the previous section,
+the effect of the different relaxation methods was tested
+separately. Here, we tested these methods together to 
+create a full implementation of ROSVM. We chose the values
+p = 10000, T = 1, M = 0.8 for the email spam detection
+tasks. Note that these parameter values were selected as
+those allowing ROSVM to achieve comparable performance
+results with Online SVMs, in order to test total difference
+in computational cost. The splog and blog data sets were
+much smaller, so we set p = 100 for these tasks to allow
+meaningful comparisons between the reduced size and full
+size optimization problems. Because these values were not
+hand-tuned, both generalization performance and runtime
+results are meaningful in these experiments.
+4.2.1 Experimental Setup
+We compared Online SVMs and ROSVM on email spam,
+blog comment spam, and splog detection. For the email
+spam, we used the two large benchmark corpora, trec05p-1
+and trec06p, in the standard online ordering. We randomly
+ordered both the blog comment spam corpus and the splog
+corpus to create online learning tasks. Note that this is a
+different setting than the leave-one-out cross validation task
+presented on these corpora in Section 2 - the results are
+not directly comparable. However, this experimental design
+Table 5: Email Spam Benchmark Data. These 
+results compare Online SVM and ROSVM on email
+spam detection, using binary 4-gram feature space.
+Score reported is (1-ROCA)%, where 0 is optimal.
+trec05p-1 trec05p-1 trec06p trec06p
+(1-ROC)% CPUs (1-ROC)% CPUs
+OnSVM 0.0084 242,160 0.0232 87,519
+ROSVM 0.0090 24,720 0.0240 18,541
+Table 6: Blog Comment Spam. These results 
+comparing Online SVM and ROSVM on blog comment
+spam detection using binary 4-gram feature space.
+Acc. Prec. Recall F1 CPUs
+OnSVM 0.926 0.930 0.962 0.946 139
+ROSVM 0.923 0.925 0.965 0.945 11
+does allow meaningful comparison between our two online
+methods on these content-based spam detection tasks.
+We ran each method on each task, and report the results
+in Tables 5, 6, and 7. Note that the CPU time reported for
+each method was generated on the same computing system.
+This time reflects only the time needed to complete online
+learning on tokenized data. We do not report the time taken
+to tokenize the data into binary 4-grams, as this is the same
+additive constant for all methods on each task. In all cases,
+ROSVM was significantly less expensive computationally.
+4.3 Discussion
+The comparison results shown in Tables 5, 6, and 7 are
+striking in two ways. First, they show that the performance
+of Online SVMs can be matched and even exceeded by 
+relaxed margin methods. Second, they show a dramatic 
+disparity in computational cost. ROSVM is an order of 
+magnitude more efficient than the normal Online SVM, and gives
+comparable results. Furthermore, the fixed lookback buffer
+ensures that the cost of each update does not depend on the
+size of the data set already seen, unlike Online SVMs. Note
+the blog and splog data sets are relatively small, and results
+on these data sets must be considered preliminary. Overall,
+these results show that there is no need to pay the high cost
+of SVMs to achieve this level of performance on 
+contentbased detection of spam. ROSVMs offer a far cheaper 
+alternative with little or no performance loss.

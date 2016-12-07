@@ -1,0 +1,30 @@
+This allows us to extract the maximum payment from the bids bxi -a total payment of 2vH − c. Additionally, the utility of bidder bj is now i:r j i >0 rj i (H − x∗ i ) + i:r j i <0 −rj i (H + x∗ i ) = ( i |rj i |)H − i rj i x∗ i ≥ ( i |rj i |)H − sj (where the last  inequality stems from the fact that constraint j must be  satisfied in the LP solution), so it follows we can extract the maximum payment from all the bidders bj, for a total  payment of c. It follows that we can extract the required 2vH payment from the bidders, and there exists a solution to the DONATION-CLEARING instance with a total amount donated of at least 2vH.
+It follows that the x∗ i constitute a feasible solution to the LP. 
+The question of whether an LP (given by a set of linear constraints4 ) has a feasible solution can be  modeled as a DONATION-CLEARING instance with payment maximization as the objective, with 2v charities and v + c bids (where v is the number of variables in the LP, and c is the number of constraints).
+Let H be some number such that if there is a feasible solution to the LP, there is one in which every variable has absolute value at most H. In the following, we will represent bids as follows: ({(ck, ak)}, s, t) indicates that uk j (πck ) = akπck (this  function is 0 for ck not mentioned in the bid), and wj(uj) = t for uj ≥ s, wj(uj) = uj t s otherwise.
+For every constraint i rj i xi ≤ sj in the linear program, let there be a bid bj = ({(c−xi , rj i )}i:r j i >0 ∪ {(c+xi , −rj i )}i:r j i <0 , ( i |rj i |)H − sj, 1).
+Then, from the fact that the maximum payment must be extracted from each bidder bj, it follows that ( i |rj i |)H − sj ≤ i:r j i >0 rj i πc−xi + i:r j i <0 −rj i πc+xi = i:r j i >0 rj i (H − x∗ i ) + i:r j i <0 −rj i (H + x∗ i ) = ( i |rj i |)H − i rj i x∗ i .
+From the fact that the maximum payment must be extracted from each bidder bxi , it follows that for each i, πc+xi + πc−xi ≥ 2H.
+We first observe that for linear programming, a decision question about the objective can simply be phrased as  another constraint in the LP (forcing the objective to exceed the given value); then, the original decision question  coincides with asking whether the resulting linear program has a feasible solution.
+For every variable xi in the LP, let there be two charities, c+xi and c−xi .
+(And thus, if we are willing to call the algorithm a logarithmic number of times, we can solve the optimization version of the linear program.)
+Without loss of generality, we can suppose that |x∗ i | ≤ H for all i.
+Because the maximum  extractable total payment is 2vH, it follows that for each i, πc+xi + πc−xi = 2H.
+56 for every i, let πc+xi = H + x∗ i , and let πc−xi = H − x∗ i (for a total payment of 2H to these two charities).
+BETTER THAN LINEAR PROGRAMMING One may wonder if, for the special cases of the  DONATIONCLEARING problem that can be solved in polynomial time with linear programming, there exist special purpose  algorithms that are much faster than linear programming  algorithms.
+Now suppose there is a solution to the  DONATIONCLEARING instance with a total amount donated of at least vH.
+We give a reduction from (the decision variant of) the  general linear programming problem to (the decision variant of) a special case of the DONATION-CLEARING problem (which can be solved in polynomial time using linear  programming).
+The v bids corresponding to the variables mention only two  charities each; the c bids corresponding to the constraints mention only two times the number of variables in the corresponding constraint.
+For every variable xi in the LP, let there be a bid bxi = ({(c+xi , 1), (c−xi , 1)}, 2H, 2H − c v ).
+Then the maximum payment must be extracted from each bidder.
+Thus, any special-purpose algorithm for solving the decision variant of this special case of the  DONATIONCLEARING problem could be used to solve a decision  question about an arbitrary linear program just as fast.
+In this model, each bid bj has only linear ui j functions, and is a partially acceptable  threshold bid (wj(u) = tj for u ≥ sj, otherwise wj(u) = utj sj ).
+Then, in the DONATION-CLEARING instance, 4 These constraints must include bounds on the variables (including nonnegativity bounds), if any.
+, x∗ v) to the LP.
+Suppose there is a feasible solution (x∗ 1, x∗ 2, .
+Let x∗ i = πc+xi − H = H − πc−xi .
+(The decision variant of an optimization  problem asks the binary question: Can the objective value  exceed o?)
+Let the target total amount donated be 2vH.
+Equivalently, i rj i x∗ i ≤ sj.
+In this section, we show that this is not the case.
+Theorem 3.

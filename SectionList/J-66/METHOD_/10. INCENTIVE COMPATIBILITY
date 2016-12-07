@@ -1,0 +1,208 @@
+Up to this point, we have not discussed the bidders" 
+incentives for bidding any particular way. Specifically, the bids
+may not truthfully reflect the bidders" preferences over 
+charities because a bidder may bid strategically, misrepresenting
+her preferences in order to obtain a result that is better to
+herself. This means the mechanism is not strategy-proof.
+(We will show some concrete examples of this shortly.) This
+is not too surprising, because the mechanism described so
+far is, in a sense, a first-price mechanism, where the 
+mechanism will extract as much payment from a bidder as her bid
+allows. Such mechanisms (for example, first-price auctions,
+where winners pay the value of their bids) are typically not
+strategy-proof: if a bidder reports her true valuation for an
+outcome, then if this outcome occurs, the payment the 
+bidder will have to make will offset her gains from the outcome
+completely. Of course, we could try to change the rules of
+the game-which outcome (payment vector to charities) do
+we select for which bid vector, and which bidder pays how
+much-in order to make bidding truthfully beneficial, and
+to make the outcome better with regard to the bidders" true
+preferences. This is the field of mechanism design. In this
+section, we will briefly discuss the options that mechanism
+design provides for the expressive charity donation problem.
+10.1 Strategic bids under the first-price
+mechanism
+We first point out some reasons for bidders to misreport
+their preferences under the first-price mechanism described
+in the paper up to this point. First of all, even when there is
+only one charity, it may make sense to underbid one"s true
+valuation for the charity. For example, suppose a bidder
+would like a charity to receive a certain amount x, but does
+not care if the charity receives more than that. Additionally,
+suppose that the other bids guarantee that the charity will
+receive at least x no matter what bid the bidder submits
+(and the bidder knows this). Then the bidder is best off not
+bidding at all (or submitting a utility for the charity of 0),
+to avoid having to make any payment. (This is known in
+economics as the free rider problem [14].
+With multiple charities, another kind of manipulation may
+occur, where the bidder attempts to steer others" payments
+towards her preferred charity. Suppose that there are two
+charities, and three bidders. The first bidder bids u1
+1(πc1 ) =
+1 if πc1 ≥ 1, u1
+1(πc1 ) = 0 otherwise; u2
+1(πc2 ) = 1 if πc2 ≥ 1,
+u2
+1(πc2 ) = 0 otherwise; and w1(u1) = u1 if u1 ≤ 1, w1(u1) =
+1+ 1
+100
+(u1 −1) otherwise. The second bidder bids u1
+2(πc1 ) =
+1 if πc1 ≥ 1, u1
+1(πc1 ) = 0 otherwise; u2
+2(πc2 ) = 0 (always);
+w2(u2) = 1
+4
+u2 if u2 ≤ 1, w2(u2) = 1
+4
++ 1
+100
+(u2 −1) otherwise.
+Now, the third bidder"s true preferences are accurately 
+represented5
+by the bid u1
+3(πc1 ) = 1 if πc1 ≥ 1, u1
+3(πc1 ) = 0
+otherwise; u2
+3(πc2 ) = 3 if πc2 ≥ 1, u2
+3(πc1 ) = 0 otherwise;
+and w3(u3) = 1
+3
+u3 if u3 ≤ 1, w3(u3) = 1
+3
++ 1
+100
+(u3 − 1) 
+otherwise. Now, it is straightforward to check that, if the third
+bidder bids truthfully, regardless of whether the objective is
+surplus maximization or total donated, charity 1 will receive
+at least 1, and charity 2 will receive less than 1. The same is
+true if bidder 3 does not place a bid at all (as in the previous
+type of manipulation); hence bidder 2"s utility will be 1 in
+this case. But now, if bidder 3 reports u1
+3(πc1 ) = 0 
+everywhere; u2
+3(πc2 ) = 3 if πc2 ≥ 1, u2
+3(πc2 ) = 0 otherwise (this
+part of the bid is truthful); and w3(u3) = 1
+3
+u3 if u3 ≤ 1,
+w3(u3) = 1
+3
+otherwise; then charity 2 will receive at least
+1, and bidder 3 will have to pay at most 1
+3
+. Because up to
+this amount of payment, one unit of money corresponds to
+three units of utility to bidder 3, it follows his utility is now
+at least 3 − 1 = 2 > 1. We observe that in this case, the
+strategic bidder is not only affecting how much the bidders
+pay, but also how much the charities receive.
+10.2 Mechanism design in the quasilinear
+setting
+There are four reasons why the mechanism design 
+approach is likely to be most successful in the setting of 
+quasilinear preferences. First, historically, mechanism design has
+been been most successful when the quasilinear assumption
+could be made. Second, because of this success, some very
+general mechanisms have been discovered for the 
+quasilinear setting (for instance, the VCG mechanisms [24, 4, 10],
+or the dAGVA mechanism [6, 1]) which we could apply 
+directly to the expressive charity donation problem. Third, as
+we saw in Section 9, the clearing problem is much easier in
+5
+Formally, this means that if the bidder is forced to pay
+the full amount that his bid allows for a particular vector of
+payments to charities, the bidder is indifferent between this
+and not participating in the mechanism at all. (Compare
+this to bidding truthfully in a first-price auction.)
+58
+this setting, and thus we are less likely to run into 
+computational trouble for the mechanism design problem. Fourth, as
+we will show shortly, the quasilinearity assumption in some
+cases allows for decomposing the mechanism design problem
+over the charities (as it did for the simple clearing problem).
+Moreover, in the quasilinear setting (unlike in the general
+setting), it makes sense to pursue social welfare (the sum
+of the utilities) as the objective, because now 1) units of
+utility correspond directly to units of money, so that we do
+not have the problem of the bidders arbitrarily scaling their
+utilities; and 2) it is no longer possible to give a payment
+willingness function of 0 while still affecting the donations
+through a utility function.
+Before presenting the decomposition result, we introduce
+some terms from game theory. A type is a preference profile
+that a bidder can have and can report (thus, a type report
+is a bid). Incentive compatibility (IC) means that bidders
+are best off reporting their preferences truthfully; either 
+regardless of the others" types (in dominant strategies), or in
+expectation over them (in Bayes-Nash equilibrium). 
+Individual rationality (IR) means agents are at least as well off
+participating in the mechanism as not participating; either
+regardless of the others" types (ex-post), or in expectation
+over them (ex-interim). A mechanism is budget balanced
+if there is no flow of money into or out of the system-in
+general (ex-post), or in expectation over the type reports
+(ex-ante). A mechanism is efficient if it (always) produces
+the efficient allocation of wealth to charities.
+Theorem 7. Suppose all agents" preferences are 
+quasilinear. Furthermore, suppose that there exists a single-charity
+mechanism M that, for a certain subclass P of (quasilinear)
+preferences, under a given solution concept S 
+(implementation in dominant strategies or Bayes-Nash equilibrium) and
+a given notion of individual rationality R (ex post, ex 
+interim, or none), satisfies a certain notion of budget balance
+(ex post, ex ante, or none), and is ex-post efficient. Then
+there exists such a mechanism for any number of charities.
+Two mechanisms that satisfy efficiency (and can in fact be
+applied directly to the multiple-charity problem without use
+of the previous theorem) are the VCG (which is incentive
+compatible in dominant strategies) and dAGVA (which is
+incentive compatible only in Bayes-Nash equilibrium) 
+mechanisms. Each of them, however, has a drawback that would
+probably make it impractical in the setting of donations to
+charities. The VCG mechanism is not budget balanced. The
+dAGVA mechanism does not satisfy ex-post individual 
+rationality. In the next subsection, we will investigate if we
+can do better in the setting of donations to charities.
+10.3 Impossibility of efficiency
+In this subsection, we show that even in a very restricted
+setting, and with minimal requirements on IC and IR 
+constraints, it is impossible to create a mechanism that is 
+efficient.
+Theorem 8. There is no mechanism which is ex-post 
+budget balanced, ex-post efficient, and ex-interim individually
+rational with Bayes-Nash equilibrium as the solution concept
+(even with only one charity, only two quasilinear bidders,
+with identical type distributions (uniform over two types,
+with either both utility functions being step functions or both
+utility functions being concave piecewise linear functions)).
+The case of step-functions in this theorem corresponds 
+exactly to the case of a single, fixed-size, nonexcludable public
+good (the public good being that the charity receives the
+desired amount)-for which such an impossibility result is
+already known [14]. Many similar results are known, 
+probably the most famous of which is the Myerson-Satterthwaite
+impossibility result, which proves the impossibility of 
+efficient bilateral trade under the same requirements [15].
+Theorem 7 indicates that there is no reason to decide on
+donations to multiple charities under a single mechanism
+(rather than a separate one for each charity), when an 
+efficient mechanism with the desired properties exists for the
+single-charity case. However, because under the 
+requirements of Theorem 8, no such mechanism exists, there may
+be a benefit to bringing the charities under the same 
+umbrella. The next proposition shows that this is indeed the
+case.
+Proposition 2. There exist settings with two charities
+where there exists no ex-post budget balanced, ex-post 
+efficient, and ex-interim individually rational mechanism with
+Bayes-Nash equilibrium as the solution concept for either
+charity alone; but there exists an ex-post budget balanced,
+ex-post efficient, and ex-post individually rational 
+mechanism with dominant strategies as the solution concept for
+both charities together. (Even when the conditions are the
+same as in Theorem 8, apart from the fact that there are
+now two charities.)

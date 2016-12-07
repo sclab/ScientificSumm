@@ -1,0 +1,280 @@
+WITHIN REPUTATION SYSTEMS
+In the previous section, we described the use of sufficient 
+statistics to communicate reputation, and we showed that by aggregating
+contract outcomes together into these sufficient statistics, a large
+number of contract outcomes can be represented and 
+communicated in a compact form. Whilst, this is an attractive property, it
+can be problematic in practise, since the individual provenance of
+each contract outcome is lost in the aggregation. Thus, to ensure an
+accurate estimate, the reputation system must ensure that each 
+observation of a contract outcome is included within the aggregated
+statistics no more than once.
+Within a centralised reputation system, where all agents report
+their direct experience to a trusted center, such double counting of
+contract outcomes is easy to avoid. However, in a decentralised
+reputation system, where agents communicate reputation to one
+another, and aggregate their direct experience with these reputation
+reports on-the-fly, avoiding double counting is much more difficult.
+a1 a2
+a3
+¨
+¨¨
+¨¨
+¨¨B
+E
+T
+N1
+N1
+N1 + N2
+Figure 3: Example of rumour propagation in a decentralised
+reputation system.
+For example, consider the case shown in figure 3 where three
+agents (a1 . . . a3), each with some direct experience of a supplier,
+share reputation reports regarding this supplier. If agent a1 were
+to provide its estimate to agents a2 and a3 in the form of the 
+sufficient statistics of its Dirichlet distribution, then these agents can
+aggregate these contract outcomes with their own, and thus obtain
+more precise estimates. If at a later stage, agent a2 were to send
+its aggregate vector of contract outcomes to agent a3, then agent
+a3 being unaware of the full history of exchanges, may attempt to
+combine these contract outcomes with its own aggregated vector.
+However, since both vectors contain a contribution from agent a1,
+these will be counted twice in the final aggregated vector, and will
+result in a biased and overconfident estimate. This is termed 
+rumour propagation or data incest in the data fusion literature [9].
+One possible solution would be to uniquely identify the source of
+each contract outcome, and then propagate each vector, along with
+its label, through the network. Agents can thus identify identical
+observations that have arrived through different routes, and after
+removing the duplicates, can aggregate these together to form their
+estimates. Whilst this appears to be attractive in principle, for a
+number of reasons, it is not always a viable solution in practise [12].
+Firstly, agents may not actually wish to have their uniquely labelled
+contract outcomes passed around an open system, since such 
+information may have commercial or practical significance that could
+be used to their disadvantage. As such, agents may only be willing
+to exchange identifiable contract outcomes with a small number of
+other agents (perhaps those that they have some sort of reciprocal
+relationship with). Secondly, the fact that there is no aggregation
+of the contract outcomes as they pass around the network means
+that the message size increases over time, and the ultimate size of
+these messages is bounded only by the number of agents within the
+system (possibly an extremely large number for a global system).
+Finally, it may actually be difficult to assign globally agreeable,
+consistent, and unique labels for each agent within an open system.
+In the next section, we develop a novel solution to the problem of
+rumour propagation within decentralised reputation systems. Our
+solution is based on an approach developed within the area of target
+tracking and data fusion [9]. It avoids the need to uniquely identify
+an agent, it allows agents to restrict the number of other agents
+who they reveal their private estimates to, and yet it still allows
+information to propagate throughout the network.
+6.1 Private and Shared Information
+Our solution to rumour propagation within decentralised reputation
+systems introduces the notion of private information that an agent
+knows it has not communicated to any other agent, and shared 
+information that has been communicated to, or received from, 
+another agent. Thus, the agent can decompose its contract outcome
+vector, N, into two vectors, a private one, Np, that has not been
+communicated to another agent, and a shared one, Ns, that has
+been shared with, or received from, another agent:
+N = Np + Ns (19)
+Now, whenever an agent communicates reputation, it 
+communicates both its private and shared vectors separately. Both the 
+origThe Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1075
+inating and receiving agents then update their two vectors 
+appropriately. To understand this, consider the case that agent aα sends
+its private and shared contract outcome vectors, Nα
+p and Nα
+s , to
+agent aβ that itself has private and shared contract outcomes Nβ
+p
+and Nβ
+s . Each agent updates its vectors of contract outcomes 
+according to the following procedure:
+• Originating Agent: Once the originating agent has sent both
+its shared and private contract outcome vectors to another
+agent, its private information is no longer private. Thus, it
+must remove the contract outcomes that were in its private
+vector, and add them into its shared vector:
+Nα
+s ← Nα
+s + Nα
+p
+Nα
+p ← ∅.
+• Receiving Agent: The goal of the receiving agent is to 
+accumulate the largest number contract outcomes (since this will
+result in the most precise estimate) without including shared
+information from both itself and the other agent (since this
+may result in double counting of contract outcomes). It has
+two choices depending on the total number of contract 
+outcomes6
+within its own shared vector, Nβ
+s , and within that of
+the originating agent, Nα
+s . Thus, it updates its vector 
+according to the procedure below:
+- Nβ
+s > Nα
+s : If the receiving agent"s shared vector 
+represents a greater number of contract outcomes than that
+of the shared vector of the originating agent, then the
+agent combines its shared vector with the private 
+vector of the originating agent:
+Nβ
+s ← Nβ
+s + Nα
+p
+Nβ
+p unchanged.
+- Nβ
+s < Nα
+s : Alternatively if the receiving agent"s shared
+vector represents a smaller number contract outcomes
+than that of the shared vector of the originating agent,
+then the receiving agent discards its own shared vector
+and forms a new one from both the private and shared
+vectors of the originating agent:
+Nβ
+s ← Nα
+s + Nα
+p
+Nβ
+p unchanged.
+In the case that Nβ
+s = Nα
+s then either option is 
+appropriate. Once the receiving agent has updated its sets, it uses the
+contract outcomes within both to form its trust estimate. If
+agents receive several vectors simultaneously, this approach
+generalises to the receiving agent using the largest shared
+vector, and the private vectors of itself and all the originating
+agents to form its new shared vector.
+This procedure has a number of attractive properties. Firstly, since
+contract outcomes in an agent"s shared vector are never combined
+with those in the shared vector of another agent, outcomes that
+originated from the same agent are never combined together, and
+thus, rumour propagation is completely avoided. However, since
+the receiving agent may discard its own shared vector, and adopt
+the shared vector of the originating agent, information is still 
+propagated around the network. Moreover, since contract outcomes are
+aggregated together within the private and shared vectors, the 
+message size is constant and does not increase as the number of 
+interactions increases. Finally, an agent only communicates its own
+private contract outcomes to its immediate neighbours. If this agent
+6
+Note that this may be calculated from N = nab
+00 +nab
+01 +nab
+10 +nab
+11.
+subsequently passes it on, it does so as unidentifiable aggregated 
+information within its shared information. Thus, an agent may limit
+the number of agents with which it is willing to reveal 
+identifiable contract outcomes, and yet these contract outcomes can still
+propagate within the network, and thus, improve estimates of other
+agents. Next, we demonstrate empirically that these properties can
+indeed be realised in practise.
+6.2 Empirical Comparison
+In order to evaluate the effectiveness of this procedure we 
+simulated random networks consisting of ten agents. Each agent has
+some direct experience of interacting with a supplier (as described
+in section 4.3). At each iteration of the simulation, it interacts with
+its immediate neighbours and exchanges reputation reports through
+the sufficient statistics of their Dirichlet distributions. We compare
+our solution to two of the most obvious decentralised alternatives:
+• Private and Shared Information: The agents follow the
+procedure described in the previous section. That is, they
+maintain separate private and shared vectors of contract 
+outcomes, and at each iteration they communicate both these
+vectors to their immediate neighbours.
+• Rumour Propagation: The agents do not differentiate 
+between private and shared contract outcomes. At the first 
+iteration they communicate all of the contract outcomes that
+constitute their direct experience. In subsequent iterations,
+they propagate contract outcomes that they receive from any
+of the neighbours, to all their other immediate neighbours.
+• Private Information Only: The agents only communicate
+the contract outcomes that constitute their direct experience.
+In all cases, at each iteration, the agents use the Dirichlet 
+distribution in order to calculate their trust estimates. We compare these
+three decentralised approaches to a centralised reputation system:
+• Centralised Reputation: All the agents pass their direct 
+experience to a centralised reputation system that aggregates
+them together, and passes this estimate back to each agent.
+This centralised solution makes the most effective use of 
+information available in the network. However, most real world 
+problems demand decentralised solutions due to scalability, 
+modularity and communication concerns. Thus, this centralised solution
+is included since it represents the optimal case, and allows us to
+benchmark our decentralised solution.
+The results of these comparisons are shown in figure 4. Here
+we show the sum of the information content of each agent"s 
+covariance matrix (calculated as discussed earlier in section 4.3), for
+each of these four different approaches. We first note that where
+private information only is communicated, there is no change in 
+information after the first iteration. Once each agent has received the
+direct experience of its immediate neighbours, no further increase
+in information can be achieved. This represents the minimum 
+communication, and it exhibits the lowest total information of the four
+cases. Next, we note that in the case of rumour propagation, the
+information content increases continually, and rapidly exceeds the
+centralised reputation result. The fact that the rumour propagation
+case incorrectly exceeds this limit, indicates that it is continuously
+counting the same contract outcomes as they cycle around the 
+network, in the belief that they are independent events. Finally, we
+note that using private and shared information represents a 
+compromise between the private information only case and the centralised
+reputation case. Information is still allowed to propagate around
+the network, however rumours are eliminated.
+As before, we also plot a single instance of the trust estimates
+from one agent (i.e. ˆp(X) and Cov(p(X))) as a set of ellipses on a
+1076 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+1 2 3 4 5
+10
+4
+10
+6
+10
+8
+10
+10
+Iteration
+Information(I)
+Private & Shared Information
+Rumour Propagation
+Private Information Only
+Centralised Reputation
+Figure 4: Sum of information over all agents as a function of
+the communication iteration.
+two-dimensional plane (along with samples from the true 
+distribution). As expected, the centralised reputation system achieves the
+best estimate of the true distribution, since it uses the direct 
+experience of all agents. The private information only case shows the
+largest ellipse since it propagates the least information around the
+network. The rumour propagation case shows the smallest ellipse,
+but it is inconsistent with the actual distribution p(X). Thus, 
+propagating rumours around the network and double counting contract
+outcomes in the belief that they are independent events, results in
+an overconfident estimate. However, we note that our solution, 
+using separate vectors of private and shared information, allows us to
+propagate more information than the private information only case,
+but we completely avoid the problems of rumour propagation.
+Finally, we consider the effect that this has on the agents" 
+calculation of the expected utility of the contract. We assume the same
+utility function as used in section 4.3 (i.e. u(oa = 1) = 6 and
+u(ob = 1) = 2), and in table 1 we present the estimate of the 
+expected utility, and its standard deviation calculated for all four cases
+by a single agent at iteration five (after communication has ceased
+to have any further effect for all methods other than rumour 
+propagation). We note that the rumour propagation case is clearly 
+inconsistent with the centralised reputation system, since its standard
+deviation is too small and does not reflect the true uncertainty in
+the expected utility, given the contract outcomes. However, we 
+observe that our solution represents the closest case to the centralised
+reputation system, and thus succeeds in propagating information
+throughout the network, whilst also avoiding bias and 
+overconfidence. The exact difference between it and the centralised 
+reputation system depends upon the topology of the network, and the
+history of exchanges that take place within it.

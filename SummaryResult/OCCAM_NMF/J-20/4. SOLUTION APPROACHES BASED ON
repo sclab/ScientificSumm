@@ -1,0 +1,42 @@
+therefore, in the rest of the paper, we will focus on the cycle formulation and the column generation based approaches. 
+in other words, column generation based approaches turned out to be drastically better than constraint generation based approaches.
+4.3 experimental performance it turned out that even with these improvements, the edge formulation approach cannot clear a kidney exchange with 100 vertices in the time the cycle formulation (described later in section 5) can clear one with 10,000 vertices.
+it adds one constraint per violating path p, and furthermore, it adds a constraint for each path with the same interior vertices (not counting the endpoints) as p. this improved the overall speed.
+this generator made the algorithm slower, so we went in the other direction in developing our final generator.
+in our second constraint generator, we only add one  constraint for such cycles: the sum of edges in the cycle can be at most |c|(l − 1)/l .
+in our first constraint generator, we simply search for length-l paths with value sum more than l − 1. for any such path, we restrict its sum to be at most l − 1. note that if there is a cycle c with length |c| > l, it could contain as many as |c| violating paths.
+this graph is much smaller than the original graph, so we can perform the following computations efficiently.
+in each, given a fractional solution, we construct the subgraph of edges with positive value.
+4.2 constraint generation we experimented with several constraint generators.
+we also tried seeding the lp with a random collection of constraints from the ilp.
+while it is computationally  expensive to find these constraints, their addition focuses the search away from paths that cannot be in the final solution.
+4.1 constraint seeder the main constraint seeder we developed forbids any path of length l − 1 that does not have an edge closing the cycle from its head to its tail.
+we describe these briefly in the next two  subsections, respectively.
+we still need to explain the details of the constraint seeder (i.e., selecting which constraints to begin with) and the  constraint generation (i.e., selecting which violated constraints to include).
+clearly, this approach yields an optimal solution once the tree search finishes.
+at each node of the search tree that is visited, this process of solving the lp and adding constraints is repeated.
+in these cases, cplex branches on a variable (we used cplex"s default branching strategy), and generates one new search node corresponding to each of the children.
+even once all constraints are satisfied, there may be no integral solution matching the fractional upper bound, and even if there were, the lp solver might not find it.
+if so, we generate a set of these constraints, add them to the ilp, and repeat.
+we then check whether any of the missing  constraints are violated by the fractional solution.
+since this ilp is small, cplex can solve its lp relaxation.
+we begin with only a small subset of the constraints in the ilp.
+specifically, we use cplex, though 298 we add constraints as cutting planes during the tree search process.
+therefore, we use a tree search with an incremental  formulation approach.
+unfortunately, in a market with only 1000 patients, the number of length-3 paths is in excess of 400 million, and so we cannot even construct this ilp without running out of memory.
++ epl ≤ l − 1, which precludes path p from being in any feasible solution.
+, epl , add a constraint ep1 + ep2 + .
+for each length-l path (throughout the  paper, we do not include cycles in the definition of path) p = ep1 , ep2 , .
+if cycles are allowed to have length at most l, it is easy to see that we only need to make the following changes to the ilp.
+max e∈e wee such that for all vi ∈ v , the conservation constraint eout=(vi,vj ) eout − ein=(vj ,vi) ein = 0 and capacity constraint eout=(vi,vj ) eout ≤ 1 are satisfied.
+therefore, for the rest of this section, this is the approach we will pursue.
+items agents v1 v2 v3 v4 v5 e1 e3 e8 e2 v1 v2 v3 v4 v5 e7e6 e5 e4 figure 3: perfect matching encoding of the market in figure 1. alternatively, we can solve the problem by encoding it as an ilp with one variable for each edge in the original market graph g. this ilp, given below, has the advantage that it can be extended naturally to deal with cycle length constraints.
+figure 3 contains the bipartite graph encoding of the example market from figure 1. the weight-0 edges are encoded by dashed lines, while the market edges are in bold.
+it follows that the unrestricted clearing problem can be solved in polynomial time by finding a maximum-weight perfect matching.
+perfect matchings in this encoding correspond exactly with cycle covers, since whenever an agent"s item is taken, it must receive some other agent"s item.
+now, for each edge e = (vi, vj) in the original market, add an edge e with weight we between agent vi and the item of vj.
+at this point, the encoding is a perfect matching.
+add an edge ev with weight 0 between each agent v and its own item.
+given a market g = (v, e), construct a bipartite graph with one vertex for each agent, and one vertex for each item.
+this encoding is based on the following classical algorithm for solving the directed cycle cover problem with no cycle-length constraints.
+an edge formulation in this section, we consider a formulation of the clearing problem as an ilp with one variable for each edge.

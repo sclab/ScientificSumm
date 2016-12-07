@@ -1,0 +1,26 @@
+figure 2: simple sentence ranker that operates on raw text with one sentence per line. 
+out remove the number of sentences required from the heap to form the summary.
+7 use a weighted combination of c, d, k, h and to derive a score s. 8 insert l into a max-heap using s as the key.
+6 identify the longest contiguous run of query terms in l, say wj .
+5 let d be the number of distinct query terms that match some wi.
+4 let c be the number of wi that are query terms, counting repetitions.
+3 let be 2 if l is the first line of a document, 1 if it is the second line, 0 otherwise.
+, wm] 2 let h be 1 if l is a heading, 0 otherwise.
+1 for each line of the text, l = [w1, w2, .
+in a document broken into one sentence per line, and a sequence of query terms.
+4. the meta data engine fetches other information about each document to construct the results page.
+3. the snippet engine uses those document numbers and query term numbers to generate snippets.
+2. the ranking engine retrieves inverted lists for each term, using them to get a ranked list of documents.
+1. the lexicon engine maps query terms to integers.
+if the issued query is not in the query cache, then the query engine uses the four sub-systems in turn to assemble a  results page.
+when one of the popular queries is issued, the result page is fetched straight from the query cache.
+there are many papers on caching in search engines (see [3] and references therein for a current summary), but it seems reasonable that there is a query cache in the query engine that stores precomputed final result pages for very popular queries.
+the memory management system may simply be the  memory hierarchy provided by the operating system used on  machines in the sub-system, or it may be explicitly coded to optimise the processes in the sub-system.
+in addition to data and programs operating on that data, each sub-system also has its own memory management scheme.
+here we ignore the fixed text and consider only the generation of query biased  summaries: we concentrate on the snippet engine.
+for example, the meta-data such as document title and url requires minimal computation apart from  highlighting query words, but we note that disk seeking is likely to be minimized if title, url and fixed summary  information is stored contiguously with the text from which query biased summaries are extracted.
+similarly, it may be more efficient to combine some sub-systems in an implementation of the  diagram.
+sub-system could be distributed over many machines, or all occupy a single server and filesystem, competing with each other for resources.
+depending on the number of documents indexed, each sub-system could reside on a single machine, be distributed across thousands of machines, or a combination of both.
+depending on the number of documents that the search engine indexes, the data and processes for each ranking engine crawling engine indexing engine engine lexicon meta data engine engine snippet term&doc#s snippetperdoc web query engine query results page term#s doc#s invertedlists docs perdoc title,url,etc doc#s document meta data terms querystring term#s figure 1: an abstraction of some of the sub-systems in a search engine.
+a search engine must perform a variety of activities, and is comprised of many sub-systems, as depicted by the boxes in figure 1. note that there may be several other sub-systems such as the advertising engine or the parsing engine that could easily be added to the diagram, but we have  concentrated on the sub-systems that are relevant to snippet generation.

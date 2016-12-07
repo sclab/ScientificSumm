@@ -1,0 +1,86 @@
+In recent years we have seen the continuous improvement
+of technologies that are relevant for the construction of 
+distributed embedded systems, including trustworthy visual,
+auditory, and location sensing [11], communication and 
+processing. We believe that in a future networked physical
+world a new class of applications will emerge, composed of
+a myriad of smart sensors and actuators to assess and 
+control aspects of their environments and autonomously act in
+response to it. The anticipated challenging characteristics
+of these applications include autonomy, responsiveness and
+safety criticality, large scale, geographical dispersion, 
+mobility and evolution.
+In order to deal with these challenges, it is of 
+fundamental importance to use adequate high-level models, 
+abstractions and interaction paradigms. Unfortunately, when 
+facing the specific characteristics of the target systems, the
+shortcomings of current architectures and middleware 
+interaction paradigms become apparent. Looking to the basic
+building blocks of such systems we may find components
+which comprise mechanical parts, hardware, software and
+a network interface. However, classical event/object 
+models are usually software oriented and, as such, when 
+trans28
+ported to a real-time, embedded systems setting, their 
+harmony is cluttered by the conflict between, on the one side,
+send/receive of software events (message-based), and on
+the other side, input/output of hardware or real-world
+events, register-based. In terms of interaction paradigms,
+and although the use of event-based models appears to be
+a convenient solution [10, 22], these often lack the 
+appropriate support for non-functional requirements like reliability,
+timeliness or security.
+This paper describes an architectural framework and a
+middleware, supporting a component-based system and an
+integrated view on event-based communication comprising
+the real world events and the events generated in the system.
+When choosing the appropriate interaction paradigm it
+is of fundamental importance to address the challenging 
+issues of the envisaged sentient applications. Unlike classical
+approaches that confine the possible interactions to the 
+application boundaries, i.e. to its components, we consider
+that the environment surrounding the application also plays
+a relevant role in this respect. Therefore, the paper starts by
+clarifying several issues concerning our view of the system,
+about the interactions that may take place and about the
+information flows. This view is complemented by 
+providing an outline of the component-based system construction
+and, in particular, by showing that it is possible to 
+compose larger applications from basic components, following
+an hierarchical composition approach.
+This provides the necessary background to introduce the
+Generic-Events Architecture (GEAR), which describes
+the event-based interaction between the components via a
+generic event layer while allowing the seamless integration
+of physical and computer information flows. In fact, the
+generic event layer hides the different communication 
+channels, including the interactions through the environment.
+Additionally, the event layer abstraction is also adequate
+for the proper handling of the non-functional requirements,
+namely reliability and timeliness, which are particularly 
+stringent in real-time settings. The paper devotes particular 
+attention to this issue by discussing the temporal aspects of
+interactions and the needs for predictability.
+An appropriate middleware is presented which reflects
+these needs and allows to specify events which have quality
+attributes to express temporal constraints. This is 
+complemented by the notion of Event Channels (EC), which are 
+abstractions of the underlying network while being abstracted
+by the event layer. In fact, event channels play a 
+fundamental role in securing the functional and non-functional
+(e.g. reliability and timeliness) properties of the envisaged
+applications, that is, in allowing the enforcement of quality
+attributes. They are established prior to interaction to 
+reserve the needed computational and network resources for
+highly predictable event dissemination.
+The paper is organized as follows. In Section 3 we 
+introduce the fundamental notions and abstractions that we
+adopt in this work to describe the interactions taking place
+in the system. Then, in Section 4, we describe the 
+componentbased approach that allows composition of objects. GEAR
+is then described in Section 5 and Section 6 focuses on 
+temporal aspects of the interactions. Section 7 describes the
+COSMIC middleware, which may be used to specify the 
+interaction between sentient objects. A simple example to
+highlight the ideas presented in the paper appears in 
+Section 8 and Section 9 concludes the paper.

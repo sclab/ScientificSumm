@@ -1,0 +1,32 @@
+since the interaction graph captures all the reward interactions among agents and as this algorithm iterates through all the relevant joint policy evaluations, this algorithm yields a globally optimal solution. 
+goa takes advantage of the local interactions in the interaction graph, by pruning out unnecessary joint policy evaluations  (associated with nodes not connected directly in the tree).
+in the second phase of value propagation, where the optimal policies are passed down from the root till the leaves.
+this util propagation process is repeated at each level in the tree, until the root exhausts all its policies.
+thus, given a policy for a parent node, goa requires an agent to iterate through all its policies, finding the best response policy and returning the value to the parent - while at the parent node, to find the best policy, an agent requires its children to return their best responses to each of its policies.
+value for a policy at an agent is defined as the sum of best response values from its  children and the joint policy reward associated with the parent policy.
+the first phase is the util  propagation, where the utility messages, in this case values of policies, are passed up from the leaves to the root.
+goa"s message passing follows that of dpop.
+goa borrows from a global optimal dcop algorithm called dpop[12].
+we will use goa in our  experimental comparisons, since goa is a state-of-the-art global optimal algorithm, and in fact the only one with experimental results  available for networks of more than two agents.
+3.2 algorithm: global optimal algorithm (goa) in previous work, goa has been defined as a global optimal algorithm for nd-pomdps [10].
+the reward component rl where |l| = 1 can be thought of as a local constraint while the reward component rl where l > 1  corresponds to a non-local constraint in the constraint graph.
+, πn that maximizes team"s expected reward over a finite horizon t starting from the belief state b. an nd-pomdp is similar to an n-ary distributed constraint optimization problem (dcop)[8, 12] where the variable at each node represents the policy selected by an individual agent, πi with the domain of the variable being the set of all local policies, πi.
+the goal in nd-pomdp is to compute the joint policy π = π1, .
+the initial belief state (distribution over the initial state), b, is defined as b(s) = bu(su) · 1≤i≤n bi(si), where bu and bi refer to the distribution over initial unaffectable state and agent i"s initial belief state, respectively.
+a hyper-link, l, exists between a subset of agents for all rl that  comprise r. the interaction hypergraph is defined as g = (ag, e), where the agents, ag, are the vertices and e = {l|l ⊆ ag ∧ rl is a component of r} are the edges.
+based on the reward function, an interaction hypergraph is constructed.
+, alr ), where each l could refer to any sub-group of agents and r = |l|.
+, slr, su, al1, .
+the reward function, r, is defined as r(s, a) = l rl(sl1, .
+, ωn ∈ ω is the observation received in state s. this implies that each agent"s observation depends only on the  unaffectable state, its local action and on its resulting local state.
+, an in the previous state, and ω = ω1, .
+, sn, su is the world state that results from the agents  performing a = a1, .
+ω = ×1≤i≤nωi is the set of joint observations where ωi is the set of observations for agents i. observational independence is assumed in nd-pomdps i.e., the joint observation function is defined as o(s, a, ω) = 1≤i≤n oi(si, su, ai, ωi), where s = s1, .
+, sn, su is the resulting state.
+, sn, su and s = s1, .
+, an is the joint action  performed in state s = s1, .
+a = ×1≤i≤nai is the set of joint actions, where ai is the set of action for agent i. nd-pomdp assumes transition independence, where the  transition function is defined as p(s, a, s ) = pu(su, su) · 1≤i≤n pi(si, su, ai, si), where a = a1, .
+environmental factors like target locations that no agent can control.
+unaffectable state refers to that part of the world state that cannot be affected by the agents" actions, e.g.
+si refers to the set of local states of agent i and su is the set of unaffectable states.
+3.1 model: network distributed pomdp the nd-pomdp model was introduced in [10], motivated by domains such as the sensor networks introduced in section 2. it is defined as the tuple s, a, p, ω, o, r, b , where s = ×1≤i≤nsi × su is the set of world states.

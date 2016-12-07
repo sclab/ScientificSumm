@@ -1,0 +1,39 @@
+We have only just scratched the surface in addressing the
+problem of coordinated spectrum sensing using incremental
+gossiping. Next, we outline some open areas of research.
+Spatial Decay: Devices performing coordinated sensing
+are primarily interested in the spectrum usage of their local
+neighborhood. Therefore, we recommend the use of 
+spatially decaying aggregates [6], which limits the impact of an
+update on more distant nodes. Spatially decaying 
+aggregates work by successively reducing (by means of a decay
+function) the value of the update as it propagates further
+from its origin. One challenge with this approach is that
+propagation distance cannot be determined ahead of time
+and more importantly, exhibits spatio-temporal variations.
+Therefore, finding the optimal decay function is non-trivial,
+and an interesting subject of future work.
+Significance Threshold: RF spectrum bands 
+continually experience small-scale changes which may not 
+necessarily be significant. Deciding if a change is significant can be
+done using a significance threshold β, below which any 
+observed change is not propagated by the node. Choosing an
+appropriate operating value for β is application dependent,
+and explored further in [3].
+Weighted Readings: Although we argued that most
+devices will likely be equipped with low-cost sensing 
+equipment, there may be situations where there are some special
+infrastructure nodes that have better sensing abilities than
+others. Weighting their measurements more heavily could
+be used to maintain a higher degree of accuracy. 
+Determining how to assign such weights is an open area of research.
+Implementation Specifics: Finally, implementing 
+gossip for coordinated spectrum sensing is also open. If 
+implemented at the MAC layer, it may be feasible to piggy-back
+gossip messages over existing management frames (e.g. 
+networking advertisement messages). As well, we also require
+the use of a control channel to disseminate sensing 
+information. There are a variety of alternatives for 
+implementing such a channel, some of which are outlined in [4]. The
+trade-offs of different approaches to implementing GUESS
+is a subject of future work.

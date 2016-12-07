@@ -1,0 +1,32 @@
+unless otherwise specified, frank was trained with all of the features. 
+frank uses ranknet and the set of features described in this section to learn a ranking function for web pages.
+because we use a wide variety of features to come up with a static ranking, we refer to this as frank (for feature-based ranking).
+the closest similar work is on using click-through behavior (that is, which search engine results the users click on) to affect dynamic ranking (see e.g., [20]).
+also, to our knowledge, this is the first study on the use of actual page visitation popularity for static ranking.
+as mentioned, the evaluation is typically for dynamic ranking, and we wish to evaluate the use of them for static ranking.
+many of these features have been used by others for ranking web pages, particularly the anchor and page features.
+for example, the average number of outlinks on any page and the average pagerank.
+domain this category contains features that are computed as averages across all pages in the domain.
+we used only eight, simple features such as the number of words in the body, the frequency of the most common term, etc.
+page this category consists of features which may be determined by looking at the page (and its url) alone.
+it includes features such as the total amount of text in links pointing to the page (anchor text), the number of unique words in that text, etc.
+more details are provided in section 5.5. anchor text and inlinks these features are based on the information associated with links to the page in question.
+the raw popularity is processed into a number of features such as the number of times a page was viewed and the number of times any page in the domain was viewed.
+an advantage of the toolbar data over this is that it contains information about url visits that are not just the result of a search.
+such data was used by the search engine direct hit, and has recently been explored for dynamic ranking purposes [20].
+another source, internal to search engines, are records of which results their users clicked on.
+unfortunately, proxy data is quite biased and relatively small.
+for example, a university that requires its students to use a proxy has a record of all the pages they have visited while on campus.
+the first is from proxy logs.
+though popularity data is generally unavailable, there are two other sources for it.
+the data is aggregated into a count, for each web page, of the number of users who viewed that page.
+we have access to such data from users who have installed the msn toolbar and have opted to provide it to msn.
+the trec vlc2 corpus, used by many, contains only 19 million pages) we computed pagerank using the standard value of 0.85 for α. popularity another feature we used is the actual popularity of a web page, measured as the number of times that it has been visited by users over some period of time.
+most previous studies on pagerank used subsets of the web that are significantly smaller (e.g.
+because pagerank is a graph-based algorithm, it is important that it be run on as large a subset of the web as possible.
+this represents a significant portion of the web, and is approximately the same number of pages as are used by google, yahoo, and msn for their search engines.
+pagerank we computed pagerank on a web graph of 5 billion crawled pages (and 20 billion known urls linked to by these pages).
+below, we describe each of these feature categories in more detail.
+we also optionally used the pagerank of a page as a feature.
+we divided our feature set into four, mutually exclusive, categories: page-level (page), domain-level (domain), anchor text and inlinks (anchor), and popularity (popularity).
+to apply ranknet (or other machine learning techniques) to the ranking problem, we needed to extract a set of features from each page.

@@ -1,0 +1,46 @@
+Compared with GS-DR, GS-DR-LL can decrease more inconsistency, and it eliminates most inconsistency when the network transmission delay is 100 ms and the threshold is 4 pixels or 5 degrees.
+The main purpose of performance evaluation is to study the effects of GS-DR-LL on decreasing before inconsistency in a particular game system under different thresholds, lags, and network transmission delays.
+In the last step, to each track couple, the inconsistency between them was calculated, and the unit of inconsistency was pixel.
+Since the physical clocks of the two computers were synchronized, the calculation of inconsistency was quite simple.
+Figures 3, 4, and 5 show the results of inconsistency when the lag is fixed at 300 ms and the network transmission delays are 100, 300, and 500 ms.
+Under different settings and consistency maintenance approaches, the selected sub operation sequence was played back on one computer, and it drove the two spaceships, one was local and the other was remote, to move.
+Inconsistency when the network transmission delay is 300 ms and the lag is 300 ms. 0 10 20 30 40 0.0 1.5 3.1 4.6 6.2 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 10 pixels or 15degrees 0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 4 pixels or 5degrees Figure 5.
+In order to show the results of inconsistency in a clear way, only parts of the results, which last about 7 seconds, are used in the following figures, and the figures show almost the same parts of the results.
+The 5th Workshop on Network & System Support for Games 2006 - NETGAMES 2006 5 From all above results, it can be indicated that GS-DR and  GSDR-LL both can eliminate after inconsistency, and GS-DR-LL can effectively decrease before inconsistency, and the effects increase with the lag.
+0 10 20 30 40 0.0 1.5 3.1 4.7 6.2 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 10 pixels or 15degrees 0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 4 pixels or 5degrees Figure 6.
+the lag is larger than the network transmission delay and the threshold is 0), GS-DR-LL even can eliminate before inconsistency.
+Figures 6, 7, and 8 show the results of inconsistency when the network transmission delay is fixed at 800 ms and the lag are 100, 300, and 500 ms.
+Six different combinations of lag and network transmission delay were used in the evaluation and they could be divided into two categories.
+In order to simulate network transmission delay, a specific module was developed to delay all packets transmitted between the two computers in terms of a predefined delay value.
+The inconsistency at a particular time point was the distance between the positions of the two spaceships at that time point (i.e.
+Inconsistency when the network transmission delay is 800 ms and the lag is 300 ms. 0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 10 pixels or 15degrees 0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 4 pixels or 5degrees Figure 8.
+0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 10 pixels or 15degrees 0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 4 pixels or 5degrees Figure 3.
+Additionally, inconsistency increases with the network transmission delay, but decreases with the threshold.
+Two different thresholds were used in the evaluation, one is 10 pixels deviation in position or 15 degrees deviation in orientation, and the other is 4 pixels or 5 degrees.
+In the second step, the physical clocks of the two computers were synchronized first.
+From the above results it can be seen that there does not exist any constraint on the selection of the lag, with GS-DR-LL a system would work fine even if the lag is much smaller than the network transmission delay.
+Inconsistency when the network transmission delay is 100 ms and the lag is 300 ms. 0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 10 pixels or 15degrees 0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 4 pixels or 5degrees Figure 4.
+In our practical implementation, GS-DR-LL and GS-DR coexisted in the game system, and the test bed was composed of two computers connected by 100 M switched Ethernet, with one computer acted as local site and the other acted as remote site.
+In the other category, the network transmission delay was fixed at 800 ms and three different lags (100 ms, 300 ms, and 500 ms) were used.
+It can be seen that with GS-DR-LL before inconsistency decreases with the lag.
+Inconsistency when the network transmission delay is 500 ms and the lag is 300 ms.
+Since there are 12 settings and 2 consistency maintenance approaches, the total number of recorded track couples was 24.
+Inconsistency when the network transmission delay is 800 ms and the lag is 100 ms. 0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 10 pixels or 15degrees 0 10 20 30 40 0.0 1.5 3.1 4.6 6.1 Time (seconds) Inconsistency(pixels) GS-DR-LL GS-DR The threshold is 4 pixels or 5degrees Figure 7.
+In one category, the lag was fixed at 300 ms and three different network transmission delays (100 ms, 300 ms, and 500 ms) were used.
+With the definitions of before inconsistency and after inconsistency, it can be indicated that GS-DR and GS-DR-LL both can eliminate after inconsistency, and GS-DR-LL can effectively decrease before inconsistency.
+If the life points of a spaceship decrease to 0, the spaceship is removed from the game and the player controlling the spaceship loses the game.
+Inconsistency when the network transmission delay is 800 ms and the lag is 500 ms. 
+In traditional local lag, the lag must be set to a value larger than typical network transmission delay, otherwise the state repairs would flood the system.
+In order to evaluate GS-DR-LL and compare it with GS-DR in a real application, we had implemented both two methods in a networked game named spaceship [1].
+Spaceship is a very simple networked computer game, in which players can control their spaceships to accelerate, decelerate, turn, and shoot spaceships controlled by remote players with laser beams.
+Meanwhile, the tracks of the spaceships on the two computers were recorded separately and they were called as a track couple.
+4 The 5th Workshop on Network & System Support for Games 2006 - NETGAMES 2006 According to the prediction and state filtering mechanisms of DR, inconsistency cannot be completely eliminated if the threshold is not 0.
+It can be foreseen that with proper lag and threshold (e.g.
+In the first step, two participants were employed to play the game, and the operation sequences were recorded.
+If a spaceship is hit by a laser beam, its life points decrease one.
+Therefore the total number of settings used in the evaluation was 12 (2 × 6).
+It can been seen that inconsistency does exist, but in most of the time it is 0.
+Based on the records, a sub operation sequence, which lasted about one minute and included different operations (e.g.
+The procedure of performance evaluation was composed of three steps.
+accelerate, decelerate, and turn), was selected.
+formula (3)).

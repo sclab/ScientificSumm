@@ -1,0 +1,21 @@
+GBTK is a master/slave application that receives the sequences and the name of the genetic database.
+Having decided which sequences will be compared by each node, GridBlast sends the sequences, the executable files and the whole database to the chosen node.
+Then, the queries are evenly distributed among the nodes.
+A method is proposed that associates data fragments to nodes, trying to minimize the number of copies.
+Master SlaveSlaveSlave Internet database segment but only part of it is processed in each node The database is replicated in the nodes, Figure 2: PackageBLAST segmentation and  distribution mechanism. 
+It distributes sequences among the grid nodes using two allocation policies: FCFS and minmax.
+It then verifies if the node that contains the database is available.
+When the search finishes, the results are compacted and sent to the master.
+All genetic databases are  statically placed on the grid nodes (without replication).
+A master/slave approach is used that allocates the queries to the slaves according to the fixed policy (section 3.3).
+If the node is not available, the less loaded node is chosen and the database is copied to it.
+BLAST++ [10] groups multiple sequences to reduce the number of database accesses.
+Each worker executes BLAST++ independently and, finally, the results are collected and  combined by the master.
+If the node does not have a database fragment, a local copy is made.
+First, the genetic database is segmented.
+However, to use minmax, the total execution time of each BLAST task must be known.
+Of those, only the last one takes into account the current load and the heterogeneity of the environment.
+MpiBLAST [2] was proposed for clusters and has two phases.
+GridBlast [9] is a master/slave grid application that uses Globus 2.
+If so, it is selected.
+Grid Blast Toolkit (GBTK) [12] is a web portal to execute BLAST searches in Globus 3.

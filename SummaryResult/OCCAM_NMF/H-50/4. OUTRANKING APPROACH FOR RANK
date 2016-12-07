@@ -1,0 +1,48 @@
+thus, the consensus ranking is {d1, d2, d3} → {d4} → {d5}. 
+the last document d5 is the only  document of the last class c3.
+they are respectively 1 and -1. so c3 = e1 = {d4}.
+at this stage, we remove documents of c1 from the outranking matrix and compute the next class c2: we compute the new qualifications of the documents of e0 = r \ c1 = {d4, d5}.
+observe that, if we had used a second outranking relation s2(⊇ s1), these three documents could have been  possibly discriminated.
+they are respectively 2, 2, 2, -2 and -4. therefore smax equals 2 and c1 = e1 = {d1, d2, d3}.
+the consensus ranking is obtained as follows: to get the first class c1, we compute the qualifications of all the documents of e0 = r with respect to s1 .
+notice that fk(di, r) (fk(di, r)) is given by summing the values of the ith row (column) of the outranking matrix.
+therefore, c1(d1, d4) = 3, d4(d1, d4) = 0 and d1s1 d4 holds.
+table 2: computation of the outranking relation d1 d2 d3 d4 d5 d1 - 2 2 3 3 d2 2 - 2 3 4 d3 2 2 - 4 4 d4 1 1 0 - 3 d5 1 0 0  1concordance matrix d1 d2 d3 d4 d5 d1 - 0 1 0 0 d2 0 - 0 0 0 d3 0 0 - 0 0 d4 1 0 0 - 0 d5 1 1 0  0discordance matrix d1 d2 d3 d4 d5 d1 - 1 1 1 1 d2 1 - 1 1 1 d3 1 1 - 1 1 d4 0 0 0 - 1 d5 0 0 0  0outranking matrix (s1) for instance, the concordance coalition for the assertion d1σd4 is c1(d1σd4) = { 1, 2, 3} and the discordance coalition for the same assertion is d4(d1σd4) = ∅.
+csp (di, di ) = |csp (diσdi )| and dsv (di, di ) = |dsv (diσdi )|.
+each entry csp (di, di ) (dsv (di, di )) in the concordance (discordance) matrix gives the number of rankings that are concordant (discordant) with diσdi , i.e.
+the following tables give the concordance,  discordance and outranking matrices.
+table 1: rankings of documents rj i 1 2 3 4 d1 1 3 1 5 d2 2 1 3 3 d3 3 2 2 1 d4 4 4 5 2 d5 5 5 4 4 let us suppose that the preference and veto thresholds are set to values 1 and 4 respectively, and that the  concordance and discordance thresholds are set to values 2 and 1 respectively.
+the following table gives a profile pr of different rankings of the documents of r: pr = ( 1 , 2, 3, 4).
+4.2 illustrative example this section illustrates the concepts and procedures of section 4.1. let us consider a set of candidate documents r = {d1, d2, d3, d4, d5}.
+when different outranking relations are used, the distillation process stops when all the pre-defined outranking relations have been used or when |ek| = 1.
+sk(di, ek−1), 2. define smax = maxdi∈ek−1 {sk(di, ek−1)}, then 3. ek = {di ∈ ek−1 : sk(di, ek−1) = smax} when one outranking relation is used, the distillation  process stops after the first application of the previous  procedure, i.e., ch corresponds to distillate e1.
+∪ ch−1) and ek is a reduced  subset of ek−1 resulting from the application of the following procedure: 1. compute for each di ∈ ek−1 its qualification according to sk , i.e.
+where e0 = r \ (c1 ∪ .
+it  corresponds to the last distillate of a series of sets e0 ⊇ e1 ⊇ .
+each class ch results from a distillation process.
+be a family of nested outranking relations, • fk(di, e) = |{di ∈ e : disk di }| be the number of documents in e(e ⊆ r) that could be considered ‘worse" than di according to relation sk , • fk(di, e) = |{di ∈ e : di sk di}| be the number of documents in e that could be considered ‘better" than di according to sk , • sk(di, e) = fk(di, e) − fk(di, e) be the qualification of di in e according to sk .
+formally, let • r be the set of candidate documents for a query, • s1 , s2 , .
+documents within the same equivalence class are ranked arbitrarily.
+each class ch contains documents with the same relevance and results from the application of all relations (if possible) to the set of documents remaining after previous classes are computed.
+it consists in partitioning the set of documents into r ranked classes.
+we propose the following  procedure which finds its roots in [27].
+therefore, we need specific procedures in order to derive a consensus ranking.
+outranking relations are not necessarily transitive and do not necessarily correspond to rankings since directed cycles may exist.
+it also satisfies important properties of rank aggregation  methods, called neutrality, pareto-optimality, condorcet  property and extended condorcet property, in the social choice literature [29].
+this expression also generalizes the majority rule which corresponds to the particular relation s(0,∞, n 2 ,n).
+a generic outranking relation can thus be defined as  follows: dis(sp,sv,cmin,dmax)di ⇔ |csp (diσdi )| ≥ cmin and |dsv (diσdi )| ≤ dmax this expression defines a family of nested outranking  relations since s(sp,sv,cmin,dmax) ⊆ s(sp,sv,cmin,dmax) when cmin ≥ cmin and/or dmax ≤ dmax and/or sp ≥ sp and/or sv ≤ sv.
+they can be more or less demanding depending on i) the values of the thresholds sp and sv, ii) the importance or minimal size cmin required for the concordance coalition, and iii) the importance or maximum size dmax of the  discordance coalition.
+depending on the exact definition of the preceding  concordance and discordance coalitions leading to the definition of some decision rules, several outranking relations can be defined.
+the discordance coalition with diσdi is dsv (diσdi ) = { j∈ pr : rj i ≥ rj i + sv} where sv is a veto threshold which is the variation of  document positions -whether it is absolute or relative to the ranking length- which draws the boundaries between a weak and a strong opposition to diσdi .
+formally, the concordance coalition with diσdi is csp (diσdi ) = { j∈ pr : rj i ≤ rj i − sp} where sp is a preference threshold which is the variation of document positions -whether it is absolute or relative to the ranking length- which draws the boundaries between an indifference and a preference situation between documents.
+• a discordance condition which ensures that none of the discordant input rankings strongly refutes dσd  (respect of minorities principle).
+therefore, in order to decide whether a document di should be ranked better than di in the consensus ranking σ, the two following conditions should be met: • a concordance condition which ensures that a  majority of the input rankings are concordant with diσdi (majority principle).
+trying to overcome the limits of current rank aggregation methods, we found that outranking approaches, which were initially used for multiple criteria aggregation problems [26], can also be used for the rank aggregation purpose, where each ranking plays the role of a criterion.
+therefore, majoritarian methods base  consensus rankings on illusory discriminant information rather than less discriminant but more robust information.
+nevertheless, they suppose that such rankings are complete orders, ignoring that they may hide ties.
+majoritarian methods do not suffer from the  above-mentioned drawbacks of the positional methods since they build consensus rankings exploiting only ordinal information  contained in the input rankings.
+whether we assign to each of the missing documents the position 1, 501, 750 or 1000 -corresponding to variations of h3 yes- will give rise to very contrasted results, especially regarding the top of the consensus ranking.
+for instance, let us consider an input ranking of 500 documents out of 1000 candidate documents.
+moreover, for positional methods, assumptions h3 and h4 , which are often arbitrary, have a strong impact on the results.
+this  constitutes a strong assumption that is questionable, especially when the input rankings have different lengths.
+aggregation 4.1 presentation positional methods consider implicitly that the positions of the documents in the input rankings are scores giving thus a cardinal meaning to an ordinal information.

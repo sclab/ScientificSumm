@@ -1,0 +1,54 @@
+A wide range of current Information Retrieval (IR) 
+approaches are based on various search models (Boolean, 
+Vector Space, Probabilistic, Language, etc. [2]) in order to 
+retrieve relevant documents in response to a user request. The
+result lists produced by these approaches depend on the 
+exact definition of the relevance concept.
+Rank aggregation approaches, also called data fusion 
+approaches, consist in combining these result lists in order
+to produce a new and hopefully better ranking. Such 
+approaches give rise to metasearch engines in the Web context.
+We consider, in the following, cases where only ranks are
+available and no other additional information is provided
+such as the relevance scores. This corresponds indeed to the
+reality, where only ordinal information is available.
+Data fusion is also relevant in other contexts, such as when
+the user writes several queries of his/her information need
+(e.g., a boolean query and a natural language query) [4], or
+when many document surrogates are available [16].
+Several studies argued that rank aggregation has the 
+potential of combining effectively all the various sources of 
+evidence considered in various input methods. For instance,
+experiments carried out in [16], [30], [4] and [19] showed that
+documents which appear in the lists of the majority of the
+input methods are more likely to be relevant. Moreover, Lee
+[19] and Vogt and Cottrell [31] found that various retrieval
+approaches often return very different irrelevant documents,
+but many of the same relevant documents. Bartell et al.
+[3] also found that rank aggregation methods improve the
+performances w.r.t. those of the input methods, even when
+some of them have weak individual performances. These
+methods also tend to smooth out biases of the input 
+methods according to Montague and Aslam [22]. Data fusion has
+recently been proved to improve performances for both the
+ad-hoc retrieval and categorization tasks within the TREC
+genomics track in 2005 [1].
+The rank aggregation problem was addressed in various
+fields such as i) in social choice theory which studies 
+voting algorithms which specify winners of elections or winners
+of competitions in tournaments [29], ii) in statistics when
+studying correlation between rankings, iii) in distributed
+databases when results from different databases must be
+combined [12], and iv) in collaborative filtering [23].
+Most current rank aggregation methods consider each 
+input ranking as a permutation over the same set of items.
+They also give rigid interpretation to the exact ranking of
+the items. Both of these assumptions are rather not valid in
+the IR context, as will be shown in the following sections.
+The remaining of the paper is organized as follows. We
+first review current rank aggregation methods in Section 2.
+Then we outline the specificities of the data fusion problem
+in the IR context (Section 3). In Section 4, we present a
+new aggregation method which is proven to best fit the IR
+context. Experimental results are presented in Section 5 and
+conclusions are provided in a final section.

@@ -1,0 +1,275 @@
+Social choice theory centers around the general problem of
+selecting a single outcome out of a set A of alternative 
+outcomes based on the individual preferences of a set P of 
+players. A method for aggregating player preferences to select
+one outcome is called a social choice function. In this paper
+we assume that the range A is finite and that each player"s
+preference is expressed by a valuation function which 
+assigns to each possible outcome a real number representing
+the benefit the player derives from that outcome. The
+ensemble of player valuation functions is viewed as a 
+valuation matrix with rows indexed by players and columns by
+outcomes.
+A major difficulty connected with social choice functions
+is that players can not be required to tell the truth about
+their preferences. Since each player seeks to maximize his
+own benefit, he may find it in his interest to misrepresent
+his valuation function. An important approach for dealing
+with this problem is to augment a given social choice 
+function with a payment function, which assigns to each player
+a (positive or negative) payment as a function of all of the
+individual preferences. By carefully choosing the payment
+function, one can hope to entice each player to tell the truth.
+A social choice function augmented with a payment function
+is called a mechanism 1
+and the mechanism is said to 
+implement the social choice function. A mechanism is truthful
+(or to be strategyproof or to have a dominant strategy) if
+each player"s best strategy, knowing the preferences of the
+others, is always to declare his own true preferences. A 
+social choice function is truthfully implementable, or truthful
+if it has a truthful implementation. (The property of 
+truthful implementability is sometimes called dominant strategy
+incentive compatibility). This framework leads naturally to
+the question: which social choice functions are truthful?
+This question is of the following general type: given a
+class of functions (here, social choice functions) and a 
+property that holds for some of them (here, truthfulness), 
+characterize the property. The definition of the property itself
+provides a characterization, so what more is needed? Here
+are some useful notions of characterization:
+• Recognition algorithm. Give an algorithm which, given
+an appropriate representation of a function in the class,
+determines whether the function has the property.
+• Parametric representation. Give an explicit parametrized
+family of functions and show that each function in the
+1
+The usual definition of mechanism is more general than this
+(see [8] Chapter 23.C or [9]); the mechanisms we consider
+here are usually called direct revelation mechanisms.
+286
+family has the property, and that every function with
+the property is in the family.
+A third notion applies in the case of hereditary properties
+of functions. A function g is a subfunction of function f, or
+f contains g, if g is obtained by restricting the domain of
+f. A property P of functions is hereditary if it is preserved
+under taking subfunctions. Truthfulness is easily seen to be
+hereditary.
+• Sets of obstructions. For a hereditary property P, a
+function g that does not have the property is an 
+obstruction to the property in the sense that any function
+containing g doesn"t have the property. An obstruction
+is minimal if every proper subfunction has the 
+property. A set of obstructions is complete if every function
+that does not have the property contains one of them
+as a subfunction. The set of all functions that don"t
+satisfy P is a complete (but trivial and uninteresting)
+set of obstructions; one seeks a set of small (ideally,
+minimal) obstructions.
+We are not aware of any work on recognition algorithms
+for the property of truthfulness, but there are significant 
+results concerning parametric representations and obstruction
+characterizations of truthfulness. It turns out that the 
+domain of the function, i.e., the set of allowed valuation 
+matrices, is crucial. For functions with unrestricted domain, i.e.,
+whose domain is the set of all real matrices, there are very
+good characterizations of truthfulness. For general domains,
+however, the picture is far from complete. Typically, the 
+domains of social choice functions are specified by a system of
+constraints. For example, an order constraint requires that
+one specified entry in some row be larger than another in
+the same row, a range constraint places an upper or lower
+bound on an entry, and a zero constraint forces an entry to
+be 0. These are all examples of linear inequality constraints
+on the matrix entries.
+Building on work of Roberts [10], Lavi, Mu"alem and
+Nisan [6] defined a condition called weak monotonicity 
+(WMON). (Independently, in the context of multi-unit 
+auctions, Bikhchandani, Chatterji and Sen [3] identified the
+same condition and called it nondecreasing in marginal 
+utilities (NDMU).) The definition of W-MON can be formulated
+in terms of obstructions: for some specified simple set F of
+functions each having domains of size 2, a function satisfies
+W-MON if it contains no function from F. The functions
+in F are not truthful, and therefore W-MON is a 
+necessary condition for truthfulness. Lavi, Mu"alem and Nisan
+[6] showed that W-MON is also sufficient for truthfulness
+for social choice functions whose domain is order-based, i.e.,
+defined by order constraints and zero constraints, and Gui,
+Muller and Vohra [5] extended this to other domains. The
+domain constraints considered in both papers are special
+cases of linear inequality constraints, and it is natural to
+ask whether W-MON is sufficient for any domain defined by
+such constraints. Lavi, Mu"alem and Nisan [6] conjectured
+that W-MON suffices for convex domains. The main result
+of this paper is an affirmative answer to this conjecture:
+Theorem 1. For any social choice function having 
+convex domain and finite range, weak monotonicity is necessary
+and sufficient for truthfulness.
+Using the interpretation of weak monotonicity in terms
+of obstructions each having domain size 2, this provides a
+complete set of minimal obstructions for truthfulness within
+the class of social choice functions with convex domains.
+The two hypotheses on the social choice function, that
+the domain is convex and that the range is finite, can not
+be omitted as is shown by the examples given in section 7.
+1.1 Related Work
+There is a simple and natural parametrized set of 
+truthful social choice functions called affine maximizers. Roberts
+[10] showed that for functions with unrestricted domain, 
+every truthful function is an affine maximizer, thus providing
+a parametrized representation for truthful functions with
+unrestricted domain. There are many known examples of
+truthful functions over restricted domains that are not affine
+maximizers (see [1], [2], [4], [6] and [7]). Each of these 
+examples has a special structure and it seems plausible that
+there might be some mild restrictions on the class of all 
+social choice functions such that all truthful functions obeying
+these restrictions are affine maximizers. Lavi, Mu"alem and
+Nisan [6] obtained a result in this direction by showing that
+for order-based domains, under certain technical 
+assumptions, every truthful social choice function is almost an
+affine maximizer.
+There are a number of results about truthfulness that
+can be viewed as providing obstruction characterizations, 
+although the notion of obstruction is not explicitly discussed.
+For a player i, a set of valuation matrices is said to be
+i-local if all of the matrices in the set are identical except for
+row i. Call a social choice function i-local if its domain is 
+ilocal and call it local if it is i-local for some i. The following
+easily proved fact is used extensively in the literature:
+Proposition 2. The social choice function f is truthful
+if and only if every local subfunction of f is truthful.
+This implies that the set of all local non-truthful functions
+comprises a complete set of obstructions for truthfulness.
+This set is much smaller than the set of all non-truthful
+functions, but is still far from a minimal set of obstructions.
+Rochet [11], Rozenshtrom [12] and Gui, Muller and Vohra
+[5] identified a necessary and sufficient condition for 
+truthfulness (see lemma 3 below) called the nonnegative cycle
+property. This condition can be viewed as providing a 
+minimal complete set of non-truthful functions. As is required
+by proposition 2, each function in the set is local. 
+Furthermore it is one-to-one. In particular its domain has size at
+most the number of possible outcomes |A|.
+As this complete set of obstructions consists of minimal
+non-truthful functions, this provides the optimal obstruction
+characterization of non-truthful functions within the class of
+all social choice functions. But by restricting attention to 
+interesting subclasses of social choice functions, one may hope
+to get simpler sets of obstructions for truthfulness within
+that class.
+The condition of weak monotonicity mentioned earlier can
+be defined by a set of obstructions, each of which is a local
+function of domain size exactly 2. Thus the results of Lavi,
+Mu"alem and Nisan [6], and of Gui, Muller and Vohra [5]
+give a very simple set of obstructions for truthfulness within
+certain subclasses of social choice functions. Theorem 1 
+extends these results to a much larger subclass of functions.
+287
+1.2 Weak Monotonicity and the Nonnegative
+Cycle Property
+By proposition 2, a function is truthful if and only if each
+of its local subfunctions is truthful. Therefore, to get a set
+of obstructions for truthfulness, it suffices to obtain such a
+set for local functions.
+The domain of an i-local function consists of matrices that
+are fixed on all rows but row i. Fix such a function f and
+let D ⊆ RA
+be the set of allowed choices for row i. Since
+f depends only on row i and row i is chosen from D, we
+can view f as a function from D to A. Therefore, f is a
+social choice function having one player; we refer to such a
+function as a single player function.
+Associated to any single player function f with domain D
+we define an edge-weighted directed graph Hf whose vertex
+set is the image of f. For convenience, we assume that f
+is surjective and so this image is A. For each a, b ∈ A,
+x ∈ f−1
+(a) there is an edge ex(a, b) from a to b with weight
+x(a) − x(b). The weight of a set of edges is just the sum of
+the weights of the edges. We say that f satisfies:
+• the nonnegative cycle property if every directed cycle
+has nonnegative weight.
+• the nonnegative two-cycle property if every directed 
+cycle between two vertices has nonnegative weight.
+We say a local function g satisfies nonnegative cycle 
+property/nonnegative two-cycle property if its associated single
+player function f does.
+The graph Hf has a possibly infinite number of edges
+between any two vertices. We define Gf to be the 
+edgeweighted directed graph with exactly one edge from a to b,
+whose weight δab is the infimum (possibly −∞) of all of the
+edge weights ex(a, b) for x ∈ f−1
+(a). It is easy to see that Hf
+has the nonnegative cycle property/nonnegative two-cycle
+property if and only if Gf does. Gf is called the outcome
+graph of f.
+The weak monotonicity property mentioned earlier can
+be defined for arbitrary social choice functions by the 
+condition that every local subfunction satisfies the nonnegative
+two-cycle property. The following result was obtained by
+Rochet [11] in a slightly different form and rediscovered by
+Rozenshtrom [12] and Gui, Muller and Vohra [5]:
+Lemma 3. A local social choice function is truthful if and
+only if it has the nonnegative cycle property. Thus a social
+choice function is truthful if and only if every local 
+subfunction satisfies the nonnegative cycle property.
+In light of this, theorem 1 follows from:
+Theorem 4. For any surjective single player function f :
+D −→ A where D is a convex subset of RA
+and A is finite,
+the nonnegative two-cycle property implies the nonnegative
+cycle property.
+This is the result we will prove.
+1.3 Overview of the Proof of Theorem 4
+Let D ⊆ RA
+be convex and let f : D −→ A be a single
+player function such that Gf has no negative two-cycles. We
+want to conclude that Gf has no negative cycles. For two
+vertices a, b, let δ∗
+ab denote the minimum weight of any path
+from a to b. Clearly δ∗
+ab ≤ δab. Our proof shows that the
+δ∗
+-weight of every cycle is exactly 0, from which theorem 4
+follows.
+There seems to be no direct way to compute δ∗
+and so we
+proceed indirectly. Based on geometric considerations, we
+identify a subset of paths in Gf called admissible paths and
+a subset of admissible paths called straight paths. We prove
+that for any two outcomes a, b, there is a straight path from
+a to b (lemma 8 and corollary 10), and all straight paths
+from a to b have the same weight, which we denote ρab
+(theorem 12). We show that ρab ≤ δab (lemma 14) and that
+the ρ-weight of every cycle is 0. The key step to this proof
+is showing that the ρ-weight of every directed triangle is 0
+(lemma 17).
+It turns out that ρ is equal to δ∗
+(corollary 20), although
+this equality is not needed in the proof of theorem 4.
+To expand on the above summary, we give the definitions
+of an admissible path and a straight path. These are 
+somewhat technical and rely on the geometry of f. We first
+observe that, without loss of generality, we can assume that
+D is (topologically) closed (section 2). In section 3, for each
+a ∈ A, we enlarge the set f−1
+(a) to a closed convex set
+Da ⊆ D in such a way that for a, b ∈ A with a = b, Da and
+Db have disjoint interiors. We define an admissible path to
+be a sequence of outcomes (a1, . . . , ak) such that each of the
+sets Ij = Daj ∩ Daj+1 is nonempty (section 4). An 
+admissible path is straight if there is a straight line that meets one
+point from each of the sets I1, . . . , Ik−1 in order (section 5).
+Finally, we mention how the hypotheses of convex domain
+and finite range are used in the proof. Both hypotheses are
+needed to show: (1) the existence of a straight path from a
+to b for all a, b (lemma 8). (2) that the ρ-weight of a directed
+triangle is 0 (lemma 17). The convex domain hypothesis is
+also needed for the convexity of the sets Da (section 3). The
+finite range hypothesis is also needed to reduce theorem 4 to
+the case that D is closed (section 2) and to prove that every
+straight path from a to b has the same δ-weight (theorem
+12).

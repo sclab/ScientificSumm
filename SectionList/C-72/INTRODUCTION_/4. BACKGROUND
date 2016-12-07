@@ -1,0 +1,93 @@
+This section provides the background for our approach.
+We present the FM aggregation scheme that we use to 
+generate spectrum summaries and perform in-network 
+aggregation. We also discuss randomized gossiping techniques for
+disseminating aggregates in a cognitive radio network.
+4.1 FM Aggregation
+Aggregation is the process where nodes in a distributed
+network combine data received from neighboring nodes with
+their local value to generate a combined aggregate. This 
+aggregate is then communicated to other nodes in the 
+network and this process repeats until the aggregate at all
+nodes has converged to the same value, i.e. the global 
+aggregate. Double-counting is a well known problem in this
+process, where nodes may contribute more than once to the
+aggregate, causing inaccuracy in the final result. Intuitively,
+nodes can tag the aggregate value they transmit with 
+information about which nodes have contributed to it. However,
+this approach is not scalable. Order and Duplicate 
+Insensitive (ODI) techniques have been proposed in the literature
+[10, 15]. We adopt the ODI approach pioneered by Flajolet
+and Martin (FM) for the purposes of aggregation. Next we
+outline the FM approach; for full details, see [7].
+Suppose we want to compute the number of nodes in the
+network, i.e. the COUNT query. To do so, each node 
+performs a coin toss experiment as follows: toss an unbiased
+coin, stopping after the first head is seen. The node then
+sets the ith bit in a bit vector (initially filled with zeros),
+where i is the number of coin tosses it performed. The 
+intuition is that as the number of nodes doing coin toss 
+experiments increases, the probability of a more significant bit
+being set in one of the nodes" bit vectors increases.
+These bit vectors are then exchanged among nodes. When
+a node receives a bit vector, it updates its local bit vector
+by bitwise OR-ing it with the received vector (as shown in
+Figure 2 which computes AVERAGE). At the end of the
+aggregation process, every node, with high probability, has
+the same bit vector. The actual value of the count aggregate
+is then computed using the following formula, AGGF M =
+2j−1
+/0.77351, where j represents the bit position of the least
+significant zero in the aggregate bit vector [7].
+Although such aggregates are very compact in nature, 
+requiring only O(logN) state space (where N is the number
+of nodes), they may not be very accurate as they can only
+approximate values to the closest power of 2, potentially
+causing errors of up to 50%. More accurate aggregates can
+be computed by maintaining multiple bit vectors at each
+node, as explained in [7]. This decreases the error to within
+O(1/
+√
+m), where m is the number of such bit vectors.
+Queries other than count can also be computed using 
+variants of this basic counting algorithm, as discussed in [3] (and
+shown in Figure 2). Transmitting FM bit vectors between
+nodes is done using randomized gossiping, discussed next.
+4.2 Gossip Protocols
+Gossip-based protocols operate in discrete time-steps; a
+time-step is the required amount of time for all 
+transmissions in that time-step to complete. At every time-step, each
+node having something to send randomly selects one or more
+neighboring nodes and transmits its data to them. The 
+randomized propagation of information provides fault-tolerance
+and resilience to network failures and outages. We 
+emphasize that this characteristic of the protocol also allows it to
+operate without relying on any underlying network
+structure. Gossip protocols have been shown to provide
+exponentially fast convergence2
+, on the order of O(log N)
+[10], where N is the number of nodes (or radios). These
+protocols can therefore easily scale to very dense 
+environments.
+2
+Convergence refers to the state in which all nodes have the most
+up-to-date view of the network.
+14
+Two types of gossip protocols are:
+• Uniform Gossip: In uniform gossip, at each 
+timestep, each node chooses a random neighbor and sends
+its data to it. This process repeats for O(log(N)) steps
+(where N is the number of nodes in the network). 
+Uniform gossip provides exponentially fast convergence,
+with low network overhead [10].
+• Random Walk: In random walk, only a subset of
+the nodes (termed designated nodes) communicate in a
+particular time-step. At startup, k nodes are randomly
+elected as designated nodes. In each time-step, each
+designated node sends its data to a random neighbor,
+which becomes designated for the subsequent 
+timestep (much like passing a token). This process repeats
+until the aggregate has converged in the network. 
+Random walk has been shown to provide similar 
+convergence bounds as uniform gossip in problems of similar
+context [8, 12].

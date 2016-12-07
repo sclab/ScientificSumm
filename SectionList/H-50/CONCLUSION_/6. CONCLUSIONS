@@ -1,0 +1,41 @@
+In this paper, we address the rank aggregation problem
+where different, but not disjoint, lists of documents are to
+be fused. We noticed that the input rankings can hide ties,
+so they should not be considered as complete orders. Only
+robust information should be used from each input ranking.
+Current rank aggregation methods, and especially 
+positional methods (e.g. combSUM [15]), are not initially 
+designed to work with such rankings. They should be adapted
+by considering specific working assumptions.
+We propose a new outranking method for rank 
+aggregation which is well adapted to the IR context. Indeed, it
+ranks two documents w.r.t. the intensity of their positions
+difference in each input ranking and also considering the
+number of the input rankings that are concordant and 
+discordant in favor of a specific document. There is also no
+need to make specific assumptions on the positions of the
+missing documents. This is an important feature since the
+absence of a document from a ranking should not be 
+necessarily interpreted negatively.
+Experimental results show that the outranking method
+significantly out-performs popular classical positional data
+fusion methods like combSUM and combMNZ strategies. It
+also out-performs a good performing majoritarian methods
+which is the Markov chain method. These results are tested
+against different test collections and queries. From the 
+experiments, we can also conclude that in order to improve the
+performances, we should fuse result lists of well performing
+IR models, and that majoritarian data fusion methods 
+perform better than positional methods.
+The proposed method can have a real impact on Web
+metasearch performances since only ranks are available from
+most primary search engines, whereas most of the current
+approaches need scores to merge result lists into one single
+list.
+Further work involves investigating whether the 
+outranking approach performs well in various other contexts, e.g.
+using the document scores or some combination of 
+document ranks and scores.
+Acknowledgments
+The authors would like to thank Jacques Savoy for his 
+valuable comments on a preliminary version of this paper.

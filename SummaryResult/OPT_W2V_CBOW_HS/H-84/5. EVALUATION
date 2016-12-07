@@ -1,0 +1,22 @@
+¯ Dependency pairs ( ´Åµ): These are the set of all ordered pairs of stories ´× × µ such that there is a dependency from the event of × to the event of × in the model Å.
+Ê È´ ¼´× µ ¼´× µ ´× µ ´× µµ ´Åµ ´Å¼µ ´Åµ (8) ¯ Dependency Precision(DP): It is the probability that there is a dependency between the events of two randomly selected stories × and × in the true model Å given that they have a dependency in the system model Å¼.
+Given these two sets of story pairs corresponding to the true event model Å and the system event model Å¼, we define recall and precision for each category as follows.
+In our evaluation, a correct pair with wrong 448 (B->D) Cluster pairs (A,C) Dependency pairs (A->B) (C->B) (B->D) D,E D,E (D,E) (D,E) (A->C) (A->E) (B->C) (B->E) (B->E) Cluster precision: 1/2 Cluster Recall: 1/2 Dependency Recall: 2/6 Dependency Precision: 2/4 (A->D) True event model System event model A,B C A,C B Cluster pairs (A,B) Dependency pairs Figure 2: Evaluation measures direction will be considered a mistake.
+Specifically, we compare two kinds of story pairs: ¯ Cluster pairs ( ´Åµ): These are the complete set of  unordered pairs ´× × µ of stories × and × that fall within the same event given a model Å.
+È È´´ ´× µ ´× µµ ¾ ´ ¼´× µ ¼´× µµ ¾ ¼µ ´Åµ ´Å¼µ ´Å¼µ (9) ¯ Dependency Recall(DR): It is the probability that there is a dependency between the events of two randomly selected stories × and × in the system model Å¼ given that they have a dependency in the true model Å.
+A system can generate some event model Å¼ ´ ¼ ¼µ using certain algorithms, which is usually different from the truth model Å ´ µ (we assume the annotator did not make any  mistake).
+¯ Cluster Precision (CP): It is the probability that two  randomly selected stories × and × are in the same true-event given that they are in the same system event.
+Comparing a system event model Å¼ with the true model Å requires comparing the entire event models including their  dependency structure.
+¯ Cluster Recall(CR): It is the probability that two randomly selected stories × and × are in the same system-event given that they are in the same true event.
+Formally, ´Åµ ´× × µ × × ¾ Ë ´× µ ´× µ (5) where is the function in Å that maps stories to events as defined in equation 4.
+Hence instead of comparing the actual structure we examine a pair of stories at a time and verify if the system and true labels agree on their event-memberships and  dependencies.
+È È´ ´× µ ´× µ ¼´× µ ¼´× µµ ´Åµ ´Å¼µ ´Å¼µ (7) where ¼ is the story-event mapping function corresponding to the model Å¼.
+´Åµ ´× × µ ´ ´× µ ´× µµ ¾ (6) Note the story pair is ordered here, so ´× × µ is not  equivalent to ´× × µ.
+Note that the direction of dependency is important in comparison.
+Again, the direction of dependency is taken into consideration.
+Ê È´´ ¼´× µ ¼´× µµ ¾ ¼ ´ ´× µ ´× µµ ¾ µ ´Åµ ´Å¼µ ´Åµ (10) The measures are illustrated by an example in figure 2.
+And different event granularities may bring huge discrepancy between Å¼ and Å.
+As we mentioned  earlier in section 3, ignoring the direction may make the  problem simpler, but we will lose the expressiveness of our  representation.
+¾ ¢ È ¢ Ê È · Ê ¾ ¢ È ¢ Ê È · Ê Â ¾ ¢ ¢ · (11) where and are the cluster and dependency F1-measures respectively and Â is the Joint F1-measure (Â ) that we use to measure the overall performance. 
+We also combine these measures using the well known F1-measure  commonly used in text classification and other research areas as shown below.
+This is certainly non-trivial as even testing whether two graphs are isomorphic has no known polynomial time solution.

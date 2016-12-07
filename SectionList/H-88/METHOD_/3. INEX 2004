@@ -1,0 +1,90 @@
+Space limitations prevent the inclusion of more than a
+brief summary of INEX 2004 tasks and evaluation 
+methodology. For detailed information, the proceedings of the 
+conference itself should be consulted [8].
+3.1 Tasks
+For the main experimental tasks, INEX 2004 participants
+were provided with a collection of 12,107 articles taken from
+the IEEE Computer Societies magazines and journals 
+between 1995 and 2002. Each document is encoded in XML
+using a common DTD, with the document of figures 1 and 2
+providing one example.
+At INEX 2004, the two main experimental tasks were both
+adhoc retrieval tasks, investigating the performance of 
+systems searching a static collection using previously unseen
+topics. The two tasks differed in the types of topics they
+used. For one task, the content-only or CO task, the
+topics consist of short natural language statements with no
+direct reference to the structure of the documents in the 
+collection. For this task, the IR system is required to select the
+elements to be returned. For the other task, the 
+contentand-structure or CAS task, the topics are written in an
+XML query language [22] and contain explicit references to
+document structure, which the IR system must attempt to
+satisfy. Since the work described in this paper is directed
+at the content-only task, where the IR system receives no
+guidance regarding the elements to return, the CAS task is
+ignored in the remainder of our description.
+In 2004, 40 new CO topics were selected by the conference
+organizers from contributions provided by the conference
+participants. Each topic includes a short keyword query,
+which is executed over the collection by each participating
+group on their own XML IR system. Each group could
+submit up to three experimental runs consisting of the top
+m = 1500 elements for each topic.
+3.2 Relevance Assessment
+Since XML IR is concerned with locating those elements
+that provide complete coverage of a topic while containing as
+little extraneous information as possible, simple relevant
+vs. not relevant judgments are not sufficient. Instead, the
+INEX organizers adopted two dimensions for relevance 
+assessment: The exhaustivity dimension reflects the degree to
+which an element covers the topic, and the specificity 
+dimension reflects the degree to which an element is focused on the
+topic. A four-point scale is used in both dimensions. Thus,
+a (3,3) element is highly exhaustive and highly specific, a
+(1,3) element is marginally exhaustive and highly specific,
+and a (0,0) element is not relevant. Additional information
+on the assessment methodology may be found in Piwowarski
+and Lalmas [19], who provide a detailed rationale.
+3.3 Evaluation Metrics
+The principle evaluation metric used at INEX 2004 is a
+version of mean average precision (MAP), adjusted by 
+various quantization functions to give different weights to 
+different elements, depending on their exhaustivity and specificity
+values. One variant, the strict quantization function gives a
+weight of 1 to (3,3) elements and a weight of 0 to all others.
+This variant is essentially the familiar MAP value, with (3,3)
+elements treated as relevant and all other elements treated
+as not relevant. Other quantization functions are designed
+to give partial credit to elements which are near misses,
+due to a lack or exhaustivity and/or specificity. Both the
+generalized quantization function and the specificity-oriented
+generalization (sog) function credit elements according to
+their degree of relevance [11], with the second function 
+placing greater emphasis on specificity. This paper reports 
+results of this metric using all three of these quantization 
+functions. Since this metric was first introduced at INEX 2002,
+it is generally referred as the inex-2002 metric.
+The inex-2002 metric does not penalize overlap. In 
+particular, both the generalized and sog quantization functions
+give partial credit to a near miss even when a (3,3) 
+element overlapping it is reported at a higher rank. To address
+this problem, Kazai et al. [11] propose an XML cumulated
+gain metric, which compares the cumulated gain [9] of a
+ranked list to an ideal gain vector. This ideal gain vector
+is constructed from the relevance judgments by 
+eliminating overlap and retaining only best element along a given
+path. Thus, the XCG metric rewards retrieval runs that
+avoid overlap. While XCG was not used officially at INEX
+2004, a version of it is likely to be used in the future.
+At INEX 2003, yet another metric was introduced to 
+ameliorate the perceived limitations of the inex-2002 metric.
+This inex-2003 metric extends the definitions of precision
+and recall to consider both the size of reported components
+and the overlap between them. Two versions were created,
+one that considered only component size and another that
+considered both size and overlap. While the inex-2003 
+metric exhibits undesirable anomalies [11], and was not used in
+2004, values are reported in the evaluation section to provide
+an additional instrument for investigating overlap.

@@ -1,0 +1,85 @@
+The design has four main components, which we will 
+introduce in order through the rest of the paper:
+• Expressive and concise tree-based bidding language.
+The language describes values for trades, such as my value
+for selling AB and buying C is $100, or my value for selling
+ABC is -$50, with negative values indicating that a bidder
+must receive a payment for the trade to be acceptable. The
+language allows bidders to express upper and lower bounds
+on value, which can be tightened across rounds.
+• Winner Determination. Winner-determination (WD)
+is formulated as a mixed-integer program (MIP), with the
+structure of the bid-trees captured explicitly in the 
+formulation. Comparing the solution at upper and lower values
+allows for a determination to be made about termination,
+with progress in intermediate rounds driven by an 
+intermediate valuation and the lower values adopted on termination.
+• Payments. Payments are computed using the Threshold
+payment rule [24], with the intermediate valuations adopted
+in early rounds and lower values adopted on termination.
+• Price feedback. An approximate price is computed
+for each item in the exchange in each round, in terms of
+the intermediate valuations and the provisional trade. The
+prices are optimized to approximate competitive equilibrium
+prices, and further optimized to best approximate the 
+current Threshold payments with remaining ties broken to favor
+prices that are balanced across different items. In computing
+the prices, we adopt the methods of constraint-generation to
+exploit the structure of the bidding language and avoid 
+enumerating all feasible trades. The subproblem to generate
+new constraints is a variation of the WD problem.
+• Activity rule. A revealed-preference activity rule [1] 
+ensures progress across rounds. In order to remain active, a
+bidder must tighten bounds so that there is enough 
+information to define a trade that maximizes surplus at the current
+prices. Another variation on the WD problem is formulated,
+both to verify that the activity rule is met and also to 
+provide feedback to a bidder to explain how to meet the rule.
+An outline of the ICE system flow of control is provided
+in Figure 1. We will return to this example later in the 
+paper. For now, just observe in this two-agent example that
+the agents state lower and upper bounds that are checked in
+the activity rule, and then passed to winner-determination
+(WD), and then through three stages of pricing (accuracy,
+fairness, balance). On passing the closing rule (in which 
+parameters αeff
+and αthresh
+are checked for convergence of the
+trade and payments), the exchange goes to a last-and-final
+round. At the end of this round, the trade and payments
+are finally determined, based on the lower valuations.
+2.1 Related Work
+Many ascending-price one-sided CAs are known in the 
+literature [10, 25, 29]. Direct elicitation approaches have also
+been proposed for one-sided CAs in which agents respond to
+explicit queries about their valuations [8, 14, 19]. A number
+of ascending CAs are designed to work with simple prices
+on items [12, 17]. The price generation methods that we use
+in ICE generalize the methods in these earlier papers.
+Parkes et al. [24] studied sealed-bid combinatorial 
+exchanges and introduced the Threshold payment rule. 
+Subsequently, Krych [16] demonstrated experimentally that the
+Threshold rule promotes efficient allocations. We are not
+aware of any previous studies of iterative CEs. Dominant
+strategy DAs are known for unit demand [20] and also for
+single-minded agents [2]. No dominant strategy mechanisms
+are known for the general CE problem.
+ICE is a hybrid auction design, in that it couples 
+simple item prices to drive bidding in early rounds with 
+combinatorial WD and payments, a feature it shares with the
+clock-proxy design of Ausubel et al. [1] for one-sided CAs.
+We adopt a variation on the clock-proxy auctions"s 
+revealedpreference activity rule.
+The bidding language shares some structural elements
+with the LGB language of Boutilier and Hoos [7], but has
+very different semantics. Rothkopf et al. [27] also describe a
+restricted tree-based bidding language. In LGB, the 
+semantics are those of propositional logic, with the same items
+in an allocation able to satisfy a tree in multiple places.
+Although this can make LGB especially concise in some 
+settings, the semantics that we propose appear to provide 
+useful locality, so that the value of one component in a tree
+can be understood independently from the rest of the tree.
+The idea of capturing the structure of our bidding language
+explicitly within a mixed-integer programming formulation
+follows the developments in Boutilier [6].

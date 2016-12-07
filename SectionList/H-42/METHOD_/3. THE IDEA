@@ -1,0 +1,210 @@
+3.1 1st step: average precision table
+From TREC results, one can produce an Average 
+Precision (AP) table (see Tab. 1a): each AP(si, tj) value 
+measures the AP of system si on topic tj.
+Besides AP values, the table shows Mean Average 
+Precision (MAP) values i.e., the mean of the AP values for a
+single system over all topics, and what we call Average 
+Average Precision (AAP) values i.e., the average of the AP
+values for a single topic over all systems:
+MAP(si) =
+1
+n
+nX
+j=1
+AP(si, tj), (1)
+AAP(tj) =
+1
+m
+mX
+i=1
+AP(si, tj). (2)
+MAPs are indicators of systems performance: higher MAP
+means good system. AAP are indicators of the performance
+on a topic: higher AAP means easy topic - a topic on which
+all or most systems have good performance.
+3.2 Critique of pure AP
+MAP is a standard, well known, and widely used IR 
+effectiveness measure. Single AP values are used too (e.g.,
+in AP histograms). Topic difficulty is often discussed (e.g.,
+in TREC Robust track [14]), although AAP values are not
+used and, to the best of our knowledge, have never been
+proposed (the median, not the average, of AP on a topic
+is used to produce TREC AP histograms [11]). However,
+the AP values in Tab. 1 present two limitations, which are
+symmetric in some respect:
+• Problem 1. They are not reliable to compare the
+effectiveness of a system on different topics, relative
+to the other systems. If, for example, AP(s1, t1) >
+AP(s1, t2), can we infer that s1 is a good system (i.e.,
+has a good performance) on t1 and a bad system on
+t2? The answer is no: t1 might be an easy topic (with
+high AAP) and t2 a difficult one (low AAP). See an
+example in Tab. 1b: s1 is outperformed (on average)
+by the other systems on t1, and it outperforms the
+other systems on t2.
+• Problem 2. Conversely, if, for example, AP(s1, t1) >
+AP(s2, t1), can we infer that t1 is considered easier
+by s1 than by s2? No, we cannot: s1 might be a good
+system (with high MAP) and s2 a bad one (low MAP);
+see an example in Tab. 1b.
+These two problems are a sort of breakdown of the well
+known high influence of topics on IR evaluation; again, our
+formulation makes explicit the topics / systems symmetry.
+3.3 2nd step: normalizations
+To avoid these two problems, we can normalize the AP
+table in two ways. The first normalization removes the 
+influence of the single topic ease on system performance. Each
+AP(si, tj) value in the table depends on both system 
+goodness and topic ease (the value will increase if a system is
+good and/or the topic is easy). By subtracting from each
+AP(si, tj) the AAP(tj) value, we obtain normalized AP
+values (APA(si, tj), Normalized AP according to AAP):
+APA(si, tj) = AP(si, tj) − AAP(tj), (3)
+that depend on system performance only (the value will 
+increase only if system performance is good). See Tab. 2a.
+The second normalization removes the influence of the 
+single system effectiveness on topic ease: by subtracting from
+each AP(si, tj) the MAP(si) value, we obtain normalized
+AP values (APM(si, tj), Normalized AP according to MAP):
+APM(si, tj) = AP(si, tj) − MAP(si), (4)
+that depend on topic ease only (the value will increase only
+if the topic is easy, i.e., all systems perform well on that
+topic). See Tab. 2b.
+In other words, APA avoids Problem 1: APA(s, t) values
+measure the performance of system s on topic t normalized
+t1 · · · tn MAP
+s1 APA(s1, t1) · · · APA(s1, tn) MAP(s1)
+...
+...
+...
+sm APA(sm, t1) · · · APA(sm, tn) MAP(sm)
+0 · · · 0 0
+(a)
+t1 · · · tn
+s1 APM(s1, t1) · · · APM(s1, tn) 0
+...
+...
+...
+sm APM(sm, t1) · · · APM(sm, tn) 0
+AAP AAP(t1) · · · AAP(tn) 0
+(b)
+t1 t2 · · · MAP
+s1 −0.1 0.1 · · · . . .
+s2 0.2 · · · · · · . . .
+...
+...
+...
+0 0 · · ·
+t1 t2 · · ·
+s1 −0.1 −0.2 · · · 0
+s2 0.1 · · · · · · 0
+...
+...
+...
+AAP . . . . . . · · ·
+(c) (d)
+Table 2: Normalizations: APA and MAP: normalized
+AP (APA) and MAP (MAP) (a); normalized AP (APM)
+and AAP (AAP) (b); a numeric example (c) and (d)
+according to the ease of the topic (easy topics will not have
+higher APA values). Now, if, for example, APA(s1, t2) >
+APA(s1, t1), we can infer that s1 is a good system on t2 and
+a bad system on t1 (see Tab. 2c). Vice versa, APM avoids
+Problem 2: APM(s, t) values measure the ease of topic t
+according to system s, normalized according to goodness
+of the system (good systems will not lead to higher APM
+values). If, for example, APM(s2, t1) > APM(s1, t1), we
+can infer that t1 is considered easier by s2 than by s1 (see
+Tab. 2d).
+On the basis of Tables 2a and 2b, we can also define two
+new measures of system effectiveness and topic ease, i.e., a
+Normalized MAP (MAP), obtained by averaging the APA
+values on one row in Tab. 2a, and a Normalized AAP (AAP),
+obtained by averaging the APM values on one column in
+Tab. 2b:
+MAP(si) =
+1
+n
+nX
+j=1
+APA(si, tj) (5)
+AAP(tj) =
+1
+m
+mX
+i=1
+APM(si, tj). (6)
+Thus, overall system performance can be measured, 
+besides by means of MAP, also by means of MAP. Moreover,
+MAP is equivalent to MAP, as can be immediately proved
+by using Eqs. (5), (3), and (1):
+MAP(si) =
+1
+n
+nX
+j=1
+(AP(si, tj) − AAP(tj)) =
+= MAP(si) −
+1
+n
+nX
+j=1
+AAP(tj)
+(and 1
+n
+Pn
+j=1 AAP(tj) is the same for all systems). And,
+conversely, overall topic ease can be measured, besides by
+t1 · · · tn
+s1
+... APM
+sm
+t1 · · · tn
+s1
+... APA
+sm
+s1 · · · sm t1 · · · tn
+s1
+... 0 APM 0
+sm
+t1
+... APA
+T
+0 0
+tn
+MAP AAP 0
+Figure 1: Construction of the adjacency matrix.
+APA
+T
+is the transpose of APA.
+means of AAP, also by means of AAP, and this is equivalent
+(the proof is analogous, and relies on Eqs. (6), (4), and (2)).
+The two Tables 2a and 2b are interesting per se, and can
+be analyzed in several different ways. In the following we
+propose an analysis based on network analysis techniques,
+mainly Kleinberg"s HITS algorithm. There is a little further
+discussion of these normalizations in Sect. 6.
+3.4 3rd step: Systems-Topics Graph
+The two tables 2a and 2b can be merged into a single one
+with the procedure shown in Fig. 1. The obtained matrix
+can be interpreted as the adjacency matrix of a complete
+weighted bipartite graph, that we call Systems-Topics graph.
+Arcs and weights in the graph can be interpreted as follows:
+• (weight on) arc s → t: how much the system s thinks
+that the topic t is easy - assuming that a system has
+no knowledge of the other systems (or in other words,
+how easy we might think the topic is, knowing only
+the results for this one system). This corresponds to
+APM values, i.e., to normalized topic ease (Fig. 2a).
+• (weight on) arc s ← t: how much the topic t thinks
+that the system s is good - assuming that a topic has
+no knowledge of the other topics (or in other words,
+how good we might think the system is, knowing only
+the results for this one topic). This corresponds to
+APA (normalized system effectiveness, Fig. 2b).
+Figs. 2c and 2d show the Systems-Topics complete weighted
+bipartite graph, on a toy example with 4 systems and 2 
+topics; the graph is split in two parts to have an understandable
+graphical representation: arcs in Fig. 2c are labeled with
+APM values; arcs in Fig. 2d are labeled with APA values.

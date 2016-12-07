@@ -1,0 +1,13 @@
+term co-clustering involves simultaneously finding the optimal term clustering mapping clu(t) : {t1, t2, ..., tl} → {ˆt1, ˆt2, ..., ˆtk}, where k ≤ l, l is the total number of words in all the documents, and k is the number of clusters. 
+a term t is mapped to exactly one term cluster.
+we evaluate the effect of it for topic segmentation.
+term co-clustering is a technique that has been employed [10] to improve the accuracy of document clustering.
+thus, p(d, sd, t) becomes p(d, ˆs, t).
+after segmentation and alignment, random vector sd becomes an aligned random variable ˆs.
+for d, {si, si+1, ..., sj} → {ˆsq}, where q ∈ {1, ..., p}, where p is the segment number, and if i > j, then for d, ˆsq is missing.
+the goal is to find the  optimal topic segmentation and alignment mapping segd(si) : {s1, s2, ..., snd } → {ˆs1, ˆs2, ..., ˆsp} and alid(ˆsi) : {ˆs1, ˆs2, ..., ˆsp} → {ˆs1, ˆs2, ..., ˆsp}, for all d ∈ d, where ˆsi is ith segment with the constraint that only adjacent sentences can be mapped to the same segment, i.e.
+we have a 3d  matrix of term frequency, in which the three dimensions are random variables of d, sd, and t. sd actually is a random vector including a random variable for each d ∈ d. the term frequency can be used to estimate the joint probability distribution p(d, sd, t), which is p(t, d, s) = t(t, d, s)/nd, where t(t, d, s) is the number of t in d"s sentence s and nd is the total number of terms in d. ˆs represents the set of segments {ˆs1, ˆs2, ..., ˆsp} after segmentation and alignment among multiple documents, where the number of segments | ˆs| = p. a segment ˆsi of document d is a sequence of  adjacent sentences in d. since for different documents si may discuss different sub-topics, our goal is to cluster adjacent sentences in each document into segments, and align similar segments among documents, so that for different documents ˆsi is about the same sub-topic.
+{s1, s2, ..., snd }.
+let sd be the set of sentences for document d ∈ d, i.e.
+let t be the set of terms {t1, t2, ..., tl}, which appear in the unlabelled set of  documents d = {d1, d2, ..., dm}.
+our goal is to segment documents and align the segments across documents (figure 1).

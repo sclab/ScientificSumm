@@ -1,0 +1,336 @@
+FOR COOPERATING SMART DEVICES
+An event model and a middleware suitable for smart 
+components must support timely and reliable communication
+and also must be resource efficient. COSMIC 
+(COoperating Smart devices) is aimed at supporting the 
+interaction between those components according to the concepts
+introduced so far. Based on the model of a WAN-of-CANs,
+we assume that the components are connected to some form
+of CAN as a fieldbus or a special wireless sensor network
+which provides specific network properties. E.g. a fieldbus
+developed for control applications usually includes 
+mechanisms for predictable communication while other networks
+only support a best effort dissemination. A gateway 
+connects these CANs to the next level in the network hierarchy.
+The event system should allow the dynamic interaction over
+a hierarchy of such networks and comply with the overall
+CORTEX generic event model. Events are typed 
+information carriers and are disseminated in a publisher/ subscriber
+style [24, 7], which is particularly suitable because it 
+supports generative, anonymous communication [3] and does
+not create any artificial control dependencies between 
+producers of information and the consumers. This decoupling
+in space (no references or names of senders or receivers are
+needed for communication) and the flow decoupling (no 
+control transfer occurs with a data transfer) are well known [24,
+7, 14] and crucial properties to maintain autonomy of 
+components and dynamic interactions.
+It is obvious that not all networks can provide the same
+QoS guarantees and secondly, applications may have widely
+differing requirements for event dissemination. 
+Additionally, when striving for predictability, resources have to be
+reserved and data structures must be set up before 
+communication takes place. Thus, these things can not predictably
+be made on the fly while disseminating an event. Therefore,
+we introduced the notion of an event channel to cope with
+differing properties and requirements and have an object to
+which we can assign resources and reservations. The 
+concept of an event channel is not new [10, 25], however, it has
+not yet been used to reflect the properties of the underlying
+heterogeneous communication networks and mechanisms as
+described by the GEAR architecture. Rather, existing event
+middleware allows to specify the priorities or deadlines of
+events handled in an event server. Event channels allow
+to specify the communication properties on the level of the
+event system in a fine grained way. An event channel is
+defined by:
+event channel := subject, quality attributeList,
+handlers
+The subject determines the types of events event which
+may be issued to the channel. The quality attributes model
+the properties of the underlying communication network
+and dissemination scheme. These attributes include latency
+specifications, dissemination constraints and reliability 
+parameters. The notion of zones which represent a guaranteed
+quality of service in a subnetwork support this approach.
+Our goal is to handle the temporal specifications as bound,
+coverage pairs [28] orthogonal to the more technical 
+questions of how to achieve a certain synchrony property of the
+dissemination infrastructure. Currently, we support 
+quality attributes of event channels in a CAN-Bus environment
+represented by explicit synchrony classes.
+The COSMIC middleware maps the channel properties to
+lower level protocols of the regular network. Based on our
+previous work on predictable protocols for the CAN-Bus,
+COSMIC defines an abstract network which provides hard,
+soft and non real-time message classes [21].
+Correspondingly, we distinguish three event channel classes
+according to their synchrony properties: hard real-time 
+channels, soft real-time channels and non-real-time channels.
+Hard real-time channels (HRTC) guarantee event 
+propagation within the defined time constraints in the presence
+35
+of a specified number of omission faults. HRTECs are 
+supported by a reservation scheme which is similar to the scheme
+used in time-triggered protocols like TTP [16][31], TTP/A [17],
+and TTCAN [8]. However, a substantial advantage over a
+TDMA scheme is that due to CAN-Bus properties, 
+bandwidth which was reserved but is not needed by a HRTEC
+can be used by less critical traffic [21].
+Soft real-time channels (SRTC) exploit the temporal 
+validity interval of events to derive deadlines for scheduling.
+The validity interval defines the point in time after which
+an event becomes temporally inconsistent. Therefore, in a
+real-time system an event is useless after this point and may
+me discarded. The transmission deadline (DL) is defined as
+the latest point in time when a message has to be 
+transmitted and is specified in a time interval which is derived from
+the expiration time:
+tevent ready < DL < texpiration − ∆notification
+texpiration defines the point in time when the temporal
+validity expires. ∆notification is the expected end-to-end 
+latency which includes the transfer time over the network and
+the time the event may be delayed by the local event 
+handling in the nodes. As said before, event deadlines are used
+to schedule the dissemination by SRTECs. However, 
+deadlines may be missed in transient overload situations or due
+to arbitrary arrival times of events. On the publisher side
+the application"s exception handler is called whenever the
+event deadline expires before event transmission. At this
+point in time the event is also not expected to arrive at the
+subscriber side before the validity expires. Therefore, the
+event is removed from the sending queue. On the subscriber
+side the expiration time is used to schedule the delivery of
+the event. If the event cannot be delivered until its 
+expiration time it is removed from the respective queues allocated
+by the COSMIC middleware. This prevents the 
+communication system to be loaded by outdated messages.
+Non-real-time channels do not assume any temporal 
+specification and disseminate events in a best effort manner. An
+instance of an event channel is created locally, whenever a
+publisher makes an announcement for publication or a 
+subscriber subscribes for an event notification. When a 
+publisher announces publication, the respective data structures
+of an event channel are created by the middleware. When
+a subscriber subscribes to an event channel, it may specify
+context attributes of an event which are used to filter events
+locally. E.g. a subscriber may only be interested in events
+generated at a certain location. Additionally the subscriber
+specifies quality properties of the event channel. A more 
+detailed description of the event channels can be found in [13].
+Currently, COSMIC handles all event channels which 
+disseminate events beyond the CAN network boundary as non
+real-time event channels. This is mainly because we use the
+TCP/IP protocol to disseminate events over wireless links
+or to the standard Ethernet. However, there are a 
+number of possible improvements which can easily be integrated
+in the event channel model. The Timely Computing Base
+(TCB) [28] can be exploited for timing failure detection and
+thus would provide awareness for event dissemination in 
+environments where timely delivery of events cannot be 
+enforced. Additionally, there are wireless protocols which can
+provide timely and reliable message delivery [6, 23] which
+may be exploited for the respective event channel classes.
+Events are the information carriers which are exchanged
+between sentient objects through event channels. To cope
+with the requirements of an ad-hoc environment, an event
+includes the description of the context in which it has been
+generated and quality attributes defining requirements for
+dissemination. This is particularly important in an open,
+dynamic environment where an event may travel over 
+multiple networks. An event instance is specified as:
+event := subject, context attributeList,
+quality attributeList, contents
+A subject defines the type of the event and is related
+to the event contents. It supports anonymous 
+communication and is used to route an event. The subject has to
+match to the subject of the event channel through which
+the event is disseminated. Attributes are complementary
+to the event contents. They describe individual functional
+and non-functional properties of the event. The context 
+attributes describe the environment in which the event has
+been generated, e.g. a location, an operational mode or a
+time of occurrence. The quality attributes specify 
+timeliness and dependability aspects in terms of validity 
+interval, omission degree pairs. The validity interval defines the
+point in time after which an event becomes temporally 
+inconsistent [18]. As described above, the temporal validity
+can be mapped to a deadline. However, usually a 
+deadline is an engineering artefact which is used for scheduling
+while the temporal validity is a general property of a time,
+value entity. In a environment where a deadline cannot
+be enforced, a consumer of an event eventually must decide
+whether the event still is temporally consistent, i.e. 
+represents a valid time, value entity.
+7.1 The Architecture of the COSMIC
+Middleware
+On the architectural level, COSMIC distinguish three 
+layers roughly depicted in Figure 4. Two of them, the event
+layer and the abstract network layer are implemented by the
+COSMIC middleware. The event layer provides the API for
+the application and realizes the abstraction of event and
+event channels.
+The abstract network implements real-time message classes
+and adapts the quality requirements to the underlying real
+network. An event channel handler resides in every node. It
+supports the programming interface and provides the 
+necessary data structures for event-based communication. 
+Whenever an object subscribes to a channel or a publisher 
+announces a channel, the event channel handler is involved. It
+initiates the binding of the channel"s subject, which is 
+represented by a network independent unique identifier to an 
+address of the underlying abstract network to enable 
+communication [14]. The event channel handler then tightly 
+cooperates with the respective handlers of the abstract network
+layer to disseminate events or receive event notifications. It
+should be noted that the QoS properties of the event layer
+in general depend on what the abstract network layer can
+provide. Thus, it may not always be possible to e.g. support
+hard real-time event channels because the abstract network
+layer cannot provide the respective guarantees. In [13], we
+describe the protocols and services of the abstract network
+layer particularly for the CAN-Bus.
+As can be seen in Figure 4, the hard real-time (HRT)
+message class is supported by a dedicated handler which is
+able to provide the time triggered message dissemination.
+36
+
+event
+notifications
+HRT-msg
+list
+SRT-msg
+queue
+NRT-msg
+queue
+HRT-msg
+calendar
+HRTC
+Handler
+S/NRTC
+Handler
+Abstract Network
+Layer
+CAN Layer
+RX Buffer TX Buffer
+RX, TX, error
+interrupts
+Event Channel
+Specs.
+Event Layer
+send
+messages
+exception
+notification
+exceptions,
+notifications
+ECH:
+Event Channel
+Handler
+p u b l i s h a n n o u n c e s u b s c r i b e
+b i n d i n g
+p r o t o c o l
+c o n f i g .
+p r o t o c o l
+Global
+Time
+Service
+event
+notifications
+HRT-msg
+list
+SRT-msg
+queue
+NRT-msg
+queue
+HRT-msg
+calendar
+HRTC
+Handler
+S/NRTC
+Handler
+Abstract Network
+Layer
+CAN Layer
+RX Buffer TX Buffer
+RX, TX, error
+interrupts
+Event Channel
+Specs.
+Event Layer
+send
+messages
+exception
+notification
+exceptions,
+notifications
+ECH:
+Event Channel
+Handler
+p u b l i s h a n n o u n c e s u b s c r i b e
+b i n d i n g
+p r o t o c o l
+c o n f i g .
+p r o t o c o l
+Global
+Time
+Service
+Figure 4: Architecture layers of COSMIC.
+The HRT handler maintains the HRT message list, which
+contains an entry for each local HRT message to be sent.
+The entry holds the parameters for the message, the 
+activation status and the binding information. Messages are
+scheduled on the bus according to the HRT message 
+calendar which comprises the precise start time for each time slot
+allocated for a message. Soft real-time message queues order
+outgoing messages according to their transmission deadlines
+derived from the temporal validity interval. If the 
+transmission deadline is exceeded, the event message is purged out of
+the queue. The respective application is notified via the 
+exception notification interface and can take actions like trying
+to publish the event again or publish it to a channel of 
+another class. Incoming event messages are ordered according
+to their temporal validity. If an event message arrive, the
+respective applications are notified. At the moment, an 
+outdated message is deleted from the queue and if the queue
+runs out of space, the oldest message is discarded. 
+However, there are other policies possible depending on event
+attributes and available memory space. Non real-time 
+messages are FIFO ordered in a fixed size circular buffer.
+7.2 Status of COSMIC
+The goal for developing COSMIC was to provide a 
+platform to seamlessly integrate smart tiny components in a
+large system. Therefore, COSMIC should run also on the
+small, resource constraint devices which are built around 
+16Bit or even 8-Bit micro-controllers. The distributed 
+COSMIC middleware has been implemented and tested on 
+various platforms. Under RT-Linux, we support the real-time
+channels over the CAN Bus as described above. The 
+RTLinux version runs on Pentium processors and is currently
+evaluated before we intent to port it to a smart sensor or
+actuator. For the interoperability in a WAN-of-CANs 
+environment, we only provide non real-time channels at the 
+moment. This version includes a gateway between the 
+CANbus and a TCP/IP network. It allows us to use a 
+standard wireless 802.11 network. The non real-time version of
+COSMIC is available on Linux, RT-Linux and on the 
+microcontroller families C167 (Infineon) and 68HC908 (Motorola).
+Both micro-controllers have an on-board CAN controller
+and thus do not require additional hardware components for
+the network. The memory footprint of COSMIC is about 13
+Kbyte on a C167 and slightly more on the 68HC908 where it
+fits into the on-board flash memory without problems. 
+Because only a few channels are required on such a smart sensor
+or actuator component, the requirement of RAM (which is
+a scarce resource on many single chip systems) to hold the
+dynamic data structures of a channel is low. The COSMIC
+middleware makes it very easy to include new smart sensors
+in an existing system. Particularly, the application running
+on a smart sensor to condition and process the raw physical
+data must not be aware of any low level network specific 
+details. It seamlessly interacts with other components of the
+system exclusively via event channels.
+The demo example, briefly described in the next chapter,
+is using a distributed infrastructure of tiny smart sensors
+and actuators directly cooperating via event channels over
+heterogeneous networks.

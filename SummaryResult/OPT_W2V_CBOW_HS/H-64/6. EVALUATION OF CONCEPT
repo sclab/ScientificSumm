@@ -1,0 +1,115 @@
+Results from this experiment suggest that room for  improvement remains with respect to generalizing to the whole collection from the class models fitted to the Editor"s Desk documents.
+All classifiers were trained on the full text of each document, regardless of the  representation used to discover the initial clusters.
+To evaluate the clusters derived by each method of  document representation, we used the subject headings that were included with 1112 of the Editor"s Desk documents.
+Taking the majority cluster as the putative right home for these documents, we consider the accuracy of this clustering on this subject to be 52/92 = 0.56.
+This led to a training set of 4113 documents in the augmented model, as we call it below8 .
+6.2 Accuracy of the Document Classifiers Although the keyword-based clusters appear to classify the Editor"s Desk documents very well, their discovery only solved half of the problem required for the successful  implementation of a dynamic user interface such as the  relation browser.
+For each class we retrieved up to 400 documents from Google (the actual number varied depending on the size of the  result set returned by Google).
+This flattening obscures the multivalence of documents.
+Using the same method of minimizing the variance in cluster membership ktitle-the number of clusters in the title-based representation-was also set to 10.
+Due to this result, in the remainder of this paper, we focus our attention on the clusters derived by analysis of the Editor"s Desk keywords.
+The different training sets were thus constructed simply by changing the 156 Table 4: Cross Validation Results for 3 Classifiers Method Av.
+For each document in the collection di, these classifiers give pi, a k-vector of probabilities or  distances (depending on the classification method used), where pik quantifies the strength of association between the ith document and the kth class.
+DISCOVERY Prior to implementing a relation browser interface and undertaking the attendant user studies, it is of course  important to evaluate the quality of the inferred concepts, and the ability of the automatic classifier to assign documents to the appropriate subjects.
+Without reason to believe that any single topic should have dramatically high prior odds of document membership, this heuristic led to kfull = 10.
+Thus if document di was assigned to a single  subject prices, while document dj was assigned to two subjects, international comparisons, prices, documents di and dj are not considered to come from the same class.
+The most serious liability with this evaluation, then, is the fact that we have compressed multiple subject headings, say prices : international into single subjects.
+However, by taking an extremely rigid view of what  constitutes a subject-that is, by taking a fully qualified and often multipart subject heading as our unit of analysis-we mitigate this problem.
+Most importantly, we observed a strong correlation among the three most  frequent classes among the human judges (for instance, there was 68% correlation between benefits and occupations).
+The majority of reviewers put 157 Number of Human-Assigned ClassesMNumber of Human-Assigned ClassesM Number of Human-Assigned Classes FrequencyMFrequencyM Frequency m00M0M 0 11M1M 1 22M2M 2 33M3M 3 44M4M 4 55M5M 5 66M6M 6 77M7M 7 m00M0M 055M5M 51010M10M 101515M15M 152020M20M 202525M25M 253030M30M 303535M35M 35 Figure 4: Number of Classes Assigned to  Documents by Judges documents into only three categories, jobs, benefits, and  occupations.
+Human Judge 1st Choice Model Model 1st Choice Model 2nd Choice N. Bayes (aug.) 14 24 N. Bayes 24 1 Human Judge 2nd Choice Model Model 1st Choice Model 2nd Choice N. Bayes (aug.) 14 21 N. Bayes 21 4 viewer classified 83 documents, placing each document into as many of the categories shown in Table 3 as he or she saw fit.
+areas 18 benefits, compensation costs 18 earnings & wages, occupations 17 employment, occupations 14 benefits 14 earnings & wage, regions 13 work stoppages 12 earnings & wages, industries 11 Total 609 Table 2: Contingecy Table for Three Document Representations Representation Right Wrong Accuracy Full-text 392 217 0.64 Title 441 168 0.72 Keyword 601 8 0.98 there were 19 such subject headings, which altogether  covered 609 (54%) of the documents with subjects assigned.
+Comparing the proportion right and Table 3: Keyword-Based Clusters benefits costs international jobs plans compensation import employment benefits costs prices jobs employees benefits petroleum youth occupations prices productivity safety workers prices productivity safety earnings index output health operators inflation nonfarm occupational spending unemployment expenditures unemployment consumer mass spending jobless wrong achieved by keyword and title-based clustering led to p 0.001.
+As noted in the table, 155 Table 1: Top Editor"s Desk Subject Headings Subject Count prices 92 unemployment 55 occupational safety & health 53 international comparisons, prices 48 manufacturing, prices 45 employment 44 productivity 40 consumer expenditures 36 earnings & wages 27 employment & unemployment 27 compensation costs 25 earnings & wages, metro.
+The clustering derived by each document representation was tested by its ability to collocate documents with the same subjects.
+Our analysis began with the assumption that  documents with the same subject headings should cluster  together.
+However, the success of our classifiers on the Editor"s Desk documents that informed the cross validation study may not be good predictors of the models" performance on the remainder to the BLS website.
+In the context of this experiment, we consider a first- or second-place classification by the machine to be accurate because the relation browser interface operates on a  multiway classification, where each document is classified into multiple categories.
+The goal here was to compare the quality of  document clusters derived by analysis of full-text documents, documents represented only by their titles, and documents represented by human-created keyword metadata.
+The ten keyword-based clusters are shown in Table 3, represented by the three terms most highly associated with each cluster, in terms of the log-odds ratio.
+There were 299 keywords in the data, all of which were retained.
+As we discuss below, however, augmenting the training set appeared to help generalization during our second experiment.
+Further, we assumed that whichever cluster captured the majority of documents for a given class constituted the right answer for that class.
+The obvious superiority of the keyword-based clustering evidenced by Table 2 was borne out by a χ2 test on the accuracy proportions.
+But we hoped to see whether comparable performance could be attained by methods that did not require extensive  human indexing, such as the title-only or full-text  representations.
+To  arrive at the appropriate number of clusters for these data, we inspected the within-cluster mean-squared distance for each value of k = 1 .
+These 1908 dimensions captured the TF.IDF weights [3] of each term ti in document dj, for all terms that occurred at least three times in the data.
+In  particular, the augmented model is significantly inferior to the model trained solely on Editor"s Desk documents if we  concern ourselves only with documents selected by the majority of human reviewers-i.e.
+The dimensionality of the keyword-based clustering was very similar to that of the title-based approach.
+Each of these 1112 documents was assigned one or more subject headings, which were withheld from all of the cluster  applications.
+Likewise, a correct classification on either the most popular or second most popular category among the human judges is considered correct in cases where a given document was classified into multiple classes.
+For each class, we created a query by submitting the three terms with the highest log-odds ratio with that class.
+Although a given book may cover many subjects, a classification system should be able to collocate books that are extremely similar, say books about occupational safety and health.
+This metric stemmed from a desire to suppress the common result where one large cluster emerges from the k-means algorithm, accompanied by several accordingly small clusters.
+Evaluating the results of clustering is notoriously difficult.
+This suggests that improving the clustering to produce topics that were more nearly orthogonal might improve  performance. 
+Topics based on full-text documents were derived by  application of k-means clustering to the 1279 Editor"s Desk  documents, where each document was represented by a  1908dimensional vector.
+Repeating this process for each topic across all three representations led to the contingency table shown in Table 2.
+The results of our cross validation experiment are  encouraging.
+Using this methodology, we compared the performance of the three classification models described above.
+In addition to models fitted to the Editor"s Desk data, then, we constructed a fourth model, supplementing the training sets of each class by querying the Google search engine7 and applying naive Bayes to the augmented test set.
+During the first experiment we compared three methods of document representation for the  clustering task.
+Because we have only 1279 documents and 10 classes, the number of training documents per class is relatively small.
+With such an array of distilled evidence of each document"s subject matter, we undertook a comparison of document  representations for topic discovery by clustering.
+Further, each query was limited to the domain www.bls.gov.
+Under this rationale, The augmented naive Bayes  classifier correctly grouped 73 documents, while the smaller model (not augmented by a Google search) correctly classified 50.
+To  select a single integer value, we calculated which value of k led to the least variation in cluster size.
+During the second experiment, we analyzed the ability of the  statistical classifiers to discern the subject matter of documents from portions of the database in addition to the Editor"s Desk.
+Under the full-text  representation 52 of these documents were clustered into category 5, while 35 were in category 3, and 5 documents were in  category 6.
+To test this hypothesis, we defined three modes of document representation-full-text, title-only, and keyword only-we generated three sets of topics, Tfull, Ttitle, and Tkw, respectively.
+For the purposes of applying the relation browser to complex digital library  content (where documents will be classified along multiple  categories), the augmented model is preferable.
+There were 72  multiclass documents in our sample, as seen in Figure 4.
+To facilitate this analysis, we took a conservative approach; we considered multi-subject classifications to be unique.
+However, in this case, each document was represented in the vector space spanned by the 397 terms that occur at least twice in document titles.
+To test the generality of the naive Bayes classifier, we solicited input from 11  human judges who were familiar with the BLS website.
+Additionally, each cluster has been given a label by the researchers.
+Although naive Bayes is not significantly more accurate for these data than the SVM classifier, we limit the  remainder of our attention to analysis of its performance.
+The resultant χ2 test gave p = 0.001, suggesting that  increasing the training set improved the ability of the naive Bayes model to generalize from the Editor"s Desk documents to the collection as a whole.
+Using the keywords, the documents were clustered into 10 classes.
+For the experiment, a random sample of 100 documents was drawn from the entire BLS collection.
+The median number of keywords per document was 7, where a keyword is understood to be either a single word, or a  multiword term such as consumer price index.
+Most problematic is the fact that we have assumed that each document belongs in only a single category.
+In Table 5, we see, for each classifier, the  number of documents for which it"s first or second most probable class was voted best or second best by the 11 human judges.
+To solve this problem, we trained the statistical classifiers described above in Section 5.
+It must also be said that 73% accuracy under a fairly liberal test condition leaves room for improvement in our assignment of topics to categories.
+Additionally, The titles of the Editor"s Desk documents tend to be germane to the topic of their respective articles.
+Limiting the right answers to the left column of Table 5 gives p = 0.02 in favor of the non-augmented model.
+We hypothesized that keyword-based clustering would provide a useful model.
+Our selection of naive Bayes is due to the fact that it appears to work comparably to the SVM approach for these data, while being much simpler, both in theory and implementation.
+To test the ability of each classifier to locate documents correctly, we first performed a 10-fold cross validation on the Editor"s Desk documents.
+Thus a document with the correct class as its second choice would still be easily available to a user.
+It is worth noting that the keywords were not drawn from any controlled  vocabulary; they were assigned to documents by publishers at the BLS.
+On the other hand, the naive Bayes classifier  distributed classes more evenly across the topics.
+To evaluate the success of the two-stage approach described in Section 5, we undertook two experiments.
+The process proceeds by iteratively holding out each of the n subsets as a test collection for a model trained on the remaining n − 1 subsets.
+Limiting analysis to subjects with N > 10 kept the resultant χ2 tests suitably robust.
+Taking the BLS editors"  classifications as ground truth, all 92 of these documents should have ended up in the same cluster.
+We may begin to  understand the shortcomings of the described techniques by consulting Figure 5, which shows the distribution of  categories across documents given by humans and by the  augmented naive Bayes model.
+On average each  re7 http://www.google.com 8 A more formal treatment of the combination of labeled and unlabeled data is available in [4].
+However, none of the reviewers had prior knowledge of the outcome of the classification before their participation.
+We turn to a more realistic assessment of document-class relations in Section 6.2.
+Cross validation suggested that the augmented model decreased classification accuracy (accuracy= 58.16%, with standard error= 0.32).
+As k approached 10 the reduction in error with the addition of more clusters declined notably, suggesting that k ≈ 10 would yield good divisions.
+Thus for each of the 19 subject headings in Table 1, Si, we calculated the proportion of documents assigned to Si that each clustering co-classified.
+Percent Accuracy SE Prind 59.07 1.07 Naive Bayes 75.57 0.4 SVM 75.08 0.68 class variable for each instance (document) to reflect its  assigned cluster under a given model.
+The remaining 28 documents were assigned to 1 or 0 classes.
+Unlike the keywords,  however, subject headings were drawn from a controlled  vocabulary.
+In order to lend our analysis suitable rigor and utility, we made several simplifying assumptions.
+Table 4 gives the results from cross validation.
+6.1 Comparing Document Representations Documents from The Editor"s Desk column came  supplied with human-generated keyword metadata.
+During cross-validation the data are split randomly into n subsets (in this case n = 10).
+Clusters based on document titles were constructed  similarly.
+These document-subject pairings formed the basis of our analysis.
+Like the keywords, subject headings were assigned to documents by BLS publishers.
+For instance, There were 92 documents whose subject heading was prices.
+Table 1 shows all Editor"s Desk subject headings that were assigned to at least 10 documents.
+The matter of roughly fourteen thousand unclassified documents remained to be addressed.
+The sample was chosen by convenience, and consisted of faculty and graduate students who work on the GovStat project.
+However, the improvement  afforded by the augmented model comes at some cost.
+Cross validation is described in [15].
+Table 5: Human-Model Agreement on 100 Sample Docs.
+Analogically, this is akin to  considering the location of books on a library shelf.
+only first-choice classes.
+But this is not necessarily the case in general.
+This behavior suggests areas for future improvement.
+This assumption is certainly false.

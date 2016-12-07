@@ -1,0 +1,96 @@
+Since the VFP algorithm that we introduced provides two 
+orthogonal improvements over the OC-DEC-MDP algorithm, the 
+experimental evaluation we performed consisted of two parts: In part 1,
+we tested empirically the quality of solutions that an locally optimal
+solver (either OC-DEC-MDP or VFP) finds, given it uses different
+opportunity cost function splitting heuristic, and in part 2, we 
+compared the runtimes of the VFP and OC-DEC- MDP algorithms for
+a variety of mission plan configurations.
+Part 1: We first ran the VFP algorithm on a generic mission plan
+configuration from Figure 3 where only methods mj0 , mi1 , mi2
+and m0 were present. Time windows of all methods were set to
+400, duration pj0 of method mj0 was uniform, i.e., pj0 (t) = 1
+400
+and durations pi1 , pi2 of methods mi1 , mi2 were normal 
+distributions, i.e., pi1 = N(μ = 250, σ = 20), and pi2 = N(μ =
+200, σ = 100). We assumed that only method mj0 provided 
+reward, i.e. rj0 = 10 was the reward for finishing the execution of
+method mj0 before time t = 400. We show our results in Figure
+(4) where the x-axis of each of the graphs represents time whereas
+the y-axis represents the opportunity cost. The first graph confirms,
+that when the opportunity cost function Vj0 was split into 
+opportunity cost functions Vi1 and Vi2 using the H 1,1 heuristic, the 
+function Vi1 +Vi2 was not always below the Vj0 function. In particular,
+Vi1 (280) + Vi2 (280) exceeded Vj0 (280) by 69%. When 
+heuristics H 1,0 , H 1/2,1/2 and bH 1,1 were used (graphs 2,3 and 4),
+the function Vi1 + Vi2 was always below Vj0 .
+We then shifted our attention to the civilian rescue domain 
+introduced in Figure 1 for which we sampled all action execution 
+durations from the normal distribution N = (μ = 5, σ = 2)). To
+obtain the baseline for the heuristic performance, we implemented
+a globally optimal solver, that found a true expected total reward
+for this domain (Figure (6a)). We then compared this reward with
+a expected total reward found by a locally optimal solver guided
+by each of the discussed heuristics. Figure (6a), which plots on
+the y-axis the expected total reward of a policy complements our
+previous results: H 1,1 heuristic overestimated the expected total
+reward by 280% whereas the other heuristics were able to guide the
+locally optimal solver close to a true expected total reward.
+Part 2: We then chose H 1,1 to split the opportunity cost 
+functions and conducted a series of experiments aimed at testing the
+scalability of VFP for various mission plan configurations, using
+the performance of the OC-DEC-MDP algorithm as a benchmark.
+We began the VFP scalability tests with a configuration from Figure
+(5a) associated with the civilian rescue domain, for which method
+execution durations were extended to normal distributions N(μ =
+Figure 5: Mission plan configurations: (a) civilian rescue 
+domain, (b) chain of n methods, (c) tree of n methods with
+branching factor = 3 and (d) square mesh of n methods.
+Figure 6: VFP performance in the civilian rescue domain.
+30, σ = 5), and the deadline was extended to Δ = 200.
+We decided to test the runtime of the VFP algorithm running with
+three different levels of accuracy, i.e., different approximation 
+parameters P and V were chosen, such that the cumulative error
+of the solution found by VFP stayed within 1%, 5% and 10% of
+the solution found by the OC- DEC-MDP algorithm. We then run
+both algorithms for a total of 100 policy improvement iterations.
+Figure (6b) shows the performance of the VFP algorithm in the
+civilian rescue domain (y-axis shows the runtime in milliseconds).
+As we see, for this small domain, VFP runs 15% faster than 
+OCDEC-MDP when computing the policy with an error of less than
+1%. For comparison, the globally optimal solved did not terminate
+within the first three hours of its runtime which shows the strength
+of the opportunistic solvers, like OC-DEC-MDP.
+We next decided to test how VFP performs in a more difficult 
+domain, i.e., with methods forming a long chain (Figure (5b)). We
+tested chains of 10, 20 and 30 methods, increasing at the same
+time method time windows to 350, 700 and 1050 to ensure that
+later methods can be reached. We show the results in Figure (7a),
+where we vary on the x-axis the number of methods and plot on
+the y-axis the algorithm runtime (notice the logarithmic scale). As
+we observe, scaling up the domain reveals the high performance of
+VFP: Within 1% error, it runs up to 6 times faster than 
+OC-DECMDP.
+We then tested how VFP scales up, given that the methods are 
+arranged into a tree (Figure (5c)). In particular, we considered trees
+with branching factor of 3, and depth of 2, 3 and 4, increasing at
+the same time the time horizon from 200 to 300, and then to 400.
+We show the results in Figure (7b). Although the speedups are
+smaller than in case of a chain, the VFP algorithm still runs up to 4
+times faster than OC-DEC-MDP when computing the policy with
+an error of less than 1%.
+We finally tested how VFP handles the domains with methods 
+arranged into a n × n mesh, i.e., C≺ = { mi,j, mk,j+1 } for i =
+1, ..., n; k = 1, ..., n; j = 1, ..., n − 1. In particular, we consider
+836 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+Figure 4: Visualization of heuristics for opportunity costs splitting.
+Figure 7: Scalability experiments for OC-DEC-MDP and VFP for different network configurations.
+meshes of 3×3, 4×4, and 5×5 methods. For such configurations
+we have to greatly increase the time horizon since the 
+probabilities of enabling the final methods by a particular time decrease
+exponentially. We therefore vary the time horizons from 3000 to
+4000, and then to 5000. We show the results in Figure (7c) where,
+especially for larger meshes, the VFP algorithm runs up to one 
+order of magnitude faster than OC-DEC-MDP while finding a policy
+that is within less than 1% from the policy found by OC- 
+DECMDP.

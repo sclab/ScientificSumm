@@ -1,0 +1,54 @@
+A bid b is composed of three elements bitems
+(the set of
+items the bid is over), bagent
+(the agent that placed the bid),
+and bvalue
+(the value or price of the bid). The agents 
+maintain a set B of the current best bids, one for each set of items
+of size ≤ k, where k is the current stage. At any point in the
+auction, after the first round, there will also be a set W ⊆ B
+of currently winning bids. This is the set of bids that covers
+all the items and currently maximizes the revenue, where
+the revenue of W is given by
+r(W) =
+b∈W
+bvalue
+. (1)
+Agent i"s value function is given by vi(S) ∈ where S is a
+set of items. Given an agent"s value function and the current
+winning bidset W we can calculate the agent"s utility from
+W as
+ui(W) =
+b∈W | bagent=i
+vi(bitems
+) − bvalue
+. (2)
+That is, the agent"s utility for a bidset W is the value it
+receives for the items it wins in W minus the price it must
+pay for those items. If the agent is not winning any items
+then its utility is zero.
+The goal of the bidding agents in the PAUSE auction is to
+maximize their utility, subject to the constraint that their
+next set of bids must have a total revenue that is at least
+bigger than the current revenue, where is the smallest
+increment allowed in the auction. Formally, given that W is
+the current winning bidset, agent i must find a g∗
+i such that
+r(g∗
+i ) ≥ r(W) + and
+g∗
+i = arg max
+g⊆2B
+ui(g), (3)
+where each g is a set of bids that covers all items and
+∀b∈g (b ∈ B) or (bagent
+= i and bvalue
+> B(bitems
+) and
+size(bitems
+) ≤ k), and where B(items) is the value of the
+bid in B for the set items (if there is no bid for those items
+it returns zero). That is, each bid b in g must satisfy at least
+one of the two following conditions. 1) b is already in B, 2)
+b is a bid of size ≤ k in which the agent i bids higher than
+the price for the same items in B.

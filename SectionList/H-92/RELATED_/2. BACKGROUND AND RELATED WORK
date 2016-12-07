@@ -1,0 +1,40 @@
+Ranking search results is a fundamental problem in information
+retrieval. Most common approaches primarily focus on similarity
+of query and a page, as well as the overall page quality [3,4,24].
+However, with increasing popularity of search engines, implicit
+feedback (i.e., the actions users take when interacting with the
+search engine) can be used to improve the rankings.
+Implicit relevance measures have been studied by several research
+groups. An overview of implicit measures is compiled in Kelly and
+Teevan [14]. This research, while developing valuable insights
+into implicit relevance measures, was not applied to improve the
+ranking of web search results in realistic settings.
+Closely related to our work, Joachims [11] collected implicit
+measures in place of explicit measures, introducing a technique
+based entirely on clickthrough data to learn ranking functions. Fox
+et al. [8] explored the relationship between implicit and explicit
+measures in Web search, and developed Bayesian models to
+correlate implicit measures and explicit relevance judgments for
+both individual queries and search sessions. This work considered
+a wide range of user behaviors (e.g., dwell time, scroll time,
+reformulation patterns) in addition to the popular clickthrough
+behavior. However, the modeling effort was aimed at predicting
+explicit relevance judgments from implicit user actions and not
+specifically at learning ranking functions. Other studies of user
+behavior in web search include Pharo and Järvelin [19], but were
+not directly applied to improve ranking.
+More recently, Joachims et al. [12] presented an empirical
+evaluation of interpreting clickthrough evidence. By performing
+eye tracking studies and correlating predictions of their strategies
+with explicit ratings, the authors showed that it is possible to
+accurately interpret clickthroughs in a controlled, laboratory
+setting. Unfortunately, the extent to which previous research
+applies to real-world web search is unclear. At the same time,
+while recent work (e.g., [26]) on using clickthrough information
+for improving web search ranking is promising, it captures only
+one aspect of the user interactions with web search engines.
+We build on existing research to develop robust user behavior
+interpretation techniques for the real web search setting. Instead of
+treating each user as a reliable expert, we aggregate information
+from multiple, unreliable, user search session traces, as we
+describe in the next two sections.

@@ -1,0 +1,21 @@
+the policy πk of an agent ak is a function πk : mk × [0, δ] → {w, e}, and πk( m, t ) = a means, that if ak is at method m at time t, it will choose to perform the action a. a joint policy π = [πk] |a| k=1 is considered to be optimal (denoted as π∗ ), if it maximizes the sum of expected rewards for all the agents. 
+other agents may continue their  execution, but methods mk ∈ {m| mj, m ∈ c≺} will never become enabled.
+in case agent ak decides to execute the next method, two outcomes are possible: success: the agent ak receives reward rj and moves on to its next method (if such method exists) so long as the following  conditions hold: (i) all the methods {mi| mi, mj ∈ c≺} that  directly enable method mj have already been completed, (ii)  execution of method mj started in some time window of method mj, i.e., ∃ mj ,τ,τ ∈c[ ] such that t ∈ [τ, τ ], and (iii) execution of method mj finished inside the same time window, i.e., agent ak completed method mj in time less than or equal to τ − t. failure: if any of the above-mentioned conditions does not hold, agent ak stops its execution.
+in case agent ak decides to wait, it remains idle for an arbitrary small time , and  resumes operation at the same place (= about to execute method mj) at time t + .
+consequently, if mj ∈ mk is the next method to be executed by the agent ak and the current time is t ∈ [0, δ], the agent has to make a decision whether to execute the method mj (denoted as e), or to wait (denoted as w).
+on autonomous agents and multi-agent systems (aamas 07) 831 by other agents.
+joint conf.
+since there is no communication allowed, an agent can only  estimate the probabilities that its methods have already been enabled 2 one could also use the oc-dec-mdp framework, which models both time and resource constraints the sixth intl.
+finally, r = {ri} |m| i=1 is the set of non-negative rewards, i.e., ri is obtained upon successful  execution of mi.
+although distributions pi can extend to infinite time horizons, given the time window  constraints, the planning horizon δ = max m,τ,τ ∈c[ ] τ is  considered as the mission deadline.
+for c ∈ c[ ], c = mi, est, let means that execution of mi can only start after the earliest starting time est and must  finish before the latest end time let; we allow methods to have multiple disjoint time window constraints.
+we assume, that the graph g = m, c≺ is acyclic, does not have disconnected nodes (the problem cannot be decomposed into independent subproblems), and its source and sink vertices identify the source and sink methods of the system.
+in  particular, for an agent ak, all its methods form a chain linked by predecessor constraints.
+for c ∈ c≺, c = mi, mj means that method mi precedes method mj i.e., execution of mj cannot start before mi terminates.
+methods are partially ordered and each method has fixed time windows inside which it can be  executed, i.e., c = c≺ ∪ c[ ] where c≺ is the set of predecessor constraints and c[ ] is the set of time window constraints.
+in particular, pi(t) is the probability that the execution of method mi consumes time t. c is a set of  temporal constraints in the system.
+method execution times are uncertain and p = {pi} |m| i=1 is the set of distributions of method execution durations.
+each agent ak is assigned to a set mk of methods, such that s|a| k=1 mk = m and ∀i,j;i=jmi ∩ mj = ø. also, each method of agent ak can be executed only once, and agent ak can execute only one method at a time.
+agents cannot communicate during mission execution.
+each instance of our decision problems can be described as a tuple m, a, c, p, r where m = {mi} |m| i=1 is the set of methods, and a = {ak} |a| k=1 is the set of agents.
+we encode our decision problems in a model which we refer to as decentralized mdp with temporal constraints 2 .

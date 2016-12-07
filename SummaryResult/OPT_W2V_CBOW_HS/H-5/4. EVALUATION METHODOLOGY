@@ -1,0 +1,80 @@
+Given a candidate rule, our tool uses it as a Boolean query over the entire set of on-topic documents and calculates its recall and precision with respect to the annotations that it is expected to match.
+Note that the nugget occurrence counts are preserved between evaluation of successive ranked lists returned by the system, since the users are expected to remember what the system showed them in the past.
+4.2 Evaluating the Utility of a Sequence of Ranked Lists The utility of a retrieval system can be defined as the difference between how much the user gained in terms of useful information, and how much the user lost in terms of time and energy.
+For each nugget Nj, we assign an initial weight wj, and also keep a count nj of the number of times this nugget has been seen by the user in the past.
+However, the likelihood that the user would actually read a passage depends on its position in the ranked list.
+4.1.2 Nugget-Matching Rules We propose a reliable automatic method for determining whether a snippet of text contains a given nugget, based on nugget-matching rules, which are generated using a  semiautomatic procedure explained below.
+The gain G(pi, q) of passage pi with respect to the query q is a function of - 1) the number of relevant nuggets present in pi, and 2) the novelty of each of these nuggets.
+Hence, QA evaluations have relied on human assessors for the mapping between various expressions, making the process costly, time consuming, and not scalable to large query and document collections, and extensive system evaluations with various parameter settings.
+In the nugget ‘Seven prisoners escaped from a Texas prison", there is no indication that ‘seven" is the keyword, and that it must be matched to get any relevance credit.
+Out of these, we selected a subset of 12 actionable events, and defined corresponding tasks for them4 .
+The DCU score obtained by the system is converted to a Normalized DCU (NDCU) score by dividing it by the DCU score of the ideal ranked list, which is created by ordering passages by their decreasing utility scores U(pi, q) and stopping when U(pi, q) ≤ 0 i.e.
+None of the existing measures in ad-hoc retrieval, adaptive filtering, novelty detection or other related areas (text summarization and question answering) have desirable properties in all the three aspects.
+When γ = 1, no dampening occurs and repeated occurrences of a nugget receive the same credit.
+Thus, G(pi, q) is defined as G(pi, q) = X Nj ∈C(pi,q) wj ∗ γnj (7) where C(pi, q) is the set of all nuggets that appear in passage pi and also belong to the answer key of query q.
+The expected utility for an entire ranked list of length n can be calculated simply by adding the expected utility of each passage: U(q) = nX i=1 P(i) ∗ (Gain(pi, q) − Loss(pi, q)) (5) Note that if we ignore the loss term and define P(i) as P(i) ∝ 1/ logb(b + i − 1) (6) then we get the recently popularized metric called  Discounted Cumulated Gain (DCG) [9], where Gain(pi, q) is defined as the graded relevance of passage pi.
+Thus, our metric can be re-written as U(q) = nX i=1 Gain(pi, q) logb(b + i − 1) − L(n) (8) where L(n) is the loss associated with a ranked list of length n: L(n) = c · nX i=1 1 logb(b + i − 1) (9) 3 Note that 00 = 1 Due to the similarity with Discounted Cumulated Gain (DCG), we call our metric Discounted Cumulated Utility (DCU).
+For each task, we manually defined a profile consisting of an initial set of (5 to 10) queries, a free-text description of the user history, i.e., what the user already knows about the event, and a list of known on-topic and off-topic documents (if available) as training examples.
+The gain derived from each subsequent occurrence of the same nugget is assumed to reduce by a dampening factor γ.
+However, without the loss term, DCG is a purely recall-oriented metric and not suitable for an adaptive filtering setting, where the system"s utility depends in part on its ability to limit the number of items shown to the user.
+Answer keys define what should be present in a system response to receive credit, and are comprised of a collection of information nuggets, i.e.
+4.1 Answer Keys To enable the evaluation of a system whose output consists of passages of arbitrary length, we borrow the concept of answer keys from the Question Answering (QA) community, where systems are allowed to return arbitrary spans of text as answers.
+We propose a two-stage approach, inspired by Autoslog [14], that combines the strength of humans in identifying semantically equivalent expressions and the strength of the system in gathering statistical evidence from a  humanannotated corpus of documents.
+In the second stage, subjects used our rule generation tool to create rules that would match the annotations for each nugget.
+We further ensured that these judgments are exhaustive on the entire corpus using pooling.
+When γ = 0, a nugget will only receive credit for its first occurrence i.e.
+As an example, let"s try to create a rule for the nugget which says that seven prisoners escaped from the Texas prison.
+4.1.1 Automating Evaluation based on Answer Keys Automatic evaluation methods would allow for faster system building and tuning, as well as provide an objective and affordable way of comparing various systems.
+Secondly, since we wish to measure the utility of the system output as a combination of both relevance and novelty, traditional relevance-only based measures must be replaced by measures that penalize the repetition of the same information in the system output across time.
+However, it is also plagued by ‘spurious relevance" since not all words contained in the nugget description (or known correct responses) are central to the nugget.
+For each query, we generated answer keys and  corresponding nugget matching rules using the procedure described in section 4.1.2, and produced a total of 120 queries, with an average of 7 nuggets per query. 
+In the first stage, human subjects annotated (using a highlighting tool) portions of  ontopic documents that contained answers to each nugget 2 .
+Firstly, since our framework allows the output to be passages at different levels of granularity (e.g.
+of a passage pi at rank i can be defined as U(pi, q) = P(i) ∗ (Gain(pi, q) − Loss(pi, q)) (4) where P(i) is the probability that the user would go through a passage at rank i.
+Thirdly, since the output of the system is ranked lists, we must reward those systems that present useful information (both relevant and previously unseen) using shorter ranked lists, and penalize those that present the same information using longer ranked lists.
+We can further qualify our rule - Texas AND seven AND convicts.
+For a corpus of news articles, which usually follow a typical formal prose, it is fairly easy to write such simple rules to match expected answers using a bootstrap approach, as described below.
+After reading each passage returned by the system, the user derives some gain depending on the presence of relevant and novel information, and incurs a loss in terms of the time and energy spent in going through the passage.
+The initial weights wj are all set of be 1.0 in our experiments, but can also be set based on a pyramid approach [11].
+For example, a system response ‘A B C" has recall 3/4 with respect to a nugget with description ‘A B C D".
+For instance, a candidate rule for matching answers to How many prisoners  escaped?
+However, such an approach is unfair to systems that present the same information but using words other than A, B, C, and D. Another open issue is how to weight individual words in measuring the closeness of a match.
+Speech-recognized and machine-translated versions of the non-English articles were provided as well.
+Hence, for a query q, the expected utility 2 LDC [18] already provides relevance judgments for 100 topics on the TDT4 corpus.
+Thus we can create nugget-matching rules that succinctly capture various ways of expressing a nugget, while avoiding matching incorrect (or out of context) responses.
+For 0 < γ < 1, a nugget receives smaller credit for each successive occurrence.
+We continue tweaking the rule in this manner until we achieve a sufficiently high recall and precision - i.e.
+Pourpre [10] assigns a fractional recall score to a system response based on its unigram overlap with a given nugget"s description.
+We start with a simple rule - (seven).
+is (Texas AND seven AND escape AND (convicts OR prisoners)), possibly with other synonyms and variants in the rule.
+Hence, the subjects can start with a simple rule and iteratively refine it until they are satisfied with its recall and precision.
+We define the loss L(pi, q) as a constant cost c (we use 0.1) incurred when reading a system-returned passage.
+Defining answer keys and making the associated binary decisions are conceptual tasks that require semantic  mapping [19], since system-returned passages can contain the same information expressed in many different ways.
+LDC [18] has annotated the corpus with 100 topics, that correspond to various news events in this time period.
+Human involvement in the rule creation process ensures high quality generic rules which can then be used to evaluate arbitrary system responses reliably.
+Nuggeteer [13] works on similar principles but makes binary decisions about whether a nugget is present in a given system response by tuning a threshold.
+Next, by looking at the ‘missed annotations", we realize that some news articles mentioned ...seven prisoners escaped.... We then replace convicts with the disjunction (convicts OR prisoners).
+We combine these two factors as follows.
+‘...seven states...") and thus gets a low precision score.
+We calculate this utility from the utilities of individual passages as follows.
+We observed that it was very easy for humans to improve the precision of a rule by tweaking its existing conjunctions (adding more ANDs), and improving the recall by adding more conjunctions to the disjunction (adding more ORs).
+When we input this into the rule generation tool, we realize that this rule matches many spurious occurrences of seven (e.g.
+The tool allows users to enter a Boolean rule as a disjunction of conjunctions (e.g.
+k-sentence windows where k may vary) instead of a fixed length, it is not possible to have pre-annotated relevance judgments at all such granularity levels.
+These rules are essentially Boolean queries that will only match against snippets that contain the nugget.
+Although P(i) could be defined based on empirical studies of user behavior, for simplicity, we use P(i) exactly as defined in equation 6.
+Therefore, we must develop a new evaluation methodology.
+Also, redefining the nugget as just ‘seven" does not solve the problem since now it might spuriously match any mention of ‘seven" out of context.
+The approach we proposed above for information  distillation raises important issues regarding evaluation  methodology.
+when the gain is less than or equal to the cost of reading the passage.
+Recently, such methods have been proposed, more or less, based on the idea of n-gram co-occurrences.
+((a AND b) OR (a AND c AND d) OR (e))).
+factoid units about which human assessors can make binary decisions of whether or not a system response contains them.
+The choice of dampening factor γ determines the user"s tolerance for redundancy.
+Using IDF values does not help, since ‘seven" will generally not have a higher IDF than words like ‘texas" and ‘prison".
+DATA TDT4 was the benchmark corpus used in TDT2002 and TDT2003 evaluations.
+For example, consider the question How many prisoners escaped?.
+The corpus consists of over 90, 000 news articles from multiple sources (AP, NYT, CNN, ABC, NBC, MSNBC, Xinhua, Zaobao, Voice of America, PRI the World, etc.)
+published between October 2000 and January 2001, in the languages of Arabic, English, and Mandarin.
+the (small number of) misses and false alarms can be safely ignored.
+when nj is zero3 .

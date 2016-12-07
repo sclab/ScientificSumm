@@ -1,0 +1,38 @@
+Finding an optimal output sequence of postings can be cast into finding a piecewise-constant representation for the points (ti, pi) that uses a minimal number of segments while retaining the above approximation guarantee.
+Approximate temporal coalescing reduces the number of postings in an index list by merging such a sequence of postings that have almost equal payloads, while keeping the maximal error bounded.
+If this test fails, a coalesced posting bearing the old representative is added to the output sequence O and, following that, the bookkeeping is reinitialized.
+We seek to generate the minimal length output sequence of postings O = ( d, pj, [tj, tj+1) ), .
+[6], where the simpler problem of coalescing only equal information was considered.
+Second, when coalescing a subsequence of postings of the  input into a single posting of the output, we want the  approximation error to be below a threshold .
+While doing so, it coalesces sequences of postings having maximal length.
+In other words, if (d, pi, [ti, ti+1)) and (d, pj, [tj, tj+1)) are postings of I and O respectively, then the following must hold for a chosen error function and a threshold : tj ≤ ti ∧ ti+1 ≤ tj+1 ⇒ error(pi, pj) ≤ .
+We next formally state the problem dealt with in  approximate temporal coalescing, and discuss the computation of optimal and approximate solutions.
+In our setting, as a key difference, only a  guarantee on the local error is retained - in contrast to a guarantee on the global error in the aforementioned settings.
+O = 2: pmin = pi pmax = pi p = pi tb = ti te = ti+1 3: for ( d, pj, [tj, tj+1) ) ∈ I do 4: pmin = min( pmin, pj ) pmax = max( pmax, pj ) 5: p = optrep(pmin, pmax) 6: if errrel(pmin, p ) ≤ ∧ errrel(pmax, p ) ≤ then 7: pmin = pmin pmax = pmax p = p te = tj+1 8: else 9: O = O ∪ ( d, p, [tb, te) ) 10: pmin = pj pmax = pj p = pj tb = tj te = tj+1 11: end if 12: end for 13: O = O ∪ ( d, p, [tb, te) ) Algorithm 1 makes one pass over the input sequence I.
+As an input we are given a sequence of temporally  adjacent postings I = ( d, pi, [ti, ti+1) ), .
+Note that the technique is applied to each index list separately, so that the following explanations assume a fixed term v and index list Lv.
+Approximate temporal coalescing is greatly effective given such fluctuating payloads and reduces the number of  postings from 9 to 3 in the example.
+The approximate temporal coalescing technique that we propose in this section counters this blowup in index-list size.
+This algorithm produces nearly-optimal output sequences that retain the bound on the relative error, but possibly require a few additional segments more than an optimal solution.
+In this paper, as an error function we employ the relative error between payloads (i.e., tf-scores) of a document in I and O, defined as: errrel(pi, pj) = |pi − pj| / |pi| .
+Note that, since we make no assumptions about the sort order of index lists, temporal-coalescing algorithms have an additional preprocessing cost in O(|Lv| log |Lv|) for sorting the index list and chopping it up into subsequences for each document. 
+The optimal representative for a sequence of postings depends only on their minimal and maximal  payload (pmin and pmax) and can be looked up using optrep in O(1) (see [16] for details).
+The quadratic complexity of the optimal algorithm makes it inappropriate for the large datasets encountered in this work.
+Typically dynamic programming is applied to obtain an optimal solution in O(n2 m∗ ) [20, 30] time with m∗ being the number of segments in an optimal sequence.
+When reading the next  posting, the algorithm tries to add it to the current sequence of postings.
+The time complexity of the algorithm is in O(n).
+, ( d, pm−1, [tm−1, tm)) ) , that adheres to the following constraints: First, O and I must cover the same time-range, i.e., ti = tj and tn = tm.
+Each sequence represents a contiguous time period during which the term was present in a single document d. If a term disappears from d but reappears later, we obtain multiple input sequences that are dealt with separately.
+For frequent terms and large highly-dynamic collections, this time score non-coalesced coalesced Figure 1: Approximate Temporal Coalescing leads to extremely long index lists with very poor  queryprocessing performance.
+As an alternative, we introduce a linear-time  approximate algorithm that is based on the sliding-window  algorithm given in [21].
+This idea is illustrated in Figure 1, which plots non-coalesced and coalesced scores of postings belonging to a single document.
+Algorithm 1 Temporal Coalescing (Approximate) 1: I = ( d, pi, [ti, ti+1) ), .
+Exploiting this fact, an optimal solution is computable by means of induction [24] in O(n2 ) time.
+As a consequence, the payload of many postings belonging to temporally adjacent versions will differ only slightly or not at all.
+If we employ the time-travel inverted index, as described in the previous section, to a versioned document collection, we obtain one posting per term per document version.
+It computes the hypothetical new representative p and checks whether it would retain the approximation guarantee.
+Details of the optimal  algorithm are omitted here but can be found in the  accompanying technical report [5].
+It builds on the observation that most changes in a versioned document collection are minor, leaving large parts of the document untouched.
+The notion of temporal coalescing was originally introduced in temporal database research by B¨ohlen et al.
+Similar  problems occur in time-series segmentation [21, 30] and histogram construction [19, 20].
+, ( d, pn−1, [tn−1, tn)) ) .

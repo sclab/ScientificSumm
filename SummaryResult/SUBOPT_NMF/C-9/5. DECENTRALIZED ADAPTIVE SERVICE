@@ -1,0 +1,5 @@
+These are retain to mark non-modifying operations which allows faster responses and load balancing of those requests.
+Additionally it should be possible to migrate the service.
+For example if a client-stub offers a method which results in a file transfer it is possible to integrate a custom protocol that forwards a modified request to the replicated object which returns not the file as in the common case but URLs that point to clients that previously requested the file.
+Each service has at least two interfaces: one for management tasks and another service specific for the end user.
+This modifier facilitates 

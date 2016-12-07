@@ -1,0 +1,63 @@
+Earlier work on network games to deal with network latency has
+mostly focussed on compensation techniques for packet delay and
+loss [2, 3, 4]. These methods are aimed at making large delays and
+message loss tolerable for players but does not consider the 
+problems that may be introduced by varying delays from the server to
+different players or from the players to one another. For example,
+the concept of local lag has been used in [3] where each player
+delays every local operation for a certain amount of time so that 
+remote players can receive information about the local operation and
+execute the same operation at the about same time, thus reducing
+state inconsistencies. The online multi-player game MiMaze [2, 5,
+6], for example, takes a static bucket synchronization approach to
+compensate for variable network delays. In MiMaze, each player
+delays all events by 100 ms regardless of whether they are 
+generated locally or remotely. Players with a network delay larger
+than 100 ms simply cannot participate in the game. In general,
+techniques based on bucket synchronization depend on imposing a
+worst case delay on all the players.
+There have been a few papers which have studied the problem of
+fairness in a distributed game by more sophisticated message 
+delivery mechanisms. But these works [7, 8] assume the existence of
+a global view of the game where a game server maintains a view
+(or state) of the game. Players can introduce objects into the game
+or delete objects that are already part of the game (for example, in
+a first-person shooter game, by shooting down the object). These
+additions and deletions are communicated to the game server 
+using action messages. Based on these action messages, the state
+of the game is changed at the game server and these changes are
+communicated to the players using update messages. Fairness is
+achieved by ordering the delivery of action and update messages at
+the game server and players respectively based on the notion of a
+fair-order which takes into account the delays between the game
+server and the different players. Objects that are part of the game
+may move but how this information is communicated to the players
+seems to be beyond the scope of these works. In this sense, these
+works are very limited in scope and may be applicable only to 
+firstperson shooter games and that too to only games where players are
+not part of the game.
+DR vectors can be exchanged directly among the players 
+(peerto-peer model) or using a central server as a relay (client-server
+model). It has been shown in [9] that multi-player games that
+use DR vectors together with bucket synchronization are not 
+cheatproof unless additional mechanisms are put in place. Both the
+scheduling algorithm and the budget-based algorithm described in
+our paper use DR vectors and hence are not cheat-proof. For 
+example, a receiver could skew the delay estimate at the sender to
+make the sender believe that the delay between the sender and the
+receiver is high thereby gaining undue advantage. We emphasize
+that the focus of this paper is on fairness without addressing the
+issue of cheating.
+In the next section, we describe the game model that we use
+and illustrate how senders and receivers exchange DR vectors and
+how entities are rendered at the receivers based on the time-stamp
+augmented DR vector exchange as described in [1]. In Section 4,
+we describe the DR vector scheduling algorithm that aims to make
+the export error equal across the players with varying delays from
+the sender of a DR vector, followed by experimental results 
+obtained from instrumentation of the scheduling algorithm on the
+open source game BZFlag. Section 5, describes the budget based
+algorithm that achieves improved fairness but without reducing the
+level accuracy of game playing. Conclusions are presented in 
+Section 6.
+2

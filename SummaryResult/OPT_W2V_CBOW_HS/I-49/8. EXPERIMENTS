@@ -1,0 +1,46 @@
+In particular, all  conversion parts of the agents have to be specified according to the application since to convert a proposal into decision  criteria, we need to know, first, this model and the correlations between the proposals and this model.
+In addition to reflecting this kind of viewpoint, the aggregation function as defined in MYRIAD introduces a veto on the criteria burn, surgery, orthopedic and EReceipt, where EReceipt is the criterion for the preferences about the capacity to receive a number of patients at the same time.
+The hospitals threshold are fixed  approximatively to the level where an evaluation is considered as good.
+The experiments aim at verifying that our approach gives solutions as close as possible to the Maximin solution and in a small number of rounds and hopefully in a short time since our context is highly cooperative.
+Each negotiator agent evaluates this proposal and answers back by accepting or rejecting P0: • Agent H1 rejects this offer since its evaluation is very far from the threshold (0.29, a bad score) and gives a recommendation to improve burn and surgery by sending the message  reject_proposal([burn,surgery]); • Agent H2 accepts this offer by sending the message accept_proposal(), the proposal evaluation being  good; • Agent H3 accepts P0 by sending the message accept_ proposal(), the proposal evaluation being good.
+The problem to solve is then to dispatch to hospital H1, H2 and H3, the set of victims composed of 5 victims with the  pathology burn, 10 with surgery, 3 with orthopedic and 7 with cardiology.
+Just with the recommendations provided by agent H1, the mediator is able to make a new proposal by restricting the value of burn and surgery.
+All the  hospitals have similar decision criteria reflecting their preferences on the level of congestion they can face for the overall  hospital and the different services available, as briefly explained for hospital H1 hereafter.
+We obtained solutions either equal or close to the Maximin solution, the distance from the standard deviation being less than 0.0829, the evaluations not far from the ones obtained with P∗ and with less than seven proposals made.
+Each hospital can receive victims having a particular pathology in such a way that H1 can receive patients with the pathology burn, surgery or orthopedic, H2 can receive patients with the pathology surgery, orthopedic or cardiology and H3 can receive  patients with the pathology burn or cardiology.
+This proposal is the vector P0 = [[H1,burn, 3], [H1, surgery, 8], [H1, orthopaedic, 0], [H2, surgery, 2], [H2, orthopaedic, 3], [H2, cardiology, 6], [H3, burn, 2], [H3, cardiology, 1]] and the mediator sends propose(P0) to H1, H2 and H3 for approval.
+Moreover, only the recommendations on how to improve a proposal are taken into account.
+To solve this  problem, for this example, we decided to solve a linear problem with the availability constraints and the recommendations as linear constraints on the dispatch values.
+H1 11 4 8  10H2 25 - 3 4 10 H3 7 10 - - 3 We obtain a multiagent system with the mediator agent and three agents of type negotiator for the three hospital in the problem.
+The agents and their behaviours correspond to the main classes of our prototype, NegotiatorAgent and NegotiatorBehaviour for the negotiator agents, and MediatorAgent and MediatorBehaviour for the mediator agent.
+Therefore, the utility function of this criterion  represents a preference such that the more there are patients of this pathology in the hospital, the less the hospital may  satisfy them, and this with an initial capacity.
+These criteria correspond to the preferences on the pathologies the hospital can treat.
+This shows us that we are able to solve this multi-issue  multilateral negotiation problem in a simple and efficient way, with solutions close to the Pareto solution. 
+In this simplified example, the physician have no  particular preferences on the dispatch and the mediator agent chooses a proposal randomly in a subset of the set of  admissibility.
+The availabilities of the hospitals are as  presented in the following table.
+Other examples have been tested with the same settings: issues in IN, three negotiator agents and the same mediator agent, with no preference model but selecting randomly the proposal.
+This subset have to satisfy as much as possible the recommendations made by the hospitals.
+3, represents the preferences of H1  according to the value of Cburn which is the current capacity of burn.
+The new proposal obtained is then P1 = [[H1,burn, 0], [H1, surgery, 8], [H1, orthopaedic, 1], [H2, surgery, 2], [H2, orthopaedic, 2], [H2, cardiology, 6], [H3, burn, 5], [H3, cardiology, 1]].
+The mediator agent makes a proposal chosen randomly in admissible set obtained with these availabilities as  linear constraints.
+These classes extend JADE classes and integrate MYRIAD into the agents, reducing the amount of  communications in the system.
+a general framework to specialise according to the application) and enable us to make some preliminary  experiments.
+H1, H2 and H3 answer back by sending the message accept_proposal(), P1 being evaluated with a high enough score to be acceptable, and also considered as a good proposal when using the  explanation function of MYRIAD.
+We defined the two types of agents and their behaviours as introduced in section 6.
+Some functionalities depending on the application have to be implemented according to the  application by extending these classes.
+Note that the evaluation of P1 by H3 has decreased in comparison with P0, but not enough to be rejected and that this solution is the Pareto one, P∗ .
+First, to illustrate our protocol, we present a simple  example of our dispatch problem.
+In the case of 948 The Sixth Intl.
+For hospital H1, the preference model, fig.
+The set of  admissibility is then obtained by solving this linear problem by the use of Prolog.
+This MAS is designed to be as general as  possible (e.g.
+To start, the negotiator agents send their  availabilities.
+3, is composed of five criteria.
+the pathology burn, the corresponding criterion, also named burn as shown in fig.
+The mediator sends propose(P1) the negotiator agents.
+In this example, we have three hospitals, H1, H2 and H3.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) Figure 3: The H1 preference model in MYRIAD.
+We developed a MAS using the widely used JADE agent platform [1].
+Available Overall burn surg.
+An agreement is reached with P1.
+Joint Conf.

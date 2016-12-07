@@ -1,0 +1,35 @@
+Based on such a model a scheduling agent is built that uses the performance model to select the best resource set and the best application schedule on this set.
+Instead, the system tries to deduce the  application requirements at runtime and adjusts the number of workers to approach the ideal number. 
+In GrADS (18) and ASSIST (1), resource  selection and adaptation requires a performance model that allows predicting application runtimes.
+Finally, performance degradation detection is suitable only for iterative applications and cannot be used for  irregular computations such as search and optimization problems.
+The main limitation of this methodology is that it is suitable only for sequential or single-site applications.
+Processor clock speed, average load and a number of  processors in a cluster (Cactus) are used to rank resources and the  resource with the highest rank is selected.
+As the number of available grid resources increases, the accuracy of this approach diminishes, as the subset of possible resource sets that can be examined in a reasonable time becomes smaller.
+GrADS uses the ratio of the predicted execution times (of certain application phases) to the real  execution times as an indicator of application performance.
+Another disadvantage of these systems is that the performance degradation detection is suitable only for iterative or regular applications.
+In the context of this project, a number of applications were studied and performance models for these applications were created.
+However, even if the performance 0 5 10 15 iteration number 0 200 400 600 800 1000 iterationduration(secs.)
+127 In (13), the problem of scheduling master-worker applications is studied.
+ASSIST uses the number of iterations per time unit (for iterative applications) or the number of tasks per time unit (for regular master-worker applications) as a performance indicator.
+The main advantage is that once the performance model is known, the system is able to take more accurate migration  decisions than with our approach.
+In the resource selection phase, a number of possible resource sets is examined and the set of  resources with the shortest predicted runtime is selected.
+Barnes-Hut iteration durations with/without adaptation, crashing CPUs model is known, the problem of finding an optimal resource set (i.e.
+A number of Grid projects address the question of resource  selection and adaptation.
+The approach here is similar to ours in that no  performance model is used.
+In that case, the resource selection problem boils down to selecting the fastest machine or cluster.
+The main difference  between these approaches and our approach is the use of performance models.
+The authors assume homogeneous processors (i.e., with the same speed) and do not take communication costs into account.
+Currently, both GrADS and ASSIST examine only a subset of all possible resource sets and therefore there is no guarantee that the resulting resource set will be optimal.
+The application is migrated if performance degradation is detected or better resources are  discovered.
+If  performance degradation is detected during the computation, the resource selection phase is repeated.
+However, these frameworks are only suitable for sequential  (GridWay) or single-site applications (Cactus).
+The resource selection problem was also studied by the AppLeS project (5).
+the resource set with the minimal execution time) is NP-complete.
+AppLeS scheduling agents are written on a case-by-case basis and cannot be reused for another  application.
+Therefore, the problem is reduced to finding the right number of workers.
+Moreover, resource selection based on clock speed is not always accurate.
+Two reusable templates were also developed for specific classes of applications, namely master-worker (AMWAT template) and parameter sweep (APST template) applications.
+Both Cactus and GridWay use the number of iterations per time unit as the performance indicator.
+Cactus (2) and GridWay (14) do not use performance models.
+Migration is not supported by the AppLeS software.
+no adaptation with adaptation 2 out of 3 clusters crash started adding nodes 36 nodes reached Figure 7.

@@ -1,0 +1,114 @@
+We consider a problem where an agent has several decision
+criteria, a set Nk = {1, . . . , nk} of criteria for each agent k
+involved in the negotiation protocol. These decision criteria
+enable the agents to evaluate the set of issues that are 
+negotiated. The issues correspond directly or not to the decision
+criteria. However, for the example of the crisis management
+944 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+problem, the issues are the set of victims to dispatch 
+between the hospitals. These issues are translated to decision
+criteria enabling the hospital to evaluate its congestion and
+so to an updated number of available beds, medical teams
+and so on. In order to take into account the complexity that
+exists between the criteria/issues, we use a multi-criteria 
+decision aiding (MCDA) tool named MYRIAD [12] developed
+at Thales for MCDA applications based on a two-additive
+Choquet integral which is a good compromise between 
+versatility and ease to understand and model the interactions
+between decision criteria [6].
+The set of the attributes of Nk is denoted by Xk
+1 , . . . , Xk
+nk
+.
+All the attributes are made commensurate thanks to the 
+introduction of partial utility functions uk
+i : Xk
+i → [0, 1]. The
+[0, 1] scale depicts the satisfaction of the agent k regarding
+the values of the attributes. An option x is identified to an
+element of Xk
+= Xk
+1 × · · · × Xk
+nk
+, with x = (x1, . . . , xnk ).
+Then the overall assessment of x is given by
+Uk(x) = Hk(uk
+1 (x1), . . . , uh
+nk
+(xnk )) (1)
+where Hk : [0, 1]nk → [0, 1] is the aggregation function. The
+overall preference relation over Xk
+is then
+x y ⇐⇒ Uk(x) ≥ Uk(y) .
+The two-additive Choquet integral is defined for
+(z1, . . . , znk ) ∈ [0, 1]nk by [7]
+Hk(z1, . . . , znk ) =
+X
+i∈Nk
+0
+@vk
+i −
+1
+2
+X
+j=i
+|Ik
+i,j|
+1
+A zi
++
+X
+Ik
+i,j >0
+Ik
+i,j zi ∧ zj +
+X
+Ii,j <0
+|Ii,j| zi ∨ zj (2)
+where vk
+i is the relative importance of criterion i for agent
+k and Ik
+i,j is the interaction between criteria i and j, ∧ and
+∨ denote the min and max functions respectively. Assume
+that zi < zj. A positive interaction between criteria i and
+j depicts complementarity between these criteria (positive
+synergy) [7]. Hence, the lower score of z on criterion i 
+conceals the positive effect of the better score on criterion j to
+a larger extent on the overall evaluation than the impact of
+the relative importance of the criteria taken independently
+of the other ones. In other words, the score of z on criterion
+j is penalized by the lower score on criterion i. Conversely, a
+negative interaction between criteria i and j depicts 
+substitutability between these criteria (negative synergy) [7]. The
+score of z on criterion i is then saved by a better score on
+criterion j.
+In MYRIAD, we can also obtain some recommendations
+corresponding to an indicator ωC (H, x) measuring the worth
+to improve option x w.r.t. Hk on some criteria C ⊆ Nk as
+follows
+ωC (Hk, x)=
+Z 1
+0
+Hk
+`
+(1 − τ)xC + τ, xNk\C
+´
+− Hk(x)
+EC (τ, x)
+dτ
+where ((1−τ)xC +τ, xNk\C ) is the compound act that equals
+(1 − τ)xi + τ if i ∈ C and equals xi if i ∈ Nk \ C. Moreover,
+EC (τ, x) is the effort to go from the profile x to the profile
+((1 − τ)xC + τ, xNk\C ). Function ωC (Hk, x) depicts the 
+average improvement of Hk when the criteria of coalition A
+range from xC to 1C divided by the average effort needed
+for this improvement. We generally assume that EC is of
+order 1, that is EC (τ, x) = τ
+P
+i∈C (1 − xi). The expression
+of ωC (Hk, x) when Hk is a Choquet integral, is given in [11].
+The agent is then recommended to improve of coalition C
+for which ωC (Hk, x) is maximum. This recommendation is
+very useful in a negotiation protocol since it helps the agents
+to know what to do if they want an offer to be accepted while
+not revealing their own preference model.

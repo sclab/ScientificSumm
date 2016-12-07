@@ -1,0 +1,20 @@
+we also  generalize our clearing algorithms to the partially decentralized case with constraints. 
+in the remainder of this paper, all our hardness results  apply even to the setting where there is no constraint on which bidders can pay to which charity (that is, even the problem as it was specified before this section is hard).
+in the max-flow instance, there is an edge from the source node s to each bidder bj, with a capacity of πbj (as specified in the centralized solution); an edge from each bidder bj to each charity ci that the bidder is willing to  donate money to, with a capacity of ∞; and an edge from each charity ci to the target node t with capacity πci (as specified in the centralized solution).
+in general,  checking whether a given centralized solution (with zero surplus) can be accomplished through decentralized payments when there are such constraints can be modeled as a max-flow problem.
+these additional constraints, of course, may change the optimal solution.
+we can address this issue by letting each bidder specify explicitly (before the clearing) which charities she would be willing to make a check out to.
+this is likely to lead to complaints and noncompliance with the clearing.
+(for example, an environmental activist who was using the system to increase donations to a wildlife preservation fund may be required to write a check to a group  supporting a right-wing political party.)
+nevertheless, with this approach, a bidder may have to write out a check to a charity that she does not care for at all.
+in the case where there is nonzero surplus, that is, bj πbj > ci πci , we can distribute this surplus across the bidders by not  requiring them to pay the full amount, or across the charities by giving them more than the solution specifies.)
+(all of this is assuming that bj πbj = ci πci .
+any greedy algorithm that increases the cash flow from any bidder who has not yet paid enough, to any charity that has not yet received enough, until either the bidder has paid enough or the  charity has received enough, will provide such a specification.
+then, it is straightforward to give some specification of who should give how much to which charity, that is consistent with that clearing.
+after we clear the market in the manner described before, we know the amount that each donator is supposed to give, and the amount that each charity is  supposed to receive.
+to bring this about, we can still use the approach  described earlier.
+it is also a step towards a fully decentralized solution, if this is desirable.
+advantages of this include that the center can keep its legal status minimal, as well as that we do not require the donating parties to trust the center to transfer their donations to the charities (or require some complicated verification protocol).
+in this scenario, the center merely has to verify that parties are giving the prescribed amounts.
+rather, it may be preferable to have a partially decentralized solution, where the donating parties write out checks to the charities directly according to a solution prescribed by the center.
+in an initial implementation, the approach of having  donations made out to a center, and having a center forward these payments to charities, may not be desirable.

@@ -1,0 +1,55 @@
+Update When a level i virtual node receives an update for an attribute from a child below: it first recomputes the level-i  aggregate value for the specified key, stores that value in its reduction MIB and then, subject to the function"s up and domain parameters, passes the updated value to the appropriate parent based on the  attribute key.
+As Figure 1 illustrates, the system satisfies a probe for a level-i aggregate value using a four-phase protocol that may be short-circuited when  updates have previously propagated either results or partial results up or down the tree.
+In phase 1, the route probe phase, the system routes the probe up the attribute key"s tree to either the root of the level-i subtree or to a node that stores the requested value in its  ancestor MIB.
+Execution of an install operation for function aggrFunc on attribute type attrType proceeds in two phases: first the install request is passed up the ADHT tree with the attribute key (attrType, null) until it reaches the root for that key within the specified domain.
+Each aggregate  function is installed on all nodes in a domain"s subtree, so the aggregate function table can be thought of as a special case of the ancestor MIB with domain functions always installed up to a root within a specified domain and down to all nodes within the domain.
+For probes that include phases 2 (probe scatter) and 3 (probe aggregation), an issue is how to decide when a node should stop waiting for its children to respond and send up its current  aggregate value.
+As Figure 6 illustrates, each physical node in the system acts as several virtual nodes in the AML: a node acts as leaf for all attribute keys, as a level-1 subtree root for keys whose hash matches the node"s ID in b prefix bits (where b is the number of bits corrected in each step of the ADHT"s routing scheme), as a level-i subtree root for attribute keys whose hash matches the node"s ID in the initial i ∗ b bits, and as the system"s global root for attribute keys whose hash matches the node"s ID in more prefix bits than any other node (in case of a tie, the first non-matching bit is ignored and the comparison is continued [46]).
+Virtual node ni at level i maintains a reduction MIB of tuples with a tuple for each key present in any child MIB containing the attribute type, attribute name, and output of the attribute type"s  aggregate functions applied to the children"s tuples.
+This local MIB stores information about the local node"s state inserted by local applications via update() calls.
+In this section, we describe the internal state and  operation of the AML layer of a node in the system.
+local MIB MIBs ancestor reduction MIB (level 1)MIBs ancestor MIB from child 0X... MIB from child 0X... Level 2 Level 1 Level 3 Level 0 1XXX... 10XX... 100X... From parents0X.. To parent 0X... −− aggregation functions From parents To parent 10XX... 1X.. 1X.. 1X.. To parent 11XX... Node Id: (1001XXX) 1001X.. 100X.. 10X.. 1X..
+This basic strategy of maintaining child, reduction, and ancestor MIBs is based on Astrolabe [38], but our structured propagation strategy channels information that flows up according to its attribute key and our flexible propagation strategy only sends child updates up and ancestor aggregate results down as far as specified by the attribute key"s aggregation  function.
+Probe A Probe collects and returns the aggregate value for a specified attribute key for a specified level of the tree.
+Note that in the extreme case of a function installed with up = down = 0, a level-i probe can touch all nodes in a level-i subtree while in the opposite extreme case of a  function installed with up = down = ALL, probe is a completely local operation at a leaf.
+In phase 2, the probe scatter phase, each node that receives a probe request sends it to all of its children unless the node"s reduction MIB already has a value that matches the probe"s attribute key, in which case the node initiates phase 3 on behalf of its subtree.
+Thus each update for an attribute triggers re-evaluation of  continuous probes for that attribute.
+Upon receipt of a level-i aggregate from a parent, a level k virtual node stores the value in its ancestor MIB and, if k ≥ i−down, forwards this aggregate to its children.
+We are currently designing different policies to decide when to issue a lease and when to revoke a lease and are also evaluating them with the above mechanism.
+For a given virtual node ni at level i, each child MIB contains the subset of a child"s reduction MIB that contains tuples that match ni"s node ID in i bits and whose up aggregation function attribute is at least i.
+For example, one program might monitor local  configuration and perform updates with information such as total memory, free memory, etc., A distributed file system might perform update for each file stored on the local node.
+A virtual node ni at level i also maintains an ancestor MIB to store the tuples containing attribute key and a list of aggregate  values at different levels scattered down from ancestors.
+In phase 3, the probe aggregation phase, when a node receives values for the specified key from each of its children, it executes the aggregate function on these values and  either (a) forwards the result to its parent (if its level is less than i) or (b) initiates phase 4 (if it is at level i).
+Now a probe for level-k aggregate can be answered by level-l virtual node if it has a valid lease, irrespective of the up and down values.
+To support hierarchical aggregation, each virtual node at the root of a level-i subtree maintains several MIBs that store (1) child MIBs containing raw aggregate values gathered from children, (2) a  reduction MIB containing locally aggregated values across this raw information, and (3) an ancestor MIB containing aggregate values scattered down from ancestors.
+A level-l virtual node for an attribute can issue the lease for  levell aggregate to a parent or a child only if up is greater than l or it has leases from all its children.
+Virtual Node Figure 6: Example illustrating the data structures and the  organization of them at a node.
+Nodes maintain their child MIBs in stable storage and use a simplified version of the Bayou log exchange protocol (sans conflict detection and resolution) for synchronization after disconnections [26].
+These local copies make it easy for a node to recompute a level-i aggregate value when one child"s input changes.
+At a virtual node, continuous probes are handled similarly as one-shot probes except that such probes are stored in the  outstanding probe table for a time period of expTime specified in the probe.
+A virtual node at level l can issue the lease for level-k aggregate for k > l to a child only if down≥ k −l or if it has the lease for that aggregate from its parent.
+Finally, in phase 4, the aggregate routing phase the aggregate value is routed down to the node that requested it.
+Along with these MIBs, a virtual node maintains two other  tables: an aggregation function table and an outstanding probes  table.
+Our current prototype does not implement access control on  install, update, and probe operations but we plan to implement  Astrolabe"s [38] certificate-based restrictions.
+In the former case, the system proceeds to phase 2 and in the latter it skips to phase 4.
+Also, the level-i (i ≥ 1) virtual node sends the updated level-i aggregate to all its children if the function"s down parameter exceeds zero.
+Then, the request is flooded down the tree and installed on all intermediate and leaf nodes.
+The internal design of our SDIMS prototype comprises of two layers: the Autonomous DHT (ADHT) layer manages the overlay topology of the system and the Aggregation Management Layer (AML) maintains attribute tuples, performs aggregations, stores and propagates aggregate values.
+Each level-0 leaf node maintains a local MIB rather than maintaining child MIBs and a reduction MIB.
+Also our current  prototype does not restrict the resource consumption in executing the aggregation functions; but, ‘techniques from research on resource management in server systems and operating systems [2, 3] can be applied here. 
+Given the ADHT construction described in Section 4.2, each node implements an Aggregation Management Layer (AML) to support the flexible API described in Section 3.
+A node stops waiting for its children when one of three conditions occurs: (1) all children have responded, (2) the ADHT layer signals one or more reconfiguration events that mark all  children that have not yet responded as unreachable, or (3) a watchdog timer for the request fires.
+So, the  aggregate values are tagged not only with level information, but are also tagged with ID of the node that performed the aggregation.
+Install The Install operation (see Table 1) installs on a domain an aggregation function that acts on a specified attribute type.
+Given these data structures, it is simple to support the three API functions described in Section 3.1.
+Note that the 384 list for a key might contain multiple aggregate values for a same level but aggregated at different nodes (see Figure 4).
+An aggregation function table contains the aggregation  function and installation arguments (see Table 1) associated with an  attribute type or an attribute type and name.
+We refer to a store of (attribute type, attribute name, value) tuples as a Management Information Base or MIB, following the  terminology from Astrolabe [38] and SNMP [34].
+Note that in the discussion below, for ease of explanation, we assume that the routing protocol is correcting single bit at a time (b = 1).
+The last case accounts for nodes that participate in the ADHT protocol but that fail at the AML level.
+The outstanding probes table maintains temporary information  regarding in-progress probes.
+Level-0 differs slightly from other levels.
+We refer an (attribute type, attribute name) tuple as an attribute key.
+We  envision various sensor programs and applications insert data into local MIB.
+Our system, built upon Pastry, handles multi-bit correction (b = 4) and is a simple extension to the scheme described here.
+We implement a lease-based mechanism for dynamic adaptation.

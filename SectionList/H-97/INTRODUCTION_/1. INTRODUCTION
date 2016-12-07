@@ -1,0 +1,77 @@
+E-mail users are facing an increasingly difficult task of 
+managing their inboxes in the face of mounting challenges that result from
+rising e-mail usage. This includes prioritizing e-mails over a range
+of sources from business partners to family members, filtering and
+reducing junk e-mail, and quickly managing requests that demand
+From: Henry Hutchins <hhutchins@innovative.company.com>
+To: Sara Smith; Joe Johnson; William Woolings
+Subject: meeting with prospective customers
+Sent: Fri 12/10/2005 8:08 AM
+Hi All,
+I"d like to remind all of you that the group from GRTY will be visiting us
+next Friday at 4:30 p.m. The current schedule looks like this:
++ 9:30 a.m. Informal Breakfast and Discussion in Cafeteria
++ 10:30 a.m. Company Overview
++ 11:00 a.m. Individual Meetings (Continue Over Lunch)
++ 2:00 p.m. Tour of Facilities
++ 3:00 p.m. Sales Pitch
+In order to have this go off smoothly, I would like to practice the 
+presentation well in advance. As a result, I will need each of your parts by
+Wednesday.
+Keep up the good work!
+-Henry
+Figure 1: An E-mail with emphasized Action-Item, an explicit
+request that requires the recipient"s attention or action.
+the receiver"s attention or action. Automated action-item detection
+targets the third of these problems by attempting to detect which
+e-mails require an action or response with information, and within
+those e-mails, attempting to highlight the sentence (or other 
+passage length) that directly indicates the action request.
+Such a detection system can be used as one part of an e-mail
+agent which would assist a user in processing important e-mails
+quicker than would have been possible without the agent. We view
+action-item detection as one necessary component of a successful
+e-mail agent which would perform spam detection, action-item 
+detection, topic classification and priority ranking, among other 
+functions. The utility of such a detector can manifest as a method of
+prioritizing e-mails according to task-oriented criteria other than
+the standard ones of topic and sender or as a means of ensuring that
+the email user hasn"t dropped the proverbial ball by forgetting to
+address an action request.
+Action-item detection differs from standard text classification in
+two important ways. First, the user is interested both in 
+detecting whether an email contains action items and in locating exactly
+where these action item requests are contained within the email
+body. In contrast, standard text categorization merely assigns a
+topic label to each text, whether that label corresponds to an e-mail
+folder or a controlled indexing vocabulary [12, 15, 22]. Second,
+action-item detection attempts to recover the email sender"s intent
+- whether she means to elicit response or action on the part of the
+receiver; note that for this task, classifiers using only unigrams as
+features do not perform optimally, as evidenced in our results 
+below. Instead we find that we need more information-laden features
+such as higher-order n-grams. Text categorization by topic, on the
+other hand, works very well using just individual words as features
+[2, 9, 13, 17]. In fact, genre-classification, which one would think
+may require more than a bag-of-words approach, also works quite
+well using just unigram features [14]. Topic detection and 
+tracking (TDT), also works well with unigram feature sets [1, 20]. We
+believe that action-item detection is one of the first clear instances
+of an IR-related task where we must move beyond bag-of-words
+to achieve high performance, albeit not too far, as bag-of-n-grams
+seem to suffice.
+We first review related work for similar text classification 
+problems such as e-mail priority ranking and speech act identification.
+Then we more formally define the action-item detection problem,
+discuss the aspects that distinguish it from more common problems
+like topic classification, and highlight the challenges in 
+constructing systems that can perform well at the sentence and document
+level. From there, we move to a discussion of feature 
+representation and selection techniques appropriate for this problem and how
+standard text classification approaches can be adapted to smoothly
+move from the sentence-level detection problem to the 
+documentlevel classification problem. We then conduct an empirical analysis
+that helps us determine the effectiveness of our feature extraction
+procedures as well as establish baselines for a number of 
+classification algorithms on this task. Finally, we summarize this paper"s
+contributions and consider interesting directions for future work.

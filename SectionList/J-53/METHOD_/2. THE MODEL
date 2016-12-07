@@ -1,0 +1,161 @@
+Price-Anticipating Resource Allocation. We study
+the problem of allocating a set of divisible resources (or 
+machines). Suppose that there are m users and n machines.
+Each machine can be continuously divided for allocation
+to multiple users. An allocation scheme ω = (r1, . . . , rm),
+where ri = (ri1, · · · , rin) with rij representing the share of
+machine j allocated to user i, satisfies that for any 1 ≤ i ≤ m
+and 1 ≤ j ≤ n, rij ≥ 0 and
+Pm
+i=1 rij ≤ 1. Let Ω denote the
+set of all the allocation schemes.
+We consider the price anticipating mechanism in which
+each user places a bid to each machine, and the price of the
+machine is determined by the total bids placed. Formally,
+suppose that user i submits a non-negative bid xij to 
+machine j. The price of machine j is then set to Yj =
+Pn
+i=1 xij,
+the total bids placed on the machine j. Consequently, user i
+receives a fraction of rij =
+xij
+Yj
+of j. When Yj = 0, i.e. when
+there is no bid on a machine, the machine is not allocated
+to anyone. We call xi = (xi1, . . . , xin) the bidding vector of
+user i.
+The additional consideration we have is that each user i
+has a budget constraint Xi. Therefore, user i"s total bids
+have to sum up to his budget, i.e.
+Pn
+j=1 xij = Xi. The
+budget constraints come from the fact that the users do not
+have infinite budget.
+Utility Functions. Each user i"s utility is represented
+by a function Ui of the fraction (ri1, . . . , rin) the user receives
+from each machine. Given the problem domain we consider,
+we assume that each user has different and relatively 
+independent preferences for different machines. Therefore, the
+basic utility function we consider is the linear utility 
+function: Ui(ri1, · · · , rin) = wi1ri1 +· · ·+winrin, where wij ≥ 0
+is user i"s private preference, also called his weight, on 
+machine j. For example, suppose machine 1 has a faster CPU
+but less memory than machine 2, and user 1 runs CPU
+bounded applications, while user 2 runs memory bounded
+applications. As a result, w11 > w12 and w21 < w22.
+Our definition of utility functions corresponds to the user
+having enough jobs or enough parallelism within jobs to 
+utilize all the machines. Consequently, the user"s goal is to grab
+as much of a resource as possible. We call this the infinite
+parallelism model. In practice, a user"s application may have
+an inherent limit on parallelization (e.g., some computations
+must be done sequentially) or there may be a system limit
+(e.g., the application"s data is being served from a file server
+with limited capacity). To model this, we also consider the
+more realistic finite parallelism model, where the user"s 
+parallelism is bounded by ki, and the user"s utility Ui is the
+sum of the ki largest wijrij. In this model, the user only
+submits bids to up to ki machines. Our abstraction is to
+capture the essense of the problem and facilitate our 
+analysis. In Section 7, we discuss the limit of the above definition
+of utility functions.
+Best Response. As typically, we assume the users are
+selfish and strategic - they all act to maximize their own
+utility, defined by their utility functions. From the 
+perspective of user i, if the total bids of the other users placed on
+each machine j is yj, then the best response of user i to the
+system is the solution of the following optimization problem:
+maximize Ui(
+xij
+xij +yj
+) subject to
+Pn
+j=1 xij = Xi, and xij ≥ 0.
+The difficulty of the above optimization problem depends
+on the formulation of Ui. We will show later how to solve
+it for the infinite parallelism model and provide a heuristic
+for finite parallelism model.
+Nash Equilibrium. By the assumption that the user is
+selfish, each user"s bidding vector is the best response to the
+system. The question we are most interested in is whether
+there exists a collection of bidding vectors, one for each user,
+such that each user"s bidding vector is the best response to
+those of the other users. Such a state is known as the Nash
+equilibrium, a central concept in Game Theory. Formally,
+the bidding vectors x1, . . . , xm is a Nash equilibrium if for
+128
+any 1 ≤ i ≤ m, xi is the best response to the system, or, for
+any other bidding vector xi,
+Ui(x1, . . . , xi, . . . , xm) ≥ Ui(x1, . . . , xi, . . . , xm) .
+The Nash equilibrium is desirable because it is a stable
+state at which no one has incentive to change his strategy.
+But a game may not have an equilibrium. Indeed, a Nash
+equilibrium may not exist in the price anticipating scheme
+we define above. This can be shown by a simple example of
+two players and two machines. For example, let U1(r1, r2) =
+r1 and U2(r1, r2) = r1 + r2. Then player 1 should never bid
+on machine 2 because it has no value to him. Now, player 2
+has to put a positive bid on machine 2 to claim the machine,
+but there is no lower limit, resulting in the non-existence of
+the Nash equilibrium. We should note that even the mixed
+strategy equilibrium does not exist in this example. Clearly,
+this happens whenever there is a resource that is wanted
+by only one player. To rule out this case, we consider those
+strongly competitive games.1
+Under the infinite parallelism
+model, a game is called strongly competitive if for any 1 ≤
+j ≤ n, there exists an i = k such that wij, wkj > 0. Under
+such a condition, we have that (see [5] for a proof),
+Theorem 1. There always exists a pure strategy Nash
+equilibrium in a strongly competitive game.
+Given the existence of the Nash equilibrium, the next 
+important question is the performance at the Nash equilibrium,
+which is often measured by its efficiency and fairness.
+Efficiency (Price of Anarchy). For an allocation scheme
+ω ∈ Ω, denote by U(ω) =
+P
+i Ui(ri) the social welfare under
+ω. Let U∗
+= maxω∈Ω U(ω) denote the optimal social welfare
+- the maximum possible aggregated user utilities. The 
+efficiency at an allocation scheme ω is defined as π(ω) = U(ω)
+U∗ .
+Let Ω0 denote the set of the allocation at the Nash 
+equilibrium. When there exists Nash equilibrium, i.e. Ω0 = ∅, 
+define the efficiency of a game Q to be π(Q) = minω∈Ω0 π(ω).
+It is usually the case that π < 1, i.e. there is an efficiency
+loss at a Nash equilibrium. This is the price of anarchy [18]
+paid for not having central enforcement of the user"s good
+behavior. This price is interesting because central control
+results in the best possible outcome, but is not possible in
+most cases.
+Fairness. While the definition of efficiency is standard,
+there are multiple ways to define fairness. We consider two
+metrics. One is by comparing the users" utilities. The utility
+uniformity τ(ω) of an allocation scheme ω is defined to be
+mini Ui(ω)
+maxi Ui(ω)
+, the ratio of the minimum utility and the 
+maximum utility among the users. Such definition (or utility
+discrepancy defined similarly as maxi Ui(ω)
+mini Ui(ω)
+) is used 
+extensively in Computer Science literature. Under this 
+definition, the utility uniformity τ(Q) of a game Q is defined to
+be τ(Q) = minω∈Ω0 τ(ω).
+The other metric extensively studied in Economics is the
+concept of envy-freeness [25]. Unlike the utility uniformity
+metric, the enviness concerns how the user perceives the
+value of the share assigned to him, compared to the shares
+other users receive. Within such a framework, define the
+envy-freeness of an allocation scheme ω by ρ(ω) = mini,j
+Ui(ri)
+Ui(rj )
+.
+1Alternatives include adding a reservation price or limiting the
+lowest allowable bid to each machine. These alternatives, 
+however, introduce the problem of coming up with the right price
+or limit.
+When ρ(ω) ≥ 1, the scheme is known as an envy-free 
+allocation scheme. Likewise, the envy-freeness ρ(Q) of a game
+Q is defined to be ρ(Q) = minω∈Ω0 ρ(ω).

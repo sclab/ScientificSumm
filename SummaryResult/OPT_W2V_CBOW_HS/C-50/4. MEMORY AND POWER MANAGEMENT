@@ -1,0 +1,178 @@
+This is important because during the next time slot, if the new leader comes across another external node, it should be able to pass  information about all the external nodes this group has witnessed so far.
+The MAX HOP COUNT parameter provides a balance between two conflicting goals: (1) To ensure that a witness record has been propagated to and thus stored at as many nodes as possible, so that it has a high probability of being dumped at some AP as quickly as possible; and (2) To ensure that a witness record is stored only at a few nodes, so that it does not clog up too much of the combined memory of all sensor nodes.
+The goal of this protocol is to ensure that a node transmits only as much witness information as the other node is willing to receive.
+Upon hearing this, each partition leader informs node 5 (i) the number of nodes in its partition, (ii) a candidate node that node 5 can take if the number of nodes in its partition is greater than 2, and (iii) the amount of witness information stored in its partition.
+Before these members start their hike, each one of them is given a sensor node and the information is entered in the system that the five nodes form a group.
+Information is filtered in such a way that each partition leader has to store only B/K bytes of data, where K is the number of partitions and B is the total number of bytes received from e. Similarly when a group wants to send witness information to e, each partition leader sends only B/K bytes that are stored in the partition it belongs to.
+Later on, if that single node in the partition dies, all witness information stored in that partition will be lost.
+It requires that the  witness records of any given node be arranged in an order sorted by their record time values.
+Similarly, if the group members are running out of memory, they can adapt a scheme that is more memory efficient.
+2 The algorithm to conclude that a node has died can be made more rigorous by having the partition leader query the suspected node a few times.
+Phase I: Node i sends its receive constraints and the number of witness records it has in its memory.
+This is because in this configuration, a greater number of nodes will stay in sleep mode at any given point in time.
+In addition, a sensor node can choose to not send any beacons during some time intervals.
+It goes to receive mode if it is still willing to receive additional witness information from hikers that it encounters in the next ten minutes.
+When node 5, the partition leader, sends information to node 2, it does not  receive an acknowledgement from it and concludes that node 2 has died2 .
+To save memory, a node n ensures the the record gap between any two witness records with the same node id is at least MIN RECORD GAP.
+This protocol is initiated when a node i receives a beacon containing the node ID of the sender node j and i has not exchanged witness information with j in the last δ time units.
+Thus after every t seconds, the leadership is passed on to another node, called the successor, and the leader (now an ordinary member) is put to sleep.
+In the night, a sensor can be put into sleep mode to save energy, when a user is not likely to move at all for a relatively longer period of time.
+Each  partition must have at least two nodes in it.
+At any point in time, only one group member, called the leader, sends and receives information on behalf of the group and all other n − 1 group members are put in the sleep mode (See Figure 10).
+An alternate is to wake all the peers up at the time of leadership change, and then have p1 broadcast the information to all peers.
+To reduce the amount of data transfer, CenWits employs a handshake protocol that two nodes execute when they encounter one another.
+It is important to note while current sensor nodes have limited amount of memory,  future sensor nodes are expected to have much more memory.
+The last node, of course, chooses the node with the lowest id as its successor.
+For each node id i, n stores the  witness record with the most recent record time rti, the witness with most recent record time that is at least MIN RECORD GAP time units before rti, and so on until the record count limit (MAX RECORD COUNT) is reached.
+Our first scheme does not offer any memory savings but is highly energy efficient and may be a good choice when the group members are running low on battery.
+When a node is tight in memory, it adjusts the three  parameters, MAX RECORD COUNT, MAX HOP COUNT and MIN RECORD GAP to free up some memory.
+It keeps only those witness records in its memory, whose hop count is less than MAX HOP COUNT.
+Finally, i can include its MIN RECORD GAP value in its receive constraints.
+After considering a number of different schemes, we have come to a conclusion that there is no optimal storage scheme for groups.
+We can divide this group into three partitions of two peers each, or two partitions with three peers each.
+It then first erases all witness records whose hop count exceeds the reduced MAX HOP COUNT value, and then erases witness records to satisfy the record gap criteria.
+Node 1 is the group leader, node 9 is the partition leader and nodes 2, 3, 5, and 6 are in sleep mode.
+j <Constaints, Witness info size> <Constaints, Witness info size> <Filtered Witness info> <Filtered Witness info> i j j j i i i Figure 9: Four-Phase Hand Shake Protocol (i < j) Receive constraints are a function of memory and power.
+A group that is divided into partitions must be able to readjust itself when a node leaves or runs out of battery.
+Also,  partition leaders must coordinate with one another to ensure that they do not send their witness information at the same time, i.e.
+In the former method, only one node needs to wake up at the time of leadership change, but the amount of information that has to be transmitted between the nodes increases as time passes.
+Node 5 then sends data to its new peer to make sure that the information is replicated within the partition.
+Phase II: On receiving this message from i, j sends its receive constraints and the number of witness records it has in its memory.
+If this happens, then we wait for the partition leadership to change and for the new partition leader to eventually find out that a peer has died.
+In our first scheme, when the timeslot for the leader expires, the leader passes this new information it received from e to its successor.
+This raises an  interesting question of when and which witness record should be deleted from the memory of a node?
+All this is achieved by having the group leader send a signal to every partition leader in turn.
+They save memory by receiving only as much information as they are willing to accept and conserve energy by sending only as many witness records as needed.
+Upon hearing from every leader, node 5 chooses the candidate node from the partition with maximum  number (must be greater than 2) of peers, and sends a message back to all leaders.
+To address this problem, CenWits allows a node to pro-actively free up some parts of its memory periodically.
+Record count refers to the number of witness records with same node id that a node has stored in its memory.
+This is crucial because a partition must have at least two nodes at any point in time to tolerate failure of one node.
+Node 2 is the group leader and it is communicating on behalf of the group with an external node 17.
+In this case, j checks the hop count field of every witness record before sending them.
+Thus, if there are 5 members in a group, we save 80% energy, which is huge.
+The node with the next highest id in the group is chosen as the successor.
+The bandwidth and energy limitations of sensor nodes require that the amount of data transferred among the nodes be reduced to minimum.
+Each peer saves the information sent by p1 and then goes back to sleep.
+In (a), a group is divided into three partitions of two nodes.
+If it is running low on power, it can go to receive mode or sleep mode for the next ten minutes.
+If a user is not moving at all, a beacon can be emitted every 10 minutes.
+Node 1 is the group leader, nodes 9 and 5 are partition leaders, and nodes 2, 3, and 6 are in sleep mode.
+4.3 Groups and Partitions To further reduce communication and increase the  lifetime of our system, we introduce the notion of groups.
+The choice once again depends on the requirements of the system.
+We now present an alternate data storage scheme that aims at saving memory at the cost of energy.
+It chooses the partition that has the least amount of witness information to join.
+Whenever a group comes across an external node e, every partition leader receives all witness  information, but it only stores a subset of that information after filtering.
+In the latter case, all nodes have to be woken up at the time of leadership change, but small piece of information has to be transmitted each time among the peers.
+Witness information and membership update is propagated to all peers during the next partition leadership change.
+Maintaining this sorted order is complex in memory, because new witness records with the same node id can arrive later that may have to be inserted in between to preserve the sorted order.
+Whenever a node receives a witness record from another node, it  increments the hop count of that record by 1.
+As already mentioned a group can receive information only through the group leader.
+This is because in a more complicated scheme, the group members have to coordinate to update and store information.
+As the group moves through the trail, it exchanges  information with other nodes or groups that it comes across.
+Since the partition leadership is time-multiplexed, it is important that any information received by the partition leader, p1, be passed on to the next leader, p2.
+CenWits uses three  criteria to determine this: record count, hop count, and record gap.
+The partition leader stays in  receive mode at all times, while all others peers a partition stay in the sleep mode.
+If group members are low on battery, then the group can adapt a scheme that is more energy efficient.
+after dumping its witness information at an access point, it resets MAX RECORD COUNT, MAX HOP COUNT and MIN RECORD GAP to some  predefined values.
+The main reason for this is that the probability of a packet reaching an AP goes up as the hop count adds up.
+If a user is active for only eight hours in a day, we can put the sensor into sleep mode for the other 16 hours and thus save 2/3rd of the energy.
+Record gap refers to the time difference between the record times of two witness records with the same node id.
+In (b) the group is divided into two partitions of three nodes.
+However, if a user is moving 10 feet/sec, a beacon should be emitted every 10 seconds.
+In this scheme we divide the group into what we call partitions.
+Node 1 is the group leader whereas nodes 2, 9, and 7 are partition leaders.
+At any point in time, a group has exactly one leader that communicates 185 with external nodes on behalf of the entire group.
+For example, suppose hiker A has communicated its witness information to three other hikers in the last five minutes.
+This is because the node may come across several other nodes during a hike, and may end up accumulating a large amount of witness information over time.
+For example, suppose we have a group of six members.
+Whenever the leader comes across an external node e, it receives information from that node and saves it.
+It sends its witness information to the new partition leader.
+A group can be static, meaning that the group membership does not change over the period of time, or it could be dynamic in which case nodes can leave or join the group.
+It has been observed that in some scenarios 3000 instructions could be executed for the same energy cost of sending a bit 100m by radio [15].
+However, in this case, we do lose  information that the previous partition leader might have received just before it died.
+Like before, a group has exactly one leader and the leadership is time-multiplexed among  partitions.
+This means that a single member is up for t seconds once every n∗t seconds and therefore has to spend approximately only 1/nth of its energy.
+Every witness record has a hop count field that stores the number times (hops) this record has been transferred since being created.
+With this in mind, the main focus in our design is to  provide a tradeoff between the amount of memory available and amount of power consumption.
+For example, when the hop count if 5 for a specific record, 184 the record is in at least 5 sensor nodes.
+Phase IV: After receiving the witness records from i, j sends its witness information (filtered based on receive constraints received in phase I).
+In the most general case, they are comprised of the three parameters (record count, hop count and record gap) used for memory management.
+Partition leadership is time-multiplexed among the peers to make sure that a single node does not run out of battery.
+It is this property of groups that saves us energy.
+One way of achieving this is to wake p2 up just before p1"s timeslot expires and then have p1 transfer information only to p2.
+We first explain how  partiFigure 12: The figure shows two different ways of partitioning a group of six nodes.
+On the other hand, several small partitions will make the system memory efficient, since each node will have to store lesser information (See Figure 12).
+At this point, node 5 contacts other partition leaders (nodes 1 ... 9) using a broadcast message and  informs them that one of its peers has died.
+For this reason, the receive constraints in the current CenWits prototype do not include record gap.
+A static group is formed at the start of a hiking trail or ski slope.
+The group, as a whole, is also assigned an id to distinguish it from other groups in the system.
+Instead, we choose the successor on the basis of node id.
+All other nodes are in the sleep mode.
+tions are adjusted when a peer dies, and then explain what happens if a partition leader dies.
+A node maintains an integer parameter MAX RECORD COUNT.
+It  decrements MAX RECORD COUNT and MAX HOP COUNT, and increments MIN RECORD GAP.
+It stores at most MAX RECORD COUNT witness records of any node.
+This is done to make sure that a single node does not run out of battery due to continuous exchange of information.
+If the hop count value is greater than 3, the record is not transmitted.
+Since communication is much more expensive than bringing the nodes up, we prefer the second method over the first one.
+In both cases, the peers send acknowledgement to the partition leader after receiving the information.
+Memory is a scarce resource in sensor nodes and it is therefore  important that witness information be stored efficiently among group members.
+4.1 Memory Management The size of witness information stored at a node can get very large.
+Phase III: On receiving the above message from j, i sends its witness information (filtered based on receive constraints received in phase II).
+The tradeoff is between simplicity of the scheme and memory savings.
+We first present a simple scheme that is very energy efficient but does not offer significant memory savings.
+All nodes within a group can  communicate directly with one another and they share information to maintain their view of the external world.
+The group leader also serves as the partition leader for the partition it belongs to (See Figure 11).
+For example, we mentioned earlier that a sensor should emit a beacon every 1.7 minute, given a hiking speed of 1 mile/hour.
+We chose to use hop count instead of time-to-live to decide when to drop a packet.
+their message do not collide.
+On the other hand, if we discard old records, without considering hop count, there is no guarantee that the record is present in any other sensor node.
+It turns out that filtering witness records based on MIN RECORD GAP is complex.
+Once the new partition leader finds out that it needs more peers, it proceeds with the protocol explained above.
+However, if all partitions have exactly two nodes, then node 5 must join another partition.
+Also, when a node has  extra memory space available, e.g.
+186 Figure 11: The figure shows a group of eight nodes divided into four partitions of 2 nodes each.
+In this scheme, all partition leaders participate in  information exchange.
+More energy can be saved by increasing the group size.
+This problem can be solved by  implementing a more rigorous protocol, but we have decided to give up on accuracy to save energy.
+A group is a set of n nodes that can be defined in terms of radio connectivity, geographic location, or other properties of nodes.
+This has to be done to make sure that p2 has all the information that it might need to send when it comes across another external node during its timeslot.
+We then present an alternate scheme that is much more memory efficient.
+However, before a partition leader can send information, it must switch from receive mode to send mode.
+A node maintains an integer parameter called MAX HOP COUNT.
+For example, in figure 3 (a), if node 2 or node 5 dies, the partition is left with only one node.
+It goes to sleep mode if it is extremely low on power.
+Thus the information is fully replicated on all nodes to maintain the correct view of the world.
+If i is low on memory, it specifies the maximum number of records it is willing to accept from j.
+A group can be divided into partitions in more than one way.
+Similarly, i can ask j to send only those records that have hop count value less than MAX HOP COUNT − 1.
+A few big partitions will make the system more energy efficient.
+Note that the handshake protocol is beneficial to both i and j.
+A simpler scheme  incurs lesser energy cost as compared to a more sophisticated scheme, but offers lesser memory savings as well.
+Our current design uses time-division multiplexing to  schedule wakeup and sleep modes in the sensor nodes.
+The nodes within a partition are called peers.
+Each group member is given a unique id and every group member knows about other members of the group.
+We now discuss the data storage schemes for groups.
+Partitions can be thought of as subgroups within a group.
+Since energy is dear, we do not implement an extensive election algorithm for choosing the successor.
+Efficient data storage is not a trivial task when it comes to groups.
+Suppose i specifies a hop count value of 3.
+We now consider the case where the partition leader dies.
+To make our analysis simple and to explain the advantages of group, we first discuss static groups.
+Except for the time when the leadership is switched, all n − 1 members are asleep at any given time.
+4.2 Power Management An important advantage of using sensors for tracking  purposes is that we can regulate the behavior of a sensor node based on current conditions.
+Suppose node 2 in figure 3 (a) dies.
+Each partition has one peer  designated as partition leader.
+The system should be able to adapt according to its requirements.
+The idea is based on the concept of abstract regions presented in [20].
+Initially this field is set to 0.
+Suppose there are five family members who want to go for a hike in the Rocky Mountain National Park.
+Figure 10: A group of five people.
+The group leadership is time-multiplexed among the group members.
+All other (shown in a lighter shade) are in sleep mode.
+We have devised a very simple protocol to solve this problem.
+CenWits employs several important mechanisms to  conserve power and memory.
+However, recent work on radio wakeup sensors [10] can be used to do this scheduling more efficiently.
+The protocol consists of four phases (See Figure 9): 1.
+we plan to incorporate radio wakeup sensors in CenWits when the hardware is mature.
+Assume that i < j.

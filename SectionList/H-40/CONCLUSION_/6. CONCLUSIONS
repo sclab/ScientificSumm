@@ -1,0 +1,39 @@
+In this paper, we proposed a new approach to cross-lingual query
+suggestion by mining relevant queries in different languages from
+query logs. The key solution to this problem is to learn a 
+crosslingual query similarity measure by a discriminative model
+exploiting multiple monolingual and bilingual resources. The
+model is trained based on the principle that cross-lingual
+similarity should best fit the monolingual similarity between one
+query and the other query"s translation.
+Figure 2. 11 points precision-recall on TREC6 CLIR data set
+Figure 3. 11 points precision-recall on TREC6 CLIR
+dataset with pseudo relevance feedback
+Table 3. Comparison of average precision (AP) on TREC 6
+without and with post-translation expansion. (%) are the
+relative percentages over the monolingual IR performance
+Table 4. The results of pair-wise significance t-test. Here 
+pvalue < 0.05 is considered statistically significant
+The baseline CLQS system applies a typical query translation
+approach, using a bilingual dictionary with co-occurrence-based
+translation disambiguation. This approach only covers 10% of the
+relevant queries suggested by an MLQS system (when the exact
+translation of the original query is given). By leveraging
+additional resources such as parallel corpora, web mining and 
+logbased monolingual query expansion, the final system is able to
+cover 42% of the relevant queries suggested by an MLQS system
+with precision as high as 79.6%.
+To further test the quality of the suggested queries, CLQS system
+is used as a query translation system in CLIR tasks.
+Benchmarked using TREC 6 French to English CLIR task, CLQS
+demonstrates higher effectiveness than the traditional query
+translation methods using either bilingual dictionary or
+commercial machine translation tools.
+The improvement on TREC French to English CLIR task by
+using CLQS demonstrates the high quality of the suggested
+queries. This also shows the strong correspondence between the
+input French queries and English queries in the log. In the future,
+we will build CLQS system between languages which may be
+more loosely correlated, e.g., English and Chinese, and study the
+CLQS performance change due to the less strong correspondence
+among queries in such languages.

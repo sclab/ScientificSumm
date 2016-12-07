@@ -1,0 +1,285 @@
+To illustrate the usefulness of I-DIDs, we apply them to three
+problem domains. We describe, in particular, the formulation of
+the I-DID and the optimal prescriptions obtained on solving it.
+5.1 Followership-Leadership in the Multiagent
+Tiger Problem
+We begin our illustrations of using I-IDs and I-DIDs with a slightly
+modified version of the multiagent tiger problem discussed in [9].
+The problem has two agents, each of which can open the right door
+(OR), the left door (OL) or listen (L). In addition to hearing growls
+(from the left (GL) or from the right (GR)) when they listen, the
+agents also hear creaks (from the left (CL), from the right (CR), or
+no creaks (S)), which noisily indicate the other agent"s opening one
+of the doors. When any door is opened, the tiger persists in its 
+original location with a probability of 95%. Agent i hears growls with
+a reliability of 65% and creaks with a reliability of 95%. Agent j,
+on the other hand, hears growls with a reliability of 95%. Thus,
+the setting is such that agent i hears agent j opening doors more
+reliably than the tiger"s growls. This suggests that i could use j"s
+actions as an indication of the location of the tiger, as we discuss
+below. Each agent"s preferences are as in the single agent game
+discussed in [13]. The transition, observation, and reward 
+functions are shown in [16].
+A good indicator of the usefulness of normative methods for
+decision-making like I-DIDs is the emergence of realistic social
+behaviors in their prescriptions. In settings of the persistent 
+multiagent tiger problem that reflect real world situations, we demonstrate
+followership between the agents and, as shown in [15], deception
+among agents who believe that they are in a follower-leader type
+of relationship. In particular, we analyze the situational and 
+epistemological conditions sufficient for their emergence. The 
+followership behavior, for example, results from the agent knowing its own
+weaknesses, assessing the strengths, preferences, and possible 
+behaviors of the other, and realizing that its best for it to follow the
+other"s actions in order to maximize its payoffs.
+Let us consider a particular setting of the tiger problem in which
+agent i believes that j"s preferences are aligned with its own - both
+of them just want to get the gold - and j"s hearing is more reliable
+in comparison to itself. As an example, suppose that j, on listening
+can discern the tiger"s location 95% of the times compared to i"s
+65% accuracy. Additionally, agent i does not have any initial 
+information about the tiger"s location. In other words, i"s single-level
+nested belief, bi,1, assigns 0.5 to each of the two locations of the
+tiger. In addition, i considers two models of j, which differ in j"s
+flat level 0 initial beliefs. This is represented in the level 1 I-ID
+shown in Fig. 6(a). According to one model, j assigns a 
+probability of 0.9 that the tiger is behind the left door, while the other
+818 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+Figure 6: (a) Level 1 I-ID of agent i, (b) two level 0 IDs of agent j
+whose decision nodes are mapped to the chance nodes, A1
+j , A2
+j , in (a).
+model assigns 0.1 to that location (see Fig. 6(b)). Agent i is 
+undecided on these two models of j. If we vary i"s hearing ability,
+and solve the corresponding level 1 I-ID expanded over three time
+steps, we obtain the normative behavioral policies shown in Fig 7
+that exhibit followership behavior. If i"s probability of correctly
+hearing the growls is 0.65, then as shown in the policy in Fig. 7(a),
+i begins to conditionally follow j"s actions: i opens the same door
+that j opened previously iff i"s own assessment of the tiger"s 
+location confirms j"s pick. If i loses the ability to correctly interpret
+the growls completely, it blindly follows j and opens the same door
+that j opened previously (Fig. 7(b)).
+Figure 7: Emergence of (a) conditional followership, and (b) blind
+followership in the tiger problem. Behaviors of interest are in bold. * is
+a wildcard, and denotes any one of the observations.
+We observed that a single level of belief nesting - beliefs about
+the other"s models - was sufficient for followership to emerge in the
+tiger problem. However, the epistemological requirements for the
+emergence of leadership are more complex. For an agent, say j, to
+emerge as a leader, followership must first emerge in the other agent
+i. As we mentioned previously, if i is certain that its preferences
+are identical to those of j, and believes that j has a better sense
+of hearing, i will follow j"s actions over time. Agent j emerges
+as a leader if it believes that i will follow it, which implies that
+j"s belief must be nested two levels deep to enable it to recognize
+its leadership role. Realizing that i will follow presents j with an
+opportunity to influence i"s actions in the benefit of the collective
+good or its self-interest alone. For example, in the tiger problem,
+let us consider a setting in which if both i and j open the correct
+door, then each gets a payoff of 20 that is double the original. If
+j alone selects the correct door, it gets the payoff of 10. On the
+other hand, if both agents pick the wrong door, their penalties are
+cut in half. In this setting, it is in both j"s best interest as well as the
+collective betterment for j to use its expertise in selecting the 
+correct door, and thus be a good leader. However, consider a slightly
+different problem in which j gains from i"s loss and is penalized
+if i gains. Specifically, let i"s payoff be subtracted from j"s, 
+indicating that j is antagonistic toward i - if j picks the correct door
+and i the wrong one, then i"s loss of 100 becomes j"s gain. Agent
+j believes that i incorrectly thinks that j"s preferences are those
+that promote the collective good and that it starts off by believing
+with 99% confidence where the tiger is. Because i believes that its
+preferences are similar to those of j, and that j starts by believing
+almost surely that one of the two is the correct location (two level
+0 models of j), i will start by following j"s actions. We show i"s
+normative policy on solving its singly-nested I-DID over three time
+steps in Fig. 8(a). The policy demonstrates that i will blindly 
+follow j"s actions. Since the tiger persists in its original location with
+a probability of 0.95, i will select the same door again. If j begins
+the game with a 99% probability that the tiger is on the right, 
+solving j"s I-DID nested two levels deep, results in the policy shown in
+Fig. 8(b). Even though j is almost certain that OL is the correct
+action, it will start by selecting OR, followed by OL. Agent j"s 
+intention is to deceive i who, it believes, will follow j"s actions, so
+as to gain $110 in the second time step, which is more than what j
+would gain if it were to be honest.
+Figure 8: Emergence of deception between agents in the tiger 
+problem. Behaviors of interest are in bold. * denotes as before. (a) Agent
+i"s policy demonstrating that it will blindly follow j"s actions. (b) Even
+though j is almost certain that the tiger is on the right, it will start by
+selecting OR, followed by OL, in order to deceive i.
+5.2 Altruism and Reciprocity in the Public
+Good Problem
+The public good (PG) problem [7], consists of a group of M
+agents, each of whom must either contribute some resource to a
+public pot or keep it for themselves. Since resources contributed to
+the public pot are shared among all the agents, they are less 
+valuable to the agent when in the public pot. However, if all agents
+choose to contribute their resources, then the payoff to each agent
+is more than if no one contributes. Since an agent gets its share of
+the public pot irrespective of whether it has contributed or not, the
+dominating action is for each agent to not contribute, and instead
+free ride on others" contributions. However, behaviors of human
+players in empirical simulations of the PG problem differ from the
+normative predictions. The experiments reveal that many players
+initially contribute a large amount to the public pot, and continue
+to contribute when the PG problem is played repeatedly, though
+in decreasing amounts [4]. Many of these experiments [5] report
+that a small core group of players persistently contributes to the
+public pot even when all others are defecting. These experiments
+also reveal that players who persistently contribute have altruistic
+or reciprocal preferences matching expected cooperation of others.
+For simplicity, we assume that the game is played between M =
+2 agents, i and j. Let each agent be initially endowed with XT
+amount of resources. While the classical PG game formulation 
+permits each agent to contribute any quantity of resources (≤ XT ) to
+the public pot, we simplify the action space by allowing two 
+possible actions. Each agent may choose to either contribute (C) a fixed
+amount of the resources, or not contribute. The latter action is 
+deThe Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 819
+noted as defect (D). We assume that the actions are not observable
+to others. The value of resources in the public pot is discounted
+by ci for each agent i, where ci is the marginal private return. We
+assume that ci < 1 so that the agent does not benefit enough that
+it contributes to the public pot for private gain. Simultaneously,
+ciM > 1, making collective contribution pareto optimal.
+i/j C D
+C 2ciXT , 2cjXT ciXT − cp, XT + cjXT − P
+D XT + ciXT − P, cjXT − cp XT , XT
+Table 1: The one-shot PG game with punishment.
+In order to encourage contributions, the contributing agents 
+punish free riders but incur a small cost for administering the 
+punishment. Let P be the punishment meted out to the defecting agent
+and cp the non-zero cost of punishing for the contributing agent.
+For simplicity, we assume that the cost of punishing is same for
+both the agents. The one-shot PG game with punishment is shown
+in Table. 1. Let ci = cj, cp > 0, and if P > XT − ciXT , then 
+defection is no longer a dominating action. If P < XT − ciXT , then
+defection is the dominating action for both. If P = XT − ciXT ,
+then the game is not dominance-solvable.
+Figure 9: (a) Level 1 I-ID of agent i, (b) level 0 IDs of agent j with
+decision nodes mapped to the chance nodes, A1
+j and A2
+j , in (a).
+We formulate a sequential version of the PG problem with 
+punishment from the perspective of agent i. Though in the repeated PG
+game, the quantity in the public pot is revealed to all the agents after
+each round of actions, we assume in our formulation that it is 
+hidden from the agents. Each agent may contribute a fixed amount, xc,
+or defect. An agent on performing an action receives an observation
+of plenty (PY) or meager (MR) symbolizing the state of the 
+public pot. Notice that the observations are also indirectly indicative of
+agent j"s actions because the state of the public pot is influenced by
+them. The amount of resources in agent i"s private pot, is perfectly
+observable to i. The payoffs are analogous to Table. 1. 
+Borrowing from the empirical investigations of the PG problem [5], we
+construct level 0 IDs for j that model altruistic and non-altruistic
+types (Fig. 9(b)). Specifically, our altruistic agent has a high 
+marginal private return (cj is close to 1) and does not punish others
+who defect. Let xc = 1 and the level 0 agent be punished half the
+times it defects. With one action remaining, both types of agents
+choose to contribute to avoid being punished. With two actions
+to go, the altruistic type chooses to contribute, while the other 
+defects. This is because cj for the altruistic type is close to 1, thus the
+expected punishment, 0.5P > (1 − cj), which the altruistic type
+avoids. Because cj for the non-altruistic type is less, it prefers not
+to contribute. With three steps to go, the altruistic agent contributes
+to avoid punishment (0.5P > 2(1 − cj)), and the non-altruistic
+type defects. For greater than three steps, while the altruistic agent
+continues to contribute to the public pot depending on how close
+its marginal private return is to 1, the non-altruistic type prescribes
+defection.
+We analyzed the decisions of an altruistic agent i modeled using
+a level 1 I-DID expanded over 3 time steps. i ascribes the two level
+0 models, mentioned previously, to j (see Fig. 9). If i believes with
+a probability 1 that j is altruistic, i chooses to contribute for each of
+the three steps. This behavior persists when i is unaware of whether
+j is altruistic (Fig. 10(a)), and when i assigns a high probability to
+j being the non-altruistic type. However, when i believes with a
+probability 1 that j is non-altruistic and will thus surely defect, i
+chooses to defect to avoid being punished and because its marginal
+private return is less than 1. These results demonstrate that the 
+behavior of our altruistic type resembles that found experimentally.
+The non-altruistic level 1 agent chooses to defect regardless of how
+likely it believes the other agent to be altruistic. We analyzed the
+behavior of a reciprocal agent type that matches expected 
+cooperation or defection. The reciprocal type"s marginal private return
+is similar to that of the non-altruistic type, however, it obtains a
+greater payoff when its action is similar to that of the other. We
+consider the case when the reciprocal agent i is unsure of whether
+j is altruistic and believes that the public pot is likely to be half
+full. For this prior belief, i chooses to defect. On receiving an 
+observation of plenty, i decides to contribute, while an observation of
+meager makes it defect (Fig. 10(b)). This is because an 
+observation of plenty signals that the pot is likely to be greater than half
+full, which results from j"s action to contribute. Thus, among the
+two models ascribed to j, its type is likely to be altruistic making
+it likely that j will contribute again in the next time step. Agent i
+therefore chooses to contribute to reciprocate j"s action. An 
+analogous reasoning leads i to defect when it observes a meager pot.
+With one action to go, i believing that j contributes, will choose to
+contribute too to avoid punishment regardless of its observations.
+Figure 10: (a) An altruistic level 1 agent always contributes. (b) A
+reciprocal agent i starts off by defecting followed by choosing to 
+contribute or defect based on its observation of plenty (indicating that j is
+likely altruistic) or meager (j is non-altruistic).
+5.3 Strategies in Two-Player Poker
+Poker is a popular zero sum card game that has received much 
+attention among the AI research community as a testbed [2]. Poker is
+played among M ≥ 2 players in which each player receives a hand
+of cards from a deck. While several flavors of Poker with 
+varying complexity exist, we consider a simple version in which each
+player has three plys during which the player may either exchange
+a card (E), keep the existing hand (K), fold (F) and withdraw from
+the game, or call (C), requiring all players to show their hands. To
+keep matters simple, let M = 2, and each player receive a hand
+consisting of a single card drawn from the same suit. Thus, during
+a showdown, the player who has the numerically larger card (2 is
+the lowest, ace is the highest) wins the pot. During an exchange of
+cards, the discarded card is placed either in the L pile, indicating to
+the other agent that it was a low numbered card less than 8, or in the
+820 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+H pile, indicating that the card had a rank greater than or equal to
+8. Notice that, for example, if a lower numbered card is discarded,
+the probability of receiving a low card in exchange is now reduced.
+We show the level 1 I-ID for the simplified two-player Poker in
+Fig. 11. We considered two models (personality types) of agent j.
+The conservative type believes that it is likely that its opponent has
+a high numbered card in its hand. On the other hand, the 
+aggressive agent j believes with a high probability that its opponent has
+a lower numbered card. Thus, the two types differ in their beliefs
+over their opponent"s hand. In both these level 0 models, the 
+opponent is assumed to perform its actions following a fixed, uniform
+distribution. With three actions to go, regardless of its hand 
+(unless it is an ace), the aggressive agent chooses to exchange its card,
+with the intent of improving on its current hand. This is because it
+believes the other to have a low card, which improves its chances
+of getting a high card during the exchange. The conservative agent
+chooses to keep its card, no matter its hand because its chances of
+getting a high card are slim as it believes that its opponent has one.
+Figure 11: (a) Level 1 I-ID of agent i. The observation reveals 
+information about j"s hand of the previous time step, (b) level 0 IDs of agent
+j whose decision nodes are mapped to the chance nodes, A1
+j , A2
+j , in (a).
+The policy of a level 1 agent i who believes that each card 
+except its own has an equal likelihood of being in j"s hand (neutral
+personality type) and j could be either an aggressive or 
+conservative type, is shown in Fig. 12. i"s own hand contains the card
+numbered 8. The agent starts by keeping its card. On seeing that
+j did not exchange a card (N), i believes with probability 1 that j
+is conservative and hence will keep its cards. i responds by either
+keeping its card or exchanging it because j is equally likely to have
+a lower or higher card. If i observes that j discarded its card into
+the L or H pile, i believes that j is aggressive. On observing L,
+i realizes that j had a low card, and is likely to have a high card
+after its exchange. Because the probability of receiving a low card
+is high now, i chooses to keep its card. On observing H, 
+believing that the probability of receiving a high numbered card is high,
+i chooses to exchange its card. In the final step, i chooses to call
+regardless of its observation history because its belief that j has a
+higher card is not sufficiently high to conclude that its better to fold
+and relinquish the payoff. This is partly due to the fact that an 
+observation of, say, L resets the agent i"s previous time step beliefs
+over j"s hand to the low numbered cards only.

@@ -1,0 +1,154 @@
+We now show that the value V ( , j) plus cost(tj ) is a 2-approximation of the original generalized knapsack problem.
+In our FPTAS, rather than using a greedy approximation algorithm to solve  iKnapsack( , j), we construct a dynamic programming table to  compute the minimum cost at which at least M − uj+1 units can be obtained using the remaining n − 1 lists in the generalized knapsack.
+cost) whose size exceeds M. The generalized knapsack problem of interest to us can be defined as follows: Generalized Knapsack: Instance: A target M, and a set of n lists, where the ith list has the form Bi = (u1 i , p1 i ), .
+We say that the size of an anchor tj i is uj i , 8 In fact, because of the one per list constraint, the generalized problem is closer in spirit to the multiple choice knapsack  problem [9], where the underling set of items is partitioned into  disjoint subsets U1, U2, .
+It is worth noting, that unlike the 2-approximation scheme for iKnapsack( , j), the value computed with this FPTAS includes the cost to acquire uj l units from l. The following lemma shows that we achieve a (1+ε)-approximation.
+Suppose A∗ is an optimal solution of the  generalized knapsack, and suppose that element (l, j) is midrange in the optimal solution.
+The dependence on the number of pieces is also polynomial: if each bid has a maximum 169 of c pieces, then the running time can be derived by substituting nc for each occurrence of n. 3.1 Preliminaries Before we begin, let us recall the classic 0/1 knapsack  problem: we are given a set of n items, where the item i has value vi and size si, and a knapsack of capacity M; all sizes are  integers.
+We compute the scaled cost of a tuple tj i , denoted scost(tj i ), as scost(tj i ) = n cost(tj i ) εcost(A) (2) This scaling improves the running time of the algorithm  because the number of columns in the modified table is at most n ε , and independent of the total cost.
+Let x− to be set of the remaining elements, either zero or anchors, in this solution.
+Putting this together, our approximation scheme for the  generalized knapsack problem will iterate the scheme described above for each choice of the midrange element (l, j), and choose the best solution from among these O(n) solutions.
+Since none of these tuples were included in V ∗ ( , j), the optimal  solution for the modified problem should be the same as the one for the original.
+In particular, we consider the entries that provide at least M − uj+1 units.
+The goal is to determine a subset of items of maximum value with total size at most M. Since we want to focus on a  reverse auction, the equivalent knapsack problem will be to choose a set of items with minimum value (i.e.
+However, there are two major differences that make our problem significantly more difficult: (1) intervals have boundaries, and so to choose interval [uj i , uj+1 i ) requires that at least uj i and at most uj+1 i units must be taken; (2) unlike the classic knapsack, we cannot sort the items (bids) by value/size, since different intervals in one list have different unit costs.
+Thus, cost(A∗ ) = cost(xl) + cost(tj l ) + cost(x−l) It is easy to see that (x− , x ) is an optimal solution for iKnapsack( , j).
+Because (yj , y− ) is also a feasible solution, if our algorithm returns a solution with cost cost(A(l, j)), then we must have cost(A(l, j)) ≤ cost(y− ) + pj yj ≤ cost(x− ) + εcost(A) + pj xj ≤ (1 + 2ε)cost(A∗ ), where we use the fact that cost(A) ≤ 2cost(A∗ ).
+Together with a contribution from agent l, we choose the entry in this set that minimizes the total cost, defined as follows: cost(G[n − 1, r]) + max {uj , M − G[n − 1, r]}pj , where cost() is the original, unscaled cost associated with  entry G[n−1, r].
+A 2-approximation of the generalized knapsack problem can be found in time O(n2 ), where n is number of item lists (each of constant length).
+PTAS do exist for this problem [10], and indeed, one can convert our problem into a huge instance of the multiple choice knapsack problem, by creating one group for each list; put a (quantity, price) point tuple (x, p) for each possible quantity for a bidder into his group (subset).
+Since x and y has equal scaled cost, i= k scost(tk i )Ix[i, k] = i= k scost(tk i )Iy[i, k] (3) However, by (2), the scaled costs satisfy the following  inequalities: (scost(tk i ) − 1)εcost(A) n ≤ cost(tk i ) ≤ scost(tk i )εcost(A) n (4) Substituting the upper-bound on scaled cost from (4) for cost(x), the lower-bound on scaled cost from (4) for cost(y), and using equality (3) to simplify, we have: cost(x) − cost(y) ≤ εcost(A) n i= k Iy[i, k] ≤ εcost(A), The last inequality uses the fact that at most n components of an indicator vector are non-zero; that is, any feasible solution contains at most n tuples.
+Since V ( , j) is a 2-approximation for this optimal solution, we have the following inequalities: V ( , j) + cost(tj ) ≤ cost(tj ) + 2(cost(x ) + cost(x− )) ≤ 2(cost(x ) + cost(tj ) + cost(x− )) ≤ 2cost(A∗ ) This completes the proof of Lemma 2.
+However, this solution can be far from optimal if the size of tk i is much larger than R. If total cost of S and tk i is smaller than the current best solution, we update Best.
+We also have cost(t ) ≤ cost(St ), and the following  inequalities: V ( , j) ≤ V ( , j) ≤ cost(St ) + cost(t ) < 2V ∗ ( , j) The inequality V ( , j) ≤ V ( , j) follows from the fact that a tuple in the Skip list can only affect the Best but not the tentative solutions.
+Suppose our approximation algorithm returns the value V ( , j) for this modified instance.
+There are two cases to consider: either some tuple t ∈ Skip is also in V ∗ ( , j), or no tuple in Skip is in V ∗ ( , j).
+The cost of the anchor tj i is defined to be the minimum total price associated with this tuple, namely, cost(tj i ) = pj i uj i if j < mi, and cost(tmi i ) = pmi−1 i umi i .
+We can compute an (1 + ε) approximation to the solution of a generalized knapsack problem in worst-case time O(n3 /ε).
+If mark(i) = 1, ignore this tuple; otherwise do the following steps: • if size(tk i ) > R and i = return min {cost(S) + Rpj , cost(Best)}; • if size(tk i ) > R and cost(tk i ) ≤ cost(S) return min {cost(S) + cost(tk i ), cost(Best)}; • if size(tk i ) > R and cost(tk i ) > cost(S) Add tk i to Skip; Set Best to S ∪ {tk i } if cost improves; • if size(tk i ) ≤ R then add tk i to S; mark(i) = 1; subtract size(tk i ) from R. The approximation algorithm is very similar to the  approximation algorithm for knapsack.
+Then, the following recurrence relation describes how to construct the dynamic programming table: G[0, r] = 0 G[i, r] = max ´ G[i − 1, r] max j∈β(i,r) {G[i − 1, r − cost(tj i )] + uj i } µ where β(i, r) = {j : 1 ≤ j ≤ mi, cost(tj i ) ≤ r}, is the set of anchors for agent i.
+1 midrange bid 5 20 15 10 25 5 25 30201510 35 3 2 1 Price Quantity 5 20 15 10 25 5 25 30201510 35 3 2 1 Price Quantity (i) Optimal solution with 2 midrange bids (ii) Optimal soltution with Figure 2: (i) An optimal solution with more than one bid not  anchored (2,3); (ii) an optimal solution with only one bid (3) not  anchored.
+Suppose G[i, r] denotes the maximum number of units that can be obtained at cost at most r using only the first i lists in the generalized knapsack.
+By Lemma 1, there is an optimal solution with at most one midrange element, so our algorithm will find a 2-approximation, as claimed.
+Given an instance of the  generalized knapsack, we call each tuple tj i = (uj i , pj i ) an anchor.
+U is the union of all the tuples in n groups, including a tuple t for agent l. The size of this special tuple is defined as uj+1 − uj , and the cost is defined as pj l (uj+1 −uj ).
+It is easy to see that, after an initial sorting of the tuples in U, the algorithm Greedy( , j) takes O(n) time.
+For a given midrange, the most expensive step in the algorithm is the construction of dynamic programming table, which can be done in O(n2 /ε) time assuming constant intervals per list.
+In particular, it terminates whenever we find a tk i such that size(tk i ) is greater than R but cost(tk i ) is less than cost(S), or when we reach the tuple representing agent l and it gives a feasible solution.
+The FPTAS implements an (1 + ε) approximation to the  optimal solution x∗ , in worst-case time T = O(n3 /ε), where n is the number of bidders, and where we assume that the piecewise bid for each bidder has O(1) pieces.
+Problem: Determine a set of integers xj i such that 1.
+We use a dynamic programming algorithm to solve iKnapsack( , j) for each possible midrange element, with the 2-approximation algorithm providing an upper bound on the value of the solution and enabling the use of scaling on the cost dimension of the  dynamic programming (DP) table.
+Let V ( , j) be the value returned by Greedy( , j) and let V ∗ ( , j) be an optimal solution for iKnapsack( , j).
+Since both x− and y− have equal scaled costs, by Lemma 3, their unscaled costs are within εcost(A) of each other; that is, cost(y− ) − cost(x− ) ≤ εcost(A).
+One exception to this rule is the tuple t .
+Now, define yj = max{uj , M − Èi= Èj yj i }; this is the contribution needed from to make (y− , yj ) a feasible solution.
+In describing our approximation scheme, we begin with a  simple property (the Anchor property) of an optimal knapsack  solution.
+, (umi−1 i , pmi−1 i ), (umi i (i), ∞) , where uj i are increasing with j and pj i are decreasing with j, and uj i , pj i , M are positive integers.
+Let A denote the 2-approximation to the  generalized knapsack problem, and A(l, j) denote the solution from the dynamic-programming algorithm.
+Suppose A∗ is an optimal solution of the  generalized knapsack problem, and suppose that element (l, j) is midrange in the optimal solution.
+Consider, for example, the case that the midrange element is x , which falls in the range [uj , uj+1 ).
+These entries correspond to optimal solutions with all agents  except l, for different levels of cost.
+(One per list) At most one xj i is non-zero for any i, 2.
+There are O(n) tuples, and it suffices to sort them once, the total cost of the algorithm is O(n2 ).
+As a prelude to our approximation guarantee, we first show that if two different solutions to the iKnapsack problem have equal scaled cost, then their original (unscaled) costs cannot  differ by more than εcost(A).
+If the size of tuple tk i is smaller than R, then we add it to S, update R, and delete from U all the tuples that belong to the same group as tk i .
+Because t ∈ Skip then size(t) > R, and St together with t forms a feasible solution, and we have: V ( , j) ≤ cost(Best) ≤ cost(St) + cost(t).
+Therefore, dropping the tuples in the set Skip can only make the solution worse.
+If size(tk i ) is greater than R, then S along with tk i forms a feasible solution.
+We use this property to develop an O(n2 ) time 2-approximation for the generalized knapsack.
+This corresponds to the restricted problem iKnapsack( , j), in which the goal is to obtain at least M − uj units with minimum cost.
+We observe that an optimal knapsack solution can always be  constructed so that at most one solution element is midrange.
+Among all the equal cost solutions, our dynamic programming tables chooses the one with maximum units.
+Let x and y be two distinct feasible solutions of iKnapsack( , j), excluding their midrange elements.
+Suppose the next tuple is tk i , i.e.
+The dependence on the number of pieces is also polynomial: if each bid has a maximum of c pieces, then the running time is O((nc)2 ).
+Consider the set Skip at the termination of Greedy( , j).
+Then, the cost V (l, j), returned by Greedy( , j), satisfies: V ( , j) + cost(tj ) ≤ 2cost(A∗ ) PROOF.
+Let A denote the 2-approximation to the generalized knapsack problem, with total cost, cost(A).
+Let A∗ be an optimal solution of the generalized knapsack, and suppose that element xj is midrange.
+If x and y have equal scaled costs, then their unscaled costs cannot differ by more than εcost(A).
+The above argument has shown that the value returned by Greedy( , j) is within a factor 2 of the optimal solution for iKnapsack( , j).
+Let x− denote the vector of the elements in  solution A∗ without element l. Then, by definition, cost(A∗ ) = cost(x− ) + pj xj .
+This generalized knapsack formulation is a clear  generalization of the classic 0/1 knapsack.
+Now consider the dynamic  programming table constructed for iKnapsack( , j), and consider its entry G[n − 1, r].
+Choosing interval [uj i , uj+1 i ) has cost pj i per unit.
+The dependence on the number of pieces is also polynomial: if each bid has a maximum of c pieces, then the running time can be derived by substituting cn for each occurrence of n. 
+Let ε denote the desired  approximation factor.
+Since we consider tuples in order of increasing per unit price, and none of the tuples are going to be placed in the set Skip, we must have cost(St ) < V ∗ ( , j) because St is the optimal way to obtain size(St ).
+Suppose y− is the solution associated with this entry in our dynamic program; the components of the vector y− are the  quantities from different lists.
+[Anchor Property] There exists an optimal  solution of the generalized knapsack problem with at most one midrange element.
+The group for agent l contains a single element that represents the interval [0, uj+1 −uj ), and the associated unit-price pj .
+Otherwise, we say that xi is midrange.
+Again, because t ∈ Skip then cost(t) > cost(St), and we have V ( , j) < 2cost(t).
+Then, the solution A(l, j) from running the scaled dynamic-programming algorithm on iKnapsack( , j) satisfies cost(A(l, j)) ≤ (1 + 2ε)cost(A∗ ) PROOF.
+In the second case, imagine a modified instance of  iKnapsack( , j), which excludes all the tuples of the set Skip.
+The following pseudo-code describes our algorithm for this restriction of the generalized knapsack problem.
+S is the set of tuples accepted in the current tentative 170 solution.
+Therefore, i= j yj i ≥ i= j xj i 172 Therefore, it must be the case that yj ≤ xj .
+Let t be the last tuple considered by the approximation algorithm before termination on the modified instance, and let St be the corresponding  tentative solution set in that step.
+, xn} of the generalized  knapsack, we say that an element xi = 0 is an anchor if xi = uj i , for some anchor uj i .
+The algorithm terminates in either of the first two cases, or when all tuples are scanned.
+In the latter, each list consists of a single point (si, vi).8 The connection between the generalized knapsack and our  auction problem is transparent.
+Element x is assumed to have already contributed uj units.
+We run the algorithm Greedy( , j) once for each  tuple (l, j) as a candidate for midrange.
+Let r = scost(x− ) be the scaled cost  associated with the vector x− .
+We do this by solving several instances of a restricted generalized-knapsack problem, which we call  iKnapsack, where one element is forced to be midrange for a  particular interval.
+171 3.3 An Approximation Scheme We now use the 2-approximation algorithm presented in the preceding section to develop a fully polynomial approximation (FPTAS) for the generalized knapsack problem.
+The value of a solution to iKnapsack( , j) represents the minimal additional cost to purchase the rest of the units.
+On the other hand, since t is included in V ∗ ( , j), we have V ∗ ( , j) ≥ cost(t).
+In the first case, let St be the tentative solution S at the time t was added to Skip.
+If there are two midrange elements x and x , for bids from two different agents, with x ≤ x , then we can increment x and decrement x, until one of them becomes an anchor.
+, Uk, and one can choose at most one item from each subset.
+(Membership) xj i = 0 implies xj i ∈ [uj i , uj+1 i ), 3.
+We describe our results for the reverse auction variation, but the formulation is completely symmetric for the forward-auction.
+Since this tuple can be taken fractionally, we update Best if the sum of S"s cost and fractional cost of t is an improvement.
+Scan the tuples in U in the sorted order.
+In any other group, we can choose at most one anchor.
+We create n − 1 groups of potential anchors, where ith group contains all the anchors of the list i in the generalized knapsack.
+Since we wish to minimize the total cost, we consider the tuples in order of increasing per unit cost.
+We show that the error introduced is within a factor of ε of the optimal solution.
+PROBLEM In this section, we design a fully polynomial approximation scheme for the generalized knapsack, which models the  winnerdetermination problem for the VCG-based multi-unit auctions.
+the minimum number of units available at this anchor"s price pj i .
+Specifically, suppose element x for agent l is forced to lie in its jth range, [uj , uj+1 ), while all other elements, x1, .
+Finally, given the dynamic programming table for iKnapsack( , j), we consider all the entries in the last row of this table, G[n−1, r].
+These two inequalities imply the desired bound: V ∗ ( , j) ≤ V ( , j) < 2V ∗ ( , j).
+R is the number of units that remain to be acquired.
+We use the anchor property to first obtain a polynomial-time 2-approximation scheme.
+This interval represents the excess number of units that can be taken from agent l in iKnapsack( , j), in addition to uj , which has already been committed.
+Let Ix and Iy, respectively, denote the indicator  functions associated with the anchor vectors x and y-there is 1 in position Ix[i, k] if the xk i > 0.
+As convention, agent i will index the row, and cost r will index the column.
+Variable Skip is only used in the proof of correctness.
+We strive to preserve this, and present an approximation scheme that will depend only on the number of bidders, and not the  maximum quantity, M, which can be very large in realistic  procurement settings.
+Recall that these tuples represent the breakpoints in the piecewise constant curve bids.
+However, the computed solution might not be an optimal solution for the original  problem.
+, n. Initialize R = M − uj , S = Best = Skip = ∅.
+Each list encodes a bid,  representing multiple mutually exclusive quantity intervals, and one can choose any quantity in an interval, but at most one interval can be selected.
+The problem has some flavor of the continuous knapsack problem.
+the kth anchor from agent i.
+Sort all tuples of U in the ascending order of unit price; in case of ties, sort in ascending order of unit quantities.
+However, we can convert it into a FPTAS by scaling the cost dimension.
+The goal is to procure at least M units of the good at minimum possible cost.
+Set mark(i) = 0, for all lists i = 1, 2, .
+This dynamic programming algorithm is only pseudo-polynomial, since the number of column in the dynamic programming table depends upon the total cost.
+Thus, we have the following result.
+(Objective) Èi Èj pj i xj i is minimized.
+In turn, we use this basic  approximation to develop our fully polynomial-time approximation scheme (FPTAS).
+3.2 A 2-Approximation Scheme We begin with a definition.
+However, this conversion explodes the problem size, making it infeasible for all but the most trivial instances.
+Furthermore, define x = xj − uj .
+Best is the best solution found so far.
+(Target) Èi Èj xj i ≥ M, and 4.
+, xl−1, xl+1, xn, are required to be anchors, or zero.
+We have our first polynomial approximation algorithm.
+All other elements are anchors.
+Algorithm Greedy( , j) 1.
+One of the major appeals of our piecewise bidding language is its compact representation of the bidder"s valuation functions.
+In a feasible solution {x1, x2, .
+See Figure 2 for an example.
+LEMMA 1.
+The high level idea is fairly standard, but the details require technical care.
+LEMMA 2.
+LEMMA 3.
+LEMMA 4.
+THEOREM 2.
+THEOREM 3.

@@ -1,0 +1,72 @@
+The rapidly increasing amount of spoken data calls for
+solutions to index and search this data.
+The classical approach consists of converting the speech to
+word transcripts using a large vocabulary continuous speech
+recognition (LVCSR) tool. In the past decade, most of the
+research efforts on spoken data retrieval have focused on 
+extending classical IR techniques to word transcripts. Some of
+these works have been done in the framework of the NIST
+TREC Spoken Document Retrieval tracks and are described
+by Garofolo et al. [12]. These tracks focused on retrieval
+from a corpus of broadcast news stories spoken by 
+professionals. One of the conclusions of those tracks was that
+the effectiveness of retrieval mostly depends on the 
+accuracy of the transcripts. While the accuracy of automatic
+speech recognition (ASR) systems depends on the scenario
+and environment, state-of-the-art systems achieved better
+than 90% accuracy in transcription of such data. In 2000,
+Garofolo et al. concluded that Spoken document retrieval
+is a solved problem [12].
+However, a significant drawback of such approaches is that
+search on queries containing out-of-vocabulary (OOV) terms
+will not return any results. OOV terms are missing words
+from the ASR system vocabulary and are replaced in the
+output transcript by alternatives that are probable, given
+the recognition acoustic model and the language model. It
+has been experimentally observed that over 10% of user
+queries can contain OOV terms [16], as queries often 
+relate to named entities that typically have a poor coverage
+in the ASR vocabulary. The effects of OOV query terms in
+spoken data retrieval are discussed by Woodland et al. [28].
+In many applications the OOV rate may get worse over time
+unless the recognizer"s vocabulary is periodically updated.
+Another approach consists of converting the speech to
+phonetic transcripts and representing the query as a 
+sequence of phones. The retrieval is based on searching the
+sequence of phones representing the query in the phonetic
+transcripts. The main drawback of this approach is the 
+inherent high error rate of the transcripts. Therefore, such
+approach cannot be an alternative to word transcripts, 
+especially for in-vocabulary (IV) query terms that are part of
+the vocabulary of the ASR system.
+A solution would be to combine the two different 
+approaches presented above: we index both word transcripts
+and phonetic transcripts; during query processing, the 
+information is retrieved from the word index for IV terms and
+from the phonetic index for OOV terms. We would like to
+be able to process also hybrid queries, i.e, queries that 
+include both IV and OOV terms. Consequently, we need to
+merge pieces of information retrieved from word index and
+phonetic index. Proximity information on the occurrences
+of the query terms is required for phrase search and for
+proximity-based ranking. In classical IR, the index stores for
+each occurrence of a term, its offset. Therefore, we cannot
+merge posting lists retrieved by phonetic index with those
+retrieved by word index since the offset of the occurrences
+retrieved from the two different indices are not comparable.
+The only element of comparison between phonetic and word
+transcripts are the timestamps. No previous work 
+combining word and phonetic approach has been done on phrase
+search. We present a novel scheme for information retrieval
+that consists of storing, during the indexing process, for each
+unit of indexing (phone or word) its timestamp. We search
+queries by merging the information retrieved from the two
+different indices, word index and phonetic index, according
+to the timestamps of the query terms. We analyze the 
+retrieval effectiveness of this approach on the NIST Spoken
+Term Detection 2006 evaluation data [1].
+The paper is organized as follows. We describe the audio
+processing in Section 2. The indexing and retrieval methods
+are presented in section 3. Experimental setup and results
+are given in Section 4. In Section 5, we give an overview of
+related work. Finally, we conclude in Section 6.

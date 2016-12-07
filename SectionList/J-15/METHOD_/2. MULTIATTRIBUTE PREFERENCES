@@ -1,0 +1,189 @@
+As mentioned, most tools facilitating expression of multiattribute
+value for trading applications assume that agents" preferences can
+be represented in an additive form. By way of background, we start
+by introducing the formal prerequisites justifying the additive 
+representation, as provided by multiattribute utility theory. We then
+present the generalized additive form, and develop the formal 
+underpinnings for measurable value needed to extend this model to
+the case of choice under certainty.
+2.1 Preferential Independence
+Let Θ denote the space of possible outcomes, with a 
+preference relation (weak total order) over Θ. Let A = {a0, . . . , am}
+be a set of attributes describing Θ. Capital letters denote subsets
+of variables, small letters (with or without numeric subscripts) 
+denote specific variables, and ¯X denotes the complement of X with
+respect to A. We indicate specific variable assignments with prime
+signs or superscripts. To represent an instantiation of subsets X, Y
+at the same time we use a sequence of instantiation symbols, as in
+X Y .
+DEFINITION 1. A set of attributes Y ⊂ A is preferentially 
+independent (PI) of its complement Z = A \ Y if the conditional
+preference order over Y given a fixed level Z0
+of Z is the same
+regardless of the choice of Z0
+.
+In other words, the preference order over the projection of A on the
+attributes in Y is the same for any instantiation of the attributes in
+Z.
+DEFINITION 2. A = {a1, . . . , am} is mutually preferentially
+independent (MPI) if any subset of A is preferentially independent
+of its complement.
+The preference relation when no uncertainty is modeled is 
+usually represented by a value function v [17]. The following 
+fundamental result greatly simplifies the value function representation.
+THEOREM 1 ([9]). A preference order over set of attributes
+A has an additive value function representation
+v(a1, . . . , am) =
+mX
+i=1
+vi(ai)
+iff A is mutually preferential independent.
+Essentially, the additive forms used in trading mechanisms assume
+mutual preferential independence over the full set of attributes, 
+including the money attribute. Intuitively that means that willingness
+to pay for value of an attribute or attributes cannot be affected by
+the value of other attributes.
+A cardinal value function representing an ordering over certain
+outcomes need not in general coincide with the cardinal utility
+function that represents preference over lotteries or expected utility
+(EU). Nevertheless, EU functions may possess structural 
+properties analogous to that for value functions, such as additive 
+decomposition. Since the present work does not involve decisions under
+uncertainty, we do not provide a full exposition of the EU concept.
+However we do make frequent reference to the following additive
+independence relations.
+DEFINITION 3. Let X, Y, Z be a partition of the set of attributes
+A. X and Y are conditionally additive independent given Z, 
+denoted as CAI(X, Y | Z), if preferences over lotteries on A depend
+only on their marginal conditional probability distributions over X
+and Y .
+DEFINITION 4. Let I1, . . . , Ig ⊆ A such that
+Sg
+i=1 Ii = A.
+I1, . . . , Ig are called generalized additive independent (GAI) if 
+preferences over lotteries on A depend only on their marginal 
+distributions over I1, . . . , Ig.
+An (expected) utility function u(·) can be decomposed additively
+according to its (possibly overlapping) GAI sub-configurations.
+THEOREM 2 ([13]). Let I1, . . . , Ig be GAI. Then there exist
+functions f1, . . . , fg such that
+u(a1, . . . , am) =
+g
+X
+r=1
+fr(Ir). (1)
+What is now known as the GAI condition was originally 
+introduced by Fishburn [13] for EU, and was named GAI and brought to
+the attention of AI researchers by Bacchus and Grove [1]. 
+Graphical models and elicitation procedures for GAI decomposable utility
+were developed for EU [4, 14, 6], for a cardinal representation of
+the ordinal value function [15], and for an ordinal preference 
+relations corresponding to a TCP-net structure by Brafman et al. [5].
+Apart from the work on GAI in the context of preference handling
+that were discussed above, GAI have been recently used in the 
+context of mechanism design by Hyafil and Boutilier [16], as an aid in
+direct revelation mechanisms.
+As shown by Bacchus and Grove [1], GAI structure can be 
+identified based on a set of CAI conditions, which are much easier to
+detect and verify. In general, utility functions may exhibit GAI
+structure not based on CAI. However, to date all proposals for 
+reasoning and eliciting utility in GAI form take advantage of the GAI
+structure primarily to the extent that it represents a collection of
+CAI conditions. For example, GAI trees [14] employ triangulation
+of the CAI map, and Braziunas and Boutilier"s [6] conditional set
+Cj of a set Ij corresponds to the CAI separating set of Ij.
+Since the CAI condition is also defined based on preferences
+over lotteries, we cannot apply Bacchus and Grove"s result 
+without first establishing an alternative framework based on priced 
+outcomes. We develop such a framework using the theory of 
+measurable value functions, ultimately producing a GAI decomposition
+228
+(Eq. 1) of the wtp function. Readers interested primarily in the
+multiattribute auction and willing to grant the well-foundedness of
+the preference structure may skip down to Section 5.
+2.2 Measurable Value Functions
+Trading decisions represent a special case of decisions under 
+certainty, where choices involve multiattribute outcomes and 
+corresponding monetary payments. In such problems, the key decision
+often hinges on relative valuations of price differences compared
+to differences in alternative configurations of goods and services.
+Theoretically, price can be treated as just another attribute, 
+however, such an approach fails to exploit the special character of the
+money dimension, and can significantly add to complexity due to
+the inherent continuity and typical wide range of possible monetary
+outcome values.
+We build on the fundamental work of Dyer and Sarin [10, 11] on
+measurable value functions (MVFs). As we show below, wtp 
+functions in a quasi-linear setting can be interpreted as MVFs. However
+we first present the MVF framework in a more generic way, where
+the measurement is not necessarily monetary. We present the 
+essential definitions and refer to Dyer and Sarin for more detailed
+background and axiomatic treatment. The key concept is that of
+preference difference. Let θ1
+, θ2
+, ϑ1
+, ϑ2
+∈ Θ such that θ1
+θ2
+and ϑ1
+ϑ2
+. [θ2
+, θ1
+] denotes the preference difference between
+θ2
+and θ1
+, interpreted as the strength, or degree, to which θ2
+is 
+preferred over θ1
+. Let ∗
+denote a preference order over Θ × Θ. We
+interpret the statement
+[θ2
+, θ1
+] ∗
+[ϑ2
+, ϑ1
+]
+as the preference of ϑ2
+over ϑ1
+is at least as strong as the 
+preference of θ2
+over θ1
+. We use the symbol ∼∗
+to represent equality of
+preference differences.
+DEFINITION 5. u : D → is a measurable value function
+(MVF) wrt ∗
+if for any θ1
+, θ2
+, ϑ1
+, ϑ2
+∈ D,
+[θ2
+, θ1
+] ∗
+[ϑ2
+, ϑ1
+] ⇔
+u(θ2
+) − u(θ1
+) ≤ u(ϑ2
+) − u(ϑ1
+).
+Note that an MVF can also be used as a value function representing
+, since [θ , θ] ∗
+[θ , θ] iff θ θ .
+DEFINITION 6 ([11]). Attribute set X ⊂ A is called 
+difference independent of ¯X if for any two assignments X1 ¯X X2 ¯X ,
+[X1 ¯X , X2 ¯X ] ∼∗
+[X1 ¯X , X2 ¯X ]
+for any assignment ¯X .
+Or, in words, the preference differences on assignments to X given
+a fixed level of ¯X do not depend on the particular level chosen for
+¯X.
+As with additive independence for EU, this condition is stronger
+than preferential independence of X. Also analogously to EU,
+mutual preferential independence combined with other conditions
+leads to additive decomposition of the MVF. Moreover, Dyer and
+Sarin [11] have defined analogs of utility independence [17] for
+MVF, and worked out a parallel set of decomposition results.

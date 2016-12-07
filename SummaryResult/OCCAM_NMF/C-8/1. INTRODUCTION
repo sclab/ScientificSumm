@@ -1,0 +1,21 @@
+then, these transformation properties and their pre-conditions are discussed in section 5. the cot solutions to these transformation properties are  presented in section 6. comparison of the cot work to prior ot work, ot correctness issues, and future work are  discussed in section 7. finally, major contributions of this work are summarized in section 8.
+first, we  define causal-dependency/-independency and briefly describe their limitations in section 2. then, we present the key  elements of the operation context theory, including the  definition of operation context, context-dependency/-independency relations, context-based conditions, and context vectors in section 3. in section 4, we present the basic cot  algorithm for supporting consistency maintenance (do) and group undo under the assumption that underlying  transformation functions are able to preserve some important  transformation properties.
+the rest of this paper is organized as follows.
+in this paper, we report the main results of this effort: the theory of operation  context and the cot (context-based ot) algorithm.
+after having designed, implemented, and experimented with a series of ot algorithms of increased complexity, we reflected on what had been learned and set out to develop a uniformed theoretical framework for better understanding and resolving ot problems, reducing its complexity, and 279 supporting its continual evolution.
+various patches were invented to work around this problem,  resulting in more intricate complicated ot algorithms [18, 21].
+in fact, the causality relation is not defined for inverse operations (see section 2).
+the concept of causality is unsuitable to capture the relationships between an inverse operation (as an interpretation of a meta-level undo command) and other normal editing operations.
+the causality theory limitation became even more  prominent when ot was applied to solve the undo problem in group editors.
+this puzzle was solved in various ways, but the theory of causality as well as its limitation were inherited by all follow-up ot algorithms.
+in fact, the failure to meet the second  condition was the root of the dopt-puzzle [22].
+another condition is that the two concurrent operations must be defined on the same  document state.
+however, later research discovered that the  concurrency condition alone is not sufficient to ensure the  correctness of transformation.
+the dopt algorithm was the first ot algorithm and was based solely on the concurrency relationships among operations [4]: a pair of operations are transformable as long as they are  concurrent.
+the limitation of the causality theory had caused  correctness problems from the very beginning of ot.
+however, the theory of causality is inadequate to capture essential ot conditions for correct transformation.
+one theoretical underpinning of all existing ot algorithms is causality/concurrency [9, 17, 4, 22]: causally related operations must be executed in their causal order; concurrent operations must be transformed before their  execution.
+the soundness of the theoretical foundation for ot is crucial in this process.
+to effectively and efficiently support existing and new  applications, we must continue to improve the capability and quality of ot in solving both old and new problems.
+in over 15 years, ot has evolved to support an increasing number of applications, including group undo [15, 19, 18, 21], group-awareness [28], operation notification and  compression [20], spreadsheet and table-centric applications [14, 27], html/xml and tree-structured document editing [3, 7], word processing and slide creation [29, 25, 24],  transparent and heterogenous application-sharing [1, 10, 24], and mobile replicated computing and database systems [6, 16].
+operational transformation (ot) was originally invented for consistency maintenance in plain-text group editors [4].

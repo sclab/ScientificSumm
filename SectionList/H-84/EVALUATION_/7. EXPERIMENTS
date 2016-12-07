@@ -1,0 +1,183 @@
+Our experiments consists of three parts. First we modeled only
+the event clustering part (defining the mapping function ¼) using
+clustering algorithms described in section 6.1. Then we modeled
+only the dependencies by providing to the system the true clusters
+and running only the dependency algorithms of section 6.2. Finally,
+we experimented with combinations of clustering and dependency
+algorithms to produce the complete event model. This way of 
+experimentation allows us to compare the performance of our 
+algorithms in isolation and in association with other components. The
+following subsections present the three parts of our 
+experimentation.
+7.1 Clustering
+We have tried several variations of the Ì algorithm to study
+the effects of various features on the clustering performance. All
+the parameters are learned by tuning on the training set. We also
+tested the algorithms on the test set with parameters fixed at their
+optimal values learned from training. We used agglomerative 
+clusModel best T CP CR CF P-value
+cos+1-lnk 0.15 0.41 0.56 
+0.43cos+all-lnk 0.00 0.40 0.62 
+0.45cos+Loc+avg-lnk 0.07 0.37 0.74 
+0.45cos+Per+avg-lnk 0.07 0.39 0.70 
+0.46cos+TD+avg-lnk 0.04 0.45 0.70 0.53 2.9e-4*
+cos+N(T)+avg-lnk - 0.41 0.62 0.48 7.5e-2
+cos+N(T)+T+avg-lnk 0.03 0.42 0.62 0.49 2.4e-2*
+cos+TD+N(T)+avg-lnk - 0.44 0.66 0.52 7.0e-3*
+cos+TD+N(T)+T+avg-lnk 0.03 0.47 0.64 0.53 1.1e-3*
+Baseline(cos+avg-lnk) 0.05 0.39 0.67 
+0.46Table 2: Comparison of agglomerative clustering algorithms
+(training set)
+tering based on only cosine similarity as our clustering baseline.
+The results on the training and test sets are in Table 2 and 3 
+respectively. We use the Cluster F1-measure (CF) averaged over all topics
+as our evaluation criterion.
+Model CP CR CF P-value
+cos+1-lnk 0.43 0.49 
+0.39cos+all-lnk 0.43 0.62 
+0.47cos+Loc+avg-lnk 0.37 0.73 
+0.45cos+Per+avg-lnk 0.44 0.62 
+0.45cos+TD+avg-lnk 0.48 0.70 0.54 0.014*
+cos+N(T)+avg-lnk 0.41 0.71 0.51 0.31
+cos+N(T)+T+avg-lnk 0.43 0.69* 0.52 0.14
+cos+TD+N(T)+avg-lnk 0.43 0.76 0.54 0.025*
+cos+TD+N(T)+T+avg-lnk 0.47 0.69 0.54 0.0095*
+Baseline(cos+avg-lnk) 0.44 0.67 
+0.50Table 3: Comparison of agglomerative clustering algorithms
+(test set)
+P-value marked with a £ means that it is a statistically significant
+improvement over the baseline (95% confidence level, one tailed
+T-test). The methods shown in table 2 and 3 are:
+¯ Baseline: tf-idf vector weight, cosine similarity, average link
+in clustering. In equation 12, ½ ½, ¾ ¿ ¼. And
+« ¼ in equation 13. This F-value is the maximum obtained
+by tuning the threshold.
+¯ cos+1-lnk: Single link comparison (see equation 16) is used
+where similarity of two clusters is the maximum of all story
+pairs, other configurations are the same as the baseline run.
+¯ cos+all-lnk: Complete link algorithm of equation 15 is used.
+Similar to single link but it takes the minimum similarity of
+all story pairs.
+¯ cos+Loc+avg-lnk: Location names are used when 
+calculating similarity. ¾ ¼ ¼ in equation 12. All algorithms
+starting from this one use average link (equation 14), since
+single link and complete link do not show any improvement
+of performance.
+¯ cos+Per+avg-lnk: ¿ ¼ ¼ in equation 12, i.e., we put
+some weight on person names in the similarity.
+¯ cos+TD+avg-lnk: Time Decay coefficient « ½ in equation
+13, which means the similarity between two stories will be
+decayed to ½ if they are at different ends of the topic.
+¯ cos+N(T)+avg-lnk: Use the number of true events to control
+the agglomerative clustering algorithm. When the number
+of clusters is fewer than that of truth events, stop merging
+clusters.
+¯ cos+N(T)+T+avg-lnk: similar to N(T) but also stop 
+agglomeration if the maximal similarity is below the threshold Ì.
+¯ cos+TD:+N(T)+avg-lnk: similar to N(T) but the similarities
+are decayed, « ½ in equation 13.
+¯ cos+TD+N(T)+T+avg-lnk: similar to TD+N(Truth) but 
+calculation halts when the maximal similarity is smaller than
+the threshold Ì.
+Our experiments demonstrate that single link and complete link
+similarities perform worse than average link, which is reasonable
+since average link is less sensitive to one or two story pairs. We
+had expected locations and person names to improve the result, but
+it is not the case. Analysis of topics shows that many on-topic
+stories share the same locations or persons irrespective of the event
+they belong to, so these features may be more useful in identifying
+topics rather than events. Time decay is successful because events
+are temporally localized, i.e., stories discussing the same event tend
+to be adjacent to each other in terms of time. Also we noticed
+that providing the number of true events improves the performance
+since it guides the clustering algorithm to get correct granularity.
+However, for most applications, it is not available. We used it only
+as a cheat experiment for comparison with other algorithms. On
+the whole, time decay proved to the most powerful feature besides
+cosine similarity on both training and test sets.
+7.2 Dependencies
+In this subsection, our goal is to model only dependencies. We
+use the true mapping function and by implication the true events
+Î . We build our dependency structure ¼ using all the five 
+models described in section 6.2. We first train our models on the 26
+training topics. Training involves learning the best threshold Ì
+for each of the models. We then test the performances of all the
+trained models on the 27 test topics. We evaluate our performance
+451
+using the average values of Dependency Precision (DP), 
+Dependency Recall (DR) and Dependency F-measure (DF). We consider
+the complete-link model to be our baseline since for each event, it
+trivially considers all earlier events to be parents.
+Table 4 lists the results on the training set. We see that while all
+the algorithms except MST outperform the baseline complete-link
+algorithm , the nearest Parent algorithm is statistically significant
+from the baseline in terms of its DF-value using a one-tailed paired
+T-test at 95% confidence level.
+Model best Ì DP DR DF P-value
+Nearest Parent 0.025 0.55 0.62 0.56 0.04*
+Best Similarity 0.02 0.51 0.62 0.53 0.24
+MST 0.0 0.46 0.58 
+0.48Simple Thresh. 0.045 0.45 0.76 0.52 0.14
+Complete-link - 0.36 0.93 
+0.48Table 4: Results on the training set: Best Ì is the optimal value
+of the threshold Ì. * indicates the corresponding model is 
+statistically significant compared to the baseline using a one-tailed,
+paired T-test at 95% confidence level.
+In table 5 we present the comparison of the models on the test
+set. Here, we do not use any tuning but set the threshold to the
+corresponding optimal values learned from the training set. The 
+results throw some surprises: The nearest parent model, which was
+significantly better than the baseline on training set, turns out to be
+worse than the baseline on the test set. However all the other 
+models are better than the baseline including the best similarity which
+is statistically significant. Notice that all the models that perform
+better than the baseline in terms of DF, actually sacrifice their 
+recall performance compared to the baseline, but improve on their
+precision substantially thereby improving their performance on the
+DF-measure.
+We notice that both simple-thresholding and best similarity are
+better than the baseline on both training and test sets although the
+improvement is not significant. On the whole, we observe that the
+surface-level features we used capture the dependencies to a 
+reasonable level achieving a best value of 0.72 DF on the test set.
+Although there is a lot of room for improvement, we believe this is
+a good first step.
+Model DP DR DF P-value
+Nearest Parent 0.61 0.60 
+0.60Best Similarity 0.71 0.74 0.72 0.04*
+MST 0.70 0.68 0.69 0.22
+Simple Thresh. 0.57 0.75 0.64 0.24
+Baseline (Complete-link) 0.50 0.94 
+0.63Table 5: Results on the test set
+7.3 Combining Clustering and Dependencies
+Now that we have studied the clustering and dependency 
+algorithms in isolation, we combine the best performing algorithms and
+build the entire event model. Since none of the dependency 
+algorithms has been shown to be consistently and significantly better
+than the others, we use all of them in our experimentation. From
+the clustering techniques, we choose the best performing Cos+TD.
+As a baseline, we use a combination of the baselines in each 
+components, i.e., cos for clustering and complete-link for dependencies.
+Note that we need to retrain all the algorithms on the training
+set because our objective function to optimize is now JF, the joint
+F-measure. For each algorithm, we need to optimize both the 
+clustering threshold and the dependency threshold. We did this 
+empirically on the training set and the optimal values are listed in table
+6.
+The results on the training set, also presented in table 6, indicate
+that cos+TD+Simple-Thresholding is significantly better than the
+baseline in terms of the joint F-value JF, using a one-tailed paired 
+Ttest at 95% confidence level. On the whole, we notice that while the
+clustering performance is comparable to the experiments in section
+7.1, the overall performance is undermined by the low dependency
+performance. Unlike our experiments in section 7.2 where we had
+provided the true clusters to the system, in this case, the system
+has to deal with deterioration in the cluster quality. Hence the 
+performance of the dependency algorithms has suffered substantially
+thereby lowering the overall performance.
+The results on the test set present a very similar story as shown
+in table 7. We also notice a fair amount of consistency in the 
+performance of the combination algorithms. cos+TD+Simple-Thresholding
+outperforms the baseline significantly. The test set results also point
+to the fact that the clustering component remains a bottleneck in
+achieving an overall good performance.

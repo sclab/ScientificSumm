@@ -1,0 +1,42 @@
+when pc = 0 the bidding strategy is now  welldefined (each agent bids its true type), while when pc = 1 we get the correct result for a first-price auction: each agent bids according to the strategy bi(θi) = n−1 n θi. 
+corollary 2. in a second-price auction in which the seller cheats with probability pc , and f(θi) = θi, it is a bayes-nash equilibrium for each agent to bid according to the following strategy: bi(θi) = n − 1 n − 1 + pc θi (6) this equilibrium bidding strategy, parameterized by pc , can be viewed as an interpolation between two well-known results.
+we now consider the often-studied uniform distribution: f(θi) = θi.
+2.4 special case: uniform distribution another way to try to gain insight into equation 5 is by instantiating the distribution of types.
+furthermore, the fact that this probabilistic auction satisfies the properties required for the revenue equivalence theorem (see, e.g., [2]) provides a way to verify that the bidding strategy in equation 5 is the  symmetric equilibrium of this auction (see the alternative proof of theorem 1 in the appendix).
+by adjusting pc , we can smoothly move between a first and second-price auction.
+consider a probabilistic sealed-bid auction in which the seller is  honest, but the price paid by the winning agent is determined by a weighted coin flip: with probability pc it is his bid, and with probability 1 − pc it is the second-highest bid.
+2.3 continuum of auctions an alternative perspective on the setting is as a  continuum between first and second-price auctions.
+for example, the linear combination bi(θi) = θi − pc · θi 0 f (n−1) (x)dx f (n−1)(θi) of the equilibrium bidding strategies of first and second-price  auctions would have also given us the correct bidding strategies for the cases of pc = 0 and pc = 1.
+the position of pc is perhaps surprising.
+however, in the limit, bi(θi) approaches θi as pc approaches 0, which is what we expect as the auction approaches a standard second-price auction.
+in the case of pc = 0, this solution is not defined.
+setting pc = 1 yields the correct result for a first-price auction (see, e.g., [10]).
+77 theorem 1. in a second-price auction in which the seller cheats with probability pc , it is a bayes-nash equilibrium for each agent to bid according to the following strategy: bi(θi) = θi − θi 0 f( n−1 p c ) (x)dx f( n−1 p c ) (θi) (5) it is useful to consider the extreme points of pc .
+5 note that common knowledge is not necessary for the  existence of an equilibrium.
+4 this simplifies the analysis, but all of our results can be applied to the case in which the seller announces a reserve price before the auction begins.
+formally, b∗ is a bayes-nash  equilibrium if: ∀i, θi, bi eθ−i,µc ui b∗ i (θi), b∗ −i(θ−i) , µc , θi ≥ eθ−i,µc ui bi(θi), b∗ −i(θ−i) , µc , θi (4) 2.2 equilibrium we first present the bayes-nash equilibrium for an  arbitrary distribution f(·).
+a vector of bidding strategies b∗ is a bayes-nash equilibrium if for each agent i and each possible type θi, agent i cannot increase its expected utility by using an  alternate bidding strategy bi, holding the bidding strategies for all other agents fixed.
+because of the uncertainty over the types of the other agents, we will be looking for a bayes-nash  equilibrium.
+by pushing the expectation inward so that it is only over the price  (conditioned on the agent winning the auction), we can write the expected utility as: eθ−i,µc [ui(b(θ), µc , θi)] = prob bi(θi) > b[1](θ−i) · θi − eθ−i,µc pi(b(θ), µc ) | bi(θi) > b[1](θ−i) (3) we assume that all agents are rational, expected utility maximizers.
+ui(b(θ), µc , θi) = µ bi(θi) > b[1](θ−i) · θi − pi(b(θ), µc ) (2) we will be concerned with the expected utility of an agent, with the expectation taken over the types of the other agents and over whether or not the seller cheats.
+the utility for agent i is zero if it does not win the auction, and the difference between its valuation and its price if it does.
+pi(b(θ), µc ) = µc · bi(θi) − (1 − µc ) · b[1](θ−i) (1) let µ(·) be an indicator function that takes an inequality as an argument and returns is 1 if it holds, and 0 otherwise.
+the probability that the seller cheats, pc , is known by all agents.5 we can then write the payment of the winning agent as follows.
+let the indicator variable µc be 1 if the seller cheats, and 0 otherwise.
+on the other hand, if the seller does cheat, then the winning agent will pay its bid, since we assume that a cheating seller would take full advantage of its power.
+we assume that the seller does not set a reserve price.4 if the seller does not cheat, then the winning agent pays the highest bid by another agent.
+fortunately, we can ignore the case of ties in this paper because our continuity assumption will make them a zero probability event in equilibrium.
+an agent obviously wins the auction if its bid is greater than all other bids, but ties complicate the formulation.
+let b[1](θ) be the value of the highest bid of the vector b(θ), with a corresponding  definition for b[1](θ−i).
+the bid of agent i as b−i(θ−i).
+3 we thus limit agents to deterministic bidding strategies, but, because of our continuity assumption, there always  exists a pure strategy equilibrium.
+, bn(θn)), and this vector without 2 we can restrict the types to the range [0, 1] without loss of generality because any distribution over a different range can be normalized to this range.
+we also define the vector of bids as b(θ) = (b1(θ1), .
+a bidding strategy for an agent bi : [0, 1] → [0, 1] maps its type to its bid.3 let θ = (θ1, · · · , θn) be the vector of types for all agents, and θ−i = (θ1, · · · , θi−1, θi+1, · · · θn) be the vector of all types except for that of agent i. we can then combine the vectors so that θ = (θi, θ−i).
+each agent knows its own type θi, but only the  distribution over the possible types of the other agents.
+call the probability density function (pdf ) f(θi) = f (θi), which is the derivative of the cdf.
+each agent has a type θi ∈ [0, 1], drawn from a continuous range, which represents the agent"s value for the good being auctioned.2 each agent"s type is independently drawn from a cumulative distribution function (cdf ) f over [0, 1], where f(0) = 0 and f(1) = 1. we assume that f(·) is strictly increasing and differentiable over the interval [0, 1].
+2.1 formulation the setting consists of n bidders, or agents, (indexed by i = 1, · · · , n) and a seller.
+while no prior knowledge of game theory or auction theory is assumed, good introductions can be found in [2] and [6], respectively.
+the formulation for this section will be largely reused in the following section on bidders cheating in a first-price auction.
+cheating seller in this section, we consider a second-price auction in which the seller may cheat by inserting a shill bid after  observing all of the bids.

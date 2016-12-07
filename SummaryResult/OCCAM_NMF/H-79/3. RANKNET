@@ -1,0 +1,21 @@
+in the next section, we will discuss the features used in our feature vectors, xi. 
+in this paper, we used a probability of one for all pairs.
+ranknet also allows the pairs in z to be weighted with a confidence (posed as the probability that the pair satisfies the ordering induced by the ranking function).
+since vector i is supposed to be ranked higher than vector j, the larger is oj-oi, the larger the cost.
+that is, for each pair of feature vectors <i,j> in the training set, ranknet computes the network outputs oi and oj.
+the difference is that, while a typical neural network cost function is based on the difference between the network output and the desired output, the ranknet cost function is based on the difference between a pair of network outputs.
+as with back-prop, ranknet attempts to minimize the value of a cost function by adjusting each weight in the network according to the gradient of the cost function with respect to that weight.
+ranknet is a straightforward modification to the standard neural network back-prop algorithm.
+we used ranknet [7], one of the aforementioned techniques for learning ranking functions, to learn our static rank function.
+by directly optimizing the ordering of objects, these methods are able to learn a function that does a better job of ranking than do regression techniques.
+the only difference is the technique used to learn the function.
+this function can still be applied anywhere that a  regressionlearned function could be applied.
+for these, let z={<i,j>} be a collection of pairs of items, where item i should be assigned a higher value than item j. the goal of the ranking problem, then, is to learn a function f such that, )()(,, ji ffji xxz >∈∀ 708 note that, as with learning a regression function, the result of this process is a function (f) that maps feature vectors to real values.
+recent work on this ranking problem [7][13][18] directly attempts to optimize the ordering of the objects, rather than the value assigned to them.
+all we really care about is the order of the pages, not the actual value assigned to them.
+however, this over-constrains the problem we wish to solve.
+if we let xi represent features of page i, and yi be a value (say, the rank) for each page, we could learn a regression function that mapped each page"s features to their rank.
+static ranking can be seen as a regression problem.
+the classification problem is to learn a function f that maps yi=f(xi), for all i. when yi is real-valued as well, this is called regression.
+let x={xi} be a collection of feature vectors (typically, a feature is any real valued number), and y={yi} be a collection of associated classes, where yi is the class of the object described by feature vector xi.
+much work in machine learning has been done on the problems of classification and regression.

@@ -1,0 +1,113 @@
+Note that a static environment was used in each of these experiments, as we wanted to see the performance of the arrival rate and deadline slack on each of the three heuristics.
+All shows the number of experimental sets in which there was no statistical difference between the three heuristics and a random allocation strategy one must redo the work, thus wasting precious time which might not be available close to a deadline.
+To directly compare the OSD approach with the Contract Net  approach, each experiment was repeated several times - using OSD agents on the first run and a different number of Contract Net agents on each subsequent run.
+Also the results of any experiment in which the OSD organization consisted of a single agent ware culled from the results.
+This results in a slight decrease in the number of tasks completed, which can be explained by the fact that whenever an agent fails, its looses whatever work it was doing at the time.
+We noted the number of times that a heuristic performed the best or was in a group that performed statistically better than the rest.
+For large contract net organizations, the number of tasks completed is statistically equivalent to the number  completed by the OSD agents, however the number of agents used by the OSD organization is smaller: 9.59 agents (in the static case) and 7.38 agents (in the dynamic case) versus 14 contract net agents3 .
+Similarly, 4 Since our preliminary analysis led is to believe that the number of MAX and EXACTLY ONE CAFs in a task structure have a  minimal effect on the performance of the allocation strategies being evaluated, we set the probabilities of the MAX and EXACTLY ONE CAFs to 0 in order to reduce the combinatorial explosion of the full factorial experimental design.
+The average quality is defined as the total quality accrued during the experimental run  divided by the sum of the number of tasks completed and the number of tasks failed.
+The breakup of these numbers into (1) the number of times that each heuristic performed better than all the other heuristics and (2) the number of times each heuristic was statistically equivalent to another group of heuristics, all of which performed the best, is shown in Table 2.
+The newly created agent that fills in for the failed 5 For this discussion small agents are agents that have a low  expected duration for their local roles (as calculated by Algorithm 4).
+For tasks that are never  attempted/started, the response time is set at final runtime  minus the generation time.
+The average runtime of the tasks attempted by the  organization.
+The tested hypothesis are: The OSD organization requires fewer agents to complete an equal or larger number of tasks when compared to the  Contract Net organization: To test this hypothesis, we tested the stronger null hypothesis that states that the contract net agents  complete more tasks.
+With TF, on the other hand, a large agent can successively spawn off smaller agents until it and the spawned agents are small enough to complete their tasks before the deadlines - this often results in  organizations with an odd number of agents that is less than those used by BET.
+We have tested our approach on  organizations with more than 300 agents, which is significantly greater than the number of agents needed for the kind of applications that we have in mind (i.e.
+The OSD agents send less messages than the Contract Net Agents: The null hypothesis that OSD sends the same or more messages is rejected for all contract net organizations (p < .0003 in all cases except 8 contract net agents in a static environment where p < 0.02) Hence, as demonstrated by the above tests, our agents perform better than the contract net agents as they complete a larger number of tasks, achieve a greater quality and also have a lower response time and communication overhead.
+20 of those experiments had a static environment with a fixed task arrival time of 15 cycles and a deadline window of 20 cycles.
+The quality gained on the tasks is directly dependent on the Criteria/Heuristic BET TF MR Rand Number of Agents 572 567 100 139 No-Org-Changes 641 51 5 177 Total-Messages-Sent 586 499 13 11 Resource-Cost 346 418 337 66 Tasks-Completed 427 560 154 166 Average-Quality 367 492 298 339 Average-Response-Time 356 321 370 283 Average-Runtime 543 323 74 116 Average-Turnaround-Time 560 314 74 126 Table 1: The number of times that each heuristic performed the best or statistically equivalent to the best for each of the performance criteria.
+The two graphs in Figure 1, show the average performance of the OSD organization against the Contract Net organizations with 8, 10, 12 and 14 agents.
+We were interested in the cases in which we could reject the null hypothesis with 95% confidence (p < 0.05).
+We suspected this to be the case because  different heuristics are better for different task structures and  environmental conditions, and since each experiment starts with a different random task structure, we couldn"t find one allocation strategy that always dominated the other for all the performance criteria.
+To determine which heuristic performs the best, given a set of task structures, environmental conditions and performance criteria, we performed a series of experiments that were controlled using the following five variables: • The depth of the task structure was varied from 3 to 5.
+Particularly interesting were the following results: • Whereas Balancing Execution Time (BET) used the  lowest number of agents in largest number of experimental sets (572), in most of these cases (337 experimental sets) it was statistically equivalent to Topmost First (TF).
+The response time of a task is defined as the difference between the time at which any agent in the organization starts working on the task (the start time) and the time at which the task was generated (the generation time).
+number of tasks completed, hence the more the number of tasks completed, the greater average quality.
+When these two heuristics didn"t perform equally, there was an almost even split between the number of experimental sets in which one outperformed the other.
+The average number of agents used.
+This can be explained by the fact the MR heuristic is extremely greedy and prefers to spawn off small agents that have a tiny  resource footprint (so as to minimize the total increase in the resource cost to the organization at the time of spawning).
+Thus the original hypothesis, that OSD requires fewer agents to 3 These values should not be construed as an indication of the  scalability of our approach.
+As  expected, as the probability of failure increases, the number of agents failing during a run also increases.
+Next, we evaluated the performance of the three heuristics for  allocating tasks.
+The OSD agents have a lower average response time as  compared to the Contract Net agents: The null hypothesis that OSD has the same or higher response time is rejected for all contract net organizations (static: p < 0.0002; dynamic: p < 0.0004).
+The remaining 20 experiments had a varying task arrival rate - the task arrival rate was changed from 15 cycles to 30 cycles and back to 15 cycles after every 20 tasks.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) Figure 1: Graph comparing the average performance of the OSD organization with the Contract Net organizations (with 8, 10, 12 and 14 agents).
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) Criteria/Heuristic BET TF MR Rand BET+TF BET+Rand MR+Rand TF+MR BET+TF+MR All Number of Agents 94 88 3 7 337 2 0 0 12 85 No-Org-Changes 480 0 0 29 16 113 0 0 0 5 Total-Messages-Sent 170 85 0 2 399 1 0 0 7 5 Resource-Cost 26 100 170 42 167 0 7 6 128 15 Tasks-Completed 77 197 4 28 184 1 3 9 36 99 Average-Quality 38 147 26 104 76 0 11 11 34 208 Average-Response-Time 104 74 162 43 31 20 16 8 7 169 Average-Runtime 322 110 0 12 121 13 1 1 1 69 Average-Turnaround-Time 318 94 1 11 125 26 1 0 7 64 Table 2: Table showing the number of times that each individual heuristic performed the best and the number of times that a certain group of statistically equivalent heuristics performed the best.
+We can reject the null hypothesis for contract net organizations with less than 12 agents (static: p < 0.01; dynamic: p < 0.05).
+Matched-Pair signifies that we are comparing the performance of each system on precisely the same randomized task set within each separate experiment.
+To evaluate our approach, we ran a series of experiments that simulated the operation of both the OSD agents and the Contract Net agents on various task structures with varied arrival rates and deadlines.
+It appears that due to the inherent inefficiency of the contract net protocol in bidding for each and every task instance, a greater number of agents are needed to complete an equal number of tasks.
+Except for the number of tasks completed and the average  quality accrued, lower values for the various performance criteria  indicate better performance.
+• As expected, BET achieved the lowest number of  organizational changes in the largest number of experimental sets.
+Whereas most of these small agents might compose with other agents over time, the presence of a single small agent is sufficient to reduce the response time.
+During the course of the experiment, a series of task instances (problems) arrive at the organization and must be completed by the agents before their specified deadlines.
+Some preliminary experiments (that are not reported here due to space constraints) demonstrated the lack of a clear  winner amongst the three heuristics for most of the performance  criteria that we evaluated.
+The number of tasks completed.
+Both of these tables allow us to glean important information about the performance of the three heuristics.
+This shows that if the agents are conscientious in their initial task allocation, there is a lesser need for  organizational change later on, especially for static environments.
+The OSD organizations achieve an equal or greater average quality than the Contract Net organizations: The null  hypothesis is that the Contract Net agents achieve a greater average quality.
+Hence, all the experiments in an experimental set had the same values for the exogenous variables that were used to control the experiment.
+The baseline shows the number of tasks completed in the absence of any failure.
+The null hypothesis in each case was that there is no  difference between the pair of heuristics for the performance criteria under consideration.
+For example, one way of achieving a higher level of robustness in the survivalist approach, given a large numbers of agent failures, would be to relax the task deadlines.
+We were careful to use the same task  structure, task arrival times, task deadlines and random numbers for each of these trials.
+This time is defined as the difference between the time at which the task completed or failed and the start time.
+The average response time of the organization.
+We divided the experiments into two groups: experiments in which the environment was static (fixed task arrival rates and  deadlines) and experiments in which the environment was dynamic (varying arrival rates and/or deadlines).
+We believe this was the case because BET always bifurcates the agents into two agents that have a more or less equal task load.
+This null hypothesis is rejected for all contract net organizations with less than 14 agents (static: p < 0.0003;  dynamic: p < 0.03).
+We believe this is in part due to the greedy  nature of this heuristic and in part because of the fact that all spawning and composition operations only use local  information.
+We tested the potential of these three heuristics on the following performance criteria: 1.
+Each experiment was repeated 20 times, with a new task  structure being generated each time - these 20 experiments formed an experimental set.
+number of agents - none of which are small5 enough to combine into a larger agent.
+The survivalist approach might actually be better than the citizen approach for higher  probabilities of agent failure, as the replicated agents may be processing the task structures in parallel and can take over the moment the  original agents fail - thus saving time around tight deadlines.
+In fact the MR heuristic is not the most effective heuristic when it comes to minimizing the resource-cost of the  organization - in fact, it only outperforms a random task/resource allocation.
+1232 The Sixth Intl.
+However, such a relaxation would result in the system using fewer agents in order to conserve resources, which in turn would have a detrimental  effect on the robustness.
+on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 1233 experiments in which the generated task structures were  unsatisfiable (given the deadline constraints), were removed from the final results.
+The results of testing the first hypothesis were slightly more surprising.
+The turnaround time is defined as the sum of the response time and runtime of a task.
+In all the experiments, the task structures were randomly generated with a maximum depth of 4 and a maximum branching factor of 3.
+We found that the  Minimizing Resources (MR) heuristic performed the best when it came to minimizing the average response time!
+The Sixth Intl.
+The  probability of any node having a SUM CAF was in turn modified to ensure that the probabilities add up to 14 .
+Therefore, towards this end, we have begun exploring the robustness properties of task structures and the ways in which the organizational design can be modified to take such properties into account. 
+Also, we strongly believe that the optimal organizational structure may vary, depending on the probability of failure and the desired level of robustness.
+• A particularly interesting, yet easily explainable, result was that of the average response time.
+At the start of each experiment, a random TÆMS task structure was generated with a specified depth and branching  factor.
+If any experimental set had more than 15 experiments thus removed, the whole set was ignored for performing the evaluation.
+We tested several hypotheses relating to the comparative  performance of our OSD approach using the Wilcoxon Matched-Pair Signed-Rank tests.
+The runtime of all the experiments was 2500 cycles.
+For tasks that were never stated, this time is set to zero.
+We expected the OSD organizations to have a faster average response time and to send less messages because the agents in the OSD organization are not wasting time and messages sending bid requests and replying to bids.
+The number of experimental sets in which each heuristic  performed the best or statistically equivalent to the best is shown in Table 1.
+We believe that using some non-local information about the resource allocation might help in making better  decisions, something that we plan to look at in the future.
+The final evaluation was done on 673 experimental sets.
+Heuristic Key: BET is Balancing  Execution Time, TF is Topmost First, MR is Minimizing Resources and Rand is a random allocation strategy, in which every TÆMS node has a uniform probability of being selected for allocation.
+complete an equal or larger number of tasks, is upheld.
+Finally we evaluated the performance of the citizens approach to robustness as applied to our OSD mechanism (Figure 2).
+Again we ran the Wilcoxon Matched-Pair Signed-Rank tests on the experiments in each of the experimental sets.
+The results shown are the averages of running 40 experiments.
+For larger contract net organizations, the average quality is statistically equivalent to that achieved by OSD.
+This often results in organizations that have an even Figure 2: Graph demonstrating the robustness of the citizen approach.
+• The branching factor was varied from 3 to 5.
+The total number of organizational changes.
+In fact, it was over ten times as good as its second best  competitor (TF).
+Only the more interesting heuristic groupings are shown.
+As a part of our future research, we wish to, firstly, evaluate the survivalist approach to robustness.
+• The probability of any given task node having a MIN CAF was varied from 0.0 to 1.0 in increments of 0.2.
+These results make intuitive sense given our goals for the OSD approach.
+The average quality accrued.
+The total resource cost of the organization.
+Hence, the response time is equivalent to the wait time.
+• The deadline slack: from 5 to 15 in increments of 5.
+• The arrival rate: from 10 to 40 cycles in increments of 10.
+The total messages sent by all the agents.
+These counts are given in Tables 1 and 2.
+web service choreography, efficient dynamic use of grid computing, distributed information gathering, etc.).
+The error bars show the standard deviations.
+Joint Conf.
+Joint Conf.
+Joint Conf.
+1234 The Sixth Intl.

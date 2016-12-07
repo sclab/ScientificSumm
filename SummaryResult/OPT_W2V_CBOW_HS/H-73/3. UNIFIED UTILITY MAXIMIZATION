@@ -1,0 +1,81 @@
+However, in order to calculate the probabilities of relevance, we need to estimate centralized document scores for all documents across the databases instead of only the sampled documents.
+The complete lists of probabilities of relevance are inferred from all the available information specifically sR , which stands for the resource descriptions acquired by query-based sampling and the database size estimates acquired by sample-resample; cS stands for the centralized document scores of the documents in the centralized sample database.
+It was pointed out before that the SSL algorithm maps the database-specific scores into the centralized document scores and builds the final ranked list accordingly, which is consistent with all our selection procedures where documents with higher probabilities of relevance (thus higher centralized document scores) are selected. 
+Formally, we rank all the sampled documents from the ith database by their centralized document 34 scores to get the sampled centralized document score list {Sc(dsi1), Sc(dsi2), Sc(dsi3),…..} for the ith database; we assume that if we could calculate the centralized document scores for all the documents in this database and get the complete centralized document score list, the top document in the sampled list would have rank SFdbi/2, the second document in the sampled list would rank SFdbi3/2, and so on.
+We call this the UUM/HP-FL algorithm (Unified Utility Maximization for High-Precision with Fixed Length document rankings from each selected database).
+We can calculate the expected number of relevant documents for each database as follows: = = idb i N j ijRd dN ^ 1 ^^ )(R (11) The Nsdb databases with the largest expected number of relevant documents can be selected to meet the high-recall goal.
+The most common one is to select a fixed number (Nsdb) of databases and retrieve a fixed number (Nrdoc) of documents from each selected database, formally defined as: 0, )(: )(R)(maxarg 1 ^* ≠= = = = irdoci sdb i i i d j iji d difNd NdItoSubject ddId i (14) This optimization problem can be solved easily by calculating the number of expected relevant documents in the top part of the each database"s complete list of probabilities of relevance: = = rdoc i N j ijRdTop dN 1 ^^ _ )(R (15) Then the databases can be ranked by these values and selected.
+Actually, we can apply a finer non-parametric linear interpolation method to estimate the centralized document score curve for each database.
+Formally, we denote di as the number of documents we would like to retrieve from the ith database and ,.....},{ 21 ddd = as a selection action for all the databases.
+FRAMEWORK The Unified Utility Maximization (UUM) framework is based on estimating the probabilities of relevance of the (mostly unseen) documents available in the distributed search environment.
+Therefore, the selection decision defined by the Bayesian framework is: θθθ θ dSRPdUd cs d ).|(),(maxarg * = (7) One common approach to simplify the computation in the Bayesian framework is to only calculate the utility function at the most probable parameter values instead of calculating the whole expectation.
+We define the database scale factor for the ith database as the ratio of the estimated database size and the number of documents sampled from this database as follows: ^ _ i i i db db db samp N SF N = (2) where ^ idbN is the estimated database size and _idb sampN is the number of documents from the ith database in the centralized sample database.
+Specifically, a logistic model is built for each of these databases.
+Human judgment is acquired for those documents and a logistic model is built to transform the normalized centralized document scores to probabilities of relevance as follows: ( ) ))(exp(1 ))(exp( |)( _ _ dSba dSba drelPdR ccc ccc ++ + == (1) where )( _ dSc is the normalized centralized document score and ac and bc are the two parameters of the logistic model.
+3.4 Resource Selection for High-Precision High-Precision is the goal of resource selection algorithm in federated search tasks such as distributed document retrieval.
+After the centralized score of the top document is estimated, an exponential function is fitted for the top part ([1, SFdbi/2]) of the centralized document score curve as: ]2/,1[)*exp()( 10 ^ idbiiijc SFjjdS ∈+= ββ (4) ^ 0 1 1log( ( ))i c i iS dβ β= − (5) )12/( ))(log()((log( ^ 11 1 − − = idb icic i SF dSdsS β (6) The two parameters 0iβ and 1iβ are fitted to make sure the exponential function passes through the two points (1, ^ 1)( ic dS ) and (SFdbi/2, Sc(dsi1)).
+The logistic model is used to estimate the centralized document score of the top 1 document in the corresponding database by using the two sampled documents from that database with highest centralized scores.
+Together with the scores of the top two sampled documents, these parameters can be estimated.
+The intuition behind the database scale factor is that, for a database whose scale factor is 50, if one document from this database in the centralized sample database has a centralized document score of 0.5, we may guess that there are about 50 documents in that database which have scores of about 0.5.
+The centralized scores are further normalized (divided by the maximum centralized score for each query), as this method has been suggested to improve estimation accuracy in previous research [15].
+We also describe how the model can be optimized for the high-recall goal of a database recommendation system and the high-precision goal of a distributed document retrieval system.
+Formally for the ith database, the complete list of probabilities of relevance is: ],1[,)(R ^^ idbij Njd ∈ .
+Our strategy is to make full use of all the available information to calculate the probability estimates.
+The goal is to select a small set of resources (e.g., less than Nsdb databases) that contain as many relevant documents as possible, which can be formally defined as: = = i N j iji idb ddIdU ^ 1 ^ * )(R)(),( θ (9) I(di) is the indicator function, which is 1 when the ith database is selected and 0 otherwise.
+3.3 Resource Selection for High-Recall High-recall is the goal of the resource selection algorithm in federated search tasks such as database recommendation.
+Then, we can download the top 50 documents in the final merged list and calculate their corresponding centralized scores using Inquery and the corpus statistics of the centralized sample database.
+As this algorithm allows retrieving result lists of varying lengths from each selected database, it is called UUM/HP-VL algorithm.
+In other words, we only need to calculate ),( * dU θ and Equation 7 is simplified as follows: ),(maxarg * * θdUd d = (8) This equation serves as the basic model for both the database recommendation system and the document retrieval system.
+For simplification, the result list lengths are required to be multiples of a baseline number 10.
+3.2 The Unified Utility Maximization Model In this section, we formally define the new unified utility maximization model, which optimizes the resource selection problems for two goals of high-recall (database recommendation) and high-precision (distributed document retrieval) in the same framework.
+Specifically, we can calculate the optimal selection decision by: = = i d j iji d i ddId 1 ^* )(R)(maxarg (13) Different kinds of constraints caused by different characteristics of the document retrieval tasks can be associated with the above optimization problem.
+35 probabilities of relevance θ , we associate a utility function ),( dU θ which indicates the benefit from making the d selection when the true complete lists of probabilities of relevance are θ .
+From the centralized document score curves, we can estimate the complete centralized document score lists accordingly for all the available databases.
+The database selection decision is made based on the complete lists of probabilities of relevance for all the databases.
+The exponential function is only used to adjust the top part of the centralized document score curve and the lower part of the curve is still fitted with the linear interpolation method described above.
+The complete centralized document score list can be estimated by calculating the values of different ranks on the centralized document curve as: ],1[,)(S ^^ c idbij Njd ∈ .
+In this section we describe how the probabilities of relevance are estimated and how they are used by the Unified Utility Maximization model.
+If the method of estimating centralized document scores and probabilities of relevance in Section 3.1 is acceptable, then the most probable complete lists of probabilities of relevance can be derived and we denote them as 1 ^ ^ * 1{(R( ), [1, ]),dbjd j Nθ = ∈ 2 ^ ^ 2(R( ), [1, ]),.......}dbjd j N∈ .
+This procedure saves the computation time of calculating optimal database selection by allowing the step of dynamic programming to be 10 instead of 1 (more detail is discussed latterly).
+3.1 Estimating Probabilities of Relevance As pointed out above, the purpose of resource selection is  highrecall and the purpose of document retrieval is high-precision.
+Finally, to each selection action d and a set of complete lists of Figure 1.
+The adjustment by fitting exponential function of the top ranked documents has been shown empirically to produce more accurate results.
+After the estimated centralized document scores are normalized, the complete lists of probabilities of relevance can be constructed out of the complete centralized document score lists by Equation 1.
+More specifically, we allow different selected databases to return different numbers of documents.
+= = i d j iji i ddIdU 1 ^ * )(R)(),( θ (12) Note that the key difference between Equation 12 and Equation 9 is that Equation 9 sums up the probabilities of relevance of all the documents in a database, while Equation 12 only considers a much smaller part of the ranking.
+Random vector   denotes an arbitrary set of complete lists of probabilities of relevance and ),|( cs SRP θ as the probability of generating this set of lists.
+The SSL results merging algorithm [20,22] is used to merge the results.
+3.1.2 Estimating Centralized Document Scores When the user submits a new query, the centralized document scores of the documents in the centralized sample database are calculated.
+It can be seen from Figure 1 that more sample data points produce more accurate estimates of the centralized document score curves.
+A more complex situation is to vary the number of retrieved documents from each selected database.
+This goal is accomplished using: the centralized scores of the documents in the centralized sample database, and the database size statistics.
+This high-precision criterion is realized by the following utility function, which measures the Precision of retrieved documents from the selected databases.
+For further simplification, we restrict to select at most 100 documents from each database (di<=100) Then, the selection optimization problem is formalized as follows: ]10..,,2,1,0[,*10 )(: )(R)(maxarg _ 1 ^* ∈= = = = = kkd Nd NdItoSubject ddId i rdocTotal i i sdb i i i d j iji d i (16) NTotal_rdoc is the total number of documents to be retrieved.
+For each training query, the top retrieved document of each database is downloaded and the corresponding centralized document score is calculated.
+At the same time, an effective retrieval algorithm (Inquery [2]) is applied on the centralized sample database with a small number (e.g., 50) of training queries.
+We call this the UUM/HR algorithm (Unified Utility Maximization for High-Recall).
+Piecewise linear interpolation is applied to estimate the centralized document score curve, as illustrated in Figure 1.
+3.1.1 Learning Probabilities of Relevance In the resource description step, the centralized sample database is built by query-based sampling and the database sizes are estimated using the sample-resample method [21].
+We generalize the database recommendation selection process, which implicitly recommends all documents in every selected database, as a special case of the selection decision for the document retrieval task.
+Plug this equation into the basic model in Equation 8 and associate the selected database number constraint to obtain the following: sdb i i i N j iji d NdItoSubject ddId idb = = = )(: )(R)(maxarg ^ 1 ^* (10) The solution of this optimization problem is very simple.
+For each training query, the CORI resource selection algorithm [1] is applied to select some number (e.g., 10) of databases and retrieve 50 document ids from each database.
+After the selection decisions are made, the selected databases are searched and the corresponding document ids are retrieved from each database.
+The final step of document retrieval is to merge the returned results into a single ranked list with the  semisupervised learning algorithm.
+(This value can also be varied, but for simplification it is set to 10 in this paper.)
+Therefore, an alternative solution is proposed to estimate the centralized document scores of the top ranked documents for databases with large scale ratios (e.g., larger than 100).
+The logistic model provides us the tool to calculate the probabilities of relevance from centralized document scores.
+These two parameters are estimated by maximizing the probabilities of relevance of the training queries.
+In the task of document retrieval, the system not only needs to select the databases but also needs to decide how many documents to retrieve from each selected database.
+In order to meet these diverse goals, the key issue is to estimate the probabilities of relevance of the documents in various databases.
+Therefore, the data points of sampled documents in the complete list are: {(SFdbi/2, Sc(dsi1)), (SFdbi3/2, Sc(dsi2)), (SFdbi5/2, Sc(dsi3)),…..}.
+This is a difficult problem because we can only observe a sample of the contents of each database using query-based sampling.
+The basic steps of this dynamic programming method are described in Figure 2.
+Linear interpolation construction of the complete centralized document score list (database scale factor is 50).
+))()(exp(1 ))()(exp( )( 22110 22110 ^ 1 iciicii iciicii ic dsSdsS dsSdsS dS ααα ααα +++ ++ = (3) 0iα , 1iα and 2iα are the parameters of the logistic model.
+However, for databases with large database scale ratios, this kind of linear interpolation may be rather inaccurate, especially for the top ranked (e.g., [1, SFdbi/2]) documents.
+It is measured by the Precision at the top part of the final merged document list.
+However, a 36 dynamic programming algorithm can be applied to calculate the optimal solution.
+In the task of database recommendation, the system needs to decide how to rank databases.
+This restriction is set to simulate the behavior of commercial search engines on the Web.
+(Search engines such as Google and AltaVista return only 10 or 20 document ids for every result page.)
+Unfortunately, there is no simple solution for this optimization problem as there are for Equations 10 and 14.

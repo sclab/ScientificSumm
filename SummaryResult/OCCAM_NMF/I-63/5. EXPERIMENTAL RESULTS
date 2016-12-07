@@ -1,0 +1,31 @@
+overall, we believe that these experimental results  indicate that our milp formulation can be used to effectively solve resource-scheduling problems of nontrivial size. 
+on autonomous agents and multi-agent systems (aamas 07) us to explore domains where the total number of agents scales proportionally to the total number of resource types or the global time horizon, while keeping constant the  average agent density (per unit of global time) or the average number of resources per agent (which commonly occurs in real-life applications).
+joint conf.
+1226 the sixth intl.
+error bars show the 1st and 3rd quartiles (25% and 75%).
+the middle and the right column track the performance and cpu time as the number of resources and the number of agents increase together as |ω| = 2|m| and |ω| = 5|m|, respectively.
+the left column tracks the performance and cpu time as the number of agents and global-time window increase together (bτ = 10|m|).
+2 4 6 8 10 10 −3 10 −2 10 −1 10 0 10 1 10 2 10 3 number of agents |m| cputime,sec τ = 10|m| static dynamic 2 4 6 8 10 10 −3 10 −2 10 −1 10 0 10 1 10 2 10 3 10 4 number of agents |m| cputime,sec |ω| = 2|m| static dynamic 2 4 6 8 10 10 −3 10 −2 10 −1 10 0 10 1 10 2 10 3 10 4 number of agents |m| cputime,sec |ω| = 5|m| static dynamic 2 4 6 8 10 200 400 600 800 1000 1200 1400 1600 1800 2000 2200 number of agents |m| value τ = 10|m| static dynamic 2 4 6 8 10 200 400 600 800 1000 1200 1400 1600 1800 2000 number of agents |m| value |ω| = 2|m| static dynamic 2 4 6 8 10 0 500 1000 1500 2000 2500 number of agents |m| value |ω| = 5|m| static dynamic figure 4: evaluation of our milp using correlated input variables.
+top row shows cpu time, and bottom row shows the joint reward of agents" mdp policies.
+on autonomous agents and multi-agent systems (aamas 07) 1225 2 4 6 8 10 10 −3 10 −2 10 −1 10 0 10 1 10 2 10 3 10 4 number of agents |m| cputime,sec |ω| = 5, τ = 50 static dynamic 50 100 150 200 10 −2 10 −1 10 0 10 1 10 2 10 3 global time boundary τ cputime,sec |m| = 5, |ω| = 5 static dynamic 10 20 30 40 50 10 −2 10 −1 10 0 10 1 10 2 number of resources |ω| cputime,sec |m| = 5, τ = 50 static dynamic 2 4 6 8 10 200 400 600 800 1000 1200 1400 1600 number of agents |m| value |ω| = 5, τ = 50 static dynamic 50 100 150 200 400 500 600 700 800 900 1000 1100 1200 1300 1400 global time boundary τ value |m| = 5, |ω| = 5 static dynamic 10 20 30 40 50 500 600 700 800 900 1000 1100 1200 1300 1400 number of resources |ω| value |m| = 5, τ = 50 static dynamic figure 3: evaluation of our milp for variable numbers of agents (column 1), lengths of global-time window (column 2), and numbers of resource types (column 3).
+this allows the sixth intl.
+figure 4 shows runtime and policy value for trials in which common input variables are scaled together.
+we should point out that these graphs should not be viewed as a measure of performance of two different algorithms (both algorithms produce optimal solutions but to different problems), but rather as  observations about how the quality of optimal solutions change as more flexibility is allowed in the reallocation of resources.
+we can observe that the  dynamic version yields higher reward (as expected, since the reward for the dynamic version is always no less than the reward of the static version).
+the bottom row of figure 3 shows the joint policy value of the policies that correspond to the computed optimal resource-allocation schedules.
+we also observe that the solution to the dynamic  version of the problem can often be computed much faster than the static version.
+this occurs because the problems get easier as they become under-constrained, which is also a common phenomenon for np-complete  problems.
+however,  increasing the global time limit bτ or the total number of resource types |ω|-while holding the number of agents  constantdoes not lead to decreased performance.
+increasing the number of agents leads to exponential complexity scaling, which is to be expected for an np-complete problem.
+the top row shows how the solution time for the milp scales as we  increase the number of agents |m|, the global time horizon bτ, and the number of resources |ω|.
+figure 3 shows the runtime and policy value for  independent modifications to the parameter set.
+trials were conducted on both the static and the dynamic version of the  resourcescheduling problem, as defined earlier.
+all datapoints in our experiments were obtained with 20 evaluations using cplex to solve the milps on a  pentium4 computer with 2gb of ram.
+this model was parameterized in terms of the number of agents in the system, the number of different types of resources that could be linked to necessary actions, a global time during which agents are allowed to arrive and depart, and a maximum length for the number of time steps an agent may remain in the system.
+each task to be completed is associated with a single action,  although the agent is required to repeat the action numerous times before completing the task and earning a reward.
+these  resources are in finite supply, and optimal policies for the shop will determine when each agent may hold the limited  resources to take actions and earn individual rewards.
+in our mdp model of this system, actions taken to advance through the state space are only allowed if the agent holds certain resources that are publicly available to the shop.
+agents in the repair shop are mechanics with a number of  independent tasks that yield reward only when completed.
+the repairshop problem is a simple parameterized mdp adopting the metaphor of a vehicular repair shop.
+in particular, this section introduces a problem domain-the repairshop problem-used to empirically evaluate our algorithm"s  scalability in terms of the number of agents |m|, the number of shared resources |ω|, and the varied lengths of global time bτ during which agents may enter and exit the system.
+although the complexity of solving milps is in the worst case exponential in the number of integer variables, there are many efficient methods for solving milps that allow our algorithm to scale well for parameters common to  resource allocation and scheduling problems.

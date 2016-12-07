@@ -1,0 +1,452 @@
+In this section we will first introduce a novel matrix 
+factorization method, which is more suitable than conventional matrix 
+factorization methods for link analysis. Then we will introduce our
+approach that jointly factorizes the document-term matrix and link
+matrix and obtains compact and highly indicative factors for 
+representing documents or web pages.
+3.1 Link Matrix Factorization
+Suppose we have a directed graph G = (V, E), where the vertex
+set V = {vi}n
+i=1 represents the web pages and the edge set E 
+represents the hyperlinks between web pages. Let A = {asd} denotes
+the n×n adjacency matrix of G, which is also called the link matrix
+in this paper. For a pair of vertices, vs and vd, let asd = 1 when
+there is an edge from vs to vd, and asd = 0, otherwise. Note that
+A is an asymmetric matrix, because hyperlinks are directed.
+Most machine learning algorithms assume a feature-vector 
+representation of instances. For web page classification, however, the
+link graph does not readily give such a vector representation for
+web pages. If one directly uses each row or column of A for the job,
+she will suffer a very high computational cost because the 
+dimensionality equals to the number of web pages. On the other hand, it
+will produces a poor classification accuracy (see our experiments
+in Section 5), because A is extremely sparse1
+.
+The idea of link matrix factorization is to derive a high-quality
+feature representation Z of web pages based on analyzing the link
+matrix A, where Z is an n × l matrix, with each row being the 
+ldimensional feature vector of a web page. The new representation
+of web pages captures the principal factors of the link structure and
+makes further processing more efficient.
+One may use a method similar to LSI, to apply the well-known
+principal component analysis (PCA) for deriving Z from A. The
+corresponding optimization problem 2
+is
+min
+Z,U
+A − ZU 2
+F + γ U 2
+F (1)
+where γ is a small positive number, U is an l ×n matrix, and · F
+is the Frobenius norm. The optimization aims to approximate A by
+ZU , a product of two low-rank matrices, with a regularization on
+U. In the end, the i-th row vector of Z can be thought as the hub
+feature vector of vertex vi, and the row vector of U can be thought
+as the authority features. A link generation model proposed in [2] is
+similar to the PCA approach. Since A is a nonnegative matrix here,
+one can also consider to put nonnegative constraints on U and Z,
+which produces an algorithm similar to PLSA [10] and NMF [20].
+1
+Due to the sparsity of A, links from two similar pages may not
+share any common target pages, which makes them to appear 
+dissimilar. However the two pages may be indirectly linked to many
+common pages via their neighbors.
+2
+Another equivalent form is minZ,U A − ZU 2
+F , s. t. U U =
+I. The solution Z is identical subject to a scaling factor.
+However, despite its popularity in matrix analysis, PCA (or other
+similar methods like PLSA) is restrictive for link matrix 
+factorization. The major problem is that, PCA ignores the fact that the rows
+and columns of A are indexed by exactly the same set of objects
+(i.e., web pages). The approximating matrix ˜A = ZU shows no
+evidence that links are within the same set of objects. To see the
+drawback, let"s consider a link transitivity situation vi → vs → vj,
+where page i is linked to page s which itself is linked to page j.
+Since ˜A = ZU treats A as links from web pages {vi} to a 
+different set of objects, let it be denoted by {oi}, ˜A = ZU actually
+splits an linked object os from vs and breaks down the link path
+into two parts vi → os and vs → oj. This is obviously a miss
+interpretation to the original link path.
+To overcome the problem of PCA, in this paper we suggest to
+use a different factorization:
+min
+Z,U
+A − ZUZ 2
+F + γ U 2
+F (2)
+where U is an l × l full matrix. Note that U is not symmetric, thus
+ZUZ produces an asymmetric matrix, which is the case of A.
+Again, each row vector of Z corresponds to a feature vector of a
+web pages. The new approximating form ˜A = ZUZ puts a clear
+meaning that the links are between the same set of objects, 
+represented by features Z. The factor model actually maps each vertex,
+vi, into a vector zi = {zi,k; 1 ≤ k ≤ l} in the Rl
+space. We call
+the Rl
+space the factor space. Then, {zi} encodes the information
+of incoming and outgoing connectivity of vertices {vi}. The 
+factor loadings, U, explain how these observed connections happened
+based on {zi}. Once we have the vector zi, we can use many 
+traditional classification methods (such as SVMs) or clustering tools
+(such as K-Means) to perform the analysis.
+Illustration Based on a Synthetic Problem
+To further illustrate the advantages of the proposed link matrix 
+factorization Eq. (2), let us consider the graph in Figure 1. Given
+v1
+v2
+v3
+v4
+v5
+v6
+v7
+v8
+Figure 2: Summarize Figure 1 with a factor graph
+these observations, we can summarize the graph by grouping as
+factor graph depicted in Figure 2. In the next we preform the two
+factorization methods Eq. (2) and Eq. (1) on this link matrix. A
+good low-rank representation should reveal the structure of the 
+factor graph.
+First we try PCA-like decomposition, solving Eq. (1) and
+obtaining
+Z = U =
+2
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+4
+1. 1. 0 0 0
+0 0 −.6 −.7 .1
+0 0 .0 .6 −.0
+0 0 .8 −.4 .3
+0 0 .2 −.2 −.9
+.7 .7 0 0 0
+.7 .7 0 0 0
+0 0 0 0 0
+3
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+5
+2
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+4
+0 0 0 0 0
+.5 −.5 0 0 0
+.5 −.5 0 0 0
+0 0 −0.6 −.7 .1
+0 0 .0 .6 −.0
+0 0 .8 −.4 .3
+0 0 .2 −.2 −.9
+.7 .7 0 0 0
+3
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+5
+We can see that the row vectors of v6 and v7 are the same in Z,
+indicating that v6 and v7 have the same hub attributes. The row
+vectors of v2 and v3 are the same in U, indicating that v2 and
+v3 have the same authority attributes. It is not clear to see the
+similarity between v4 and v5, because their inlinks (and outlinks)
+are different.
+Then, we factorize A by ZUZ via solving Eq. (2), and obtain
+the results
+Z = U =
+2
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+4
+−.8 −.5 .3 −.1 −.0
+−.0 .4 .6 −.1 −.4
+−.0 .4 .6 −.1 −.4
+.3 −.2 .3 −.4 .3
+.3 −.2 .3 −.4 .3
+−.4 .5 .0 −.2 .6
+−.4 .5 .0 −.2 .6
+−.1 .1 −.4 −.8 −.4
+3
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+5
+2
+6
+6
+6
+6
+6
+6
+6
+6
+4
+−.1 −.2 −.4 .6 .7
+.2 −.5 −.5 −.5 .0
+.1 .1 .4 −.4 .3
+.1 −.2 −.0 .3 −.1
+−.3 .3 −.5 −.4 −.2
+3
+7
+7
+7
+7
+7
+7
+7
+7
+5
+The resultant Z is very consistent with the clustering structure
+of vertices: the row vectors of v2 and v3 are the same, those
+of v4 and v5 are the same, those of v6 and v7 are the same.
+Even interestingly, if we add constraints to ensure Z and U be
+nonnegative, we have
+Z = U =
+2
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+6
+4
+1. 0 0 0 0
+0 .9 0 0 0
+0 .9 0 0 0
+0 0 .7 0 0
+0 0 .7 0 0
+0 0 0 .9 0
+0 0 0 .9 0
+0 0 0 0 1.
+3
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+7
+5
+2
+6
+6
+6
+6
+6
+6
+6
+6
+4
+0 1. 0 0 0
+0 0 .7 0 0
+0 0 0 .7 0
+0 0 0 0 1.
+0 0 0 0 0
+3
+7
+7
+7
+7
+7
+7
+7
+7
+5
+which clearly tells the assignment of vertices to clusters from Z
+and the links of factor graph from U. When the interpretability is
+not critical in some tasks, for example, classification, we found that
+it achieves better accuracies without the nonnegative constraints.
+Given our above analysis, it is clear that the factorization ZUZ
+is more expressive than ZU in representing the link matrix A.
+3.2 Content Matrix Factorization
+Now let us consider the content information on the vertices. To
+combine the link information and content information, we want to
+use the same latent space to approximate the content as the latent
+space for the links. Using the bag-of-words approach, we denote
+the content of web pages by an n×m matrix C, each of whose rows
+represents a document, each column represents a keyword, where
+m is the number of keywords. Like the latent semantic indexing
+(LSI) [8], the l-dimensional latent space for words is denoted by an
+m × l matrix V . Therefore, we use ZV to approximate matrix
+C,
+min
+V,Z
+C − ZV 2
+F + β V 2
+F , (3)
+where β is a small positive number, β V 2
+F serves as a 
+regularization term to improve the robustness.
+3.3 Joint Link-Content Matrix Factorization
+There are many ways to employ both the content and link 
+information for web page classification. Our idea in this paper is not to
+simply combine them, but rather to fuse them into a single, 
+consistent, and compact feature representation. To achieve this goal, we
+solve the following problem,
+min
+U,V,Z
+n
+J (U, V, Z)
+def
+= A − ZUZ 2
+F +
+α C − ZV 2
+F + γ U 2
+F + β V 2
+F
+o
+.
+(4)
+Eq. (4) is the joined matrix factorization of A and C with 
+regularization. The new representation Z is ensured to capture both the
+structures of the link matrix A and the content matrix C. Once
+we find the optimal Z, we can apply the traditional classification
+or clustering methods on vectorial data Z. The relationship among
+these matrices can be depicted as Figure 3.
+A Y C
+U Z V
+Figure 3: Relationship among the matrices. Node Y is the 
+target of classification.
+Eq. (4) can be solved using gradient methods, such as the 
+conjugate gradient method and quasi-Newton methods. Then main 
+computation of gradient methods is evaluating the object function J
+and its gradients against variables,
+∂J
+∂U
+=
+
+Z ZUZ Z − Z AZ
+
++ γU,
+∂J
+∂V
+=α
+
+V Z Z − C Z
+
++ βV,
+∂J
+∂Z
+=
+
+ZU Z ZU + ZUZ ZU − A ZU − AZU
+
++ α
+
+ZV V − CV
+
+.
+Because of the sparsity of A, the computational complexity of
+multiplication of A and Z is O(µAl), where µA is the number of
+nonzero entries in A. Similarly, the computational complexity of
+C Z and CV is O(µC l), where µC is the number of nonzero
+entries in C. The computational complexity of the rest 
+multiplications in the gradient computation is O(nl2
+). Therefore, the total
+computational complexity in one iteration is O(µAl + µC l + nl2
+).
+The number of links and the number of words in a web page are
+relatively small comparing to the number of web pages, and are 
+almost constant as the number of web pages/documents increases, i.e.
+µA = O(n) and µC = O(n). Therefore, theoretically the 
+computation time is almost linear to the number of web pages/documents,
+n.

@@ -1,0 +1,27 @@
+Coping with bandwidth  variations, heterogeneity and asymmetry are particularly  important in design of peer-to-peer overlay for streaming  applications because delivered quality to each peer is directly determined by its bandwidth connectivity to (other peer(s) on) the overlay.
+The main design philosophy in PRO is that each peer should be allowed to independently and selfishly  determine the best way to connect to the overlay in order to maximize its own delivered quality.
+In our earlier work, we developed a mechanism called PALS [18] that enables a  receiver to stream layered structured content from a given set of congestion controlled senders.
+PRO consists of two key components: (i) Gossip-based Peer Discovery: Each peer periodically exchanges message (i.e., gossips) with other known peers to progressively learn about a subset of participating peers in the overlay that are likely to be good parents.
+The rest of this paper is organized as follows: In Section 2, we revisit the problem of overlay construction for  peerto-peer streaming and identify its two key components and explore their design space.
+Since overlay structures are layered over the best-effort Internet, any approach for constructing  overlay should address the following fundamental challenges: (i) Scalability with the number of participating peers, (ii)  Robustness to dynamics of peer participation, (iii) Adaptation to variations of network bandwidth, and (iv)  Accommodating heterogeneity and asymmetry of bandwidth connectivity among participating peers[19].
+Since the available bandwidth from different participating peers to a receiver (and possible  correlation among them) can be measured only at that receiver, a receiver-driven approach is the natural solution to maximize available bandwidth to heterogeneous peers.
+PRO incorporates 42 several damping functions to ensure stability of the overlay despite uncoordinated actions by different peers.
+In this paper, we primarily focus on the overlay construction mechanism, or PRO.
+This paper presents a simple framework for architecting Peer-to-peer Receiver-driven Overlay, called PRO.
+(ii) Receiver-driven Parent Selection: Given the collected  information about other participating peers by gossiping  mechanism, each peer (or receiver) gradually improves its own delivered quality by dynamically selecting a proper subset of parent peers that collectively maximize provided  bandwidth to the receiver.
+Limited deployment of IP multicast has motivated a new distribution paradigm over the Internet based on overlay networks where a group of participating end-systems (or peers) form an overlay structure and actively participate in distribution of content without any special support from the network (e.g., [7]).
+Furthermore, having multiple parent peers accommodates bandwidth  heterogeneity and asymmetry while improves resiliency against dynamics of peer participation.
+This division of functionality provides a great deal of  flexibility because it decouples overlay construction from delivery mechanism.
+Gossiping provides a  scalable and efficient approach to peer discovery in unstructured peer-to-peer networks that can be customized to guide  direction of discovery towards peers with desired properties (e.g., peers with shorter distance or higher bandwidth).
+More specifically, PRO determines a proper subset of parent peers that collectively maximize delivered bandwidth to each  receiver whereas PALS coordinates in-time streaming of  different segments of multimedia content from these parents despite unpredictable variations in their available bandwidth.
+Therefore, participating peers form an unstructured overlay that can gracefully cope with high churn rate[5].
+Independent parent selection by individual peers leads to an efficient overlay that maximizes delivered quality to each peer.
+PRO is part of a larger architecture that we have  developed for peer-to-peer streaming.
+Furthermore, the available bandwidth from parent peers serves as an  implicit signal for a receiver to detect and react to changes in network or overlay condition without any explicit  coordination with other participating peers.
+We illustrate the differences  between PRO and previous solutions, and justify our design choices.
+Toward this end, each peer can connect to the overlay topology at multiple points (i.e., receive content through multiple parent peers).
+PRO can accommodate a spectrum of non-interactive streaming  applications ranging from playback to lecture-mode live  sessions.
+In Sections 4 and 5, the key components of our framework are described in further detail.
+Thus, PRO and PALS are both receiver-driven but complement each other.
+We present our proposed framework in Section 3.
+Finally, Section 6 concludes the paper and presents our future plans. 

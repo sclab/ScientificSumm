@@ -1,0 +1,4 @@
+Invalidations, updates or collected update acknowledgements lost at the crashed redirector could prevent the garbage collection of pending invalidations at the servers or the vcache in the clients.
+Any response to an earlier request  initiated by the failed client is ignored except a commit reply, in which case the redirector distributes the retained committed updates to active clients caching the modified pages.
+Recall that BuddyCache transaction validation uses two complementary mechanisms, page  version numbers and invalidation acknowledgements from the clients, to check that a transaction has read up-to-date data.
+In the case of a client failure , the failover removes 

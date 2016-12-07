@@ -1,0 +1,53 @@
+The trends for the PoA, OPoA, and Ratio are similar to the results for the line topology, with a peak in PoA at α = 0.8 due to maximal undersupply.
+We observe in Figure 5 that more replicas are placed with payments than without when α is between 0.7 and 1.3, the only range of significant undersupply in the power-law case.
+As shown in the analysis, the simulations achieve OPoA close to one (it is not exactly one because of randomness in the simulations).
+In order to get a clear picture of the dependency of PoA on α in a simple case, we first analyze the basic game with a 100-node line topology whose edge distance is one.
+We examine price of anarchy (PoA), optimistic price of anarchy (OPoA), and the average ratio of the costs of Nash equilibria and social optima (Ratio), and when relevant we also show the average numbers of replicas placed by the Nash equilibrium (Replica(NE)) and the social optimum (Replica(SO)).
+The peak in PoA at α = 100 occurs at the point for a 100-node line where the worst-case cost of accessing a remote replica is slightly less than the cost of placing a new replica, so  selfish servers will never place a second replica.
+The Ratio for the payment game is much lower than the Ratio for the basic game, since the protocol for the payment game tends to explore good regions in the space of Nash  equilibria.
+The details of the simulations including protocols and a  discussion of convergence are presented in Appendix C. In our evaluation, we study the effects of variation in four  categories: placement cost, underlying topology, demand distribution, and payments.
+We observe in Figure 4 that for α ≥ 0.4, the average number of replicas of Nash equilibria gets closer with payments to that of the social optimum than it does without.
+We run simulations to compare Nash equilibria for the  singleobject caching game with the social optimum computed by solving the integer linear program described in Equation 8 using Mosek [1].
+0.8 1 1.2 1.4 1.6 1.8 2 2.2 2.4 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 1 10 100 C(NE)/C(SO) AverageNumberofReplicas alpha PoA Ratio OPoA Replica (SO) Replica (NE) (a) 0.8 1 1.2 1.4 1.6 1.8 2 2.2 2.4 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 1 10 100 C(NE)/C(SO) AverageNumberofReplicas alpha PoA Ratio OPoA Replica (SO) Replica (NE) (b) Figure 5: Power-law topology: (a) basic game, (b) payment game.
+The OPoA is equal to one in the figure when the same number of replicas are placed.
+5.1 Varying Placement Cost Figure 3 shows PoA, OPoA, and Ratio, as well as number of replicas placed, for the line topology as α varies.
+We do not present the graph due to space limitations and redundancy; the PoA for p = 1.0 is identical to PoA in Figure 4(a), and the lines for p = 0.6 and p = 0.2 are similar but lower and flatter.
+In Figure 5(a) we examine an overlay graph on the power-law topology.
+As p decreases, the number of replicas placed in the social optimum decreases, but the number in Nash equilibria changes little.
+First, the PoA peaks at a lower level in the power-law graph, around 2.3 (at α = 0.9) while the peak PoA in the transit-stub topology is almost 3.0 (at α = 0.8).
+The set of servers with demand is random for p < 1, so we  calculate the expected PoA by averaging over 5 trials (each data point is based on 5000 runs).
+These behaviors can be explained by examining the number of replicas placed by Nash equilibria and by optimal solutions.
+5.2 Different Underlying Topologies In Figure 4(a) we examine an overlay graph on the more realistic transit-stub topology.
+Indeed the high PoA is due mostly to  misplacement problems when α is from 0.7 to 2.0, since there is little decrease in PoA when the number of replicas in social optimum changes from two to one.
+We show the P oA, Ratio, OP oA, and the number of replicas placed while varying α between 0 and 2 with 100 servers on a 3050-physical-node transit-stub topology.
+We run simulations for demand levels of p ∈ {0.2, 0.6, 1.0} as α is varied on the 100 servers on top of the transit-stub graph.
+The PoA and OPoA are taken from the worst and best Nash equilibria, respectively, that we observe over the runs.
+26 0.8 1 1.2 1.4 1.6 1.8 2 2.2 2.4 2.6 2.8 3 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 1 10 100 C(NE)/C(SO) AverageNumberofReplicas alpha PoA Ratio OPoA Replica (SO) Replica (NE) (a) 0.8 1 1.2 1.4 1.6 1.8 2 2.2 2.4 2.6 2.8 3 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 1 10 100 C(NE)/C(SO) AverageNumberofReplicas alpha PoA Ratio OPoA Replica (SO) Replica (NE) (b) Figure 4: Transit-stub topology: (a) basic game, (b) payment game.
+This can be explained by the observation in Figure 5(a) that there is no significant undersupply problem here like there was in the transit-stub graph.
+We create an overlay of 100 server nodes and use the same overlay for all experiments with the given topology.
+We show the P oA, Ratio, OP oA, and the number of replicas placed while varying α between 0 and 2 with 100 servers on a 3050-physical-node power-law topology.
+We observe several interesting differences between the power-law and transit-stub results.
+For example, when α is 100, the social optimum places four replicas, but the Nash equilibrium places only one.
+As we vary the placement cost α, we directly  influence the tradeoff between caching and not caching.
+In the game, each server has a demand whose distribution is Bernoulli(p), where p is the probability of having demand for the object; the default unless otherwise specified is p = 1.0.
+We also explore transit-stub topologies generated using the  GTITM library [36] and power-law topologies (Router-level  BarabasiAlbert model) generated using the BRITE topology generator [25].
+We see that when α is above one, Nash equilibrium solutions place fewer replicas than optimal on average.
+After the peak, PoA and Ratio decrease more slowly as α  increases.
+As α increases the PoA rises quickly to a peak at 100.
+As α continues to increase, the undersupply problem lessens as the optimal solution places fewer replicas.
+For these topologies, we generate an underlying physical graph of 3050 physical nodes.
+OPoA is close to one for the whole range of α values.
+Furthermore, when α exceeds the overlay diameter, the number in Nash equilibria stays constant when p varies.
+The optimal solution, however, places multiple replicas to decrease the high global cost of access.
+5.3 Varying Demand Distribution Now we examine the effects of varying the demand distribution.
+Each data point in our figures is based on 1000 runs, randomly varying the initial strategy profile and player order.
+We observe that as demand falls, so does expected PoA.
+The results confirm that payments give servers incentive to replicate the object and this leads to better equilibria. 
+OPoA and Ratio show behavior similar to PoA.
+Both topologies have similar minimum,  average, and maximum physical node distances.
+After 100, there is a gradual decline.
+27 5.4 Effects of Payment Finally, we discuss the effects of payments on the efficiency of Nash equilibria.
+Therefore, lower p leads to a lesser undersupply problem, agreeing with intuition.
+The results are presented in Figure 4(b) and  Figure 5(b).
+We observe two phases.
+The average distance is 0.42.

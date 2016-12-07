@@ -1,0 +1,38 @@
+this may be unnecessary as the number of possible clients is large enough with two levels. 
+3d plot of capacity versus optimum number of domains for various conference sizes of course, one could further create a third level in the hierarchy, giving the possibility of accommodating even more clients.
+we can then calculate the maximum theoretical number of active clients cumi ⋅= in each domain as well as m, for the whole conference as cudm ⋅⋅= .
+with this mechanism, the m-cs will be able to create utmost     −⋅− = max max n dnc u )1( s-css, (10) as it must handle 3 (= nmax) packets for each local s-css and 3 (= nmax) packets from each other remote domains.
+the m-cs has to create more s-css if the number of active clients exceeds c in the course of the conference after the transfer.
+each newly created s-cs must run on a separate machine.
+here, the system works differently as outlined in section 6.1: the clients send their audio packets to their local s-cs, which selects nmax streams, before sending them to a local m-cs, which will proceed in the same way, before sending nmax streams to the other domains.
+6. the existing m-cs creates a slave cs (s-cs) that can handle up to c end-users and to which it transfers all its active clients.
+this problem can be solved by introducing a second level of css inside the given domain, as in fig.
+4. contour plot of capacity versus optimum number of domains for various conference sizes 7.2 conferencing with two levels of css now considering the case where the number of clients in a particular domain is too large, i.e., d m mi ≥ (9) one has to avoid the denial of service for new clients due to overloading of conference server.
+5 represents a different perspective of the same data in 3d.
+4, the individual curves represent the total number of clients targeted, and we select a lower value of d, for capacity c, for targeted m to reduce traffic on wan.
+in fig.
+these lead us to maximize the number of domains, and hence, to maximize the total number of clients based on the capacity of various css.
+5, a 3d-mesh showing optimized solutions for css of different capacities.
+4 shows a contour plot and fig.
+but with the advent of faster computers (> 3 ghz), one can easily set c to higher values and determine d and m accordingly.
+while implementing and testing the conference servers on a pentium iii 1.4 ghz running windows nt, we were able to set c=300.
+we see that there is a trade-off between m and d. we could admit more domains in the conference, but at the expense of restricting the total number of clients m in the conference.
+c d m 50 9 234 100 17 884 150 26 1950 200 34 3434 250 42 5334 300 51 7650 350 59 10384 400 67 13534 450 76 17100 500 84 21084 table 1. values of d and m computed for some values of c with nmax = 3. in table 1, we give the values of d and m that were computed using (8) and (6) with nmax = 3. we see that the values of d and m, being dependent of c, are therefore based on the weakest cs.
+clearly then, the following inequality must hold for every domain: )1( −⋅+≥ dn d m c max (5) the limiting case of (5) (taking the equality) takes the form 2 )( dndncm maxmax ⋅−⋅+= (6) to optimize d with respect to m, we set 0)(2 =+−⋅⋅= ∂ ∂ maxmax ncdn d m (7) yielding     ⋅ + = max max n nc d 2 (8) ([ ]* = rounding to nearest integer) and hence, m from (6).
+for system stability, any cs in the conference should be able to handle its local clients in addition to the audio packets from other domains.
+in parallel, it also receives nmax streams for every other css before taking a decision on which nmax streams will be selected, sent and played out at each individual clients.
+we consider that the system works as outlined in section 6.1: the clients send their audio packets to their local cs, which selects nmax streams, before sending them to other css.
+thus it cannot be overloaded.
+we can specify no more than an upper bound on the number of clients acceptable, given the number of active domains d. 7.1 conferencing with only one level of css in this subsection, we consider that we have only one cs, i.e., a unique m-cs in each domain.
+we assume that clients are equally distributed amongst the domains, as we may not have information to assume an a-priori distribution of the clients.
+the optimization problem is now to find the value of d that maximizes the total number of clients mi served by one cs in a domain with capacity c. we first dispose the case where the capacity is not exceeded (the existing cs is not overloaded), and then proceed to the case where there exists a need to create more css when a single cs is overloaded.
+we will set nmax =3 (=|f|), according to [15].
+ let nmax be the number of output streams a cs has to send to other css in remote domains (see section 6.1).
+c is set according to the processing power of the weakest cs in the conference but as it cannot be assumed that we know it a-priori, it can be set according to some minimum system requirement a machine must meet in order to take part in a conference.
+ let c be the maximum number of audio streams a conference server can handle in a packet time, also called capacity.
+the total number of active clients in the conference is thus ∑= = d i imm 1 .
+ let mi be the number of active clients present in domain i ( di ≤≤1 ) in a given conference.
+ let d be the number of different domains in which there are active clients in a given conference.
+to address this, we define some useful parameters.
+how are domains to be organized to maximize the number of participants able to join?
+we now analyze deployment issues associated with conference management.

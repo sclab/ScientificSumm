@@ -1,0 +1,32 @@
+The importance that we attribute to disconnections makes  persistence a vital requirement for any middleware that needs to be used in mobile ad-hoc networks.
+THE ART The design of middleware platforms for mobile  computing requires researchers to answer new and fundamentally different questions; simply assuming the presence of wired portions of the network on which centralised functionality can reside is not generalisable.
+We can summarise this conceptual design approach by saying that middleware platforms must be not only context-aware (i.e., they should be able to  extract and analyse information from the surrounding context) but also system-aware (i.e., they should be able to gather information from the software and hardware components of the mobile system).
+Different configurations of these components are possible; with respect to mobile ad hoc networks applications, the most interesting is  Serverless JMS.
+In fact, we have added the epidemic network protocol at middleware level and, at the same time, we have used the existing synchronous network protocol if present both in delivering messages (traditional layering) and in informing the middleware about when  messages may be delivered by revealing details of the forwarding tables (layer violation).
+The main  components of this typically infrastructure-based architecture are the JMS provider, the so-called mobile JMS gateway, which is deployed on a fixed host and a lightweight JMS client library.
+This work is again a JMS adaptation; the focus of that implementation is on group communication and the use of application level  routing algorithms for topic delivery of messages.
+Thus, it is necessary to  investigate novel design principles and to devise architectural patterns that differ from those traditionally exploited in the design of middleware for fixed systems.
+The gateway is used for the communication between the application server and mobile hosts.
+A number of middleware systems have been developed to support ad-hoc networking with the use of asynchronous communication (such as LIME, XMIDDLE, STEAM [11]).
+The platform is composed of three classes of components: mobile clients implementing the JMS specification, gateways that control traffic,  guaranteeing efficiency and possible user customizations using different plug-ins and JMS servers.
+Again, as a result of adopting a cross-layering methodology, we are able to build systems that gather information from the underlying operating  system and communication components in order to allow for adaptation of behaviour.
+The aim of this configuration is to adapt JMS to a decentralized model.
+In particular, the STEAM platform is an interesting  example of event-based middleware for ad-hoc networks,  providing location-aware message delivery and an effective solution for event filtering.
+The publish-subscribe model  exploits the efficiency and the scalability of the underlying IP multicast protocol.
+This is a way of re-thinking software systems design, explicitly abandoning the classical forms of layering, since, although this separation of concerns afford portability, it does so at the expense of potential efficiency gains.
+Pronto [19] is an example of  mid125 Middleware 2004 Companion dleware system based on messaging that is specifically  designed for mobile environments.
+Another interesting aspect is the exploitation of context and system information to improve the performance of  mobile middleware platforms.
+This is a remarkable limitation in mobile settings where unpredictable disconnections are the norm rather than the exception. 
+For this reason, we prefer to  consider them jointly as the communication layer of our  platform together providing more efficient message delivery.
+The JMS provider can be any JMS-enabled application server, such as BEA Weblogic.
+Pronto represents a good solution for infrastructure-based mobile networks but it does not adequately target ad-hoc settings, since mobile nodes rely on fixed servers for the exchange of messages.
+We believe that it is possible to view our approach as an instance of cross-layering.
+Other MOM implemented for mobile environments exist; however, they are usually straightforward extensions of  existing middleware [8].
+Unreliable and reliable message delivery services are provided: reliability is provided through a  negative acknowledgment-based protocol.
+The only implementation of MOM specifically designed for mobile ad-hoc networks was  developed at the University of Newcastle [18].
+A discussion of JMS, and its mobile realisation, has  already been conducted in Sections 4 and 2.
+The authors of [18] signal persistence as possible future work, not considering the fact that routing a message to a non-connected host will result in delivery failure.
+As an example, consider the recent cross-layering trend in ad-hoc networking [1].
+The Swiss  company Softwired has developed the first JMS middleware for mobile computing, called iBus Mobile [10].
+However, there are a number of differences in the focus of our work.
+The  gateway is seen by the JMS provider as a normal JMS client.

@@ -1,0 +1,36 @@
+finally, we give some conclusions and directions for future research. 
+section 4 presents evaluation results.
+next, we describe our approach for handling place names in queries, starting with the general approach for disambiguating place references over textual strings, then presenting the method for splitting a query into a < what,relation,where > triple, and finally discussing the  technique for exploiting geographic scopes previously assigned to  documents in the result set.
+we first formalize the problem and describe related work to our research.
+the rest of this paper is organized as follows.
+experiments with clef topics [4] and sample queries from a web search engine show that the proposed methods are accurate, and may have applications in improving search results.
+by doing this, we assume that the most frequent geographical scope in the results should correspond to the geographical context implicit in the query.
+when we cannot detect any locations, we attempt to use geographical scopes previously inferred for the documents at the top search results.
+disambiguation results in having the where term, from the triple above, associated with the most likely  corresponding concepts from the ontology.
+more important places are preferred).
+we use a search procedure that combines textual patterns with geographical names defined at an ontology, and we use  heuristics to disambiguate the discovered references (e.g.
+disambiguating place references is one of the most important aspects.
+the query does not contain any place references, we try using information from documents matching the query, exploiting geographic scopes  previously assigned to these documents.
+when this is not possible, i.e.
+each query is split into a triple < what,relation,where >, where what specifies the non-geographic aspect of the information need, where specifies the geographic  areas of interest, and relation specifies a spatial relationship  connecting what and where.
+this paper proposes simple and yet effective techniques for  handling place references over queries.
+in these cases, place name extraction and disambiguation does not give any results, and we need to access other sources of information.
+queries can also be geographic without containing any explicit reference to locations at the dictionary.
+for example the query denzel  washington contains the place name washington, but the query is not geographical.
+simple named entity recognition (ner) algorithms, based on dictionary look-ups for geographical names, may  introduce high false positives for queries whose location names do not constitute place references.
+when the query does not explicitly contain a place reference but it is nonetheless  geographical).
+key challenges in handling locations over search engine queries include their detection and disambiguation, the ranking of possible candidates, the detection of false positives (i.e not all contained  location names refer to geographical locations), and the detection of implied locations by the context of the query (i.e.
+how to automatically understand what the user  intended, given a search query, without putting the burden in the user himself, remains an open text mining problem.
+moreover, the data is also noisier and more versatile in form, and we have to deal with misspellings, multilingualism and acronyms.
+search engine queries are more difficult to handle, in the sense that they are very short and with implicit and subjective user intents.
+however, this body of research has been focused on processing web pages and full-text documents.
+text mining methods have been successfully used in gir to  detect and disambiguate geographical references in text [9], or even to infer geographic scopes for documents [1, 13].
+queries with a local intent are best answered with localized pages, while queries without any geographical  references are best answered with broad pages [5].
+detecting locations in queries is also important for  generalpropose search engines, as this information can be used to improve ranking algorithms.
+accurately and effectively detecting location references in search  engine queries is a crucial aspect of these systems, as they are  generally based on interpreting geographical terms differently from the others.
+systems that  access resources on the basis of geographic context are starting to appear, both in the academic and commercial domains [4, 7].
+nowadays, gir is getting increasing attention.
+one of the concerns of geographical information retrieval (gir) lies in appropriately handling such queries, bringing better targeted search results and improving user satisfaction.
+the location reference is not present in the query string, but the query clearly has a local intent [17]).
+a location reference is given as part of the query) or implicitly (i.e.
+search engine queries are often associated with geographical  locations, either explicitly (i.e.

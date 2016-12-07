@@ -1,0 +1,42 @@
+The StarDust localization framework, depicted in Figure
+2, is flexible in that it enables the development of new 
+localization systems, based on the four proposed label 
+relaxation schemes, or the inclusion of other, yet to be invented,
+schemes. For our performance evaluation we implemented a
+version of the StarDust framework, namely the one proposed
+in Section 3.3.5, where the constraints are based on color and
+connectivity.
+The Central device of the StarDust system consists of the
+following: the Light Emitter - we used a 
+common-off-theshelf flash light (QBeam, 3 million candlepower); the 
+image acquisition was done with a 3 megapixel digital camera
+(Sony DSC-S50) which provided the input to the Image 
+Processing algorithm, implemented in Matlab.
+For sensor nodes we built a custom sensor node, called
+SensorBall, with self-righting capabilities, shown in Figure
+9(a). The self-righting capabilities are necessary in order to
+orient the CCR predominantly upwards. The CCRs that we
+used were inexpensive, plastic molded, night time warning
+signs commonly available on bicycles, as shown in Figure
+9(b). We remark here the low quality of the CCRs we used.
+The reflectivity of each CCR (there are tens molded in the
+plastic container) is extremely low, and each CCR is not built
+with mirrors. A reflective effect is achieved by employing
+finely polished plastic surfaces. We had 5 colors available,
+in addition to the standard CCR, which reflects all the 
+incoming light (white CCR). For a slightly higher price (ours
+were 20cents/piece), better quality CCRs can be employed.
+64
+Figure 10. The field in the dark Figure 11. The illuminated field Figure 12. The difference: Figure 
+10Figure 11
+Higher quality (better mirrors) would translate in more 
+accurate image processing (better sensor node detection) and
+smaller form factor for the optical component (an array of
+CCRs with a smaller area can be used).
+The sensor node platform we used was the micaZ mote.
+The code that runs on each node is a simple application
+which broadcasts 100 beacons, and maintains a neighbor 
+table containing the percentage of successfully received 
+beacons, for each neighbor. On demand, the neighbor table is
+reported to a base station, where the node ID mapping is 
+performed.

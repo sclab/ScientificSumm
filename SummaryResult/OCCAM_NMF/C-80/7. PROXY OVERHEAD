@@ -1,0 +1,13 @@
+while some extra latency is added by the proxy-based design, it is usually imperceptible. 
+thus, even for much faster networks where the wan link is not the bottleneck, ganesh always delivers throughput equivalent to native.
+the only exception to the above results was seen in the filter variant of the bboard benchmark where ganesh at 1600 test clients added 0.85 seconds to the average response time.
+even for the auction  benchmark, the difference between native and ganesh"s response time at 100 mb/s was never greater than 0.02 seconds.
+the results from the filter variant of the bboard benchmarks are similar.
+the browsing mix shows an even smaller difference in average response times.
+while the  average response time is higher for ganesh, the absolute difference is in between 0.01 and 0.04 seconds and would be imperceptible to the end-user.
+ganesh, however, still tracks native in terms of throughput.
+looking at the authoring mix of the original bboard  benchmark, there are no visible gains from ganesh at 100 mb/s.
+it is only at higher bandwidths that  latency, measured by the average response time for a client request, and throughput, measured by the number of client requests that can be serviced per second, overheads would be visible.
+our evaluation in section 5 showed that ganesh, when compared to native, can deliver a substantial throughput  improvement at lower bandwidths.
+to  answer this question, we concentrate on its performance at the higher bandwidths.
+in this section, we address the third question raised in section 4: is the overhead of ganesh"s proxy-based design acceptable?

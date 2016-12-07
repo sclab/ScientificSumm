@@ -1,0 +1,465 @@
+In this section, we carry out our research on high-quality
+photo search. We first briefly introduce the newly proposed
+vertical image search engine - EnjoyPhoto in section 3.1.
+Then we focus on how to rank photos from different Web
+forums. In order to do so, we first normalize the scores
+(ratings) for photos from different multiple Web forums in
+section 3.2. Then we try to find duplicate photos in section
+3.3. Some intermediate results are discussed using δ measure
+in section 3.4. Finally a set of user studies is carried out
+carefully to justify our proposed method in section 3.5.
+3.1 EnjoyPhoto: high-quality Photo Search
+Engine
+In order to meet user requirement of enjoying high-quality
+photos, we propose and build a high-quality photo search 
+engine - EnjoyPhoto, which accounts for the following three
+key issues: 1. how to crawl and index photos, 2. how to
+determine the qualities of each photo and 3. how to 
+display the search results in order to make the search process
+enjoyable. For a given text based query, this system ranks
+the photos based on certain combination of relevance of the
+photo to this query (Issue 1) and the quality of the photo
+(Issue 2), and finally displays them in an enjoyable manner
+(Issue 3).
+As for Issue 3, we devise the interface of the system 
+deliberately in order to smooth the users" process of enjoying
+high-quality photos. Techniques, such as Fisheye and slides
+show, are utilized in current system. Figure 5 shows the
+interface. We will not talk more about this issue as it is not
+an emphasis of this paper.
+Figure 5: EnjoyPhoto: an enjoyable high-quality
+photo search engine, where 26,477 records are 
+returned for the query fall in about 0.421 seconds
+As for Issue 1, we extracted from a commercial search 
+engine a subset of photos coming from various photo forums
+all over the world, and explicitly parsed the Web pages 
+containing these photos. The number of photos in the data 
+collection is about 2.5 million. After the parsing, each photo
+was associated with its title, category, description, camera
+setting, EXIF data 1
+(when available for digital images), 
+location (when available in some photo forums), and many
+kinds of ratings. All these metadata are generally precise
+descriptions or annotations for the image content, which are
+then indexed by general text-based search technologies [9,
+18, 11]. In current system, the ranking function was 
+specifically tuned to emphasize title, categorization, and rating
+information.
+Issue 2 is essentially dealt with in the following sections
+which derive the quality of photos by analyzing ratings 
+provided by various Web photo forums. Here we chose six photo
+forums to study the ranking problem and denote them as
+Web-A, Web-B, Web-C, Web-D, Web-E and Web-F.
+3.2 Photo Score Normalization
+Detailed analysis of different score normalization 
+methods are analyzed in this section. In this analysis, the zero
+1
+Digital cameras save JPEG (.jpg) files with EXIF 
+(Exchangeable Image File) data. Camera settings and scene
+information are recorded by the camera into the image file.
+www.digicamhelp.com/what-is-exif/
+382
+0 2 4 6 8 10
+0
+1000
+2000
+3000
+4000
+Normalized Score
+TotalNumber
+(a) Web-A
+0 2 4 6 8 10
+0
+0.5
+1
+1.5
+2
+2.5
+3
+x 10
+4
+Normalized Score
+TotalNumber
+(b) Web-B
+0 2 4 6 8 10
+0
+0.5
+1
+1.5
+2
+x 10
+5
+Normalized Score
+TotalNumber
+(c) Web-C
+0 2 4 6 8 10
+0
+2
+4
+6
+8
+10
+x 10
+4
+Normalized Score
+TotalNumber
+(d) Web-D
+0 2 4 6 8 10
+0
+2000
+4000
+6000
+8000
+10000
+12000
+14000
+Normalized Score
+TotalNumber
+(e) Web-E
+0 2 4 6 8 10
+0
+1
+2
+3
+4
+5
+6
+x 10
+4
+Normalized Score
+TotalNumber
+(f) Web-F
+Figure 6: Distributions of mean scores normalized
+to [0, 10]
+scores that usually occupy about than 30% of the total 
+number of photos for some Web forums are not currently taken
+into account. How to utilize these photos is left for future
+explorations.
+In Figure 6, we list the distributions of the mean score,
+which is transformed to a fixed interval [0, 10]. The 
+distributions of the average scores of these Web forums look quite
+different. Distributions in Figure 6(a), 6(b), and 6(e) looks
+like Gaussian distributions, while those in Figure 6(d) and
+6(f) are dominated by the top score. The reason of these
+eccentric distributions for Web-D and Web-F lies in their
+coarse rating systems. In fact, Web-D and Web-F use 2 or
+3 point rating scales whereas other Web forums use 7 or 14
+point rating scales. Therefore, it will be problematic if we
+directly use these averaged scores. Furthermore the average
+score is very likely to be spammed, if there are only a few
+users rating a photo.
+Figure 7 shows the total score normalization method by
+maximal and minimal scores, which is one of our base line
+system. All the total scores of a given Web forum are 
+normalized to [0, 100] according to the maximal score and 
+minimal score of corresponding Web forum. We notice that total
+score distribution of Web-A in Figure 7(a) has two larger
+tails than all the others. To show the shape of the 
+distributions more clearly, we only show the distributions on [0, 25]
+in Figure 7(b),7(c),7(d),7(e), and 7(f).
+Figure 8 shows the Mode-90% Percentile normalization
+method, where the modes of the six distributions are 
+normalized to 5 and the 90% percentile to 8. We can see that
+this normalization method makes the distributions of total
+scores in different forums more consistent. The two proposed
+algorithms are all based on these normalization methods.
+3.3 Duplicate photo detection
+Targeting at computational efficiency, the Dedup 
+algorithm may lose some recall rate, but can achieve a high
+precision rate. We also focus on finding precise hidden links
+rather than all hidden links. Figure 9 shows some duplicate
+detection examples. The results are shown in Table 1 and
+verify that large numbers of duplicate photos exist in any
+two Web forums even with the strict condition for Dedup
+where we chose first 29 bits as the hash code. Since there
+are only a few parameters to estimate in the proposed fusion
+methods, the numbers of duplicate photos shown Table 1 are
+0 20 40 60 80 100
+0
+100
+200
+300
+400
+500
+600
+Normalized Score
+TotalNumber
+(a) Web-A
+0 5 10 15 20 25
+0
+1
+2
+3
+4
+5
+x 10
+4
+Normalized Score
+TotalNumber
+(b) Web-B
+0 5 10 15 20 25
+0
+1
+2
+3
+4
+5
+x 10
+5
+Normalized Score
+TotalNumber
+(c) Web-C
+0 5 10 15 20 25
+0
+0.5
+1
+1.5
+2
+2.5
+x 10
+4
+Normalized Score
+TotalNumber
+(d) Web-D
+0 5 10 15 20 25
+0
+2000
+4000
+6000
+8000
+10000
+Normalized Score
+TotalNumber
+(e) Web-E
+0 5 10 15 20 25
+0
+0.5
+1
+1.5
+2
+2.5
+3
+x 10
+4
+Normalized Score
+TotalNumber
+(f) Web-F
+Figure 7: Maxmin Normalization
+0 5 10 15
+0
+200
+400
+600
+800
+1000
+1200
+1400
+Normalized Score
+TotalNumber
+(a) Web-A
+0 5 10 15
+0
+1
+2
+3
+4
+5
+x 10
+4
+Normalized Score
+TotalNumber
+(b) Web-B
+0 5 10 15
+0
+2
+4
+6
+8
+10
+12
+14
+x 10
+4
+Normalized Score
+TotalNumber
+(c) Web-C
+0 5 10 15
+0
+0.5
+1
+1.5
+2
+2.5
+x 10
+4
+Normalized Score
+TotalNumber
+(d) Web-D
+0 5 10 15
+0
+2000
+4000
+6000
+8000
+10000
+12000
+Normalized Score
+TotalNumber
+(e) Web-E
+0 5 10 15
+0
+2000
+4000
+6000
+8000
+10000
+Normalized Score
+TotalNumber
+(f) Web-F
+Figure 8: Mode-90% Percentile Normalization
+sufficient to determine these parameters. The last table 
+column lists the total number of photos in the corresponding
+Web forums.
+3.4 δ Measure
+The parameters of the proposed linear and nonlinear 
+algorithms are calculated using the duplicate data shown in
+Table 1, where the Web-C is chosen as the reference Web
+forum since it shares the most duplicate photos with other
+forums.
+Table 2 and 3 show the δ measure on the linear model and
+nonlinear model. As δkl is symmetric and δkk = 0, we only
+show the upper triangular part. The NaN values in both
+tables lie in that no duplicate photos have been detected by
+the Dedup algorithm as reported in Table 1.
+The linear model guarantees that the δ measures related
+Table 1: Number of duplicate photos between each
+pair of Web forums
+A B C D E F Scale
+A 0 316 1,386 178 302 0 130k
+B 316 0 14,708 909 8,023 348 675k
+C 1,386 14,708 0 1,508 19,271 1,083 1,003k
+D 178 909 1,508 0 1,084 21 155k
+E 302 8,023 19,271 1,084 0 98 448k
+F 0 348 1,083 21 98 0 122k
+383
+Figure 9: Some results of duplicate photo detection
+Table 2: δ measure on the linear model.
+Web-B Web-C Web-D Web-E Web-F
+Web-A 0.0659 0.0911 0.0956 0.0928 NaN
+Web-B - 0.0672 0.0578 0.0791 0.4618
+Web-C - - 0.0105 0.0070 0.2220
+Web-D - - - 0.0566 0.0232
+Web-E - - - - 0.6525
+to the reference community should be no less than 0 
+theoretically. It is indeed the case (see the underlined numbers
+in Table 2). But this model can not guarantee that the δ
+measures on the non-reference communities can also be no
+less than 0, as the normalization steps are based on 
+duplicate photos between the reference community and a 
+nonreference community. Results shows that all the numbers in
+the δ measure are greater than 0 (see all the non-underlined
+numbers in Table 2), which indicates that it is probable that
+this model will give optimal results.
+On the contrary, the nonlinear model does not guarantee
+that δ measures related to the reference community should
+be no less than 0, as not all duplicate photos between the
+two Web forums can be used when optimizing this model.
+In fact, the duplicate photos that lie in different intervals
+will not be used in this model. It is these specific duplicate
+photos that make the δ measure negative. As a result, there
+are both negative and positive items in Table 3, but overall
+the number of positive ones are greater than negative ones
+(9:5), that indicates the model may be better than the 
+normalization only method (see next subsection) which has an
+all-zero δ measure, and worse than the linear model.
+3.5 User Study
+Because it is hard to find an objective criterion to evaluate
+Table 3: δ measure on the nonlinear model.
+Web-B Web-C Web-D Web-E Web-F
+Web-A 0.0559 0.0054 -0.0185 -0.0054 NaN
+Web-B - -0.0162 -0.0345 -0.0301 0.0466
+Web-C - - 0.0136 0.0071 0.1264
+Web-D - - - 0.0032 0.0143
+Web-E - - - - 0.214
+which ranking function is better, we chose to employ user
+studies for subjective evaluations. Ten subjects were invited
+to participate in the user study. They were recruited from
+nearby universities. As search engines of both text search
+and image search are familiar to university students, there
+was no prerequisite criterion for choosing students.
+We conducted user studies using Internet Explorer 6.0 on
+Windows XP with 17-inch LCD monitors set at 1,280 pixels
+by 1,024 pixels in 32-bit color. Data was recorded with
+server logs and paper-based surveys after each task.
+Figure 10: User study interface
+We specifically device an interface for user study as shown
+in Figure 10. For each pair of fusion methods, participants
+were encouraged to try any query they wished. For those
+without specific ideas, two combo boxes (category list and
+query list) were listed on the bottom panel, where the top
+1,000 image search queries from a commercial search engine
+were provided. After a participant submitted a query, the
+system randomly selected the left or right frame to display
+each of the two ranking results. The participant were then
+required to judge which ranking result was better of the two
+ranking results, or whether the two ranking results were of
+equal quality, and submit the judgment by choosing the 
+corresponding radio button and clicking the Submit button.
+For example, in Figure 10, query sunset is submitted to
+the system. Then, 79,092 photos were returned and ranked
+by the Minmax fusion method in the left frame and linear
+fusion method in the right frame. A participant then 
+compares the two ranking results (without knowing the ranking
+methods) and submits his/her feedback by choosing answers
+in the Your option.
+Table 4: Results of user study
+Norm.Only Manually Linear
+Linear 29:13:10 
+14:22:15Nonlinear 29:15:9 12:27:12 6:4:45
+Table 4 shows the experimental results, where Linear
+denotes the linear fusion method, Nonlinear denotes the
+non linear fusion method, Norm. Only means Maxmin
+normalization method, Manually means the manually tuned
+method. The three numbers in each item, say 29:13:10,
+mean that 29 judgments prefer the linear fusion results, 10
+384
+judgments prefer the normalization only method, and 13
+judgments consider these two methods as equivalent.
+We conduct the ANOVA analysis, and obtain the 
+following conclusions:
+1. Both the linear and nonlinear methods are significantly
+better than the Norm. Only method with respective
+P-values 0.00165(< 0.05) and 0.00073(<< 0.05). This
+result is consistent with the δ-measure evaluation 
+result. The Norm. Only method assumes that the top
+10% photos in different forums are of the same 
+quality. However, this assumption does not stand in 
+general. For example, a top 10% photo in a top tier photo
+forum is generally of higher quality than a top 10%
+photo in a second-tier photo forum. This is similar
+to that, those top 10% students in a top-tier 
+university and those in a second-tier university are generally
+of different quality. Both linear and nonlinear fusion
+methods acknowledge the existence of such differences
+and aim at quantizing the differences. Therefore, they
+perform better than the Norm. Only method.
+2. The linear fusion method is significantly better than
+the nonlinear one with P-value 1.195 × 10−10
+. This
+result is rather surprising as this more complicated
+ranking method is expected to tune the ranking more
+finely than the linear one. The main reason for this
+result may be that it is difficult to find the best 
+intervals where the nonlinear tuning should be carried out
+and yet simply the middle part of the Mode-90% 
+Percentile Normalization method was chosen. The 
+timeconsuming and subjective evaluation methods - user
+studies - blocked us extensively tuning these 
+parameters.
+3. The proposed linear and nonlinear methods perform
+almost the same with or slightly better than the 
+manually tuned method. Given that the linear/nonlinear
+fusion methods are fully automatic approaches, they
+are considered practical and efficient solutions when
+more communities (e.g. dozens of communities) need
+to be integrated.

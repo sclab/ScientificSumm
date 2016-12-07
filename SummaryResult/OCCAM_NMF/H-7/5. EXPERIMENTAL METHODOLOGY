@@ -1,0 +1,35 @@
+for all runs, we set (a, b, c, σ ) = (0.1, 10, 0.1, 1) manually. 
+on reuters" data set, because there are too many relevant documents for each topic in the corpus, we used a random sample of 10% of each topic for training, and 10% of the remaining documents for testing.
+for the experiments on the movielens and netflix data sets, we used a random sample of 90% of each user for  training, and the rest for testing.
+statistical tests (t-tests) were carried out to see whether the results are significant.
+we first evaluated the performance on each individual user, and then estimated the macro average over all users.
+for the movielens and netflix data sets, algorithm  effectiveness was measured by mean square error, while on the reuters data set classification error was used because it was more informative.
+to answer the third question, we tested the efficiency of the new algorithm on the entire netflix data set where about half a million user models need to be learned together.
+to answer the second question, we  compared the proposed new algorithm with the standard em algorithm to see whether the new learning algorithm is  better.
+in fact, the commonly used  approach is equivalent to the model learned at the end of the first em iteration.
+to answer the first question, we compared the bayesian  hierarchical models with commonly used norm-2 regularized linear regression models.
+3. can the new algorithm quickly learn many user  models?
+2. does the new algorithm work better than the standard em algorithm for learning the bayesian hierarchical linear model?
+5.2 evaluation we designed the experiments to answer the following three questions: 1. do we need to take the effort to use a bayesian  approach and learn a prior from other users?
+since this corpus explicitly  indicates only the relevant documents for a topic(user), all other documents are considered irrelevant.
+all the user profiles on a sub-tree are supposed to share the same prior model distribution.
+the first level of the tree  contains four topics, denoted as c, e, m, and g. for the experiments in this paper, the tree was cut at level 1 to create four smaller trees, each of which corresponds to one smaller data set: reuters-e reuters-c,  reutersm and reuters-g. for each small data set, we created several profiles, one profile for each node in a sub-tree, to simulate multiple users, each with a related, yet separate definition of relevance.
+each document is assigned to one of several locations on the hierarchical tree.
+the reuters corpus comes with a topic hierarchy.
+the average score for documents is 3.55. reuters data: this is the reuters corpus, volume 1. it covers 810,000 reuters english language news stories from august 20, 1996 to august 19, 1997. only the first 100,000 news were used in our experiments.
+the average customer on the  reduced data set provided 127 judgments, with 70 being deemed relevant.
+this number was reduced to 1000 customers through random sampling.
+similar to movielens, we considered documents with likeability scores of 4 or 5 as relevant.
+there are around 100 million rating on a scale of 1 to 5 for 17,770 documents.
+netflix publicly provides the relevance judgments of 480,189 anonymous customers.
+data users docs ratings per user movielens 6,040 3,057 151 netflix-all 480,189 17,770 208 netflix-1000 1000 17,770 127 reuters-c 34 100,000 3949 reuters-e 26 100,000 1632 reuters-g 33 100,000 2222 reuters-m 10 100,000 6529 netflix data: this data set was constructed by combining documents about movies crawled from the web with a set of actual movie rental customer relevance  judgments from netflix[19].
+on reuters, the  number of rating for a simulated user is the number of documents relevant to the corresponding topic.
+table 1: data set statistics.
+directors, actors, etc.).
+based on this database, we created one  document per movie that contained the relevant  information about it (e.g.
+the average score for a document was 3.58. documents  representing each movie were constructed from the portion of the imdb database that is available for public  download[13].
+on average, each user rated 151 movies, of these 87 were judged to be relevant.
+movielens provided relevance judgments on 3,057 documents from 6,040 separate users.
+we considered documents with likeability scores of 4 or 5 as  relevant, and documents with a score of 1 to 3 as  irrelevant to the user.
+movielens allows users to rank how much he/she enjoyed a specific movie on a scale from 1 to 5. this likeability rating was used as a  measurement of how relevant the document representing the corresponding movie is to the user.
+5.1 evaluation data set to evaluate the proposed technique, we used the following three major data sets (table 1): movielens data: this data set was created by combining the relevance judgments from the movielens[9] data set with documents from the internet movie database (imdb).

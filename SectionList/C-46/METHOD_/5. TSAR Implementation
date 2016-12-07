@@ -1,0 +1,88 @@
+We have implemented a prototype of TSAR on a multi-tier 
+sensor network testbed. Our prototype employs Crossbow Stargate
+nodes to implement the proxy tier. Each Stargate node employs a
+400MHz Intel XScale processor with 64MB RAM and runs the
+Linux 2.4.19 kernel and EmStar release 2.1. The proxy nodes
+are equipped with two wireless radios, a Cisco Aironet 340-based
+802.11b radio and a hostmote bridge to the Mica2 sensor nodes
+using the EmStar transceiver. The 802.11b wireless network is
+used for inter-proxy communication within the proxy tier, while
+the wireless bridge enables sensor-proxy communication. The 
+sensor tier consists of Crossbow Mica2s and Mica2dots, each 
+consisting of a 915MHz CC1000 radio, a BMAC protocol stack, a 4 Mb
+on-board flash memory and an ATMega 128L processor. The 
+sensor nodes run TinyOS 1.1.8. In addition to the on-board flash, the
+sensor nodes can be equipped with external MMC/SD flash cards
+using a custom connector. The proxy nodes can be equipped with
+external storage such as high-capacity compact flash (up to 4GB),
+6GB micro-drives, or up to 60GB 1.8inch mobile disk drives.
+Since sensor nodes may be several hops away from the nearest
+proxy, the sensor tier employs multi-hop routing to communicate
+with the proxy tier. In addition, to reduce the power consumption
+of the radio while still making the sensor node available for queries,
+low power listening is enabled, in which the radio receiver is 
+periodically powered up for a short interval to sense the channel for
+transmissions, and the packet preamble is extended to account for
+the latency until the next interval when the receiving radio wakes
+up. Our prototype employs the MultiHopLEPSM routing protocol
+with the BMAC layer configured in the low-power mode with a
+11% duty cycle (one of the default BMAC [22] parameters)
+Our TSAR implementation on the Mote involves a data 
+gathering task that periodically obtains sensor readings and logs these
+reading to flash memory. The flash memory is assumed to be a
+circular append-only store and the format of the logged data is 
+depicted in Figure 6. The Mote sends a report to the proxy every N
+readings, summarizing the observed data. The report contains: (i)
+the address of the Mote, (ii) a handle that contains an offset and the
+length of the region in flash memory containing data referred to by
+the summary, (iii) an interval (t1, t2) over which this report is 
+generated, (iv) a tuple (low, high) representing the minimum and the
+maximum values observed at the sensor in the interval, and (v) a 
+sequence number. The sensor updates are used to construct a sparse
+interval skip graph that is distributed across proxies, via network
+messages between proxies over the 802.11b wireless network.
+Our current implementation supports queries that request records
+matching a time interval (t1, t2) or a value range (v1, v2). Spatial
+constraints are specified using sensor IDs. Given a list of matching
+intervals from the skip graph, TSAR supports two types of 
+messages to query the sensor: lookup and fetch. A lookup message
+triggers a search within the corresponding region in flash memory
+and returns the number of matching records in that memory region
+(but does not retrieve data). In contrast, a fetch message not only
+46
+0
+10
+20
+30
+40
+50
+60
+70
+80
+128512 1024 2048 4096
+NumberofMessages
+Index size (entries)
+Insert (skipgraph)
+Insert (sparse skipgraph)
+Initial lookup
+(a) James Reserve Data
+0
+10
+20
+30
+40
+50
+60
+70
+80
+512 1024 2048 4096
+NumberofMessages
+Index size (entries)
+Insert (skipgraph)
+Insert (sparse skipgraph)
+Initial lookup
+(b) Synthetic Data
+Figure 8: Skip Graph Insert Performance
+triggers a search but also returns all matching data records to the
+proxy. Lookup messages are useful for polling a sensor, for 
+instance, to determine if a query matches too many records.

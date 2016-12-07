@@ -1,0 +1,52 @@
+We can treat the correlation between the retrieval we are interested in and the combined scores as a predictor of performance.
+Whereas in information retrieval, we are concerned with the score at a point in a space, in spatial data analysis, we are concerned with the value of a function at a point or location in a space.
+Therefore, we use the Cauchy-Schwartz inequality to establish a bound, ˜IM ≤ n eTWe s yTWTWy yTy And we define the normalized spatial autocorrelation as IM = yT Wy p yTy × yTWTWy Notice that if we let ˜y = Wy, then we can write this formula as, IM = yT ˜y y 2 ˜y 2 (3) which can be interpreted as the correlation between the  original retrieval scores and a set of retrieval scores diffused in the space.
+We use the mean vector as an  approximation to relevance.
+Because yµ represents a very good retrieval, we hypothesize that a strong similarity between yµ and y will correlate positively with system  performance.
+Since ˜y encodes the spatial  dependencies in y and yµ encodes the spatial properties of the multiple runs, we can compute a third correlation between these two vectors, ρ(˜y, yµ) = ˜yT yµ ˜y 2 yµ 2 (5) We can interpret Equation 5 as measuring the correlation between a high quality ranking (yµ) and a spatially smoothed version of the retrieval (˜y). 
+High spatial autocorrelation suggests that knowing the value of a function at location a will tell us a great deal about the value at a neighboring location b.
+We can compute an n × n  similarity matrix, W. An element of this matrix, Wij represents the similarity between documents ranked i and j.
+3.3 Correlation with Other Retrievals Sometimes we are interested in the performance of a single retrieval but have access to scores from multiple systems for (a) IM = 0.006 (b) IM = 0.241 (c) IM = 0.487 Figure 1: The Moran coefficient, IM for a several binary functions on a grid.
+We use the term function here to mean a mapping from a location to a real value.
+Specifically, we adopt tf.idf document vectors, ˜di = di log „ (n + 0.5) − ci 0.5 + ci « (1) where d is a vector of term frequencies, c is the length-|V| document frequency vector.
+Assuming the function y over n locations, this is defined as ˜IM = n eTWe P i,j Wijyiyj P i y2 i = n eTWe yT Wy yTy (2) where eT We = P ij Wij.
+Binary retrieval scores would define a pattern on this grid.
+Of course, we can combine ρ(y, ˜y) and ρ(y, yµ) if we  assume that they capture different factors in the prediction.
+Low spatial  autocorrelation suggests that knowing the value of a function at location a tells us little about the value at a neighboring location b.
+If we want to quantify the spatial dependencies of a  function, we would employ a measure referred to as the spatial autocorrelation [5, 10].
+Given documents and some similarity measure, we can construct a matrix which encodes the similarity between pairs of documents.
+We present some examples of autocorrelations of functions on a grid in Figure 1.
+We also row normalize the matrix so that Pn j=1 Wij = 1 for all i.
+We use Pearson"s product-moment correlation to measure the similarity between these vectors, ρ(y, yµ) = yT yµ y 2 yµ 2 (4) We will comment on the similarity between Equation 3 and 4 in Section 7.
+3.2 Spatial Autocorrelation of a Retrieval Recall that we are interested in measuring the similarity between the scores of spatially-close documents.
+In information retrieval, we often assume that the  representations of documents exist in some high-dimensional  vector space.
+There is a high spatial autocorrelation for a function representing the temperature of a location since knowing the temperature at a location a will tell us a lot about the temperature at a neighboring location b.
+We would like to compare autocorrelation values for  different retrievals.
+In this section, we will begin by describing what we mean by spatial proximity for documents and then define a  measure of spatial autocorrelation.
+In this situation, we can use combined information from these scores to construct a surrogate for a high-quality ranking [17].
+One such suitable measure is the Moran coefficient of spatial  autocorrelation.
+From the perspective of information retrieval, each of these grid spaces would represent a document and  documents would be organized so that they lay next to topically-related documents.
+An  alternative means of combination is suggested by the mathematical form of our predictors.
+Recall that we are given the top n documents retrieved in y.
+Assume that we are given m score functions, yi, for the same n documents.
+3.1 Spatial Representation of Documents Our work does not focus on improving a specific similarity measure or defining a novel vector space.
+For example, given a vocabulary, V, this vector space may be an arbitrary |V|-dimensional space with cosine inner-product or a multinomial simplex with a  distributionbased distance measure.
+The Moran coefficient is a local measure of function consistency.
+Because of the prevalence and success of spatial models of information retrieval, we believe that the application of spatial data analysis techniques are appropriate.
+One way to accomplish this is to combine these predictors as independent variables in a linear regression.
+In  practice, we only include the affinities for a document"s k-nearest neighbors.
+We conclude by extending this model to include information from multiple retrievals from multiple systems for a single query.
+We will represent the mean of these vectors as yµ = Pm i=1 yi.
+There is low spatial autocorrelation in a function measuring the outcome of a coin toss at a and b.
+We use this weighting scheme due to its success for topical link detection in the context of Topic Detection and Tracking (TDT) evaluations [6].
+Since we use zero mean and unit variance normalization, work in metasearch suggests that this assumption is justified [15].
+The function would map the location of a neighborhood to an infection rate.
+An embedding space is often  selected to respect topical proximity; if two documents are near, they are more likely to share a topic.
+Instead, we choose an inner product known to be effective at detecting  interdocument topical relationships.
+Assuming vectors are scaled by their L2 norm, we use the inner product, ˜di, ˜dj , to define similarity.
+In all of our experiments, we have fixed k to 5.
+the same query.
+For example, we might be interested in the prevalence of a disease in the neighborhood of some city.
+Notice that, as the Moran coefficient increases, neighboring cells tend to have similar values.
+Unfortunately, the bound for Equation 2 is not consistent for different W and y.
+We leave exploration of parameter sensitivity to future work.

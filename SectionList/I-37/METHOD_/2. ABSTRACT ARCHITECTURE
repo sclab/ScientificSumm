@@ -1,0 +1,345 @@
+Our framework is based on providing formal (meta-level)
+descriptions of learning processes, i.e. representations of all
+relevant components of the learning machinery used by a
+learning agent, together with information about the state of
+the learning process.
+To ensure that this framework is sufficiently general, we
+consider the following general description of a learning 
+problem:
+Given data D ⊆ D taken from an instance space
+D, a hypothesis space H and an (unknown) 
+target function c ∈ H1
+, derive a function h ∈ H that
+approximates c as well as possible according to
+some performance measure g : H → Q where Q
+is a set of possible levels of learning performance.
+1
+By requiring this we are ensuring that the learning problem
+can be solved in principle using the given hypothesis space.
+This very broad definition includes a number of components
+of a learning problem for which more concrete specifications
+can be provided if we want to be more precise. For the cases
+of classification and clustering, for example, we can further
+specify the above as follows: Learning data can be described
+in both cases as D = ×n
+i=1[Ai] where [Ai] is the domain of
+the ith attribute and the set of attributes is A = {1, . . . , n}.
+For the hypothesis space we obtain
+H ⊆ {h|h : D → {0, 1}}
+in the case of classification (i.e. a subset of the set of all
+possible classifiers, the nature of which depends on the 
+expressivity of the learning algorithm used) and
+H ⊆ {h|h : D → N, h is total with range {1, . . . , k}}
+in the case of clustering (i.e. a subset of all sets of possible
+cluster assignments that map data points to a finite number
+of clusters numbered 1 to k). For classification, g might be
+defined in terms of the numbers of false negatives and false
+positives with respect to some validation set V ⊆ D, and
+clustering might use various measures of cluster validity to
+evaluate the quality of a current hypothesis, so that Q = R
+in both cases (but other sets of learning quality levels can
+be imagined).
+Next, we introduce a notion of learning step, which 
+imposes a uniform basic structure on all learning processes that
+are supposed to exchange information using our framework.
+For this, we assume that each learner is presented with a
+finite set of data D = d1, . . . dk in each step (this is an 
+ordered set to express that the order in which the samples are
+used for training matters) and employs a training/update
+function f : H × D∗
+→ H which updates h given a series of
+samples d1, . . . , dk. In other words, one learning step always
+consists of applying the update function to all samples in D
+exactly once. We define a learning step as a tuple
+l = D, H, f, g, h
+where we require that H ⊆ H and h ∈ H.
+The intuition behind this definition is that each learning
+step completely describes one learning iteration as shown
+in Figure 1: in step t, the learner updates the current 
+hypothesis ht−1 with data Dt, and evaluates the resulting new
+hypothesis ht according to the current performance measure
+gt. Such a learning step is equivalent to the following steps
+of computation:
+1. train the algorithm on all samples in D (once), i.e. 
+calculate ft(ht−1, Dt) = ht,
+2. calculate the quality gt of the resulting hypothesis
+gt(ht).
+We denote the set of all possible learning steps by L. For
+ease of notation, we denote the components of any l ∈ L by
+D(l), H(l), f(l) and g(l), respectively. The reason why such
+learning step specifications use a subset H of H instead of
+H itself is that learners often have explicit knowledge about
+which hypotheses are effectively ruled out by f given h in
+the future (if this is not the case, we can still set H = H).
+A learning process is a finite, non-empty sequence
+l = l1 → l2 → . . . → ln
+of learning steps such that
+∀1 ≤ i < n .h(li+1) = f(li)(h(li), D(li))
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 679
+training function
+ht
+performance measure solution quality
+qtgtft
+training set
+Dt
+hypothesis
+hypothesis
+ht−1
+Figure 1: A generic model of a learning step
+i.e. the only requirement the transition relation →⊆ L × L
+makes is that the new hypothesis is the result of training the
+old hypothesis on all available sample data that belongs to
+the current step. We denote the set of all possible learning
+processes by L (ignoring, for ease of notation, the fact that
+this set depends on H, D and the spaces of possible 
+training and evaluation functions f and g). The performance
+trace associated with a learning process l is the sequence
+q1, . . . , qn ∈ Qn
+where qi = g(li)(h(li)), i.e. the sequence
+of quality values calculated by the performance measures of
+the individual learning steps on the respective hypotheses.
+Such specifications allow agents to provide a 
+selfdescription of their learning process. However, in 
+communication among learning agents, it is often useful to 
+provide only partial information about one"s internal learning
+process rather than its full details, e.g. when advertising
+this information in order to enter information exchange 
+negotiations with others. For this purpose, we will assume
+that learners describe their internal state in terms of sets of
+learning processes (in the sense of disjunctive choice) which
+we call learning process descriptions (LPDs) rather than by
+giving precise descriptions about a single, concrete learning
+process.
+This allows us to describe properties of a learning 
+process without specifying its details exhaustively. As an 
+example, the set {l ∈ L|∀l = l[i].D(l) ≤ 100} describes all
+processes that have a training set of at most 100 
+samples (where all the other elements are arbitrary). Likewise,
+{l ∈ L|∀l = l[i].D(l) = {d}} is equivalent to just providing
+information about a single sample {d} and no other details
+about the process (this can be useful to model, for 
+example, data received from the environment). Therefore, we use
+℘(L), that is the set of all LPDs, as the basis for 
+designing content languages for communication in the protocols
+we specify below.
+In practice, the actual content language chosen will of
+course be more restricted and allow only for a special type
+of subsets of L to be specified in a compact way, and its
+choice will be crucial for the interactions that can occur
+between learning agents. For our examples below, we simply
+assume explicit enumeration of all possible elements of the
+respective sets and function spaces (D, H, etc.) extended by
+the use of wildcard symbols ∗ (so that our second example
+above would become ({d}, ∗, ∗, ∗, ∗)).
+2.1 Learning agents
+In our framework, a learning agent is essentially a 
+metareasoning function that operates on information about 
+learning processes and is situated in an environment co-inhabited
+by other learning agents. This means that it is not only 
+capable of meta-level control on how to learn, but in doing
+so it can take information into account that is provided by
+other agents or the environment. Although purely 
+cooperative or hybrid cases are possible, for the purposes of this
+paper we will assume that agents are purely self-interested,
+and that while there may be a potential for cooperation
+considering how agents can mutually improve each others"
+learning performance, there is no global mechanism that can
+enforce such cooperative behaviour.2
+Formally speaking, an agent"s learning function is a 
+function which, given a set of histories of previous learning 
+processes (of oneself and potentially of learning processes about
+which other agents have provided information) and outputs
+a learning step which is its next learning action. In the
+most general sense, our learning agent"s internal learning
+process update can hence be viewed as a function
+λ : ℘(L) → L × ℘(L)
+which takes a set of learning histories of oneself and others
+as inputs and computes a new learning step to be executed
+while updating the set of known learning process histories
+(e.g. by appending the new learning action to one"s own
+learning process and leaving all information about others"
+learning processes untouched). Note that in λ({l1, . . . ln}) =
+(l, {l1, . . . ln }) some elements li of the input learning process
+set may be descriptions of new learning data received from
+the environment.
+The λ-function can essentially be freely chosen by the
+agent as long as one requirement is met, namely that the
+learning data that is being used always stems from what
+has been previously observed. More formally,
+∀{l1, . . . ln} ∈ ℘(L).λ({l1, . . . ln}) = (l, {l1, . . . ln })
+⇒
+„
+D(l) ∪
+ [
+l =li[j]
+D(l )
+«
+⊆
+[
+l =li[j]
+D(l )
+i.e. whatever λ outputs as a new learning step and updated
+set of learning histories, it cannot invent new data; it has
+to work with the samples that have been made available
+to it earlier in the process through the environment or from
+other agents (and it can of course re-train on previously used
+data).
+The goal of the agent is to output an optimal learning
+step in each iteration given the information that it has. One
+possibility of specifying this is to require that
+∀{l1, . . . ln} ∈ ℘(L).λ({l1, . . . ln}) = (l, {l1, . . . ln })
+⇒ l = arg max
+l ∈L
+g(l )(h(l ))
+but since it will usually be unrealistic to compute the 
+optimal next learning step in every situation, it is more useful
+2
+Note that our outlook is not only different from common,
+cooperative models of distributed machine learning and data
+mining, but also delineates our approach from multiagent
+learning systems in which agents learn about other agents
+[25], i.e. the learning goal itself is not affected by agents"
+behaviour in the environment.
+680 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+i j Dj Hj fj gj hj
+Di
+pD→D
+1 (Di, Dj)
+.
+..
+pD→D
+kD→D
+(Di, Dj)
+. . . . . . n/a . . .
+Hi
+.
+..
+... n/a
+fi
+.
+..
+... n/a
+gi
+.
+.. n/a
+pg→h
+1 (gi, hj)
+.
+..
+pg→h
+kg→h
+(gi, hj)
+hi
+.
+.. n/a
+...
+Table 1: Matrix of integration functions for 
+messages sent from learner i to j
+to simply use g(l )(h(l )) as a running performance measure
+to evaluate how well the agent is performing.
+This is too abstract and unspecific for our purposes: While
+it describes what agents should do (transform the settings
+for the next learning step in an optimal way), it doesn"t
+specify how this can be achieved in practice.
+2.2 Integrating learning process information
+To specify how an agent"s learning process can be affected
+by integrating information received from others, we need to
+flesh out the details of how the learning steps it will perform
+can be modified using incoming information about learning
+processes described by other agents (this includes the 
+acquisition of new learning data from the environment as a
+special case). In the most general case, we can specify this
+in terms of the potential modifications to the existing 
+information about learning histories that can be performed using
+new information. For ease of presentation, we will assume
+that agents are stationary learning processes that can only
+record the previously executed learning step and only 
+exchange information about this one individual learning step
+(our model can be easily extended to cater for more complex
+settings).
+Let lj = Dj, Hj, fj, gj, hj be the current state of
+agent j when receiving a learning process description li =
+Di, Hi, fi, gi, hi from agent i (for the time being, we 
+assume that this is a specific learning step and not a more
+vague, disjunctive description of properties of the 
+learning step of i). Considering all possible interactions at an
+abstract level, we basically obtain a matrix of 
+possibilities for modifications of j"s learning step specification as
+shown in Table 1. In this matrix, each entry specifies
+a family of integration functions pc→c
+1 , . . . , pc→c
+kc→c
+where
+c, c ∈ {D, H, f, g, h} and which define how agent j"s 
+component cj will be modified using the information ci provided
+about (the same or a different component of) i"s learning
+step by applying pc→c
+r (ci, cj) for some r ∈ {1, . . . , kc→c }.
+To put it more simply, the collections of p-functions an agent
+j uses specifies how it will modify its own learning behaviour
+using information obtained from i.
+For the diagonal of this matrix, which contains the most
+common ways of integrating new information in one"s own
+learning model, obvious ways of modifying one"s own 
+learning process include replacing cj by ci or ignoring ci 
+altogether. More complex/subtle forms of learning process 
+integration include:
+• Modification of Dj: append Di to Dj; filter out all
+elements from Dj which also appear in Di; append
+Di to Dj discarding all elements with attributes 
+outside ranges which affect gj, or those elements already
+correctly classified by hj;
+• Modification of Hi: use the union/intersection of Hi
+and Hj; alternatively, discard elements of Hj that are
+inconsistent with Dj in the process of intersection or
+union, or filter out elements that cannot be obtained
+using fj (unless fj is modified at the same time)
+• Modification of fj: modify parameters or background
+knowledge of fj using information about fi; assess
+their relevance by simulating previous learning steps
+on Dj using gj and discard those that do not help
+improve own performance
+• Modification of hj: combine hj with hi using (say) 
+logical or mathematical operators; make the use of hi 
+contingent on a pre-integration assessment of its quality
+using own data Dj and gj
+While this list does not include fully fledged, concrete 
+integration operations for learning processes, it is indicative of
+the broad range of interactions between individual agents"
+learning processes that our framework enables.
+Note that the list does not include any modifications to
+gj. This is because we do not allow modifications to the
+agent"s own quality measure as this would render the model
+of rational (learning) action useless (if the quality measure
+is relative and volatile, we cannot objectively judge learning
+performance). Also note that some of the above examples
+require consulting other elements of lj than those appearing
+as arguments of the p-operations; we omit these for ease
+of notation, but emphasise that information-rich operations
+will involve consulting many different aspects of lj.
+Apart from operations along the diagonal of the matrix,
+more exotic integration operations are conceivable that
+combine information about different components. In theory
+we could fill most of the matrix with entries for them, but
+for lack of space we list only a few examples:
+• Modification of Dj using fi: pre-process samples in
+fi, e.g. to achieve intermediate representations that fj
+can be applied to
+• Modification of Dj using hi: filter out samples from
+Dj that are covered by hi and build hj using fj only
+on remaining samples
+• Modification of Hj using fi: filter out hypotheses from
+Hj that are not realisable using fi
+• Modification of hj using gi: if hj is composed of several
+sub-components, filter out those sub-components that
+do not perform well according to gi
+• . . .
+Finally, many messages received from others describing
+properties of their learning processes will contain 
+information about several elements of a learning step, giving rise to
+yet more complex operations that depend on which kinds of
+information are available.
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 681
+Figure 2: Screenshot of our simulation system, 
+displaying online vessel tracking data for the North Sea
+region

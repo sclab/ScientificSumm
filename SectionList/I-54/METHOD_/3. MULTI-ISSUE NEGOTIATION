@@ -1,0 +1,532 @@
+We first analyse the complete information setting. This section
+forms the base which we extend to the case of information 
+uncertainty in Section 4.
+Here a and b negotiate over m > 1 indivisible issues. These
+issues are m distinct pies and the agents want to determine how
+to distribute the pies between themselves. Let S = {1, 2, . . . , m}
+denote the set of m pies. As before, each pie is of size 1. Let the
+discount factor for issue c, where 1 ≤ c ≤ m, be 0 < δc ≤ 1.
+For each issue, let n denote each agent"s deadline. In the offer for
+time period t (where 1 ≤ t ≤ n), agent a"s (b"s) share for each of
+the m issues is now represented as an m element vector xt
+∈ Bm
+(yt
+∈ Bm
+) where B denotes the set {0, 1}. Thus, if agent a"s share
+for issue c at time t is xt
+c, then agent b"s share is yt
+c = (1−xt
+c). The
+shares for a and b are together represented as the package [xt
+, yt
+].
+As is traditional in multi-issue utility theory, we define an agent"s
+cumulative utility using the standard additive form [12]. The 
+functions Ua
+: Bm
+× Bm
+× N+
+→ R and Ub
+: Bm
+× Bm
+× N+
+→ R
+give the cumulative utilities for a and b respectively at time t. These
+are defined as follows:
+Ua
+([xt
+, yt
+], t) =
+(
+Σm
+c=1ka
+c ua
+c (xt
+c, t) if t ≤ n
+0 otherwise
+(1)
+Ub
+([xt
+, yt
+], t) =
+(
+Σm
+c=1kb
+cub
+c(yt
+c, t) if t ≤ n
+0 otherwise
+(2)
+where ka
+∈ Nm
++ denotes an m element vector of constants for
+agent a and kb
+∈ Nm
++ that for b. Here N+ denotes the set of 
+positive integers. These vectors indicate how the agents value different
+issues. For example, if ka
+c > ka
+c+1, then agent a values issue c
+more than issue c + 1. Likewise for agent b. In other words, the m
+issues are perfect substitutes (i.e., all that matters to an agent is its
+total utility for all the m issues and not that for any subset of them).
+In all the settings we study, the issues will be perfect substitutes.
+To begin each agent has complete information about all negotiation
+parameters (i.e., n, m, ka
+c , kb
+c, and δc for 1 ≤ c ≤ m).
+Now, multi-issue negotiation can be done using different 
+procedures. Broadly speaking, there are three key procedures for 
+negotiating multiple issues [19]:
+1. the package deal procedure where all the issues are settled
+together as a bundle,
+2. the sequential procedure where the issues are discussed one
+after another, and
+3. the simultaneous procedure where the issues are discussed in
+parallel.
+Between these three procedures, the package deal is known to 
+generate Pareto optimal outcomes [19, 6]. Hence we adopt it here. We
+first give a brief description of the procedure and then determine
+the equilibrium strategies for it.
+3.1 The package deal procedure
+In this procedure, the agents use the same protocol as for 
+singleissue negotiation (described in Section 2). However, an offer for the
+package deal includes a proposal for each issue under negotiation.
+Thus, for m issues, an offer includes m divisions, one for each
+issue. Agents are allowed to either accept a complete offer (i.e., all
+m issues) or reject a complete offer. An agreement can therefore
+take place either on all m issues or on none of them.
+As per the single-issue negotiation, an agent decides what to 
+offer by looking ahead and reasoning backwards. However, since an
+offer for the package deal includes a share for all the m issues, the
+agents can now make tradeoffs across the issues in order to 
+maximise their cumulative utilities.
+For 1 ≤ c ≤ m, the equilibrium offer for issue c at time t is
+denoted as [at
+c, bt
+c] where at
+c and bt
+c denote the shares for agent a
+and b respectively. We denote the equilibrium package at time t
+as [at
+, bt
+] where at
+∈ Bm
+(bt
+∈ Bm
+) is an m element vector
+that denotes a"s (b"s) share for each of the m issues. Also, for
+1 ≤ c ≤ m, δc is the discount factor for issue c. The symbols 0
+and 1 denote m element vectors of zeroes and ones respectively.
+Note that for 1 ≤ t ≤ n, at
+c + bt
+c = 1 (i.e., the sum of the agents"
+shares (at time t) for each pie is one). Finally, for time period t (for
+1 ≤ t ≤ n) we let A(t) (respectively B(t)) denote the equilibrium
+strategy for agent a (respectively b).
+3.2 Equilibrium strategies
+As mentioned in Section 1, the package deal allows agents to make
+tradeoffs. We let TRADEOFFA (TRADEOFFB) denote agent a"s (b"s)
+function for making tradeoffs. We let P denote a set of parameters
+to the procedure TRADEOFFA (TRADEOFFB) where P = {ka
+, kb
+, δ, m}.
+Given this, the following theorem characterises the equilibrium for
+the package deal procedure.
+THEOREM 1. For the package deal procedure, the following
+strategies form a Nash equilibrium. The equilibrium strategy for
+t = n is:
+A(n) =
+j
+OFFER [1, 0] IF a"s TURN
+ACCEPT IF b"s TURN
+B(n) =
+j
+OFFER [0, 1] IF b"s TURN
+ACCEPT IF a"s TURN
+For all preceding time periods t < n, if [xt
+, yt
+] denotes the 
+offer made at time t, then the equilibrium strategies are defined as
+follows:
+A(t) =
+8
+<
+:
+OFFER TRADEOFFA(P, UB(t), t) IF a"s TURN
+If (Ua
+([xt
+, yt
+], t) ≥ UA(t)) ACCEPT
+else REJECT IF b"s TURN
+B(t) =
+8
+<
+:
+OFFER TRADEOFFB(P, UA(t), t) IF b"s TURN
+If (Ub
+([xt
+, yt
+], t) ≥ UB(t)) ACCEPT
+else REJECT IF a"s TURN
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 953
+where UA(t) = Ua
+([at+1
+, bt+1
+], t + 1) and UB(t) = Ub
+([at+1
+,
+bt+1
+], t + 1).
+PROOF. We look ahead to the last time period (i.e., t = n) and
+then reason backwards. To begin, if negotiation reaches the 
+deadline (n), then the agent whose turn it is takes everything and leaves
+nothing for its opponent. Hence, we get the strategies A(n) and
+B(n) as given in the statement of the theorem.
+In all the preceding time periods (t < n), the offering agent 
+proposes a package that gives its opponent a cumulative utility equal
+to what the opponent would get from its own equilibrium offer for
+the next time period. During time period t, either a or b could
+be the offering agent. Consider the case where a makes an offer
+at t. The package that a offers at t gives b a cumulative utility
+of Ub
+([at+1
+, bt+1
+], t + 1). However, since there is more than one
+issue, there is more than one package that gives b this cumulative
+utility. From among these packages, a offers the one that maximises
+its own cumulative utility (because it is a utility maximiser). Thus,
+the problem for a is to find the package [at
+, bt
+] so as to:
+maximize
+mX
+c=1
+ka
+c (1 − bt
+c)δt−1
+c (3)
+such that
+mX
+c=1
+bt
+ckb
+c ≥ UB(t)
+bt
+c = 0 or 1 for 1 ≤ c ≤ m
+where UB(t), δt−1
+c , ka
+c , and kb
+c are constants and bt
+c (1 ≤ c ≤ m)
+is a variable.
+Assume that the function TRADEOFFA takes parameters P, UB(t),
+and t, to solve the maximisation problem given in Equation 3 and
+returns the corresponding package. If there is more than one 
+package that solves Equation 3, then TRADEOFFA returns any one of
+them (because agent a gets equal utility from all such packages
+and so does agent b). The function TRADEOFFB for agent b is 
+analogous to that for a.
+On the other hand, the equilibrium strategy for the agent that
+receives an offer is as follows. For time period t, let b denote the
+receiving agent. Then, b accepts [xt
+, yt
+] if UB(t) ≤ Ub
+([xt
+, yt
+], t),
+otherwise it rejects the offer because it can get a higher utility in
+the next time period. The equilibrium strategy for a as receiving
+agent is defined analogously.
+In this way, we reason backwards and obtain the offers for the
+first time period. Thus, we get the equilibrium strategies (A(t) and
+B(t)) given in the statement of the theorem.
+The following example illustrates how the agents make tradeoffs
+using the above equilibrium strategies.
+EXAMPLE 1. Assume there are m = 2 issues for negotiation,
+the deadline for both issues is n = 2, and the discount factor for
+both issues for both agents is δ = 1/2. Let ka
+1 = 3, ka
+2 = 1,
+kb
+1 = 1, and kb
+2 = 5. Let agent a be the first mover. By 
+using backward reasoning, a knows that if negotiation reaches the
+second time period (which is the deadline), then b will get a 
+hundred percent of both the issues. This gives b a cumulative utility of
+UB(2) = 1/2 + 5/2 = 3. Thus, in the first time period, if b gets
+anything less than a utility of 3, it will reject a"s offer. So, at t = 1,
+a offers the package where it gets issue 1 and b gets issue 2. This
+gives a cumulative utility of 3 to a and 5 to b. Agent b accepts the
+package and an agreement takes place in the first time period.
+The maximization problem in Equation 3 can be viewed as the 0-1
+knapsack problem3
+. In the 0-1 knapsack problem, we have a set
+3
+Note that for the case of divisible issues this is the fractional 
+knapof m items where each item has a profit and a weight. There is a
+knapsack with a given capacity. The objective is to fill the knapsack
+with items so as to maximize the cumulative profit of the items in
+the knapsack. This problem is analogous to the negotiation problem
+we want to solve (i.e., the maximization problem of Equation 3).
+Since ka
+c and δt−1
+c are constants, maximizing
+Pm
+c=1 ka
+c (1−bt
+c)δt−1
+c
+is the same as minimizing
+Pm
+c=1 ka
+c bt
+c. Hence Equation 3 can be
+written as:
+minimize
+mX
+c=1
+ka
+c bt
+c (4)
+such that
+mX
+c=1
+bt
+ckb
+c ≥ UB(t)
+bt
+c = 0 or 1 for 1 ≤ c ≤ m
+Equation 4 is a minimization version of the standard 0-1 knapsack
+problem4
+with m items where ka
+c represents the profit for item c,
+kb
+c the weight for item c, and UB(t) the knapsack capacity.
+Example 1 was for two issues and so it was easy to find the 
+equilibrium offers. But, in general, it is not computationally easy to
+find the equilibrium offers of Theorem 1. The following theorem
+proves this.
+THEOREM 2. For the package deal procedure, the problem of
+finding the equilibrium offers given in Theorem 1 is NP-hard.
+PROOF. Finding the equilibrium offers given in Theorem 1 
+requires solving the 0-1 knapsack problem given in Equation 4. Since
+the 0-1 knapsack problem is NP-hard [17], the problem of finding
+equilibrium for the package deal is also NP-hard.
+3.3 Approximate equilibrium
+Researchers in the area of algorithms have found time efficient
+methods for computing approximate solutions to 0-1 knapsack 
+problems [10]. Hence we use these methods to find a solution to our 
+negotiation problem. At this stage, we would like to point out the
+main difference between solving the 0-1 knapsack problem and
+solving our negotiation problem. The 0-1 knapsack problem 
+involves decision making by a single agent regarding which items to
+place in the knapsack. On the other hand, our negotiation problem
+involves two players and they are both strategic. Hence, in our case,
+it is not enough to just find an approximate solution to the knapsack
+problem, we must also show that such an approximation forms an
+equilibrium.
+The traditional approach for overcoming the computational 
+complexity in finding an equilibrium has been to use an approximate
+equilibrium (see [14, 26] for example). In this approach, a strategy
+profile is said to form an approximate Nash equilibrium if neither
+agent can gain more than the constant by deviating. Hence, our
+aim is to use the solution to the 0-1 knapsack problem proposed
+in [10] and show that it forms an approximate equilibrium to our
+negotiation problem. Before doing so, we give a brief overview of
+the key ideas that underlie approximation algorithms.
+There are two key issues in the design of approximate algorithms
+[1]:
+sack problem. The factional knapsack problem is computationally
+easy; it can be solved in time polynomial in the number of items in
+the knapsack problem [17]. In contrast, the 0-1 knapsack problem
+is computationally hard.
+4
+Note that for the standard 0-1 knapsack problem the weights, 
+profits and the capacity are positive integers. However a 0-1 knapsack
+problem with fractions and non positive values can easily be 
+transformed to one with positive integers in time linear in m using the
+methods given in [8, 17].
+954 The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07)
+1. the quality of their solution, and
+2. the time taken to compute the approximation.
+The quality of an approximate algorithm is determined by 
+comparing its performance to that of the optimal algorithm and measuring
+the relative error [3, 1]. The relative error is defined as (z−z∗
+)/z∗
+where z is the approximate solution and z∗
+the optimal one. In
+general, we are interested in finding approximate algorithms whose
+relative error is bounded from above by a certain constant , i.e.,
+(z − z∗
+)/z∗
+≤ (5)
+Regarding the second issue of time complexity, we are interested in
+finding fully polynomial approximation algorithms. An 
+approximation algorithm is said to be fully polynomial if for any > 0 it finds
+a solution satisfying Equation 5 in time polynomially bounded by
+size of the problem (for the 0-1 knapsack problem, the problem size
+is equal to the number of items) and by 1/ [1].
+For the 0-1 knapsack problem, Ibarra and Kim [10] presented a
+fully polynomial approximation method. This method is based on
+dynamic programming. It is a parametric method that takes as a
+parameter and for any > 0, finds a heuristic solution z with 
+relative error at most , such that the time and space complexity grow
+polynomially with the number of items m and 1/ . More 
+specifically, the space and time complexity are both O(m/ 2
+) and hence
+polynomial in m and 1/ (see [10] for the detailed approximation
+algorithm and proof of time and space complexity).
+Since the Ibarra and Kim method is fully polynomial, we use it to
+solve our negotiation problem. This is done as follows. For agent
+a, let APRX-TRADEOFFA(P, UB(t), t, ) denote a procedure that
+returns an approximate solution to Equation 4 using the Ibarra and
+Kim method. The procedure APRX-TRADEOFFB(P, UA(t), t, ) for
+agent b is analogous.
+For 1 ≤ c ≤ m, the approximate equilibrium offer for issue c
+at time t is denoted as [¯at
+c,¯bt
+c] where ¯at
+c and ¯bt
+c denote the shares
+for agent a and b respectively. We denote the equilibrium package
+at time t as [¯at
+,¯bt
+] where ¯at
+∈ Bm
+(¯bt
+∈ Bm
+) is an m element
+vector that denotes a"s (b"s) share for each of the m issues. Also,
+as before, for 1 ≤ c ≤ m, δc is the discount factor for issue c.
+Note that for 1 ≤ t ≤ n, ¯at
+c + ¯bt
+c = 1 (i.e., the sum of the agents"
+shares (at time t) for each pie is one). Finally, for time period t (for
+1 ≤ t ≤ n) we let ¯A(t) (respectively ¯B(t)) denote the approximate
+equilibrium strategy for agent a (respectively b).The following 
+theorem uses this notation and characterizes an approximate 
+equilibrium for multi-issue negotiation.
+THEOREM 3. For the package deal procedure, the following
+strategies form an approximate Nash equilibrium. The 
+equilibrium strategy for t = n is:
+¯A(n) =
+j
+OFFER [1, 0] IF a"s TURN
+ACCEPT IF b"s TURN
+¯B(n) =
+j
+OFFER [0, 1] IF b"s TURN
+ACCEPT IF a"s TURN
+For all preceding time periods t < n, if [xt
+, yt
+] denotes the 
+offer made at time t, then the equilibrium strategies are defined as
+follows:
+¯A(t) =
+8
+<
+:
+OFFER APRX-TRADEOFFA(P, UB(t), t, ) IF a"s TURN
+If (Ua
+([xt
+, yt
+], t) ≥ UA(t)) ACCEPT
+else REJECT IF b"s TURN
+¯B(t) =
+8
+<
+:
+OFFER APRX-TRADEOFFB(P, UA(t), t, ) IF b"s TURN
+If (Ub
+([xt
+, yt
+], t) ≥ UB(t)) ACCEPT
+else REJECT IF a"s TURN
+where UA(t) = Ua
+([¯at+1
+,¯bt+1
+], t + 1) and UB(t) = Ub
+([¯at+1
+,
+¯bt+1
+], t + 1). An agreement takes place at t = 1.
+PROOF. As in the proof for Theorem 1, we use backward 
+reasoning. We first obtain the strategies for the last time period t = n.
+It is straightforward to get these strategies; the offering agent gets
+a hundred percent of all the issues.
+Then for t = n − 1, the offering agent must solve the 
+maximization problem of Equation 4 by substituting t = n−1 in it. For agent
+a (b), this is done by APPROX-TRADEOFFA (APPROX-TRADEOFFB).
+These two functions are nothing but the Ibarra and Kim"s 
+approximation method for solving the 0-1 knapsack problem. These two
+functions take as a parameter and use the Ibarra and Kim"s 
+approximation method to return a package that approximately 
+maximizes Equation 4. Thus, the relative error for these two functions
+is the same as that for Ibarra and Kim"s method (i.e., it is at most
+where is given in Equation 5).
+Assume that a is the offering agent for t = n − 1. Agent a must
+offer a package that gives b a cumulative utility equal to what it
+would get from its own approximate equilibrium offer for the next
+time period (i.e., Ub
+([¯at+1
+,¯bt+1
+], t + 1) where [¯at+1
+,¯bt+1
+] is the
+approximate equilibrium package for the next time period). Recall
+that for the last time period, the offering agent gets a hundred 
+percent of all the issues. Since a is the offering agent for t = n − 1
+and the agents use the alternating offers protocol, it is b"s turn at
+t = n. Thus Ub
+([¯at+1
+,¯bt+1
+], t + 1) is equal to b"s cumulative
+utility from receiving a hundred percent of all the issues. Using this
+utility as the capacity of the knapsack, a uses APPROX-TRADEOFFA
+and obtains the approximate equilibrium package for t = n − 1.
+On the other hand, if b is the offering agent at t = n − 1, it uses
+APPROX-TRADEOFFB to obtain the approximate equilibrium 
+package.
+In the same way for t < n − 1, the offering agent (say a) uses
+APPROX-TRADEOFFA to find an approximate equilibrium package
+that gives b a utility of Ub
+([¯at+1
+,¯bt+1
+], t + 1). By reasoning 
+backwards, we obtain the offer for time period t = 1. If a (b) is the 
+offering agent, it proposes the offer APPROX-TRADEOFFA(P, UB(1), 1, )
+(APPROX-TRADEOFFB(P, UA(1), 1, )). The receiving agent 
+accepts the offer. This is because the relative error in its cumulative
+utility from the offer is at most . An agreement therefore takes
+place in the first time period.
+THEOREM 4. The time complexity of finding the approximate
+equilibrium offer for the first time period is O(nm/ 2
+).
+PROOF. The time complexity of APPROX-TRADEOFFA and 
+APPROXTRADEOFFB is the same as the time complexity of the Ibarra and
+Kim method [10] i.e., O(m/ 2
+)). In order to find the equilibrium
+offer for the first time period using backward reasoning, 
+APPROXTRADEOFFA (or APPROX- TRADEOFFB) is invoked n times. Hence
+the time complexity of finding the approximate equilibrium offer
+for the first time period is O(nm/ 2
+).
+This analysis was done in a complete information setting. 
+However an extension of this analysis to an incomplete information 
+setting where the agents have probability distributions over some 
+uncertain parameter is straightforward, as long as the negotiation is
+done offline; i.e., the agents know their preference for each 
+individual issue before negotiation begins. For instance, consider the case
+where different agents have different discount factors, and each
+agent is uncertain about its opponent"s discount factor although it
+knows its own. This uncertainty is modelled with a probability 
+distribution over the possible values for the opponent"s discount factor
+and having this distribution as common knowledge to the agents.
+All our analysis for the complete information setting still holds for
+The Sixth Intl. Joint Conf. on Autonomous Agents and Multi-Agent Systems (AAMAS 07) 955
+this incomplete information setting, except for the fact that an agent
+must now use the given probability distribution and find its 
+opponent"s expected utility instead of its actual utility. Hence, instead of
+analyzing an incomplete information setting for offline negotiation,
+we focus on online multi-issue negotiation.

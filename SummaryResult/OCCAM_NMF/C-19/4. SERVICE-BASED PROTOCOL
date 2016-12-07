@@ -1,0 +1,41 @@
+upon replies and notifications, the order is  reversed. 
+upon requests, if several interceptors are bound to the same service interface, they are executed in the order of binding.
+note that a protocol module ti, that has an interceptor bound to a service interface, is able to modify requests, replies and notifications.
+when module q1 issues a reply or a notification, a similar mechanism is used, except that this time the listener-interceptor of t1 is executed.
+then, module t1 may forward a request req to the service interface t, where we can have req = req 1 .
+when p1 issues a request req to the service interface t, the executer-interceptor of t1 is executed.
+the interceptor is bound to service interface t. the left part of the figure shows that an interceptor can be seen as an executer plus a listener.
+this is illustrated in figure 4. in the right part of the figure, the interceptor of the protocol module t1 is represented by a rounded box.
+they are activated each time a request, a reply or a notification is issued to the service interface they are bound to.
+similarly to executers, interceptors can be dynamically bound or unbound to a  service interface.
+p1 q1 p1 q1 t1t1 t t t figure 4: execution of protocol interactions with interceptors an interceptor plays a special rˆole.
+in figure 3, module q1 contains an executer bound to service interface t and a listener bound to service interface u. module q1 can generate replies and notifications to service interface t and requests to service interface u. note that the service interface nt allows to access the network.
+l) is bound to si.
+a listener l) shows that e (resp.
+a connecting line between a service interface si and an executer e (resp.
+we represent executers with white boxes inside protocol modules and listeners with white boxes with a gray border.
+similarly, a dashed white arrow going from module pi to service  interface si represents the fact that pi can generate a reply or a notification to si.
+the fact that a module pi can generate a request to a service interface si is represented by a dashed black arrow going from pi to si.
+t, u and nt) in a hexagonal box.
+we denote a service interface by a small letter (e.g.
+stack 1 p1 q1 r1 s1 network t u nt figure 3: example of a service-based protocol stack in figure 3, we show an example of a service-based stack.
+if the listener that must handle the reply does not exist, the reply is delayed until the listener is created.
+if the request and the reply occur respectively, in stack i and in stack j, the service interface si on i communicates to the service interface si on j the listener that must handle the reply.
+to ensure that one single listener handles a reply, a module pi has to identify, each time it issues a request, the listener to handle the possible reply.
+a reply issued to a service interface is handled by one single listener.
+a notification issued to a service interface si is handled by all listeners bound to si in the local stack.
+a listener can be dynamically bound and unbound to/from a service  interface si.
+listeners handle replies and notifications.
+contrary to events, at most one executer at any time can be bound to a service interface on every machine.
+if no executer is bound to si, the request is delayed until some executer is bound to si.
+a request issued to a service interface si leads to the  execution of the executer bound to si.
+it can be later unbound.
+an executer can be  dynamically bound to a service interface.
+executers handle requests.
+a protocol module is a set of executers, listeners and interceptors.
+protocol modules.
+requests, replies and notifications are all issued to service interfaces.
+in our service-based framework,  protocol modules in the same stack communicate through objects called service interfaces.
+service interface.
+692 we show in section 5 the advantages of service-based  protocol frameworks over event-based protocol frameworks.
+framework in this section, we describe our new approach for  implementing and composing protocols that is based on services.

@@ -1,0 +1,26 @@
+these incremental extensions can further reduce bandwidth requirements by up to a factor of 2.4 over the standard  approaches discussed above. 
+13 x a a x b b x figure 2: using fm aggregation to compute average signal level measured by a group of devices.
+as we show in section 7, 1 convergence time is correlated with the connectivity topology of the devices, which in turn depends on the environment.
+this is explained further in section 4. based on these insights, we propose guess, a low-overhead approach which uses incremental extensions to fm  aggregation and randomized gossiping for efficient coordination within a cognitive radio network.
+by applying gossip and fm aggregation, aggregate bandwidth requirements drop to (c·logn time-steps × 50 devices × 700 bits per transmission) = 0.40 mbps, since 12 time-steps are needed to propagate the data (with c = 2, for illustrative purpoes1 ).
+contrast this to the use of a randomized gossip protocol to disseminate such information, and the use of fm bit vectors to perform in-network aggregation.
+exchanging this information among even a small group of 50 devices each second would require (50 time-steps × 50  devices × 700 bits per transmission) = 1.67 mbps of aggregate network bandwidth.
+exchanging complete sensory information  between nodes would require 700 bits per transmission (for 100 channels, each requiring seven bits of information).
+suppose we wish to compute the average signal energy in each of 100 discretized frequency bands, and each signal can have up to 128 discrete energy levels.
+large sensory data: because cognitive radios can  potentially use any part of the rf spectrum, there will be  numerous channels that they need to scan.
+coordination which does not support rapid dissemination of information will not be able to account for such rf variations.
+signal level can drop to a deep null with just a λ/4 movement in receiver position (3.7 cm at 2 ghz), where λ is the wavelength [14].
+here, fading and multi-path interference  heavily impact sensing abilities.
+this is especially true due to mobility, as rapid changes of the rf environment can occur due to device and obstacle movements.
+short timescales: further compounding the problem is the need to immediately propagate updated rf sensory data, in order to allow devices to react to it in a timely  fashion.
+thus, any such coordination must incur minimal network overhead.
+therefore, any time spent  communicating sensory information takes away from the device"s ability to perform its intended function.
+this implies that both data and sensory traffic will need to be time-multiplexed onto a single radio interface.
+limited bandwidth: due to restrictions of cost and power, most devices will likely not have dedicated hardware for supporting coordination.
+however, such coordination is non-trivial due to: (1) the limited bandwidth available for coordination, (2) the need to communicate this information on short timescales, and (3) the large amount of sensory data that needs to be exchanged.
+[5] illustrate the gains from cooperation and show an order of magnitude reduction in the probability of interference with the primary user when only a small fraction of secondary users cooperate.
+cabric et al.
+coordinated sensing among secondary radios is essential due to limited device sensing resolution and physical rf  effects such as shadowing.
+as a result, distributed spectrum sensing and allocation would become both important and fundamental.
+therefore, it would be  reasonable to assume that a typical dense urban environment will contain several thousand cognitive radio devices in range of each other.
+to estimate the scale of the problem, in-stat predicts that the number of wifi-enabled devices sold annually alone will grow to 430 million by 2009 [2].

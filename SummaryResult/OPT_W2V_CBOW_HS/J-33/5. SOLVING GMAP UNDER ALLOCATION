@@ -1,0 +1,128 @@
+For example, if sellers submit bounded sets of XOR points, we only need to consider the points in the  combined set offered by the sellers, and the reduction to network flow is polynomial regardless of the number of homogeneous attributes.
+GAP is more general than the formulation above as it allows  buyside quantities (¯qi above) to be different for each potential seller.
+A match in our bipartite representation corresponds to a  potential trade in which assignment constraints are satisfied.
+Therefore, the next generalization allows any combination of the two boolean constraints, that is, any trader chooses among four bid types: NI Bid AON and not aggregating.
+We define two graph families, one for the case of non-aggregating traders (called single-unit), and the other for the case of  aggregating traders (called multi-unit).4 For both types, a single directed arc is placed from a buyer i ∈ B to a seller j ∈ S if and only if MMP(i, j) is nonempty.
+Here and henceforth we  assume the harder problem, where divisibility is with respect to  integers.
+The set of matches that  maximizes the total weight of arcs corresponds to the set of trades that maximizes total surplus.
+Since for each such quantity choice we can apply Theorem 3 or 4, the solution we get is in fact the solution to GMAP.
+For the multi-unit case, the weights are wij = σ1 (MMP(i, j)), and we associate the quantity ¯qi with the node for trader i.
+Variable xh ij ∈ Xh  represents the value of attribute Xh in the trade between buyer i and seller j. Integer variable qij represents the quantity of the trade (zero for no trade) between i and j.
+The size of this network is exponential in the number of  homogeneous attributes, since we need a node for each point in the product domain of all the homogeneous attributes of each trader.6 Hence this solution method will only be tractable in applications were the traders can be limited to a small number of homogeneous attributes.
+If a trader specifies a batch size β, we change the gain on the r arcs to β, and set the available flow of its origin to the maximal number of batches ¯qi/β.
+Network flow formulations have been shown to model this problem under the assumption of indivisibility and aggregation for all traders.
+Problem (4) has additional structure as a generalized min-cost flow problem with integral flow.5 A generalized flow network is a network in which each arc may have a gain factor, in addition to the pure network parameters (which are flow limits and costs).
+We denote the sets of buyers and sellers by B and S, respectively.
+This case can be represented using the following linear program, corresponding to our multi-unit graph: max X i∈B,j∈S wij qij s.t.
+If seller s can provide 5 blue units or 5 green units, and seller s can provide only 5 green units, we may prefer that b and s trade on green units, even if the local surplus of a blue trade is greater.
+Flow in an arc is then multiplied by its gain factor, so that the flow that enters the end node of an arc equals the flow that entered from its start node, multiplied by the gain factor of the arc.
+The faster algorithms are polynomial in the number of arcs and the logarithm of the maximal gain, that is, performance is not strongly polynomial but is  polynomial in the size of the input.
+Since network flow algorithms are much faster than arbitrary linear programs (generalized network flow simplex algorithms have been shown to run in practice only 2 or 3 times slower than pure network min-cost flow [1]), we expect a branch-and-bound solver for the matching problem to show  improved performance when taking advantage of network flow  modeling.
+, K. For buyer i ∈ AI with XOR points at quantities ¯qk i , we replace (4b) with the following constraints: X j∈T (i) qk ij = ¯qk i zk i k = 1, .
+X i∈T (j) qij ≤ ¯qj j ∈ S X j∈T (i) qij ≤ ¯qi i ∈ B qij ≥ 0 j ∈ S, i ∈ B Recall that the qij variables in the solution represent the number of units that buyer i procures from seller j.
+V 1 is a seller in ND, V 2 ∈ AI, V 4 ∈ AD.
+max X i∈B,j∈S [ˆuB i (xij , qij ) − ˆuS j (xij , qij )] X j∈S qij ≤ ¯qi i ∈ B X i∈B qij ≤ ¯qj j ∈ S xh 1j = xh 2j = · · · = x|B|j j ∈ S, h ∈ {1, .
+X j∈T (i) qij = ¯qiri i ∈ AIb (4b) X j∈T (i) qij ≤ ¯qiri i ∈ ADb (4c) X i∈T (j) qij = ¯qirj j ∈ AIs (4d) X i∈T (j) qij ≤ qj rj j ∈ ADs (4e) xij ≤ ¯qiyij i ∈ NDb , j ∈ T(i) (4f) xij ≤ ¯qj yij j ∈ NIs , i ∈ T(j) (4g) X j∈T (i) yij ≤ ri i ∈ NIb ∪ NDb (4h) X i∈T (j) yij ≤ rj j ∈ NIs ∪ NDs (4i) int qij (4j) yij , rj, ri ∈ {0, 1} (4k) 115 Figure 2: Generalized network flow model.
+That this formulation is NP-hard as well (even the case of a single seller corresponds to the knapsack problem), illustrates the drastic increase in complexity when traders with different constraints are admitted to the same problem instance.
+Thus, for every assignment ˆx to the homogeneous attributes, we compute MMP(b, s) under the constraint that configurations are consistent with ˆx.
+To handle nonlinear pricing, we augment the network to include flow possibilities corresponding to each of the enumerated  quantities, plus additional structure to enforce exclusivity among them.
+Observe that the optimal allocation is simply the solution to the well known weighted assignment problem [1] on the  singleunit bipartite graph described above.
+We denote by T(i) the set of potential trading partners of trader i (i.e., the nodes connected to buyer or seller i in the bipartite graph.
+Configuration  parity is assumed for all cases but the first. 
+Boolean (0/1) variables ri and rj indicate whether buyer i and seller j participate in the solution (used for AON traders).
+For a non-aggregating buyer, a single unit from the source will saturate up to one of the yij for all j, and be multiplied by ¯qi.
+This formulation is known as the network transportation problem with inequality  constraints, for which efficient algorithms are available [1].
+, K. Since we consider trades between every pair of quantity points we also have qk ij , k = 1, .
+Having established this framework, we are ready to  accommo5 Constraint (4j) could be omitted (yielding computational savings) if non-integer quantities are allowed.
+This problem can be represented using the following integer programming formulation: max X i∈B,j∈S wij qij s.t.
+In the presence of homogeneity constraints, we can no longer apply the convenient separation of GMAP into MMP plus global bipartite optimization, as the solution to GMAP may include trades not part of any MMP solution.
+For the divisible case, the distinguished quantities are those where the unit price changes, which can be formalized similarly.
+To preserve the network flow framework, we need to consider, for each trader, every point in the product domain of these homogeneous attributes.
+X i∈T (j) ¯qiqij ≤ ¯qj j ∈ S X j∈T (i) qij ≤ 1 i ∈ B qij ∈ {0, 1} j ∈ S, i ∈ B (3) This formulation is a restriction of the generalized assignment  problem (GAP) [13].
+It is a well known property of the transportation problem (and flow  problems on pure networks in general) that given integer input values, the optimal solution is guaranteed to be integer as well.
+To formulate an integer programming representation for the  problem, we introduce the following variables.
+Definition 8, which defines the maximum quantity, ¯q, as the largest of these.)
+For i ∈ NI we use an indicator (0/1) arc ri, on which the flow is multiplied by ¯qi.
+For a trader i with K XOR quantity points, we define dummy variables, zk i , k = 1, .
+Another indicator variable, yij , applied to non-aggregating buyer i and seller j, is one iff i trades with j.
+The next formulation solves the case in which all traders fall under case 2 of Theorem 3-that is, all traders are aggregating and divisible, and exhibit linear pricing.
+We apply the same approach as in Section 5.3: solve the global optimization, such that the alternative ˆx assignments for each trader are combined under XOR semantics, thus enforcing homogeneity constraints.
+Section 5.3 suggests a means to relax the linear  pricing restriction employed in these constructions.
+In other words, the network treats the offer for a given quantity as in Section 5.2, and embeds this in an XOR relation to ensure that each trader picks only one of these quantities.
+The problem becomes significantly harder when aggregation is given as an option to bidders, requiring various enhancements to the basic multi-unit bipartite graph described above.
+, xH} be attributes that some trader constrains to be homogeneous.
+At the seller side, the end node of a qij arc functions as a source for sellers j ∈ ND, in order to let the flow through yij arcs be 0 or ¯qj.
+We provide the formulation for the special case of divisibility (with  respect to integers) and configuration parity.
+We also use the notation qij for the mathematical formulations to denote partial fulfillment of qt for t = MMP(i, j).
+It is therefore possible to make the problem tractable by limiting one of the sides to a less expressive bidding language, and by that limit the set of potential matches.
+Integer programming algorithms such as branch-and-bound use solutions to the linear relaxation instance to bound the optimal integer solution.
+The novelty in this part of our work is the use of generalized network flow formulations for more complex cases where aggregation and divisibility may be controlled by traders.
+The network model can in turn be translated into an IP formulation that captures such structure.
+5.2 Handling Indivisibility and Aggregation Constraints Under the restrictions of Theorems 2, 3, or 4, and when the  solution to MMP is given, GMAP exhibits strong similarity to the problem of clearing double auctions with assignment constraints [16].
+Figure 1 demonstrates the transformation of a set of bids to a transportation problem instance.
+The first  generalization is to replace the boolean AON constraint with divisibility down to q, the minimal quantity.
+Let i index buyers, j sellers, and H homogeneous attributes.
+The generalized min-cost flow problem is well-studied and has a multitude of efficient algorithms [1].
+In our network flow instance we simply need to turn the node of the constrained trader i (e.g., the node B3 in Figure 2) to a sink that can drain up to ¯qi − qi units of flow.
+(x, q , i, ∗, π) ∈ OT i .
+Configurations are described in terms of constraints on attribute values.
+, H} (6) Table 1 summarizes the mapping we presented from allocation constraints to the complexity of solving GMAP.
+The flow is then multiplied by 1 ¯qj so 0/1 flows enter an end node which can drain either 1 or 0 units.
+The  complexity will still be exponential, but in the maximum number of homogeneous attributes for any pair of traders.
+If such simplifications do not apply, it may be preferable to solve the global problem directly as a single optimization problem.
+In the single-unit case, we define the weight of an arc (i, j) as wij = σ(MMP(i, j)).
+The network model is based on a bipartite graph, in which nodes on the left side represent buyers, and nodes on the right represent sellers.
+For the indivisible case, these points are distinguished in the offer set by satisfying the following: ∃π.
+116 Figure 3: Extending the network flow model to express an XOR over quantities.
+If i ∈ ND, the end node of yij will function as a sink that may drain up to ¯qi of the entering flow.
+Initially we examine a special case, which at the same time  demonstrates the hardness of the problem but still carries computational advantages.
+It is important to note that the graph needs to include a node only for each point that potentially matches a point of the other side.
+Trader i trades the full quantity iff ri = 1.
+We consider nonlinear pricing in the form of enumerated  payment schedules-that is, defining values ˆu(x, q) for a select set of quantities q.
+CONSTRAINTS Theorems 2, 3, and 4 establish conditions under which GMAP solutions must comprise elements from constituent MMP solutions.
+The integer program (4) can be also easily changed to accommodate this extension.
+W represents arc weights (unit surplus), s represents source (exogenous) flow, and t represents sink quantity.
+Note that any form of (in)divisibility can 4 In the next section, we introduce a hybrid form of graph  accommodating mixes of the two trader categories.
+AI Bid AON, allows aggregation (quantity can be aggregated across configurations, as long as it sums to the whole amount).
+AD Bid allows aggregation and divisibility.
+A homogeneity constraint [4] restricts such  combinations, by requiring that configurations aggregated in an overall deal must agree on some or all attributes.
+, H} xh i1 = xh i2 = · · · = xi|S| i ∈ B, h ∈ {1, .
+Initially we examine the simple case of no aggregation  (Theorem 2).
+The main benefit of this graphical formulation to our matching problem is that it provides a very  efficient linear relaxation.
+, K (5) 5.4 Homogeneity Constraints The model (4) handles constraints over the aggregation of  quantities from different trading partners.
+(b) Corresponding multi-unit assignment model.
+For example, let buyer b specify an offer for maximum quantity 10 of various acceptable  configurations, with a homogeneity constraint over the attribute color.
+for sellers j ∈ NI arcs rj ensure AON similarly to arcs rj for buyers.
+Although GAP is known to be NP-hard, it can be solved relatively efficiently by exact or approximate algorithms.
+q@p indicates an offer to trade q units at price p per unit.
+For aggregating traders, yij is not constrained.
+We designate one side (e.g., buyers) as restrictive (AON and non-aggregating), and the other side (sellers) as unrestrictive (divisible and aggregating).
+In Sections 5.1 and 5.2, we show how to compute these GMAP  solutions, given the MMP solutions, under these conditions.
+This means b is willing to aggregate deals over different trading partners and configurations, as long as all are the same color.
+114 also be accommodated in this model via the constituent MMP  subproblems.
+6 If traders differ on which attributes they express such constraints, we can limit consideration to the relevant alternatives.
+5.1 Notation and Graphical Representation Our clearing algorithms are based on network flow formulations of the underlying optimization problem [1].
+When aggregation is allowed, the formulation permits trades involving arbitrary combinations of configurations.
+Using gains, we can also apply batch size constraints.
+(x, q, i, ∗, π) ∈ OT i ∧ ¬∃q < q.
+The g values represent arc gains.
+max X i∈B,j∈S Wij qij (4a) s.t.
+5.3 Nonlinear Pricing A key assumption in handling aggregation up to this point is linear pricing, which enables us to limit attention to a single unit price.
+Section 5.4  provides strategies for allowing traders to aggregate partners and  restrict configuration aggregation at the same time.
+Figure 1: Multi-unit matching with two boolean attributes.
+In general, we consider traders that are either aggregating or not, with either divisible or AON offers.
+Nonrestrictive traders are treated as in Figure 1.
+In these settings, traders that aggregate partners also aggregate  configurations; hence we refer to them simply as aggregating or  nonaggregating.
+, K KX k=1 zk i = ri zk i ∈ {0, 1} k = 1, .
+B1 is a buyer in AD, B2 ∈ NI, B3 ∈ AI, B4 ∈ ND.
+Divisibility without linear pricing allows expression of  concave willingness-to-pay functions, corresponding to convex  preference relations.
+Other than the special case above, we found no advantage in  limiting AON constraints when traders may specify aggregation  constraints.
+ND No aggregation, divisibility (one trade, but smaller quantities are acceptable).
+The network flow formulation is depicted in Figure 2.
+Bidders may often wish to express non-convex offer sets, for example, due to fixed costs or switching costs in  production settings [21].
+Note that free disposal lets a buy offer receive a larger quantity than desired (and similarly for sell offers).
+The network representation of the XOR relation (which can be embedded into the network of Figure 2) is depicted in Figure 3.
+(a) Bids, with offers to buy in the left column and offers to sell at right.
+date more flexible versions of side constraints.
+B2 has 3 XOR points for 6, 3, or 5 units.
+Let {x1, .

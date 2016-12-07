@@ -1,0 +1,41 @@
+upon communication of this fact agent 2 signals to commit. 
+conflict-directed  relaxation by agent 2 suggests relaxing the lft(m4) by 1 tick to 30, and this query is communicated to agent 1. in fact, by retracting either method m1 or m2 from the schedule this relaxation can be accommodated with no quality loss to agent1 (due to the min qaf).
+if agent2 could schedule m7, the quality  contributed by agent2 to the task group would be 70.  however, an attempt to schedule m7 together with m5 and m6 leads to a conflict, since the est(m7) = 46, dur(m7) = 10 and lft(m7) = 55 (see figure 5).
+suppose that agent2 receives a new task m7 with deadline 55 (see figure 4).
+to illustrate this strategy, consider figure 5 where agent1 has m1, m2 and m4 on its timeline, and therefore est(m4) = 21. agent2 has m5 and m6 on its timeline, with est(m5) = 31 (m6 could be scheduled before or after m5).
+if successful, a non-local option is generated indicating which remote  constraint(s) must be relaxed and by how much to allow  installation of the new, higher quality local schedule.
+determine if stn consistency is restored.
+figure 5: if m4, m5 and m7 are scheduled, a conflict is detected by the stn.
+on autonomous agents and multi-agent systems (aamas 07) 489 figure 4: a high quality task is added to the task structure of agent2.
+joint conf.
+third, constraints in this subset are selectively retracted to the sixth intl.
+second, by virtue of the connections in the stn to the domain-level c taems model, this set is filtered to identify the subset associated with remote nodes.
+first, the constraints involved in the cycle are collected.
+given this cycle, the mechanism proceeds in three steps.
+recall that if a method cannot be  feasibly inserted into the schedule, an attempt to do so will generate a negative cycle.
+conflict-driven relaxation - a second strategy for generating non-local options, referred to as conflict-directed relaxation, utilizes analysis of stn conflicts to identify and prioritize external constraints to relax in the event that a particular method that would increase local quality is found to be unschedulable.
+because of the time window constraints, agent1 must remove m3 from its schedule to get m4 on,  resulting in a new lower quality schedule of 5. however, when agent2 receives this option response from agent1, it  determines that the total quality accumulated for the task group would be 5 + 30 = 35, a net gain of 10. hence, agent 2 signals to agent1 to commit to this non-local option.
+given this state, the maximum quality that agent2 can contribute to the task group is 10, and the total task group quality would then be 15 + 10 = 25. using optimistic synchronization, agent2 will generate a non-local option that indicates that if m5 becomes enabled, both m5 and m6 would be scheduled, and the quality contributed by agent2 to the task group would become 30. agent2 sends a must schedule m4 query to agent1.
+assume that this is agent1"s current schedule.
+to illustrate, consider again the example in figure 1. the maximum quality that agent1 can contribute to the task group is 15 (by scheduling m1, m2 and m3).
+the needed queries requesting the quality impact of scheduling these activities are then formulated and sent to the relevant remote agents.
+if successful, a non-local option is generated, specifying the value of the new, higher quality local schedule, the temporal constraints on the local target activity, and the set of must-schedule enabler activities that must be scheduled by remote agents in order to achieve this local quality.
+for each such local method, the set of remote enablers are hypothetically  activated, and the scheduler attempts to construct a new local schedule under these optimistic assumptions.
+more specifically, the strategy looks for would be contributor methods that are currently unscheduled due to the fact that one or more remote enabling (source) tasks or methods are not currently scheduled.
+optimistic synchronization - optimistic  synchronization is a non-local option generation strategy where search is used to explore the impact on quality if optimistic  assumptions are made about currently unscheduled remote enablers.
+the option manager currently employs two  basic search strategies for generating non-local options, each exploiting the local scheduler in hypothetical mode.
+if the combined  quality change reported back from a set of one or more relevant queries is a net gain, then the issuing agent signals to the other involved agents to commit to this joint set of schedule changes.
+when found, a non-local option is used by a  coordinating agent to formulate queries to any other involved agents in order to determine the impact of such constraint relaxations on their local schedules.
+generally speaking, a non-local option identifies certain relaxations (to one or more constraints  imposed by methods that are scheduled by one or more remote agents) that enable the generation of a higher quality local schedule.
+running in lower priority mode than the  executor and scheduler, the options manager initiates a non-local option generation and evaluation process in response to any local schedule change made by the agent if computation time constraints permits.
+exploration of opportunities for such coordinated action by two or more agents is the responsibility of the options manager.
+in many cases,  however, a larger-scoped change to the schedules of two or more agents can produce a higher-quality response.
+such options represent local schedule changes that are consistent with all currently known constraints originating from other agents" schedules, and hence can be implemented without interaction with other agents.
+6.2 generating non-local options as mentioned in the previous section, the agent"s first  response to any given query or update (either from execution or from another agent) is to generate one or more local  options.
+these changes are handled identically to updates reflecting schedule execution results, potentially triggering the local scheduler if the need to reschedule is detected.
+a recipient agent treats any communicated changes as additional forms of updates, in this case an update that modifies the current constraints associated with non-local (but inter-dependent) tasks or methods.
+more specifically, the dsm of a given agent acts to push any changes made to the time bounds, quality, or status of a local task/method to all the other agents that have that same task/method as a remote node in their subjective views.
+6.1 communicating non-local constraints a basic means of coordination with other agents is  provided by the distributed state mechanism (dsm), which is responsible for communicating changes made to the model or schedule of a given agent to other interested agents.
+in this section we summarize the coordination mechanisms provided in the agent architecture to address these issues.
+responses that look good locally may have a sub-optimal global effect once alignments are made, and hence agents must have the ability to seek mutually beneficial joint schedule changes.
+having responded locally to an unexpected execution  result or model change, it is necessary to communicate the consequences to agents with inter-dependent activities so that they can align their decisions accordingly.

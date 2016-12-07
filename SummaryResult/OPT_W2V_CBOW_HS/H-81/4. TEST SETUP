@@ -1,0 +1,65 @@
+Especially, no collection from the MPEG-7 dataset was used in the evaluation because the evaluations should show, how well the descriptors and the recommended distance measures perform on "unknown" material.
+The querying process was performed in the following steps: (1) random selection of a ground truth group, (2) random selection of a query object from this group, (3) distance comparison for all other objects in the dataset, (4) clustering of the resulting distance space based on the ground truth and finally, (5) evaluation.
+For the distance evaluation - next to the normalised data  matrixhuman similarity judgement is needed.
+The other basic shape descriptor, Contour-based Shape, was not used, because it produces structurally different descriptions that cannot be transformed to data vectors with elements measuring on interval-scales.
+4.3 Test environment As pointed out above, to generate the descriptors, the MPEG-7 reference implementation in version 5.6 was used (provided by TU Munich).
+of co-occurrences P3 cb + Hamming distance P4 K a Russel 1940 [14] P5 cb a + Kulczvnski 1927 [14] P6 2 K bc Pattern difference [14] P7 ( )( )( )( )dcdbcaba bcad ++++ − Pearson 1926 [11] 133 The Texture Browsing descriptions had to be transformed from five bins to an eight bin representation in order that all elements of the descriptor measure on an interval scale.
+It is just evaluated if - for likely image collections - better proximity measures than those suggested by the MPEG-7 group can be found.
+No Images Description 1 19 Regular, chequered patterns 2 38 Dark white noise 3 33 Moon-like surfaces Brodatz 4 35 Water-like surfaces 5 73 Humans in nature (difficult) 6 17 Images with snow (mountains, skiing) 7 76 Animals in nature (difficult) Corel 8 27 Large coloured flowers 9 12 Bavarian communal arms 10 10 All Bavarian arms (difficult) 11 18 Dark objects / light unsegmented shield Arms 12 14 Major charges on blue or red shield 134 use indicators measuring the distribution in distance space of candidates similar to the query object for this evaluation instead of recall and precision.
+This phenomenon (conceptually similar to the "false negatives" indicator) was named "cluster pollution" and the indicator measures the average cluster pollution over all clusters: clustersno doublesno cp clustersno i sizecluster j ij i _ _ _ _ ∑ ∑ = where no_doublesij is the number of indiscernible un-similar objects associated with the j-th element of cluster i.
+These descriptors were applied on three media collections with image content: the Brodatz dataset (112 images, 512x512 pixel), a subset of the Corel dataset (260 images, 460x300 pixel, portrait and landscape) and a dataset with coats-of-arms images (426 images, 200x200 pixel).
+The first measures the average distance of all cluster means to the origin: distanceavgclustersno sizecluster distanceclustersno i i sizecluster j ij d i _._ _ _ _ ∑ ∑ =µ where distanceij is the distance value of the j-th element in the i-th cluster, ∑ ∑ ∑ = CLUSTERS i i CLUSTERS i sizecluster j ij sizecluster distance distanceavg i _ _ _ , no_clusters is the number of found clusters and cluster_sizei is the size of the i-th cluster.
+All colour descriptors: Color Layout, Color Structure, Dominant Color, Scalable Color, all texture descriptors: Edge Histogram, Homogeneous Texture, Texture Browsing and one shape descriptor: Region-based Shape.
+In Subsection 2.2 it was stated that the major task of a distance measure is to bring the relevant media objects as close to the origin (where the query object lies) as possible.
+Identifying clusters of similar objects (based on the given ground truth) is relatively easy, because the resulting distance space for one descriptor and any distance measure is always one-dimensional.
+In the extraction process each descriptor was applied on the entire content of each media object and the following extraction parameters were used.
+When the descriptor extraction was finished, the resulting XML descriptions were transformed into a data matrix with 798 lines (media objects) and 314 columns (descriptor elements).
+The resulting indicator is normalised by the distribution characteristics of the distance measure (avg_distance).
+Texture Browsing was used even though the MPEG-7 standard suggests that it is not suitable for retrieval.
+In  multidescriptor environments this leads to a problem, because the resulting recall and precision values are strongly influenced by the method used to merge the distance values for one media object.
+For each combination of dataset and distance measure 250 queries were issued and evaluations were aggregated over all datasets and descriptors.
+In Subsection 3.2 we noted that p affects the discriminance of a predicate-based distance measure: The smaller p is set the larger are the resulting clusters because the quantisation model is then more discriminant against properties and less elements of the data matrix are used.
+Finally, no high-level descriptors were used (Localisation, Face Recognition, etc., see Subsection 2.1), because - to the author's opinion - the behaviour of the basic descriptors on elementary media objects should be evaluated before conclusions on aggregated structures can be drawn.
+Image processing was done with Adobe Photoshop and normalisation and all evaluations were done with Perl.
+Even in a  multidescriptor environment it is then simple to identify the similar objects in a large distance space.
+Of course, for identifying the best distance measure for a descriptor, it should be tested on an infinite number of media objects.
+Subsection 4.1 describes the descriptors (including parameters) and the collections (including ground truth information) that were used in the evaluation.
+Clusters are found by searching from the origin of distance space to the first similar object, grouping all following similar objects in the cluster, breaking off the cluster with the first un-similar object and so forth.
+For the evaluation two indicators were defined.
+The motion descriptors were not used, because they integrate the temporal dimension of visual media and would only be comparable, if the basic colour, texture and shape descriptors would be aggregated over time.
+It has to be noticed, that some of these groups (especially 5, 7 and 10) are much harder to find with  lowlevel descriptors than others.
+To be usable with distance measures that do not integrate domain knowledge, the elements of this data matrix were normalised to [0, 1].
+In this work, the ground truth is built of twelve groups of similar images (four for each dataset).
+Descriptor extraction was performed using the MPEG-7 reference implementation.
+Collections of this relatively small size were used in the evaluation, because the applied evaluation methods are above a certain minimum size invariant against collection size and for smaller collections it is easier to define a high-quality ground truth.
+Measure Comment Q1 ∑ − k jkiki xxw City block distance (L1 ) Q2 ( )∑ − k jkiki xxw 2 Euclidean distance (L2 ) Q3 ∑ + − k jkik jkik xx xx Canberra metric, Lance, Williams 1967 [8] Q4 ( ) ∑ + − k jkik jkik xx xx K 2 1 Divergence coefficient, Clark 1952 [1] Q5 ( )( ) ( ) ( )∑ ∑ ∑ −− −− k k jjkiik k jjkiik xx xx 22 µµ µµ Correlation coefficient Q6       −+      −−       +−− ∑∑∑ ∑ ∑∑ k ik k jkik k ik k k jk k ikjkik xmKmxxmKmx xxmKmxx 2..2 2222 Cohen 1969 [2] Q7 ∑ ∑ ∑ k k jkik k jkik xx xx 22 Angular distance, Gower 1967 [7] Q8 ( ) ( )( )∑ − ++ −−− 1 2 11 K k jkjkikik xxxx Meehl Index [10] Table 4.
+For Dominant Color colour space was set to YCrCb, 5-bit default quantisation was used and the default value for spatial coherency was used.
+A Manhattan metric was used to measure proximity (see [6] for details).
+In the evaluation process this measure turned out to produce valuable results and to be relatively robust against parameter p of the quantisation model.
+This causes a side-effect that is measured by the second indicator: more and more un-similar objects come out with exactly the same distance value as similar objects (a problem that does not exist for large p's) and become indiscernible from similar objects.
+Finally, Texture Browsing was used with five components.
+4.1 Test data For the evaluation eight MPEG-7 descriptors were used.
+Even though it is nearly impossible to say, how big the influence of a single distance measure was on the resulting recall and precision values, this problem has been almost ignored so far.
+4.2 Evaluation method Usually, retrieval evaluation is performed based on a ground truth with recall and precision (see, for example, [3], [16]).
+Quantitative distance measures.
+Homogeneous Texture was quantised to 32 components.
+Designing appropriate test sets for a visual evaluation is a highly difficult task (for example, see the TREC video 2002 report [15]).
+Remark: Even though there is a certain influence, it could be proven in [5] that no significant correlation exists between parameter p of the quantisation model and cluster pollution.
+Group membership was rated by humans based on semantic criterions.
+Colour in Color Structure was quantised to 32 bins.
+Predicate-based distance measures.
+Table 4 summarises the twelve groups and the underlying descriptions.
+Subsection 4.2 discusses the evaluation method that was implemented and Subsection 4.3 sketches the test environment used for the evaluation process.
+But this is not the aim of this study.
+Additionally, the standard deviation is used.
+Figure 1 shows examples from the three collections.
+Still, the average ratio of ground truth size to collection size is at least 1:7.
+Scalable Color values were quantised to sizeof(int)-3 bits and 64 bins were used.
+Consequently, it was decided to Table 3.
+Measure Comment No.
+This was not done.
+The next section shows the - partially  surprisingresults. 
+Consequently, they are (false) cluster members.
+Ground truth information.
+Table 2.
+Measure Comment P1 cba .. βα −− Feature Contrast Model, Tversky 1977 [17] P2 a No.

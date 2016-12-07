@@ -1,0 +1,110 @@
+(18) The first term x is a sparse vector, and takes non-zero values only for local pages k that are siblings of the global page j.
+Specifically, the addition of page k does not change the PageRanks of the pages in F , and thus fk = f. By construction of the stochastic complement, fk = Sfk, so the approximation given in equation (11) will yield the exact solution.
+(20) If we can compute the function hj in linear time, then we can compute each value of fj − f 1 using an additional amount of time that is proportional to the number of  nonzero components in x.
+(11) This is in contrast to the simple method outlined in the  previous section, which first iterates over the ( + 1) × ( + 1) matrix PFj to estimate f+ j , and then removes the last  component from the estimate and renormalizes to approximate fj.
+We have assumed here that the random surfer vector is the uniform vector, and that L has no ‘dangling links".
+The algorithm then computes the quantity ˜uT j f for each known global page j.
+We will next show that if only the ‘flow" term, (˜uT j f)z, is considered, then the resulting method is very similar to a heuristic proposed by Cho et al.
+5.1 Formulation For a given page j in the global domain, we define the expanded local graph Fj: Fj = F s uT j 0 , (4) where uj is the zero-one vector containing the outlinks from F into page j, and s contains the inlinks from page j into the local domain.
+We show that if only the ‘flow" is considered, then the resulting method is very similar to a widely used page selection heuristic [6].
+In this method, we estimate the length vector fj by computing one PageRank iteration over the × stochastic complement S, starting at the vector f: fj ≈ Sf.
+A simple approach for estimating fj is the following.
+We define (i, j) ∈ F if and only if F [j, i] = 1  (equivalently, page i links to page j) and express the value of the component x[k ] as: x[k ] = −α k:(k,k )∈F ,uj [k]=1 f[k] o[k](o[k] + 1) , (19) where o[k], as before, is the number of outlinks from page k in the local domain.
+SC-Select(F , Fout, f, k) Input: F : zero-one adjacency matrix of size  corresponding to the current local subgraph, Fout: zero-one outlink matrix from F to global subgraph, f:  PageRank of F , k: number of pages to return Output: pages: set of k pages to crawl next {Compute outlink sums for local subgraph} foreach (page j ∈ F ) o[j] ← k:(j,k)∈F F[j, k] end {Compute scalar ˜uT j f for each global node j } foreach (page j ∈ Fout) g[j] ← (1 − α) 1 +1 foreach (page k : (k, j) ∈ Fout) g[j] ← g[j] + α f[k] o[k]+1 end end {Compute vectors y and z as in (17) and (18) } y ← −(1 − α) e ( +1) z ← (1 − w)−1 ˜s {Approximate y + g[j] ∗ z 1 for all values g[j]} norm diffs ←L1NormDiffs(g, ELy, ELz) foreach (page j ∈ Fout) {Compute sparse vector x as in (19)} x ← 0 foreach (page k : (k, j) ∈ Fout) foreach (page k : (k, k ) ∈ F )) x[k ] ← x[k ] − f[k] o[k](o[k]+1) end end x ← αx scores[j] ← norm diffs[j] foreach (k : x[k] > 0 and page k ∈ L) scores[j] ← scores[j] − |y[k] + g[j] ∗ z[k]| +|x[k]+y[k]+g[j]∗z[k])| end end Return k pages with highest scores 5.2.2 PageRank Flows We now present an intuitive analysis of the stochastic complementation method by decomposing the change in  PageRank in terms of ‘leaks" and ‘flows".
+We begin by expanding the difference fj −f, where the vector fj is estimated as in (11), fj − f ≈ Sf − f = αF (DF + diag(uj))−1 f + (1 − α) e + 1 eT f +(1 − w)−1 (˜uT j f)˜s − f. (12) Note that the matrix (DF +diag(uj))−1 is diagonal.
+We partition the PageRank matrix PFj , corresponding to the × subgraph Fj as: PFj = ˜F ˜s ˜uT j w , (9) where ˜F = αF (DF + diag(uj))−1 + (1 − α) e + 1 eT , ˜s = αs + (1 − α) e + 1 , ˜uj = α(DF + diag(uj))−1 uj + (1 − α) e + 1 , w = 1 − α + 1 , and diag(uj) is the diagonal matrix with the (i, i)th entry equal to one if the ith element of uj equals one, and is zero otherwise.
+5.2.1 Stochastic Complementation Since f+ j , as given in (6) is the PageRank of the matrix PFj , we have: fj(1 − xj) xj = ˜F ˜s ˜uT j w fj(1 − xj) xj = ˜F fj(1 − xj) + ˜sxj ˜uT j fj(1 − xj) + wxj .
+If this influence is approximated using only ‘flows", the optimal node j∗ is: j∗ = argmaxj EL ˜uT j fz 1 = argmaxj ˜uT j f EL z 1 = argmaxj ˜uT j f = argmaxj α(DF + diag(uj))−1 uj + (1 − α) e + 1 , f = argmaxjfT (DF + diag(uj))−1 uj.
+Letting o[k] be the outlink count for page k in F , we can express the kth diagonal element as: (DF + diag(uj))−1 [k, k] = 1 o[k]+1 if uj[k] = 1 1 o[k] if uj[k] = 0 Noting that (o[k] + 1)−1 = o[k]−1 − (o[k](o[k] + 1))−1 and rewriting this in matrix form yields (DF +diag(uj))−1 = D−1 F −D−1 F (DF +diag(uj))−1 diag(uj).
+.00001 .0001 .001 .01 0.26 0.262 0.264 0.266 Influence Objective 1 10 100 1000 0.266 0.264 0.262 0.26 Outlink Count Objective (a) (b) Figure 1: (a) The correlation between our influence page selection criteria (7) and the actual objective function (3) value is quite strong.
+Given the function hj(f) = y + (˜uT j f)z 1, the quantity fj − f 1 120 Research Track Paper can be expressed as fj − f 1 = k x[k] + y[k] + (˜uT j f)z[k] = k:x[k]=0 y[k] + (˜uT j f)z[k] + k:x[k]=0 x[k] + y[k] + (˜uT j f)z[k] = hj(f) − k:x[k]=0 y[k] + (˜uT j f)z[k] + k:x[k]=0 x[k] + y[k] + (˜uT j f)z[k] .
+Substituting (13) and (14) in (12) yields fj − f ≈ (PF f − f) −αF D−1 F (DF + diag(uj))−1 diag(uj)f −(1 − α) e ( + 1) + (1 − w)−1 (˜uT j f)˜s = x + y + (˜uT j f)z, (15) noting that by definition, f = PF f, and defining the vectors x, y, and z to be x = −αF D−1 F (DF + diag(uj))−1 diag(uj)f (16) y = −(1 − α) e ( + 1) (17) z = (1 − w)−1 ˜s.
+Given a starting vector x(0) , if k PageRank iterations are performed, the current PageRank solution x(k) satisfies: x(k) − x∗ 1 = O(αk x(0) − x∗ 1), (8) where x∗ is the desired PageRank vector.
+For vector x, we can see from equation (19) that the amount of PageRank leaked by a local page is proportional to the weighted sum of the  Page121 Research Track Paper Ranks of its siblings.
+Interestingly, the normalization that arises in our method differs from the heuristic given in [6], which normalizes by o[k].
+Note that (20) computes the difference  between all components of f and fj, whereas our node  selection criteria, given in (7), is restricted to the components corresponding to nodes in the original local domain L. Let us examine Algorithm 3 in more detail.
+If fj is computed exactly for each global page j, then the PageRank  algorithm would need to be run for each of the O(n) such global pages j we consider, resulting in an O(n2 ) computational cost for the node selection method.
+Next, we present the computational details needed to  efficiently compute the quantity fj −f 1 over all known global pages j.
+Thus, by (8), after one PageRank iteration, we expect our estimate of f+ j to still have an error of about 2αxj.
+Let the PageRank of F be f. We express the PageRank f+ j of the expanded local graph Fj as f+ j = (1 − xj)fj xj , (6) where xj is the PageRank of the candidate global node j, and fj is the L1-normalized PageRank vector restricted to the pages in F .
+First, estimate the PageRank f+ j of Fj by computing one  PageRank iteration over the matrix PFj , using the starting  vector ν = f 0 .
+The problem with this approach is in the starting vector.
+The L1NormDiff method is called on the components of these vectors which correspond to the pages in L, and it estimates the value of EL(y + (˜uT j f)z) 1 for each page j.
+We first give a well-defined criteria for the page selection problem and provide experimental evidence that this criteria can effectively identify pages that optimize our problem objective (3).
+First, the algorithm computes the outlink counts for each page in the local domain.
+The difference between the actual PageRank f+ j of PFj and the starting vector ν is ν − f+ j 1 = xj + f − (1 − xj)fj 1 ≥ xj + | f 1 − (1 − xj) fj 1| = xj + |xj| = 2xj.
+Thus, computing the exact value of fj will lead to a quadratic algorithm, and we must instead turn to methods of approximating this vector.
+It can be easily shown that the sub-dominant eigenvalue of S is at most +1 α, where is the size of F .
+(10) The matrix S = ˜F +(1−w)−1 ˜s˜uT j is known as the stochastic complement of the column stochastic matrix PFj with  respect to the sub matrix ˜F .
+Since the total number of edges in Fout was assumed to have size O( ) (recall that is the number of pages in F ), the running time of this step is also O( ).
+Finally, we give an intuitive analysis of our algorithm in terms of ‘leaks" and ‘flows".
+Since directly optimizing our problem goal requires  knowing the global PageRank p∗ , we instead propose to crawl those nodes that will have the greatest influence on the  PageRanks of pages in the original local domain L: influence(j) = k∈L |fj[k] − f[k]| (7) = EL (fj − f) 1.
+Furthermore, this  expectation is sampled from the set of links within the crawled domain, whereas a better estimate would also use links from the global domain.
+The local domain used here is a crawl of conservative political pages (we will provide more details about this dataset in section 6); we observed similar results in other domains.
+The leakage caused by y is an artifact of the random surfer vector.
+By using the stochastic complement, we can establish a tight lower bound of zero for this difference.
+To see that the running time for this algorithm is O(n), note that the computation involved in this method is a subset of that needed for the SC-Select method  (Algorithm 3), which was shown to have a running time of O(n). 
+The  algorithm PF-Select, which is omitted due to lack of space, first computes the quantity fT (DF +diag(uj))−1 uj for each global page j, and then returns the pages with the k largest scores.
+Typically, the size of this set is bounded by a constant.
+Note that the last two terms, y and z are not dependent on the current global node j.
+The algorithm then computes the vectors y and z, as given in (17) and (18), respectively.
+The problem with the latter method is in the choice of the ( + 1) length starting vector, ν. Consequently, the PageRank estimate given by the simple method differs from the true PageRank by at least 2αxj, where xj is the  PageRank of page j.
+We then present our main  al118 Research Track Paper gorithmic contribution of the paper, a method with linear running time that is derived from this page selection  criteria.
+The theory of stochastic  complementation is well studied, and it can be shown the stochastic complement of an irreducible matrix (such as the PageRank matrix) is unique.
+The nested loops iterate over the set of pages in F that are siblings of page j.
+This is important, as other properties of the PageRank algorithm, notably the algorithm"s sensitivity, are dependent on this value [11].
+For each candidate global node j, figure 1(a) shows the objective function value Global Diff(fj) as a function of the influence of page j.
+The total running time for this method is linear in and the discretization  parameter c (which we take to be a constant).
+However, the latter distribution is not known to a localized search engine, and we contend that the above estimate will, on average, be a better estimate than the uniform distribution, for example.
+The outlink count is defined as the number of outlinks from the local domain to page j.
+Since we have assumed that the size of F will not grow larger than O(n), the total running time for the algorithm is O(n).
+The vector z dictates how the flow is allocated to the local domain; the flow that local page k receives is proportional to (within a constant factor due to the random surfer vector) the expected number of its inlinks.
+We will next present a method that eliminates this bias and runs in O(n) time.
+In this section, we present node selection algorithms that operate within the greedy framework presented in the  previous section.
+The leakage can be quantified in terms of the non-positive vectors x and y (equations (16) and (17)).
+5.2 Computation As described, for each candidate global page j, the  influence score (7) must be computed.
+Finally, for each page j, the scores vector is updated over the set of non-zero components k of the vector x with k ∈ L. This set has size equal to the number of local siblings of page j, and is a subset of the total number of siblings of page j.
+We note that if exact values are desired, we have also developed an algorithm that runs in O( log ) time that is not described here.
+Furthermore, the stochastic complement is also irreducible and therefore has a unique stationary  distribution as well.
+To evaluate EL (y + az) 1 for some a ∈ [a1, ac], the closest discretized value ai is determined, and the  corresponding entry in the table is used.
+Then, estimate fj by removing the last 119 Research Track Paper component from our estimate of f+ j (i.e., the component corresponding to the added node j), and renormalizing.
+The resulting page selection score can be expressed as a sum of the PageRanks of each local page k that links to j, where each PageRank value is normalized by o[k]+1.
+Therefore, if only one iteration is performed, choosing a good starting vector is necessary to achieve an accurate approximation.
+To see this, consider the case in which a node k is added to F to form the augmented local subgraph Fk, and that the PageRank of this new graph is (1 − xk)f xk .
+The scalar ˜uT j f can be thought of as the total amount of PageRank flow that page j has available to distribute.
+The algorithm we present works by performing one power method iteration used by the PageRank algorithm  (Algorithm 1).
+In the main loop, we compute the vector x, as defined in equation (16).
+This heuristic is computationally cheaper, but as we will see later, not as effective as the Stochastic Complementation method.
+The quantity EL(y + aiz) 1 is then computed for each discretized value of ai and stored in a table.
+Our node selection strategy chooses global nodes that have the largest influence (equation (7)).
+Therefore, we estimate this inlink vector as the expectation over inlink counts among the set of already crawled pages, s = F T e F T e 1 .
+Algorithm 3: Node Selection via Stochastic Complementation.
+(5) In practice, for any given page, this estimate may not reflect the true inlinks from that page.
+The convergence rate for the PageRank algorithm has been shown to equal the random surfer probability α [7, 11].
+The correlation is quite strong, implying that the influence criteria can  effectively identify pages that improve the global PageRank estimate.
+The estimation works as follows.
+As a baseline, figure 1(b) compares our  objective with an alternative criteria, outlink count.
+The flows are represented by the non-negative vector (˜uT j f)z (equations (15) and (18)).
+This inner product can be written as (1 − α) 1 + 1 + α k:(k,j)∈Fout f[k] o[k] + 1 , where the second term sums over the set of local pages that link to page j.
+Observe that the inlinks into F from node j are not known until after node j is crawled.
+Solving the above system for fj can be shown to yield fj = ( ˜F + (1 − w)−1 ˜s˜uT j )fj.
+This analysis is  motivated by the decomposition given in (15).
+(b) This is in  contrast to other criteria, such as outlink count, which exhibit a much weaker correlation.
+Experimentally, the influence score is a very good predictor of our problem objective (3).
+Thus, each iteration of the main loop takes constant time, and the total running time of the main loop is O( ).
+PageRank ‘flow" is the increase in the local PageRanks originating from global page j.
+The PageRank ‘leaks" represent the decrease in PageRank resulting from the addition of page j.
+First, the values of ˜uT j f are discretized uniformly into c values {a1, ..., ac}.
+For sufficiently large , this value will be very close to α.
+Recall from (6) that xj is the PageRank of the added node j.
+Thus, pages that have siblings with higher PageRanks (and low outlink counts) will experience more leakage.
+[6] that has been widely used for the Crawling Through URL Ordering problem.
+(14) Recall that, by definition, we have PF = αF D−1 F +(1−α)e .
+In  particular, for candidate nodes j with relatively high PageRank xj, this method will yield more inaccurate results.
+(13) We use the same identity to express e + 1 = e − e ( + 1) .
+Note that we do not allow self-links in this framework.
+These optimizations are carried out in Algorithm 3.
+These assumptions are not necessary and serve only to simplify discussion and analysis.
+In practice, self-links are often removed, as they only serve to inflate a given page"s PageRank.
+The correlation here is much weaker.
+For an extensive study, see [15].

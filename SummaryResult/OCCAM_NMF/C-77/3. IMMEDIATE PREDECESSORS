@@ -1,0 +1,47 @@
+r3 when it receives a message m from pj , pi executes the following updates: ∀k ∈ [1..n] : case v ci[k] < m.v c[k] thenv ci[k] := m.v c[k]; ipi[k] := m.ip[k] v ci[k] = m.v c[k] then ipi[k] := min(ipi[k], m.ip[k]) v ci[k] > m.v c[k] then skip endcase the proof of the following theorem directly follows from lemmas 1, 2 and 3. theorem 1. the protocol described in section 3.3 solves the ipt problem: for any relevant event e, the timestamp e.ts contains the identifiers of all its immediate  predecessors and no other event identifier. 
+r1 each time it produces a relevant event e: - pi associates with e the timestamp e.ts defined as follows e.ts = {(k, v ci[k]) | ipi[k] = 1}, - pi increments its vector clock entry v ci[i]  (namely it executes v ci[i] := v ci[i] + 1), - pi resets ipi: ∀ = i : ipi[ ] := 0; ipi[i] := 1. r2 when pi sends a message m to pj, it attaches to m the current values of v ci (denoted m.v c) and the boolean array ipi (denoted m.ip).
+, 0].
+r0 initialization: both v ci[1..n] and ipi[1..n] are  initialized to [0, .
+the timestamp associated with a relevant event e is denoted e.ts.
+the following protocol, previously presented in [4] without proof, ensures the correct management of arrays v ci (as in section 2.3) and ipi (according to the lemmas of section 3.2).
+thus, the value of ipi just after the occurrence of event e must  keep track of this event.
+in particular, as stated in the lemmas, the determination of succ(e).ipi depends on whether e is relevant or not.
+in fact, the value of ipi just after an event e is used to determine the value succ(e).ipi.
+so, both vectors send(m).v cj and send(m).ipj (assuming send(m) produced by pj ) are attached to message m. 2. moreover, ipi must be updated upon the occurrence of each event.
+more precisely, this information involves ip(send(m)) and the timestamp of send(m) (needed to compare the events lastr(send(m),j) and lastr(pred(e),j), for  every j).
+it results from lemmas 2 and 3 that, if e is a receive event (e = receive(m)), then determining e.ipi  involves information related to the event send(m).
+, n} each process pi updates ipi according to the lemmas 1, 2, and 3: 1. it results from lemma 1 that, if e is not a receive event, the current value of ipi is sufficient to determine e.ipi.
+thus, the set ip(e) is determined in the following way: ip(e) = {ey j | e.v ci[j] = y ∧ e.ipi[j] = 1, j = 1, .
+as recalled in section 2.3, the knowledge of lastr(e,j) (for every e and every j) is based on the management of vectors v ci.
+more precisely, ∀j : ipi[j] = 1 ⇔ lastr(e, j) ∈ ip(e).
+to take into  account the information from pred(e), each process manages a boolean array ipi such that, ∀e ∈ hi the value of ipi when e occurs (denoted e.ipi) is the boolean array  representation of the set ip(e).
+hence the idea to introduce a data structure allowing to manage the sets ips inductively on the poset (h, hb →).
+213 ip(e) of any event e depends on the sets ip of the events pred(e) and/or send(m) (when e = receive(m)).
+from the previous lemmas, the set 3 actually, this graph is the hasse diagram of the partial order associated with the distributed computation.
+3.3 a basic ipt protocol the basic protocol proposed here associates with each  relevant event e, an attribute encoding the set ip(e) of its immediate predecessors.
+lemma 3. let e ∈ hi be the receive event of a message m. if pred(e) ∈ ri, then, ∀j, ip(e) ∩ rj is equal to: ip(pred(e)) ∩ rj if lastr(pred(e),j) > lastr(send(m),j), ip(send(m)) ∩ rj if lastr(pred(e),j) < lastr(send(m),j) ip(pred(e))∩ip(send(m))∩rj if lastr(pred(e),j) = lastr (send(m), j).
+on a process where the last relevant events of pred(e) and of send(m) are the same event f, none of the paths from f to e must contain another relevant event, and thus, f must be immediate predecessor of both events pred(e) and send(m).
+so, the  immediate predecessors of e are either those of pred(e) or those of send(m).
+the intuitive meaning of the next lemma is the following: if e is a receive event receive(m), and pred(e) is not  relevant, the last relevant events in the relevant causal past of e are obtained by merging those of pred(e) and those of send(m) and by taking the latest on each process.
+if pred(e) is relevant, as explained in the previous lemma, this event hides from e all its relevant causal past and becomes an immediate predecessor of e. concerning the last relevant predecessors of send(m), only those that are not predecessors of pred(e) remain immediate predecessors of e. lemma 2. let e ∈ hi be the receive event of a message m. if pred(e) ∈ ri, then, ∀j, ip(e) ∩ rj is equal to: {pred(e)} if j = i, ∅ if lastr(pred(e),j) ≥ lastr(send(m),j), ip(send(m)) ∩ rj if lastr(pred(e),j) < lastr(send(m),j).
+the set of immediate predecessors of e. on the other hand, if pred(e) is not relevant, it does not separate its relevant causal past from e. lemma 1. if e is not a receive event, ip(e) is equal to: ∅ if pred(e) = ⊥, {pred(e)} if pred(e) ∈ r, ip(pred(e)) if pred(e) ∈ r. the intuitive meaning of the next lemma is as follows: if e is a receive event receive(m), the causal paths arriving at e have either pred(e) or send(m) as next-to-last events.
+so, if pred(e) is a relevant event, all the relevant events belonging to its relevant causal past are separated from e by pred(e), and pred(e) becomes the only immediate predecessor of e. in other words, the event pred(e) constitutes a reset w.r.t.
+to ease the reading of the paper, their proofs are presented in appendix a. the intuitive meaning of the first lemma is the following: if e is not a receive event, all the causal paths arriving at e have pred(e) as next-to-last event (see cp1).
+they will be used to design and prove the protocols solving the ipt problem.
+the following lemmas show how the set of immediate  predecessors of an event is related to those of its predecessors in the relation hb →.
+when we consider figure 1, the graph  depicted in its right part describes the immediate predecessors of the relevant events of the computation defined in its left part, more precisely, a directed edge (e, f) means that the relevant event e is an immediate predecessor of the relevant event f (3 ).
+, n} ⊂↑ (e).
+it follows from this definition that ip(e) ⊆ {lastr(e, j)|j = 1, .
+, n) such that ∀k : lastr(e, j) ∈↑ (lastr(e, k)).
+the set of immediate  relevant predecessors of e (denoted ip(e)), is the set of the relevant events lastr(e, j) (j = 1, .
+second, for lastr(e, j) to be immediate predecessor of e, there must not be another lastr(e, k) event on a path between lastr(e, j) and e. these observations are formalized in the following definition: definition 4. let e ∈ hi.
+first, we observe that, by definition, the immediate predecessor on pj of an event e is necessarily the lastr(e, j) event.
+3.2 formal properties of ipt in order to design a protocol solving the ipt problem, it is useful to consider the notion of immediate relevant  predecessor of any event, whether relevant or not.
+as noted in the introduction, the ipt problem is the  computation of the hasse diagram associated with the partially ordered set of the relevant events produced by a distributed computation.
+moreover, this has to be done on the fly and without additional control message (i.e., without modifying the  communication pattern of the computation).
+given two relevant events f and e, we say that f is an immediate predecessor of e if f → e and there is no relevant event g such that f → g → e. definition 3. the immediate predecessor tracking  (ipt) problem consists in associating with each relevant event e the set of relevant events that are its immediate  predecessors.
+3.1 the ipt problem as indicated in the introduction, some applications (e.g., analysis of distributed executions [6], detection of  distributed properties [7]) require to determine (on-the-fly and  without additional messages) the transitive reduction of the  relation → (i.e., we must not consider transitive causal  dependency).
+this ipt protocol, previously presented in [4] without proof, is built from a vector clock protocol by adding the  management of a local boolean array at each process.
+these properties are used to design the basic ipt protocol and prove its correctness (section 3.3).
+then, some technical properties of immediate predecessors are stated and proved (section 3.2).
+in this section, the immediate predecessor tracking  (ipt) problem is stated (section 3.1).

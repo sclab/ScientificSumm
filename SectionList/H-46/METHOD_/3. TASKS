@@ -1,0 +1,102 @@
+In the expertise retrieval scenario that we envisage, users seeking
+expertise within an organization have access to an interface that
+combines a search box (where they can search for experts or topics)
+with navigational structures (of experts and of topics) that allows
+them to click their way to an expert page (providing the profile of a
+person) or a topic page (providing a list of experts on the topic).
+To feed the above interface, we face two expertise retrieval
+tasks, expert finding and expert profiling, that we first define and
+then formalize using generative language models. In order to model
+either task, the probability of the query topic being associated to a
+candidate expert plays a key role in the final estimates for searching
+and profiling. By using language models, both the candidates and
+the query are characterized by distributions of terms in the 
+vocabulary (used in the documents made available by the organization
+whose expertise retrieval needs we are addressing).
+3.1 Expert finding
+Expert finding involves the task of finding the right person with
+the appropriate skills and knowledge: Who are the experts on topic
+X?. E.g., an employee wants to ascertain who worked on a 
+particular project to find out why particular decisions were made without
+having to trawl through documentation (if there is any). Or, they
+may be in need a trained specialist for consultancy on a specific
+problem.
+Within an organization there are usually many possible 
+candidates who could be experts for given topic. We can state this 
+problem as follows:
+What is the probability of a candidate ca being an 
+expert given the query topic q?
+That is, we determine p(ca|q), and rank candidates ca according to
+this probability. The candidates with the highest probability given
+the query are deemed the most likely experts for that topic. The
+challenge is how to estimate this probability accurately. Since the
+query is likely to consist of only a few terms to describe the 
+expertise required, we should be able to obtain a more accurate estimate
+by invoking Bayes" Theorem, and estimating:
+p(ca|q) =
+p(q|ca)p(ca)
+p(q)
+, (1)
+where p(ca) is the probability of a candidate and p(q) is the 
+probability of a query. Since p(q) is a constant, it can be ignored for
+ranking purposes. Thus, the probability of a candidate ca being an
+expert given the query q is proportional to the probability of a query
+given the candidate p(q|ca), weighted by the a priori belief p(ca)
+that candidate ca is an expert.
+p(ca|q) ∝ p(q|ca)p(ca) (2)
+In this paper our main focus is on estimating the probability of
+a query given the candidate p(q|ca), because this probability 
+captures the extent to which the candidate knows about the query topic.
+Whereas the candidate priors are generally assumed to be 
+uniformand thus will not influence the ranking-it has been demonstrated
+that a sensible choice of priors may improve the performance [20].
+3.2 Expert profiling
+While the task of expert searching was concerned with 
+finding experts given a particular topic, the task of expert profiling
+seeks to answer a related question: What topics does a candidate
+know about? Essentially, this turns the questions of expert finding
+around. The profiling of an individual candidate involves the 
+identification of areas of skills and knowledge that they have expertise
+about and an evaluation of the level of proficiency in each of these
+areas. This is the candidate"s topical profile.
+Generally, topical profiles within organizations consist of 
+tabular structures which explicitly catalogue the skills and knowledge
+of each individual in the organization. However, such practice is
+limited by the resources available for defining, creating, 
+maintaining, and updating these profiles over time. By focusing on 
+automatic methods which draw upon the available evidence within the
+document repositories of an organization, our aim is to reduce the
+human effort associated with the maintenance of topical profiles1
+.
+A topical profile of a candidate, then, is defined as a vector where
+each element i of the vector corresponds to the candidate ca"s 
+expertise on a given topic ki, (i.e., s(ca, ki)). Each topic ki defines a
+particular knowledge area or skill that the organization uses to 
+define the candidate"s topical profile. Thus, it is assumed that a list of
+topics, {k1, . . . , kn}, where n is the number of pre-defined topics,
+is given:
+profile(ca) = s(ca, k1), s(ca, k2), . . . , s(ca, kn) . (3)
+1
+Context and evidence are needed to help users of expertise 
+finding systems to decide whom to contact when seeking expertise in a
+particular area. Examples of such context are: Who does she work
+with? What are her contact details? Is she well-connected, just
+in case she is not able to help us herself? What is her role in the
+organization? Who is her superior? Collaborators, and affiliations,
+etc. are all part of the candidate"s social profile, and can serve as
+a background against which the system"s recommendations should
+be interpreted. In this paper we only address the problem of 
+determining topical profiles, and leave social profiling to further work.
+We state the problem of quantifying the competence of a person on
+a certain knowledge area as follows:
+What is the probability of a knowledge area (ki) being
+part of the candidate"s (expertise) profile?
+where s(ca, ki) is defined by p(ki|ca). Our task, then, is to 
+estimate p(ki|ca), which is equivalent to the problem of obtaining
+p(q|ca), where the topic ki is represented as a query topic q, i.e., a
+sequence of keywords representing the expertise required.
+Both the expert finding and profiling tasks rely on the accurate
+estimation of p(q|ca). The only difference derives from the prior
+probability that a person is an expert (p(ca)), which can be 
+incorporated into the expert finding task. This prior does not apply to
+the profiling task since the candidate (individual) is fixed.

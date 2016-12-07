@@ -1,0 +1,118 @@
+Agents can often benefit by coordinating their actions.
+Coalitional games capture these opportunities of 
+coordination by explicitly modeling the ability of the agents to take
+joint actions as primitives. As an abstraction, coalitional
+games assign a payoff to each group of agents in the game.
+This payoff is intended to reflect the payoff the group of
+agents can secure for themselves regardless of the actions
+of the agents not in the group. These choices of primitives
+are in contrast to those of non-cooperative games, of which
+agents are modeled independently, and their payoffs depend
+critically on the actions chosen by the other agents.
+1.1 Coalitional Games and E-Commerce
+Coalitional games have appeared in the context of 
+e-commerce. In [7], Kleinberg et al. use coalitional games to study
+recommendation systems. In their model, each individual
+knows about a certain set of items, is interested in learning
+about all items, and benefits from finding out about them.
+The payoffs to groups of agents are the total number of 
+distinct items known by its members. Given this coalitional
+game setting, Kleinberg et al. compute the value of the 
+private information of the agents is worth to the system using
+the solution concept of the Shapley value (definition can be
+found in section 2). These values can then be used to 
+determine how much each agent should receive for participating
+in the system.
+As another example, consider the economics behind 
+supply chain formation. The increased use of the Internet as a
+medium for conducting business has decreased the costs for
+companies to coordinate their actions, and therefore 
+coalitional game is a good model for studying the supply chain
+problem. Suppose that each manufacturer purchases his raw
+materials from some set of suppliers, and that the suppliers
+offer higher discount with more purchases. The decrease in
+communication costs will let manufacturers find others 
+interested in the same set of suppliers cheaper, and facilitates
+formation of coalitions to bargain with the suppliers. 
+Depending on the set of suppliers and how much from each
+supplier each coalition purchases, we can assign payoffs to
+the coalitions depending on the discount it receives. The
+resulting game can be analyzed using coalitional game 
+theory, and we can answer questions such as the stability of
+coalitions, and how to fairly divide the benefits among the
+participating manufacturers. A similar problem, 
+combinatorial coalition formation, has previously been studied in [8].
+1.2 Evaluation Criteria for Coalitional Game
+Representation
+To capture the coalitional games described above and 
+perform computations on them, we must first find a 
+representation for these games. The na¨ıve solution is to enumerate
+the payoffs to each set of agents, therefore requiring space
+193
+exponential in the number of agents in the game. For the
+two applications described, the number of agents in the 
+system can easily exceed a hundred; this na¨ıve approach will
+not be scalable to such problems. Therefore, it is critical to
+find good representation schemes for coalitional games.
+We believe that the quality of a representation scheme
+should be evaluated by four criteria.
+Expressivity: the breadth of the class of coalitional games
+covered by the representation.
+Conciseness: the space requirement of the representation.
+Efficiency: the efficiency of the algorithms we can develop
+for the representation.
+Simplicity: the ease of use of the representation by users
+of the system.
+The ideal representation should be fully expressive, i.e., it
+should be able to represent any coalitional games, use as
+little space as possible, have efficient algorithms for 
+computation, and be easy to use. The goal of this paper is to
+develop a representation scheme that has properties close to
+the ideal representation.
+Unfortunately, given that the number of degrees of 
+freedom of coalitional games is O(2n
+), not all games can be 
+represented concisely using a single scheme due to information
+theoretic constraints. For any given class of games, one may
+be able to develop a representation scheme that is tailored
+and more compact than a general scheme. For example, for
+the recommendation system game, a highly compact 
+representation would be one that simply states which agents know
+of which products, and let the algorithms that operate on
+the representation to compute the values of coalitions 
+appropriately. For some problems, however, there may not be
+efficient algorithms for customized representations. By 
+having a general representation and efficient algorithms that go
+with it, the representation will be useful as a prototyping
+tool for studying new economic situations.
+1.3 Previous Work
+The question of coalitional game representation has only
+been sparsely explored in the past [2, 3, 4]. In [4], Deng
+and Papadimitriou focused on the complexity of different
+solution concepts on coalitional games defined on graphs.
+While the representation is compact, it is not fully 
+expressive. In [2], Conitzer and Sandholm looked into the problem
+of determining the emptiness of the core in superadditive
+games. They developed a compact representation scheme
+for such games, but again the representation is not fully 
+expressive either. In [3], Conitzer and Sandholm developed a
+fully expressive representation scheme based on 
+decomposition. Our work extends and generalizes the representation
+schemes in [3, 4] through decomposing the game into a set of
+rules that assign marginal contributions to groups of agents.
+We will give a more detailed review of these papers in section
+2.2 after covering the technical background.
+1.4 Summary of Our Contributions
+• We develop the marginal contribution networks 
+representation, a fully expressive representation scheme
+whose size scales according to the complexity of the
+interactions among the agents. We believe that the
+representation is also simple and intuitive.
+• We develop an algorithm for computing the Shapley
+value of coalitional games under this representation
+that runs in time linear in the size of the input.
+• Under the graphical interpretation of the 
+representation, we develop an algorithm for determining the
+whether a payoff vector is in the core and the emptiness
+of the core in time exponential only in the treewidth
+of the graph.

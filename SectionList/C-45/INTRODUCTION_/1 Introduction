@@ -1,0 +1,69 @@
+Wireless Sensor Networks (WSN) have been envisioned
+to revolutionize the way humans perceive and interact with
+the surrounding environment. One vision is to embed tiny
+sensor devices in outdoor environments, by aerial 
+deployments from unmanned air vehicles. The sensor nodes form
+a network and collaborate (to compensate for the extremely
+scarce resources available to each of them: computational
+power, memory size, communication capabilities) to 
+accomplish the mission. Through collaboration, redundancy and
+fault tolerance, the WSN is then able to achieve 
+unprecedented sensing capabilities.
+A major step forward has been accomplished by 
+developing systems for several domains: military surveillance [1]
+[2] [3], habitat monitoring [4] and structural monitoring [5].
+Even after these successes, several research problems remain
+open. Among these open problems is sensor node 
+localization, i.e., how to find the physical position of each sensor
+node. Despite the attention the localization problem in WSN
+has received, no universally acceptable solution has been 
+developed. There are several reasons for this. On one hand,
+localization schemes that use ranging are typically high end
+solutions. GPS ranging hardware consumes energy, it is 
+relatively expensive (if high accuracy is required) and poses
+form factor challenges that move us away from the vision
+of dust size sensor nodes. Ultrasound has a short range and
+is highly directional. Solutions that use the radio transceiver
+for ranging either have not produced encouraging results (if
+the received signal strength indicator is used) or are sensitive
+to environment (e.g., multipath). On the other hand, 
+localization schemes that only use the connectivity information
+for inferring location information are characterized by low
+accuracies: ≈ 10 ft in controlled environments, 40−50 ft in
+realistic ones.
+To address these challenges, we propose a framework for
+WSN localization, called StarDust, in which the 
+complexity associated with the node localization is completely 
+removed from the sensor node. The basic principle of the
+framework is localization through passivity: each sensor
+node is equipped with a corner-cube retro-reflector and 
+possibly an optical filter (a coloring device). An aerial 
+vehicle projects light onto the deployment area and records 
+images containing retro-reflected light beams (they appear as
+luminous spots). Through image processing techniques, the
+locations of the retro-reflectors (i.e., sensor nodes) is 
+deter57
+mined. For inferring the identity of the sensor node present
+at a particular location, the StarDust framework develops a
+constraint-based node ID relaxation algorithm.
+The main contributions of our work are the following. We
+propose a novel framework for node localization in WSNs
+that is very promising and allows for many future extensions
+and more accurate results. We propose a constraint-based
+label relaxation algorithm for mapping node IDs to the 
+locations, and four constraints (node, connectivity, time and
+space), which are building blocks for very accurate and very
+fast localization systems. We develop a sensor node 
+hardware prototype, called a SensorBall. We evaluate the 
+performance of a localization system for which we obtain location
+accuracies of 2 − 5 ft with a localization duration ranging
+from 10 milliseconds to 2 minutes. We investigate the range
+of a system built on our framework by considering realities
+of physical phenomena that occurs during light propagation
+through the atmosphere.
+The rest of the paper is structured as follows. Section 2
+is an overview of the state of art. The design of the 
+StarDust framework is presented in Section 3. One 
+implementation and its performance evaluation are in Sections 4 and
+5, followed by a suite of system optimization techniques, in
+Section 6. In Section 7 we present our conclusions.

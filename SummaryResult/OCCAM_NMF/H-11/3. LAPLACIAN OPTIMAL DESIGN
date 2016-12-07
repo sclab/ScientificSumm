@@ -1,0 +1,24 @@
+the expected squared prediction error is e(y − ˆy)2 = e( + wt x − ˆwt x)2 = σ2 + xt [e(w − ˆw)(w − ˆw)t ]x = σ2 + xt [h−1 λwwt λh−1 + σ2 h−1 − σ2 h−1 λh−1 ]x clearly the expected square prediction error depends on the explanatory variable x, therefore average expected square predictive error over the complete data set a is 1 m m i=1 e(yi − ˆwt xi)2 = 1 m m i=1 xt i [h−1 λwwt λh−1 + σ2 h−1 − σ2 h−1 λh−1 ]xi +σ2 = 1 m tr(xt [σ2 h−1 + h−1 λwwt λh−1 − σ2 h−1 λh−1 ]x) +σ2 since tr(xt [h−1 λwwt λh−1 − σ2 h−1 λh−1 ]x) tr(σ2 xt h−1 x), our laplacian optimality criterion is thus formulated by minimizing the trace of xt h−1 x. definition 1. laplacian optimal design min z=(z1,··· ,zk) tr xt zzt + λ1xlxt + λ2i −1 x (11) where z1, · · · , zk are selected from {x1, · · · , xm}. 
+since y = zt w + and e( ) = 0, it follows that e( ˆw − w) (6) = h−1 zzt w − w = h−1 (zzt + λ − λ)w − w = (i − h−1 λ)w − w = −h−1 λw (7) notice cov(y) = σ2 i, the covariance matrix of ˆw has the expression: cov( ˆw) = h−1 zcov(y)zt h−1 = σ2 h−1 zzt h−1 = σ2 h−1 (h − λ)h−1 = σ2 (h−1 − h−1 λh−1 ) (8) therefore mean squared error matrix for the coefficients w is e(w − ˆw)(w − ˆw)t (9) = h−1 λwwt λh−1 + σ2 (h−1 − h−1 λh−1 ) (10) for any x, let ˆy = ˆwt x be its predicted observation.
+requiring that the gradient of j(w) with respect to w vanish gives the optimal estimate ˆw: ˆw = h−1 zy the following proposition states the bias and variance  properties of the estimator for the coefficient vector w. proposition 3.1. e( ˆw − w) = −h−1 λw, cov( ˆw) = σ2 (h−1 − h−1 λh−1 ) proof.
+clearly, h is of full rank.
+a common way to deal with this ill-posed problem is to introduce a tikhonov regularizer into our loss function: j(w) = k i=1 wt zi − yi 2 + λ1 2 m i,j=1 wt xi − wt xj 2 sij +λ2 w 2 (5) the hessian of the new loss function is given by: h = ∂2 j ∂w2 = zzt + λ1xlxt + λ2i := zzt + λ where i is an identity matrix and λ = λ1xlxt + λ2i.
+(3).
+thus, there is no stable solution to the optimization problem eq.
+if m < d).
+following some simple algebraic steps, we see that: j0(w) = k i=1 wt zi − yi 2 + λ 2 m i,j=1 wt xi − wt xj 2 sij = y − zt w t y − zt w + λwt m i=1 diixixt i − m i,j=1 sijxixt j w = yt y − 2wt zy + wt zzt w +λwt xdxt − xsxt w = yt y − 2wt zy + wt zzt + λxlxt w the hessian of j0(w) can be computed as follows: h0 = ∂2 j0 ∂w2 = zzt + λxlxt in some cases, the matrix zzt +λxlxt is singular (e.g.
+let y = (y1, · · · , yk)t and x = (x1, · · · , xm).
+the matrix l is called graph laplacian in spectral graph theory [3].
+(4) let d be a diagonal matrix, dii = j sij, and l = d−s.
+there are many choices of the similarity matrix s. a simple definition is as follows: sij = ⎧ ⎨ ⎩ 1, if xi is among the p nearest neighbors of xj, or xj is among the p nearest neighbors of xi; 0, otherwise.
+therefore, minimizing j0(w) is an attempt to ensure that if xi and xj are close then f(xi) and f(xj) are close as well.
+the loss function with our choice of symmetric weights sij (sij = sji) incurs a heavy penalty if neighboring points xi and xj are mapped far apart.
+in this paper, we are focused on how to select the most informative data for training.
+however, lrr is a passive learning algorithm where the training data is given.
+note that, the loss function (3) is essentially the same as the one used in laplacian regularized regression (lrr, [2]).
+thus, a new loss function which respects the geometrical structure of the data space can be defined as follows: j0(w) = k i=1 f(zi)−yi 2 + λ 2 m i,j=1 f(xi)−f(xj) 2 sij (3) where yi is the measurement (or, label) of zi.
+let s be a similarity matrix.
+3.1 the objective function in many machine learning problems, it is natural to  assume that if two points xi, xj are sufficiently close to each other, then their measurements (f(xi), f(xj)) are close as well.
+in this section, we introduce a novel active learning algorithm called laplacian optimal design (lod) which makes efficient use of both measured (labeled) and unmeasured (unlabeled) samples.
+zi"s, these approaches fail to evaluate the expected errors on the unmeasured samples.
+since the covariance matrix hsse used in traditional  approaches is only dependent on the measured samples, i.e.

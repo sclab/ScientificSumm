@@ -1,0 +1,39 @@
+our results will affirm researchers that  stemming is indeed very important to large scale information retrieval. 
+it"s simple, yet very  efficient and effective, making real time stemming feasible for web search.
+our approach is unique in that it performs predictive stemming on a per query basis without relevance feedback from the web, using the context of the variants in documents to preserve precision.
+in summary, we propose a novel approach to attack an old, yet still important and challenging problem for web search - stemming.
+our method predicts the quality of  expansion based on oﬄine information without sending the query to a search engine.
+it is expensive to deploy this in production web search engines.
+if a word can be expanded into several words, it requires running this process multiple times to decide which expanded word is useful.
+this is similar to the relevance feedback in the sense that it requires multiple passes retrieval.
+[6] proposed a method for selective query expansion based on comparing the kullback-leibler divergence of the results from the unexpanded query and the results from the  expanded query.
+on selective query expansion, cronen-townsend et al.
+with quality stemming, good documents which were not selected before stemming will be pushed up and those low quality documents will be degraded.
+the increase on recall is obvious.
+while most work on query expansion focuses on recall enhancement, our work focuses on increasing both recall and precision.
+on the other hand, stemming is much more conservative since most of the time, stemming  preserves the original search intent.
+thus query expansion based on  pseudorelevance and query reformulation can provide suggestions to users for interactive refinement but can hardly be directly used for web search.
+since the expanded words may have different meanings, adding them to the query could potentially change the intent of the original query.
+in addition, query expansion, including query reformulation [3, 12], has a high risk of changing the user intent (called query drift).
+this normally requires sending a query multiple times to search engine and it is not cost effective for processing the huge amount of queries involved in web search.
+to  decide which expanded words to use, people often use  pseudorelevance feedback techniquesthat send the original query to a search engine and retrieve the top documents, extract  relevant words from these top documents as additional query words, and resubmit the expanded query again [21].
+a more general problem related to stemming is query reformulation [3, 12] and query expansion which expands words not only with word variants [7, 22, 24, 25].
+as we will show, if  handled correctly, significant improvement can be achieved.
+stemming has to be decided on case by case basis, not only at the query level but also at the document level.
+blind stemming, or a simple query length based selective stemming as used in [9] is not enough.
+we suspect the previous failures were mainly due to the two problems we mentioned in the  introduction.
+these mixed results, mostly failures, led early ir researchers to deem stemming irrelevant in general for english [4], although recent research has shown stemming has greater benefits for retrieval in other languages [2].
+however, due to the limited number of tested queries (less than 100) and the small size of the collection, the results are hard to generalize to web search.
+on the other hand, krovetz [14] performed  comparisons over small numbers of documents (from 400 to 12k) and showed dramatic precision improvement (up to 45%).
+they also proposed selective stemming based on query length and term importance, but no positive results were reported.
+later, harman [9] compares three  general stemming techniques in text retrieval experiments  including pluralization handing (called s stemmer in the  paper).
+[17] compared the lovins and porter algorithms and found little improvement in  retrieval performance.
+lennon et al.
+however, the effectiveness of  stemming for english query systems was previously reported to be rather limited.
+using stemming in information retrieval is also a well known technique [8, 10].
+we use a similar corpus based approach for stemming by computing the similarity between two words based on their distributional context  features which can be more than just adjacent words [15], and then only keep the morphologically similar words as  candidates.
+corpus analysis is used to improve porter stemmer [26] by creating equivalence classes for words that are  morphologically similar and occur in similar context as measured by expected mutual information [23].
+however, the porter stemming makes many mistakes  because its simple rules cannot fully describe english  morphology.
+the porter stemmer is widely used due to its simplicity and effectiveness in many applications.
+many stemmers have been developed, such as the lovins stemmer [16] and the porter stemmer [18].
+stemming is a long studied technology.
